@@ -81,32 +81,10 @@ public class UIFrontendLoadingScreen : UIScene
 		Object.DontDestroyOnLoad(base.gameObject);
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Application.runInBackground = true;
 		}
 		if (m_animator == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_animator = new Animator();
 		}
 		SetDisplayState(DisplayStates.None);
@@ -149,27 +127,9 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
 			if (visible)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_visibleStartTime = Time.time;
 				PickBackgroundImage();
 			}
@@ -188,19 +148,6 @@ public class UIFrontendLoadingScreen : UIScene
 		int result;
 		if (m_screenInitialHeight == Screen.height)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_screenInitialWidth == Screen.width) ? 1 : 0);
 		}
 		else
@@ -226,15 +173,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_ServerLockURL = ((!SteamManager.UsingSteam) ? serverMessageOverrides.FreeUpsellExternalBrowserUrl : serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl);
 			ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language));
 			return;
@@ -255,15 +193,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Application.OpenURL(m_ServerLockURL);
 			return;
 		}
@@ -296,10 +225,6 @@ public class UIFrontendLoadingScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_bgImageanimator.enabled = true;
 					UIManager.SetGameObjectActive(m_backgroundImage, false);
 					return;
@@ -309,29 +234,11 @@ public class UIFrontendLoadingScreen : UIScene
 		Dictionary<int, bool> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((KeyValuePair<int, bool> x) => x.Value);
 		}
 		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(_003C_003Ef__am_0024cache0);
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = ((KeyValuePair<int, bool> x) => x.Key);
 		}
 		int[] array = source.Select(_003C_003Ef__am_0024cache1).ToArray();
@@ -363,10 +270,6 @@ public class UIFrontendLoadingScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, true);
 					m_mapNameTitle.text = StringUtil.TR("TutorialName", "Prologue1");
 					m_mapNameSubTitle.text = StringUtil.TR("TutorialDescription", "Prologue1");
@@ -392,10 +295,6 @@ public class UIFrontendLoadingScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -404,15 +303,6 @@ public class UIFrontendLoadingScreen : UIScene
 		string key = "PlayIntro";
 		if (PlayerPrefs.HasKey(key))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			shouldPlayIntroVideo = (PlayerPrefs.GetInt(key) != 1);
 		}
 		PlayerPrefs.SetInt(key, 1);
@@ -424,19 +314,6 @@ public class UIFrontendLoadingScreen : UIScene
 		int num;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameInfo != null)
 			{
 				num = ((GameManager.Get().GameInfo.GameConfig != null) ? 1 : 0);
@@ -457,62 +334,17 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (m_displayState == DisplayStates.FadeIn)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (IsCurrentAnimationDone())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StartDisplayLoading();
 			}
 		}
 		if (!m_isPlayerAccountDataAvailable)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (IsVisible())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_isPlayerAccountDataAvailable = true;
 					PickBackgroundImage();
 				}
@@ -520,15 +352,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (m_displayState == DisplayStates.FadeOut)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (IsCurrentAnimationDone())
 			{
 				SetVisible(false);
@@ -536,49 +359,13 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (!flag && (bool)FullScreenMovie.Get())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DoPlayIntroVideo())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (FullScreenMovie.Get().m_movieTexture.MovieState != 0 && FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKeyUp(KeyCode.Escape))
 					{
 						goto IL_0205;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (m_movieNames.Count > 0)
@@ -603,11 +390,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (Time.time >= m_startLoadTime)
 			{
 				m_startLoadTime = -1f;
@@ -625,24 +407,10 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_animator != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					SetVisible(true);
 					FullScreenMovie.Get().SetVisible(false);
 					m_animator.Play("FrontEndLoadingScreenDefaultIN");
@@ -659,45 +427,14 @@ public class UIFrontendLoadingScreen : UIScene
 		m_displayState = state;
 		if (m_displayState != DisplayStates.Error)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_displayState != DisplayStates.ServerLocked)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_displayState != DisplayStates.ServerQueued)
 				{
 					if (m_displayState != 0)
 					{
 						UIManager.SetGameObjectActive(m_ShutdownButton, false);
 						return;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -750,15 +487,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_animator.Play("FrontEndLoadingScreenDefaultOUT");
 			return;
 		}
@@ -769,19 +497,6 @@ public class UIFrontendLoadingScreen : UIScene
 		UIManager.SetGameObjectActive(m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"));
 		if ((bool)m_mainTextBox)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!text.IsNullOrEmpty())
 			{
 				m_mainTextBox.GetComponent<TextMeshProUGUI>().text = text;
@@ -794,26 +509,8 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if ((bool)m_subTextBox)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!subText.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_subTextBox.GetComponent<TextMeshProUGUI>().text = subText;
 				UIManager.SetGameObjectActive(m_subTextBox, true);
 			}
@@ -828,11 +525,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!subText2.IsNullOrEmpty())
 			{
 				m_subText2Box.GetComponent<TextMeshProUGUI>().text = subText2;
@@ -857,10 +549,6 @@ public class UIFrontendLoadingScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -873,31 +561,9 @@ public class UIFrontendLoadingScreen : UIScene
 		bool result = false;
 		if (m_animator.isActiveAndEnabled)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
 			if (currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}

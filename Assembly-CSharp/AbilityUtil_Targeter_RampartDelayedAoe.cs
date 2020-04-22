@@ -58,10 +58,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
 					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
@@ -89,15 +85,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 			if (m_highlights != null)
 			{
@@ -109,15 +96,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 					}
 					goto IL_0165;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			m_highlights = new List<GameObject>();
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shapeLowEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
@@ -125,15 +103,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 			for (int j = 0; j < m_highlights.Count; j++)
 			{
 				m_highlights[j].transform.position = highlightGoalPos;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			goto IL_0165;
 			IL_0165:
@@ -152,11 +121,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					AddActorInRange(targetingActor, centerOfShape, targetingActor, m_allyTooltipSubject);
 					return;
 				}

@@ -49,15 +49,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_MouseEventPasser mouseEventPasser = m_hitBox.AddComponent<_MouseEventPasser>();
 			mouseEventPasser.AddNewHandler(componentInParent);
 			for (int i = 0; i < m_Rewards.Length; i++)
@@ -82,19 +73,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 	{
 		if (m_setupRewardList)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DelaySetupReward(m_rewardList);
 			m_setupRewardList = false;
 		}
@@ -104,11 +82,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			AnimatorClipInfo[] currentAnimatorClipInfo = m_seasonRewardAnimator.GetCurrentAnimatorClipInfo(1);
 			if (m_setStateOfLevelup == 0)
 			{
@@ -122,26 +95,8 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 					{
 						if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentAnimatorClipInfo[0].clip.name != "SeasonLevelDisableIDLE")
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_seasonRewardAnimator.Play("SeasonLevelDisableIDLE", 1);
 							}
 						}
@@ -176,26 +131,8 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 					{
 						if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentAnimatorClipInfo[0].clip.name != "SeasonLevelDefaultIDLE")
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_seasonRewardAnimator.Play("SeasonLevelDefaultIDLE", 1);
 							}
 						}
@@ -224,44 +161,24 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(currentAnimatorClipInfo[0].clip != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!(currentAnimatorClipInfo[0].clip.name != "SeasonLevelDefaultIN"))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (!m_playingLevelUp)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							if (m_startPlayingLevelUp)
 							{
 								while (true)
@@ -298,11 +215,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 							{
 								while (true)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
 									m_setStateOfLevelup = 1;
 									m_playingLevelUp = false;
 									return;
@@ -321,19 +233,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		int result;
 		if (!m_playingLevelUp)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_startPlayingLevelUp ? 1 : 0);
 		}
 		else
@@ -347,19 +246,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 	{
 		if (!m_playingLevelUp)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_setStateOfLevelup = 0;
 		}
 		m_isAlreadyAwarded = false;
@@ -393,42 +279,11 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 				bool flag = true;
 				if (seasonReward is SeasonItemReward)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!m_isAlreadyAwarded)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SeasonItemReward seasonItemReward = seasonReward as SeasonItemReward;
 						if (!seasonItemReward.Conditions.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = QuestWideData.AreConditionsMet(seasonItemReward.Conditions, seasonItemReward.LogicStatement, true);
 						}
 					}
@@ -436,42 +291,15 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 				num++;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				seasonReward = null;
 			}
 			if (seasonReward != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(uISeasonsRewardIcon, true);
 				if (seasonReward is SeasonItemReward)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestItemReward itemReward = (seasonReward as SeasonItemReward).ItemReward;
 					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemReward.ItemTemplateId);
 					uISeasonsRewardIcon.Setup(itemTemplate, new InventoryItem(itemReward.ItemTemplateId, itemReward.Amount));
@@ -490,15 +318,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestUnlockReward unlockReward = (seasonReward as SeasonUnlockReward).UnlockReward;
 					InventoryItemTemplate inventoryItemTemplate = new InventoryItemTemplate();
 					GameBalanceVars.PlayerUnlockable playerUnlockable;
@@ -507,11 +326,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 					default:
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							throw new NotImplementedException(string.Concat(unlockReward.purchaseType, " not implement"));
 						}
 					case PurchaseType.BannerBackground:
@@ -551,15 +365,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 								num2++;
 								continue;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						inventoryItemTemplate.DisplayName = overconUnlockData.GetOverconName();
@@ -571,15 +376,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 					inventoryItemTemplate.Enabled = true;
 					if (!unlockReward.resourceString.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inventoryItemTemplate.IconPath = unlockReward.resourceString;
 					}
 					uISeasonsRewardIcon.Setup(inventoryItemTemplate, null);
@@ -593,11 +389,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_repeatingRewards.Length; j++)
 			{
 				if (j < m_repeatingRewardList.Count)
@@ -632,15 +423,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_previewContainer, isPreviewing);
 			return;
 		}
@@ -657,19 +439,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		float alpha;
 		if (doFade)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			alpha = 0.5f;
 		}
 		else
@@ -694,15 +463,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -715,15 +475,6 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DelaySetupReward(m_rewardList);
 			return;
 		}

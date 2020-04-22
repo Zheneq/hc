@@ -22,31 +22,9 @@ public static class StringUtil
 		uint num = basis;
 		if (!string.IsNullOrEmpty(name))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < name.Length; i++)
 			{
 				num = ((num * prime) ^ Convert.ToUInt32(char.ToLower(name[i])));
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -60,19 +38,6 @@ public static class StringUtil
 		int num3 = num2 / 365;
 		if (num3 > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = ((num3 <= 1) ? (text + TR("Year", "TimeSpan")) : (text + string.Format(TR("Years", "TimeSpan"), num3)));
 			num++;
 			difference -= TimeSpan.FromDays(num3 * 365);
@@ -95,28 +60,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (days > 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(TR("Days", "TimeSpan"), days);
 			}
 			else
@@ -126,27 +73,9 @@ public static class StringUtil
 			num++;
 			if (full)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 1)
 				{
 					goto IL_014d;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return text;
@@ -158,28 +87,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (hours > 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(TR("Hours", "TimeSpan"), hours);
 			}
 			else
@@ -197,28 +108,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (minutes > 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(TR("Minutes", "TimeSpan"), minutes);
 			}
 			else
@@ -228,15 +121,6 @@ public static class StringUtil
 			num++;
 			if (full)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 1)
 				{
 					goto IL_0275;
@@ -249,15 +133,6 @@ public static class StringUtil
 		int seconds = difference.Seconds;
 		if (!text.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += " ";
 		}
 		if (seconds > 1)
@@ -266,15 +141,6 @@ public static class StringUtil
 		}
 		else if (seconds == 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += TR("Second", "TimeSpan");
 		}
 		return text;
@@ -293,10 +159,6 @@ public static class StringUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Format(TR("Years", "TimeSpan"), (int)num2);
 				}
 			}
@@ -365,19 +227,6 @@ public static class StringUtil
 		string text = LocalizationManager.CurrentLanguageCode;
 		if (text.Equals("zh", StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = "zh-CN";
 		}
 		return text;
@@ -421,10 +270,6 @@ public static class StringUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return path.Substring(0, path.Length - extension.Length);
 				}
 			}
@@ -444,33 +289,11 @@ public static class StringUtil
 		string text = term;
 		if (!context.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = text + "@" + context;
 		}
 		empty = ScriptLocalization.Get(text);
 		if (empty.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty = $"[{text}]#NotLocalized";
 		}
 		return empty;
@@ -488,10 +311,6 @@ public static class StringUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return TR(array[0], array[1]);
 				}
 			}

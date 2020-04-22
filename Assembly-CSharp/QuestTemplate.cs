@@ -68,19 +68,6 @@ public class QuestTemplate
 	{
 		if (resetIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Index = 0;
 		}
 		DisplayName = string.Empty;

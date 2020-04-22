@@ -42,19 +42,6 @@ public class IceborgDamageToShield : GenericAbility_Container
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (m_syncComp != null)
@@ -71,24 +58,10 @@ public class IceborgDamageToShield : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetActor.GetTeam() != caster.GetTeam())
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					ActorHitContext actorContext = actorHitContext[targetActor];
 					GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_persistentAoeOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
 					results.m_damage = m_calculatedValuesForTargeter.m_damage;

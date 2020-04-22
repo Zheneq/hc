@@ -73,19 +73,6 @@ public class NekoFanOfDiscs : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Fan of Discs";
 		}
 		m_syncComp = GetComponent<Neko_SyncComponent>();
@@ -117,30 +104,8 @@ public class NekoFanOfDiscs : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetZeroEnergyRequiredTurns() > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp.m_numUltConsecUsedTurns >= GetZeroEnergyRequiredTurns())
 				{
 					while (true)
@@ -164,19 +129,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedDirectEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedDirectEnemyHitEffect = m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(m_directEnemyHitEffect);
 		}
 		else
@@ -187,15 +139,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedEffectOnSelfIfMissOnCast;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelfIfMissOnCast = m_abilityMod.m_effectOnSelfIfMissOnCastMod.GetModifiedValue(m_effectOnSelfIfMissOnCast);
 		}
 		else
@@ -206,15 +149,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedEffectOnSelfIfMissOnDiscReturn;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelfIfMissOnDiscReturn = m_abilityMod.m_effectOnSelfIfMissOnDiscReturnMod.GetModifiedValue(m_effectOnSelfIfMissOnDiscReturn);
 		}
 		else
@@ -229,19 +163,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_numDiscsMod.GetModifiedValue(m_numDiscs);
 		}
 		else
@@ -256,19 +177,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minAngleForLaserFanMod.GetModifiedValue(m_minAngleForLaserFan);
 		}
 		else
@@ -283,19 +191,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_totalAngleForLaserFanMod.GetModifiedValue(m_totalAngleForLaserFan);
 		}
 		else
@@ -310,19 +205,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_angleInterpMinDistMod.GetModifiedValue(m_angleInterpMinDist);
 		}
 		else
@@ -337,19 +219,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_angleInterpMaxDistMod.GetModifiedValue(m_angleInterpMaxDist);
 		}
 		else
@@ -374,19 +243,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(m_aoeRadiusAtEnd);
 		}
 		else
@@ -406,19 +262,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_interpStepInSquaresMod.GetModifiedValue(m_interpStepInSquares);
 		}
 		else
@@ -433,19 +276,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
@@ -460,19 +290,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_directDamageMod.GetModifiedValue(m_directDamage);
 		}
 		else
@@ -492,19 +309,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (m_cachedDirectEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDirectEnemyHitEffect;
 		}
 		else
@@ -524,19 +328,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_returnTripSubsequentHitDamageMod.GetModifiedValue(m_returnTripSubsequentHitDamage);
 		}
 		else
@@ -556,19 +347,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_returnTripEnergyOnCasterPerDiscMissMod.GetModifiedValue(m_returnTripEnergyOnCasterPerDiscMiss);
 		}
 		else
@@ -583,19 +361,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelfIfMissOnCast != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelfIfMissOnCast;
 		}
 		else
@@ -610,19 +375,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelfIfMissOnDiscReturn != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelfIfMissOnDiscReturn;
 		}
 		else
@@ -685,15 +437,6 @@ public class NekoFanOfDiscs : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NekoFanOfDiscs);
 			Setup();
 			return;
@@ -724,30 +467,8 @@ public class NekoFanOfDiscs : Ability
 					ActorData current = enumerator.Current;
 					if (!actorsForSequence[i].Contains(current))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!hitActorsAndHitCount.ContainsKey(current))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hitActorsAndHitCount.Add(current, 1);
 						}
 						else
@@ -760,24 +481,10 @@ public class NekoFanOfDiscs : Ability
 						}
 					}
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			targetSquares = GetDiscSquaresFromEndPositions(targetPosForSequences, caster.GetTravelBoardSquareWorldPositionForLos());
 			return hitActorsAndHitCount;
 		}
@@ -794,43 +501,12 @@ public class NekoFanOfDiscs : Ability
 				BoardSquare boardSquare = NekoBoomerangDisc.GetDiscEndSquare(startPos, current);
 				if (list.Contains(boardSquare))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 pos = current;
 					bool flag = false;
 					for (int i = 1; i < 3; i++)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						List<BoardSquare> squares = AreaEffectUtils.GetSquaresInBorderLayer(boardSquare, i, true);
@@ -841,29 +517,11 @@ public class NekoFanOfDiscs : Ability
 							{
 								if (!enumerator2.MoveNext())
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								BoardSquare current2 = enumerator2.Current;
 								if (current2.IsBaselineHeight())
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!list.Contains(current2))
 									{
 										boardSquare = current2;

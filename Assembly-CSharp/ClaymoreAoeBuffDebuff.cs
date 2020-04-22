@@ -46,19 +46,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Thundering Roar";
 		}
 		SetupTargeter();
@@ -69,19 +56,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -92,15 +66,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -111,15 +76,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -139,19 +95,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -171,19 +114,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealAmountPerHitMod.GetModifiedValue(m_selfHealAmountPerHit);
 		}
 		else
@@ -198,19 +128,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit);
 		}
 		else
@@ -225,19 +142,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit);
 		}
 		else
@@ -257,19 +161,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -284,19 +175,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -316,19 +194,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
 		}
 		else
@@ -343,19 +208,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyChangeOnlyIfHasAdjacentMod.GetModifiedValue(m_energyChangeOnlyIfHasAdjacent);
 		}
 		else
@@ -370,19 +222,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result;
 		if (!GetSelfHitEffect().m_applyEffect && GetBaseSelfHeal() <= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetSelfHealAmountPerHit() > 0) ? 1 : 0);
 		}
 		else
@@ -397,19 +236,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result;
 		if (!GetAllyHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetAllyEnergyGain() > 0) ? 1 : 0);
 		}
 		else
@@ -424,19 +250,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result;
 		if (!GetEnemyHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetEnemyEnergyLoss() > 0) ? 1 : 0);
 		}
 		else
@@ -452,19 +265,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		if (!IncludeCaster())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		}
 		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), GetPenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
@@ -478,19 +278,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int val;
 		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ClaymoreAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
@@ -503,15 +290,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -525,15 +303,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int val2;
 		if ((bool)abilityMod_ClaymoreAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreAoeBuffDebuff.m_enemyEnergyLossMod.GetModifiedValue(m_enemyEnergyLoss);
 		}
 		else
@@ -558,19 +327,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 	{
 		if (GetSelfHealAmountPerHit() <= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetBaseSelfHeal() <= 0)
 			{
 				return null;
@@ -580,26 +336,8 @@ public class ClaymoreAoeBuffDebuff : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int num = 0;
 				int num2 = 0;
@@ -607,15 +345,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 				{
 					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
@@ -623,62 +352,17 @@ public class ClaymoreAoeBuffDebuff : Ability
 						num2++;
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
 			}
 			else if (GetEnergyChangeOnlyIfHasAdjacent())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetEnemyEnergyLoss() > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int value;
 						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = -1 * GetEnemyEnergyLoss();
 						}
 						else
@@ -691,26 +375,8 @@ public class ClaymoreAoeBuffDebuff : Ability
 				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetAllyEnergyGain() > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Energy] = (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()) ? GetAllyEnergyGain() : 0);
 					}
 				}
@@ -726,58 +392,18 @@ public class ClaymoreAoeBuffDebuff : Ability
 		int result = 0;
 		if (GetSelfHealAmountPerHit() <= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetBaseSelfHeal() <= 0)
 			{
 				goto IL_0077;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
 		if (GetSelfHealCountAllyHit())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += allyHits;
 		}
 		if (GetSelfHealCountEnemyHit())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += enemyHits;
 		}
 		result = GetBaseSelfHeal() + num * GetSelfHealAmountPerHit();
@@ -794,15 +420,6 @@ public class ClaymoreAoeBuffDebuff : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ClaymoreAoeBuffDebuff);
 			SetupTargeter();
 			return;

@@ -30,25 +30,12 @@ public class AbilityModPropertyLaserInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return info.GetModifiedCopy(this);
 				}
 			}
 		}
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("null passed in to generate modified modded LaserTargetingInfo, returning an instance with default values");
 		}
 		return new LaserTargetingInfo();

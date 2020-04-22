@@ -16,19 +16,6 @@ public class UISetCanvasRenderCameraToMain : MonoBehaviour
 			Camera component2 = componentInChildren.gameObject.GetComponent<Camera>();
 			if (component2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				worldCamera = component2;
 			}
 		}

@@ -14,19 +14,6 @@ public class SlashCommand_Replay_Seek : SlashCommand
 		string text = "/replay_seek command requires following format\n\t/replay_seek [turnId]";
 		if (!array[0].IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!array[0].EqualsIgnoreCase("help"))
 			{
 				ReplayPlayManager replayPlayManager = ReplayPlayManager.Get();
@@ -51,15 +38,6 @@ public class SlashCommand_Replay_Seek : SlashCommand
 				}
 				TextConsole.Get().Write("Not currently playing a replay.");
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextConsole.Get().Write(text);

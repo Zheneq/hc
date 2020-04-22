@@ -45,19 +45,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sniperCripplingRound.m_laserDamageAmount;
 		}
 		else
@@ -70,15 +57,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sniperCripplingRound.m_explosionDamageAmount;
 		}
 		else
@@ -91,15 +69,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration;
 		}
 		else

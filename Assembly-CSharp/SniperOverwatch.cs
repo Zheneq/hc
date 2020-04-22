@@ -23,19 +23,6 @@ public class SniperOverwatch : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Overwatch";
 		}
 		base.Targeter = new AbilityUtil_Targeter_Line(this, m_range, m_penetrateLos);
@@ -75,10 +62,6 @@ public class SniperOverwatch : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SniperOverwatch);
 					return;
 				}
@@ -97,19 +80,6 @@ public class SniperOverwatch : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_duration;
 		}
 		else
@@ -128,19 +98,6 @@ public class SniperOverwatch : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useEnemyHitEffectOverride)
 			{
 				while (true)
@@ -170,10 +127,6 @@ public class SniperOverwatch : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameplayResponseForActor shallowCopy = m_onEnemyMoveThrough.GetShallowCopy();
 					shallowCopy.m_effect = GetOnMovedThroughEffectInfo();
 					shallowCopy.m_damage = m_abilityMod.m_damageMod.GetModifiedValue(m_onEnemyMoveThrough.m_damage);

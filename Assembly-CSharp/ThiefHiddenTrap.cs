@@ -22,19 +22,6 @@ public class ThiefHiddenTrap : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Hidden Trap";
 		}
 		Setup();
@@ -53,19 +40,6 @@ public class ThiefHiddenTrap : Ability
 		GroundEffectField cachedTrapFieldInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTrapFieldInfo = m_abilityMod.m_trapFieldInfoMod.GetModifiedValue(m_trapFieldInfo);
 		}
 		else
@@ -80,19 +54,6 @@ public class ThiefHiddenTrap : Ability
 		GroundEffectField result;
 		if (m_cachedTrapFieldInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTrapFieldInfo;
 		}
 		else
@@ -112,19 +73,6 @@ public class ThiefHiddenTrap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
 		}
 		else
@@ -150,19 +98,6 @@ public class ThiefHiddenTrap : Ability
 		int val;
 		if ((bool)abilityMod_ThiefHiddenTrap)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn);
 		}
 		else
@@ -174,15 +109,6 @@ public class ThiefHiddenTrap : Ability
 		int val2;
 		if ((bool)abilityMod_ThiefHiddenTrap)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
 		}
 		else

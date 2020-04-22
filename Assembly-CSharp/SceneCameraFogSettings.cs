@@ -46,41 +46,10 @@ public class SceneCameraFogSettings : MonoBehaviour
 		GameObject gameObject = null;
 		if (CameraManager.Get() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIManager.Get().GetEnvirontmentCamera() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject = UIManager.Get().GetEnvirontmentCamera().gameObject;
 				}
 			}
@@ -98,15 +67,6 @@ public class SceneCameraFogSettings : MonoBehaviour
 			GlobalFog component = gameObject.GetComponent<GlobalFog>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fogParametersSet = true;
 				component.distanceFog = m_distanceFog;
 				component.useRadialDistance = m_useRadialDistance;
@@ -128,11 +88,6 @@ public class SceneCameraFogSettings : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_bloomParameterSet = true;
 			component2.quality = m_bloomQuality;
 			component2.tweakMode = m_bloomMode;

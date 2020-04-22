@@ -20,24 +20,11 @@ public class DurationActorVFXInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_vfxInst = Object.Instantiate(vfxPrefab);
 					if (m_vfxInst != null)
 					{
 						if (parentObject != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_vfxInst.transform.parent = parentObject.transform;
 						}
 						m_vfxInst.transform.localPosition = Vector3.zero;
@@ -59,15 +46,6 @@ public class DurationActorVFXInfo
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_remainingDisplayTime > 0f)
 			{
 				m_remainingDisplayTime -= Time.deltaTime;
@@ -88,15 +66,6 @@ public class DurationActorVFXInfo
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInst.transform.position = position;
 			ShowVfx(actorVisible, lookDir);
 			return;
@@ -114,21 +83,8 @@ public class DurationActorVFXInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (actorVisible)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_vfxInst.SetActive(true);
 					}
 					if (lookDir != Vector3.zero)
@@ -147,19 +103,6 @@ public class DurationActorVFXInfo
 	{
 		if (m_vfxInst != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInst.SetActive(false);
 		}
 		m_remainingDisplayTime = 0f;
@@ -173,15 +116,6 @@ public class DurationActorVFXInfo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_vfxInst);
 			m_vfxInst = null;
 			return;

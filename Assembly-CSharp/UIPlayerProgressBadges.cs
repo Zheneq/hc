@@ -48,10 +48,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return Slots[m_currentSlot - 1];
 					}
 				}
@@ -118,10 +114,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -173,10 +165,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
@@ -184,15 +172,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 				if (m_characterType != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 				}
 				else
@@ -249,19 +228,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 		if (m_characterType != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 		}
 		else
@@ -270,15 +236,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.BadgesEarnedBySeason.Keys);
 		}
 		using (IEnumerator<int> enumerator = list.SelectMany(_003C_003Ef__am_0024cache0).Distinct().GetEnumerator())
@@ -302,15 +259,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 					}
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		UIManager.SetGameObjectActive(m_seasonsDropdownBtn, false);
 	}
@@ -322,31 +270,9 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(m_season);
 		if (seasonTemplate != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!seasonTemplate.IsTutorial)
 			{
 				goto IL_006f;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_season = -1;
@@ -359,15 +285,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			{
 				BadgeSlots current = enumerator.Current;
 				current.Reset();
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Dictionary<int, int> dictionary = new Dictionary<int, int>();
@@ -383,15 +300,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			{
 				if (value2.CharacterType.IsValidForHumanGameplay())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GetBadges(value2, flag, dictionary);
 				}
 			}
@@ -409,25 +317,11 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			GameBalanceVars.GameResultBadge[] gameResultBadges = GameResultBadgeData.Get().GameResultBadges;
 			foreach (GameBalanceVars.GameResultBadge gameResultBadge in gameResultBadges)
 			{
 				if (!gameResultBadge.DisplayEvenIfConsolidated)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (list.Contains(gameResultBadge.UniqueBadgeID))
 					{
 						continue;
@@ -441,11 +335,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				using (Dictionary<GameBalanceVars.GameResultBadge.BadgeRole, BadgeSlots>.ValueCollection.Enumerator enumerator3 = m_badgeRoleSlots.Values.GetEnumerator())
 				{
 					while (enumerator3.MoveNext())
@@ -453,29 +342,11 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 						BadgeSlots current3 = enumerator3.Current;
 						if (!current3.IsVisible())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (current3.HasSlotsLeft())
 						{
 							UIManager.SetGameObjectActive(current3.GetNextSlot(OnScroll), false);
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_gameModeDropdownBtn.Setup(StringUtil.TR_PersistedStatBucketName(m_gameType));
@@ -495,19 +366,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		}
 		else if (charData.ExperienceComponent.BadgesEarnedBySeason.ContainsKey(m_season))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			charData.ExperienceComponent.BadgesEarnedBySeason[m_season].TryGetValue(m_gameType, out value);
 		}
 		if (value == null)
@@ -516,11 +374,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			using (Dictionary<int, int>.Enumerator enumerator = value.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -528,15 +381,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 					KeyValuePair<int, int> current = enumerator.Current;
 					if (!existingBadges.TryGetValue(current.Key, out int value2))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value2 = 0;
 					}
 					existingBadges[current.Key] = value2 + current.Value;

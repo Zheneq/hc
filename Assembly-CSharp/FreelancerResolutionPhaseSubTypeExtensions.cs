@@ -5,19 +5,6 @@ public static class FreelancerResolutionPhaseSubTypeExtensions
 		int result;
 		if (subtype != FreelancerResolutionPhaseSubType.PICK_BANS1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((subtype == FreelancerResolutionPhaseSubType.PICK_BANS2) ? 1 : 0);
 		}
 		else

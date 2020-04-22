@@ -52,15 +52,6 @@ public class ControlpadAimingConfig
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clockwiseSign == antiClockwiseSign)
 			{
 				Debug.LogError("SetupRotation- Setting up control pad to rotate both directions on same input.  Likely user error in SetupRotation call.");
@@ -81,24 +72,10 @@ public class ControlpadAimingConfig
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (forwardSign == backwardSign)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("SetupDepthMovement- Setting up control pad to move depth both directions on same input.  Likely user error in SetupDepthMovement call.");
 					return;
 				}

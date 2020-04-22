@@ -37,15 +37,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_charSelectSpawnVFX.SetActive(false);
 			return;
 		}
@@ -68,53 +59,13 @@ public class UICharacterSelectRing : MonoBehaviour
 			AnimatorClipInfo[] currentAnimatorClipInfo = m_baseAnimator.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (currentAnimatorClipInfo.Length > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(currentAnimatorClipInfo[0].clip.name == "SlotIN"))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(currentAnimatorClipInfo[0].clip.name == "SlotIDLE"))
 						{
 							goto IL_00b9;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					flag = false;
@@ -129,11 +80,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_baseAnimator.isInitialized)
 			{
 				m_baseAnimator.Play(animName);
@@ -150,27 +96,9 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			object animName;
 			if (isReady)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				animName = "ReadyIn";
 			}
 			else
@@ -191,19 +119,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		else if (animName == "ReadyIn")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_readyAnimation.gameObject.SetActive(true);
 			m_readyIsVisible = true;
 		}
@@ -217,20 +132,10 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (m_isInGameAnimation.gameObject.activeSelf)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_isInGameAnimation.gameObject.SetActive(false);
 					return;
 				}
@@ -258,10 +163,6 @@ public class UICharacterSelectRing : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -279,11 +180,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			component.material.mainTexture = texture;
 			return;
 		}
@@ -303,36 +199,17 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(component2 != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				Texture texture = component2.FindTranslatedObject<Texture>(Localize.MainTranslation);
 				if (texture != null)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						component.material.mainTexture = texture;
 						return;
 					}

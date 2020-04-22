@@ -30,19 +30,6 @@ public class ScampHoloBlobs : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ScampHoloBlobs";
 		}
 		Setup();
@@ -86,19 +73,6 @@ public class ScampHoloBlobs : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else

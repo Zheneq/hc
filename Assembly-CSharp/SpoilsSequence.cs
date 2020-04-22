@@ -64,54 +64,14 @@ public class SpoilsSequence : Sequence
 		bool flag;
 		if (m_pickupTeam != Team.Objects)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get() == null))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameFlowData.Get().activeOwnedActorData == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_inaccessibleFxPrefab == null))
 					{
 						flag = (m_pickupTeam != GameFlowData.Get().activeOwnedActorData.GetTeam());
 						goto IL_01f2;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -122,15 +82,6 @@ public class SpoilsSequence : Sequence
 		GameObject prefab;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			prefab = m_inaccessibleFxPrefab;
 		}
 		else
@@ -144,11 +95,6 @@ public class SpoilsSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEvent, (!base.Caster) ? null : base.Caster.gameObject);
 			return;
 		}
@@ -162,39 +108,12 @@ public class SpoilsSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fx == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnFX();
 			}
 			else if (!m_didSetFinalPos)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_ignoreSpawnSpline)
 				{
 					m_curSplineSpeed += m_splineAcceleration;
@@ -202,15 +121,6 @@ public class SpoilsSequence : Sequence
 					m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
 					if (m_splineTraveled < 1f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 position = m_spline.Interp(m_splineTraveled);
 						m_fx.transform.position = position;
 					}
@@ -238,19 +148,6 @@ public class SpoilsSequence : Sequence
 			PowerUp.ExtraParams extraParams2 = extraSequenceParams as PowerUp.ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_pickupTeam = (Team)extraParams2.m_pickupTeamAsInt;
 				m_ignoreSpawnSpline = extraParams2.m_ignoreSpawnSpline;
 			}

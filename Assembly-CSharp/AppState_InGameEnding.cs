@@ -21,32 +21,10 @@ public class AppState_InGameEnding : AppStateInGame
 	{
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.SetVisible(false);
 		}
 		if (UIGameOverScreen.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIGameOverScreen.Get().SetVisible(true);
 			AudioManager.GetMixerSnapshotManager().SetMix_GameOver();
 		}

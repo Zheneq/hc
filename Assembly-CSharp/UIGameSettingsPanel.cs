@@ -98,19 +98,6 @@ public class UIGameSettingsPanel : UIScene
 		m_roundTime.onValueChanged.AddListener(EditRoundTime);
 		if (m_maxRoundTime != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_maxRoundTime.transform.parent != null)
 			{
 				UIManager.SetGameObjectActive(m_maxRoundTime.transform.parent, false);
@@ -157,11 +144,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			for (int l = 0; l < m_spectatorButtons.Length; l++)
 			{
 				m_spectatorButtons[l].SetChecked(false);
@@ -171,22 +153,12 @@ public class UIGameSettingsPanel : UIScene
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				for (int m = 0; m < m_teamAMemberEntries.Length; m++)
 				{
 					m_teamAMemberEntries[m].SetTeamId(Team.TeamA);
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					for (int n = 0; n < m_teamBMemberEntries.Length; n++)
 					{
 						m_teamBMemberEntries[n].SetTeamId(Team.TeamB);
@@ -197,11 +169,6 @@ public class UIGameSettingsPanel : UIScene
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						UIManager.SetGameObjectActive(m_teamBPlayersButtons[0], false);
 						UIManager.SetGameObjectActive(m_teamAPlayersButtons[0], false);
 						SetVisible(false);
@@ -221,15 +188,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gameNameInputField.text = m_gameNameInputField.text.Substring(0, UICreateGameScreen.MAX_GAMENAME_SIZE);
 			return;
 		}
@@ -246,10 +204,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -276,10 +230,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -306,10 +256,6 @@ public class UIGameSettingsPanel : UIScene
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
 					{
 						m_teamAPlayersButtons[i].SetChecked(i == 4);
@@ -342,11 +288,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			for (int l = 0; l < m_teamBPlayersButtons.Length; l++)
 			{
 				m_teamBPlayersButtons[l].Clickable = true;
@@ -379,41 +320,10 @@ public class UIGameSettingsPanel : UIScene
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (clientGameManager.IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!isActive)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 							continue;
 						}
@@ -430,33 +340,10 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (visible)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
 					if (UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 					{
@@ -466,15 +353,6 @@ public class UIGameSettingsPanel : UIScene
 					UICharacterSelectScreenController.Get().m_charSettingsPanel.SetVisible(false);
 					if (UIPlayerProgressPanel.Get().IsVisible())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIPlayerProgressPanel.Get().SetVisible(false);
 					}
 				}
@@ -482,15 +360,6 @@ public class UIGameSettingsPanel : UIScene
 				{
 					if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 						{
 							UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, true);
@@ -503,11 +372,6 @@ public class UIGameSettingsPanel : UIScene
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					UICharacterScreen.Get().DoRefreshFunctions(1);
 					return;
 				}
@@ -528,43 +392,12 @@ public class UIGameSettingsPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
 			if (num >= m_theMapList.Count)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_ToggleSwap toggleSwap = UnityEngine.Object.Instantiate(m_mapItemPrefab);
 				if (scrollRect != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_MouseEventPasser mouseEventPasser = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
 					mouseEventPasser.AddNewHandler(scrollRect);
 					_MouseEventPasser mouseEventPasser2 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
@@ -591,26 +424,8 @@ public class UIGameSettingsPanel : UIScene
 			toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text = GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
 			if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isActive)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 				}
 			}
@@ -618,11 +433,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			int count = instanceSubType.GameMapConfigs.Count;
 			Vector2 cellSize = m_mapListContainer.cellSize;
 			float y = cellSize.y;
@@ -667,19 +477,6 @@ public class UIGameSettingsPanel : UIScene
 		string text = gameConfig.RoomName;
 		if (text == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = string.Empty;
 		}
 		gameNameInputField.text = text;
@@ -689,39 +486,12 @@ public class UIGameSettingsPanel : UIScene
 		bool isOn = true;
 		if (gameConfig.InstanceSubType.GameOverrides != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 			if (initialTimeBankConsumables.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int? initialTimeBankConsumables2 = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 				if (initialTimeBankConsumables2.HasValue && initialTimeBankConsumables2.GetValueOrDefault() <= 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					isOn = false;
 				}
 			}
@@ -752,31 +522,9 @@ public class UIGameSettingsPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (isActive)
 			{
@@ -784,11 +532,6 @@ public class UIGameSettingsPanel : UIScene
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_theMapList[i].ToggleBtn.SetOn(false);
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyWarning);
 				return;
@@ -819,19 +562,6 @@ public class UIGameSettingsPanel : UIScene
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		lobbyGameConfig.Map = map;
@@ -848,15 +578,6 @@ public class UIGameSettingsPanel : UIScene
 		lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
 		if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
 		}
 		try
@@ -869,15 +590,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		if (m_allowDuplicateCharacters.isOn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
 		}
 		if (m_allowPausing.isOn)
@@ -915,15 +627,6 @@ public class UIGameSettingsPanel : UIScene
 			LobbyPlayerInfo playerInfo = uITeamMemberEntry.GetPlayerInfo();
 			if (playerInfo != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerInfo.CustomGameVisualSlot = num2;
 				m_teamInfo.TeamPlayerInfo.Add(playerInfo);
 			}
@@ -931,11 +634,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			num2 = 1;
 			UITeamMemberEntry[] teamBMemberEntries = m_teamBMemberEntries;
 			foreach (UITeamMemberEntry uITeamMemberEntry2 in teamBMemberEntries)
@@ -943,15 +641,6 @@ public class UIGameSettingsPanel : UIScene
 				LobbyPlayerInfo playerInfo2 = uITeamMemberEntry2.GetPlayerInfo();
 				if (playerInfo2 != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerInfo2.CustomGameVisualSlot = num2;
 					m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
 				}
@@ -964,15 +653,6 @@ public class UIGameSettingsPanel : UIScene
 				LobbyPlayerInfo playerInfo3 = uITeamMemberEntry3.GetPlayerInfo();
 				if (playerInfo3 != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerInfo3.CustomGameVisualSlot = num2;
 					m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
 				}
@@ -980,11 +660,6 @@ public class UIGameSettingsPanel : UIScene
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, m_teamInfo, closeSettingsWindow);
 				return;
 			}
@@ -1009,30 +684,8 @@ public class UIGameSettingsPanel : UIScene
 				LobbyPlayerInfo playerInfo = current.GetPlayerInfo();
 				if (playerInfo != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!playerInfo.IsSpectator)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						request.Slots.Add(new BalanceTeamSlot
 						{
 							Team = current.GetTeamId(),
@@ -1043,15 +696,6 @@ public class UIGameSettingsPanel : UIScene
 						});
 					}
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -1084,23 +728,10 @@ public class UIGameSettingsPanel : UIScene
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
 						string text;
 						if (response.LocalizedFailure != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = response.LocalizedFailure.ToString();
 						}
 						else
@@ -1129,34 +760,12 @@ public class UIGameSettingsPanel : UIScene
 					slot = enumerator2.Current;
 					if (request.Slots.Exists((BalanceTeamSlot p) => p.PlayerId == slot.PlayerId && p.Team != slot.Team))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						IEnumerable<UITeamMemberEntry> source = m_teamAMemberEntries.Union(m_teamBMemberEntries);
 						UITeamMemberEntry uITeamMemberEntry = source.FirstOrDefault(delegate(UITeamMemberEntry p)
 						{
 							int result;
 							if (p.GetPlayerInfo() != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								result = ((p.GetPlayerInfo().PlayerId == slot.PlayerId) ? 1 : 0);
 							}
 							else
@@ -1167,27 +776,9 @@ public class UIGameSettingsPanel : UIScene
 						});
 						if (uITeamMemberEntry != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							LobbyPlayerInfo playerInfo2 = uITeamMemberEntry.GetPlayerInfo();
 							if (playerInfo2 != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								RemovePlayer(playerInfo2);
 								if (slot.Team == Team.TeamA)
 								{
@@ -1200,15 +791,6 @@ public class UIGameSettingsPanel : UIScene
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			foreach (LobbyPlayerInfo item in list)
@@ -1242,10 +824,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UpdateTeamSize(m_teamAMemberEntries, m_teamAPlayersButtons, btnClicked);
 					return;
 				}
@@ -1279,15 +857,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1302,25 +871,11 @@ public class UIGameSettingsPanel : UIScene
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return i;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return 0;
 		}
 	}
@@ -1329,33 +884,11 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (teamSize > teamMemberEntries.Length)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			teamSize = teamMemberEntries.Length;
 		}
 		bool[] array = new bool[teamSize];
 		if (teamPlayerInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IEnumerator<LobbyPlayerInfo> enumerator = teamPlayerInfo.GetEnumerator();
 			try
 			{
@@ -1363,15 +896,6 @@ public class UIGameSettingsPanel : UIScene
 				{
 					if (!enumerator.MoveNext())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					LobbyPlayerInfo current = enumerator.Current;
@@ -1380,65 +904,20 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (!array[i])
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = i;
 							break;
 						}
 					}
 					if (num < teamSize)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.IsGameOwner)
 						{
 							if (current.CustomGameVisualSlot != 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (0 < current.CustomGameVisualSlot)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (current.CustomGameVisualSlot < array.Length + 1)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!array[current.CustomGameVisualSlot - 1])
 										{
 											num = current.CustomGameVisualSlot - 1;
@@ -1484,28 +963,10 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (num3 >= array.Length)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						if (!array[num3])
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = num3;
 							break;
 						}
@@ -1513,70 +974,16 @@ public class UIGameSettingsPanel : UIScene
 					}
 					if (num2 < teamSize)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current2.IsNPCBot)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!current2.IsGameOwner)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current2.CustomGameVisualSlot != 0)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (0 < current2.CustomGameVisualSlot)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (current2.CustomGameVisualSlot < array.Length + 1 && !array[current2.CustomGameVisualSlot - 1])
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num2 = current2.CustomGameVisualSlot - 1;
 										}
 									}
@@ -1587,15 +994,6 @@ public class UIGameSettingsPanel : UIScene
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -1628,28 +1026,10 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (num5 >= array.Length)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						if (!array[num5])
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = num5;
 							break;
 						}
@@ -1657,61 +1037,16 @@ public class UIGameSettingsPanel : UIScene
 					}
 					if (num4 < teamSize)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current3.IsNPCBot)
 						{
 							if (current3.CustomGameVisualSlot != 0)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (0 < current3.CustomGameVisualSlot)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (current3.CustomGameVisualSlot < array.Length + 1)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!array[current3.CustomGameVisualSlot - 1])
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num4 = current3.CustomGameVisualSlot - 1;
 										}
 									}
@@ -1722,15 +1057,6 @@ public class UIGameSettingsPanel : UIScene
 							array[num4] = true;
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -1756,26 +1082,8 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (j < teamSize)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!array[j])
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					teamMemberEntries[j].SetTeamPlayerInfo(null);
 				}
 				UIManager.SetGameObjectActive(teamMemberEntries[j], true);
@@ -1806,37 +1114,18 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_teamAPlayersButtons.Length; j++)
 			{
 				m_teamAPlayersButtons[j].m_btnHitBox.interactable = interactable;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = 0; k < m_teamBPlayersButtons.Length; k++)
 				{
 					m_teamBPlayersButtons[k].m_btnHitBox.interactable = interactable;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					for (int l = 0; l < m_spectatorButtons.Length; l++)
 					{
 						m_spectatorButtons[l].m_btnHitBox.interactable = interactable;
@@ -1853,19 +1142,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (characterType == CharacterType.None)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			characterType = GetUnusedBotCharacter(teamMemberEntry.GetTeamId());
 		}
 		LobbyPlayerInfo lobbyPlayerInfo = new LobbyPlayerInfo();
@@ -1889,19 +1165,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (teamMemberEntry.m_playerInfo.IsRemoteControlled)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			teamMemberEntry.m_playerInfo.ControllingPlayerId = 0;
 			teamMemberEntry.m_playerInfo.IsNPCBot = true;
 		}
@@ -1950,19 +1213,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (teamMemberEntries[i].GetPlayerInfo() == playerInfo)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				flag = true;
 			}
 			if (!flag)
@@ -1971,15 +1221,6 @@ public class UIGameSettingsPanel : UIScene
 			}
 			if (i + 1 < teamMemberEntries.Length)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamMemberEntries[i].SetTeamPlayerInfo(teamMemberEntries[i + 1].GetPlayerInfo());
 				teamMemberEntries[i + 1].SetTeamPlayerInfo(null);
 			}
@@ -2015,10 +1256,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_teamBMemberEntries;
 				}
 			}
@@ -2047,19 +1284,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (uITeamMemberEntry.m_playerInfo != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 			}
 		}
@@ -2077,10 +1301,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2094,11 +1314,6 @@ public class UIGameSettingsPanel : UIScene
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				teamMemberEntries[i].SetTeamPlayerInfo(playerInfo);
 				return;
 			}
@@ -2125,19 +1340,6 @@ public class UIGameSettingsPanel : UIScene
 		int num;
 		if (playerInfo.TeamId == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1;
 		}
 		else
@@ -2149,15 +1351,6 @@ public class UIGameSettingsPanel : UIScene
 		int @checked;
 		if (team == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			@checked = GetChecked(m_teamAPlayersButtons);
 		}
 		else
@@ -2186,10 +1379,6 @@ public class UIGameSettingsPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2201,26 +1390,8 @@ public class UIGameSettingsPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (playerInfo2.IsRemoteControlled)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerInfo2.ControllingPlayerId == playerInfo.PlayerId)
 				{
 					return;
@@ -2234,27 +1405,9 @@ public class UIGameSettingsPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!playerInfo3.IsRemoteControlled)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (playerInfo3.ControllingPlayerId == playerInfo.PlayerId)
 			{
@@ -2272,11 +1425,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			int numValidTeamMemberEntries = GetNumValidTeamMemberEntries(Team.TeamA);
 			int numValidTeamMemberEntries2 = GetNumValidTeamMemberEntries(Team.TeamB);
 			int numValidTeamMemberEntries3 = GetNumValidTeamMemberEntries(Team.Spectator);
@@ -2286,26 +1434,8 @@ public class UIGameSettingsPanel : UIScene
 			Team teamId = playerInfo.TeamId;
 			if (playerInfo.TeamId == Team.Spectator)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (numValidTeamMemberEntries < @checked)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					teamId = Team.TeamA;
 				}
 				else
@@ -2322,15 +1452,6 @@ public class UIGameSettingsPanel : UIScene
 				if (numValidTeamMemberEntries3 >= checked3)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				teamId = Team.Spectator;
 			}
@@ -2352,19 +1473,6 @@ public class UIGameSettingsPanel : UIScene
 			{
 				if (teamMemberEntries[num].GetPlayerInfo() != null && teamMemberEntries[num - 1].GetPlayerInfo() == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					teamMemberEntries[num - 1].SetTeamPlayerInfo(teamMemberEntries[num].GetPlayerInfo());
 					teamMemberEntries[num].SetTeamPlayerInfo(null);
 					flag = true;
@@ -2373,60 +1481,23 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			int num2 = 0;
 			for (int i = 0; i < teamMemberEntries.Length; i++)
 			{
 				if (teamMemberEntries[i].GetPlayerInfo() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2++;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				int num3 = Mathf.Max(btnClicked.GetIndex(), num2);
 				for (int j = 0; j < teamMemberEntries.Length; j++)
 				{
 					if (j < num3)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!teamMemberEntries[j].gameObject.activeInHierarchy)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							teamMemberEntries[j].SetTeamPlayerInfo(null);
 						}
 						UIManager.SetGameObjectActive(teamMemberEntries[j], true);
@@ -2438,22 +1509,12 @@ public class UIGameSettingsPanel : UIScene
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					for (int k = 0; k < teamPlayersButtons.Length; k++)
 					{
 						teamPlayersButtons[k].SetChecked(k == num3);
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						UpdateClickedHelper(false);
 						return;
 					}
@@ -2476,19 +1537,6 @@ public class UIGameSettingsPanel : UIScene
 				CharacterConfig characterConfig = gameManager.GameplayOverrides.GetCharacterConfig(current);
 				if (gameManager.GameplayOverrides.IsCharacterAllowedForBots(characterConfig.CharacterType) && gameManager.GameplayOverrides.IsCharacterAllowedForGameType(characterConfig.CharacterType, gameType, null, null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!IsCharacterTaken(team, characterConfig.CharacterType))
 					{
 						while (true)
@@ -2504,15 +1552,6 @@ public class UIGameSettingsPanel : UIScene
 					}
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		throw new Exception("Could not find a bot character type");
 	}
@@ -2525,19 +1564,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (uITeamMemberEntry.GetPlayerInfo() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (uITeamMemberEntry.GetPlayerInfo().CharacterType == character)
 				{
 					return true;
@@ -2546,11 +1572,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}

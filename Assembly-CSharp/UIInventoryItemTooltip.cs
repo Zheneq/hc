@@ -33,15 +33,6 @@ public class UIInventoryItemTooltip : UITooltipBase
 		{
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -50,27 +41,9 @@ public class UIInventoryItemTooltip : UITooltipBase
 		m_rarityText.text = item.Rarity.GetRarityString() + " " + text;
 		if (item.Type != InventoryItemType.Experience)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.Type != InventoryItemType.FreelancerExpBonus)
 			{
 				goto IL_008f;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_rarityText.text = text;
@@ -79,15 +52,6 @@ public class UIInventoryItemTooltip : UITooltipBase
 		string colorHexString = item.Rarity.GetColorHexString();
 		if (!colorHexString.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_titleText.text = "<color=" + colorHexString + ">" + m_titleText.text + "</color>";
 			m_rarityText.text = "<color=" + colorHexString + ">" + m_rarityText.text + "</color>";
 		}

@@ -46,19 +46,6 @@ public class UIGGPackNotification : MonoBehaviour
 		}
 		if (banner2 != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Sprite sprite2 = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 			m_backgroundImage.sprite = sprite2;
 			UIManager.SetGameObjectActive(m_backgroundImage, sprite2 != null);

@@ -69,19 +69,6 @@ public class SenseiYingYangDash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "SenseiYingYangDash";
 		}
 		Setup();
@@ -103,10 +90,6 @@ public class SenseiYingYangDash : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeters.Add(abilityUtil_Targeter_Charge);
 					AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge2 = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false);
 					abilityUtil_Targeter_Charge2.SetUseMultiTargetUpdate(true);
@@ -124,19 +107,6 @@ public class SenseiYingYangDash : Ability
 		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
 		if (moddedEffectForSelf != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (moddedEffectForSelf.m_applyEffect)
 			{
 				while (true)
@@ -164,19 +134,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if (m_chooseDestination)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_targetData.Length > 1) ? 1 : 0);
 		}
 		else
@@ -191,19 +148,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if (ChooseDestinaton())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 2;
 		}
 		else
@@ -224,19 +168,6 @@ public class SenseiYingYangDash : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -251,19 +182,6 @@ public class SenseiYingYangDash : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chooseDestShapeMod.GetModifiedValue(m_chooseDestShape);
 		}
 		else
@@ -278,19 +196,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_secondCastTurnsMod.GetModifiedValue(m_secondCastTurns);
 		}
 		else
@@ -305,19 +210,6 @@ public class SenseiYingYangDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_secondDashAllowBothTeamsMod.GetModifiedValue(m_secondDashAllowBothTeams);
 		}
 		else
@@ -337,19 +229,6 @@ public class SenseiYingYangDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -364,19 +243,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForDiffTeamSecondDashMod.GetModifiedValue(m_extraDamageForDiffTeamSecondDash);
 		}
 		else
@@ -396,19 +262,6 @@ public class SenseiYingYangDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyLowHealthThreshMod.GetModifiedValue(m_enemyLowHealthThresh);
 		}
 		else
@@ -428,19 +281,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healOnAllyMod.GetModifiedValue(m_healOnAlly);
 		}
 		else
@@ -455,19 +295,6 @@ public class SenseiYingYangDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -487,19 +314,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealOnAllyForLowHealthMod.GetModifiedValue(m_extraHealOnAllyForLowHealth);
 		}
 		else
@@ -514,19 +328,6 @@ public class SenseiYingYangDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh);
 		}
 		else
@@ -541,19 +342,6 @@ public class SenseiYingYangDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_reverseHealthThreshForAllyMod.GetModifiedValue(m_reverseHealthThreshForAlly);
 		}
 		else
@@ -568,19 +356,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfNoSecondDashMod.GetModifiedValue(m_cdrIfNoSecondDash);
 		}
 		else
@@ -598,57 +373,17 @@ public class SenseiYingYangDash : Ability
 			bool flag = allyActor.GetHitPointShareOfMax() < GetAllyLowHealthThresh();
 			if (ReverseHealthThreshForAlly())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				flag = (allyActor.GetHitPointShareOfMax() > GetAllyLowHealthThresh());
 			}
 			if (GetExtraHealOnAllyForLowHealth() > 0 && GetAllyLowHealthThresh() > 0f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraHealOnAllyForLowHealth();
 				}
 			}
 			if (ShouldApplyBonusForDiffTeam(allyActor, caster) && GetExtraHealOnAllyForDiffTeamSecondDash() > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetExtraHealOnAllyForDiffTeamSecondDash();
 			}
 		}
@@ -663,69 +398,20 @@ public class SenseiYingYangDash : Ability
 			bool flag = enemyActor.GetHitPointShareOfMax() < GetEnemyLowHealthThresh();
 			if (ReverseHealthThreshForEnemy())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				flag = (enemyActor.GetHitPointShareOfMax() > GetEnemyLowHealthThresh());
 			}
 			if (GetExtraDamageForLowHealth() > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetEnemyLowHealthThresh() > 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraDamageForLowHealth();
 					}
 				}
 			}
 			if (ShouldApplyBonusForDiffTeam(enemyActor, caster) && GetExtraDamageForDiffTeamSecondDash() > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetExtraDamageForDiffTeamSecondDash();
 			}
 		}
@@ -740,41 +426,10 @@ public class SenseiYingYangDash : Ability
 			bool flag = IsForSecondDash();
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!SecondDashAllowBothTeams())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (m_syncComp.m_syncLastYingYangDashedToAlly ? 1 : 0);
 					}
 					else
@@ -805,44 +460,13 @@ public class SenseiYingYangDash : Ability
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						bool flag = IsForSecondDash();
 						if (flag)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!SecondDashAllowBothTeams())
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = ((!m_syncComp.m_syncLastYingYangDashedToAlly) ? 1 : 0);
 								}
 								else
@@ -880,10 +504,6 @@ public class SenseiYingYangDash : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = targetActor.GetTeam() == caster.GetTeam();
 					return m_syncComp.m_syncLastYingYangDashedToAlly != flag;
 				}
@@ -912,19 +532,6 @@ public class SenseiYingYangDash : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			results.m_damage = GetCurrentDamage(targetActor, actorData);
 		}
 		return true;
@@ -952,15 +559,6 @@ public class SenseiYingYangDash : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SenseiYingYangDash);
 			Setup();
 			return;
@@ -984,53 +582,13 @@ public class SenseiYingYangDash : Ability
 		bool flag2 = false;
 		if (targetIndex == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe.OccupantActor != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, CanTargetEnemy(), CanTargetAlly(), false, ValidateCheckPath.CanBuildPath, true, false))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = true;
 					}
@@ -1044,37 +602,10 @@ public class SenseiYingYangDash : Ability
 			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe3 != boardSquareSafe2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (AreaEffectUtils.IsSquareInShape(boardSquareSafe3, GetChooseDestShape(), target.FreePos, boardSquareSafe2, false, caster))
 						{
 							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _);
@@ -1086,15 +617,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag ? 1 : 0);
 		}
 		else
@@ -1109,19 +631,6 @@ public class SenseiYingYangDash : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_syncComp.m_syncTurnsForSecondYingYangDash > 0) ? 1 : 0);
 		}
 		else
@@ -1135,41 +644,14 @@ public class SenseiYingYangDash : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_syncTurnsForSecondYingYangDash > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = CanTargetAlly();
 				bool flag2 = CanTargetEnemy();
 				if (flag)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						return m_colorForAllyDash;
 					}
 				}

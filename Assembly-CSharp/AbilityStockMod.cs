@@ -18,26 +18,12 @@ public class AbilityStockMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilitySlot == AbilityData.ActionType.INVALID_ACTION)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				int maxStocksCount = abilityData.GetMaxStocksCount(abilitySlot);
 				int num = Mathf.Max(0, maxStocksCount - abilityData.GetConsumedStocksCount(abilitySlot));
 				int num2 = Mathf.Max(0, availableStockModAmount.GetModifiedValue(num));
@@ -51,11 +37,6 @@ public class AbilityStockMod
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						abilityData.OverrideStockRefreshCountdown(abilitySlot, num3);
 						return;
 					}

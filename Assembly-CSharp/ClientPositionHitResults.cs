@@ -40,19 +40,6 @@ public class ClientPositionHitResults
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning(ClientAbilityResults.s_executePositionHitHeader + " Executing Position Hit");
 		}
 		using (List<ClientEffectStartData>.Enumerator enumerator = m_effectsToStart.GetEnumerator())
@@ -61,15 +48,6 @@ public class ClientPositionHitResults
 			{
 				ClientEffectStartData current = enumerator.Current;
 				ClientEffectBarrierManager.Get().ExecuteEffectStart(current);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		foreach (ClientBarrierStartData item in m_barriersToStart)
@@ -87,15 +65,6 @@ public class ClientPositionHitResults
 				int current4 = enumerator4.Current;
 				ClientEffectBarrierManager.Get().EndBarrier(current4);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = m_sequencesToEnd.GetEnumerator())
 		{
@@ -104,15 +73,6 @@ public class ClientPositionHitResults
 				ServerClientUtils.SequenceEndData current5 = enumerator5.Current;
 				current5.EndClientSequences();
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ClientMovementResults>.Enumerator enumerator6 = m_reactionsOnPosHit.GetEnumerator())
 		{
@@ -120,15 +80,6 @@ public class ClientPositionHitResults
 			{
 				ClientMovementResults current6 = enumerator6.Current;
 				current6.ReactToMovement();
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		ExecutedHit = true;

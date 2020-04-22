@@ -37,19 +37,6 @@ public class SquareInsideChecker_BounceSegment : ISquareInsideChecker
 			inLos = AreaEffectUtils.IsSquareInLosForBox(square, m_startPos, m_endPos, m_widthInSquares, false, m_caster, m_additionalLosSources);
 			if (inLos)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				inLos = VectorUtils.SquareOnSameSideAsBounceBend(square, m_startPos, m_collisionNormal);
 			}
 		}

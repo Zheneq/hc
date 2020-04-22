@@ -55,19 +55,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		float widthInWorld = m_widthInSquares * squareSize;
 		if (m_highlights.Count < 3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClearHighlightCursors();
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, dist));
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, crossLength));
@@ -79,15 +66,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (m_lockToCardinalDirs)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector2 = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
 		}
 		Vector3 clampedTargeterRange = GetClampedTargeterRange(currentTarget, vector, vector2, ref dist, ref crossLength);
@@ -111,38 +89,11 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		List<ActorData> list2 = new List<ActorData>();
 		if (boardSquare != null && boardSquare.height <= Board.Get().BaselineHeight)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingActor.GetCurrentBoardSquare()._0013(boardSquare.x, boardSquare.y))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, travelBoardSquareWorldPositionForLos, clampedTargeterRange, out bool collision, out Vector3 _);
 				if (!collision)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2 = AreaEffectUtils.GetActorsInLaser(clampedTargeterRange, normalized, laserRangeInSquares, m_widthInSquares, targetingActor, GetAffectedTeams(), m_penetrateLoS, m_maxTargets, m_penetrateLoS, false, out laserEndPos, null, actors);
 					actors.AddRange(list2);
 					list = AreaEffectUtils.GetActorsInLaser(clampedTargeterRange, -1f * normalized, laserRangeInSquares, m_widthInSquares, targetingActor, GetAffectedTeams(), m_penetrateLoS, m_maxTargets, m_penetrateLoS, false, out laserEndPos, null, actors);
@@ -158,53 +109,17 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				if (!list.Contains(current))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list2.Contains(current))
 					{
 						AddActorInRange(current, travelBoardSquareWorldPosition, targetingActor);
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				AddActorInRange(current, clampedTargeterRange, targetingActor);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor);
 		}
 		Vector3 crossStart = clampedTargeterRange + (0.5f * crossLength - 0.1f) * normalized;
@@ -223,30 +138,8 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(endPos);
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare()._0013(boardSquare.x, boardSquare.y))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, endPos, crossStart, m_widthInSquares, targetingActor, m_penetrateLoS);
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, endPos, crossEnd, m_widthInSquares, targetingActor, m_penetrateLoS);
 				goto IL_017f;
@@ -277,15 +170,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 				end_IL_015f:
 				break;
 			}
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_017f;
 		IL_017f:

@@ -32,19 +32,6 @@ public class NanosmithBoltLaserSequence : Sequence
 			int num;
 			if (boltEndPositions != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = boltEndPositions.Length;
 			}
 			else
@@ -60,23 +47,9 @@ public class NanosmithBoltLaserSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				int num2;
 				if (boltHitActors != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = boltHitActors.Count;
 				}
 				else
@@ -96,15 +69,6 @@ public class NanosmithBoltLaserSequence : Sequence
 						int num3;
 						if (actorData != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = actorData.ActorIndex;
 						}
 						else
@@ -151,15 +115,6 @@ public class NanosmithBoltLaserSequence : Sequence
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int value3 = 0;
 				stream.Serialize(ref value3);
 				boltHitActors = new List<ActorData[]>(value3);
@@ -294,33 +249,11 @@ public class NanosmithBoltLaserSequence : Sequence
 		Vector3 vector = m_fxJoint.m_jointObject.transform.position;
 		if (m_useOverrideStartPos)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = m_overrideStartPos;
 		}
 		Vector3[] array = new Vector3[5];
 		if (m_maxHeight == 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector2;
 			if (m_useTargetHitPos)
 			{
@@ -343,15 +276,6 @@ public class NanosmithBoltLaserSequence : Sequence
 			Vector3 vector3;
 			if (m_useTargetHitPos)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector3 = GetTargetHitPosition(0, m_hitPosJoint);
 			}
 			else
@@ -366,15 +290,6 @@ public class NanosmithBoltLaserSequence : Sequence
 		}
 		if (m_reverseDirection)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector4 = array[0];
 			array[0] = array[4];
 			array[4] = vector4;
@@ -406,19 +321,6 @@ public class NanosmithBoltLaserSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_curIndex = extraParams2.curIndex;
 				m_maxIndex = extraParams2.maxIndex;
 				m_startDelay = extraParams2.startDelay;
@@ -450,30 +352,8 @@ public class NanosmithBoltLaserSequence : Sequence
 				GenericSequenceProjectileInfo current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					current.OnSequenceDisable();
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		OnSequenceDisable();
@@ -483,33 +363,11 @@ public class NanosmithBoltLaserSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxImpact);
 			m_fxImpact = null;
 		}
@@ -520,30 +378,8 @@ public class NanosmithBoltLaserSequence : Sequence
 	{
 		if (!m_skipImpactFx)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)m_fxImpactPrefab)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxImpact = InstantiateFX(m_fxImpactPrefab, impactPos, impactRot);
 				m_impactDurationLeft = m_impactDuration;
 			}
@@ -564,15 +400,6 @@ public class NanosmithBoltLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ScheduleFX();
 			return;
 		}
@@ -609,15 +436,6 @@ public class NanosmithBoltLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			return;
 		}
@@ -641,19 +459,6 @@ public class NanosmithBoltLaserSequence : Sequence
 					GameObject referenceModel = GetReferenceModel(base.Caster, m_jointReferenceType);
 					if (referenceModel != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_fxJoint.Initialize(referenceModel);
 					}
 					SpawnFX();
@@ -663,15 +468,6 @@ public class NanosmithBoltLaserSequence : Sequence
 			{
 				if (m_fx.activeSelf)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_curSplineSpeed += m_splineAcceleration;
 					m_curSplineSpeed = Mathf.Min(m_splineSpeed, m_curSplineSpeed);
 					m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
@@ -687,15 +483,6 @@ public class NanosmithBoltLaserSequence : Sequence
 					{
 						if (m_spawnImpactAtFXDespawn)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SpawnImpactFX(m_fx.transform.position, m_fx.transform.rotation);
 						}
 						else
@@ -705,64 +492,19 @@ public class NanosmithBoltLaserSequence : Sequence
 						m_fx.SetActive(false);
 						if (m_fxImpactPrefab == null && m_markForRemovalAfterImpact)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
 				if (m_fxImpact != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fxImpact.activeSelf)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_impactDurationLeft > 0f)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_impactDurationLeft -= GameTime.deltaTime;
 						}
 						else if (m_markForRemovalAfterImpact)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
@@ -796,40 +538,17 @@ public class NanosmithBoltLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boltEndPositions == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < m_boltEndPositions.Length; i++)
 				{
 					ActorData[] targetActors = null;
 					if (m_boltHitActors.Count > i)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						targetActors = m_boltHitActors[i];
 					}
 					GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, m_boltProjectileInfo, base.TargetPos, m_boltEndPositions[i], targetActors);
@@ -837,11 +556,6 @@ public class NanosmithBoltLaserSequence : Sequence
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_boltsSpawned = true;
 					return;
 				}

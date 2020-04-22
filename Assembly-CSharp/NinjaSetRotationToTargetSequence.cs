@@ -37,10 +37,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 1;
 					}
 				}
@@ -111,31 +107,9 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 travelBoardSquareWorldPosition2 = actorData.GetTravelBoardSquareWorldPosition();
 				if (actorData != base.Caster)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 					Vector3 vec = travelBoardSquareWorldPosition2 - travelBoardSquareWorldPosition;
 					vec.y = 0f;
@@ -157,15 +131,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		{
 			if (num > 0 && m_expectedRotateSignalCount > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_signalEventPerRotation = Mathf.Max(1, Mathf.RoundToInt((float)m_expectedRotateSignalCount / (float)num));
 			}
 			else
@@ -176,15 +141,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 			{
 				if (j == m_angleToTargetActor.Count - 1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_expectedRotateSignalCount > 0)
 					{
 						m_angleToTargetActor[j].m_lastHitOnEventNum = m_expectedRotateSignalCount;
@@ -200,22 +156,12 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (string.IsNullOrEmpty(m_chargeEndParamName))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				Animator modelAnimator = base.Caster.GetModelAnimator();
 				if (!(modelAnimator != null))
 				{
@@ -223,23 +169,9 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					int num2;
 					if (num > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = 1;
 					}
 					else
@@ -254,20 +186,10 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (m_casterInTargetsList)
 						{
 							while (true)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								DoGameplayHitsOnCaster();
 								return;
 							}
@@ -287,28 +209,10 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_fxImpacts.Count; i++)
 			{
 				if (m_fxImpacts[i] != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(m_fxImpacts[i].gameObject);
 				}
 			}
@@ -321,30 +225,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 	{
 		if (parameter == m_rotateSignalAnimEvent && base.Caster != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_angleToTargetActor.Count > 0)
 				{
 					m_currRotateTargetIndex++;
@@ -368,30 +250,12 @@ public class NinjaSetRotationToTargetSequence : Sequence
 								m_angleToTargetActor[i].m_didLastHit = true;
 								continue;
 							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 					}
 					m_currRotateTargetIndex = num;
 					if (m_currRotateTargetIndex < m_angleToTargetActor.Count)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actor2 = m_angleToTargetActor[m_currRotateTargetIndex].m_actor;
 						base.Caster.TurnToPositionInstant(actor2.GetTravelBoardSquareWorldPosition());
 					}
@@ -401,26 +265,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		if (parameter == m_hitAnimEvent)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_currRotateTargetIndex >= 0 && m_currRotateTargetIndex < m_angleToTargetActor.Count)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_numHitEventsReceived++;
 				if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 				{
@@ -429,15 +275,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					SpawnImpactFXOnTarget(actor3, flag);
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_angleToTargetActor[m_currRotateTargetIndex].m_didLastHit = true;
 					}
 				}
@@ -448,15 +285,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					SpawnImpactFXOnTarget(actor4, flag2);
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_lastGameplayHitTargetIndex = m_currRotateTargetIndex;
 						m_angleToTargetActor[m_currRotateTargetIndex].m_didLastHit = true;
 					}
@@ -469,11 +297,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			DoGameplayHitsOnCaster();
 			if (m_rotateHitMode == RotateHitMode.RotateAndHitEachEvent)
 			{
@@ -481,15 +304,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				{
 					if (!m_angleToTargetActor[j].m_didLastHit)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnImpactFXOnTarget(m_angleToTargetActor[j].m_actor, true);
 					}
 				}
@@ -521,15 +335,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Source.OnSequenceHit(this, base.TargetPos);
 			if (m_casterInTargetsList)
 			{

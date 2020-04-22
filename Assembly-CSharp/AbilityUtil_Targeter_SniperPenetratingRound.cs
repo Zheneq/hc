@@ -34,15 +34,6 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_knockbackDistance > 0f)
 			{
 				int num = 0;
@@ -55,39 +46,12 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 						ActorData current = enumerator.Current;
 						if (current.GetTeam() != targetingActor.GetTeam())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ActorMeetKnockbackConditions(current, targetingActor))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								float num2 = VectorUtils.HorizontalPlaneDistInSquares(current.GetTravelBoardSquareWorldPosition(), targetingActor.GetTravelBoardSquareWorldPosition());
 								int num3;
 								if (!(m_knockbackThresholdDistance <= 0f))
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 = ((num2 < m_knockbackThresholdDistance) ? 1 : 0);
 								}
 								else
@@ -96,29 +60,11 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 								}
 								if (num3 != 0)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
 									num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 								}
 							}
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				SetMovementArrowEnabledFromIndex(num, false);
@@ -138,10 +84,6 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < m_knockbackThresholdDistance;
 				}
 			}

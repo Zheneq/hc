@@ -31,45 +31,14 @@ public class NanoSmithAnvilSlam : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Anvil Slam";
 		}
 		NanoSmithBoltInfoComponent component = GetComponent<NanoSmithBoltInfoComponent>();
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_anvilSlamRangeOverride > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_boltInfo.range = component.m_anvilSlamRangeOverride;
 			}
 		}
@@ -89,30 +58,8 @@ public class NanoSmithAnvilSlam : Ability
 		m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 		if (m_boltCount > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boltInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 			}
 		}

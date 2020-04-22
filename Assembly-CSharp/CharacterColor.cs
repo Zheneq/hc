@@ -43,45 +43,14 @@ public class CharacterColor
 		string result = string.Empty;
 		if (type == StyleLevelType.Advanced)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = "skin_advancedIcon";
 		}
 		else if (type == StyleLevelType.Expert)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "skin_expertIcon";
 		}
 		else if (type == StyleLevelType.Mastery)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "skin_MasteryIcon";
 		}
 		return result;
@@ -92,30 +61,8 @@ public class CharacterColor
 		int result = 0;
 		if (m_colorUnlockData != null && m_colorUnlockData.m_unlockData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_colorUnlockData.m_unlockData.UnlockConditions != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameBalanceVars.UnlockCondition[] unlockConditions = m_colorUnlockData.m_unlockData.UnlockConditions;
 				foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 				{
@@ -123,15 +70,6 @@ public class CharacterColor
 					{
 						return unlockCondition.typeSpecificData2;
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

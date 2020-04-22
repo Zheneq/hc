@@ -69,10 +69,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -88,15 +84,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_startDelayTime <= 0f)
 			{
 				SpawnFX();
@@ -119,30 +106,8 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase) && m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnFX();
 			}
 		}
@@ -152,20 +117,10 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (m_fx != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					StopFX();
 					return;
 				}
@@ -192,74 +147,16 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fxAttachToJoint)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fxJoint.IsInitialized())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targets != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Targets.Length > 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ShouldHideForActorIfAttached(base.Targets[0]))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								SetSequenceVisibility(false);
 								goto IL_00e0;
 							}
@@ -277,11 +174,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			MarkForRemoval();
 			return;
 		}
@@ -292,62 +184,17 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Caster != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 			}
 		}
 		if (m_useRootOrientation)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Targets != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets.Length == 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fx.transform.rotation = base.Targets[0].transform.rotation;
 					goto IL_0285;
 				}
@@ -355,50 +202,14 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		if (m_aimAtCaster)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Caster != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets != null && base.Targets.Length == 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 forward = base.Targets[0].transform.position - base.Caster.transform.position;
 					forward.y = 0f;
 					if (forward.sqrMagnitude != 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						forward.Normalize();
 						m_fx.transform.rotation = Quaternion.LookRotation(forward);
 					}
@@ -413,19 +224,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		int num;
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (m_fx.activeInHierarchy ? 1 : 0);
 		}
 		else
@@ -443,25 +241,11 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_fx = InstantiateFX(fxPrefab, position, rotation);
 			SetSequenceVisibility(sequenceVisibility);
 			FriendlyEnemyVFXSelector component = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.Setup(base.Caster.GetTeam());
 			}
 			if (!(m_fxJoint.m_jointObject != null) || !(m_fxJoint.m_jointObject.transform.localScale != Vector3.zero))
@@ -470,11 +254,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_fxAttachToJoint)
 				{
 					AttachToBone(m_fx, m_fxJoint.m_jointObject);
@@ -494,15 +273,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.SetActive(false);
 			return;
 		}
@@ -512,65 +282,16 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (base.Targets.Length > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targets[0] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_fxJoint.IsInitialized())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fxJoint.Initialize(base.Targets[0].gameObject);
 				}
 				if (m_fxPrefab != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fxJoint.m_jointObject != null && m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && m_fxAttachToJoint)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_fx = InstantiateFX(m_fxPrefab);
 						AttachToBone(m_fx, m_fxJoint.m_jointObject);
 						m_fx.transform.localPosition = Vector3.zero;
@@ -604,15 +325,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 					GameObject gameObject;
 					if (m_playAudioEventOnCaster)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameObject = base.Caster.gameObject;
 					}
 					else
@@ -629,45 +341,21 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (m_sequenceHitCalled)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
 					if (base.Targets[i] != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.Source.OnSequenceHit(this, base.Targets[i], Sequence.CreateImpulseInfoBetweenActors(base.Targets[0], base.Targets[i]));
 					}
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					base.Source.OnSequenceHit(this, base.TargetPos);
 					m_sequenceHitCalled = true;
 					return;
@@ -691,10 +379,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SpawnFX();
 					return;
 				}
@@ -714,15 +398,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx.gameObject);
 			m_fx = null;
 			return;

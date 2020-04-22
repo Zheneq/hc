@@ -88,27 +88,9 @@ public class FirstTurnMovement : MonoBehaviour
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstTurnMovement.m_regionForTeamA.HasNonZeroArea())
 						{
 							return firstTurnMovement.m_regionForTeamA.Contains(square.x, square.y);
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return true;
@@ -121,32 +103,10 @@ public class FirstTurnMovement : MonoBehaviour
 						{
 							return firstTurnMovement.m_regionForTeamB.Contains(square.x, square.y);
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					return true;
 				}
 				return true;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return true;
@@ -176,27 +136,9 @@ public class FirstTurnMovement : MonoBehaviour
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstTurnMovement.m_regionForTeamA.HasNonZeroArea())
 						{
 							return true;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;
@@ -212,27 +154,9 @@ public class FirstTurnMovement : MonoBehaviour
 						default:
 							if (firstTurnMovement.m_regionForTeamB != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (firstTurnMovement.m_regionForTeamB.HasNonZeroArea())
 								{
 									return true;
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							return false;
@@ -240,19 +164,6 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 				}
 				return false;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;
@@ -262,19 +173,6 @@ public class FirstTurnMovement : MonoBehaviour
 	{
 		if (s_instance != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (s_instance.GetRestrictedMovementState() == RestrictedMovementState.Active)
 			{
 				while (true)
@@ -300,19 +198,6 @@ public class FirstTurnMovement : MonoBehaviour
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		foreach (ActorData item in actors)
@@ -325,19 +210,6 @@ public class FirstTurnMovement : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().CurrentTurn > 1)
 			{
 				while (true)
@@ -354,15 +226,6 @@ public class FirstTurnMovement : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().CurrentTurn == 1)
 			{
 				while (true)

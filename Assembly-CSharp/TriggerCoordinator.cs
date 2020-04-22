@@ -30,15 +30,6 @@ public class TriggerCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -52,15 +43,6 @@ public class TriggerCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

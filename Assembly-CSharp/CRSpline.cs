@@ -55,15 +55,6 @@ public class CRSpline
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Gizmos.color = Color.blue;
 			Vector3 vector2 = Interp(t);
 			Gizmos.DrawLine(vector2, vector2 + Velocity(t));

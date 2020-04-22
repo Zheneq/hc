@@ -32,46 +32,15 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 				Vector2 anchorMax = rectTransform.anchorMax;
 				if (x == anchorMax.x)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
 		float num4 = num * num2 / 100f;
 		if (m_percentageText.preferredWidth > num4)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = m_percentageText.preferredWidth / num2;
 			endPortion = startPortion + num4;
 			if (endPortion > 1f)
@@ -92,28 +61,10 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 		Vector2 zero2 = Vector2.zero;
 		if (startPortion > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			zero.x = -5f;
 		}
 		if (endPortion < 1f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			zero2.x = 5f;
 		}
 		m_bar.rectTransform.offsetMin = zero;

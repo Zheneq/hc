@@ -50,15 +50,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, bazookaGirlExplodingLaser.m_coneWidthAngle);
 			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, bazookaGirlExplodingLaser.m_coneLength);
 			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, bazookaGirlExplodingLaser.m_coneBackwardOffset);
@@ -83,19 +74,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = bazookaGirlExplodingLaser.m_coneWidthAngle;
 		}
 		else
@@ -108,15 +86,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlExplodingLaser.m_coneLength;
 		}
 		else
@@ -129,15 +98,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = bazookaGirlExplodingLaser.m_coneBackwardOffset;
 		}
 		else
@@ -150,15 +110,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = bazookaGirlExplodingLaser.m_laserWidth;
 		}
 		else
@@ -171,15 +122,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = bazookaGirlExplodingLaser.m_laserRange;
 		}
 		else
@@ -192,15 +134,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (bazookaGirlExplodingLaser.m_laserPenetrateLos ? 1 : 0);
 		}
 		else
@@ -213,15 +146,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = bazookaGirlExplodingLaser.m_laserDamageAmount;
 		}
 		else
@@ -235,15 +159,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = bazookaGirlExplodingLaser.m_effectOnLaserHitTargets;
 		}
 		else
@@ -256,15 +171,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = bazookaGirlExplodingLaser.m_cdrOnDirectHit;
 		}
 		else
@@ -277,15 +183,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = bazookaGirlExplodingLaser.m_explosionDamageAmount;
 		}
 		else
@@ -300,15 +197,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets;
 		}
 		else

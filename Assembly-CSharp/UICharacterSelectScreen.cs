@@ -30,15 +30,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DontDestroyOnLoad(base.gameObject);
 			return;
 		}
@@ -57,15 +48,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, visible);
 			return;
 		}
@@ -82,15 +64,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
 			return;
 		}
@@ -111,15 +84,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -133,15 +97,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("SelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"));
 			return;
 		}
@@ -155,15 +110,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIDialogPopupManager.Get().CloseDialog(m_selectModsDialog);
 			return;
 		}

@@ -69,10 +69,6 @@ public class SlashCommands
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -87,19 +83,6 @@ public class SlashCommands
 		{
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!slashCommand.AvailableInFrontEnd)
 				{
 					continue;
@@ -107,26 +90,8 @@ public class SlashCommands
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!slashCommand.AvailableInGame)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}

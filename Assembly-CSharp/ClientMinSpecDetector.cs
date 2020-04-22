@@ -42,19 +42,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			int length = stringBuilder.Length;
 			if (SystemInfo.processorCount < m_minProcessors)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stringBuilder.Append("CPUs: ");
 				stringBuilder.Append(SystemInfo.processorCount);
 				stringBuilder.Append("/");
@@ -63,15 +50,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (SystemInfo.systemMemorySize < m_min_RAM_MB)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("RAM (MB): ");
 				stringBuilder.Append(SystemInfo.systemMemorySize);
 				stringBuilder.Append("/");
@@ -80,15 +58,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (SystemInfo.graphicsMemorySize < m_min_GPU_MB)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("VRAM (MB): ");
 				stringBuilder.Append(SystemInfo.graphicsMemorySize);
 				stringBuilder.Append("/");
@@ -105,40 +74,13 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (m_requireImageEffects)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!SystemInfo.supportsImageEffects)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringBuilder.Append("Image effects unsupported, ");
 				}
 			}
 			if (m_requireDepthTextures)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
 				{
 					stringBuilder.Append("Depth textures unsupported, ");
@@ -159,15 +101,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			flag = !operatingSystem.ToLower().StartsWith("windows");
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				try
 				{
 					Regex regex = new Regex("[0-9]+\\.[0-9]+(\\.[0-9]+)*(\\.[0-9]+)*");
@@ -185,15 +118,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("Old OS ");
 				stringBuilder.Append(operatingSystem);
 				stringBuilder.Append("/");

@@ -74,10 +74,6 @@ public class GameBalanceVars
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return value > ValueToCompare;
 						}
 					}
@@ -182,10 +178,6 @@ public class GameBalanceVars
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -252,11 +244,6 @@ public class GameBalanceVars
 						}
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							return true;
 						}
 					}
@@ -289,45 +276,14 @@ public class GameBalanceVars
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				float num = 0f;
 				for (int j = 0; j < MinimumConditions[i].StatsToSum.Length; j++)
 				{
 					float? stat = StatSupplier.GetStat(MinimumConditions[i].StatsToSum[j]);
 					if (stat.HasValue)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += stat.Value;
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (MinimumConditions[i].DoesValueMeetConditions(num))
 				{
@@ -335,11 +291,6 @@ public class GameBalanceVars
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
@@ -703,19 +654,6 @@ public class GameBalanceVars
 			unlockData.UnlockConditions = null;
 			if (UnlockConditions != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				unlockData.UnlockConditions = new UnlockCondition[UnlockConditions.Length];
 				for (int i = 0; i < UnlockConditions.Length; i++)
 				{
@@ -724,15 +662,6 @@ public class GameBalanceVars
 					object obj;
 					if (UnlockConditions[i] != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = UnlockConditions[i].Clone();
 					}
 					else
@@ -741,28 +670,10 @@ public class GameBalanceVars
 					}
 					unlockConditions[num] = (UnlockCondition)obj;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			unlockData.VisibilityConditions = null;
 			if (VisibilityConditions != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				unlockData.VisibilityConditions = new UnlockCondition[VisibilityConditions.Length];
 				for (int j = 0; j < VisibilityConditions.Length; j++)
 				{
@@ -771,15 +682,6 @@ public class GameBalanceVars
 					object obj2;
 					if (VisibilityConditions[j] != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj2 = VisibilityConditions[j].Clone();
 					}
 					else
@@ -787,15 +689,6 @@ public class GameBalanceVars
 						obj2 = null;
 					}
 					visibilityConditions[num2] = (UnlockCondition)obj2;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			unlockData.PurchaseableConditions = null;
@@ -809,15 +702,6 @@ public class GameBalanceVars
 					object obj3;
 					if (PurchaseableConditions[k] != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj3 = PurchaseableConditions[k].Clone();
 					}
 					else
@@ -825,15 +709,6 @@ public class GameBalanceVars
 						obj3 = null;
 					}
 					purchaseableConditions[num3] = (UnlockCondition)obj3;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return unlockData;
@@ -844,32 +719,10 @@ public class GameBalanceVars
 			UnlockCondition[] array = null;
 			if (input != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				array = new UnlockCondition[input.Length];
 				for (int i = 0; i < input.Length; i++)
 				{
 					array[i] = ((input[i] == null) ? null : input[i].Clone());
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return array;
@@ -896,19 +749,6 @@ public class GameBalanceVars
 			UnlockCondition unlockCondition = (UnlockCondition)MemberwiseClone();
 			if (typeSpecificDate != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				unlockCondition.typeSpecificDate = new List<int>(typeSpecificDate);
 			}
 			return unlockCondition;
@@ -987,10 +827,6 @@ public class GameBalanceVars
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return StringUtil.TR_EmojiObtainedDescription(ID);
 					}
 				}
@@ -1083,10 +919,6 @@ public class GameBalanceVars
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						CharacterType index = (CharacterType)Index1;
 						return StringUtil.TR_CharacterPatternColorPurchaseDescription(index.ToString(), Index2 + 1, Index3 + 1, ID + 1);
 					}
@@ -1136,19 +968,6 @@ public class GameBalanceVars
 			other.Index3 = Index3;
 			if (m_unlockData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				other.m_unlockData = m_unlockData.Clone();
 			}
 			else
@@ -1253,52 +1072,12 @@ public class GameBalanceVars
 			string text = StringUtil.TR_PlayerTitle(ID);
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!text.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (text.IndexOf("[^level^]", StringComparison.OrdinalIgnoreCase) >= 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (titleLevel < 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							titleLevel = ClientGameManager.Get().GetCurrentTitleLevel(ID);
 						}
 						text = ReplaceLevelIntoTitle(text, titleLevel);
@@ -1316,33 +1095,11 @@ public class GameBalanceVars
 			int num2 = -1;
 			while ((num2 = title.IndexOf("[^level^]", StringComparison.OrdinalIgnoreCase)) >= 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (num < 100)
 				{
 					title = title.Substring(0, num2) + str + title.Substring(num2 + length);
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1552,46 +1309,15 @@ public class GameBalanceVars
 		{
 			if (m_CharProgressInfoWithRepeating != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_CharProgressInfoWithRepeating.Length == CharacterProgressInfo.Length + 1)
 				{
 					goto IL_0090;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_CharProgressInfoWithRepeating = new LevelProgressInfo[CharacterProgressInfo.Length + 1];
 			for (int i = 0; i < CharacterProgressInfo.Length; i++)
 			{
 				m_CharProgressInfoWithRepeating[i] = CharacterProgressInfo[i];
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_CharProgressInfoWithRepeating[CharacterProgressInfo.Length] = RepeatingCharacterProgressInfo;
 			goto IL_0090;
@@ -1627,10 +1353,6 @@ public class GameBalanceVars
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -1656,15 +1378,6 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return StatSettings[i].LowerIsBetter;
 			}
 		}
@@ -1679,30 +1392,8 @@ public class GameBalanceVars
 		num += gameBalanceVars.GGPackSelfISOBonus * selfUsedPack;
 		if (0 < numPacksUsed)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (numPacksUsed - 1 < gameBalanceVars.GGPackISOAdditionalBonus.Length)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += gameBalanceVars.GGPackISOAdditionalBonus[numPacksUsed - 1];
 			}
 		}
@@ -1724,15 +1415,6 @@ public class GameBalanceVars
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return (float)Math.Round(num, 1);
 		}
 	}
@@ -1741,19 +1423,6 @@ public class GameBalanceVars
 	{
 		if (this.characterUnlockData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterUnlockData[] array = this.characterUnlockData;
 			foreach (CharacterUnlockData characterUnlockData in array)
 			{
@@ -1763,22 +1432,8 @@ public class GameBalanceVars
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					return characterUnlockData;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -1788,31 +1443,9 @@ public class GameBalanceVars
 	{
 		if (currentLevel >= 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentLevel <= PlayerProgressInfo.Length)
 			{
 				return PlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new ArgumentException($"Current level {currentLevel} is outside the player level range {1}-{PlayerProgressInfo.Length}");
@@ -1829,10 +1462,6 @@ public class GameBalanceVars
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ArgumentException($"Attempting to access character experience less than 1");
 				}
 			}
@@ -1863,25 +1492,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return PlayerTitles[i].GetTitleText(titleLevel);
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return returnOnEmptyOverride;
 		}
 	}
@@ -1896,25 +1511,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return TitleLevelDefinitions[i].m_maxLevel;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return 0;
 		}
 	}
@@ -1929,25 +1530,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return ChatEmojis[i].ID;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return -1;
 		}
 	}
@@ -1963,15 +1550,6 @@ public class GameBalanceVars
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return -1;
 		}
 	}
@@ -1987,19 +1565,6 @@ public class GameBalanceVars
 					return GameResultBadgeData.Get().GameResultBadges[i];
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		for (int j = 0; j < GameResultBadges.Length; j++)
 		{
@@ -2009,21 +1574,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return GameResultBadges[j];
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -2039,15 +1594,6 @@ public class GameBalanceVars
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return returnOnEmptyOverride;
 		}
 	}
@@ -2062,25 +1608,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return ChatEmojis[i];
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -2091,19 +1623,6 @@ public class GameBalanceVars
 		string result;
 		if (banner != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = banner.GetBannerName();
 		}
 		else
@@ -2124,15 +1643,6 @@ public class GameBalanceVars
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return null;
 		}
 	}
@@ -2147,25 +1657,11 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return PlayerRibbons[i];
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -2180,15 +1676,6 @@ public class GameBalanceVars
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return LoadingScreenBackgrounds[i];
 			}
 		}
@@ -2235,19 +1722,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameRewardBucketType.FullVsHumanRewards)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)bucketType < GameRewardBuckets.Length)
 			{
 				while (true)
@@ -2269,19 +1743,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameRewardBucketType.FullVsHumanRewards)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)bucketType < GameRewardBuckets.Length)
 			{
 				return GameRewardBuckets[(int)bucketType].XPBonusPerMinute;
@@ -2294,19 +1755,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameRewardBucketType.FullVsHumanRewards)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)bucketType < GameRewardBuckets.Length)
 			{
 				return GameRewardBuckets[(int)bucketType].XPBonusPerMinuteCap;
@@ -2319,19 +1767,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameRewardBucketType.FullVsHumanRewards)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)bucketType < GameRewardBuckets.Length)
 			{
 				while (true)
@@ -2353,19 +1788,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameRewardBucketType.FullVsHumanRewards)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)bucketType < GameRewardBuckets.Length)
 			{
 				while (true)
@@ -2392,19 +1814,6 @@ public class GameBalanceVars
 	{
 		if (totalMinutes < 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			totalMinutes = 0f;
 		}
 		float val = GetXPBonusPerMinute(bucketType) * totalMinutes;
@@ -2421,19 +1830,6 @@ public class GameBalanceVars
 	{
 		if (totalMinutes < 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			totalMinutes = 0f;
 		}
 		float val = GetXPBonusPerQueueTimeMinute(bucketType) * totalMinutes;
@@ -2459,15 +1855,6 @@ public class GameBalanceVars
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (arrayOfIDs.Length <= 0)
 			{
 				return;
@@ -2477,25 +1864,11 @@ public class GameBalanceVars
 			{
 				if (arrayOfIDs[i].GetID() > num)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = arrayOfIDs[i].GetID();
 				}
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < arrayOfIDs.Length; j++)
 				{
 					if (arrayOfIDs[j].GetID() == 0)

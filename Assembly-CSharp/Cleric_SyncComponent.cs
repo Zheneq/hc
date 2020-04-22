@@ -37,30 +37,8 @@ public class Cleric_SyncComponent : NetworkBehaviour
 			ref int meleeKnockbackAnimRange = ref m_meleeKnockbackAnimRange;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					MeleeKnockbackAnimRangeChanged(value);
 					base.syncVarHookGuard = false;
@@ -79,35 +57,16 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(component.GetActorModelData() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (component.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						Animator modelAnimator = component.GetActorModelData().GetModelAnimator();
 						modelAnimator.SetInteger(animAttackRange, value);
 						return;
@@ -133,30 +92,8 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -164,15 +101,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -182,15 +110,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -215,15 +134,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MeleeKnockbackAnimRangeChanged((int)reader.ReadPackedUInt32());
 			return;
 		}

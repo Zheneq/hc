@@ -20,19 +20,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 			int result;
 			if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else
@@ -56,10 +43,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return '-';
 				}
 			}
@@ -90,19 +73,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 		object result;
 		if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = "absolute";
 		}
 		else
@@ -117,19 +87,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 		int gameTypeMode;
 		if (phase == BinaryModePhaseEnum.PRIMARY)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameTypeMode = 0;
 		}
 		else
@@ -164,38 +121,16 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0.5f;
 				}
 			}
 		}
 		if (gameResultFraction < 0.5f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameResultFraction = 0.5f;
 		}
 		else if (gameResultFraction > 1f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameResultFraction = 1f;
 		}
 		switch (gameResultAbsolute)
@@ -203,11 +138,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 		case GameResult.TeamAWon:
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (team == Team.TeamA)
 				{
 					while (true)
@@ -250,15 +180,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 						float result;
 						if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = 1f;
 						}
 						else
@@ -283,15 +204,6 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
 						float result2;
 						if (m_gameTypeMode == GameTypeMode.ABSOLUTE)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result2 = 0f;
 						}
 						else

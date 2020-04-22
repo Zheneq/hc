@@ -25,10 +25,6 @@ public class SlashCommand_GroupPromote : SlashCommand
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (r.LocalizedFailure != null)
 								{
 									r.ErrorMessage = r.LocalizedFailure.ToString();
@@ -46,19 +42,6 @@ public class SlashCommand_GroupPromote : SlashCommand
 					}
 				});
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

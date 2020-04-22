@@ -52,15 +52,6 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(button == null))
 			{
 				m_buttons.Add(button);
@@ -81,19 +72,6 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 		{
 			if (m_browserPanels[i] != panel)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_browserPanels[i], false);
 				m_buttons[i].SetSelected(false, false, string.Empty, string.Empty);
 			}
@@ -104,36 +82,13 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (panel == m_skinBrowserPanel)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
 				(panel as UISkinBrowserPanel).Setup(characterType, playerCharacterData.CharacterComponent.LastSkin);
 			}
 			else if (panel == m_generalBrowserPanel)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				(panel as UICharacterGeneralPanel).Setup(characterType);
 			}
 			else if (panel == m_modsBrowserPanel)
@@ -142,15 +97,6 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 			}
 			else if (panel == m_tauntBrowserPanel)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				(panel as UICharacterTauntsPanel).Setup(characterType);
 			}
 			UIManager.SetGameObjectActive(panel, true);
@@ -173,15 +119,6 @@ public class UICharacterBrowsersPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (visible)
 			{
 				while (true)

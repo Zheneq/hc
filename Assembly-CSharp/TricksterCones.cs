@@ -80,19 +80,6 @@ public class TricksterCones : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Trickster Cones";
 		}
 		Setup();
@@ -184,19 +171,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -207,15 +181,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedEnemyMultipleHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultipleHitEffect = m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
@@ -226,15 +191,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -245,15 +201,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedAllyMultipleHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyMultipleHitEffect = m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
@@ -264,15 +211,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -283,15 +221,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
@@ -302,15 +231,6 @@ public class TricksterCones : Ability
 		SpoilsSpawnData cachedSpoilSpawnInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnInfo = m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(m_spoilSpawnInfo);
 		}
 		else
@@ -325,19 +245,6 @@ public class TricksterCones : Ability
 		ConeTargetingInfo result;
 		if (m_cachedConeInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConeInfo;
 		}
 		else
@@ -352,19 +259,6 @@ public class TricksterCones : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -379,19 +273,6 @@ public class TricksterCones : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
@@ -406,19 +287,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -433,19 +301,6 @@ public class TricksterCones : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(m_useEnemyMultiHitEffect);
 		}
 		else
@@ -460,19 +315,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyMultipleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyMultipleHitEffect;
 		}
 		else
@@ -487,19 +329,6 @@ public class TricksterCones : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
@@ -519,19 +348,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -546,19 +362,6 @@ public class TricksterCones : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(m_useAllyMultiHitEffect);
 		}
 		else
@@ -573,19 +376,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyMultipleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyMultipleHitEffect;
 		}
 		else
@@ -600,19 +390,6 @@ public class TricksterCones : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
@@ -627,19 +404,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -654,19 +418,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -681,19 +432,6 @@ public class TricksterCones : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(m_cooldownReductionPerHitByClone);
 		}
 		else
@@ -718,19 +456,6 @@ public class TricksterCones : Ability
 		SpoilsSpawnData result;
 		if (m_cachedSpoilSpawnInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSpoilSpawnInfo;
 		}
 		else
@@ -745,19 +470,6 @@ public class TricksterCones : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -799,30 +511,8 @@ public class TricksterCones : Ability
 		ActorData actorData = base.ActorData;
 		if (abilityUtil_Targeter_TricksterCones != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityUtil_Targeter_TricksterCones.m_actorToHitCount.ContainsKey(targetActor))
 				{
 					int num = abilityUtil_Targeter_TricksterCones.m_actorToHitCount[targetActor];
@@ -848,19 +538,6 @@ public class TricksterCones : Ability
 		int val;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_TricksterCones.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -872,15 +549,6 @@ public class TricksterCones : Ability
 		int val2;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_TricksterCones.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
@@ -891,15 +559,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_TricksterCones.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -910,15 +569,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterCones.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
@@ -930,15 +580,6 @@ public class TricksterCones : Ability
 		int val3;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_TricksterCones.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
@@ -950,15 +591,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_TricksterCones.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -969,15 +601,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo4;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo4 = abilityMod_TricksterCones.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
@@ -989,15 +612,6 @@ public class TricksterCones : Ability
 		int val4;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_TricksterCones.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
@@ -1011,15 +625,6 @@ public class TricksterCones : Ability
 		int val5;
 		if ((bool)abilityMod_TricksterCones)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_TricksterCones.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(m_cooldownReductionPerHitByClone);
 		}
 		else
@@ -1037,15 +642,6 @@ public class TricksterCones : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_TricksterCones);
 			Setup();
 			return;
@@ -1068,30 +664,8 @@ public class TricksterCones : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_afterImageSyncComp.TurnToPosition(current, targetPos);
 						Animator modelAnimator = current.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -1120,30 +694,8 @@ public class TricksterCones : Ability
 		{
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.IsDead())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = item.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);

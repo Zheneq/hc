@@ -85,19 +85,6 @@ public class AsyncPump : SynchronizationContext
 	{
 		if (methodInfo == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			methodInfo = callback.Method;
 		}
 		Post(new AsyncDelegate(callback, state, methodInfo));
@@ -141,10 +128,6 @@ public class AsyncPump : SynchronizationContext
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("Cannot unschedule timers/delegates while the async pump is running");
 				}
 			}
@@ -164,10 +147,6 @@ public class AsyncPump : SynchronizationContext
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("This AsyncPump is already running");
 				}
 			}
@@ -188,15 +167,6 @@ public class AsyncPump : SynchronizationContext
 					int waitTime = GetWaitTime(maxMilliseconds);
 					if (waitTime != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Monitor.Wait(m_waitEvent, waitTime);
 					}
 					if (!IsRunning)
@@ -218,26 +188,8 @@ public class AsyncPump : SynchronizationContext
 				}
 				if (array.Length != 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ArtificalLatencyMilliseconds != 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Thread.Sleep(ArtificalLatencyMilliseconds);
 					}
 					long ticks = Now() - array[0].ScheduledTick;
@@ -247,43 +199,16 @@ public class AsyncPump : SynchronizationContext
 					{
 						if (num >= array.Length)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						ExecuteDelegate(array[num]);
 						if (m_break)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							lock (m_waitEvent)
 							{
 								for (int num2 = array.Length - 1; num2 > num; num2--)
 								{
 									m_queuedDelegates.AddFirst(array[num2]);
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							break;
@@ -353,19 +278,6 @@ public class AsyncPump : SynchronizationContext
 		{
 			if (!IsRunning)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = 0;
 			}
 			if (m_queuedDelegates.Count > 0)
@@ -413,15 +325,6 @@ public class AsyncPump : SynchronizationContext
 		}
 		if (num > maxMilliseconds)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = maxMilliseconds;
 		}
 		return num;
@@ -444,10 +347,6 @@ public class AsyncPump : SynchronizationContext
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -455,28 +354,10 @@ public class AsyncPump : SynchronizationContext
 				m_scheduledTimers.DeleteMin();
 				if (asyncTimer.IsScheduled)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_queuedDelegates.AddLast(asyncTimer.AsyncDelegate);
 					asyncTimer.Unschedule();
 					if (!asyncTimer.IsOneShot)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						asyncTimer.Schedule();
 					}
 				}
@@ -512,30 +393,8 @@ public class AsyncPump : SynchronizationContext
 			m_profilingTimer.Stop();
 			if (asyncDelegate.MethodInfo == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_currentMethodName != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ProfilingTimers.Get().OnMethodExecuted(m_currentMethodName, m_profilingTimer.ElapsedTicks);
 					goto IL_00b7;
 				}

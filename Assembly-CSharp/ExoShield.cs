@@ -54,19 +54,6 @@ public class ExoShield : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Exo Shield";
 		}
 		Setup();
@@ -89,19 +76,6 @@ public class ExoShield : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored)
 			{
 				while (true)
@@ -129,19 +103,6 @@ public class ExoShield : Ability
 		StandardActorEffectData result;
 		if (m_cachedAbsorbEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAbsorbEffect;
 		}
 		else
@@ -156,19 +117,6 @@ public class ExoShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraAbsorbIfSiegingMod.GetModifiedValue(m_extraAbsorbIfSieging);
 		}
 		else
@@ -183,19 +131,6 @@ public class ExoShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfShieldNotUsedMod.GetModifiedValue(m_cdrIfShieldNotUsed);
 		}
 		else
@@ -210,19 +145,6 @@ public class ExoShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldLostPerEnergyGainMod.GetModifiedValue(m_shieldLostPerEnergyGain);
 		}
 		else
@@ -237,19 +159,6 @@ public class ExoShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxShieldLostForEnergyGainMod.GetModifiedValue(m_maxShieldLostForEnergyGain);
 		}
 		else
@@ -264,19 +173,6 @@ public class ExoShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTechPointsCostMod.GetModifiedValue(m_maxTechPointsCost);
 		}
 		else
@@ -296,19 +192,6 @@ public class ExoShield : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_freeActionWhileAnchoredMod.GetModifiedValue(m_freeActionWhileAnchored);
 		}
 		else
@@ -323,19 +206,6 @@ public class ExoShield : Ability
 		AbilityAreaShape result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targeterShapeMod.GetModifiedValue(m_targeterShape);
 		}
 		else
@@ -350,19 +220,6 @@ public class ExoShield : Ability
 		int num;
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (m_syncComponent.m_anchored ? 1 : 0);
 		}
 		else
@@ -378,19 +235,6 @@ public class ExoShield : Ability
 	{
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.GetAbilityData() != null)
 			{
 				return caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
@@ -410,10 +254,6 @@ public class ExoShield : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredTechPointToAbsorbConversionRate;
 				}
 			}
@@ -432,10 +272,6 @@ public class ExoShield : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredRemainingAbsorbToTechPointConversionRate;
 				}
 			}
@@ -454,10 +290,6 @@ public class ExoShield : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Mathf.Min(GetMaxTechPointsCost(), caster.TechPoints);
 				}
 			}
@@ -476,19 +308,6 @@ public class ExoShield : Ability
 		GetAbsorbEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		if (m_enableTechPointToAbsorbConversion)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 100);
 			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Self, -100);
 		}
@@ -505,56 +324,16 @@ public class ExoShield : Ability
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = GetAbsorbEffect().m_absorbAmount;
 			if (m_enableTechPointToAbsorbConversion)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, -GetTechPointForShieldConversion(targetActor), AbilityTooltipSymbol.Energy);
 				num = GetAbsorbForEnergyToAbsorbConversion(targetActor, WillBeAnchoredDuringCombat());
 			}
 			if (GetExtraAbsorbIfSieging() > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsSiegingThisTurn(base.ActorData))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraAbsorbIfSieging();
 				}
 			}
@@ -569,19 +348,6 @@ public class ExoShield : Ability
 		StandardActorEffectData standardActorEffectData;
 		if ((bool)abilityMod_ExoShield)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardActorEffectData = abilityMod_ExoShield.m_absorbEffectMod.GetModifiedValue(m_absorbEffect);
 		}
 		else
@@ -595,15 +361,6 @@ public class ExoShield : Ability
 		int val;
 		if ((bool)abilityMod_ExoShield)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_ExoShield.m_cdrIfShieldNotUsedMod.GetModifiedValue(m_cdrIfShieldNotUsed);
 		}
 		else
@@ -615,15 +372,6 @@ public class ExoShield : Ability
 		int val2;
 		if ((bool)abilityMod_ExoShield)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ExoShield.m_shieldLostPerEnergyGainMod.GetModifiedValue(m_shieldLostPerEnergyGain);
 		}
 		else
@@ -636,15 +384,6 @@ public class ExoShield : Ability
 		int val3;
 		if ((bool)abilityMod_ExoShield)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ExoShield.m_maxTechPointsCostMod.GetModifiedValue(m_maxTechPointsCost);
 		}
 		else
@@ -656,15 +395,6 @@ public class ExoShield : Ability
 		int val4;
 		if ((bool)abilityMod_ExoShield)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ExoShield.m_minTechPointsForCastMod.GetModifiedValue(m_minTechPointsForCast);
 		}
 		else
@@ -691,10 +421,6 @@ public class ExoShield : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return caster.TechPoints > GetMinTechPointsForCast();
 				}
 			}
@@ -711,30 +437,8 @@ public class ExoShield : Ability
 		int result;
 		if (m_freeActionWhileAnchored)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (m_syncComponent.m_anchored ? 1 : 0);
 				goto IL_004d;
 			}
@@ -753,15 +457,6 @@ public class ExoShield : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ExoShield);
 			Setup();
 			return;

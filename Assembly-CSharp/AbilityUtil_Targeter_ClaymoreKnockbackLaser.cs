@@ -66,10 +66,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_00e7;
 				}
 			}
@@ -92,41 +88,14 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		SetMovementArrowEnabledFromIndex(num3, false);
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count >= 2)
 			{
 				goto IL_0284;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -141,15 +110,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			float num4;
 			if (i == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num;
 			}
 			else
@@ -163,11 +123,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			DrawInvalidSquareIndicators(currentTarget, targetingActor, laserCoords2.start, laserCoords2.end);
 			return;
 		}
@@ -181,15 +136,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			float widthInSquares = Mathf.Max(m_laserWidth, m_laserMiddleWidth);
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, startPos, endPos, widthInSquares, targetingActor, m_penetrateLos);

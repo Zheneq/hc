@@ -17,15 +17,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplaceVFXPrefab);
 			return;
 		}
@@ -44,15 +35,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_prefabInstantiated = InstantiatePrefab();
 			return;
 		}
@@ -63,59 +45,19 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		bool flag = false;
 		if (m_prefab == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_prefab = m_prefabLink.GetPrefab(true);
 		}
 		if (m_prefab != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = Object.Instantiate(m_prefab);
 			if (gameObject != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject.transform.parent = base.transform;
 				gameObject.transform.localPosition = Vector3.zero;
 				gameObject.transform.localRotation = Quaternion.identity;
 				flag = true;
 				if (!Application.isPlaying)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.name = $"{gameObject.name}_DoNotEdit_AutoCreatedByParentReplaceableVFXPrefab";
 				}
 			}
@@ -124,28 +66,10 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		{
 			if (Application.isPlaying)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object[] array = new object[1];
 				object obj;
 				if (m_prefabLink == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "NULL";
 				}
 				else
@@ -161,15 +85,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 				object obj2;
 				if (m_prefabLink == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = "NULL";
 				}
 				else
@@ -196,19 +111,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		PrefabResourceLink prefabLink = m_prefabLink;
 		if (this != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.transform != null)
 			{
 				while (true)
@@ -222,15 +124,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 						GameEventManager.ReplaceVFXPrefab replaceVFXPrefab = (GameEventManager.ReplaceVFXPrefab)args;
 						if (!m_prefabInstantiated && replaceVFXPrefab != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (replaceVFXPrefab.vfxRoot != null && replaceVFXPrefab.vfxRoot == base.transform.root)
 							{
 								while (true)
@@ -243,15 +136,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 										prefabLink = replaceVFXPrefab.characterResourceLink.ReplacePrefabResourceLink(prefabLink, replaceVFXPrefab.characterVisualInfo);
 										if (prefabLink != null)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_prefab = prefabLink.GetPrefab();
 										}
 										m_prefabInstantiated = InstantiatePrefab();
@@ -273,28 +157,10 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 									string text;
 									if (base.transform.parent != null)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = base.transform.parent.name;
 									}
 									else if (m_prefabLink != null)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = m_prefabLink.ToString();
 									}
 									else

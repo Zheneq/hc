@@ -16,30 +16,8 @@ public class RobotAnimalStealth : Ability
 	{
 		if (m_useCharge)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetNumTargets() == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Robot Animal Stealth cannot use charge if there is no targeter targets specified");
 				m_useCharge = false;
 			}
@@ -58,10 +36,6 @@ public class RobotAnimalStealth : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Mathf.Clamp(GetNumTargets(), 1, 2);
 				}
 			}
@@ -91,33 +65,11 @@ public class RobotAnimalStealth : Ability
 						break;
 					default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 							if (boardSquareSafe != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquareSafe.IsBaselineHeight())
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = ((KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null) ? 1 : 0);
 									goto IL_0073;
 								}
@@ -134,26 +86,8 @@ public class RobotAnimalStealth : Ability
 			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe3 != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 != boardSquareSafe3)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe3.IsBaselineHeight() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
 					{
 						while (true)
@@ -191,10 +125,6 @@ public class RobotAnimalStealth : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (GetExpectedNumberOfTargeters() < 2)
 					{
 						while (true)
@@ -253,19 +183,6 @@ public class RobotAnimalStealth : Ability
 				result = m_abilityMod.m_selfEffectOverride.m_effectData;
 				goto IL_004b;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		result = m_selfEffect;
 		goto IL_004b;
@@ -288,19 +205,6 @@ public class RobotAnimalStealth : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -315,32 +219,10 @@ public class RobotAnimalStealth : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_useCharge ? 1 : 0);
 		}
 		else if (GetNumTargets() > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((m_abilityMod.m_useChainAbilityOverrides && m_abilityMod.m_chainAbilityOverrides.Length > 0) ? 1 : 0);
 		}
 		else

@@ -43,15 +43,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserDamageMod, "PrimaryDamage", string.Empty, spaceMarineHandCannon.m_primaryDamage);
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "PrimaryWidth", string.Empty, spaceMarineHandCannon.m_primaryWidth);
 			AbilityMod.AddToken(tokens, m_laserLengthMod, "PrimaryLength", string.Empty, spaceMarineHandCannon.m_primaryLength);
@@ -60,26 +51,12 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, spaceMarineHandCannon.m_coneLength);
 			if (m_useLaserHitEffectOverride)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffectOverride, "EffectOnLaserTarget", spaceMarineHandCannon.m_effectInfoOnPrimaryTarget);
 			}
 			if (m_useConeHitEffectOverride)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AbilityMod.AddToken_EffectInfo(tokens, m_coneHitEffectOverride, "EffectInfoOnConeTargets", spaceMarineHandCannon.m_effectInfoOnConeTargets);
 					return;
 				}
@@ -98,19 +75,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = spaceMarineHandCannon.m_primaryDamage;
 		}
 		else
@@ -123,15 +87,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineHandCannon.m_coneDamage;
 		}
 		else
@@ -144,15 +99,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarineHandCannon.m_primaryLength;
 		}
 		else
@@ -165,15 +111,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = spaceMarineHandCannon.m_primaryWidth;
 		}
 		else
@@ -187,15 +124,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = spaceMarineHandCannon.m_coneWidthAngle;
 		}
 		else
@@ -208,15 +136,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = spaceMarineHandCannon.m_coneLength;
 		}
 		else
@@ -226,30 +145,12 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		empty = str6 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, "[Cone Length]", flag, baseVal6);
 		if (m_useLaserHitEffectOverride)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str7 = empty;
 			StandardEffectInfo laserHitEffectOverride = m_laserHitEffectOverride;
 			string empty2 = string.Empty;
 			object baseVal7;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal7 = spaceMarineHandCannon.m_effectInfoOnPrimaryTarget;
 			}
 			else
@@ -266,15 +167,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 			object baseVal8;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal8 = spaceMarineHandCannon.m_effectInfoOnConeTargets;
 			}
 			else

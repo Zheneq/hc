@@ -554,19 +554,6 @@ public class DeathData
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new DeathData();
 			s_instance.Initialize();
 		}
@@ -586,19 +573,6 @@ public class DeathData
 			m_deathsAtSquare[rawData[i], rawData[i + 1]] = rawData[i + 2];
 			if (rawData[i + 2] > m_maxDeaths)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_maxDeaths = rawData[i + 2];
 			}
 		}

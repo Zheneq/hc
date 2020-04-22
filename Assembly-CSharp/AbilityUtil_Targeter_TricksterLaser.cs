@@ -51,26 +51,12 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count != m_maxLasers * 2)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = m_maxLasers; i < m_highlights.Count; i++)
 				{
 					m_highlights[i].SetActive(false);
@@ -86,31 +72,9 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= m_maxLasers * 2)
 			{
 				goto IL_00e2;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -118,43 +82,16 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f));
 		}
-		while (true)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < m_maxLasers; j++)
 		{
 			GameObject item = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, 0.3f, true, Color.cyan);
 			m_highlights.Add(item);
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_00e2;
 		IL_00e2:
 		int num;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((GameFlowData.Get().activeOwnedActorData == targetingActor) ? 1 : 0);
 		}
 		else
@@ -198,15 +135,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			VectorUtils.LaserCoords laserCoords2 = laserCoords;
 			if (actorsInLaser.Contains(targetingActor))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInLaser.Remove(targetingActor);
 			}
 			using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
@@ -227,15 +155,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						int num3;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = 1;
 						}
 						else
@@ -245,26 +164,8 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						dictionary2[key2] = num2 + num3;
 						if (actorCover != null && !actorCover.IsInCoverWrt(dictionary[current]))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorCover.IsInCoverWrt(laserCoords2.start))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								dictionary[current] = laserCoords2.start;
 							}
 						}
@@ -276,15 +177,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						int value;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = 1;
 						}
 						else
@@ -294,15 +186,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						actorToCoverCount2[current] = value;
 						dictionary[current] = laserCoords2.start;
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (m_affectsTargetingActor)
@@ -321,15 +204,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			Color color;
 			if (actorsInLaser.Count > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = Color.red;
 			}
 			else
@@ -340,26 +214,8 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_highlights[m_maxLasers + l], magnitude / Board.Get().squareSize, color2);
 			if (l == list.Count - 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (l < m_squarePosCheckerList.Count - 1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int m = l; m < m_squarePosCheckerList.Count; m++)
 					{
 						SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[m] as SquareInsideChecker_Box;
@@ -378,15 +234,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			{
 				AddActorInRange(key3, item2.Value, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
 		{
@@ -394,23 +241,9 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			ResetSquareIndicatorIndexToUse();
 			for (int num4 = 0; num4 < list.Count; num4++)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num4 < m_maxLasers)
 				{
 					OperationOnSquare_TurnOnHiddenSquareIndicator indicatorHandler = m_indicatorHandler;
@@ -419,15 +252,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 					VectorUtils.LaserCoords laserCoords4 = list2[num4];
 					AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(indicatorHandler, start, laserCoords4.end, m_width, targetingActor, m_penetrateLoS, null, m_squarePosCheckerList);
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

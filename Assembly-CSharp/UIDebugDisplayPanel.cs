@@ -14,19 +14,6 @@ public class UIDebugDisplayPanel : MonoBehaviour
 	{
 		if (m_fpsDisplay != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fpsDisplay.gameObject.SetActive(false);
 		}
 		ClearDebugDisplay();
@@ -40,26 +27,8 @@ public class UIDebugDisplayPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleFPS))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fpsDisplay.gameObject.SetActive(!m_fpsDisplay.gameObject.activeSelf);
 			}
 			if (m_fpsDisplay.gameObject.activeSelf)
@@ -83,15 +52,6 @@ public class UIDebugDisplayPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_debugDisplay.gameObject.SetActive(true);
 			m_debugDisplay.text = displayStr;
 			return;
@@ -106,15 +66,6 @@ public class UIDebugDisplayPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_debugDisplay.gameObject.SetActive(false);
 			return;
 		}
@@ -125,74 +76,16 @@ public class UIDebugDisplayPanel : MonoBehaviour
 		string text = $"{fps:F2} FPS";
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkServer.active && NetworkClient.allClients != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkClient.allClients[0] != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (NetworkClient.allClients[0].connection != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (NetworkClient.allClients[0].isConnected)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!NetworkClient.allClients[0].isExternalNetworkConnection)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								byte error;
 								int currentRTT = NetworkTransport.GetCurrentRTT(NetworkClient.allClients[0].connection.hostId, NetworkClient.allClients[0].connection.connectionId, out error);
 								string str = $"\n\n {currentRTT} ms RTT";

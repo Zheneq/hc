@@ -49,15 +49,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_minLengthMod, "MinLength", string.Empty, blasterKnockbackCone.m_minLength);
 			AbilityMod.AddToken(tokens, m_maxLengthMod, "MaxLength", string.Empty, blasterKnockbackCone.m_maxLength);
 			AbilityMod.AddToken(tokens, m_minAngleMod, "MinAngle", string.Empty, blasterKnockbackCone.m_minAngle);
@@ -84,19 +75,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = blasterKnockbackCone.m_maxLength;
 		}
 		else
@@ -109,15 +87,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = blasterKnockbackCone.m_minAngle;
 		}
 		else
@@ -131,15 +100,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = blasterKnockbackCone.m_coneBackwardOffset;
 		}
 		else
@@ -153,15 +113,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = blasterKnockbackCone.m_damageAmountNormal;
 		}
 		else
@@ -175,15 +126,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = blasterKnockbackCone.m_enemyEffectOvercharged;
 		}
 		else
@@ -196,15 +138,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = blasterKnockbackCone.m_knockbackDistance;
 		}
 		else
@@ -218,15 +151,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = blasterKnockbackCone.m_knockbackDistanceOnSelf;
 		}
 		else
@@ -239,15 +163,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (blasterKnockbackCone.m_overchargeAsFreeActionAfterCast ? 1 : 0);
 		}
 		else

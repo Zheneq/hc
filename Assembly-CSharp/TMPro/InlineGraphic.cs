@@ -26,10 +26,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return Graphic.s_WhiteTexture;
 						}
 					}
@@ -55,15 +51,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_manager.spriteAsset != null)
 				{
 					texture = m_manager.spriteAsset.spriteSheet;
@@ -85,19 +72,6 @@ namespace TMPro
 		{
 			if (m_RectTransform == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_RectTransform = base.gameObject.GetComponent<RectTransform>();
 			}
 			if (m_ParentRectTransform == null)
@@ -110,11 +84,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_RectTransform.pivot = m_ParentRectTransform.pivot;
 				return;
 			}

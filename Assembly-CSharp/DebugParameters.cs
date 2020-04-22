@@ -52,10 +52,6 @@ public class DebugParameters
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_parameters[key];
 				}
 			}
@@ -74,10 +70,6 @@ public class DebugParameters
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Convert.ToSingle(m_parameters[key]);
 				}
 			}
@@ -96,10 +88,6 @@ public class DebugParameters
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Convert.ToInt32(m_parameters[key]) == 1;
 				}
 			}
@@ -118,10 +106,6 @@ public class DebugParameters
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Convert.ToInt32(m_parameters[key]);
 				}
 			}
@@ -140,10 +124,6 @@ public class DebugParameters
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (T)Convert.ChangeType(m_parameters[key], typeof(T));
 				}
 			}

@@ -17,19 +17,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 			int result;
 			if (m_isInGeneralMode)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else
@@ -59,10 +46,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 'S';
 				}
 			}
@@ -75,19 +58,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 		int result;
 		if (m_isInGeneralMode)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 48;
 		}
 		else
@@ -108,10 +78,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return "ignore";
 				}
 			}
@@ -153,15 +119,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			throw new Exception("Illegal group size");
 		}
 	}

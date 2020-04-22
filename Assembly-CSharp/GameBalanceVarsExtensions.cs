@@ -27,30 +27,12 @@ public static class GameBalanceVarsExtensions
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		case GameBalanceVars.UnlockData.UnlockType.CharacterLevel:
 			if (unlockCondition.typeSpecificData == unlockConditionValue.typeSpecificData && unlockCondition.typeSpecificData2 != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCondition.typeSpecificData2 <= unlockConditionValue.typeSpecificData2)
 				{
 					return true;
@@ -66,37 +48,10 @@ public static class GameBalanceVarsExtensions
 		case GameBalanceVars.UnlockData.UnlockType.Purchase:
 			if (unlockCondition.typeSpecificData <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCondition.typeSpecificData2 <= 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockCondition.typeSpecificData3 <= 0)
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 				}
@@ -105,26 +60,8 @@ public static class GameBalanceVarsExtensions
 			{
 				break;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (unlockCondition.typeSpecificData2 > unlockConditionValue.typeSpecificData2)
 			{
-				break;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				break;
 			}
 			if (unlockCondition.typeSpecificData3 > unlockConditionValue.typeSpecificData3)
@@ -133,11 +70,6 @@ public static class GameBalanceVarsExtensions
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		case GameBalanceVars.UnlockData.UnlockType.ELO:
@@ -151,39 +83,12 @@ public static class GameBalanceVarsExtensions
 			{
 				break;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (unlockCondition.typeSpecificData != unlockConditionValue.typeSpecificData)
 			{
 				break;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (unlockCondition.typeSpecificData2 == unlockConditionValue.typeSpecificData2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCondition.typeSpecificData3 != 0 && unlockCondition.typeSpecificData3 <= unlockConditionValue.typeSpecificData3)
 				{
 					return true;
@@ -198,26 +103,8 @@ public static class GameBalanceVarsExtensions
 			{
 				break;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (typeSpecificData2 != unlockConditionValue.typeSpecificData)
 			{
-				break;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				break;
 			}
 			if (typeSpecificData3 > unlockConditionValue.typeSpecificData2)
@@ -226,11 +113,6 @@ public static class GameBalanceVarsExtensions
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -261,19 +143,6 @@ public static class GameBalanceVarsExtensions
 				unlockConditionValue.typeSpecificString = typeSpecificString;
 				return IsUnlockConditionMet(unlockCondition, unlockConditionValue);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return false;
 	}
@@ -289,10 +158,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -310,26 +175,8 @@ public static class GameBalanceVarsExtensions
 				{
 					if (!ignoreUnlockTypes.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ignoreUnlockTypes.Contains(unlockData.PurchaseableConditions[j].ConditionType))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list[j] = true;
 							continue;
 						}
@@ -363,15 +210,6 @@ public static class GameBalanceVarsExtensions
 				LogicOpClass logicOpClass = LogicStatement.EvaluateLogicStatement(unlockData.PurchaseableLogicStatement);
 				return logicOpClass.GetValue(list);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -381,19 +219,6 @@ public static class GameBalanceVarsExtensions
 		List<GameBalanceVars.UnlockConditionValue> list = new List<GameBalanceVars.UnlockConditionValue>();
 		if (unlockable != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (unlockable.m_unlockData != null)
 			{
 				if (unlockable.m_unlockData.PurchaseableConditions.IsNullOrEmpty())
@@ -418,11 +243,6 @@ public static class GameBalanceVarsExtensions
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					for (int j = 0; j < unlockable.m_unlockData.PurchaseableConditions.Length; j++)
 					{
 						GameBalanceVars.UnlockCondition unlockCondition = unlockable.m_unlockData.PurchaseableConditions[j];
@@ -477,24 +297,10 @@ public static class GameBalanceVarsExtensions
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						List<GameBalanceVars.UnlockData.UnlockType> ignoreUnlockTypes = new List<GameBalanceVars.UnlockData.UnlockType>();
 						return unlockable.m_unlockData.ArePurchaseableConditionsMet(list, ignoreUnlockTypes);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -505,19 +311,6 @@ public static class GameBalanceVarsExtensions
 		List<GameBalanceVars.UnlockConditionValue> list = new List<GameBalanceVars.UnlockConditionValue>();
 		if (unlockable != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (unlockable.m_unlockData != null)
 			{
 				if (unlockable.m_unlockData.VisibilityConditions.IsNullOrEmpty())
@@ -542,11 +335,6 @@ public static class GameBalanceVarsExtensions
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					for (int j = 0; j < unlockable.m_unlockData.VisibilityConditions.Length; j++)
 					{
 						GameBalanceVars.UnlockCondition unlockCondition = unlockable.m_unlockData.VisibilityConditions[j];
@@ -558,15 +346,6 @@ public static class GameBalanceVarsExtensions
 							PersistedCharacterData persistedCharacterData = ClientGameManager.Get().GetAllPlayerCharacterData().TryGetValue((CharacterType)unlockCondition.typeSpecificData);
 							if (persistedCharacterData != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								unlockConditionValue.typeSpecificData = unlockCondition.typeSpecificData;
 								unlockConditionValue.typeSpecificData2 = persistedCharacterData.ExperienceComponent.Level;
 							}
@@ -590,15 +369,6 @@ public static class GameBalanceVarsExtensions
 							unlockConditionValue.typeSpecificData2 = unlockCondition.typeSpecificData2;
 							if (clientGameManager.ActiveFactionCompetition == unlockCondition.typeSpecificData && clientGameManager.FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out long value))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								unlockConditionValue.typeSpecificData3 = factionWideData.GetCompetitionFactionTierReached(unlockCondition.typeSpecificData, unlockCondition.typeSpecificData2, value);
 							}
 							break;
@@ -619,24 +389,10 @@ public static class GameBalanceVarsExtensions
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						List<GameBalanceVars.UnlockData.UnlockType> ignoreUnlockTypes = new List<GameBalanceVars.UnlockData.UnlockType>();
 						return unlockable.m_unlockData.AreVisibilityConditionsMet(list, ignoreUnlockTypes);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -653,10 +409,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -698,15 +450,6 @@ public static class GameBalanceVarsExtensions
 						{
 							if (!enumerator.Current)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 							}
 						}
@@ -740,25 +483,12 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
 		}
 		if (!unlockConditionValues.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (unlockData.UnlockConditions.Length == unlockConditionValues.Count)
 			{
 				List<bool> list = new List<bool>(unlockData.UnlockConditions.Length);
@@ -768,11 +498,6 @@ public static class GameBalanceVarsExtensions
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					for (int j = 0; j < unlockData.UnlockConditions.Length; j++)
 					{
 						if (!ignoreUnlockTypes.IsNullOrEmpty() && ignoreUnlockTypes.Contains(unlockData.UnlockConditions[j].ConditionType))
@@ -786,11 +511,6 @@ public static class GameBalanceVarsExtensions
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						if (unlockData.LogicStatement.IsNullOrEmpty())
 						{
 							while (true)
@@ -808,15 +528,6 @@ public static class GameBalanceVarsExtensions
 										{
 											if (!enumerator.Current)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												result = false;
 											}
 										}
@@ -840,15 +551,6 @@ public static class GameBalanceVarsExtensions
 					}
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -864,10 +566,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -875,15 +573,6 @@ public static class GameBalanceVarsExtensions
 		List<GameBalanceVars.UnlockData.UnlockType> list = new List<GameBalanceVars.UnlockData.UnlockType>();
 		if (ignorePurchaseCondition)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(GameBalanceVars.UnlockData.UnlockType.Purchase);
 		}
 		return unlockData.AreUnlockConditionsMet(unlockConditionValues, list);
@@ -894,19 +583,6 @@ public static class GameBalanceVarsExtensions
 		GameBalanceVars.UnlockData unlockData = playerUnlockable.m_unlockData;
 		if (unlockData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!unlockData.UnlockConditions.IsNullOrEmpty())
 			{
 				GameBalanceVars.UnlockCondition[] unlockConditions = unlockData.UnlockConditions;
@@ -918,24 +594,10 @@ public static class GameBalanceVarsExtensions
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						return (CharacterType)unlockCondition.typeSpecificData;
 					}
 				}
 				return CharacterType.None;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return CharacterType.None;
@@ -946,19 +608,6 @@ public static class GameBalanceVarsExtensions
 		GameBalanceVars.UnlockData unlockData = playerUnlockable.m_unlockData;
 		if (unlockData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!unlockData.UnlockConditions.IsNullOrEmpty())
 			{
 				GameBalanceVars.UnlockCondition[] unlockConditions = unlockData.UnlockConditions;
@@ -971,15 +620,6 @@ public static class GameBalanceVarsExtensions
 				}
 				return 0;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return 0;
 	}
@@ -989,19 +629,6 @@ public static class GameBalanceVarsExtensions
 		GameBalanceVars.UnlockData unlockData = playerUnlockable.m_unlockData;
 		if (unlockData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!unlockData.UnlockConditions.IsNullOrEmpty())
 			{
 				if (unlockData.UnlockConditions.Length != 1)
@@ -1024,47 +651,19 @@ public static class GameBalanceVarsExtensions
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockCondition.typeSpecificData != (int)characterType)
 					{
 						continue;
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						return unlockCondition.typeSpecificData2;
 					}
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					return 0;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return 0;
@@ -1086,28 +685,10 @@ public static class GameBalanceVarsExtensions
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						return unlockCondition.typeSpecificData2;
 					}
 				}
 				return 0;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return 0;
@@ -1129,25 +710,11 @@ public static class GameBalanceVarsExtensions
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return unlockCondition.typeSpecificData;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return 0;
 		}
 	}
@@ -1157,19 +724,6 @@ public static class GameBalanceVarsExtensions
 		GameBalanceVars.UnlockData unlockData = playerUnlockable.m_unlockData;
 		if (unlockData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!unlockData.UnlockConditions.IsNullOrEmpty())
 			{
 				GameBalanceVars.UnlockCondition[] unlockConditions = unlockData.UnlockConditions;
@@ -1182,22 +736,8 @@ public static class GameBalanceVarsExtensions
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return 0;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return 0;
@@ -1214,10 +754,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return playerUnlockable.Prices.GetPrice(HydrogenConfig.Get().Ticket.AccountCurrency);
 				}
 			}
@@ -1255,10 +791,6 @@ public static class GameBalanceVarsExtensions
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(unlockable.ID);
 					List<GameBalanceVars.UnlockConditionValue> unlockConditionValues;
 					return ClientGameManager.Get().IsBannerUnlocked(banner, out unlockConditionValues);
@@ -1358,26 +890,8 @@ public static class GameBalanceVarsExtensions
 						PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData((CharacterType)unlockable.Index1);
 						if (playerCharacterData != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!playerCharacterData.CharacterComponent.IsModUnlocked(unlockable.Index2, unlockable.ID))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!GameManager.Get().GameplayOverrides.EnableAllMods)
 								{
 									result = false;
@@ -1495,10 +1009,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -1511,15 +1021,6 @@ public static class GameBalanceVarsExtensions
 				if (!banner.m_iconResourceString.IsNullOrEmpty())
 				{
 					return banner.m_iconResourceString;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return "Banners/Background/02_blue";
@@ -1551,29 +1052,11 @@ public static class GameBalanceVarsExtensions
 				{
 					if (UIOverconData.Get().m_nameToOverconEntry[num].m_overconId == unlockable.ID)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						nameToOverconEntry = UIOverconData.Get().m_nameToOverconEntry[num];
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1811,10 +1294,6 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -1823,15 +1302,6 @@ public static class GameBalanceVarsExtensions
 		AbilityData.ActionType actionType;
 		if (unlockable is GameBalanceVars.TauntUnlockData)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)unlockable.Index1);
 			component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 			actionType = characterResourceLink.m_taunts[unlockable.ID].m_actionForTaunt;
@@ -1840,27 +1310,9 @@ public static class GameBalanceVarsExtensions
 		{
 			if (!(unlockable is GameBalanceVars.AbilityVfxUnlockData))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(unlockable is GameBalanceVars.AbilityModUnlockData))
 				{
 					return null;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)unlockable.Index1);

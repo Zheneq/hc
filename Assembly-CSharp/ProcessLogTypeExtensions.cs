@@ -11,10 +11,6 @@ public static class ProcessLogTypeExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return "log";
 				}
 			}
@@ -26,11 +22,6 @@ public static class ProcessLogTypeExtensions
 		case ProcessLogType.OutputLog:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return "stdout.log";
 			}
 		default:

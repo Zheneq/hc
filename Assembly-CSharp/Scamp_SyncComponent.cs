@@ -134,19 +134,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		m_actor = GetComponent<ActorData>();
 		if (m_actor != null && m_actor.GetModelAnimator() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actor.GetModelAnimator().SetInteger(m_suitActiveAnimHash, 1);
 		}
 		AbilityData component = GetComponent<AbilityData>();
@@ -179,32 +166,10 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	{
 		if (m_sideLasersAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_sideLasersAbility.ResetTargetersForShielding(hasShielding);
 		}
 		if (m_dashAoeAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_dashAoeAbility.ResetTargetersForShielding(hasShielding);
 		}
 		if (m_meetingLasersAbility != null)
@@ -227,29 +192,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Animator modelAnimator = m_actor.GetModelAnimator();
 			int suitActiveAnimHash = m_suitActiveAnimHash;
 			int value;
 			if (activeNow)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1;
 			}
 			else
@@ -276,24 +223,10 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_shieldRemoveAnimIndex > 0)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					modelAnimator.SetInteger(s_aHashAttack, m_shieldRemoveAnimIndex);
 					modelAnimator.SetInteger(s_aHashIdleType, 0);
 					modelAnimator.SetBool(s_aHashCinematicCam, false);
@@ -327,19 +260,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		int result;
 		if (m_vfxController != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_vfxController.IsSuitVisuallyShown() ? 1 : 0);
 		}
 		else
@@ -364,10 +284,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcResetTargetersForSuitMode called on server.");
 					return;
 				}
@@ -387,10 +303,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetAnimParamForSuit called on server.");
 					return;
 				}
@@ -410,10 +322,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcPlayShieldRemoveAnim called on server.");
 					return;
 				}
@@ -445,10 +353,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcResetTargetersForSuitMode called on client.");
 					return;
 				}
@@ -474,10 +378,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetAnimParamForSuit called on client.");
 					return;
 				}
@@ -518,10 +418,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcResetAttackParam called on client.");
 					return;
 				}
@@ -546,10 +442,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.Write(m_suitWasActiveOnTurnStart);
 					writer.Write(m_suitActive);
 					writer.WritePackedUInt32(m_suitShieldingOnTurnStart);
@@ -561,15 +453,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -579,26 +462,8 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -615,26 +480,8 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -642,15 +489,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -667,10 +505,6 @@ public class Scamp_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_suitWasActiveOnTurnStart = reader.ReadBoolean();
 					m_suitActive = reader.ReadBoolean();
 					m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
@@ -682,41 +516,14 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_suitWasActiveOnTurnStart = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_suitActive = reader.ReadBoolean();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_suitShieldingOnTurnStart = reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)

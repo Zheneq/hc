@@ -35,19 +35,6 @@ public class ArcherHealingDebuffArrow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Bacta Arrow";
 		}
 		SetupTargeter();
@@ -73,19 +60,6 @@ public class ArcherHealingDebuffArrow : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.OccupantActor != null && CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, ValidateCheckPath.Ignore, true, false))
 			{
 				return true;
@@ -130,19 +104,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -153,15 +114,6 @@ public class ArcherHealingDebuffArrow : Ability
 		object cachedExtraModEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraModEffect = m_abilityMod.m_extraHitEffectMod.GetModifiedValue(null);
 		}
 		else
@@ -172,15 +124,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo cachedReactionEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReactionEffect = m_abilityMod.m_reactionEffectMod.GetModifiedValue(m_reactionEffect);
 		}
 		else
@@ -195,19 +138,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -227,19 +157,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_reactionHealingMod.GetModifiedValue(m_reactionHealing);
 		}
 		else
@@ -254,19 +171,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_reactionHealingOnSelfMod.GetModifiedValue(m_reactionHealingOnSelf);
 		}
 		else
@@ -296,19 +200,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedReactionEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReactionEffect;
 		}
 		else
@@ -328,19 +219,6 @@ public class ArcherHealingDebuffArrow : Ability
 		object result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownReductionIfNoHeals;
 		}
 		else
@@ -355,19 +233,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealBelowHealthThresholdMod.GetModifiedValue(0);
 		}
 		else
@@ -382,19 +247,6 @@ public class ArcherHealingDebuffArrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healthThresholdMod.GetModifiedValue(0f);
 		}
 		else
@@ -409,19 +261,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageToThisTargetFromCasterMod.GetModifiedValue(0);
 		}
 		else

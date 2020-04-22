@@ -81,41 +81,14 @@ public class UICashShopPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
 			if (!characterResourceLink.m_isHidden && characterResourceLink.m_allowForPlayers)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_numLancers++;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_categoryContainer, true);
 			return;
 		}
@@ -135,19 +108,6 @@ public class UICashShopPanel : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
 			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
 			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= HandleLobbyServerClientAccessLevelChange;
@@ -177,10 +137,6 @@ public class UICashShopPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -195,11 +151,6 @@ public class UICashShopPanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (UICharacterSelectWorldObjects.Get().IsVisible())
 			{
 				UICharacterSelectWorldObjects.Get().SetVisible(false);
@@ -224,15 +175,6 @@ public class UICashShopPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(pointerEventData.pointerPress != null))
 			{
 				return;
@@ -244,20 +186,10 @@ public class UICashShopPanel : UIScene
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!component.selectableButton.IsSelected())
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						ButtonClicked(component.selectableButton);
 						return;
 					}

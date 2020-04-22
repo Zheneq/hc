@@ -43,19 +43,6 @@ public class ScampSlamDown : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ScampSlamDown";
 		}
 		Setup();
@@ -69,19 +56,6 @@ public class ScampSlamDown : Ability
 		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, m_laserCount, m_suitedLaserInfo, 10f, true, m_targeterMinAngle, maxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
 		if (abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
 			abilityUtil_Targeter_ThiefFanLaser.m_delegateLaserLength = GetLaserLengthForTargeter;
 			abilityUtil_Targeter_ThiefFanLaser.m_delegateLaserWidth = GetLaserWidthForTargeter;
@@ -93,19 +67,6 @@ public class ScampSlamDown : Ability
 	{
 		if (!(m_targeterMaxAngle >= 360f))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_targeterMaxAngle <= 0f))
 			{
 				return m_targeterMaxAngle;
@@ -120,19 +81,6 @@ public class ScampSlamDown : Ability
 		float range;
 		if (IsInSuit())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			range = m_suitedLaserInfo.range;
 		}
 		else
@@ -156,19 +104,6 @@ public class ScampSlamDown : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
@@ -184,19 +119,6 @@ public class ScampSlamDown : Ability
 		int num2;
 		if (IsInSuit())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = m_suitedBaseDamage;
 		}
 		else
@@ -207,54 +129,18 @@ public class ScampSlamDown : Ability
 		int num4 = (!IsInSuit()) ? m_scampSubseqDamage : m_suitedSubseqDamage;
 		if (numHits > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += num3;
 			int num5 = numHits - 1;
 			if (num5 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num4 > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += num5 * num4;
 				}
 			}
 		}
 		if (m_maxDamage > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.Min(m_maxDamage, num);
 		}
 		return num;
@@ -279,10 +165,6 @@ public class ScampSlamDown : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int tooltipSubjectCountOnActor = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
 					int num = results.m_damage = CalcTotalDamage(tooltipSubjectCountOnActor);
 					return true;

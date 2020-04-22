@@ -65,19 +65,6 @@ public class GameSubType
 			int originalHasPivot;
 			if (pivot.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				originalHasPivot = (m_original.HasMod(pivot.Value) ? 1 : 0);
 			}
 			else
@@ -88,29 +75,11 @@ public class GameSubType
 			List<GameMapConfig> gameMapConfigs = m_original.GameMapConfigs;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((GameMapConfig p) => p.IsActive);
 			}
 			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache0);
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache1 = ((GameMapConfig p) => p.Map);
 			}
 			m_originalMaps = source.Select(_003C_003Ef__am_0024cache1).ToList();
@@ -120,19 +89,6 @@ public class GameSubType
 		{
 			if (m_pivot.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				bool flag = m_originalHasPivot == left.HasMod(m_pivot.Value);
 				bool flag2 = m_originalHasPivot == right.HasMod(m_pivot.Value);
 				if (flag != flag2)
@@ -148,15 +104,6 @@ public class GameSubType
 							int result;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = 1;
 							}
 							else
@@ -184,15 +131,6 @@ public class GameSubType
 						int result2;
 						if (flag3)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result2 = -1;
 						}
 						else
@@ -212,26 +150,8 @@ public class GameSubType
 					SubTypeMods subTypeMods = (SubTypeMods)enumerator.Current;
 					if (m_pivot.HasValue)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (subTypeMods == m_pivot.Value)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -242,15 +162,6 @@ public class GameSubType
 						int result3;
 						if (flag5 == m_original.HasMod(subTypeMods))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result3 = -1;
 						}
 						else
@@ -259,15 +170,6 @@ public class GameSubType
 						}
 						return result3;
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -281,29 +183,11 @@ public class GameSubType
 			List<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
 			if (_003C_003Ef__am_0024cache2 == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache2 = ((GameMapConfig p) => p.IsActive);
 			}
 			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache2);
 			if (_003C_003Ef__am_0024cache3 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache3 = ((GameMapConfig p) => p.Map);
 			}
 			int num = source.Select(_003C_003Ef__am_0024cache3).ToList().Intersect(m_originalMaps)
@@ -311,29 +195,11 @@ public class GameSubType
 			List<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
 			if (_003C_003Ef__am_0024cache4 == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache4 = ((GameMapConfig p) => p.IsActive);
 			}
 			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(_003C_003Ef__am_0024cache4);
 			if (_003C_003Ef__am_0024cache5 == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache5 = ((GameMapConfig p) => p.Map);
 			}
 			int num2 = source2.Select(_003C_003Ef__am_0024cache5).ToList().Intersect(m_originalMaps)
@@ -351,15 +217,6 @@ public class GameSubType
 						int result4;
 						if (num > num2)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result4 = -1;
 						}
 						else
@@ -420,19 +277,6 @@ public class GameSubType
 			int num;
 			if (!HasMod(SubTypeMods.OverrideFreelancerSelection))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (HasMod(SubTypeMods.RankedFreelancerSelection) ? 1 : 0);
 			}
 			else
@@ -482,19 +326,6 @@ public class GameSubType
 		object attedLocIdentifier;
 		if (LocalizedName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			attedLocIdentifier = "unknown@unknown";
 		}
 		else
@@ -514,19 +345,6 @@ public class GameSubType
 		int result;
 		if (TeamComposition != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (TeamComposition.IsCharacterAllowedInSlot(freelancer, team, slot, qi) ? 1 : 0);
 		}
 		else
@@ -547,10 +365,6 @@ public class GameSubType
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return DuplicationRule;
 				}
 			}
@@ -570,15 +384,6 @@ public class GameSubType
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TeamComposition.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
 			return;
 		}
@@ -603,19 +408,6 @@ public class GameSubType
 				GameSubType current = enumerator.Current;
 				if (gameSubType == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = num;
 					gameSubType = current;
 				}
@@ -651,19 +443,6 @@ public class GameSubType
 				GameSubType current = enumerator.Current;
 				if ((mask & num) == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					dictionary2.Add(num, current);
 				}
 				else
@@ -671,15 +450,6 @@ public class GameSubType
 					dictionary.Add(num, current);
 				}
 				num = (ushort)(num << 1);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		ushort num2 = 0;
@@ -694,27 +464,9 @@ public class GameSubType
 				{
 					if (gameSubType != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (cCSTSort.Compare(item2.Value, gameSubType) >= 0)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					gameSubType = item2.Value;

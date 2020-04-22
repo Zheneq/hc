@@ -81,19 +81,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo cachedPrimaryTargetEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedPrimaryTargetEnemyHitEffect = m_abilityMod.m_primaryTargetEnemyHitEffectMod.GetModifiedValue(m_primaryTargetEnemyHitEffect);
 		}
 		else
@@ -104,15 +91,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo cachedPrimaryTargetAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedPrimaryTargetAllyHitEffect = m_abilityMod.m_primaryTargetAllyHitEffectMod.GetModifiedValue(m_primaryTargetAllyHitEffect);
 		}
 		else
@@ -125,15 +103,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo cachedSecondaryTargetAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSecondaryTargetAllyHitEffect = m_abilityMod.m_secondaryTargetAllyHitEffectMod.GetModifiedValue(m_secondaryTargetAllyHitEffect);
 		}
 		else
@@ -144,15 +113,6 @@ public class FishManSplittingLaser : Ability
 		LaserTargetingInfo cachedSecondaryTargetingInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSecondaryTargetingInfo = m_abilityMod.m_secondaryTargetingInfoMod.GetModifiedValue(m_secondaryTargetingInfo);
 		}
 		else
@@ -170,15 +130,6 @@ public class FishManSplittingLaser : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_FishManSplittingLaser);
 			Setup();
 			return;
@@ -201,19 +152,6 @@ public class FishManSplittingLaser : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_primaryLaserCanHitAlliesMod.GetModifiedValue(m_primaryLaserCanHitAllies);
 		}
 		else
@@ -228,19 +166,6 @@ public class FishManSplittingLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_primaryTargetDamageAmountMod.GetModifiedValue(m_primaryTargetDamageAmount);
 		}
 		else
@@ -255,19 +180,6 @@ public class FishManSplittingLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_primaryTargetHealingAmountMod.GetModifiedValue(m_primaryTargetHealingAmount);
 		}
 		else
@@ -287,19 +199,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedPrimaryTargetAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedPrimaryTargetAllyHitEffect;
 		}
 		else
@@ -314,19 +213,6 @@ public class FishManSplittingLaser : Ability
 		LaserTargetingInfo result;
 		if (m_cachedPrimaryTargetingInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedPrimaryTargetingInfo;
 		}
 		else
@@ -356,19 +242,6 @@ public class FishManSplittingLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_secondaryTargetHealingAmountMod.GetModifiedValue(m_secondaryTargetHealingAmount);
 		}
 		else
@@ -383,19 +256,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedSecondaryTargetEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSecondaryTargetEnemyHitEffect;
 		}
 		else
@@ -410,19 +270,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedSecondaryTargetAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSecondaryTargetAllyHitEffect;
 		}
 		else
@@ -437,19 +284,6 @@ public class FishManSplittingLaser : Ability
 		LaserTargetingInfo result;
 		if (m_cachedSecondaryTargetingInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSecondaryTargetingInfo;
 		}
 		else
@@ -474,19 +308,6 @@ public class FishManSplittingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxSplitAngleMod.GetModifiedValue(m_maxSplitAngle);
 		}
 		else
@@ -506,19 +327,6 @@ public class FishManSplittingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lengthForMaxAngleMod.GetModifiedValue(m_lengthForMaxAngle);
 		}
 		else
@@ -533,19 +341,6 @@ public class FishManSplittingLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_numSplitBeamPairsMod.GetModifiedValue(m_numSplitBeamPairs);
 		}
 		else
@@ -562,19 +357,6 @@ public class FishManSplittingLaser : Ability
 		int val;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_FishManSplittingLaser.m_primaryTargetDamageAmountMod.GetModifiedValue(m_primaryTargetDamageAmount);
 		}
 		else
@@ -586,15 +368,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_FishManSplittingLaser.m_primaryTargetEnemyHitEffectMod.GetModifiedValue(m_primaryTargetEnemyHitEffect);
 		}
 		else
@@ -605,15 +378,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_FishManSplittingLaser.m_primaryTargetAllyHitEffectMod.GetModifiedValue(m_primaryTargetAllyHitEffect);
 		}
 		else
@@ -625,15 +389,6 @@ public class FishManSplittingLaser : Ability
 		int val2;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManSplittingLaser.m_secondaryTargetDamageAmountMod.GetModifiedValue(m_secondaryTargetDamageAmount);
 		}
 		else
@@ -645,15 +400,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_FishManSplittingLaser.m_secondaryTargetEnemyHitEffectMod.GetModifiedValue(m_secondaryTargetEnemyHitEffect);
 		}
 		else
@@ -664,15 +410,6 @@ public class FishManSplittingLaser : Ability
 		StandardEffectInfo effectInfo4;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo4 = abilityMod_FishManSplittingLaser.m_secondaryTargetAllyHitEffectMod.GetModifiedValue(m_secondaryTargetAllyHitEffect);
 		}
 		else
@@ -684,15 +421,6 @@ public class FishManSplittingLaser : Ability
 		int val3;
 		if ((bool)abilityMod_FishManSplittingLaser)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManSplittingLaser.m_numSplitBeamPairsMod.GetModifiedValue(m_numSplitBeamPairs);
 		}
 		else

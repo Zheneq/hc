@@ -75,32 +75,10 @@ public class UIAlertDisplay : MonoBehaviour
 	{
 		if (m_lowTimePulse != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_lowTimePulse, false);
 		}
 		if (m_timebankTimePulse != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_timebankTimePulse, false);
 		}
 		for (int i = 0; i < m_label.Length; i++)
@@ -116,11 +94,6 @@ public class UIAlertDisplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			Color color = m_optionalLabelBackground[0].color;
 			m_originalLabelBgAlpha = color.a;
 			return;
@@ -141,22 +114,9 @@ public class UIAlertDisplay : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!(message == currentMessage.label.text))
 						{
 							goto IL_0069;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						goto IL_0065;
 					}
@@ -182,15 +142,6 @@ public class UIAlertDisplay : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(m_optionalLabelBackground[i], i == alertMessage.alertLabelIndex);
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Color color2 = m_optionalLabelBackground[alertMessage.alertLabelIndex].color;
 			color2.a = m_originalLabelBgAlpha;
 			m_optionalLabelBackground[alertMessage.alertLabelIndex].color = color2;
@@ -205,15 +156,6 @@ public class UIAlertDisplay : MonoBehaviour
 		float duration;
 		if (messageTimeSeconds > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			duration = messageTimeSeconds;
 		}
 		else
@@ -242,10 +184,6 @@ public class UIAlertDisplay : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -261,19 +199,6 @@ public class UIAlertDisplay : MonoBehaviour
 		}
 		if (GameFlowData.Get().activeOwnedActorData.IsDead())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState != TurnStateEnum.PICKING_RESPAWN)
 			{
 				while (true)
@@ -295,26 +220,8 @@ public class UIAlertDisplay : MonoBehaviour
 		}
 		if (m_timebankTimePulse != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (type != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_timebankTimePulse, false);
 				UIManager.SetGameObjectActive(m_timebankTimePulse, true);
 			}
@@ -359,68 +266,19 @@ public class UIAlertDisplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if ((bool)activeOwnedActorData)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (activeOwnedActorData.IsDead())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeOwnedActorData.IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().gameState > GameState.StartingGame)
 					{
 						UIManager.SetGameObjectActive(m_DeathAnimController, true);
 						string text = null;
 						if (activeOwnedActorData.NextRespawnTurn != -1)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num = activeOwnedActorData.NextRespawnTurn - GameFlowData.Get().CurrentTurn - 1;
 							if (num > 0)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = string.Format(StringUtil.TR("RespawnInTurns", "Global"), num + 1);
 							}
 							else
@@ -434,27 +292,9 @@ public class UIAlertDisplay : MonoBehaviour
 						}
 						if (object.ReferenceEquals(m_deathLabel.text, text))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(m_deathLabel.text != text))
 							{
 								goto IL_0186;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						m_deathLabel.text = text;
@@ -479,39 +319,12 @@ public class UIAlertDisplay : MonoBehaviour
 				{
 					if (m_label[current.alertLabelIndex] != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_label[current.alertLabelIndex], false);
 					}
 					if (m_optionalLabelBackground != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.showBackground)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_optionalLabelBackground[current.alertLabelIndex] != null)
 							{
 								UIManager.SetGameObjectActive(m_optionalLabelBackground[current.alertLabelIndex], false);
@@ -529,15 +342,6 @@ public class UIAlertDisplay : MonoBehaviour
 					Color obj;
 					if (m_optionalLabelBackground[current.alertLabelIndex] != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = m_optionalLabelBackground[current.alertLabelIndex].color;
 					}
 					else
@@ -547,15 +351,6 @@ public class UIAlertDisplay : MonoBehaviour
 					Color color2 = obj;
 					if (num2 > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color.a = 0f;
 					}
 					else
@@ -570,53 +365,17 @@ public class UIAlertDisplay : MonoBehaviour
 					}
 					if (!current.label.gameObject.activeSelf)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(current.label, true);
 						if (m_optionalLabelBackground != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.showBackground)
 							{
 								for (int i = 0; i < m_optionalLabelBackground.Length; i++)
 								{
 									if (m_optionalLabelBackground[i] != null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(m_optionalLabelBackground[i], i == current.alertLabelIndex);
 									}
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								color2.a = m_originalLabelBgAlpha;
 								m_optionalLabelBackground[current.alertLabelIndex].color = color2;
@@ -626,15 +385,6 @@ public class UIAlertDisplay : MonoBehaviour
 					num2++;
 				}
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<AlertMessage>.Enumerator enumerator2 = m_messagesToRemove.GetEnumerator())
 		{
@@ -642,15 +392,6 @@ public class UIAlertDisplay : MonoBehaviour
 			{
 				AlertMessage current2 = enumerator2.Current;
 				m_currentMessages.Remove(current2);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_messagesToRemove.Clear();

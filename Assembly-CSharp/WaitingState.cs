@@ -14,15 +14,6 @@ public class WaitingState : TurnState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.ClearSelectedAbility();
 			return;
 		}
@@ -39,10 +30,6 @@ public class WaitingState : TurnState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_SM.SetupForNewTurn();
 					m_SM.NextState = TurnStateEnum.DECIDING;
 					return;
@@ -55,11 +42,6 @@ public class WaitingState : TurnState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_SM.NextState = TurnStateEnum.RESPAWNING;
 			return;
 		}

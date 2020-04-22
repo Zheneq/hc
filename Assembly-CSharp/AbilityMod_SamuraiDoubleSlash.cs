@@ -65,19 +65,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = samuraiDoubleSlash.m_maxAngleBetween;
 		}
 		else
@@ -92,15 +79,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiDoubleSlash.m_coneLength;
 		}
 		else
@@ -117,15 +95,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiDoubleSlash.m_targetHitEffect;
 		}
 		else
@@ -138,15 +107,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = samuraiDoubleSlash.m_extraEnemyHitEffectIfSelfBuffed;
 		}
 		else

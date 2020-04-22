@@ -62,15 +62,6 @@ public static class UNetUtil
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -93,15 +84,6 @@ public static class UNetUtil
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return stringBuilder.ToString();
 		}
 	}

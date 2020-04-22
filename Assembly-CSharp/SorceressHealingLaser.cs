@@ -78,46 +78,15 @@ public class SorceressHealingLaser : Ability
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
 		if (m_includeAllies)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_allyHealAmount));
 			int num = ModdedAllyTechPointGain();
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, num));
 			}
 		}
 		if (ModdedBaseHealOnSelf() > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, ModdedBaseHealOnSelf()));
 		}
 		return list;
@@ -127,31 +96,9 @@ public class SorceressHealingLaser : Ability
 	{
 		if (m_laserTargeter != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData component = GetComponent<ActorData>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = m_laserTargeter.GetHitActorContext();
 				for (int i = 0; i < hitActorContext.Count; i++)
 				{
@@ -162,23 +109,9 @@ public class SorceressHealingLaser : Ability
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						if (component == targetActor)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num2 = dictionary[AbilityTooltipSymbol.Healing] = ModdedBaseHealOnSelf();
 						}
 						else if (targetActor.GetTeam() != component.GetTeam())
@@ -187,28 +120,10 @@ public class SorceressHealingLaser : Ability
 						}
 						else
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num4 = dictionary[AbilityTooltipSymbol.Healing] = GetHealAmountByHitOrder(i);
 						}
 						return dictionary;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -222,19 +137,6 @@ public class SorceressHealingLaser : Ability
 		int val;
 		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SorceressHealingLaser.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -246,15 +148,6 @@ public class SorceressHealingLaser : Ability
 		int val2;
 		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressHealingLaser.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
 		}
 		else
@@ -266,15 +159,6 @@ public class SorceressHealingLaser : Ability
 		int val3;
 		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SorceressHealingLaser.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
 		}
 		else
@@ -288,15 +172,6 @@ public class SorceressHealingLaser : Ability
 		int val4;
 		if ((bool)abilityMod_SorceressHealingLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SorceressHealingLaser.m_minHealMod.GetModifiedValue(m_minHealAmount);
 		}
 		else
@@ -345,19 +220,6 @@ public class SorceressHealingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_selfHealAmount;
 		}
 		else
@@ -387,19 +249,6 @@ public class SorceressHealingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -419,19 +268,6 @@ public class SorceressHealingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageChangePerHit;
 		}
 		else
@@ -446,19 +282,6 @@ public class SorceressHealingLaser : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_width;
 		}
 		else

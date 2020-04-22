@@ -23,10 +23,6 @@ public class UICombatTextPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_textEntries.Add(item);
 					return;
 				}
@@ -50,19 +46,6 @@ public class UICombatTextPanel : MonoBehaviour
 		{
 			if (m_textEntries[num].ShouldEnd())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_textEntries.RemoveAt(num);
 			}
 		}
@@ -73,31 +56,9 @@ public class UICombatTextPanel : MonoBehaviour
 		RemoveExpiredEntries();
 		if (!(m_lastTextCreatedTime < 0f))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Time.time - m_lastTextCreatedTime > m_timeBetweenText))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
@@ -111,39 +72,12 @@ public class UICombatTextPanel : MonoBehaviour
 			combatTextEntry = m_textEntries[num];
 			if (combatTextEntry.IsWaitingToActivate())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get() == null)
 				{
 					break;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!CameraManager.Get().InCinematic())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}

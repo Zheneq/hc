@@ -34,19 +34,6 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = bazookaGirlRocketJump.m_damageAmount;
 		}
 		else
@@ -56,15 +43,6 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
 		if (m_resetCooldownOnKill)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += "Resets Cooldown on Kill (on beginning of next turn)\n";
 		}
 		return empty;

@@ -40,10 +40,6 @@ public class CheckKarma
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_002c;
 				}
 			}
@@ -51,15 +47,6 @@ public class CheckKarma
 		}
 		if (checkKarmaInteropValue2 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (checkKarmaInteropValue != null)
 			{
 				result = checkKarmaInteropValue.Ratio;
@@ -67,26 +54,8 @@ public class CheckKarma
 		}
 		if (checkKarmaInteropValue != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (checkKarmaInteropValue2 != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (float)(quantity - checkKarmaInteropValue.KarmaValue) * (checkKarmaInteropValue2.Ratio - checkKarmaInteropValue.Ratio) / (float)(checkKarmaInteropValue2.KarmaValue - checkKarmaInteropValue.KarmaValue) + checkKarmaInteropValue.Ratio;
 			}
 		}

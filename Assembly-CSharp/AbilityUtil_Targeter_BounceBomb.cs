@@ -33,19 +33,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -56,27 +43,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		float num = m_bombInfo.width * Board.Get().squareSize;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count >= 2 * m_bombCount)
 			{
 				goto IL_0127;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -87,27 +56,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				Vector3.zero
 			}, num));
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < m_bombCount; j++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_bombInfo.shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_0127;
 		IL_0127:
@@ -116,15 +67,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		float num2 = m_bombInfo.maxTotalDistance;
 		if (m_clampMaxRangeToFreePos)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float a = (targetingActor.GetTravelBoardSquareWorldPosition() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
 			num2 = Mathf.Min(a, num2);
 		}
@@ -138,27 +80,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			float num6 = 1f;
 			if (m_alignBombInLine)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = Mathf.Abs(num5 - num3);
 				if (num7 < 80f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num6 = 1f / Mathf.Cos((float)Math.PI / 180f * num7);
 				}
 			}
@@ -170,28 +94,10 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			component.OnUpdated(originalStart, bounceEndPoints, num);
 			if (dictionary.Count <= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_explodeOnEndOfPath)
 				{
 					m_highlights[index].SetActive(false);
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Vector3 vector2 = bounceEndPoints[bounceEndPoints.Count - 1];
@@ -199,15 +105,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			Vector3 vector3 = vector2;
 			if (boardSquare != null && boardSquare.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = boardSquare.ToVector3();
 				vector3 = AreaEffectUtils.GetCenterOfShape(m_bombInfo.shape, vector2, boardSquare);
 			}

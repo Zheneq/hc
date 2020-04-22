@@ -43,15 +43,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_targeterWidthMod, "LaserWidth", string.Empty, rageBeastKnockback.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_targeterLengthMod, "LaserDistance", string.Empty, rageBeastKnockback.m_laserDistance);
 			AbilityMod.AddToken(tokens, m_maxTargetMod, "MaxTargets", string.Empty, rageBeastKnockback.m_maxTargets);
@@ -72,19 +63,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rageBeastKnockback.m_maxTargets;
 		}
 		else
@@ -97,15 +75,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastKnockback.m_laserWidth;
 		}
 		else
@@ -118,15 +87,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastKnockback.m_laserDistance;
 		}
 		else
@@ -141,15 +101,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rageBeastKnockback.m_damageToOtherOnCollision;
 		}
 		else
@@ -164,15 +115,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rageBeastKnockback.m_knockbackDistanceMin;
 		}
 		else

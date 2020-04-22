@@ -29,19 +29,6 @@ public class LocalizationArg_BroadcastMessage : LocalizationArg
 		string currentLanguageCode = LocalizationManager.CurrentLanguageCode;
 		if (m_packedMessages.ContainsKey(currentLanguageCode))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_packedMessages[currentLanguageCode].IsNullOrEmpty())
 			{
 				while (true)

@@ -25,19 +25,6 @@ public class RobotAnimalBite : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Megabyte";
 		}
 		m_syncComp = GetComponent<RobotAnimal_SyncComponent>();
@@ -73,34 +60,12 @@ public class RobotAnimalBite : Ability
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int lifeGainAmount = GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
 				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(lifeGainAmount);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int damageToSelf = 0;
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedDamage(false, ref damageToSelf);
 			}
@@ -129,10 +94,6 @@ public class RobotAnimalBite : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalBite);
 					return;
 				}
@@ -168,33 +129,11 @@ public class RobotAnimalBite : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = m_abilityMod.m_damageMod.GetModifiedValue(m_damageAmount);
 					if (m_syncComp != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_abilityMod.m_extraDamageOnConsecutiveCast > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_syncComp.m_biteLastCastTurn > 0 && GameFlowData.Get().CurrentTurn - m_syncComp.m_biteLastCastTurn == 1)
 							{
 								num += m_abilityMod.m_extraDamageOnConsecutiveCast;
@@ -202,15 +141,6 @@ public class RobotAnimalBite : Ability
 						}
 						if (m_abilityMod.m_extraDamageOnConsecutiveHit > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_syncComp.m_biteLastHitTurn > 0 && GameFlowData.Get().CurrentTurn - m_syncComp.m_biteLastHitTurn == 1)
 							{
 								num += m_abilityMod.m_extraDamageOnConsecutiveHit;
@@ -219,37 +149,10 @@ public class RobotAnimalBite : Ability
 					}
 					if (includeVariance)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_abilityMod.m_varianceExtraDamageMin >= 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_abilityMod.m_varianceExtraDamageMax - m_abilityMod.m_varianceExtraDamageMin > 0)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2 = GameplayRandom.Range(m_abilityMod.m_varianceExtraDamageMin, m_abilityMod.m_varianceExtraDamageMax);
 								num += num2;
 								damageToSelf = Mathf.RoundToInt((float)num2 * m_abilityMod.m_varianceExtraDamageToSelf);
@@ -274,19 +177,6 @@ public class RobotAnimalBite : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
@@ -301,32 +191,10 @@ public class RobotAnimalBite : Ability
 		float num = 0f;
 		if (hitCount > 0 && ModdedLifeOnFirstHit() != 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += ModdedLifeOnFirstHit();
 		}
 		if (ModdedLifePerHit() != 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += ModdedLifePerHit() * (float)hitCount;
 		}
 		return Mathf.RoundToInt(num);

@@ -45,15 +45,6 @@ public class NPCBrain_Tutorial : NPCBrain
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -61,26 +52,8 @@ public class NPCBrain_Tutorial : NPCBrain
 		int num;
 		if (localPlayer.IsHiddenInBrush())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!component2.HasStatus(StatusType.CantHideInBrush))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (component2.HasStatus(StatusType.Revealed) ? 1 : 0);
 				goto IL_007a;
 			}
@@ -92,15 +65,6 @@ public class NPCBrain_Tutorial : NPCBrain
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -127,31 +91,9 @@ public class NPCBrain_Tutorial : NPCBrain
 					BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
 					if (currentBoardSquare2 != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						float num2 = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num2 < num)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = num2;
 							result = current;
 						}
@@ -187,37 +129,18 @@ public class NPCBrain_Tutorial : NPCBrain
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(component2 != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(component3 != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (!(boardSquare != null))
 					{
 						return;
@@ -229,20 +152,10 @@ public class NPCBrain_Tutorial : NPCBrain
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						if (closestMoveableSquareTo != component.GetCurrentBoardSquare())
 						{
 							while (true)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
 								component3.SelectMovementSquareForMovement(closestMoveableSquareTo);
 								return;
 							}

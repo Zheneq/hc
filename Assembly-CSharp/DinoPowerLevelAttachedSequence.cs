@@ -22,19 +22,6 @@ public class DinoPowerLevelAttachedSequence : SimpleAttachedVFXSequence
 		GameObject result = base.GetFxPrefab();
 		if (m_syncComp != null && m_fxPrefabForPowerLevels.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int layerConePowerLevel = m_syncComp.m_layerConePowerLevel;
 			layerConePowerLevel = m_syncComp.m_layerConePowerLevel;
 			layerConePowerLevel = Mathf.Min(layerConePowerLevel, m_fxPrefabForPowerLevels.Count - 1);

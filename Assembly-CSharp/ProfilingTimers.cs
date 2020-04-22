@@ -100,60 +100,20 @@ public class ProfilingTimers
 			UnknownMethod unknownMethod = m_unknownMethods.TryGetValue(methodName);
 			if (unknownMethod == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				unknownMethod = new UnknownMethod();
 				m_unknownMethods.Add(methodName, unknownMethod);
 			}
 			ProfilingTimer profilingTimer = m_methodTimers.TryGetValue(unknownMethod);
 			if (profilingTimer == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				profilingTimer = new ProfilingTimer(methodName, m_lastId++);
 				m_methodTimers.Add(unknownMethod, profilingTimer);
 			}
 			float num = (float)ticks / (float)Frequency;
 			if (DateTime.UtcNow - profilingTimer.LastWarning > TimeSpan.FromMinutes(1.0))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= 1f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Method {0} ran for {1} seconds", profilingTimer.Name, num);
 					profilingTimer.LastWarning = DateTime.UtcNow;
 				}
@@ -166,19 +126,6 @@ public class ProfilingTimers
 	{
 		if (methodInfo == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			methodInfo = DefaultMethod;
 		}
 		lock (m_methodTimers)
@@ -186,41 +133,14 @@ public class ProfilingTimers
 			ProfilingTimer profilingTimer = m_methodTimers.TryGetValue(methodInfo);
 			if (profilingTimer == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				profilingTimer = new ProfilingTimer(GetMethodName(methodInfo), m_lastId++);
 				m_methodTimers.Add(methodInfo, profilingTimer);
 			}
 			float num = (float)ticks / (float)Frequency;
 			if (DateTime.UtcNow - profilingTimer.LastWarning > TimeSpan.FromMinutes(1.0))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= 1f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Method {0} ran for {1} seconds", profilingTimer.Name, num);
 					profilingTimer.LastWarning = DateTime.UtcNow;
 				}
@@ -240,10 +160,6 @@ public class ProfilingTimers
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -268,19 +184,6 @@ public class ProfilingTimers
 			ProfilingTimer profilingTimer = m_databasesTimers.TryGetValue(queryType);
 			if (profilingTimer == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				profilingTimer = new ProfilingTimer(queryType, m_lastId++);
 				m_databasesTimers.Add(queryType, profilingTimer);
 			}
@@ -306,10 +209,6 @@ public class ProfilingTimers
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0020;
 					}
 				}
@@ -322,15 +221,6 @@ public class ProfilingTimers
 					ProfilingTimer current2 = enumerator2.Current;
 					current2.Update();
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (Dictionary<string, ProfilingTimer>.ValueCollection.Enumerator enumerator3 = m_databasesTimers.Values.GetEnumerator())
 			{
@@ -338,15 +228,6 @@ public class ProfilingTimers
 				{
 					ProfilingTimer current3 = enumerator3.Current;
 					current3.Update();
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			RecentElapsedTicks = m_stopwatch.ElapsedTicks;
@@ -375,19 +256,6 @@ public class ProfilingTimers
 				ParameterInfo[] parameters = method.GetParameters();
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					_003C_003Ef__am_0024cache0 = ((ParameterInfo p) => p.ParameterType.Name);
 				}
 				string arg3 = string.Join(",", parameters.Select(_003C_003Ef__am_0024cache0).ToArray());

@@ -47,19 +47,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (m_delegateLaserWidth != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_delegateLaserWidth();
 		}
 		else
@@ -74,19 +61,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (m_delegateLaserRange != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_delegateLaserRange();
 		}
 		else
@@ -106,19 +80,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		int result;
 		if (m_delegateMaxTargets != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_delegateMaxTargets();
 		}
 		else
@@ -133,19 +94,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (m_delegateConeRadius != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_delegateConeRadius();
 		}
 		else
@@ -171,10 +119,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_coneAffectsCaster;
 				}
 			}
@@ -207,15 +151,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Tertiary, true);
 			return;
 		}
@@ -229,15 +164,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float radiusInWorld = (GetConeRadius() + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, GetConeWidthAngle());
 			m_highlights.Add(item);
@@ -247,25 +173,11 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				float radiusInWorld2 = (GetInnerConeRadius() + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld2, GetConeWidthAngle());
 				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetConeObjectActive(false);
 				}
 				m_highlights.Add(gameObject);

@@ -83,19 +83,6 @@ public class ExplosionSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_radius = extraParams2.radius;
 				m_team = extraParams2.team;
 			}
@@ -118,63 +105,14 @@ public class ExplosionSequence : Sequence
 		float time = GameTime.time;
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_created)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_explosion == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (time - m_startTime >= m_initialShotDelay)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_initialized)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							InstantiateExplosion();
 						}
 					}
@@ -183,37 +121,10 @@ public class ExplosionSequence : Sequence
 		}
 		if (m_created)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (time - m_createTime >= m_hitDelay)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_hitsSpawned)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnHits();
 				}
 			}
@@ -224,42 +135,22 @@ public class ExplosionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!(time - m_onHitTime >= m_hitDuration + 1f))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(time - m_createTime > m_duration + 1f))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (NetworkServer.active)
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							MarkForRemoval();
 							return;
 						}
@@ -277,31 +168,9 @@ public class ExplosionSequence : Sequence
 		ActorData[] array = base.Targets;
 		if (array != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (array.Length != 0)
 			{
 				goto IL_007c;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		array = AreaEffectUtils.GetActorsInRadius(base.TargetPos, m_radius, true, base.Caster, GameplayUtils.GetOtherTeamsThan(m_team), null).ToArray();
@@ -314,15 +183,6 @@ public class ExplosionSequence : Sequence
 			m_hitDuration = Sequence.GetFXDuration(m_hitPrefab);
 			if (m_hitPrefab != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject item = Object.Instantiate(m_hitPrefab, bonePosition, Quaternion.identity);
 				m_hitEffects.Add(item);
 			}
@@ -330,25 +190,11 @@ public class ExplosionSequence : Sequence
 			base.Source.OnSequenceHit(this, actorData, impulseInfo);
 			if (!string.IsNullOrEmpty(m_audioEventHitOnTargets))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_audioEventHitOnTargets, actorData.gameObject);
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			base.Source.OnSequenceHit(this, base.TargetPos);
 			return;
 		}
@@ -363,24 +209,10 @@ public class ExplosionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hitEffects.Count >= 1)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					foreach (GameObject hitEffect in m_hitEffects)
 					{
 						Object.Destroy(hitEffect);
@@ -406,22 +238,9 @@ public class ExplosionSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_explosion = Object.Instantiate(m_explosionPrefab, base.TargetPos, Quaternion.identity);
 					if (m_scale)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ParticleSystem[] componentsInChildren = m_explosion.GetComponentsInChildren<ParticleSystem>();
 						ParticleSystem[] array = componentsInChildren;
 						foreach (ParticleSystem particleSystem in array)
@@ -430,15 +249,6 @@ public class ExplosionSequence : Sequence
 							ParticleSystem.MinMaxCurve startSize = main.startSize;
 							startSize.constant *= m_radius * Board.Get().squareSize;
 							main.startSize = startSize;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					m_duration = Sequence.GetFXDuration(m_hitPrefab);
@@ -454,11 +264,6 @@ public class ExplosionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			Debug.LogWarning("Sequence[" + base.gameObject.name + "] does not have a valid explosion sequence prefab, please add one if needed");
 			return;
 		}
@@ -472,15 +277,6 @@ public class ExplosionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InstantiateExplosion();
 			return;
 		}

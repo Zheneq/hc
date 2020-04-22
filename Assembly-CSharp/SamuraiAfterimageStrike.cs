@@ -29,19 +29,6 @@ public class SamuraiAfterimageStrike : Ability
 		int result;
 		if ((bool)m_parentAbility)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_parentAbility.GetKnockbackDamage();
 		}
 		else
@@ -56,19 +43,6 @@ public class SamuraiAfterimageStrike : Ability
 		int result;
 		if ((bool)m_parentAbility)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_parentAbility.GetKnockbackLessDamagePerTarget();
 		}
 		else
@@ -88,19 +62,6 @@ public class SamuraiAfterimageStrike : Ability
 		int result;
 		if ((bool)m_parentAbility)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (int)m_parentAbility.GetKnockbackType();
 		}
 		else
@@ -115,19 +76,6 @@ public class SamuraiAfterimageStrike : Ability
 		float result;
 		if ((bool)m_parentAbility)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_parentAbility.GetKnockbackExtraDamageFromDamageTakenMult();
 		}
 		else

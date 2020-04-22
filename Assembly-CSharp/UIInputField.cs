@@ -22,15 +22,6 @@ public class UIInputField : InputField
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TextMeshProUGUI textField = m_textField;
 			Color color = m_TextComponent.color;
 			float r = color.r;
@@ -83,15 +74,6 @@ public class UIInputField : InputField
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			(m_placeholderField.transform as RectTransform).anchoredPosition = (m_Placeholder.transform as RectTransform).anchoredPosition;
 			(m_placeholderField.transform as RectTransform).sizeDelta = (m_Placeholder.transform as RectTransform).sizeDelta;
 			return;
@@ -103,33 +85,11 @@ public class UIInputField : InputField
 		base.LateUpdate();
 		if (m_unhighlightEnteredText)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MoveTextEnd(false);
 			m_unhighlightEnteredText = false;
 		}
 		if (m_textField != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_textField.text != m_TextComponent.text)
 			{
 				m_textField.text = m_TextComponent.text;
@@ -141,11 +101,6 @@ public class UIInputField : InputField
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_placeholderField.enabled = m_Placeholder.enabled;
 			m_Placeholder.color = Color.clear;
 			return;

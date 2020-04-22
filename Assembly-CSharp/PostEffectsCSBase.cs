@@ -21,10 +21,6 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Info("Missing shader in " + ToString());
 					base.enabled = false;
 					return null;
@@ -33,15 +29,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		}
 		if (s.isSupported && (bool)m2Create)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m2Create.shader == s)
 			{
 				while (true)
@@ -91,10 +78,6 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Info("Missing shader in " + ToString());
 					return null;
 				}
@@ -102,15 +85,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		}
 		if ((bool)m2Create && m2Create.shader == s)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (s.isSupported)
 			{
 				while (true)
@@ -184,19 +158,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		int num;
 		if (SystemInfo.graphicsShaderLevel >= 50)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (SystemInfo.supportsComputeShaders ? 1 : 0);
 		}
 		else
@@ -234,15 +195,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		}
 		if (needDepth)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 		}
 		return true;
@@ -259,25 +211,12 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
 		}
 		if (needHdr)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!supportHDRTextures)
 			{
 				while (true)
@@ -318,10 +257,6 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					NotSupported();
 					return false;
 				}
@@ -349,19 +284,6 @@ public class PostEffectsCSBase : MonoBehaviour
 			float y2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				y = 1f;
 				y2 = 0f;
 			}

@@ -72,19 +72,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_usedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
 		}
 		else
@@ -99,19 +86,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_expendedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
 		}
 		else
@@ -126,19 +100,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_vfxChangedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
 		}
 		else
@@ -212,10 +173,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_expendedHealReactionActorIndices called on server.");
 					return;
 				}
@@ -273,19 +230,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -293,15 +237,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -311,26 +246,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -338,26 +255,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -367,15 +266,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -383,26 +273,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -430,19 +302,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_healReactionTargetActor = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
@@ -455,28 +314,10 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, m_vfxChangedHealReactionActorIndices);
 		}
 		if ((num & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, m_shieldGeneratorTargetActorIndices);
 		}
 		if ((num & 0x20) != 0)

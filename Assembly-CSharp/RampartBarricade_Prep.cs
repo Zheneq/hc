@@ -52,32 +52,10 @@ public class RampartBarricade_Prep : Ability
 		}
 		if (m_passive != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Passive_Rampart passive = m_passive;
 			object cachedShieldBarrierData;
 			if (m_abilityMod != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cachedShieldBarrierData = m_abilityMod.m_shieldBarrierDataMod;
 			}
 			else
@@ -100,19 +78,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -127,19 +92,6 @@ public class RampartBarricade_Prep : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(m_allowAimAtDiagonals);
 		}
 		else
@@ -159,19 +111,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -191,19 +130,6 @@ public class RampartBarricade_Prep : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserLengthIgnoreLosMod.GetModifiedValue(m_laserLengthIgnoreLos);
 		}
 		else
@@ -223,19 +149,6 @@ public class RampartBarricade_Prep : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
@@ -260,19 +173,6 @@ public class RampartBarricade_Prep : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_effectToSelfOnCast.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -295,19 +195,6 @@ public class RampartBarricade_Prep : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartBarricade_Prep))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RampartBarricade_Prep);
 		}
 		Setup();
@@ -327,19 +214,6 @@ public class RampartBarricade_Prep : Ability
 		int val;
 		if ((bool)abilityMod_RampartBarricade_Prep)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RampartBarricade_Prep.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -350,15 +224,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RampartBarricade_Prep)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RampartBarricade_Prep.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -373,20 +238,10 @@ public class RampartBarricade_Prep : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (component.m_normalShieldBarrierData != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					component.m_normalShieldBarrierData.AddTooltipTokens(tokens, "ShieldBarrier");
 					return;
 				}

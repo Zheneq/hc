@@ -80,19 +80,6 @@ public class ExoTetherTrap : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -103,15 +90,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo cachedTetherBreakEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTetherBreakEffect = m_abilityMod.m_tetherBreakEffectMod.GetModifiedValue(m_tetherBreakEffect);
 		}
 		else
@@ -122,15 +100,6 @@ public class ExoTetherTrap : Ability
 		StandardActorEffectData cachedBaseEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedBaseEffectData = m_abilityMod.m_baseEffectDataMod.GetModifiedValue(m_baseEffectData);
 		}
 		else
@@ -148,15 +117,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo cachedLaserOnHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserOnHitEffect = m_abilityMod.m_laserOnHitEffectMod.GetModifiedValue(m_laserOnHitEffect);
 		}
 		else
@@ -171,19 +131,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -198,19 +145,6 @@ public class ExoTetherTrap : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -230,19 +164,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserOnHitEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserOnHitEffect;
 		}
 		else
@@ -257,19 +178,6 @@ public class ExoTetherTrap : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
@@ -284,19 +192,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
 		}
 		else
@@ -321,19 +216,6 @@ public class ExoTetherTrap : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamagePerMoveDistMod.GetModifiedValue(m_extraDamagePerMoveDist);
 		}
 		else
@@ -348,19 +230,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxExtraDamageFromMoveDistMod.GetModifiedValue(m_maxExtraDamageFromMoveDist);
 		}
 		else
@@ -375,19 +244,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(m_cdrOnTetherEndIfNotTriggered);
 		}
 		else
@@ -405,19 +261,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_ExoTetherTrap.m_laserOnHitEffectMod.GetModifiedValue(m_laserOnHitEffect);
 		}
 		else
@@ -430,15 +273,6 @@ public class ExoTetherTrap : Ability
 		int val;
 		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_ExoTetherTrap.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
 		}
 		else
@@ -449,15 +283,6 @@ public class ExoTetherTrap : Ability
 		float num;
 		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = abilityMod_ExoTetherTrap.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
@@ -468,15 +293,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_ExoTetherTrap)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ExoTetherTrap.m_tetherBreakEffectMod.GetModifiedValue(m_tetherBreakEffect);
 		}
 		else
@@ -510,15 +326,6 @@ public class ExoTetherTrap : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ExoTetherTrap);
 			SetupTargeter();
 			return;

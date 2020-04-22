@@ -75,15 +75,6 @@ namespace Theatrics
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					_000E[num].OnSerializeHelper(_001D);
 					num++;
 					goto IL_007d;
@@ -110,39 +101,12 @@ namespace Theatrics
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TimeInPhase = 0f;
 				_0012 = (int)_001D;
 				if (_0012 >= 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (_0012 < _000E.Count)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", false);
 						Phase phase = _000E[_0012];
 						phase._001D_000E();
@@ -158,52 +122,16 @@ namespace Theatrics
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.GetHitPointsAfterResolution() > 0)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (actorData.IsModelAnimatorDisabled())
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!GameplayData.Get().m_resolveDamageBetweenAbilityPhases)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!_0004(actorData))
 							{
 								continue;
@@ -218,42 +146,22 @@ namespace Theatrics
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (_001D != AbilityPriority.Combat_Damage)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						if (!(ClientResolutionManager.Get() != null))
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							if (!ClientResolutionManager.Get().IsWaitingForActionMessages(_001D))
 							{
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									ClientResolutionManager.Get().OnCombatPhasePlayDataReceived();
 									return;
 								}
@@ -272,15 +180,6 @@ namespace Theatrics
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -292,26 +191,12 @@ namespace Theatrics
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					Log.Error("Phase index is negative! Code error.");
 					return true;
 				}
 			}
 			if (num < _000E.Count)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!_000E[num]._001C(this, ref flag, ref flag2))
 				{
 					goto IL_0099;
@@ -322,27 +207,9 @@ namespace Theatrics
 			IL_0282:
 			if (!(GameFlowData.Get() == null))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().IsResolutionPaused())
 				{
 					goto IL_02cb;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			TimeInPhase += GameTime.deltaTime;
@@ -351,26 +218,8 @@ namespace Theatrics
 			bool flag4;
 			if (!flag4)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!_0004(_001D) && NetworkClient.active && !_0019.Contains(_0012))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0019.Add(_0012);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilitiesEnd, null);
 				}
@@ -380,76 +229,22 @@ namespace Theatrics
 			bool flag5 = TimeInPhase >= GameFlowData.Get().m_resolveTimeoutLimit * 0.8f;
 			if (flag5)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text = ServerClientUtils.GetCurrentActionPhase().ToString();
 				Log.Error("Theatrics: phase: " + text + " timed out for turn " + TurnID + ",  timeline index " + _0012);
 			}
 			flag4 = true;
 			if (!flag3)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag5)
 				{
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameFlowData.Get().activeOwnedActorData != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!GameFlowData.Get().activeOwnedActorData.IsDead())
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenAction", "Global"), Color.white);
 								}
 							}
@@ -464,15 +259,6 @@ namespace Theatrics
 			TheatricsManager.Get().no_op("Theatrics: finished timeline index " + _0012 + " with duration " + TimeInPhase + " @absolute time " + GameTime.time);
 			if (TheatricsManager.DebugLog)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TheatricsManager.LogForDebugging("Phase Finished: " + _0012);
 			}
 			goto IL_02cb;
@@ -489,10 +275,6 @@ namespace Theatrics
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -517,11 +299,6 @@ namespace Theatrics
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < phase.animations.Count; i++)
 				{
 					ActorAnimation actorAnimation = phase.animations[i];
@@ -529,27 +306,9 @@ namespace Theatrics
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorAnimation.PlaybackState2OrLater_zq)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!actorAnimation._0014_000E())
 					{
@@ -557,21 +316,11 @@ namespace Theatrics
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						actorAnimation._000D_000E(_001D, _000E, _0012);
 						if (actorAnimation.ParentAbilitySeqSource != null)
 						{
 							while (true)
 							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
 								actorAnimation._0008_000E(_001D, _000E, _0012);
 								return;
 							}
@@ -603,10 +352,6 @@ namespace Theatrics
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -615,15 +360,6 @@ namespace Theatrics
 			bool flag2 = false;
 			if (this._0012 >= 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Phase phase = this._000E[this._0012];
 				if (phase != null)
 				{
@@ -635,37 +371,10 @@ namespace Theatrics
 							ActorAnimation actorAnimation = phase.animations[num];
 							if (actorAnimation.Actor == _001D.Caster)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorAnimation.HasSameSequenceSource(_001D))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (actorAnimation._000D_000E(_001D, _000E, _0012, _0015))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										break;
 									}
@@ -677,15 +386,6 @@ namespace Theatrics
 								flag2 = true;
 							}
 							goto IL_00e7;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 						IL_00e7:
@@ -699,48 +399,20 @@ namespace Theatrics
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!_001D.RequestsHitAnimation(_000E))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					ActorModelData actorModelData = _000E.GetActorModelData();
 					if (actorModelData != null)
 					{
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorModelData.CanPlayDamageReactAnim())
 							{
 								goto IL_0177;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (_001A(_000E))
@@ -756,20 +428,10 @@ namespace Theatrics
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (_0004(_000E))
 						{
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								_000E.DoVisualDeath(_0012);
 								return;
 							}
@@ -787,44 +449,13 @@ namespace Theatrics
 			ActorData actorData = GameFlowData.Get().activeOwnedActorData;
 			if (actorData == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<ActorData> actors = GameFlowData.Get().GetActors();
 				if (actors != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actors.Count != 0)
 					{
 						actorData = actors[0];
 						goto IL_0087;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Log.Error("No actors found to create Abilities Bounds.");
@@ -843,27 +474,9 @@ namespace Theatrics
 				Phase phase = this._000E[i];
 				if (_001D != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (_001D != phase)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				for (int j = 0; j < phase.animations.Count; j++)
@@ -871,15 +484,6 @@ namespace Theatrics
 					ActorAnimation actorAnimation = phase.animations[j];
 					if (_000E >= 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorAnimation.playOrderIndex != _000E)
 						{
 							continue;
@@ -889,65 +493,20 @@ namespace Theatrics
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorAnimation._000C_000E())
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (actorAnimation.GetSymbol0013())
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Bounds bound = actorAnimation._0020;
 					if (_001D.Index == AbilityPriority.Evasion && actorAnimation.Actor != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.Actor.TeamSensitiveData_authority;
 						if (teamSensitiveData_authority != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							teamSensitiveData_authority.EncapsulateVisiblePathBound(ref bound);
 						}
 					}
@@ -962,39 +521,12 @@ namespace Theatrics
 					}
 					_0012 = false;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}
@@ -1017,15 +549,6 @@ namespace Theatrics
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -1035,19 +558,6 @@ namespace Theatrics
 			int result;
 			if (_001D >= AbilityPriority.Prep_Defense && (int)_001D < _000E.Count)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((_000E[(int)_001D].animations.Count > 0) ? 1 : 0);
 			}
 			else
@@ -1061,19 +571,6 @@ namespace Theatrics
 		{
 			if (_001D >= AbilityPriority.Prep_Defense)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((int)_001D < _000E.Count)
 				{
 					return _000E[(int)_001D]._001C();
@@ -1098,10 +595,6 @@ namespace Theatrics
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -1118,36 +611,13 @@ namespace Theatrics
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (dictionary.ContainsKey(_001D.ActorIndex))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += dictionary[_001D.ActorIndex];
 				}
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return _001D.HitPoints + _001D.AbsorbPoints + num <= 0;
 			}
 		}
@@ -1163,36 +633,14 @@ namespace Theatrics
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
 			}
 			if (_0012 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_0012 < _000E.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorAnimation> animations = _000E[_0012].animations;
 					for (int i = 0; i < animations.Count; i++)
 					{
@@ -1201,27 +649,9 @@ namespace Theatrics
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorAnimation.PlaybackState2OrLater_zq)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (actorAnimation.AnimationFinished)
 						{
@@ -1229,22 +659,8 @@ namespace Theatrics
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							return false;
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1255,41 +671,10 @@ namespace Theatrics
 		{
 			if (_001D.GetHitPointsAfterResolution() + _000E <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!_001D.IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (_0011(_001D))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this._0012 >= 3)
 						{
 							int num = this._0012;
@@ -1298,26 +683,8 @@ namespace Theatrics
 							{
 								if (num < this._000E.Count)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num >= 0)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num == 5 && this._000E[num]._001D_000E(_001D))
 										{
 											while (true)
@@ -1341,39 +708,12 @@ namespace Theatrics
 												{
 													continue;
 												}
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 											if (actorAnimation.Actor == _001D)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (actorAnimation._0014_000E())
 												{
 													goto IL_0130;
-												}
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (!actorAnimation._0008_000E(_001D))
@@ -1384,26 +724,8 @@ namespace Theatrics
 											IL_0130:
 											return false;
 										}
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num > num2)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this._000E[num]._000E_000E(_001D))
 											{
 												while (true)
@@ -1440,15 +762,6 @@ namespace Theatrics
 								}
 								if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 							}
@@ -1477,30 +790,8 @@ namespace Theatrics
 		{
 			if (_0012 < _000E.Count)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (_0012 >= 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorAnimation> animations = _000E[_0012].animations;
 					for (int i = 0; i < animations.Count; i++)
 					{
@@ -1510,38 +801,11 @@ namespace Theatrics
 						}
 						if (animations[i].State != ActorAnimation.PlaybackState._0012)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (animations[i].State != ActorAnimation.PlaybackState._0015)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (animations[i].State != ActorAnimation.PlaybackState._0016)
 								{
 									continue;
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}

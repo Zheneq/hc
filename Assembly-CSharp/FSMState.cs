@@ -25,32 +25,10 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		{
 			if (!_myBrainCached.enabled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = 0;
 				num++;
 				if (MyFSMBrain.fsm == _myFSMCached)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -68,53 +46,13 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		{
 			if (!_myBrainCached.enabled)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((bool)base.transform)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((bool)base.transform.gameObject)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NPCBrain[] components = base.transform.gameObject.GetComponents<NPCBrain>();
 						if (components != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							NPCBrain[] array = components;
 							foreach (NPCBrain nPCBrain in array)
 							{
@@ -124,22 +62,8 @@ public class FSMState : MonoBehaviour, IGameEventListener
 								}
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									return nPCBrain;
 								}
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -162,19 +86,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			object result;
 			if ((bool)MyBrain)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = MyBrain.GetComponent<AbilityData>();
 			}
 			else
@@ -194,19 +105,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			object result;
 			if ((bool)MyBrain)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = MyBrain.GetComponent<ActorTurnSM>();
 			}
 			else
@@ -224,19 +122,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			object result;
 			if ((bool)MyBrain)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = MyBrain.GetComponent<BotController>();
 			}
 			else
@@ -274,27 +159,9 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
 					return;
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		MyBrain.NextBrain = scriptCommunicationArgs.NextBrain;
@@ -312,22 +179,9 @@ public class FSMState : MonoBehaviour, IGameEventListener
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Transition pendingTransition = MyFSM.GetPendingTransition();
 					if (pendingTransition != 0 && pendingTransition != trans)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.Log(string.Concat("NPC: ", MyBrain.name, " in state ", StateID, " already has a pending transition of ", pendingTransition, " but received a transition request of: ", trans, ". Overwriting!"));
 					}
 					MyBrain.SetPendingTransition(trans);
@@ -343,52 +197,12 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (trans != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (inTable != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (inTable.StateID == StateID.NullStateID && inTable.BrainToPush == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!inTable.PopBrain)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_0057;
 					}
 				}
@@ -426,10 +240,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
 					return;
 				}
@@ -437,15 +247,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		}
 		if (MyFSM.GetPendingTransition() == trans)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning(string.Concat("Ack - tried to remove a transition of ", trans, " that I have a pending change to. Deleting pending transition"));
 			MyFSM.SetPendingTransition(Transition.NullTransition);
 		}
@@ -463,10 +264,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return transitionTableMap[trans].StateID;
 				}
 			}
@@ -485,10 +282,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return transitionTableMap[trans].BrainToPush;
 				}
 			}
@@ -507,10 +300,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return transitionTableMap[trans].PopBrain;
 				}
 			}
@@ -531,15 +320,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Info(string.Concat("OnEnter(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", previousState, "'"));
 			return;
 		}
@@ -553,15 +333,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Info(string.Concat("OnExit(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", nextState, "'"));
 			return;
 		}

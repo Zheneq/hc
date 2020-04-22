@@ -26,19 +26,6 @@ public class UIActorDebugPanel : MonoBehaviour
 	{
 		if (m_actorLabels.ContainsKey(actor))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIActorDebugLabel uIActorDebugLabel = m_actorLabels[actor];
 			uIActorDebugLabel.m_label.text = string.Empty;
 			m_actorLabels.Remove(actor);
@@ -66,10 +53,6 @@ public class UIActorDebugPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0015;
 				}
 			}
@@ -85,19 +68,6 @@ public class UIActorDebugPanel : MonoBehaviour
 		UIActorDebugLabel uIActorDebugLabel = null;
 		if (!m_actorLabels.ContainsKey(actorData))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			uIActorDebugLabel = Object.Instantiate(m_actorDebugLabelPrefab);
 			uIActorDebugLabel.Setup(actorData);
 			uIActorDebugLabel.transform.SetParent(base.transform);

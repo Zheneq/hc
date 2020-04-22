@@ -16,19 +16,6 @@ internal class NetworkWriterAdapter : IBitStream
 			int result;
 			if (m_stream.Position < 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else

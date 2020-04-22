@@ -32,21 +32,8 @@ public class GUIT_Button_Simple : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!over)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						OnOver();
 					}
 					if (Input.GetMouseButtonDown(0))
@@ -73,11 +60,6 @@ public class GUIT_Button_Simple : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			OnOut();
 			return;
 		}
@@ -111,10 +93,6 @@ public class GUIT_Button_Simple : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GetComponent<GUITexture>().texture = text_over;
 					return;
 				}

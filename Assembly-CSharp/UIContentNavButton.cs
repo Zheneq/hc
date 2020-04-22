@@ -24,15 +24,6 @@ public class UIContentNavButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_hitbox.m_defaultImage.color = Color.white * 0.5f;
 			m_hitbox.m_hoverImage.color = Color.white * 0.5f;
 			m_hitbox.m_pressedImage.color = Color.white * 0.5f;
@@ -58,37 +49,14 @@ public class UIContentNavButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_buttonClickedCallback == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_buttonSound != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIFrontEnd.PlaySound(m_buttonSound);
 				}
 				m_buttonClickedCallback(this);

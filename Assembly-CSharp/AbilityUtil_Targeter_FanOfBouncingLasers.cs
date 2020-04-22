@@ -84,19 +84,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		float num;
 		if (m_count > 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_angle;
 		}
 		else
@@ -107,15 +94,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		float num3;
 		if (m_count > 1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = num2 / (float)(m_count - 1);
 		}
 		else
@@ -144,15 +122,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 				AreaEffectUtils.BouncingLaserInfo bouncingLaserInfo2 = bounceHitActors[item2];
 				if (bouncingLaserInfo2.m_endpointIndex > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetIgnoreCoverMinDist(item2, true);
 				}
 				item.actor = item2;
@@ -165,15 +134,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 			CreateLaserHighlights(travelBoardSquareWorldPositionForLos, laserAnglePoints, i);
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ResetSquareIndicatorIndexToUse();
 				AreaEffectUtils.OperateOnSquaresInBounceLaser(m_indicatorHandler, travelBoardSquareWorldPositionForLos, laserAnglePoints, m_widthInSquares, targetingActor, false);
 				HideUnusedSquareIndicators();

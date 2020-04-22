@@ -311,19 +311,6 @@ public class GameEventManager
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new GameEventManager();
 		}
 		return s_instance;
@@ -370,10 +357,6 @@ public class GameEventManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -412,10 +395,6 @@ public class GameEventManager
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<WeakReference> list = new List<WeakReference>();
 					list.Add(item);
 					value = list;
@@ -431,11 +410,6 @@ public class GameEventManager
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			value.Add(item);
 			return;
 		}
@@ -454,19 +428,6 @@ public class GameEventManager
 			if (!weakReference.IsAlive)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (weakReference.Target != listener)
 			{
@@ -524,30 +485,8 @@ public class GameEventManager
 					WeakReference weakReference = value[i];
 					if (weakReference.IsAlive)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (whoTo != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (whoTo != weakReference.Target)
 							{
 								continue;
@@ -596,15 +535,6 @@ public class GameEventManager
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int i = 0;
 			for (int count = m_referencesToRemove.Count; i < count; i++)
 			{
@@ -613,11 +543,6 @@ public class GameEventManager
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_referencesToRemove.Clear();
 				return;
 			}

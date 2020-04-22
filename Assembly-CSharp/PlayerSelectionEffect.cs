@@ -78,19 +78,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (!m_drawingInConfirm)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (draw)
 			{
 				m_drawingInConfirmStartTime = Time.time;
@@ -111,10 +98,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -124,15 +107,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 		InitializeSelectionPostMaterialParameters();
 		if (!isSupported)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ReportAutoDisable();
 		}
 		return isSupported;
@@ -152,19 +126,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if ((bool)m_selectionPostMaterial)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DestroyImmediate(m_selectionPostMaterial);
 		}
 		playerCamera = null;
@@ -174,11 +135,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if ((bool)playerCameraObject)
 			{
 				Object.DestroyImmediate(playerCameraObject);
@@ -192,41 +148,10 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (!playerCamera)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (playerCameraPrefab != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!playerCamera)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerCameraObject = Object.Instantiate(playerCameraPrefab);
 					playerCamera = playerCameraObject.GetComponent<Camera>();
 				}
@@ -253,62 +178,29 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_selectionPostMaterial != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (Camera.main.actualRenderingPath != RenderingPath.Forward)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 						bool flag = currentGraphicsQuality <= GraphicsQuality.Low;
 						float num;
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_flipIfNotLowQuality)
 							{
 								num = 1f;
@@ -323,15 +215,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						float value2;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value2 = 1f;
 						}
 						else
@@ -357,28 +240,10 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				float num = blurSize;
 				if (m_drawingInConfirm)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = Mathf.Max(0f, blurSize * (1f - m_shrinkSpeed * (Time.time - m_drawingInConfirmStartTime)));
 				}
 				if (num != 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((bool)playerCam)
 					{
 						RenderTexture temporary = RenderTexture.GetTemporary(source.width, source.height, 24, source.format);
@@ -419,11 +284,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							m_selectionPostMaterial.SetColor("_FriendlyInner", friendlyInner);
 							m_selectionPostMaterial.SetColor("_FriendlyOuter", friendlyOuter);
 							m_selectionPostMaterial.SetColor("_EnemyInner", enemyInner);
@@ -440,31 +300,9 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 							return;
 						}
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				Graphics.Blit(source, destination);
 				return;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		Graphics.Blit(source, destination);

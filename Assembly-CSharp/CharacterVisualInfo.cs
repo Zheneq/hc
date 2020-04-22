@@ -33,23 +33,10 @@ public struct CharacterVisualInfo
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CharacterVisualInfo characterVisualInfo = (CharacterVisualInfo)obj;
 					int result;
 					if (skinIndex == characterVisualInfo.skinIndex && patternIndex == characterVisualInfo.patternIndex)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((colorIndex == characterVisualInfo.colorIndex) ? 1 : 0);
 					}
 					else
@@ -81,19 +68,6 @@ public struct CharacterVisualInfo
 		int result;
 		if (skinIndex == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (patternIndex == 0)
 			{
 				result = ((colorIndex == 0) ? 1 : 0);

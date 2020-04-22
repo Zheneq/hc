@@ -29,41 +29,10 @@ public class BarrierResponseOnShot
 		int result;
 		if (m_healOnOwnerFromEnemyShot <= 0 && m_energyGainOnOwnerFromEnemyShot <= 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_effectOnOwnerFromEnemyShot.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_damageOnEnemyOnShot <= 0 && m_energyLossOnEnemyOnShot <= 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (m_effectOnEnemyOnShot.m_applyEffect ? 1 : 0);
 					goto IL_0066;
 				}
@@ -89,19 +58,6 @@ public class BarrierResponseOnShot
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			otherVal = other.m_healOnOwnerFromEnemyShot;
 		}
 		else
@@ -115,15 +71,6 @@ public class BarrierResponseOnShot
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_energyGainOnOwnerFromEnemyShot;
 		}
 		else
@@ -136,15 +83,6 @@ public class BarrierResponseOnShot
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effectOnOwnerFromEnemyShot;
 		}
 		else
@@ -158,15 +96,6 @@ public class BarrierResponseOnShot
 		int otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_damageOnEnemyOnShot;
 		}
 		else
@@ -180,15 +109,6 @@ public class BarrierResponseOnShot
 		int otherVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.m_energyLossOnEnemyOnShot;
 		}
 		else
@@ -201,15 +121,6 @@ public class BarrierResponseOnShot
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = other.m_effectOnEnemyOnShot;
 		}
 		else
@@ -224,19 +135,6 @@ public class BarrierResponseOnShot
 		int num;
 		if (showDiff)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -253,15 +151,6 @@ public class BarrierResponseOnShot
 		int num2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = other.m_energyGainOnOwnerFromEnemyShot;
 		}
 		else
@@ -274,15 +163,6 @@ public class BarrierResponseOnShot
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effectOnOwnerFromEnemyShot;
 		}
 		else
@@ -298,15 +178,6 @@ public class BarrierResponseOnShot
 		object otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_onShotSequencePrefab;
 		}
 		else
@@ -319,15 +190,6 @@ public class BarrierResponseOnShot
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = (other.m_useShooterPosAsReactionSequenceTargetPos ? 1 : 0);
 		}
 		else

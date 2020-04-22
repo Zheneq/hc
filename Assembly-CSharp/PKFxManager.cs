@@ -650,19 +650,6 @@ public static class PKFxManager
 			m_SkinnedMeshRenderer = null;
 			if (m_Mesh != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_MeshHashCode = m_Mesh.name.GetHashCode();
 			}
 			else
@@ -685,19 +672,6 @@ public static class PKFxManager
 			m_MeshFilter = null;
 			if (m_Mesh != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_MeshHashCode = m_Mesh.name.GetHashCode();
 			}
 			else
@@ -1022,46 +996,15 @@ public static class PKFxManager
 		{
 			if (val.Length >= 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_Descriptor = new AttributeDesc((BaseType)(22 + val.Length - 1), name);
 				m_Value0 = itof(val[0]);
 			}
 			if (val.Length >= 2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_Value1 = itof(val[1]);
 			}
 			if (val.Length >= 3)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_Value2 = itof(val[2]);
 			}
 			if (val.Length < 4)
@@ -1070,11 +1013,6 @@ public static class PKFxManager
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_Value3 = itof(val[3]);
 				return;
 			}
@@ -1333,10 +1271,6 @@ public static class PKFxManager
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0097;
 					}
 				}
@@ -1364,15 +1298,6 @@ public static class PKFxManager
 		string text = m_PackPath + "/PKconfig.cfg";
 		if (File.Exists(text))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FileStream fileStream = new FileStream(text, FileMode.Open, FileAccess.Read);
 			StreamReader textReader = new StreamReader(fileStream, Encoding.ASCII);
 			m_GlobalConf = (xmlSerializer.Deserialize(textReader) as PKFxConf);
@@ -1404,10 +1329,6 @@ public static class PKFxManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000d;
 				}
 			}
@@ -1593,19 +1514,6 @@ public static class PKFxManager
 		int vertexCount = mesh.vertexCount;
 		if (mesh.subMeshCount > 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("[PKFX] Mesh has more than 1 submesh: non opti");
 		}
 		for (int num = 0; num < mesh.subMeshCount; num++)
@@ -1614,27 +1522,9 @@ public static class PKFxManager
 			Debug.Log("[PKFX] Mesh (" + (num + 1) + "/" + subMeshCount + ") idx:" + indicesCount + " v:" + vertexCount + " v:" + mesh.vertices.Length + " n:" + mesh.normals.Length + " uv:" + mesh.uv.Length);
 			if (mesh.vertices.Length == vertexCount)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (mesh.normals.Length == vertexCount)
 				{
 					goto IL_017a;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Debug.LogError("[PKFX] Invalid mesh");
@@ -1642,25 +1532,11 @@ public static class PKFxManager
 			IL_017a:
 			if (!SceneMeshAddRawMesh(indicesCount, mesh.GetIndices(num), vertexCount, mesh.vertices, mesh.normals, localToWorldMatrix))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Fail to load raw mesh");
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return true;
 		}
 	}
@@ -1682,15 +1558,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			File.WriteAllBytes(m_PackPath + "/PKconfig.cfg", www.bytes);
 			www.Dispose();
 			yield break;
@@ -1701,32 +1568,10 @@ public static class PKFxManager
 	{
 		if (Application.platform == RuntimePlatform.IPhonePlayer)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnitySetGraphicsDevice(IntPtr.Zero, 8, 0);
 		}
 		if (SystemInfo.usesReversedZBuffer)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetReversedZBuffer(true);
 		}
 		SetupColorSpace(QualitySettings.activeColorSpace == ColorSpace.Linear);
@@ -1757,10 +1602,6 @@ public static class PKFxManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1803,15 +1644,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value.m_OnFxStopped != null)
 			{
 				value.m_OnFxStopped(value);
@@ -1830,15 +1662,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value.OnFxHotReloaded(newGuid);
 			return;
 		}
@@ -1896,15 +1719,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -1920,19 +1734,6 @@ public static class PKFxManager
 			desc.Description = Marshal.AllocHGlobal(128);
 			if (EffectFillSamplerDescFromFx(name, i, ref desc))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(new SamplerDesc(desc));
 			}
 			Marshal.FreeHGlobal(desc.Name);
@@ -1940,11 +1741,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1962,15 +1758,6 @@ public static class PKFxManager
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -2005,19 +1792,6 @@ public static class PKFxManager
 	{
 		if (Application.platform != RuntimePlatform.Android)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.platform != RuntimePlatform.IPhonePlayer)
 			{
 				try
@@ -2025,15 +1799,6 @@ public static class PKFxManager
 					m_HasFileLogging = enable;
 					if (enable)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!File.Exists(m_LogFilePath))
 						{
 							FileStream fileStream = File.Create(m_LogFilePath);
@@ -2084,10 +1849,6 @@ public static class PKFxManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2124,69 +1885,24 @@ public static class PKFxManager
 									string current = enumerator.Current;
 									if (Path.GetExtension(current) != ".meta")
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										string text = current.Substring(Application.streamingAssetsPath.Length);
 										FileInfo fileInfo = new FileInfo(current);
 										FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + text);
 										if (!fileInfo2.Exists)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											Debug.Log("Copy " + Application.persistentDataPath + text);
 											if (!Directory.Exists(fileInfo2.Directory.FullName))
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												Directory.CreateDirectory(fileInfo2.Directory.FullName);
 											}
 											File.Copy(current, fileInfo2.FullName);
 										}
 										else if (fileInfo.LastWriteTime > fileInfo2.LastWriteTime)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											Debug.Log("Overwriting " + Application.persistentDataPath + text);
 											File.Copy(current, fileInfo2.FullName, true);
 										}
 									}
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							m_PackPath = Application.persistentDataPath;

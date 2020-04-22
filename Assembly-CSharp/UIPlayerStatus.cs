@@ -88,10 +88,6 @@ public class UIPlayerStatus : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -112,15 +108,6 @@ public class UIPlayerStatus : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameFlowData.Get().IsInDecisionState())
 			{
 				return;
@@ -139,44 +126,17 @@ public class UIPlayerStatus : MonoBehaviour
 				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && current.GetModdedCost() >= m_actor.GetActualMaxTechPoints();
 				if (!component.HasQueuedAction(actionTypeOfAbility))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
 						continue;
 					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				UpdateTargetingAbilityIndicator(current, actionTypeOfAbility, i);
 				i++;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = 0; j <= 3; j++)
@@ -185,27 +145,9 @@ public class UIPlayerStatus : MonoBehaviour
 			Ability abilityOfActionType = component.GetAbilityOfActionType(actionType);
 			if (component.HasQueuedAction(actionType) && abilityOfActionType != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UpdateTargetingAbilityIndicator(abilityOfActionType, actionType, i);
 				i++;
 			}
-		}
-		while (true)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (; i < m_targetingAbilityIndicators.Count; i++)
 		{
@@ -225,10 +167,6 @@ public class UIPlayerStatus : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -243,63 +181,22 @@ public class UIPlayerStatus : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityRunPhase abilityRunPhase = Card.AbilityPriorityToRunPhase(ability.GetRunPriority());
 			if (abilityRunPhase == AbilityRunPhase.Prep)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = true;
 			}
 			else if (abilityRunPhase == AbilityRunPhase.Dash)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 			}
 			else if (abilityRunPhase == AbilityRunPhase.Combat)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive3 = true;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_catalsystPips.m_PrepPhaseOn, doActive);
 			UIManager.SetGameObjectActive(m_catalsystPips.m_DashPhaseOn, doActive2);
 			UIManager.SetGameObjectActive(m_catalsystPips.m_BlastPhaseOn, doActive3);
@@ -335,15 +232,6 @@ public class UIPlayerStatus : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor == null)
 			{
 				while (true)
@@ -360,15 +248,6 @@ public class UIPlayerStatus : MonoBehaviour
 			ActorTurnSM component = m_actor.GetComponent<ActorTurnSM>();
 			if (component.AmStillDeciding())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_lockIcon, false);
 			}
 			else if (m_actor.IsDead())
@@ -377,15 +256,6 @@ public class UIPlayerStatus : MonoBehaviour
 			}
 			else if (!m_lockIcon.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_lockIcon, true);
 				m_animationController.Play("PlayerStatusLockIn");
 			}
@@ -405,10 +275,6 @@ public class UIPlayerStatus : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Team.Invalid;
 				}
 			}
@@ -427,10 +293,6 @@ public class UIPlayerStatus : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(this, false);
 					return;
 				}
@@ -438,15 +300,6 @@ public class UIPlayerStatus : MonoBehaviour
 		}
 		if (m_actor.IsDead())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_deathText.text = string.Empty;
 			UIManager.SetGameObjectActive(m_border, true);
 			UIManager.SetGameObjectActive(m_overlay, true);
@@ -481,19 +334,6 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (index < 8)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			while (m_targetingAbilityIndicators.Count <= index)
 			{
 				GameObject gameObject = Object.Instantiate(m_targetingAbilityIndicatorPrefab);
@@ -507,29 +347,11 @@ public class UIPlayerStatus : MonoBehaviour
 			m_targetingAbilityIndicators[index].Setup(m_actor, ability, action);
 			if (!m_targetingAbilityIndicators[index].gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[index], true);
 			}
 		}
 		if (m_catalsystPips == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_catalsystPips = Object.Instantiate(m_catalystIndicatorPrefab);
 			m_catalsystPips.transform.SetParent(m_targetingAbilityIconsGrid.transform);
 			m_catalsystPips.transform.localScale = Vector3.one;
@@ -546,19 +368,6 @@ public class UIPlayerStatus : MonoBehaviour
 		{
 			if (m_targetingAbilityIndicators[i].gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[i], false);
 			}
 		}

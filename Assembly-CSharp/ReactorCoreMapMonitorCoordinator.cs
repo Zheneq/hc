@@ -63,19 +63,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (s_instance != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error(string.Concat(GetType(), " has existing instance in scene on Awake, may have duplicates"));
 		}
 		s_instance = this;
@@ -92,15 +79,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_largePortraitObjectRenderer = m_largePortraitObject.GetComponent<Renderer>();
 			m_largePortraitObject.SetActive(false);
 			return;
@@ -124,15 +102,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_portraitControllers.Contains(controller))
 			{
 				m_portraitControllers.Add(controller);
@@ -149,15 +118,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_portraitControllers.Remove(controller);
 			return;
 		}
@@ -181,10 +141,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0014;
 				}
 			}
@@ -201,15 +157,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_timeTillNextUpdate -= Time.deltaTime;
 			if (!(m_timeTillNextUpdate <= 0f))
 			{
@@ -219,15 +166,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 			m_currentIndex++;
 			if (m_currentIndex >= m_characterRespawning.Count)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentIndex = 0;
 			}
 			CharacterType key = m_characterRespawning[m_currentIndex];
@@ -237,25 +175,11 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				Sprite respawnPortrait = m_characterSprites[key];
 				for (int i = 0; i < m_portraitControllers.Count; i++)
 				{
 					if (m_portraitControllers[i] != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_portraitControllers[i].SetRespawnPortrait(respawnPortrait);
 					}
 				}
@@ -275,15 +199,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -292,30 +207,8 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (eventType == GameEventManager.EventType.TurnTick)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_largePortraitObjectRenderer != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			m_characterRespawning.Clear();
 			List<ActorData> actors = GameFlowData.Get().GetActors();
@@ -324,83 +217,29 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				ActorData actorData = actors[i];
 				if (!actorData.IsDead())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.NextRespawnTurn <= 0)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.NextRespawnTurn != GameFlowData.Get().CurrentTurn)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (m_characterRespawning.Contains(actorData.m_characterType))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_characterRespawning.Add(actorData.m_characterType);
 				Sprite aliveHUDIcon = actorData.GetAliveHUDIcon();
 				if (!m_characterSprites.ContainsKey(actorData.m_characterType))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterSprites.Add(actorData.m_characterType, aliveHUDIcon);
 				}
 			}
 			int count = m_characterRespawning.Count;
 			if (count > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_timeTillNextUpdate = 0f;
 			}
 			else
@@ -414,11 +253,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_characterRespawning.Clear();
 			List<ActorData> actors2 = GameFlowData.Get().GetActors();
 			for (int j = 0; j < actors2.Count; j++)
@@ -428,41 +262,14 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_characterRespawning.Contains(actorData2.m_characterType))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				m_characterRespawning.Add(actorData2.m_characterType);
 				Sprite aliveHUDIcon2 = actorData2.GetAliveHUDIcon();
 				if (!m_characterSprites.ContainsKey(actorData2.m_characterType))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterSprites.Add(actorData2.m_characterType, aliveHUDIcon2);
 				}
 			}

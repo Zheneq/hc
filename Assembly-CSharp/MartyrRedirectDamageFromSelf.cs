@@ -44,19 +44,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Redirect Damage From Self";
 		}
 		m_syncComponent = GetComponent<Martyr_SyncComponent>();
@@ -106,19 +93,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -133,19 +107,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedEffectOnTarget != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnTarget;
 		}
 		else
@@ -206,19 +167,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, base.ActorData, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -271,19 +219,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else

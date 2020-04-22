@@ -34,10 +34,6 @@ public class ValidatingMoveRequestState : TurnState
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_SM.NextState = TurnStateEnum.DECIDING_MOVEMENT;
 						return;
 					}

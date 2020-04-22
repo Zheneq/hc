@@ -110,33 +110,11 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		BoardSquare coneStartSquare;
 		if (targets.Count >= 1 && currentTargetIndex >= 1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targets[currentTargetIndex - 1] != null)
 			{
 				AbilityTarget abilityTarget = targets[currentTargetIndex - 1];
 				coneStartSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 				goto IL_0066;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		coneStartSquare = targetingActor.GetCurrentBoardSquare();
@@ -157,19 +135,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, m_minLengthSquares, m_maxLengthSquares, m_minAngleDegrees, m_maxAngleDegrees, m_stretchStyle, out float lengthInSquares, out float angleInDegrees, m_discreteWidthAngleChange, m_numDiscreteWidthChanges, m_interpMinDistOverride, m_interpRangeOverride);
 		if (m_coneLengthSquaresOverrideDelegate != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lengthInSquares = m_coneLengthSquaresOverrideDelegate();
 		}
 		LastConeAngle = angleInDegrees;
@@ -177,15 +142,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		m_conePart.UpdateDimensions(angleInDegrees, lengthInSquares);
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count >= 1)
 			{
 				goto IL_010e;
@@ -200,27 +156,9 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		List<ActorData> hitActors = m_conePart.GetHitActors(worldPositionForLoS, vector, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_includeAllies, m_includeEnemies));
 		if (!(m_knockbackDistance > 0f))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(m_knockbackDistanceOnSelf > 0f))
 			{
 				goto IL_02aa;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
@@ -231,26 +169,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			float num2 = m_knockbackDistance;
 			if (m_extraKnockbackDist > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_useExtraKnockbackDistDelegate != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_useExtraKnockbackDistDelegate(targetingActor))
 					{
 						num2 += m_extraKnockbackDist;
@@ -264,41 +184,14 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					if (current.GetTeam() != targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, vector, sourcePos, num2);
 						num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (m_knockbackDistanceOnSelf > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquarePathInfo path2 = KnockbackUtils.BuildKnockbackPath(targetingActor, m_knockbackTypeOnSelf, vector, sourcePos, m_knockbackDistanceOnSelf);
 			num = AddMovementArrowWithPrevious(targetingActor, path2, TargeterMovementType.Knockback, num);
 		}
@@ -307,26 +200,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		IL_02aa:
 		if (m_includeCaster)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!hitActors.Contains(targetingActor))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hitActors.Add(targetingActor);
 			}
 		}
@@ -340,11 +215,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			DrawInvalidSquareIndicators(targetingActor, worldPositionForLoS, forwardDir_degrees, lengthInSquares, angleInDegrees);
 			return;
 		}
@@ -371,56 +241,16 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_includeAllies)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_0081;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_includeEnemies)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}

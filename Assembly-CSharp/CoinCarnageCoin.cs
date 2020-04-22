@@ -21,19 +21,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 			ref bool pickedUp = ref m_pickedUp;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				base.syncVarHookGuard = true;
 				HookSetPickedUp(value);
 				base.syncVarHookGuard = false;
@@ -69,10 +56,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void CoinCarnageCoin::PickUp(ActorData)' called on client");
 					return;
 				}
@@ -84,11 +67,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Networkm_pickedUp = true;
 			return;
 		}
@@ -103,15 +81,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.gameObject.SetActive(false);
 			return;
 		}
@@ -129,10 +98,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void CoinCarnageCoin::Destroy()' called on client");
 					return;
 				}
@@ -156,10 +121,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.Write(m_pickedUp);
 					return true;
 				}
@@ -168,15 +129,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -186,15 +138,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -211,10 +154,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_pickedUp = reader.ReadBoolean();
 					return;
 				}

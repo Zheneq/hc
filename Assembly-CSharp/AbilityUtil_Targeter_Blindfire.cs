@@ -46,30 +46,8 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 				GameObject current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Object.Destroy(current);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_boundsHighlights.Clear();
@@ -88,33 +66,11 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		ActorCover component = targetingActor.GetComponent<ActorCover>();
 		if (m_restrictWithinCover)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CreateBoundsHighlights(casterPos, component);
 		}
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -128,15 +84,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			float newDirAngleDegrees;
 			if (m_restrictWithinCover)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.ClampConeToValidCover(num, m_coneAngleDegrees, out newDirAngleDegrees, out Vector3 _);
 			}
 			else
@@ -150,33 +97,11 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			if (!m_includeTargetsInCover)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actors.RemoveAll(delegate(ActorData actor)
 				{
 					int result;
 					if (actor.GetActorCover() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						result = (actor.GetActorCover().IsInCoverWrt(casterPos) ? 1 : 0);
 					}
 					else
@@ -188,15 +113,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			}
 			if (m_maxTargets > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.SortActorsByDistanceToPos(ref actors, casterPos);
 				TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 			}
@@ -220,19 +136,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		Vector3 position = casterPos + new Vector3(0f, y, 0f) - vector * d;
 		if (base.Highlight == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float radiusInWorld = (m_coneLengthRadiusInSquares + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			base.Highlight = HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneAngleDegrees);
 		}
@@ -255,19 +158,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 				GameObject item2 = HighlightUtils.Get().CreateBoundaryLine(m_coneLengthRadiusInSquares, false, false);
 				m_boundsHighlights.Add(item);
 				m_boundsHighlights.Add(item2);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		for (int j = 0; j < coveredRegions.Count; j++)
@@ -294,19 +184,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else

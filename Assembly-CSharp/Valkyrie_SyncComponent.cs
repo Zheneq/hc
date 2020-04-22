@@ -84,30 +84,8 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -115,26 +93,8 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -142,15 +102,6 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -169,15 +120,6 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -194,10 +136,6 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_coverDirection = (ActorCover.CoverDirections)reader.ReadInt32();
 					m_extraAbsorbForGuard = (int)reader.ReadPackedUInt32();
 					m_skipDamageReductionForNextStab = reader.ReadBoolean();
@@ -209,28 +147,10 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_coverDirection = (ActorCover.CoverDirections)reader.ReadInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_extraAbsorbForGuard = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)

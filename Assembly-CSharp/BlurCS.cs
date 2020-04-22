@@ -32,19 +32,6 @@ internal class BlurCS : PostEffectsCSBase
 		blurMaterial = CheckShaderAndCreateMaterial(blurShader, blurMaterial);
 		if (!isSupported)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ReportAutoDisable();
 		}
 		return isSupported;
@@ -58,15 +45,6 @@ internal class BlurCS : PostEffectsCSBase
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DestroyImmediate(blurMaterial);
 			return;
 		}
@@ -83,10 +61,6 @@ internal class BlurCS : PostEffectsCSBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Graphics.Blit(source, destination);
 					return;
 				}
@@ -103,15 +77,6 @@ internal class BlurCS : PostEffectsCSBase
 		int num2;
 		if (blurType == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = 0;
 		}
 		else
@@ -136,11 +101,6 @@ internal class BlurCS : PostEffectsCSBase
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Graphics.Blit(renderTexture, destination);
 			RenderTexture.ReleaseTemporary(renderTexture);
 			return;

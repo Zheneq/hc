@@ -31,15 +31,6 @@ public class SniperOverwatchSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SniperOverwatchSatellite component = gameObject.GetComponent<SniperOverwatchSatellite>();
 			if (!(component != null))
 			{
@@ -47,20 +38,10 @@ public class SniperOverwatchSatelliteActionSequence : Sequence
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_action == SatelliteAction.Attack && base.Target != null)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						component.TriggerAttack(base.Target.gameObject);
 						return;
 					}

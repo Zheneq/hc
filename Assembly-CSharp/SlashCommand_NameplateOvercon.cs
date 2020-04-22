@@ -16,37 +16,18 @@ public class SlashCommand_NameplateOvercon : SlashCommand
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(UIOverconData.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!(ClientGameManager.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
 					if (arguments.Length <= 0)
 					{
@@ -54,11 +35,6 @@ public class SlashCommand_NameplateOvercon : SlashCommand
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						string text = array[0];
 						int overconIdByName = UIOverconData.Get().GetOverconIdByName(text);
 						if (overconIdByName > 0)

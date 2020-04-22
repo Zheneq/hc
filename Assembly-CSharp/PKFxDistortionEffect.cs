@@ -16,30 +16,8 @@ internal class PKFxDistortionEffect : MonoBehaviour
 	{
 		if (!(_DistortionRT == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_DistortionRT.IsCreated())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(m_MaterialDistortion == null))
 				{
 					if (m_MaterialBlur == null)
@@ -65,15 +43,6 @@ internal class PKFxDistortionEffect : MonoBehaviour
 					Graphics.Blit(m_TmpRT, destination, m_MaterialBlur);
 					RenderTexture.ReleaseTemporary(m_TmpRT);
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

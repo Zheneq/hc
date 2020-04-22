@@ -60,30 +60,8 @@ public class SinglePlayerManager : NetworkBehaviour
 			ref int currentScriptIndex = ref m_currentScriptIndex;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetCurrentScriptIndex(value);
 					base.syncVarHookGuard = false;
@@ -105,19 +83,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			ref bool canEndTurn = ref m_canEndTurn;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				base.syncVarHookGuard = true;
 				HookSetCanEndTurn(value);
 				base.syncVarHookGuard = false;
@@ -140,19 +105,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerManager singlePlayerManager = gameObject.AddComponent<SinglePlayerManager>();
 		if (!s_instance)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = singlePlayerManager;
 		}
 		return gameObject;
@@ -166,15 +118,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 			return;
 		}
@@ -208,19 +151,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			SinglePlayerState currentState = GetCurrentState();
 			if (currentState != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				currentState.m_markedForAdvanceState = false;
 				currentState.OnExitingState();
 			}
@@ -233,26 +163,8 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool hasTag = currentState2.GetHasTag(SinglePlayerState.SinglePlayerTag.PauseTimer);
 				if (NetworkServer.active)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hasTag != m_pausedTimer)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_pausedTimer = hasTag;
 						GameFlowData.Get().SetPausedForSinglePlayer(m_pausedTimer);
 					}
@@ -273,26 +185,8 @@ public class SinglePlayerManager : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentState2.m_markedForAdvanceState)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				newIndex++;
 			}
 		}
@@ -321,15 +215,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetScriptIndex(value);
 			return;
 		}
@@ -343,15 +228,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Networkm_canEndTurn = canEnd;
 			return;
 		}
@@ -368,10 +244,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_canEndTurn;
 				}
 			}
@@ -468,30 +340,8 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Get().GetCurrentState() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.DisableCancel))
 				{
 					return true;
@@ -522,26 +372,12 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState.m_startTime == 0f)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (currentState.GetDuration() > currentState.m_advanceAfterSeconds / Time.timeScale)
 				{
 					AdvanceScript();
@@ -560,24 +396,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnDecisionEnd))
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					AdvanceScript();
 					return;
 				}
@@ -595,24 +417,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnResolutionEnd))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AdvanceScript();
 					return;
 				}
@@ -630,31 +438,9 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SinglePlayerState[] script = SinglePlayerCoordinator.Get().m_script;
 			if (scriptIndex >= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (scriptIndex < script.Length)
 				{
 					while (true)
@@ -677,30 +463,8 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if ((bool)s_instance)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actor.GetIsHumanControlled())
 				{
 					return s_instance.GetCanEndTurnFlag();
@@ -716,19 +480,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		int result;
 		if (currentState != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableChatter) ? 1 : 0);
 		}
 		else
@@ -744,19 +495,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		int result;
 		if (currentState != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableAutoQueuedAbilitiesForNpcs) ? 1 : 0);
 		}
 		else
@@ -818,23 +556,10 @@ public class SinglePlayerManager : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -846,19 +571,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = GetCurrentState();
 		if (currentState != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData localPlayer = GetLocalPlayer();
 			bool flag2 = false;
 			switch (currentState.m_advanceScriptIfActorDies)
@@ -871,15 +583,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				int num3;
 				if (!(localPlayer == null))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = ((localPlayer == actor) ? 1 : 0);
 				}
 				else
@@ -894,15 +597,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				int num2;
 				if (!(localPlayer == null))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((localPlayer.GetTeam() == actor.GetTeam()) ? 1 : 0);
 				}
 				else
@@ -917,15 +611,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				int num;
 				if (!(localPlayer == null))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((localPlayer.GetTeam() != actor.GetTeam()) ? 1 : 0);
 				}
 				else
@@ -950,15 +635,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currentState.m_actorDeaths++;
 				if (currentState.m_actorDeaths >= currentState.m_advanceScriptIfActorDiesCount)
 				{
@@ -982,24 +658,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnMoveEntered))
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					AdvanceScript();
 					return;
 				}
@@ -1018,35 +680,16 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilitySelected))
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						AdvanceScript();
 						return;
 					}
@@ -1066,35 +709,16 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilityTargeted))
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						AdvanceScript();
 						return;
 					}
@@ -1114,35 +738,16 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnLockInEntered))
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						AdvanceScript();
 						return;
 					}
@@ -1164,10 +769,6 @@ public class SinglePlayerManager : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SinglePlayerState currentState = GetCurrentState();
 					if (currentState != null)
 					{
@@ -1208,21 +809,11 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			PlayerData component = localPlayer.GetComponent<PlayerData>();
 			if (component != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					component.CallCmdTutorialQueueEmpty();
 					return;
 				}
@@ -1235,19 +826,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (m_advanceDestinationsHighlight != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DestroyImmediate(m_advanceDestinationsHighlight);
 			m_advanceDestinationsHighlight = null;
 		}
@@ -1257,11 +835,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			HashSet<BoardSquare> advanceDestinations = GetCurrentState().GetAdvanceDestinations();
 			if (advanceDestinations == null)
 			{
@@ -1269,32 +842,17 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (advanceDestinations.Count <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_advanceDestinationsHighlight = HighlightUtils.Get().CreateBoundaryHighlight(advanceDestinations, Color.white);
 					if ((bool)m_advanceDestinationsHighlight)
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							m_advanceDestinationsHighlight.AddComponent<HighlightParent>();
 							return;
 						}
@@ -1313,15 +871,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_errorTriggered = false;
 			RecalcCanEndTurn();
 			if (GetCanEndTurnFlag())
@@ -1330,22 +879,12 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (IsMovementAllowed())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!(SinglePlayerCoordinator.Get() != null))
 					{
 						return;
@@ -1355,28 +894,10 @@ public class SinglePlayerManager : NetworkBehaviour
 					{
 						if (activatableObject == null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Error("Null activation-object in Activations On Forbidden Path.");
 						}
 						else if (activatableObject.m_sceneObject == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Error("Activation-object has null scene-object in Activations On Forbidden Path.");
 						}
 						else
@@ -1386,11 +907,6 @@ public class SinglePlayerManager : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (actor.GetCurrentBoardSquare() != actor.MoveFromBoardSquare)
 						{
 							m_errorTriggered = true;
@@ -1411,15 +927,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SinglePlayerCoordinator.Get() != null)
 			{
 				ActivatableObject[] activationsOnForbiddenPath = SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath;
@@ -1427,52 +934,16 @@ public class SinglePlayerManager : NetworkBehaviour
 				{
 					if (activatableObject != null && activatableObject.m_sceneObject != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						activatableObject.SetIsActive(false);
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				ActivatableObject[] activationsOnFailedToShootAndMove = SinglePlayerCoordinator.Get().m_activationsOnFailedToShootAndMove;
 				foreach (ActivatableObject activatableObject2 in activationsOnFailedToShootAndMove)
 				{
 					if (activatableObject2 != null && activatableObject2.m_sceneObject != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						activatableObject2.SetIsActive(false);
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				ActivatableObject[] activationsOnFailedToUseAllAbilities = SinglePlayerCoordinator.Get().m_activationsOnFailedToUseAllAbilities;
 				foreach (ActivatableObject activatableObject3 in activationsOnFailedToUseAllAbilities)
@@ -1481,37 +952,10 @@ public class SinglePlayerManager : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activatableObject3.m_sceneObject != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						activatableObject3.SetIsActive(false);
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (GetCanEndTurnFlag())
@@ -1520,11 +964,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!IsMovementAllowed())
 				{
 					while (true)
@@ -1545,15 +984,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 									else if (activatableObject4.m_sceneObject == null)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Log.Error("Activation-object has null scene-object in Activations On Forbidden Path.");
 									}
 									else
@@ -1600,28 +1030,10 @@ public class SinglePlayerManager : NetworkBehaviour
 										{
 											if (activatableObject5 == null)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												Log.Error("Null activation-object in Activations On Failed To Shoot And Move.");
 											}
 											else if (activatableObject5.m_sceneObject == null)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												Log.Error("Activation-object has null scene-object in Activations On Failed To Shoot And Move.");
 											}
 											else
@@ -1653,11 +1065,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					ActivatableObject[] activationsOnFailedToUseAllAbilities2 = SinglePlayerCoordinator.Get().m_activationsOnFailedToUseAllAbilities;
 					foreach (ActivatableObject activatableObject6 in activationsOnFailedToUseAllAbilities2)
 					{
@@ -1700,10 +1107,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -1767,15 +1170,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = s_instance.GetCurrentState();
 		if (currentState.m_allowedAbilities.Length == 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else
@@ -1789,29 +1183,11 @@ public class SinglePlayerManager : NetworkBehaviour
 					int num2 = allowedAbilities[num];
 					if (num2 == (int)action)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1830,10 +1206,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -1860,15 +1232,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag2;
 		if (!currentState.m_onlyAllowWaypointMovement)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = true;
 		}
 		else
@@ -1878,15 +1241,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -1907,10 +1261,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1946,15 +1296,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			if (SinglePlayerCoordinator.Get().m_forbiddenSquares.m_quads.Length == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 			else
@@ -1976,41 +1317,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		int num;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3 && flag4)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag5)
 					{
 						num = (flag6 ? 1 : 0);
@@ -2038,65 +1348,16 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result = true;
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetCurrentState() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData localPlayer = GetLocalPlayer();
 					AbilityData abilityData = localPlayer.GetAbilityData();
 					if (abilityData.HasQueuedAbilities())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityData.GetQueuedAbilitiesAllowMovement())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 						}
 					}
@@ -2115,30 +1376,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result = true;
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetCurrentState() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SinglePlayerState currentState = GetCurrentState();
 				if (currentState != null && currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 				{
@@ -2148,15 +1387,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				{
 					if (currentState != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireChasing))
 						{
 							bool flag = false;
@@ -2167,15 +1397,6 @@ public class SinglePlayerManager : NetworkBehaviour
 							}
 							if (!flag)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 							}
 							goto IL_01d7;
@@ -2192,15 +1413,6 @@ public class SinglePlayerManager : NetworkBehaviour
 						List<GridPos> list = null;
 						if (!NetworkServer.active)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((bool)localPlayer2.GetComponent<LineData>())
 							{
 								list = localPlayer2.GetComponent<LineData>().GetGridPosPath();
@@ -2208,15 +1420,6 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						if (list != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							if (!flag2)
 							{
@@ -2277,10 +1480,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -2293,27 +1492,9 @@ public class SinglePlayerManager : NetworkBehaviour
 		ActorData localPlayer = GetLocalPlayer();
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<GridPos> gridPosPath = localPlayer.GetComponent<LineData>().GetGridPosPath();
 			if (gridPosPath != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gridPosPath.Count > 0)
 				{
 					item = Board.Get().GetBoardSquareSafe(gridPosPath[gridPosPath.Count - 1]);
@@ -2322,15 +1503,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if (GetCurrentState().GetAdvanceDestinations() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetCurrentState().GetAdvanceDestinations().Contains(item))
 			{
 				while (true)
@@ -2347,15 +1519,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if (GetCurrentState().GetAdvanceDestinations() == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("We have a single player state {0} with the tag RequireMoveToAdvanceScriptDestination and no advance destinations!  Error!  Tell Colin!", GetCurrentScriptIndex());
 		}
 		return false;
@@ -2367,15 +1530,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
@@ -2383,11 +1537,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -2402,26 +1551,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		int num;
 		if (list != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!flag) ? 1 : 0);
 				goto IL_00a0;
 			}
@@ -2446,10 +1577,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -2489,15 +1616,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
@@ -2505,11 +1623,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -2519,15 +1632,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag2;
 		if (selectedAbility == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 			flag2 = true;
 			goto IL_028e;
@@ -2535,43 +1639,16 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = s_instance.GetCurrentState();
 		if (currentState.m_minAbilityTargetsForAiming == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 		}
 		else
 		{
 			if (!(selectedAbility == null))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (selectedAbility.Targeter != null)
 				{
 					if (selectedAbility.Targeter.GetNumActorsInRange() >= currentState.m_minAbilityTargetsForAiming)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 					else
@@ -2589,15 +1666,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -2608,15 +1676,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		IL_0117:
 		if (currentState.m_allowedTargets.m_quads.Length == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = true;
 		}
 		else
@@ -2633,15 +1692,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			else if (targetingParadigm == Ability.TargetingParadigm.Position)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget abilityTarget2 = AbilityTarget.CreateAbilityTargetFromInterface();
 				boardSquare = Board.Get().GetBoardSquare(abilityTarget2.FreePos);
 			}
@@ -2652,15 +1702,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			int num;
 			if (!(boardSquare == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (squaresInRegion.Contains(boardSquare) ? 1 : 0);
 			}
 			else
@@ -2670,15 +1711,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			flag2 = ((byte)num != 0);
 			if (flag2 && currentState.m_mustTargetNearCenter)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget abilityTarget3 = AbilityTarget.CreateAbilityTargetFromInterface();
 				Vector3 center = currentState.m_allowedTargets.GetCenter();
 				float x = center.x;
@@ -2690,15 +1722,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				float num2 = 0.45f * Board.Get().squareSize;
 				if (!(Mathf.Abs(f) >= num2))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(Mathf.Abs(f2) >= num2))
 					{
 						goto IL_028e;
@@ -2719,48 +1742,24 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (leftClick == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (leftClickText == null || shiftRightClick == null || shiftRightClickText == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (currentState == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (currentState.m_leftClickHighlight == null)
 						{
 							while (true)
@@ -2777,26 +1776,8 @@ public class SinglePlayerManager : NetworkBehaviour
 						List<BoardSquare> squaresInRegion = currentState.m_leftClickHighlight.GetSquaresInRegion();
 						if (squaresInRegion.Count > 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!leftClick.activeSelf)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(leftClick, true);
 							}
 							Canvas componentInParent = leftClick.GetComponentInParent<Canvas>();
@@ -2821,26 +1802,8 @@ public class SinglePlayerManager : NetworkBehaviour
 							string leftClickText2 = currentState.GetLeftClickText();
 							if (leftClickText2 != string.Empty)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (leftClickText.text != leftClickText2)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									leftClickText.text = leftClickText2;
 								}
 							}
@@ -2851,40 +1814,13 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						else if (leftClick.activeSelf)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(leftClick, false);
 						}
 						List<BoardSquare> squaresInRegion2 = currentState.m_rightClickHighlight.GetSquaresInRegion();
 						if (squaresInRegion2.Count > 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!rightClick.activeSelf)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(rightClick, true);
 							}
 							Canvas componentInParent2 = rightClick.GetComponentInParent<Canvas>();
@@ -2909,40 +1845,13 @@ public class SinglePlayerManager : NetworkBehaviour
 							string rightClickText2 = currentState.GetRightClickText();
 							if (rightClickText2 != string.Empty)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (rightClickText.text != rightClickText2)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rightClickText.text = rightClickText2;
 								}
 							}
 							else if (rightClickText.text != StringUtil.TR("RightClick", "Tutorial"))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								rightClickText.text = StringUtil.TR("RightClick", "Tutorial");
 							}
 						}
@@ -2950,15 +1859,6 @@ public class SinglePlayerManager : NetworkBehaviour
 						int num5;
 						if (Options_UI.Get() != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Options_UI.Get().GetShiftClickForMovementWaypoints())
 							{
 								num5 = 1;
@@ -2972,52 +1872,16 @@ public class SinglePlayerManager : NetworkBehaviour
 						List<BoardSquare> squaresInRegion3 = currentState.m_shiftRightClickHighlight.GetSquaresInRegion();
 						if (squaresInRegion3.Count > 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!shiftRightClick.activeSelf)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(shiftRightClick, true);
 								}
 								Canvas componentInParent3 = shiftRightClick.GetComponentInParent<Canvas>();
 								RectTransform rectTransform3 = null;
 								if (componentInParent3 != null)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rectTransform3 = (componentInParent3.transform as RectTransform);
 								}
 								Vector3 position3 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_shiftRightClickHeight, squaresInRegion3[0].worldY);
@@ -3038,15 +1902,6 @@ public class SinglePlayerManager : NetworkBehaviour
 								{
 									if (shiftRightClickText.text != shiftRightClickText2)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										shiftRightClickText.text = shiftRightClickText2;
 									}
 								}
@@ -3059,30 +1914,12 @@ public class SinglePlayerManager : NetworkBehaviour
 							{
 								if (!rightClick.activeSelf)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(rightClick, true);
 								}
 								Canvas componentInParent4 = rightClick.GetComponentInParent<Canvas>();
 								RectTransform rectTransform4 = null;
 								if (componentInParent4 != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rectTransform4 = (componentInParent4.transform as RectTransform);
 								}
 								Vector3 position4 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_rightClickHeight, squaresInRegion3[0].worldY);
@@ -3101,40 +1938,13 @@ public class SinglePlayerManager : NetworkBehaviour
 								string rightClickText3 = currentState.GetRightClickText();
 								if (rightClickText3 != string.Empty)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (rightClickText.text != rightClickText3)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										rightClickText.text = rightClickText3;
 									}
 								}
 								else if (rightClickText.text != StringUtil.TR("RightClick", "Tutorial"))
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rightClickText.text = StringUtil.TR("RightClick", "Tutorial");
 								}
 							}
@@ -3143,40 +1953,13 @@ public class SinglePlayerManager : NetworkBehaviour
 						{
 							if (squaresInRegion3.Count != 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag)
 								{
 									goto IL_07fa;
 								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (rightClick.activeSelf)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(rightClick, false);
 							}
 						}
@@ -3184,27 +1967,9 @@ public class SinglePlayerManager : NetworkBehaviour
 						IL_07fa:
 						if (squaresInRegion3.Count != 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag)
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (shiftRightClick.activeSelf)
@@ -3226,15 +1991,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (text == null)
 			{
 				return;
@@ -3243,15 +1999,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			string text2;
 			if (currentState != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = currentState.GetErrorStringOnForbiddenPath();
 			}
 			else
@@ -3261,15 +2008,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			string text3 = text2;
 			if (m_errorTriggered)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(text3 == string.Empty))
 				{
 					UIManager.SetGameObjectActive(panel, true);
@@ -3277,25 +2015,11 @@ public class SinglePlayerManager : NetworkBehaviour
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							text.text = text3;
 							return;
 						}
 					}
 					return;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(panel, false);
@@ -3312,81 +2036,42 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (panel == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (text == null || panel2 == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (text2 == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (panel3 == null)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							if (text3 == null)
 							{
 								return;
 							}
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								if (panelCameraMovement == null)
 								{
 									return;
 								}
 								while (true)
 								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
 									if (textCameraMovement == null || panelCameraRotation == null)
 									{
 										return;
@@ -3420,28 +2105,10 @@ public class SinglePlayerManager : NetworkBehaviour
 									bool flag = false;
 									if (m_lastTutorialTextState != currentState.m_stateIndex)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 									}
 									if (currentState.m_tutorialBoxText.m_location == null)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(panel, false);
 									}
 									else
@@ -3474,15 +2141,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 									if (currentState.m_tutorialBoxText2.m_location == null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(panel2, false);
 									}
 									else
@@ -3495,15 +2153,6 @@ public class SinglePlayerManager : NetworkBehaviour
 										}
 										if (flag)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_lastTutorialTextState = currentState.m_stateIndex;
 											text2.text = currentState.GetTutorialBoxText2();
 											UIManager.SetGameObjectActive(panel2, true);
@@ -3524,15 +2173,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 									if (currentState.m_tutorialBoxText3.m_location == null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(panel3, false);
 									}
 									else
@@ -3541,28 +2181,10 @@ public class SinglePlayerManager : NetworkBehaviour
 										RectTransform rectTransform3 = null;
 										if (componentInParent3 != null)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											rectTransform3 = (componentInParent3.transform as RectTransform);
 										}
 										if (flag)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_lastTutorialTextState = currentState.m_stateIndex;
 											text3.text = currentState.GetTutorialBoxText3();
 											UIManager.SetGameObjectActive(panel3, true);
@@ -3583,15 +2205,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 									if (currentState.m_tutorialCameraMovementText.m_location == null)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(panelCameraMovement, false);
 									}
 									else
@@ -3600,15 +2213,6 @@ public class SinglePlayerManager : NetworkBehaviour
 										RectTransform rectTransform4 = null;
 										if (componentInParent4 != null)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											rectTransform4 = (componentInParent4.transform as RectTransform);
 										}
 										if (flag)
@@ -3653,15 +2257,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 									if (flag)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_lastTutorialTextState = currentState.m_stateIndex;
 										textCameraRotation.text = currentState.GetTutorialCameraRotationText();
 										UIManager.SetGameObjectActive(panelCameraRotation, true);
@@ -3695,19 +2290,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag = false;
 		if (currentState != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastTutorialCameraState != currentState.m_stateIndex)
 			{
 				flag = true;
@@ -3718,15 +2300,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			m_lastTutorialCameraState = currentState.m_stateIndex;
 			if (currentState.m_cameraRotationTarget == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 		}
@@ -3849,10 +2422,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcPlayScriptedChat called on server.");
 					return;
 				}
@@ -3872,10 +2441,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcPlayScriptedChat called on client.");
 					return;
 				}
@@ -3903,19 +2468,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -3923,26 +2475,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -3950,15 +2484,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -3975,10 +2500,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_currentScriptIndex = (int)reader.ReadPackedUInt32();
 					m_canEndTurn = reader.ReadBoolean();
 					return;

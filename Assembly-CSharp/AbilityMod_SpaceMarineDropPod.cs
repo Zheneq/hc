@@ -39,15 +39,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, spaceMarineDropPod.m_damageAmount);
 			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, spaceMarineDropPod.m_knockbackDistance);
 			AbilityMod.AddToken(tokens, m_energyRefundIfNoEnemyHitMod, "EnergyRefundIfNoEnemyHit", string.Empty, spaceMarineDropPod.m_energyRefundIfNoEnemyHit);
@@ -65,33 +56,11 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int num2 = 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (spaceMarineDropPod.m_powerupPrefab != null)
 			{
 				PowerUp_Standard_Ability component = spaceMarineDropPod.m_powerupPrefab.GetComponent<PowerUp_Standard_Ability>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = component.m_healAmount;
 					num2 = component.m_techPointsAmount;
 				}
@@ -103,15 +72,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = spaceMarineDropPod.m_damageAmount;
 		}
 		else
@@ -124,15 +84,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineDropPod.m_knockbackDistance;
 		}
 		else
@@ -145,15 +96,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarineDropPod.m_energyRefundIfNoEnemyHit;
 		}
 		else
@@ -167,15 +109,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = num2;
 		}
 		else
@@ -189,15 +122,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = spaceMarineDropPod.m_extraPowerupHealIfDirectHit;
 		}
 		else
@@ -210,15 +134,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit;
 		}
 		else

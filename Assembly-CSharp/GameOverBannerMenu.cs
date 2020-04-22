@@ -47,19 +47,6 @@ public class GameOverBannerMenu : UITooltipBase
 			GameOverButtonAction action = (GameOverButtonAction)i;
 			if (IsValidButtonAction(action, true))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, OnGroupChatMouseOver);
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, OnGroupChatMouseClicked);
 			}
@@ -82,75 +69,21 @@ public class GameOverBannerMenu : UITooltipBase
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		if (!m_playerHandle.IsNullOrEmpty() && m_playerAccountID != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (action == GameOverButtonAction.AddFriend)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().FriendList.Friends.ContainsKey(m_playerAccountID))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendInfo friendInfo = ClientGameManager.Get().FriendList.Friends[m_playerAccountID];
 					if (friendInfo.FriendStatus != FriendStatus.Friend)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendInfo.FriendStatus != FriendStatus.Blocked)
 						{
 							goto IL_00ca;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;
@@ -164,26 +97,8 @@ public class GameOverBannerMenu : UITooltipBase
 		IL_00ca:
 		if (action == GameOverButtonAction.BlockPlayer)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().FriendList.Friends.ContainsKey(m_playerAccountID))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FriendInfo friendInfo2 = ClientGameManager.Get().FriendList.Friends[m_playerAccountID];
 				if (friendInfo2.FriendStatus == FriendStatus.Blocked)
 				{
@@ -202,15 +117,6 @@ public class GameOverBannerMenu : UITooltipBase
 		}
 		if (action == GameOverButtonAction.ReportPlayer)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_playerAccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
 				while (true)
@@ -236,26 +142,8 @@ public class GameOverBannerMenu : UITooltipBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (response.LocalizedFailure != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				response.ErrorMessage = response.LocalizedFailure.ToString();
 			}
 			else if (response.ErrorMessage.IsNullOrEmpty())
@@ -285,11 +173,6 @@ public class GameOverBannerMenu : UITooltipBase
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, text, StringUtil.TR("Ok", "Global"));
 					return;
 				}
@@ -302,31 +185,9 @@ public class GameOverBannerMenu : UITooltipBase
 	{
 		if (!m_playerHandle.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_playerAccountID != 0)
 			{
 				goto IL_0047;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!m_botMasqueradingAsHuman)
@@ -353,15 +214,6 @@ public class GameOverBannerMenu : UITooltipBase
 			}
 			if (IsValidButtonAction((GameOverButtonAction)num))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[num].m_button.gameObject)
 				{
 					break;
@@ -373,47 +225,15 @@ public class GameOverBannerMenu : UITooltipBase
 		bool botMasqueradingAsHuman;
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			switch (num)
 			{
 			case 0:
 				if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UIFrontEnd.Get() != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + m_playerHandle + " ");
 							goto IL_01ba;
 						}
@@ -421,26 +241,8 @@ public class GameOverBannerMenu : UITooltipBase
 				}
 				if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UI.Get() != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (HUD_UI.Get().m_textConsole != null)
 						{
 							HUD_UI.Get().m_textConsole.SelectInput("/whisper " + m_playerHandle + " ");
@@ -532,19 +334,6 @@ public class GameOverBannerMenu : UITooltipBase
 			{
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_menuButtons[i].m_icon.color = Color.white;
 					m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -605,19 +394,6 @@ public class GameOverBannerMenu : UITooltipBase
 			GameOverButtonAction action = (GameOverButtonAction)i;
 			if (IsValidButtonAction(action))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_menuButtons[i].m_icon.color = m_unhighlightedMenuItemColor;
 				m_menuButtons[i].m_label.color = m_unhighlightedMenuItemColor;
 			}
@@ -662,15 +438,6 @@ public class GameOverBannerMenu : UITooltipBase
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

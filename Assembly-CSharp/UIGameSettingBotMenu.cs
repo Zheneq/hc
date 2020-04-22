@@ -47,30 +47,8 @@ public class UIGameSettingBotMenu : UITooltipBase
 				LobbyPlayerInfo current = enumerator.Current;
 				if (!current.IsNPCBot)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsRemoteControlled && num2 != current.PlayerId)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current.IsSpectator)
 						{
 							m_playerList.Add(current);
@@ -80,15 +58,6 @@ public class UIGameSettingBotMenu : UITooltipBase
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = num; i < m_botSelection.Length; i++)
@@ -137,19 +106,6 @@ public class UIGameSettingBotMenu : UITooltipBase
 		{
 			if (m_botSelection[i].gameObject != gObj)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_botSelection[i].color = Color.grey;
 			}
 		}
@@ -171,29 +127,11 @@ public class UIGameSettingBotMenu : UITooltipBase
 		{
 			if (m_botSelection[i].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_teamMemberEntry.SetControllingPlayerInfo(m_playerList[i]);
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			SetVisible(false);
 			return;
 		}

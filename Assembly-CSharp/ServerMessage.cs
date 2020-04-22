@@ -134,19 +134,6 @@ public class ServerMessage
 				ServerMessageLanguage current = enumerator.Current;
 				if (!GetValue(current).IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					dictionary[current.ToString().ToLower()] = GetValue(current);
 				}
 			}

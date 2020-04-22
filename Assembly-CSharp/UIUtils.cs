@@ -24,80 +24,26 @@ public static class UIUtils
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return s_inputHasFocusValueThisFrame;
 			}
 		}
 		bool flag = false;
 		if (EventSystem.current != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
 			if (currentSelectedGameObject != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (s_prevSelectedGameObject == currentSelectedGameObject)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = s_prevHasInputField;
 					goto IL_00d2;
 				}
 			}
 			if (currentSelectedGameObject != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (currentSelectedGameObject.GetComponent<TMP_InputField>() != null);
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (currentSelectedGameObject.GetComponent<InputField>() != null);
 				}
 				s_prevSelectedGameObject = currentSelectedGameObject;
@@ -109,37 +55,10 @@ public static class UIUtils
 		IL_00d2:
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HUD_UI.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get().m_textConsole != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = HUD_UI.Get().m_textConsole.EscapeJustPressed();
 				}
 			}
@@ -156,56 +75,16 @@ public static class UIUtils
 		int result;
 		if (KeyBinding_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (KeyBinding_UI.Get().IsSettingKeybindCommand())
 			{
 				result = 1;
 				goto IL_00a2;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if ((bool)UIFrontEnd.Get())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (UIFrontEnd.Get().m_frontEndNavPanel.m_voiceListMenu.m_pushToTalkClickBlocker.gameObject.activeSelf ? 1 : 0);
 				goto IL_00a2;
 			}
@@ -226,70 +105,21 @@ public static class UIUtils
 	{
 		if (Options_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Options_UI.Get().IsVisible())
 			{
 				goto IL_009b;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (KeyBinding_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (KeyBinding_UI.Get().IsVisible())
 			{
 				goto IL_009b;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int result;
 		if (UISystemEscapeMenu.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (UISystemEscapeMenu.Get().IsOpen() ? 1 : 0);
 		}
 		else
@@ -315,10 +145,6 @@ public static class UIUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -326,50 +152,14 @@ public static class UIUtils
 		bool result = false;
 		if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Button componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<Button>();
 					if (componentInParent != null && UIEventTriggerUtils.HasTriggerOfType(componentInParent.gameObject, EventTriggerType.PointerClick))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -428,19 +218,6 @@ public static class UIUtils
 		string text2 = Mathf.RoundToInt(color.r * 255f).ToString("X");
 		if (text2.Length == 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text2 = "0" + text2;
 		}
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
@@ -451,15 +228,6 @@ public static class UIUtils
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
 		if (text4.Length == 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text4 = "0" + text4;
 		}
 		string text5 = Mathf.RoundToInt(color.a * 255f).ToString("X");
@@ -482,19 +250,6 @@ public static class UIUtils
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
 		if (text3.Length == 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text3 = "0" + text3;
 		}
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
@@ -511,43 +266,12 @@ public static class UIUtils
 		float num = float.MaxValue;
 		if (velocity.x > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (rectA.xMax < rectB.xMin)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectB.xMin - rectA.xMax);
 			}
 			else if (rectA.xMax < rectB.xMax)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectB.xMax - rectA.xMax);
 			}
 		}
@@ -555,15 +279,6 @@ public static class UIUtils
 		{
 			if (rectA.xMin > rectB.xMax)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectA.xMin - rectB.xMax);
 			}
 			else if (rectA.xMin > rectB.xMin)
@@ -574,15 +289,6 @@ public static class UIUtils
 		float num2 = float.MaxValue;
 		if (velocity.y > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (rectA.yMax < rectB.yMin)
 			{
 				num2 = Mathf.Min(num2, rectB.yMin - rectA.yMax);
@@ -596,28 +302,10 @@ public static class UIUtils
 		{
 			if (rectA.yMin > rectB.yMax)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = Mathf.Min(num2, rectA.yMin - rectB.yMax);
 			}
 			else if (rectA.yMin > rectB.yMin)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = Mathf.Min(num2, rectA.yMin - rectB.yMin);
 			}
 		}
@@ -632,11 +320,6 @@ public static class UIUtils
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			hitTime = Mathf.Min(hitTime, num2 / Mathf.Abs(velocity.y));
 			return;
 		}
@@ -650,24 +333,10 @@ public static class UIUtils
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (transform.GetSiblingIndex() != transform.parent.childCount - 1)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					transform.SetAsLastSibling();
 					return;
 				}

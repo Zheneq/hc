@@ -84,10 +84,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_maxDistanceBeforeBend;
 				}
 			}
@@ -107,10 +103,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0f;
 				}
 			}
@@ -152,19 +144,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		int num2;
 		if (m_showAngleIndicators)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = ((currentTargetIndex == 0) ? 1 : 0);
 		}
 		else
@@ -178,15 +157,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		float num4;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			num3 = GetClampedRangeInSquares(targetingActor, currentTarget);
 			vector = currentTarget.AimDirection;
@@ -199,15 +169,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			Vector3 freePos = currentTarget.FreePos;
 			if ((currentTarget.FreePos - targets[currentTargetIndex - 1].FreePos).magnitude < Mathf.Epsilon)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				freePos += aimDirection * 10f;
 			}
 			vector = freePos - laserCoords.start;
@@ -216,26 +177,8 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			num4 = -0.2f;
 			if (m_maxBendAngle > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_maxBendAngle < 360f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = Vector3.RotateTowards(aimDirection, vector, (float)Math.PI / 180f * m_maxBendAngle, 0f);
 				}
 			}
@@ -243,15 +186,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		}
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 lineEndPoint = VectorUtils.GetLineEndPoint(laserCoords.start, vector, num3 * Board.SquareSizeStatic);
 			num3 = Mathf.Min(VectorUtils.HorizontalPlaneDistInSquares(lineEndPoint, laserCoords.start), num3);
 		}
@@ -261,52 +195,16 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		int num5 = m_maxTargets;
 		if (currentTargetIndex > 0 && m_ability != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTargetIndex < m_ability.Targeters.Count)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter abilityUtil_Targeter = m_ability.Targeters[currentTargetIndex - 1];
 				for (int num6 = actors.Count - 1; num6 >= 0; num6--)
 				{
 					ActorData actor = actors[num6];
 					if (abilityUtil_Targeter.IsActorInTargetRange(actor, out bool _))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actors.RemoveAt(num6);
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				flag2 = (abilityUtil_Targeter.GetNumActorsInRange() > 0);
 				num5 -= abilityUtil_Targeter.GetNumActorsInRange();
@@ -318,55 +216,19 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		}
 		if (actors.Count > num5)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actors.RemoveRange(num5, actors.Count - num5);
 		}
 		float magnitude = (laserCoords.end - laserCoords.start).magnitude;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (magnitude < num3 * Board.Get().squareSize - 0.1f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_stoppedShort = true;
 			}
 		}
 		magnitude -= num4;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			laserCoords.start = VectorUtils.GetAdjustedStartPosWithOffset(laserCoords.start, laserCoords.end, num4);
 		}
 		float num7 = magnitude;
@@ -374,15 +236,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		float lengthInSquares = m_maxTotalDistance - num3 + 0.5f * num;
 		if (m_highlights.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_highlights = new List<GameObject>(4);
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(num, num7));
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(num, num8));
@@ -396,15 +249,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		int num9;
 		if (num5 > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num9 = ((actors.Count == num5) ? 1 : 0);
 		}
 		else
@@ -414,29 +258,11 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		bool flag3 = (byte)num9 != 0;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 travelBoardSquareWorldPosition = actors[actors.Count - 1].GetTravelBoardSquareWorldPosition();
 			travelBoardSquareWorldPosition.y = laserCoords.start.y;
 			num7 = (travelBoardSquareWorldPosition - laserCoords.start).magnitude;
 			if (m_startFadeAtActorRadius)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num7 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.SquareSizeStatic;
 			}
 			num8 = magnitude - num7;
@@ -444,15 +270,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			{
 				if (num8 < m_laserStartRect.m_lengthPerCorner)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = false;
 					num7 = magnitude;
 				}
@@ -473,15 +290,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		m_highlights[1].SetActive(flag3);
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().ResizeRectangularCursor(num, num8, m_highlights[1]);
 			m_highlightsToFade.Add(1);
 		}
@@ -490,15 +298,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		m_highlights[0].transform.rotation = Quaternion.LookRotation(normalized);
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_highlights[1].transform.position = laserCoords.start + normalized * (num7 - m_laserEndRect.m_lengthPerCorner - m_laserEndRect.m_distCasterToInterior) + new Vector3(0f, y, 0f);
 			m_highlights[1].transform.rotation = Quaternion.LookRotation(normalized);
 		}
@@ -511,15 +310,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				Vector3 vector2 = laserCoords.start;
 				if (currentTargetIndex > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Board.Get().GetBoardSquare(vector2) == actorData.GetCurrentBoardSquare())
 					{
 						vector2 = targetingActor.GetTravelBoardSquareWorldPositionForLos();
@@ -528,42 +318,15 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				AddActorInRange(actorData, vector2, targetingActor);
 				if (!flag2 && i == 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AddActorInRange(actorData, vector2, targetingActor, AbilityTooltipSubject.Near, true);
 				}
 				if (currentTargetIndex > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetIgnoreCoverMinDist(actorData, true);
 				}
 				list.Add(actorData);
 				m_ordererdHitActors.Add(actorData);
 				num10++;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (m_affectsTargetingActor)
 			{
@@ -582,26 +345,8 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			aimDirection2.y = 0f;
 			if (aimDirection2.magnitude > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_stoppedShort)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.SetActive(true);
 					gameObject2.SetActive(true);
 					float num11 = VectorUtils.HorizontalAngle_Deg(aimDirection2);
@@ -648,10 +393,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -668,15 +409,6 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<int>.Enumerator enumerator = m_highlightsToFade.GetEnumerator())
 			{
 				while (enumerator.MoveNext())

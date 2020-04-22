@@ -77,19 +77,6 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Soldier Cone Or Laser";
 		}
 		Setup();
@@ -103,32 +90,10 @@ public class SoldierConeOrLaser : Ability
 		}
 		if (m_abilityData == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityData = GetComponent<AbilityData>();
 		}
 		if (m_abilityData != null && m_stimAbility == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_stimAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
 		}
 		SetCachedFields();
@@ -150,19 +115,6 @@ public class SoldierConeOrLaser : Ability
 		ConeTargetingInfo cachedConeInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedConeInfo = m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo);
 		}
 		else
@@ -173,15 +125,6 @@ public class SoldierConeOrLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -192,15 +135,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo cachedConeEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
@@ -211,15 +145,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserEnemyHitEffect = m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
@@ -234,19 +159,6 @@ public class SoldierConeOrLaser : Ability
 		ConeTargetingInfo result;
 		if (m_cachedConeInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConeInfo;
 		}
 		else
@@ -261,19 +173,6 @@ public class SoldierConeOrLaser : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -288,19 +187,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
@@ -320,19 +206,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
@@ -347,19 +220,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -374,19 +234,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForAlternatingMod.GetModifiedValue(m_extraDamageForAlternating);
 		}
 		else
@@ -406,19 +253,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForNearTargetMod.GetModifiedValue(m_extraDamageForNearTarget);
 		}
 		else
@@ -438,19 +272,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageToEvadersMod.GetModifiedValue(m_extraDamageToEvaders);
 		}
 		else
@@ -465,19 +286,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraEnergyForConeMod.GetModifiedValue(m_extraEnergyForCone);
 		}
 		else
@@ -492,19 +300,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraEnergyForLaserMod.GetModifiedValue(m_extraEnergyForLaser);
 		}
 		else
@@ -526,10 +321,6 @@ public class SoldierConeOrLaser : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 vector = target.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 					vector.y = 0f;
 					return vector.magnitude < GetCloseDistThreshold() * Board.Get().squareSize;
@@ -545,19 +336,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_abilityMod.m_coneDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
 		}
 		else
@@ -572,19 +350,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_abilityMod.m_laserDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
 		}
 		else
@@ -599,19 +364,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_abilityMod.m_closeDistThresholdMod.operation != AbilityModPropertyFloat.ModOp.Ignore) ? 1 : 0);
 		}
 		else
@@ -626,19 +378,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_abilityMod.m_extraDamageForNearTargetMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
 		}
 		else
@@ -672,66 +411,17 @@ public class SoldierConeOrLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 				int num = 0;
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GetConeDamage();
 					if (GetExtraDamageForAlternating() > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((bool)m_syncComp)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_syncComp.m_lastPrimaryUsedMode == 2)
 							{
 								num += GetExtraDamageForAlternating();
@@ -741,27 +431,9 @@ public class SoldierConeOrLaser : Ability
 				}
 				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GetLaserDamage();
 					if (GetExtraDamageForAlternating() > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((bool)m_syncComp && m_syncComp.m_lastPrimaryUsedMode == 1)
 						{
 							num += GetExtraDamageForAlternating();
@@ -771,39 +443,12 @@ public class SoldierConeOrLaser : Ability
 				ActorData actorData = base.ActorData;
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ShouldUseExtraDamageForNearTarget(targetActor, actorData))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraDamageForNearTarget();
 					}
 					if (GetExtraDamageForFromCover() > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.GetActorCover().HasAnyCover())
 						{
 							num += GetExtraDamageForFromCover();
@@ -828,10 +473,6 @@ public class SoldierConeOrLaser : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = base.Targeter as AbilityUtil_Targeter_ConeOrLaser;
 					int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_ConeOrLaser.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 					if (abilityUtil_Targeter_ConeOrLaser.m_updatingWithCone)
@@ -871,30 +512,8 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_stimAbility != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_stimAbility.BasicAttackIgnoreCover())
 				{
 					return m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
@@ -908,30 +527,8 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_stimAbility != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_stimAbility.BasicAttackReduceCoverEffectiveness())
 				{
 					while (true)
@@ -963,19 +560,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (animIndex != m_onCastConeAnimIndex)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((animIndex == m_onCastLaserAnimIndex) ? 1 : 0);
 		}
 		else
@@ -989,33 +573,11 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (targets != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster != null)
 			{
 				int result;
 				if (ShouldUseCone(targets[0].FreePos, caster))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_onCastConeAnimIndex;
 				}
 				else
@@ -1036,15 +598,6 @@ public class SoldierConeOrLaser : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SoldierConeOrLaser);
 			Setup();
 			return;

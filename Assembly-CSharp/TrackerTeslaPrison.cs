@@ -59,32 +59,10 @@ public class TrackerTeslaPrison : TrackerDrone
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Tesla Prison";
 		}
 		if (m_prisonSides < 3)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_prisonSides = 4;
 		}
 		if (m_squareCornerLength <= 0)
@@ -93,15 +71,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		}
 		if (m_squareMidsectionLength < 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_squareMidsectionLength = 0;
 		}
 		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
@@ -113,15 +82,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		m_visionProvider = GetComponent<ActorAdditionalVisionProviders>();
 		if (m_visionProvider == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No additional vision provider component");
 		}
 		Setup();
@@ -137,45 +97,14 @@ public class TrackerTeslaPrison : TrackerDrone
 		}
 		if (m_droneInfoComp == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("No Drone Info component");
 		}
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		}
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No drone tracker component");
 			m_moveDrone = false;
 		}
@@ -192,15 +121,6 @@ public class TrackerTeslaPrison : TrackerDrone
 					int num;
 					if (!m_droneInfoComp.GetUntrackedHitEffect().m_applyEffect)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((m_droneInfoComp.GetDamageOnUntracked(true) > 0) ? 1 : 0);
 					}
 					else
@@ -222,19 +142,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		StandardBarrierData cachedBarrierData;
 		if ((bool)m_ultAbilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedBarrierData = m_ultAbilityMod.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
 		}
 		else
@@ -245,15 +152,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		StandardEffectInfo cachedAdditionalEffectOnEnemiesInShape;
 		if ((bool)m_ultAbilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAdditionalEffectOnEnemiesInShape = m_ultAbilityMod.m_additionalEffectOnEnemiesInShapeMod.GetModifiedValue(m_additionalEffectOnEnemiesInShape);
 		}
 		else
@@ -268,19 +166,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		StandardBarrierData result;
 		if (m_ultAbilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_prisonBarrierData;
 		}
 		else
@@ -301,19 +186,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		StandardBarrierData standardBarrierData;
 		if ((bool)abilityMod_TrackerTeslaPrison)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardBarrierData = abilityMod_TrackerTeslaPrison.m_barrierDataMod.GetModifiedValue(m_prisonBarrierData);
 		}
 		else
@@ -331,30 +203,8 @@ public class TrackerTeslaPrison : TrackerDrone
 		{
 			if (m_moveDrone)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_droneInfoComp != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.GetDamageOnTracked(true));
 					m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 					AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.GetDamageOnUntracked(true));
@@ -375,55 +225,19 @@ public class TrackerTeslaPrison : TrackerDrone
 			AbilityTooltipNumber abilityTooltipNumber = list[i];
 			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Primary)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list[i].m_value = m_droneInfoComp.GetDamageOnTracked(true);
 					continue;
 				}
 			}
 			if (abilityTooltipNumber.m_subject == AbilityTooltipSubject.Secondary && abilityTooltipNumber.m_symbol == AbilityTooltipSymbol.Damage)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list[i].m_value = m_droneInfoComp.GetDamageOnUntracked(true);
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -439,10 +253,6 @@ public class TrackerTeslaPrison : TrackerDrone
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -451,15 +261,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		int result;
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (caster.GetCurrentBoardSquare() != null)
 			{
 				float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
@@ -467,15 +268,6 @@ public class TrackerTeslaPrison : TrackerDrone
 				Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 				if (m_droneTracker.DroneIsActive())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 					if (boardSquare != null)
 					{
@@ -488,41 +280,14 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				if (!(num <= 0f))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(Vector3.Distance(boardSquareSafe.ToVector3(), b) <= num))
 					{
 						result = 0;
 						goto IL_016c;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!(num2 <= 0f))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2) ? 1 : 0);
 				}
 				else
@@ -555,15 +320,6 @@ public class TrackerTeslaPrison : TrackerDrone
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_ultAbilityMod = (abilityMod as AbilityMod_TrackerTeslaPrison);
 			Setup();
 			return;

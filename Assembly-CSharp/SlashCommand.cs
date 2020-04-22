@@ -53,15 +53,6 @@ public abstract class SlashCommand
 			{
 				if (!Aliases.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (string alias in Aliases)
 					{
 						if (command.EqualsIgnoreCase(alias))
@@ -81,19 +72,6 @@ public abstract class SlashCommand
 				}
 				return false;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return true;
 	}
@@ -104,30 +82,8 @@ public abstract class SlashCommand
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().HasDeveloperAccess())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_004e;
 				}
 			}
@@ -146,15 +102,6 @@ public abstract class SlashCommand
 		bool flag = true;
 		while (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num < num2)
 			{
 				if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandAliasKey(internalCommand, num), out string Translation))
@@ -183,10 +130,6 @@ public abstract class SlashCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Translation;
 				}
 			}

@@ -36,42 +36,11 @@ public class SequenceSource
 		{
 			if (_rootID == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<SequenceSource> list;
 					if (s_idsToSrcs.ContainsKey(value))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list = s_idsToSrcs[value];
 					}
 					else
@@ -118,10 +87,6 @@ public class SequenceSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RootID = ((!(parentSource == null)) ? parentSource.RootID : AllocateID());
 					return;
 				}
@@ -142,30 +107,8 @@ public class SequenceSource
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Code Error: SequenceSource IDs should only be allocated on the server");
 			}
 		}
@@ -194,10 +137,6 @@ public class SequenceSource
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<SequenceSource> list = s_idsToSrcs[_rootID];
 					list.Remove(this);
 					return;
@@ -231,19 +170,6 @@ public class SequenceSource
 		}
 		if (RemoveAtEndOfTurn != value2)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RemoveAtEndOfTurn = value2;
 		}
 		if (WaitForClientEnable != value3)
@@ -257,31 +183,9 @@ public class SequenceSource
 		AbilityPriority currentAbilityPhase = ServerClientUtils.GetCurrentAbilityPhase();
 		if (m_hitTurn == GameFlowData.Get().CurrentTurn)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hitPhase == currentAbilityPhase)
 			{
 				goto IL_0073;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_hitTurn = GameFlowData.Get().CurrentTurn;
@@ -293,26 +197,8 @@ public class SequenceSource
 		bool flag = false;
 		if (!m_hitActors.Contains(target))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_onHitActor != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_onHitActor(target);
 			}
 		}
@@ -323,26 +209,8 @@ public class SequenceSource
 		m_hitActors.Add(target);
 		if (seq != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!tryHitReactIfAlreadyHit)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_00f7;
@@ -367,19 +235,6 @@ public class SequenceSource
 			{
 				goto IL_0067;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		m_hitTurn = GameFlowData.Get().CurrentTurn;
 		m_hitPhase = currentAbilityPhase;
@@ -389,27 +244,9 @@ public class SequenceSource
 		IL_0067:
 		if (!m_hitPositions.Contains(position))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hitPositions.Add(position);
 			if (m_onHitPosition != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_onHitPosition(position);
 			}
 		}
@@ -419,11 +256,6 @@ public class SequenceSource
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Debug.LogWarning(string.Concat("<color=yellow>Sequence Position Hit: </color><<color=lightblue>", seq.gameObject.name, " | ", seq.GetType(), "</color>> \nhit at: ", position.ToString(), " @time= ", Time.time));
 			return;
 		}
@@ -433,19 +265,6 @@ public class SequenceSource
 	{
 		if (s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<SequenceSource> list = s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -453,15 +272,6 @@ public class SequenceSource
 				{
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -471,19 +281,6 @@ public class SequenceSource
 	{
 		if (s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<SequenceSource> list = s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -493,22 +290,8 @@ public class SequenceSource
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -524,57 +307,17 @@ public class SequenceSource
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (text.Length > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += " | ";
 					}
 					text += current.ActorIndex;
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		object str;
 		if (text.Length > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = text;
 		}
 		else
@@ -623,10 +366,6 @@ public class SequenceSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -650,37 +389,15 @@ public class SequenceSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
 		}
 		if ((object)a != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((object)b != null)
 			{
 				return a.RootID == b.RootID;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

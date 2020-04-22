@@ -144,33 +144,11 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		if (s_board == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.isEditor && !Application.isPlaying)
 			{
 				s_board = UnityEngine.Object.FindObjectOfType<Board>();
 				if (s_board != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					s_board.ReevaluateBoard();
 				}
 			}
@@ -189,44 +167,13 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		if (m_LOSHighlightsParent != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_LOSHighlightsParent.layer = LayerMask.NameToLayer("FogOfWar");
 			m_LOSHighlightsParent.SetActive(true);
 		}
 		if (m_LOSHighlightsParent != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkServer.active)
 				{
 					UnityEngine.Object.DestroyImmediate(m_LOSHighlightsParent);
@@ -251,19 +198,6 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		if (GameEventManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameFlowDataStarted);
 		}
 		m_normalPathBuildScratchPool = null;
@@ -278,15 +212,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.enabled = true;
 			return;
 		}
@@ -302,19 +227,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		if ((bool)main)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 position = main.transform.position;
 			Vector3 mousePosition = Input.mousePosition;
 			Vector3 direction = main.ScreenPointToRay(mousePosition).direction;
@@ -323,30 +235,12 @@ public class Board : MonoBehaviour, IGameEventListener
 			PlayerMouseIntersectionPos = position + direction * d;
 			if ((bool)actorData)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position2 = actorData.transform.position;
 				PlayerMouseLookDir = (PlayerMouseIntersectionPos - position2).normalized;
 			}
 			bool flag;
 			if (ControlpadGameplay.Get() != null && ControlpadGameplay.Get().UsingControllerInput)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
@@ -377,11 +271,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			bool applyToAllJoints = false;
 			float amount = 300f;
 			ApplyForceOnDead(PlayerFreeSquare, amount, new Vector3(0f, 1f, 0f), applyToAllJoints);
@@ -404,19 +293,6 @@ public class Board : MonoBehaviour, IGameEventListener
 			float worldX = _000E.worldX;
 			if (_001D.x > worldX)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				x = worldX + num;
 			}
 			else
@@ -445,15 +321,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -469,51 +336,15 @@ public class Board : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (activeOwnedActorData.GetActorTurnSM().AmDecidingMovement())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (PlayerFreeSquare != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (PlayerFreeSquare.occupant != null)
 				{
 					ActorData component2 = PlayerFreeSquare.occupant.GetComponent<ActorData>();
 					if (component2 != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component2.IsVisibleToClient())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							goto IL_010e;
 						}
@@ -533,26 +364,8 @@ public class Board : MonoBehaviour, IGameEventListener
 		IL_010e:
 		if (squaresToClampTo != null && squaresToClampTo.Count != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!squaresToClampTo.Contains(PlayerFreeSquare))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
 					Vector3 playerFreePos = PlayerFreePos;
@@ -574,27 +387,9 @@ public class Board : MonoBehaviour, IGameEventListener
 								boardSquare = current;
 							}
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (boardSquare != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = boardSquare.CalcNearestPositionOnSquareEdge(PlayerFreePos);
 					}
 					goto IL_021f;
@@ -623,19 +418,6 @@ public class Board : MonoBehaviour, IGameEventListener
 				component.ReevaluateSquare();
 				if (component.height > 0 && component.height < m_lowestPositiveHeight)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lowestPositiveHeight = component.height;
 				}
 				if (component.height > m_maxHeight)
@@ -648,26 +430,8 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				if (component.y + 1 > m_maxY)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_maxY = component.y + 1;
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -699,26 +463,8 @@ public class Board : MonoBehaviour, IGameEventListener
 				BoardSquare component2 = transform2.GetComponent<BoardSquare>();
 				if ((bool)component2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_boardSquares[component2.x, component2.y] = component2;
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -746,11 +492,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_minimap.SetupMinimap();
 			return;
 		}
@@ -764,25 +505,11 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_showLOS = enable;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					GameFlowData.Get().activeOwnedActorData.GetFogOfWar().SetVisibleShadeOfAllSquares();
 					return;
 				}
@@ -810,64 +537,15 @@ public class Board : MonoBehaviour, IGameEventListener
 			{
 				if (item != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorData component = item.GetComponent<ActorData>();
 					if ((bool)component)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.IsModelAnimatorDisabled())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (applyToAllJoints)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (component.GetActorModelData() != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(square.ToVector3() + 0.2f * Vector3.up, overrideDir);
 									component.GetActorModelData().ApplyImpulseOnRagdoll(impulseInfo, null);
 									continue;
@@ -891,52 +569,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		float result = 0f;
 		if (m_boardSquares != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (x >= 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (x < GetMaxX())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (y >= 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (y < GetMaxY())
 						{
 							result = m_boardSquares[x, y].height;
@@ -952,59 +590,19 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		if ((bool)m_cameraGuideMeshCollider)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RaycastHit hitInfo = default(RaycastHit);
 			Ray ray = new Ray(_001D + Vector3.up * m_maxHeight, Vector3.down);
 			if (m_cameraGuideMeshCollider.Raycast(ray, out hitInfo, 5000f))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 point = hitInfo.point;
 				m_lastValidGuidedHeight = (int)point.y;
 				if (drawDebug)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.DrawLine(ray.origin, hitInfo.point);
 				}
 			}
 			else if (drawDebug)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.DrawLine(ray.origin, ray.origin + ray.direction * 5000f, new Color(1f, 0f, 0f));
 			}
 		}
@@ -1045,41 +643,10 @@ public class Board : MonoBehaviour, IGameEventListener
 		int num2 = Mathf.RoundToInt(y / squareSize);
 		if (num >= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num < GetMaxX() && num2 >= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 < GetMaxY())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_boardSquares[num, num2];
 				}
 			}
@@ -1111,19 +678,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		BoardSquare result = null;
 		if (transform != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 position = transform.position;
 			float x = position.x;
 			Vector3 position2 = transform.position;
@@ -1137,41 +691,10 @@ public class Board : MonoBehaviour, IGameEventListener
 		BoardSquare result = null;
 		if (x >= 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (x < GetMaxX())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (y >= 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (y < GetMaxY())
 					{
 						result = m_boardSquares[x, y];
@@ -1187,52 +710,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		BoardSquare result = null;
 		if (gridPos.x >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gridPos.x < GetMaxX())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gridPos.y >= 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gridPos.y < GetMaxY())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = m_boardSquares[gridPos.x, gridPos.y];
 					}
 				}
@@ -1266,15 +749,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameEventManager.Get() != null)
 			{
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.BoardSquareVisibleShadeChanged, null);
@@ -1287,58 +761,18 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		if (result == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new List<BoardSquare>(4);
 		}
 		if (GetBoardSquare(x + 1, y) != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.Add(GetBoardSquare(x + 1, y));
 		}
 		if (GetBoardSquare(x - 1, y) != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.Add(GetBoardSquare(x - 1, y));
 		}
 		if (GetBoardSquare(x, y + 1) != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.Add(GetBoardSquare(x, y + 1));
 		}
 		if (!(GetBoardSquare(x, y - 1) != null))
@@ -1347,11 +781,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			result.Add(GetBoardSquare(x, y - 1));
 			return;
 		}
@@ -1365,45 +794,14 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		if (GetBoardSquare(x + 1, y + 1) != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result.Add(GetBoardSquare(x + 1, y + 1));
 		}
 		if (GetBoardSquare(x + 1, y - 1) != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.Add(GetBoardSquare(x + 1, y - 1));
 		}
 		if (GetBoardSquare(x - 1, y + 1) != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.Add(GetBoardSquare(x - 1, y + 1));
 		}
 		if (!(GetBoardSquare(x - 1, y - 1) != null))
@@ -1412,11 +810,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			result.Add(GetBoardSquare(x - 1, y - 1));
 			return;
 		}
@@ -1443,56 +836,16 @@ public class Board : MonoBehaviour, IGameEventListener
 		BoardSquare result = null;
 		if (_001D != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = _001D == _000E;
 			if (!_001D.IsBaselineHeight())
 			{
 				goto IL_0066;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(_000E == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_0066;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = _001D;
@@ -1503,15 +856,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		GetAllAdjacentSquares(_001D.x, _001D.y, ref result2);
 		if (_000E != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result2.Remove(_000E);
 		}
 		float worldX = _001D.worldX;
@@ -1559,19 +903,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		int num;
 		if (_001D.x == _000E.x)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((_001D.y != _000E.y) ? 1 : 0);
 		}
 		else
@@ -1583,15 +914,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		int num2;
 		if (_001D.y >= _000E.y - 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = ((_001D.y <= _000E.y + 1) ? 1 : 0);
 		}
 		else
@@ -1602,26 +924,8 @@ public class Board : MonoBehaviour, IGameEventListener
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (flag3 ? 1 : 0);
 				goto IL_00c0;
 			}
@@ -1636,42 +940,11 @@ public class Board : MonoBehaviour, IGameEventListener
 	{
 		if (_001D.x == _000E.x)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_001D.y != _000E.y + 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_001D.y != _000E.y - 1)
 				{
 					goto IL_005d;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;
@@ -1680,26 +953,8 @@ public class Board : MonoBehaviour, IGameEventListener
 		IL_005d:
 		if (_001D.y == _000E.y)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (_001D.x != _000E.x + 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_001D.x != _000E.x - 1)
 				{
 					goto IL_00ad;
@@ -1722,19 +977,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		Vector3 center = _001D.center;
 		if (!Mathf.Approximately(center.y, 0f))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("code error: Board.GetSquaresInBox bounds.center.y must be zero!");
 		}
 		Vector3 min = _001D.min;
@@ -1758,27 +1000,9 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				if (_000E != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!_000E(boardSquare))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				list.Add(boardSquare);
@@ -1799,11 +1023,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1813,19 +1032,6 @@ public class Board : MonoBehaviour, IGameEventListener
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (a != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (b != null)
 			{
 				int num = Mathf.Min(a.x, b.x);
@@ -1839,15 +1045,6 @@ public class Board : MonoBehaviour, IGameEventListener
 						BoardSquare boardSquare = Get().GetBoardSquare(j, i);
 						list.Add(boardSquare);
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1864,34 +1061,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		Gizmos.DrawWireSphere(PlayerFreePos, 0.5f);
 		if (PlayerFreeSquare != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Gizmos.DrawWireCube(PlayerFreeSquare.ToVector3(), new Vector3(1.7f, 1.7f, 1.7f));
 		}
 		Gizmos.color = Color.cyan;
 		Gizmos.DrawWireSphere(PlayerClampedPos, 0.4f);
 		if (PlayerClampedSquare != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Gizmos.DrawWireCube(PlayerClampedSquare.ToVector3(), new Vector3(1.6f, 1.6f, 1.6f));
 		}
 		Gizmos.color = Color.yellow;
@@ -1909,26 +1084,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_maxY <= 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				Color white = Color.white;
 				white.a = 0.3f;
 				Gizmos.color = white;
@@ -1939,11 +1100,6 @@ public class Board : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					int num = m_maxX / 2;
 					int num2 = m_maxY / 2;
 					float squareSize = Get().squareSize;
@@ -1963,11 +1119,6 @@ public class Board : MonoBehaviour, IGameEventListener
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						float num6 = vector.z - num4;
 						for (int j = 0; j < num2 * 2; j++)
 						{

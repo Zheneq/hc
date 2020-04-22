@@ -88,10 +88,6 @@ public class TimeBank : NetworkBehaviour
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 							if (initialTimeBankConsumables.HasValue)
 							{
@@ -146,37 +142,18 @@ public class TimeBank : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (GameFlowData.Get().GetTimeInState() < 0.9f)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 					{
 						return;
@@ -185,15 +162,6 @@ public class TimeBank : NetworkBehaviour
 					float num2;
 					if (GameWideData.Get() != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = GameWideData.Get().m_tbGracePeriodBeforeConsuming;
 					}
 					else
@@ -203,37 +171,10 @@ public class TimeBank : NetworkBehaviour
 					float num3 = num2;
 					if (!m_clientConsumableUsed)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num + num3 < 0f)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_confirmed)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_clientConsumableUsed = true;
 								if (base.isLocalPlayer)
 								{
@@ -248,20 +189,10 @@ public class TimeBank : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (!GameFlowData.Get().PreventAutoLockInOnTimeout())
 						{
 							while (true)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
 								component.RequestEndTurn();
 								m_clientEndTurnRequested = true;
 								return;
@@ -279,19 +210,6 @@ public class TimeBank : NetworkBehaviour
 		float result;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = GameFlowData.Get().GetTimeRemainingInDecision();
 		}
 		else
@@ -306,19 +224,6 @@ public class TimeBank : NetworkBehaviour
 		int result;
 		if (!(m_reserveRemaining > 0f))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_consumablesRemaining > 0) ? 1 : 0);
 		}
 		else
@@ -348,19 +253,6 @@ public class TimeBank : NetworkBehaviour
 		float num = m_reserveRemaining;
 		if (m_consumablesRemaining > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += GameWideData.Get().m_tbConsumableDuration;
 		}
 		return num;
@@ -375,19 +267,6 @@ public class TimeBank : NetworkBehaviour
 	{
 		if ((bool)GameFlowData.Get())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_reserveUsed = Mathf.Max(0f, 0f - GameFlowData.Get().GetTimeRemainingInDecision());
 		}
 		m_confirmed = true;
@@ -417,73 +296,23 @@ public class TimeBank : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_resolved)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_reserveUsed > m_reserveRemaining))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_clientConsumableUsed)
 					{
 						goto IL_0099;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_consumablesRemaining > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_clientConsumableUsed)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
 					}
 				}
@@ -513,10 +342,6 @@ public class TimeBank : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdConsumableUsed called on client.");
 					return;
 				}
@@ -536,10 +361,6 @@ public class TimeBank : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdConsumableUsed called on server.");
 					return;
 				}
@@ -579,30 +400,8 @@ public class TimeBank : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -610,15 +409,6 @@ public class TimeBank : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -628,15 +418,6 @@ public class TimeBank : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -646,15 +427,6 @@ public class TimeBank : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -672,32 +444,10 @@ public class TimeBank : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_reserveRemaining = reader.ReadSingle();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_consumablesRemaining = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) == 0)
@@ -706,11 +456,6 @@ public class TimeBank : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_resolved = reader.ReadBoolean();
 			return;
 		}

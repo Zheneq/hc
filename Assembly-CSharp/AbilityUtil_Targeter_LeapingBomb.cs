@@ -26,19 +26,6 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 	{
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 6)
 			{
 				goto IL_00ec;
@@ -49,15 +36,6 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		while (true)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < 2; j++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f));
@@ -65,15 +43,6 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 		for (int k = 0; k < 2; k++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		while (true)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_00ec;
 		IL_00ec:
@@ -106,43 +75,16 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 			{
 				if (squares[num3].IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare2 = squares[num3];
 					break;
 				}
 				num3--;
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		if (boardSquare2 != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num4 = 0;
 			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare2, boardSquareSafe, true);
 			while (true)
@@ -151,37 +93,10 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 				{
 					if (boardSquarePathInfo.square.IsBaselineHeight())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num4 >= m_minSeparationInSquares)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 <= m_maxSeparationInSquares)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = boardSquarePathInfo.square;
 								break;
 							}
@@ -191,29 +106,11 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 					boardSquarePathInfo = boardSquarePathInfo.next;
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(boardSquare);
 			VectorUtils.LaserCoords item2 = default(VectorUtils.LaserCoords);
 			item2.start = item.end;
@@ -233,51 +130,15 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 				ActorData actorData = null;
 				if (current.occupant != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = current.occupant.GetComponent<ActorData>();
 				}
 				centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.IsVisibleToClient())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, current, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 							TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 							Vector3 damageOrigin = centerOfShape;
@@ -287,15 +148,6 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 								{
 									ActorData current2 = enumerator2.Current;
 									AddActorInRange(current2, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
-								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							m_highlights[l].transform.position = centerOfShape;

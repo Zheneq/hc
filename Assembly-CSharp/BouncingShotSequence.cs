@@ -23,19 +23,6 @@ public class BouncingShotSequence : Sequence
 			stream.Serialize(ref value);
 			if (value > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 vector = segmentPts[0];
 				float value2 = vector.y;
 				stream.Serialize(ref value2);
@@ -48,11 +35,6 @@ public class BouncingShotSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				sbyte value3 = (sbyte)laserTargets.Count;
 				stream.Serialize(ref value3);
 				using (Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>.Enumerator enumerator = laserTargets.GetEnumerator())
@@ -67,28 +49,10 @@ public class BouncingShotSequence : Sequence
 						sbyte value6 = (sbyte)value5.m_endpointIndex;
 						stream.Serialize(ref value6);
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				sbyte value7;
 				if (destinationHitTargets == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value7 = 0;
 				}
 				else
@@ -124,19 +88,6 @@ public class BouncingShotSequence : Sequence
 			float value2 = 0f;
 			if (value > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref value2);
 			}
 			segmentPts = new List<Vector3>(value);
@@ -154,11 +105,6 @@ public class BouncingShotSequence : Sequence
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				sbyte value5 = 0;
 				stream.Serialize(ref value5);
 				laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>(value5);
@@ -172,15 +118,6 @@ public class BouncingShotSequence : Sequence
 					stream.Serialize(ref value7);
 					if (actorData != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AreaEffectUtils.BouncingLaserInfo value8 = new AreaEffectUtils.BouncingLaserInfo(zero2, value7);
 						laserTargets.Add(actorData, value8);
 					}
@@ -298,58 +235,18 @@ public class BouncingShotSequence : Sequence
 	{
 		if (base.Source.RemoveAtEndOfTurn && GameWideData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameWideData.Get().ShouldMakeCasterVisibleOnCast())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_forceAlwaysVisible = true;
 			}
 		}
 		if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		object obj;
 		if (m_fxJoint != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxJoint.m_jointObject != null)
 			{
 				obj = m_fxJoint.m_jointObject.gameObject;
@@ -362,15 +259,6 @@ public class BouncingShotSequence : Sequence
 		GameObject gameObject = (GameObject)obj;
 		if (gameObject == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = base.Caster.gameObject;
 		}
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
@@ -378,15 +266,6 @@ public class BouncingShotSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ricochetFx = new List<GameObject>();
 				m_hitFx = new List<GameObject>();
 				m_laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
@@ -397,15 +276,6 @@ public class BouncingShotSequence : Sequence
 				m_hitDuration = Sequence.GetFXDuration(m_hitFxPrefab);
 				if (extraParams2.segmentPts.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_useOriginalSegmentStartPos)
 					{
 						Vector3 value = extraParams2.segmentPts[0];
@@ -427,15 +297,6 @@ public class BouncingShotSequence : Sequence
 					Vector3 current = enumerator.Current;
 					m_segmentPts.Add(current);
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			m_unadjustedSegmentPts = new List<Vector3>(m_segmentPts);
 			foreach (KeyValuePair<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTarget in extraParams2.laserTargets)
@@ -452,75 +313,21 @@ public class BouncingShotSequence : Sequence
 			IL_0305:
 			if (extraSequenceParams is FxAttributeParam)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
 				if (fxAttributeParam != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (fxAttributeParam.m_paramNameCode != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string attributeName = fxAttributeParam.GetAttributeName();
 						float paramValue = fxAttributeParam.m_paramValue;
 						if (fxAttributeParam.m_paramTarget == FxAttributeParam.ParamTarget.MainVfx)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_projectileFxAttributes == null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_projectileFxAttributes = new Dictionary<string, float>();
 							}
 							if (!m_projectileFxAttributes.ContainsKey(attributeName))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_projectileFxAttributes.Add(attributeName, paramValue);
 							}
 						}
@@ -548,15 +355,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -566,33 +364,11 @@ public class BouncingShotSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 		}
 		if (m_hitFx != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < m_hitFx.Count; i++)
 			{
 				Object.Destroy(m_hitFx[i]);
@@ -601,41 +377,14 @@ public class BouncingShotSequence : Sequence
 		}
 		if (m_ricochetFx != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < m_ricochetFx.Count; j++)
 			{
 				Object.Destroy(m_ricochetFx[j]);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_ricochetFx.Clear();
 		}
 		if (m_fxEndImpact != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxEndImpact);
 			m_fxEndImpact = null;
 		}
@@ -660,15 +409,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_initialized)
 			{
 				return;
@@ -715,42 +455,11 @@ public class BouncingShotSequence : Sequence
 	{
 		if (m_ricochetFxPrefab != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fx == null))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_fx.activeInHierarchy)
 				{
 					goto IL_007a;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Quaternion rotation = Quaternion.LookRotation(ricochetDir);
@@ -764,11 +473,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_ricochetAudioEvent, base.Caster.gameObject);
 			return;
 		}
@@ -789,19 +493,6 @@ public class BouncingShotSequence : Sequence
 			{
 				if (num2 == m_segmentPts.Count - 1)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					flag = true;
 					break;
 				}
@@ -810,51 +501,15 @@ public class BouncingShotSequence : Sequence
 				curEndPtIndex = num2 + 1;
 				if (m_distanceTraveled < num + curDelta.magnitude)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > m_curSegment)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 > 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 vector = m_segmentPts[num2] - m_segmentPts[num2 - 1];
 							Vector3 ricochetDir = (curDelta.normalized + vector.normalized) * 0.5f;
 							SpawnRicochetFX(m_segmentPts[num2], ricochetDir);
 							if (num2 > 0)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_doPositionHitOnBounce)
 								{
 									base.Source.OnSequenceHit(this, m_unadjustedSegmentPts[num2]);
@@ -868,40 +523,13 @@ public class BouncingShotSequence : Sequence
 				num += curDelta.magnitude;
 				if (num2 > m_curSegment)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector2 = m_segmentPts[num2] - m_segmentPts[num2 - 1];
 						Vector3 ricochetDir2 = (curDelta.normalized + vector2.normalized) * 0.5f;
 						SpawnRicochetFX(m_segmentPts[num2], ricochetDir2);
 						if (m_doPositionHitOnBounce)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							base.Source.OnSequenceHit(this, m_unadjustedSegmentPts[num2]);
 						}
 					}
@@ -910,28 +538,10 @@ public class BouncingShotSequence : Sequence
 				num2++;
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_reachedDestination = true;
 			if (m_useSplineCurve)
 			{
@@ -950,15 +560,6 @@ public class BouncingShotSequence : Sequence
 			Vector3 vector3;
 			if (m_useSplineCurve && m_totalTravelDistance > 0f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int index = m_spline.Section(m_splineDistanceTraveled / m_totalTravelDistance);
 				m_splineDistanceTraveled += m_projectileSpeed * m_splineSpeedModifierPerSegment[index] * GameTime.deltaTime;
 				float t = m_splineDistanceTraveled / m_totalTravelDistance;
@@ -996,19 +597,6 @@ public class BouncingShotSequence : Sequence
 		Vector3 curDelta = m_segmentPts[m_segmentPts.Count - 1] - m_segmentPts[m_segmentPts.Count - 2];
 		if (m_useSplineCurve)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			curDelta = m_segmentPts[m_segmentPts.Count - 2] - m_segmentPts[m_segmentPts.Count - 3];
 		}
 		curDelta.Normalize();
@@ -1017,15 +605,6 @@ public class BouncingShotSequence : Sequence
 			while (enumerator.MoveNext())
 			{
 				SpawnHitFX(enumerator.Current.Key, curDelta);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_laserTargets.Clear();
@@ -1051,19 +630,6 @@ public class BouncingShotSequence : Sequence
 					rhs[1] = 0f;
 					if (Vector3.Dot(lhs, rhs) < 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						SpawnHitFX(current.Key, curDelta);
 						list.Add(current.Key);
 					}
@@ -1073,28 +639,10 @@ public class BouncingShotSequence : Sequence
 					AreaEffectUtils.BouncingLaserInfo value3 = current.Value;
 					if (value3.m_endpointIndex < curEndPtIndex)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnHitFX(current.Key, curDelta);
 						list.Add(current.Key);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
@@ -1125,15 +673,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData[] targets = base.Targets;
 			foreach (ActorData actorData in targets)
 			{
@@ -1141,26 +680,8 @@ public class BouncingShotSequence : Sequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_actorsHitAlready.Contains(actorData))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 rhs = actorData.transform.position - m_fx.transform.position;
 					if (Vector3.Dot(dir, rhs) < 0f)
 					{
@@ -1187,19 +708,6 @@ public class BouncingShotSequence : Sequence
 		GameObject gameObject = actorData.gameObject.FindInChildren(Sequence.s_defaultHitAttachJoint);
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = gameObject.transform.position;
 		}
 		else
@@ -1207,15 +715,6 @@ public class BouncingShotSequence : Sequence
 			gameObject = actorData.gameObject.FindInChildren(Sequence.s_defaultFallbackHitAttachJoint);
 			if (gameObject != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = gameObject.transform.position;
 			}
 		}
@@ -1230,44 +729,17 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 targetHitPosition = GetTargetHitPosition(actorData, m_hitPosJoint);
 			Vector3 normalized = curDelta.normalized;
 			Vector3 position = m_fx.transform.position;
 			if ((bool)m_hitFxPrefab)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Quaternion rotation = Quaternion.LookRotation(normalized);
 				m_hitFx.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
 				m_hitDurationLeft = m_hitDuration;
 			}
 			if (!string.IsNullOrEmpty(m_impactAudioEvent))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_impactAudioEvent, m_fx.gameObject);
 			}
 			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, normalized);
@@ -1281,32 +753,10 @@ public class BouncingShotSequence : Sequence
 	{
 		if (m_fxJoint == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError(base.name + " fxJoint is null spawnFxAttempted = " + m_spawnFxAttempted);
 		}
 		else if (m_fxJoint.m_jointObject == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError(base.name + " fxJoint.m_jointObject is null spawnFxAttempted = " + m_spawnFxAttempted);
 		}
 		else if (m_fxJoint.m_jointObject.gameObject == null)
@@ -1315,27 +765,9 @@ public class BouncingShotSequence : Sequence
 		}
 		if (!(base.Caster == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(base.Caster.gameObject == null))
 			{
 				goto IL_011e;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Debug.LogError(base.name + " caster or caster gameObject is null spawnFxAttempted = " + m_spawnFxAttempted);
@@ -1345,42 +777,15 @@ public class BouncingShotSequence : Sequence
 		GameObject gameObject = (GameObject)obj;
 		if (gameObject == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = base.Caster.gameObject;
 		}
 		if (m_segmentPts == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError(base.name + " segment points is null, spawnFxAttempted = " + m_spawnFxAttempted);
 		}
 		m_spawnFxAttempted = true;
 		if (m_useOriginalSegmentStartPos)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 value = m_segmentPts[0];
 			Vector3 position = gameObject.transform.position;
 			value.y = position.y;
@@ -1399,11 +804,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 position2 = m_segmentPts[0];
 			Vector3 lookRotation = m_segmentPts[1] - m_segmentPts[0];
 			lookRotation.Normalize();
@@ -1411,30 +811,12 @@ public class BouncingShotSequence : Sequence
 			rotation.SetLookRotation(lookRotation);
 			if (m_useSplineCurve)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_splineSpeedModifierPerSegment = new List<float>();
 				for (int j = 1; j < m_segmentPts.Count; j++)
 				{
 					float magnitude = (m_segmentPts[j] - m_segmentPts[j - 1]).magnitude;
 					if (magnitude > 0f)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = m_totalTravelDistance / magnitude;
 						m_splineSpeedModifierPerSegment.Add(num / (float)(m_segmentPts.Count - 1));
 					}
@@ -1451,15 +833,6 @@ public class BouncingShotSequence : Sequence
 			m_fx = InstantiateFX(m_fxPrefab, position2, rotation);
 			if (m_fx != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_projectileFxAttributes != null)
 				{
 					using (Dictionary<string, float>.Enumerator enumerator = m_projectileFxAttributes.GetEnumerator())
@@ -1469,15 +842,6 @@ public class BouncingShotSequence : Sequence
 							KeyValuePair<string, float> current = enumerator.Current;
 							Sequence.SetAttribute(m_fx, current.Key, current.Value);
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 			}
@@ -1485,11 +849,6 @@ public class BouncingShotSequence : Sequence
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 					return;
 				}
@@ -1499,15 +858,6 @@ public class BouncingShotSequence : Sequence
 		IL_011e:
 		if (m_fxJoint != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxJoint.m_jointObject != null)
 			{
 				obj = m_fxJoint.m_jointObject.gameObject;
@@ -1526,15 +876,6 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -1548,40 +889,13 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Source.OnSequenceHit(this, base.TargetPos);
 			if (m_doPositionHitOnBounce)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Source.OnSequenceHit(this, m_unadjustedSegmentPts[m_unadjustedSegmentPts.Count - 1]);
 			}
 			if (m_destinationHitTargets != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData[] destinationHitTargets = m_destinationHitTargets;
 				foreach (ActorData actorData in destinationHitTargets)
 				{
@@ -1589,63 +903,18 @@ public class BouncingShotSequence : Sequence
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_actorsHitAlready.Contains(actorData))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(1f, m_segmentPts[m_segmentPts.Count - 1]);
 						base.Source.OnSequenceHit(this, actorData, impulseInfo);
 						m_actorsHitAlready.Add(actorData);
 					}
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_hitDuration > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_hitDurationLeft == 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_hitDurationLeft = m_hitDuration;
 				}
 			}
@@ -1662,84 +931,29 @@ public class BouncingShotSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fxEndExplosionPrefab != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_fx != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					bool flag = false;
 					if (base.Targets != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Targets.Length > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (base.Caster != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								for (int i = 0; i < base.Targets.Length; i++)
 								{
 									if (base.Caster.GetTeam() != base.Targets[i].GetTeam())
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										break;
 									}
@@ -1749,27 +963,9 @@ public class BouncingShotSequence : Sequence
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!LastDesiredVisible())
 						{
 							goto IL_0152;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					m_fxEndImpact = InstantiateFX(m_fxEndExplosionPrefab, impactPos, impactRot);
@@ -1784,11 +980,6 @@ public class BouncingShotSequence : Sequence
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							AudioManager.PostEvent(m_endExplosionAudioEvent, m_fx.gameObject);
 							return;
 						}

@@ -23,19 +23,6 @@ namespace AbilityContextNamespace
 				OnHitEffecField onHitEffecField = this._001D(identifier);
 				if (onHitEffecField != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.Add(onHitEffecField.GetCopy());
 				}
 				else
@@ -45,11 +32,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return list;
 			}
 		}
@@ -69,25 +51,11 @@ namespace AbilityContextNamespace
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_overrides[i].m_effectOverride;
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return null;
 			}
 		}

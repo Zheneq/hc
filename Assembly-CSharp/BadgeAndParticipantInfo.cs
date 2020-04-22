@@ -31,10 +31,6 @@ public class BadgeAndParticipantInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 4;
 				}
 			}
@@ -59,11 +55,6 @@ public class BadgeAndParticipantInfo
 		case TopParticipantSlot.Tankiest:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return 1;
 			}
 		default:

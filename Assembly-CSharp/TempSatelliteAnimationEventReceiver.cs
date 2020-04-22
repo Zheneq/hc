@@ -27,10 +27,6 @@ public class TempSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEven
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error(string.Concat(this, " NewEvent called before setup"));
 					return;
 				}
@@ -63,10 +59,6 @@ public class TempSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEven
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error(string.Concat(this, " NewEvent called before Start"));
 					return;
 				}

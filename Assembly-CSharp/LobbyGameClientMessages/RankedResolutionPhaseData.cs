@@ -31,19 +31,6 @@ namespace LobbyGameClientMessages
 				int result;
 				if (_001D.PlayerId == _001D)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = ((_001D.OnDeckness == RankedResolutionPlayerState.ReadyState._0012) ? 1 : 0);
 				}
 				else

@@ -82,19 +82,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = martyrProtectAlly.m_damageReductionOnTarget;
 		}
 		else
@@ -108,15 +95,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrProtectAlly.m_techPointGainPerRedirect;
 		}
 		else
@@ -130,15 +108,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (martyrProtectAlly.m_affectsEnemies ? 1 : 0);
 		}
 		else
@@ -151,15 +120,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (martyrProtectAlly.m_affectsAllies ? 1 : 0);
 		}
 		else
@@ -172,15 +132,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (martyrProtectAlly.m_penetratesLoS ? 1 : 0);
 		}
 		else
@@ -193,15 +144,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrProtectAlly.m_thornsEffect;
 		}
 		else
@@ -214,15 +156,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrProtectAlly.m_returnEffectOnEnemy;
 		}
 		else
@@ -235,15 +168,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrProtectAlly.m_thornsDamagePerHit;
 		}
 		else
@@ -257,15 +181,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = martyrProtectAlly.m_baseAbsorb;
 		}
 		else
@@ -278,15 +193,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = martyrProtectAlly.m_absorbPerCrystalSpent;
 		}
 		else
@@ -299,15 +205,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = martyrProtectAlly.m_baseAbsorbOnAlly;
 		}
 		else
@@ -322,15 +219,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		float baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = martyrProtectAlly.m_healOnTurnStartPerRedirectDamage;
 		}
 		else

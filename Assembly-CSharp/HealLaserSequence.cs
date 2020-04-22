@@ -64,44 +64,13 @@ public class HealLaserSequence : Sequence
 	{
 		if (base.Source.RemoveAtEndOfTurn)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameWideData.Get() != null && GameWideData.Get().ShouldMakeCasterVisibleOnCast())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_forceAlwaysVisible = true;
 			}
 		}
 		if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
@@ -130,44 +99,13 @@ public class HealLaserSequence : Sequence
 		ProcessSequenceVisibility();
 		if (m_hitFx == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_hitFx = new Dictionary<ActorData, GameObject>();
 			CalculateHitDuration();
 		}
 		if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_fxJoint.IsInitialized())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxJoint.Initialize(base.Caster.gameObject);
 			}
 		}
@@ -177,26 +115,12 @@ public class HealLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_initialized)
 			{
 				return;
 			}
 			if (m_hitDurationLeft > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_hitDurationLeft -= GameTime.deltaTime;
 			}
 			if (m_reachedDestination)
@@ -243,19 +167,6 @@ public class HealLaserSequence : Sequence
 		Vector3 lhs = m_endPos - m_fx.transform.position;
 		if (Vector3.Dot(lhs, m_fx.transform.forward) < 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.transform.position = m_endPos;
 			m_reachedDestination = true;
 		}
@@ -274,15 +185,6 @@ public class HealLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Source.OnSequenceHit(this, base.TargetPos);
 			return;
 		}
@@ -301,19 +203,6 @@ public class HealLaserSequence : Sequence
 			Vector3 rhs = actorData.transform.position - m_fx.transform.position;
 			if (Vector3.Dot(lhs, rhs) < 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SpawnHitFX(actorData, m_fx.transform.forward);
 			}
 		}
@@ -335,19 +224,6 @@ public class HealLaserSequence : Sequence
 		GameObject gameObject = actorData.gameObject.FindInChildren(Sequence.s_defaultHitAttachJoint);
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = gameObject.transform.position;
 		}
 		else
@@ -368,19 +244,6 @@ public class HealLaserSequence : Sequence
 		m_hitFx[actorData] = null;
 		if ((bool)m_hitFxPrefab)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag && IsHitFXVisible(actorData))
 			{
 				m_hitFx[actorData] = InstantiateFX(m_hitFxPrefab, hitPosition, Quaternion.identity);
@@ -391,26 +254,8 @@ public class HealLaserSequence : Sequence
 		}
 		if ((bool)m_healHitFxPrefab && flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (IsHitFXVisible(actorData))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_hitFx[actorData] = InstantiateFX(m_healHitFxPrefab, hitPosition, Quaternion.identity);
 				m_hitFx[actorData].transform.parent = base.transform;
 				m_hitDurationLeft = m_hitDuration;
@@ -420,52 +265,16 @@ public class HealLaserSequence : Sequence
 		IL_0133:
 		if (!string.IsNullOrEmpty(m_impactAudioEvent))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_impactAudioEvent, m_fx.gameObject);
 				goto IL_01b3;
 			}
 		}
 		if (!string.IsNullOrEmpty(m_impactHealAudioEvent))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_impactHealAudioEvent, m_fx.gameObject);
 			}
 		}
@@ -499,15 +308,6 @@ public class HealLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -522,34 +322,12 @@ public class HealLaserSequence : Sequence
 		}
 		if (m_hitFx != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (Dictionary<ActorData, GameObject>.ValueCollection.Enumerator enumerator = m_hitFx.Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					GameObject current = enumerator.Current;
 					Object.Destroy(current);
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_hitFx.Clear();

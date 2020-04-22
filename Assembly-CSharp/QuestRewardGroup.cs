@@ -14,19 +14,6 @@ public class QuestRewardGroup : MonoBehaviour
 		questRewards.UnlockRewards = new List<QuestUnlockReward>();
 		if (questTemplate.Rewards.UnlockRewards.Count + questTemplate.Rewards.ItemRewards.Count + questTemplate.Rewards.CurrencyRewards.Count > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			questRewards.CurrencyRewards.AddRange(questTemplate.Rewards.CurrencyRewards);
 			questRewards.ItemRewards.AddRange(questTemplate.Rewards.ItemRewards);
 			questRewards.UnlockRewards.AddRange(questTemplate.Rewards.UnlockRewards);
@@ -34,15 +21,6 @@ public class QuestRewardGroup : MonoBehaviour
 		int i;
 		if (questTemplate.ConditionalRewards != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (i = 0; i < questTemplate.ConditionalRewards.Length; i++)
 			{
 				if (QuestWideData.AreConditionsMet(questTemplate.ConditionalRewards[i].Prerequisites.Conditions, questTemplate.ConditionalRewards[i].Prerequisites.LogicStatement))
@@ -52,15 +30,6 @@ public class QuestRewardGroup : MonoBehaviour
 					questRewards.UnlockRewards.AddRange(questTemplate.ConditionalRewards[i].UnlockRewards);
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		i = 0;
 		QuestReward[] questRewards2 = m_questRewards;
@@ -68,28 +37,10 @@ public class QuestRewardGroup : MonoBehaviour
 		{
 			if (i < questRewards.CurrencyRewards.Count)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				questReward.Setup(questRewards.CurrencyRewards[i], rejectedCount);
 			}
 			else if (i - questRewards.CurrencyRewards.Count < questRewards.UnlockRewards.Count)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				questReward.SetupHack(questRewards.UnlockRewards[i - questRewards.CurrencyRewards.Count].resourceString);
 			}
 			else if (i - questRewards.CurrencyRewards.Count - questRewards.UnlockRewards.Count < questRewards.ItemRewards.Count)
@@ -103,15 +54,6 @@ public class QuestRewardGroup : MonoBehaviour
 			}
 			if (removedQuestCompleteNotification && questReward.m_ExpUPAnim != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(questReward.m_ExpUPAnim, false);
 			}
 			i++;

@@ -48,15 +48,6 @@ public class UIModSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -69,15 +60,6 @@ public class UIModSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -90,15 +72,6 @@ public class UIModSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -134,10 +107,6 @@ public class UIModSelectButton : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(base.gameObject, true);
 					SetAbilityName(theMod.GetName());
 					SetCostNotches(theMod.m_equipCost);
@@ -181,15 +150,6 @@ public class UIModSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -202,53 +162,21 @@ public class UIModSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lockIcon == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = true;
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_character);
 				if (playerCharacterData != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = ((!playerCharacterData.CharacterComponent.IsModUnlocked(m_abilityId, m_modReference.m_abilityScopeId) && !GameManager.Get().GameplayOverrides.EnableAllMods) ? true : false);
 				}
 				SetLockVisible(flag);
 				if (m_disabled != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_disabled, flag);
 				}
 				if (m_modDisabled != null)
@@ -269,19 +197,6 @@ public class UIModSelectButton : MonoBehaviour
 	{
 		if (m_SelectedContainer != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_SelectedContainer, selected);
 		}
 		if (m_selectBtn != null)
@@ -310,10 +225,6 @@ public class UIModSelectButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -338,15 +249,6 @@ public class UIModSelectButton : MonoBehaviour
 					int num2;
 					if (GameBalanceVars.Get().UseModEquipCostAsModUnlockCost)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = m_modReference.m_equipCost;
 					}
 					else
@@ -357,15 +259,6 @@ public class UIModSelectButton : MonoBehaviour
 					string text;
 					if (currentAmount > 1)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("UnlockModTokensConfirm", "Global");
 					}
 					else

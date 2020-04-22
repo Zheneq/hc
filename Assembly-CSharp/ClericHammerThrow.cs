@@ -58,19 +58,6 @@ public class ClericHammerThrow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ClericHammerThrow";
 		}
 		m_syncComp = GetComponent<Cleric_SyncComponent>();
@@ -101,19 +88,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo cachedOuterEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedOuterEnemyHitEffect = m_abilityMod.m_outerEnemyHitEffectMod.GetModifiedValue(m_outerEnemyHitEffect);
 		}
 		else
@@ -124,15 +98,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo cachedInnerEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedInnerEnemyHitEffect = m_abilityMod.m_innerEnemyHitEffectMod.GetModifiedValue(m_innerEnemyHitEffect);
 		}
 		else
@@ -143,15 +108,6 @@ public class ClericHammerThrow : Ability
 		object cachedOuterEnemyHitEffectWithNoInnerHits;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedOuterEnemyHitEffectWithNoInnerHits = m_abilityMod.m_outerEnemyHitEffectWithNoInnerHits.GetModifiedValue(null);
 		}
 		else
@@ -166,19 +122,6 @@ public class ClericHammerThrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxDistToRingCenterMod.GetModifiedValue(m_maxDistToRingCenter);
 		}
 		else
@@ -193,19 +136,6 @@ public class ClericHammerThrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_outerRadiusMod.GetModifiedValue(m_outerRadius);
 		}
 		else
@@ -225,19 +155,6 @@ public class ClericHammerThrow : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
 		else
@@ -252,19 +169,6 @@ public class ClericHammerThrow : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_clampRingToCursorPosMod.GetModifiedValue(m_clampRingToCursorPos);
 		}
 		else
@@ -284,19 +188,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedOuterEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOuterEnemyHitEffect;
 		}
 		else
@@ -311,19 +202,6 @@ public class ClericHammerThrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_innerHitDamageMod.GetModifiedValue(m_innerHitDamage);
 		}
 		else
@@ -338,19 +216,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedInnerEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedInnerEnemyHitEffect;
 		}
 		else
@@ -365,19 +230,6 @@ public class ClericHammerThrow : Ability
 		object result;
 		if (m_cachedOuterEnemyHitEffectWithNoInnerHits != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOuterEnemyHitEffectWithNoInnerHits;
 		}
 		else
@@ -392,19 +244,6 @@ public class ClericHammerThrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraInnerDamagePerOuterHit.GetModifiedValue(0);
 		}
 		else
@@ -430,19 +269,6 @@ public class ClericHammerThrow : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0 && m_cachedRadiusToHitData.Count > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
 			RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(m_cachedRadiusToHitData, targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, base.ActorData, true);
 			if (bestMatchingData != null)
@@ -450,15 +276,6 @@ public class ClericHammerThrow : Ability
 				int num = 0;
 				if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Tertiary) * GetExtraInnerDamagePerOuterHit();
 				}
 				results.m_damage = bestMatchingData.m_damage + num;
@@ -479,10 +296,6 @@ public class ClericHammerThrow : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetExtraTPGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
 				}
 			}

@@ -28,19 +28,6 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			if (m_bonusForHavingMin == 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_bonusPerCoinOverMin == 0f)
 				{
 					while (true)
@@ -63,19 +50,6 @@ public class CollectTheCoins : NetworkBehaviour
 			int num;
 			if (!((float)numCoins >= m_minCoinsForAnyBonus))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((m_minCoinsForAnyBonus == -1f) ? 1 : 0);
 			}
 			else
@@ -86,15 +60,6 @@ public class CollectTheCoins : NetworkBehaviour
 			int num2;
 			if (!((float)numCoins <= m_maxCoinsForAnyBonus))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((m_maxCoinsForAnyBonus == -1f) ? 1 : 0);
 			}
 			else
@@ -104,15 +69,6 @@ public class CollectTheCoins : NetworkBehaviour
 			bool flag2 = (byte)num2 != 0;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					while (true)
@@ -126,15 +82,6 @@ public class CollectTheCoins : NetworkBehaviour
 							float num3 = m_bonusForHavingMin + m_bonusPerCoinOverMin * ((float)numCoins - m_minCoinsForAnyBonus);
 							if (m_maxBonus >= 0f)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 = Mathf.Min(num3, m_maxBonus);
 							}
 							return num3;
@@ -157,10 +104,6 @@ public class CollectTheCoins : NetworkBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0f;
 					}
 				}
@@ -168,15 +111,6 @@ public class CollectTheCoins : NetworkBehaviour
 			int numCoins = 0;
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numCoins = Get().GetCoinsForActor_Client(actor);
 			}
 			return GetBonusForCoins(numCoins);
@@ -269,19 +203,6 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			if (_sequenceSource == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_sequenceSource = new SequenceSource(null, null, m_sequenceSourceId, false);
 			}
 			return _sequenceSource;
@@ -292,19 +213,6 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = this;
 		}
 		else
@@ -313,15 +221,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SequenceSource sequenceSource = new SequenceSource(null, null, false);
 			m_sequenceSourceId = sequenceSource.RootID;
 		}
@@ -355,15 +254,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (sbyte b6 = 0; b6 < b2; b6 = (sbyte)(b6 + 1))
 			{
 				sbyte b7 = reader.ReadSByte();
@@ -374,11 +264,6 @@ public class CollectTheCoins : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				SynchCoinVisualsToDictionary(dictionary2);
 				m_clientData.m_actorsToCoins_unresolved = dictionary;
 				m_clientData.m_squaresToCoins_unresolved = dictionary2;
@@ -413,10 +298,6 @@ public class CollectTheCoins : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare square = gameModeEvent.m_square;
 					if (m_clientData.m_squaresToCoins_unresolved.ContainsKey(square))
 					{
@@ -457,11 +338,6 @@ public class CollectTheCoins : NetworkBehaviour
 		case GameModeEventType.Ctc_CoinPowerupTouched:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				OnActorGainedCoins_Client(gameModeEvent.m_primaryActor, m_numCoinsToAwardPerCoinPowerup);
 				return;
 			}
@@ -487,10 +363,6 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError($"CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {actor.GetDebugName()}.");
 					return;
 				}
@@ -498,15 +370,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (!m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_clientData.m_actorsToCoins_unresolved.Add(actor, numCoins);
 		}
 		else
@@ -519,11 +382,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Team team = actor.GetTeam();
 			ObjectivePoints.Get().AdjustUnresolvedPoints(numCoins, team);
 			return;
@@ -541,10 +399,6 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("CollectTheCoins (client)-- null actor trying to drop coins.");
 					return;
 				}
@@ -602,11 +456,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Team team = actor.GetTeam();
 			ObjectivePoints.Get().AdjustUnresolvedPoints(-num, team);
 			return;
@@ -618,19 +467,6 @@ public class CollectTheCoins : NetworkBehaviour
 		List<GameObject> list;
 		if (!m_clientData.m_squaresToCoinVisuals.ContainsKey(square))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list = new List<GameObject>();
 			m_clientData.m_squaresToCoinVisuals.Add(square, list);
 		}
@@ -654,10 +490,6 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -670,11 +502,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			list.Clear();
 			m_clientData.m_squaresToCoinVisuals.Remove(square);
 			return;
@@ -691,19 +518,6 @@ public class CollectTheCoins : NetworkBehaviour
 			int num;
 			if (squaresToCoins.ContainsKey(key))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = squaresToCoins[key];
 			}
 			else
@@ -712,15 +526,6 @@ public class CollectTheCoins : NetworkBehaviour
 			}
 			if (count > num)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(key);
 			}
 		}
@@ -730,15 +535,6 @@ public class CollectTheCoins : NetworkBehaviour
 			{
 				BoardSquare current2 = enumerator2.Current;
 				RemoveCoinVisualsFromSquare(current2);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (Dictionary<BoardSquare, int>.Enumerator enumerator3 = squaresToCoins.GetEnumerator())
@@ -751,15 +547,6 @@ public class CollectTheCoins : NetworkBehaviour
 				int num2;
 				if (m_clientData.m_squaresToCoinVisuals.ContainsKey(key2))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = m_clientData.m_squaresToCoinVisuals[key2].Count;
 				}
 				else
@@ -771,15 +558,6 @@ public class CollectTheCoins : NetworkBehaviour
 					for (int i = num2; i < value; i++)
 					{
 						AddCoinVisualToSquare(key2);
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -807,10 +585,6 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -818,15 +592,6 @@ public class CollectTheCoins : NetworkBehaviour
 		List<GameObject> list;
 		if (!m_clientData.m_squaresToSpillsVisuals.ContainsKey(square))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = new List<GameObject>();
 			m_clientData.m_squaresToSpillsVisuals.Add(square, list);
 		}
@@ -858,24 +623,11 @@ public class CollectTheCoins : NetworkBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						value.Clear();
 						goto IL_0063;
 					}
 				}
 				IL_0063:;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_clientData.m_squaresToSpillsVisuals.Clear();
@@ -889,15 +641,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare travelBoardSquare = actor.GetTravelBoardSquare();
 			OnActorDroppedCoins_Client(actor, travelBoardSquare);
 			return;
@@ -925,15 +668,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (Dictionary<ActorData, int>.Enumerator enumerator = m_clientData.m_actorsToCoins_unresolved.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -943,28 +677,10 @@ public class CollectTheCoins : NetworkBehaviour
 					{
 						if (current.Key.GetTeam() == Team.TeamA)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							coinsTeamA += current.Value;
 						}
 						else if (current.Key.GetTeam() == Team.TeamB)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							coinsTeamB += current.Value;
 						}
 					}
@@ -991,32 +707,10 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (conditions != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (conditions.Length != 0)
 			{
 				if (checkTeam != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (checkTeam != Team.TeamB)
 					{
 						while (true)
@@ -1035,15 +729,6 @@ public class CollectTheCoins : NetworkBehaviour
 				int coinsTeamB;
 				if (NetworkServer.active)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Get().CalculateCoins_Server(out coinsTeamA, out coinsTeamB);
 				}
 				else
@@ -1066,15 +751,6 @@ public class CollectTheCoins : NetworkBehaviour
 				{
 					if (collectTheCoins_VictoryCondition == CollectTheCoins_VictoryCondition.TeamMustHaveMostCoins)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num <= num2)
 						{
 							return false;
@@ -1086,48 +762,20 @@ public class CollectTheCoins : NetworkBehaviour
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num <= num2)
 						{
 							continue;
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							return false;
 						}
 					}
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;

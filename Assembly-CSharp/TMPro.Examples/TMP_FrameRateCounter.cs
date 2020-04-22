@@ -43,10 +43,6 @@ namespace TMPro.Examples
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -88,28 +84,10 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				float num = (float)_0012 / (realtimeSinceStartup - _000E);
 				float arg = 1000f / Mathf.Max(num, 1E-05f);
 				if (num < 30f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0016 = "<color=yellow>";
 				}
 				else if (num < 10f)

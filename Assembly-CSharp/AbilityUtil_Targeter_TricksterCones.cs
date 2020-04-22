@@ -69,15 +69,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = m_maxCones; i < m_highlights.Count; i++)
 			{
 				m_highlights[i].SetActive(false);
@@ -93,31 +84,9 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		float radiusInWorld = (m_coneInfo.m_radiusInSquares + m_coneInfo.m_backwardsOffset) * squareSize;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= m_maxCones * 2)
 			{
 				goto IL_00ff;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -125,43 +94,16 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateConeCursor(radiusInWorld, m_coneInfo.m_widthAngleDeg));
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < m_maxCones; j++)
 		{
 			GameObject item = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, 0.3f, true, Color.cyan);
 			m_highlights.Add(item);
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_00ff;
 		IL_00ff:
 		int num;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((GameFlowData.Get().activeOwnedActorData == targetingActor) ? 1 : 0);
 		}
 		else
@@ -174,15 +116,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		{
 			if (k < num2)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights[k].SetActive(true);
 				m_highlights[m_maxCones + k].SetActive(active);
 			}
@@ -194,11 +127,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 freeTargetPos = GetClampedTargetPos(currentTarget, targetingActor);
 			List<Vector3> list = GetConeOrigins(currentTarget, freeTargetPos, targetingActor);
 			List<Vector3> list2 = GetConeDirections(currentTarget, freeTargetPos, targetingActor);
@@ -220,15 +148,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 					if (actors.Contains(targetingActor))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actors.Remove(targetingActor);
 					}
 					foreach (ActorData item2 in actors)
@@ -246,15 +165,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 							int num5;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num5 = 1;
 							}
 							else
@@ -264,37 +174,10 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 							dictionary[key2] = num4 + num5;
 							if (actorCover != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!actorCover.IsInCoverWrt(tempActorToDamageOrigins[item2]))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (actorCover.IsInCoverWrt(vector))
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										tempActorToDamageOrigins[item2] = vector;
 									}
 								}
@@ -307,15 +190,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 							int value;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								value = 1;
 							}
 							else
@@ -328,15 +202,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					}
 					if (m_affectsTargetingActor)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Tertiary);
 					}
 					float d = m_coneInfo.m_backwardsOffset * squareSize;
@@ -346,43 +211,16 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					m_highlights[l].transform.rotation = Quaternion.LookRotation(vector2);
 					if (m_showHitIndicatorLine)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_highlights[m_maxCones + l].transform.position = position;
 						m_highlights[m_maxCones + l].transform.rotation = Quaternion.LookRotation(vector2);
 					}
 					else if (m_highlights[m_maxCones + l].activeSelf)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_highlights[m_maxCones + l].SetActive(false);
 					}
 					Color color;
 					if (actors.Count > 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color = Color.red;
 					}
 					else
@@ -393,26 +231,8 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_highlights[m_maxCones + l], magnitude / Board.Get().squareSize, color2);
 					if (l == num2 - 1)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (l < m_squarePosCheckerList.Count - 1)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int m = l; m < m_squarePosCheckerList.Count; m++)
 							{
 								SquareInsideChecker_Cone squareInsideChecker_Cone = m_squarePosCheckerList[m] as SquareInsideChecker_Cone;
@@ -421,15 +241,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 								{
 									squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 								}
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							continue;
 						}
@@ -442,15 +253,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					}
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			foreach (KeyValuePair<ActorData, Vector3> item3 in tempActorToDamageOrigins)
@@ -459,15 +261,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				Vector3 vector3 = item3.Value;
 				if (m_customDamageOriginDelegate != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector3 = m_customDamageOriginDelegate(currentTarget, vector3, key3, targetingActor);
 				}
 				for (int n = 0; n < m_actorToHitCount[key3]; n++)
@@ -484,23 +277,9 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				ResetSquareIndicatorIndexToUse();
 				for (int num6 = 0; num6 < num2; num6++)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num6 >= m_maxCones)
 					{
 						break;

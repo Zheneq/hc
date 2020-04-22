@@ -67,19 +67,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		{
 			if (gameConfig.GameType != GameType.Practice && gameConfig.GameType != GameType.Solo)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (gameConfig.GameType != GameType.Tutorial)
 				{
 					if (!gameConfig.SubTypes.IsNullOrEmpty() && gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
@@ -103,41 +90,10 @@ public class UITutorialDropdownlist : MonoBehaviour
 		s_instance = this;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameInfo != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.GameConfig != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_container, DoDisplayTutorialDropdownVideos(GameManager.Get().GameInfo.GameConfig));
 					UIManager.SetGameObjectActive(m_leavePracticeBtn, GameManager.Get().GameInfo.GameConfig.GameType == GameType.Practice);
 					goto IL_00ce;
@@ -170,19 +126,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		int num;
 		if (Options_UI.Get() != null && Options_UI.Get().GetShowTutorialVideos())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
 				num = (GameFlowData.Get().IsInDecisionState() ? 1 : 0);
@@ -195,15 +138,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		bool flag = (byte)num != 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DoDisplayTutorialDropdownVideos(GameManager.Get().GameInfo.GameConfig) && !m_container.gameObject.activeSelf)
 			{
 				UIManager.SetGameObjectActive(m_container, true);
@@ -212,26 +146,8 @@ public class UITutorialDropdownlist : MonoBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_container.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_container, false);
 				HidePreviewVideo();
 				if (UILandingPageFullScreenMenus.Get() != null)
@@ -269,38 +185,15 @@ public class UITutorialDropdownlist : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (index >= HUD_UIResources.Get().m_practiceModeVideoList.Length)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				AccountComponent.UIStateIdentifier seenVideo = HUD_UIResources.Get().m_practiceModeVideoList[index].SeenVideo;
 				if (AccountComponent.IsUIStateTutorialVideo(seenVideo))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().RequestUpdateUIState(seenVideo, 1, null);
 				}
 				int practiceModeCurrentLanguageIndex = HUD_UIResources.Get().GetPracticeModeCurrentLanguageIndex(index, LocalizationManager.CurrentLanguageCode);
@@ -315,19 +208,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		bool flag = false;
 		if (m_previewingVideo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_previewingVideo.m_theBtn.SetSelected(true, false, string.Empty, string.Empty);
 			PlayTutorialVideo(m_previewingVideo.m_videoIndex);
 			flag = true;
@@ -339,11 +219,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SetVideoListVisible(true);
 			return;
 		}
@@ -355,19 +230,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		UIManager.SetGameObjectActive(m_videoListAC, true);
 		if (m_videoListVisible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HidePreviewVideo();
 			m_videoListAC.Play("FadeDefaultIN");
 		}
@@ -401,15 +263,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (i < HUD_UIResources.Get().m_practiceModeVideoList.Length)
 				{
 					videoListBtns[i].m_theBtn.SetSelected(true, false, string.Empty, string.Empty);
@@ -440,19 +293,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 	{
 		if (videoIndex >= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (videoIndex < videoListBtns.Length)
 			{
 				UIManager.SetGameObjectActive(m_previewContainer, true);
@@ -461,15 +301,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 				m_previewText.text = StringUtil.TR(m_previewingVideo.m_videoInfo.DisplayName);
 				m_previewImage.sprite = (Sprite)Resources.Load(m_previewingVideo.m_videoInfo.ThumbnailResourceLocation, typeof(Sprite));
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		HidePreviewVideo();
@@ -486,10 +317,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					HidePreviewVideo();
 					return;
 				}
@@ -503,11 +330,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.SetGameObjectActive(m_previewContainer, true);
 				SetVideoListVisible(false);
 				m_previewingVideo = videoListBtns[i];
@@ -538,70 +360,21 @@ public class UITutorialDropdownlist : MonoBehaviour
 		{
 			if (i < HUD_UIResources.Get().m_practiceModeVideoList.Length)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i], true);
 				TextMeshProUGUI[] componentsInChildren2 = componentsInChildren[i].GetComponentsInChildren<TextMeshProUGUI>(true);
 				for (int j = 0; j < componentsInChildren2.Length; j++)
 				{
 					componentsInChildren2[j].text = HUD_UIResources.Get().GetPracticeModeVideoDisplayName(i);
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				componentsInChildren[i].spriteController.callback = VideoBtnClicked;
 				if (videoListBtns[i] == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					videoListBtns[i] = new VideoDisplayInfo();
 				}
 				if (m_scrollRect != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (componentsInChildren[i].spriteController.gameObject.GetComponent<_MouseEventPasser>() == null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_MouseEventPasser mouseEventPasser = componentsInChildren[i].spriteController.gameObject.AddComponent<_MouseEventPasser>();
 						mouseEventPasser.AddNewHandler(m_scrollRect);
 					}
@@ -618,11 +391,6 @@ public class UITutorialDropdownlist : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_scrollRect != null)
 			{
 				int num = HUD_UIResources.Get().m_practiceModeVideoList.Length;

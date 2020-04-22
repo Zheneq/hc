@@ -49,15 +49,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_healBaseMod, "HealBase", string.Empty, martyrHealOverTime.m_healBase);
 			AbilityMod.AddToken(tokens, m_healPerCrystalMod, "HealPerCrystal", string.Empty, martyrHealOverTime.m_healPerCrystal);
 			AbilityMod.AddToken_EffectMod(tokens, m_healEffectDataMod, "HealEffectData", martyrHealOverTime.m_healEffectData);
@@ -82,19 +73,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (martyrHealOverTime.m_targetingPenetrateLos ? 1 : 0);
 		}
 		else
@@ -108,15 +86,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrHealOverTime.m_healPerCrystal;
 		}
 		else
@@ -132,15 +101,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrHealOverTime.m_lowHealthThreshold;
 		}
 		else
@@ -154,15 +114,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrHealOverTime.m_baseSelfHealIfTargetAlly;
 		}
 		else
@@ -175,15 +126,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrHealOverTime.m_selfHealPerCrystalIfTargetAlly;
 		}
 		else
@@ -197,15 +139,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrHealOverTime.m_healEffectOnSelfIfTargetAlly;
 		}
 		else

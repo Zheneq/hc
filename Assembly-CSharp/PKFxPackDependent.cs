@@ -41,23 +41,10 @@ public class PKFxPackDependent : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.Value == entry.Value;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -71,40 +58,13 @@ public class PKFxPackDependent : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PKFxManager.Startup();
 			StartCoroutine("CopyPackAsyncOnAndroid");
 			WaitForPack(false);
 			if (Application.platform != RuntimePlatform.Android)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!PKFxManager.TryLoadPackRelative())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PKFxManager.LoadPack(PKFxManager.m_PackPath + "/PackFx");
 				}
 			}
@@ -130,10 +90,6 @@ public class PKFxPackDependent : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string fromPath = Application.streamingAssetsPath + "/";
 					string toPath = Application.persistentDataPath + "/";
 					List<KeyValuePair<string, string>> archiveContent = new List<KeyValuePair<string, string>>();

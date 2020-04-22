@@ -73,15 +73,6 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_moveDroneAbility = (component.GetAbilityOfType(typeof(TrackerDrone)) as TrackerDrone);
 			m_basicAttackAbility = (component.GetAbilityOfType(typeof(TrackerHuntingCrossbow)) as TrackerHuntingCrossbow);
 			m_escapeAbility = (component.GetAbilityOfType(typeof(TrackerFlewTheCoop)) as TrackerFlewTheCoop);
@@ -95,54 +86,14 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		int num = m_droneHitDamageAmount;
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod_TrackerDrone droneMod = m_moveDroneAbility.GetDroneMod();
 				num = droneMod.m_trackedHitDamageMod.GetModifiedValue(m_droneHitDamageAmount);
 				if (isMovingAbility)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (droneMod.m_extraDamageWhenMovingOnTracked > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += droneMod.m_extraDamageWhenMovingOnTracked;
 					}
 				}
@@ -150,26 +101,8 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		}
 		if (m_escapeAbility != null && m_escapeLastTurnCast > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().CurrentTurn - m_escapeLastTurnCast < m_escapeAbility.GetModdedExtraDroneDamageDuration())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += m_escapeAbility.GetModdedExtraDroneDamage();
 			}
 		}
@@ -181,71 +114,22 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		int num = m_untrackedDroneHitDamageAmount;
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
 				AbilityMod_TrackerDrone droneMod = m_moveDroneAbility.GetDroneMod();
 				num = m_moveDroneAbility.GetDroneMod().m_untrackedHitDamageMod.GetModifiedValue(m_untrackedDroneHitDamageAmount);
 				if (isMovingAbility && droneMod.m_extraDamageWhenMovingOnUntracked > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += droneMod.m_extraDamageWhenMovingOnUntracked;
 				}
 			}
 		}
 		if (m_escapeAbility != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_escapeLastTurnCast > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().CurrentTurn - m_escapeLastTurnCast < m_escapeAbility.GetModdedExtraDroneDamageDuration())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += m_escapeAbility.GetModdedExtraDroneUntrackedDamage();
 				}
 			}
@@ -264,10 +148,6 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_moveDroneAbility.GetDroneMod().m_hitInvisibleTargetsMod.GetModifiedValue(m_hitInvisibleTargets);
 				}
 			}
@@ -284,30 +164,8 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 	{
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_basicAttackAbility != null)
 				{
 					while (true)
@@ -337,10 +195,6 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_basicAttackAbility.GetHuntedEffect();
 				}
 			}
@@ -352,19 +206,6 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 	{
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
 				while (true)
@@ -386,19 +227,6 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 	{
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
 				while (true)
@@ -421,67 +249,18 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		float num = m_targeterMaxRangeFromCaster;
 		if (forUlt)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_prisonAbility != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_prisonAbility.GetUltMod() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = m_prisonAbility.GetUltMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
 				}
 			}
 		}
 		if (!forUlt)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_moveDroneAbility != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_moveDroneAbility.GetDroneMod() != null)
 				{
 					num = m_moveDroneAbility.GetDroneMod().m_droneTargeterMaxRangeFromCasterMod.GetModifiedValue(num);
@@ -496,30 +275,8 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 		float result = m_droneVisionRadius;
 		if (m_moveDroneAbility != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_moveDroneAbility.GetDroneMod() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_moveDroneAbility.GetDroneMod().m_droneVisionRadiusMod.GetModifiedValue(m_droneVisionRadius);
 			}
 		}

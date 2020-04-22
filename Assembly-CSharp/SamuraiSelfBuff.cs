@@ -84,19 +84,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo cachedSelfBuffEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedSelfBuffEffect = m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(m_selfBuffEffect);
 		}
 		else
@@ -107,15 +94,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo cachedGeneralEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedGeneralEffectOnSelf = m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(m_generalEffectOnSelf);
 		}
 		else
@@ -130,19 +108,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfBuffEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfBuffEffect;
 		}
 		else
@@ -157,19 +122,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedGeneralEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedGeneralEffectOnSelf;
 		}
 		else
@@ -184,19 +136,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(m_extraDamageIfQueued);
 		}
 		else
@@ -211,19 +150,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseShieldingMod.GetModifiedValue(m_baseShielding);
 		}
 		else
@@ -243,19 +169,6 @@ public class SamuraiSelfBuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(m_selfBuffLastsUntilYouDealDamage);
 		}
 		else
@@ -275,19 +188,6 @@ public class SamuraiSelfBuff : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistMod.GetModifiedValue(m_knockbackDist);
 		}
 		else
@@ -312,19 +212,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(m_damageIncreaseFirstHit);
 		}
 		else
@@ -339,19 +226,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(m_damageIncreaseSubseqHits);
 		}
 		else
@@ -366,19 +240,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(m_techPointGainPerIncomingHit);
 		}
 		else
@@ -393,19 +254,6 @@ public class SamuraiSelfBuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(m_buffInResponseToIndirectDamage);
 		}
 		else
@@ -420,19 +268,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(m_cdrIfNotHit);
 		}
 		else
@@ -477,22 +312,9 @@ public class SamuraiSelfBuff : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = GetBaseShielding();
 					if (GetExtraShieldingIfOnlyAbility() > 0 && !HasOtherQueuedAbilities())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraShieldingIfOnlyAbility();
 					}
 					results.m_absorb = num;
@@ -515,10 +337,6 @@ public class SamuraiSelfBuff : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComponent.m_lastSelfBuffTurn == -1;
 				}
 			}
@@ -534,15 +352,6 @@ public class SamuraiSelfBuff : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SamuraiSelfBuff);
 			SetupTargeter();
 			return;
@@ -560,19 +369,6 @@ public class SamuraiSelfBuff : Ability
 		bool result = false;
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -580,29 +376,11 @@ public class SamuraiSelfBuff : Ability
 				{
 					if (num != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)num))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

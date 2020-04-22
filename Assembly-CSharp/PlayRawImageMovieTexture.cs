@@ -32,26 +32,8 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_movieTexture.isPlaying)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_playingStateFrameCounter++;
 			}
 			else
@@ -60,55 +42,19 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			}
 			if (m_movieState == MovieStates.Loading)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_movieTexture.isReadyToPlay)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_movieTexture.isPlaying)
 					{
 						m_movieTexture.Play();
 						RawImage component2 = GetComponent<RawImage>();
 						if ((bool)component2)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component2.texture = m_movieTexture;
 							component2.color = Color.white;
 						}
 						if ((bool)component && component.clip != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component.Play();
 						}
 					}
@@ -116,26 +62,8 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			}
 			if (m_movieState == MovieStates.Loading)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_playingStateFrameCounter >= 2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_movieState = MovieStates.Playing;
 				}
 			}
@@ -145,22 +73,12 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_movieTexture.loop)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_movieTexture.isPlaying)
 					{
 						m_movieState = MovieStates.Done;
@@ -194,19 +112,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			object clip;
 			if (silent)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				clip = null;
 			}
 			else
@@ -216,15 +121,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			component2.clip = (AudioClip)clip;
 			if (component2.clip != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (useVideoAudioBus && AudioManager.GetMixerSnapshotManager() != null)
 				{
 					AudioManager.GetMixerSnapshotManager().SetMix_StartVideoPlayback();
@@ -247,19 +143,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		RawImage component = GetComponent<RawImage>();
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.texture = null;
 		}
 		AudioSource component2 = GetComponent<AudioSource>();
@@ -268,41 +151,14 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			component2.Stop();
 			if (component2.clip != null && AudioManager.GetMixerSnapshotManager() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.GetMixerSnapshotManager().SetMix_StopVideoPlayback();
 			}
 			component2.clip = null;
 		}
 		if ((bool)m_movieTexture)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_isAssetMovieTexture)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_movieTexture.Stop();
 			}
 			else
@@ -317,11 +173,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_streamer.Dispose();
 			m_streamer = null;
 			return;

@@ -52,15 +52,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0016 = true;
 				return;
 			}
@@ -80,27 +71,9 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_MeshInfo[] array2 = textInfo.CopyMeshInfoVertexData();
 				if (_0016)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array2 = textInfo.CopyMeshInfoVertexData();
 					_0016 = false;
 				}

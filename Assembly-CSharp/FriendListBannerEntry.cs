@@ -47,19 +47,6 @@ public class FriendListBannerEntry : MonoBehaviour
 		m_tooltipHoverObject.Setup(TooltipType.Titled, OpenHoverTooltip);
 		if (m_hitbox.m_hoverImage != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_hitbox.m_hoverImage.gameObject, false);
 		}
 		m_DeclineButton.spriteController.callback = CancelRequest;
@@ -94,10 +81,6 @@ public class FriendListBannerEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					FriendListPanel.Get().RequestToCancelRequest(m_friendInfo);
 					return;
 				}
@@ -105,15 +88,6 @@ public class FriendListBannerEntry : MonoBehaviour
 		}
 		if (m_subSection != FriendListPanel.FriendSubsection.Blocked)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_subSection != FriendListPanel.FriendSubsection.InvitationsSent)
 			{
 				return;
@@ -130,15 +104,6 @@ public class FriendListBannerEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			FriendListPanel.Get().RequestToAcceptRequest(m_friendInfo);
 			return;
 		}
@@ -160,71 +125,22 @@ public class FriendListBannerEntry : MonoBehaviour
 		bool doActive3 = false;
 		if (subSection == FriendListPanel.FriendSubsection.Blocked)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			doActive2 = true;
 		}
 		else if (subSection == FriendListPanel.FriendSubsection.FriendRequests)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = true;
 			doActive2 = true;
 		}
 		else if (subSection == FriendListPanel.FriendSubsection.InvitationsSent)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = true;
 		}
 		else if (subSection == FriendListPanel.FriendSubsection.Offline)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else if (subSection == FriendListPanel.FriendSubsection.Online)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive3 = true;
 		}
 		UIManager.SetGameObjectActive(m_AcceptButton, doActive);
@@ -239,47 +155,16 @@ public class FriendListBannerEntry : MonoBehaviour
 		string text = friendInfo.FriendHandle;
 		if (!friendInfo.FriendNote.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = $"{friendInfo.FriendHandle}({friendInfo.FriendNote})";
 		}
 		m_playerName.text = text;
 		if (m_hitbox.gameObject.GetComponent<_MouseEventPasser>() == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_MouseEventPasser mouseEventPasser = m_hitbox.gameObject.AddComponent<_MouseEventPasser>();
 			mouseEventPasser.AddNewHandler(FriendListPanel.Get().m_scrollView);
 		}
 		if (friendInfo.FriendStatus == FriendStatus.Friend)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (friendInfo.StatusString.IsNullOrEmpty())
 			{
 				if (friendInfo.IsOnline)
@@ -297,15 +182,6 @@ public class FriendListBannerEntry : MonoBehaviour
 			{
 				if (friendInfo.StatusString == FriendListHeader.PlayerOnlineStatus.Away.ToString())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_playerStatusImage.color = FriendListPanel.Get().m_panelHeader.m_friendListColors[1];
 				}
 				else if (friendInfo.StatusString == FriendListHeader.PlayerOnlineStatus.Busy.ToString())
@@ -320,15 +196,6 @@ public class FriendListBannerEntry : MonoBehaviour
 			}
 			if (friendInfo.IsOnline)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetTextOnlineColor();
 			}
 			else
@@ -338,41 +205,14 @@ public class FriendListBannerEntry : MonoBehaviour
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.RequestSent)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerStatusLabel.text = StringUtil.TR("AwaitingReply", "FriendList");
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.RequestReceived)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerStatusLabel.text = StringUtil.TR("AwaitingApproval", "FriendList");
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.Blocked)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerStatusLabel.text = StringUtil.TR("Blocked", "FriendList");
 		}
 		else
@@ -388,19 +228,6 @@ public class FriendListBannerEntry : MonoBehaviour
 		Sprite sprite = null;
 		if (banner != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 		}
 		else
@@ -412,15 +239,6 @@ public class FriendListBannerEntry : MonoBehaviour
 		sprite = null;
 		if (banner2 != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 		}
 		else
@@ -467,24 +285,11 @@ public class FriendListBannerEntry : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 					string title = GameWideData.Get().m_gameBalanceVars.GetTitle(m_friendInfo.TitleID, string.Empty, m_friendInfo.TitleLevel);
 					string str = m_friendInfo.FriendHandle;
 					if (!title.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						str = string.Format(StringUtil.TR("BannerDescription", "FriendList"), m_playerName.text, title);
 					}
 					str = str + Environment.NewLine + m_friendInfo.FriendNote;

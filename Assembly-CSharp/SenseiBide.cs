@@ -56,19 +56,6 @@ public class SenseiBide : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "SenseiBide";
 		}
 		Setup();
@@ -100,19 +87,6 @@ public class SenseiBide : Ability
 		StandardActorEffectData cachedOnCastTargetEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedOnCastTargetEffectData = m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(m_onCastTargetEffectData);
 		}
 		else
@@ -123,15 +97,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo cachedAdditionalTargetHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAdditionalTargetHitEffect = m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(m_additionalTargetHitEffect);
 		}
 		else
@@ -142,15 +107,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -165,19 +121,6 @@ public class SenseiBide : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
 		}
 		else
@@ -202,19 +145,6 @@ public class SenseiBide : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius);
 		}
 		else
@@ -229,19 +159,6 @@ public class SenseiBide : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
 		else
@@ -266,19 +183,6 @@ public class SenseiBide : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMultMod.GetModifiedValue(m_damageMult);
 		}
 		else
@@ -293,19 +197,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -320,19 +211,6 @@ public class SenseiBide : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(m_absorbMultForHeal);
 		}
 		else
@@ -347,19 +225,6 @@ public class SenseiBide : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(m_multOnInitialDamageForSubseqHits);
 		}
 		else
@@ -374,19 +239,6 @@ public class SenseiBide : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(m_extraHealOnHealAoeIfQueued);
 		}
 		else
@@ -429,15 +281,6 @@ public class SenseiBide : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SenseiBide);
 			Setup();
 			return;

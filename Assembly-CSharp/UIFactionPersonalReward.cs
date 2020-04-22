@@ -20,19 +20,6 @@ public class UIFactionPersonalReward : MonoBehaviour
 		string text = string.Empty;
 		if (factionItemReward != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
 			m_rewardImage.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
 			text = itemTemplate.GetDisplayName();
@@ -46,30 +33,12 @@ public class UIFactionPersonalReward : MonoBehaviour
 			text = RewardUtils.GetTypeDisplayString(rewardType, factionCurrencyReward.CurrencyReward.Amount > 1);
 			if (factionCurrencyReward.CurrencyReward.Amount > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + " x" + factionCurrencyReward.CurrencyReward.Amount;
 			}
 		}
 		FactionUnlockReward factionUnlockReward = reward as FactionUnlockReward;
 		if (factionUnlockReward != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewardImage.sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
 			text = RewardUtils.GetRewardDisplayName(factionUnlockReward.UnlockReward.purchaseType, factionUnlockReward.UnlockReward.typeSpecificData);
 		}

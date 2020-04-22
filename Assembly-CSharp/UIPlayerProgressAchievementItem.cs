@@ -59,10 +59,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -100,59 +96,19 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 					{
 						if (condition.ConditionType == QuestConditionType.HasCharacterLevel)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							m_hasExpandData = true;
 							CharacterType typeSpecificData = (CharacterType)condition.typeSpecificData;
 							int typeSpecificData2 = condition.typeSpecificData2;
 							if (ClientGameManager.Get().GetPlayerCharacterData(typeSpecificData).ExperienceComponent.Level >= typeSpecificData2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string displayName = typeSpecificData.GetDisplayName();
 								if (!list.Contains(displayName))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(displayName);
 								}
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -164,26 +120,8 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questMetaData.ContainsKey(quest.Index))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestMetaData questMetaData2 = questMetaData[quest.Index];
 					flag = (questMetaData2.CompletedCount > 0);
 					CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
@@ -192,28 +130,10 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += quest.AchievementPoints;
 				num2 += quest.AchievementPoints;
 				if (quest != m_quest)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text = StringUtil.TR_QuestName(quest.Index);
 					if (text.IsNullOrEmpty())
 					{
@@ -231,15 +151,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			}
 			if (quest.AchievementPrevious > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				quest = QuestWideData.Get().GetQuestTemplate(quest.AchievementPrevious);
 			}
 			else
@@ -249,23 +160,9 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_points.text = num2.ToString();
 			if (m_quest != null && questMetaData.ContainsKey(m_quest.Index))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (questMetaData[m_quest.Index].CompletedCount > 0);
 			}
 			else
@@ -276,15 +173,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			string text4 = StringUtil.TR_QuestDescription(m_quest.Index);
 			if (text3 != string.Empty)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_description.text = $"<size=20>{text3}</size>\n<#a9a9a9>{text4}";
 			}
 			else
@@ -294,15 +182,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			Sprite sprite;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = Resources.Load<Sprite>(m_quest.IconFilename);
 			}
 			else
@@ -334,41 +213,14 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			m_hasExpandData = (list.Count > 0);
 			if (m_hasExpandData)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < m_expandedTexts.Length; i++)
 				{
 					UIManager.SetGameObjectActive(m_expandedTexts[i], i < list.Count);
 					if (i < list.Count)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_expandedTexts[i], true);
 						m_expandedTexts[i].text = "- " + list[i];
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UpdateExpandedVisuals();
@@ -382,30 +234,8 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		bool flag = SetupReward(quest.Rewards);
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (quest.ConditionalRewards != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				while (true)
 				{
@@ -416,29 +246,11 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 							flag = SetupReward(quest.ConditionalRewards[num]);
 							if (flag)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 						}
 						num++;
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -451,19 +263,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 	{
 		if (questRewards.CurrencyRewards.Count > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_questReward.Setup(questRewards.CurrencyRewards[0], 0);
 		}
 		else if (questRewards.UnlockRewards.Count > 0)
@@ -475,15 +274,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			if (questRewards.ItemRewards.Count <= 0)
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questRewards.ItemRewards[0].ItemTemplateId);
 			m_questReward.SetupHack(itemTemplate, itemTemplate.IconPath);
@@ -502,10 +292,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -514,15 +300,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		float preferredHeight;
 		if (m_isExpanded)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			preferredHeight = m_expandedHeight;
 		}
 		else

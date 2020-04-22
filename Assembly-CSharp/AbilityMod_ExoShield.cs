@@ -58,19 +58,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = exoShield.m_absorbEffect;
 		}
 		else
@@ -83,15 +70,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoShield.m_extraAbsorbIfSieging;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoShield.m_cdrIfShieldNotUsed;
 		}
 		else
@@ -126,15 +95,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoShield.m_maxShieldLostForEnergyGain;
 		}
 		else
@@ -149,15 +109,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (exoShield.m_freeActionWhileAnchored ? 1 : 0);
 		}
 		else

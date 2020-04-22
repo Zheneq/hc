@@ -39,15 +39,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AddOnHitDataTokens(tokens, m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData);
 			AbilityMod.AddToken(tokens, m_novaOnReactShieldPerDetonateMod, "NovaOnReactShieldPerDetonate", string.Empty, iceborgDetonateNova.m_novaOnReactShieldPerDetonate);
@@ -72,19 +63,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				baseVal = iceborgDetonateNova.m_novaOnReactShieldPerDetonate;
 			}
 			else
@@ -97,15 +75,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgDetonateNova.m_shieldOnDetonateDuration;
 			}
 			else
@@ -118,15 +87,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgDetonateNova.m_cdrPerKill;
 			}
 			else
@@ -139,15 +99,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgDetonateNova.m_cdrIfAnyKill;
 			}
 			else

@@ -20,19 +20,6 @@ public class LootMatrixThermostat : MonoBehaviour
 		UITooltipHoverObject thermostatTooltipObj = m_thermostatTooltipObj;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
 				(tooltip as UISimpleTooltip).Setup(StringUtil.TR("ThermostatTooltip", "LootMatrixScene"));
@@ -48,45 +35,14 @@ public class LootMatrixThermostat : MonoBehaviour
 		int num = -1;
 		if (InvItem != null && InvItemTemplate != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (InvItemTemplate.Type == InventoryItemType.Lockbox)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LootTable lootTable = InventoryWideData.Get().GetLootTable(InvItemTemplate.TypeSpecificData[0]);
 				if (lootTable != null)
 				{
 					Loot loot = component.GetLoot(InvItem.Id);
 					if (loot == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num2 = 0;
 						while (true)
 						{
@@ -101,15 +57,6 @@ public class LootMatrixThermostat : MonoBehaviour
 								num2++;
 								continue;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 					}
@@ -121,15 +68,6 @@ public class LootMatrixThermostat : MonoBehaviour
 							{
 								if (!enumerator.MoveNext())
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								CheckKarma current = enumerator.Current;
@@ -153,29 +91,11 @@ public class LootMatrixThermostat : MonoBehaviour
 								{
 									if (!enumerator2.MoveNext())
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									KeyValuePair<int, Karma> current2 = enumerator2.Current;
 									if (current2.Value.TemplateId == lootTable.CheckKarmas[i].KarmaTemplateId)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										int quantity = current2.Value.Quantity;
 										if (0 < quantity)
 										{

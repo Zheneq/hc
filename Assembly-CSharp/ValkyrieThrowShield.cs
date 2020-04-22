@@ -57,19 +57,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
 		}
 		else
@@ -89,19 +76,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance);
 		}
 		else
@@ -116,19 +90,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
 		}
 		else
@@ -143,19 +104,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(m_maxTargetsHit);
 		}
 		else
@@ -170,19 +118,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false) ? 1 : 0);
 		}
 		else
@@ -202,19 +137,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce);
 		}
 		else
@@ -229,19 +151,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0);
 		}
 		else
@@ -256,19 +165,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
@@ -288,19 +184,6 @@ public class ValkyrieThrowShield : Ability
 		KnockbackType result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
 		}
 		else
@@ -315,19 +198,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0);
 		}
 		else
@@ -353,10 +223,6 @@ public class ValkyrieThrowShield : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComp.m_extraDamageNextShieldThrow;
 				}
 			}
@@ -369,31 +235,9 @@ public class ValkyrieThrowShield : Ability
 		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = base.Targeter as AbilityUtil_Targeter_BounceLaser;
 		if (abilityUtil_Targeter_BounceLaser != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceLaser.GetHitActorContext();
 			if (!hitActorContext.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (IEnumerator<AbilityUtil_Targeter_BounceLaser.HitActorContext> enumerator = hitActorContext.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -413,15 +257,6 @@ public class ValkyrieThrowShield : Ability
 							}
 						}
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -436,15 +271,6 @@ public class ValkyrieThrowShield : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ValkyrieThrowShield);
 			SetupTargeter();
 			return;
@@ -481,19 +307,6 @@ public class ValkyrieThrowShield : Ability
 			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 = hitActorContext[i];
 			if (hitActorContext2.actor == targetActor)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int bonusDamagePerBounce = GetBonusDamagePerBounce();
 				AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext3 = hitActorContext[i];
 				int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
@@ -502,11 +315,6 @@ public class ValkyrieThrowShield : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return dictionary;
 		}
 	}

@@ -19,27 +19,9 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_BadgeIcon.sprite = (Sprite)Resources.Load(m_BadgeInfo.BadgeIconString, typeof(Sprite));
 			if (base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<UITooltipHoverObject>() == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<UITooltipHoverObject>();
 			}
 			UITooltipHoverObject component = base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<UITooltipHoverObject>();
@@ -47,30 +29,12 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					component.Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
 					{
 						UITitledTooltip uITitledTooltip = (UITitledTooltip)tooltip;
 						string text = GameResultBadgeData.GetBadgeDescription(m_BadgeInfo, characterType);
 						if (m_BadgeInfo.ComparisonGroup == GameBalanceVars.GameResultBadge.ComparisonType.Global)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							int? num = null;
 							int? num2 = null;
 							int? num3 = null;
@@ -86,15 +50,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 							object newValue;
 							if (num.HasValue)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								newValue = num.Value.ToString();
 							}
 							else
@@ -106,15 +61,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 							object newValue2;
 							if (num2.HasValue)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								newValue2 = num2.Value.ToString();
 							}
 							else
@@ -126,15 +72,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 							object newValue3;
 							if (num3.HasValue)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								newValue3 = num3.Value.ToString();
 							}
 							else
@@ -161,10 +98,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									UIGameOverScreen.Get().NotifyWidgetMouseOver(this, false);
 									return;
 								}

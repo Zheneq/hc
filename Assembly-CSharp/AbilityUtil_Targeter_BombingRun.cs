@@ -26,15 +26,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				DisableHighlightCursors();
 				return;
 			}
@@ -43,27 +34,9 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, TargeterMovementType.Movement, 0);
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count >= m_maxExplosions)
 			{
 				goto IL_00dc;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -82,15 +55,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 			{
 				if (num % m_distanceBetweenExplosionsInSquares == 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 freePos = boardSquarePathInfo2.square.ToVector3();
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, freePos, boardSquarePathInfo2.square);
 					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_explosionShape, freePos, boardSquarePathInfo2.square, false, targetingActor, targetingActor.GetOpposingTeams(), null);
@@ -101,15 +65,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 						{
 							ActorData current = enumerator.Current;
 							AddActorInRange(current, centerOfShape, targetingActor);
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
@@ -122,11 +77,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = num2; j < m_maxExplosions; j++)
 				{
 					m_highlights[j].SetActive(false);
@@ -179,15 +129,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				DisableHighlightCursors();
 				return;
 			}
@@ -195,40 +136,13 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		int num = 1;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 2;
 		}
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count == num)
 			{
 				goto IL_00cf;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -236,28 +150,10 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_explosionShape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		while (true)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		goto IL_00cf;
 		IL_00cf:
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 			BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare);
@@ -270,15 +166,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					AddActorInRange(current, centerOfShape, targetingActor);
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
 			m_highlights[0].transform.position = centerOfShape;
@@ -287,15 +174,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 		}
 		else
@@ -319,15 +197,6 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 				{
 					ActorData current2 = enumerator2.Current;
 					AddActorInRange(current2, centerOfShape2, targetingActor);
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			centerOfShape2.y = (float)Board.Get().BaselineHeight + 0.1f;

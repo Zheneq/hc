@@ -28,15 +28,6 @@ public class AbilityModManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = this;
 			return;
 		}
@@ -70,10 +61,6 @@ public class AbilityModManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -83,11 +70,6 @@ public class AbilityModManager : NetworkBehaviour
 		case GameState.BothTeams_Resolve:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				ShowDebugGUI = false;
 				return;
 			}
@@ -110,10 +92,6 @@ public class AbilityModManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
 					return;
 				}
@@ -125,11 +103,6 @@ public class AbilityModManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			LoadAvailableModsForActor(activeActor);
 			return;
 		}
@@ -142,19 +115,6 @@ public class AbilityModManager : NetworkBehaviour
 		{
 			if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				LoadAvailableModsForAbility(ability);
 			}
 			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
@@ -183,30 +143,8 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LoadAvailableModsForAbility(ability);
 			}
 			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
@@ -216,29 +154,11 @@ public class AbilityModManager : NetworkBehaviour
 					AbilityMod current = enumerator.Current;
 					if (current.m_availableInGame)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.m_defaultEquip)
 						{
 							return current;
 						}
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -266,23 +186,10 @@ public class AbilityModManager : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -293,19 +200,6 @@ public class AbilityModManager : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 		if (actorData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityData component = actorData.GetComponent<AbilityData>();
 			if (component != null)
 			{
@@ -335,15 +229,6 @@ public class AbilityModManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i <= 4; i++)
 			{
 				Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
@@ -364,10 +249,6 @@ public class AbilityModManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -375,15 +256,6 @@ public class AbilityModManager : NetworkBehaviour
 		Type type = ability.GetType();
 		if (m_abilityTypeToMods.ContainsKey(type))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_abilityTypeToMods[type].Clear();
 		}
 		else

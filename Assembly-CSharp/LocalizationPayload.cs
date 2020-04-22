@@ -58,10 +58,6 @@ public class LocalizationPayload
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						list = new List<LocalizationArg>();
 						byte[][] argumentsAsBinaryData = ArgumentsAsBinaryData;
 						foreach (byte[] buffer in argumentsAsBinaryData)
@@ -70,15 +66,6 @@ public class LocalizationPayload
 							Serializer.Deserialize(stream, out object ob);
 							if (ob != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ob is LocalizationArg)
 								{
 									list.Add(ob as LocalizationArg);
@@ -121,10 +108,6 @@ public class LocalizationPayload
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return text;
 				}
 			}
@@ -170,15 +153,6 @@ public class LocalizationPayload
 		}
 		if (list.Count > 4)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("We do not support more than four arguments to localized payloads: {0}@{1}", Term, Context);
 		}
 		return string.Format(text, list[0].TR(), list[1].TR(), list[2].TR(), list[3].TR());
@@ -202,10 +176,6 @@ public class LocalizationPayload
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					LocalizationPayload localizationPayload = new LocalizationPayload();
 					localizationPayload.Term = array[0];
 					localizationPayload.Context = array[1];
@@ -230,34 +200,12 @@ public class LocalizationPayload
 		List<byte[]> list = null;
 		if (!arguments.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list = new List<byte[]>();
 			foreach (LocalizationArg ob in arguments)
 			{
 				MemoryStream memoryStream = new MemoryStream();
 				Serializer.Serialize(memoryStream, ob);
 				list.Add(memoryStream.ToArray());
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		LocalizationPayload localizationPayload = new LocalizationPayload();

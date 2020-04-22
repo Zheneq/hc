@@ -59,19 +59,6 @@ public class UISeasonChapterEntry
 		bool flag = ChallengeInfo.Count == uISeasonChapterEntry.ChallengeInfo.Count;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -79,29 +66,11 @@ public class UISeasonChapterEntry
 				{
 					if (!ChallengeInfo[num].Equals(uISeasonChapterEntry.ChallengeInfo[num]))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -109,15 +78,6 @@ public class UISeasonChapterEntry
 		bool flag2 = QuestInfo.Count == uISeasonChapterEntry.QuestInfo.Count;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			while (true)
 			{
@@ -125,29 +85,11 @@ public class UISeasonChapterEntry
 				{
 					if (!QuestInfo[num2].Equals(uISeasonChapterEntry.QuestInfo[num2]))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						break;
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -155,37 +97,10 @@ public class UISeasonChapterEntry
 		int result;
 		if (SeasonChapterName.Equals(uISeasonChapterEntry.SeasonChapterName))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2 && AreOtherConditionsFromPreviousChapterMet.Equals(uISeasonChapterEntry.AreOtherConditionsFromPreviousChapterMet) && AreAllQuestsCompleteFromPreviousChapter.Equals(uISeasonChapterEntry.AreAllQuestsCompleteFromPreviousChapter) && IsChapterLocked.Equals(uISeasonChapterEntry.IsChapterLocked))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (IsChapterHidden.Equals(uISeasonChapterEntry.IsChapterHidden) ? 1 : 0);
 					goto IL_01a3;
 				}
@@ -208,10 +123,6 @@ public class UISeasonChapterEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return SeasonChapterName.GetHashCode() ^ ChallengeInfo.GetHashCode() ^ QuestInfo.GetHashCode() ^ AreOtherConditionsFromPreviousChapterMet.GetHashCode() ^ AreAllQuestsCompleteFromPreviousChapter.GetHashCode() ^ IsChapterLocked.GetHashCode() ^ IsChapterHidden.GetHashCode();
 				}
 			}
@@ -236,10 +147,6 @@ public class UISeasonChapterEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0021;
 				}
 			}
@@ -250,15 +157,6 @@ public class UISeasonChapterEntry
 		object obj;
 		if (nextChapterInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = nextChapterInfo.Prerequisites.GetTimeRange();
 		}
 		else
@@ -269,15 +167,6 @@ public class UISeasonChapterEntry
 		object obj2;
 		if (previousChapterInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj2 = previousChapterInfo.Prerequisites.GetTimeRange();
 		}
 		else
@@ -288,41 +177,14 @@ public class UISeasonChapterEntry
 		TimeRange timeRange4 = SeasonWideData.Get().GetSeasonTemplate(seasonNumber).Prerequisites.GetTimeRange();
 		if (timeRange.EndTime.HasValue)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EndDate = timeRange.EndTime.Value;
 		}
 		else if (timeRange2 != null && timeRange2.StartTime.HasValue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EndDate = timeRange2.StartTime.Value;
 		}
 		else if (timeRange4.EndTime.HasValue)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EndDate = timeRange4.EndTime.Value;
 		}
 		else
@@ -331,56 +193,20 @@ public class UISeasonChapterEntry
 		}
 		if (timeRange.StartTime.HasValue)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			StartDate = timeRange.StartTime.Value;
 		}
 		else
 		{
 			if (timeRange3 != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (timeRange3.EndTime.HasValue)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StartDate = timeRange3.EndTime.Value;
 					goto IL_0222;
 				}
 			}
 			if (timeRange4.StartTime.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StartDate = timeRange4.StartTime.Value;
 			}
 			else
@@ -397,15 +223,6 @@ public class UISeasonChapterEntry
 		int num = 0;
 		if (previousChapterInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<int>.Enumerator enumerator2 = UISeasonsPanel.GetChapterQuests(previousChapterInfo, seasonNumber, chapterIndex - 1).GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -413,15 +230,6 @@ public class UISeasonChapterEntry
 					int current2 = enumerator2.Current;
 					if (playerAccountData.QuestComponent.GetCompletedCount(current2) <= 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 					else
@@ -429,41 +237,14 @@ public class UISeasonChapterEntry
 						num++;
 					}
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		NumQuestsToAdvance = chapterInfo.NumQuestsToAdvance;
 		int areAllQuestsCompleteFromPreviousChapter;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NumQuestsToAdvance == num)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				areAllQuestsCompleteFromPreviousChapter = ((NumQuestsToAdvance != 0) ? 1 : 0);
 			}
 			else
@@ -480,15 +261,6 @@ public class UISeasonChapterEntry
 		int isChapterLocked;
 		if (AreAllQuestsCompleteFromPreviousChapter)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			isChapterLocked = ((!AreOtherConditionsFromPreviousChapterMet) ? 1 : 0);
 		}
 		else
@@ -500,15 +272,6 @@ public class UISeasonChapterEntry
 		IsChapterViewable = AreOtherConditionsFromPreviousChapterMet;
 		if (playerAccountData.QuestComponent.GetUnlockedSeasonChapters(seasonNumber).Contains(chapterIndex))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IsChapterLocked = false;
 			IsChapterHidden = false;
 			IsChapterViewable = true;
@@ -527,15 +290,6 @@ public class UISeasonChapterEntry
 				QuestCurrencyReward current3 = enumerator3.Current;
 				CurrencyRewards.Add(current3);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<QuestItemReward>.Enumerator enumerator4 = chapterInfo.ItemRewards.GetEnumerator())
 		{
@@ -543,15 +297,6 @@ public class UISeasonChapterEntry
 			{
 				QuestItemReward current4 = enumerator4.Current;
 				ItemRewards.Add(current4);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		foreach (QuestUnlockReward unlockReward in chapterInfo.UnlockRewards)

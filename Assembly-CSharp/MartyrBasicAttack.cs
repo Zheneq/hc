@@ -49,19 +49,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Hit";
 		}
 		Setup();
@@ -102,19 +89,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -125,15 +99,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		StandardEffectInfo cachedLaserHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -148,19 +113,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -180,19 +132,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius);
 		}
 		else
@@ -207,19 +146,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseLaserDamageMod.GetModifiedValue(m_baseLaserDamage);
 		}
 		else
@@ -249,19 +175,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageIfSingleHitMod.GetModifiedValue(m_extraDamageIfSingleHit);
 		}
 		else
@@ -276,19 +189,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_innerRingRadiusMod.GetModifiedValue(m_innerRingRadius);
 		}
 		else
@@ -313,19 +213,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_innerRingDamagePerCrystalMod.GetModifiedValue(m_innerRingDamagePerCrystal);
 		}
 		else
@@ -342,19 +229,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_MartyrBasicAttack.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -368,15 +242,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val;
 		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_MartyrBasicAttack.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(m_additionalDamagePerCrystalSpent);
 		}
 		else
@@ -388,15 +253,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float val2;
 		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrBasicAttack.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(m_additionalRadiusPerCrystalSpent);
 		}
 		else
@@ -408,15 +264,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val3;
 		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrBasicAttack.m_extraDamageIfSingleHitMod.GetModifiedValue(m_extraDamageIfSingleHit);
 		}
 		else
@@ -429,15 +276,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val4;
 		if ((bool)abilityMod_MartyrBasicAttack)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrBasicAttack.m_innerRingDamagePerCrystalMod.GetModifiedValue(m_innerRingDamagePerCrystal);
 		}
 		else
@@ -481,19 +319,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else
@@ -510,19 +335,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else
@@ -539,19 +351,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
 		else
@@ -587,31 +386,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num = 0;
 		if (GetExtraDamageIfSingleHit() > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			if (visibleActorsCountByTooltipSubject == 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = GetExtraDamageIfSingleHit();
 			}
 		}
@@ -620,39 +397,12 @@ public class MartyrBasicAttack : MartyrLaserBase
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = false;
 			float currentInnerExplosionRadius = GetCurrentInnerExplosionRadius();
 			if (currentInnerExplosionRadius > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targeter is AbilityUtil_Targeter_MartyrLaser)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
 					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData);
 				}

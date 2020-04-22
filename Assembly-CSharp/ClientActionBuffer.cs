@@ -25,15 +25,6 @@ public class ClientActionBuffer : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SetActionPhase(value);
 				return;
 			}
@@ -63,31 +54,9 @@ public class ClientActionBuffer : MonoBehaviour
 					ActorData current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						current.CurrentlyVisibleForAbilityCast = false;
 						current.MovedForEvade = false;
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (!ClientAbilityResults.LogMissingSequences)
@@ -96,11 +65,6 @@ public class ClientActionBuffer : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				Log.Warning("On Ability Phase Start: <color=magenta>" + m_abilityPhase.ToString() + "</color>\n@time = " + Time.time);
 				return;
 			}
@@ -130,42 +94,11 @@ public class ClientActionBuffer : MonoBehaviour
 		m_actionPhase = value;
 		if (actionPhase != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actionPhase != ActionBufferPhase.AbilitiesWait)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionPhase != ActionBufferPhase.Done)
 				{
 					goto IL_0076;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -180,26 +113,8 @@ public class ClientActionBuffer : MonoBehaviour
 		IL_0076:
 		if (actionPhase != ActionBufferPhase.Done)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value == ActionBufferPhase.Done)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.UIPhaseStartedDecision, null);
 				m_ignoreOldAbilityPhase = true;
 				goto IL_00e3;
@@ -207,15 +122,6 @@ public class ClientActionBuffer : MonoBehaviour
 		}
 		if (value != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value != ActionBufferPhase.AbilitiesWait)
 			{
 				goto IL_00e3;
@@ -223,26 +129,8 @@ public class ClientActionBuffer : MonoBehaviour
 		}
 		if (actionPhase != ActionBufferPhase.AbilitiesWait)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actionPhase != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetAbilityPhase(m_abilityPhase);
 			}
 		}
@@ -250,27 +138,9 @@ public class ClientActionBuffer : MonoBehaviour
 		IL_0188:
 		if (value != ActionBufferPhase.AbilitiesWait)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value != ActionBufferPhase.MovementWait)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!(GameplayMutators.Get() != null) || !GameFlowData.Get().HasPotentialGameMutatorVisibilityChanges(false))
@@ -279,20 +149,10 @@ public class ClientActionBuffer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (FogOfWar.GetClientFog() != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					FogOfWar.GetClientFog().UpdateVisibilityOfSquares();
 					return;
 				}
@@ -302,104 +162,32 @@ public class ClientActionBuffer : MonoBehaviour
 		IL_00e3:
 		if (actionPhase != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actionPhase != ActionBufferPhase.AbilitiesWait)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionPhase != ActionBufferPhase.MovementWait)
 				{
 					goto IL_013d;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (value == ActionBufferPhase.Done && TheatricsManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TheatricsManager.Get().SetAnimatorParamOnAllActors("DecisionPhase", true);
 		}
 		goto IL_013d;
 		IL_013d:
 		if (value != ActionBufferPhase.AbilitiesWait)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value != ActionBufferPhase.Movement)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value != ActionBufferPhase.MovementChase)
 				{
 					goto IL_0188;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (actionPhase == ActionBufferPhase.Abilities)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().SetTargetForMovementIfNeeded();
 		}
 		CameraManager.Get().SwitchCameraForMovement();
@@ -416,26 +204,8 @@ public class ClientActionBuffer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value != AbilityPriority.Prep_Offense)
 				{
 					goto IL_00db;
@@ -445,81 +215,18 @@ public class ClientActionBuffer : MonoBehaviour
 			{
 				goto IL_00af;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityPhase != 0 && abilityPhase != AbilityPriority.Prep_Offense)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityPhase != AbilityPriority.Evasion)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityPhase != AbilityPriority.DEPRICATED_Combat_Charge)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityPhase != AbilityPriority.Combat_Damage)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityPhase != AbilityPriority.Combat_Final)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityPhase != AbilityPriority.Combat_Knockback)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									goto IL_00af;
 								}
 							}
@@ -531,38 +238,11 @@ public class ClientActionBuffer : MonoBehaviour
 			IL_00db:
 			if (value == AbilityPriority.Evasion)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_ignoreOldAbilityPhase)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityPhase == AbilityPriority.Evasion)
 					{
 						goto IL_0135;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_ignoreOldAbilityPhase = false;
@@ -574,102 +254,30 @@ public class ClientActionBuffer : MonoBehaviour
 			IL_0135:
 			if (value != AbilityPriority.DEPRICATED_Combat_Charge)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value != AbilityPriority.Combat_Damage)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (value != AbilityPriority.Combat_Final)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value != AbilityPriority.Combat_Knockback)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 			}
 			if (!m_ignoreOldAbilityPhase)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityPhase == AbilityPriority.DEPRICATED_Combat_Charge || abilityPhase == AbilityPriority.Combat_Damage)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (abilityPhase == AbilityPriority.Combat_Final)
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityPhase == AbilityPriority.Combat_Knockback)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_ignoreOldAbilityPhase = false;

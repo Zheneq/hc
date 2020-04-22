@@ -51,30 +51,8 @@ public static class ConsoleLog
 			{
 				goto IL_0048;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (args.level >= MinStdErrLevel)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_0048;
 			}
 			goto end_IL_000c;
@@ -93,15 +71,6 @@ public static class ConsoleLog
 						string value = string.Empty;
 						if (!RawLogging)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = $"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ";
 						}
 						bool flag = false;
@@ -113,15 +82,6 @@ public static class ConsoleLog
 						}
 						else if (args.level >= MinStdOutLevel)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Console.Out.Write(value);
 							Console.Out.WriteLine(text);
 							flag = true;
@@ -156,27 +116,9 @@ public static class ConsoleLog
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Started = true;
 			if (_003C_003Ef__mg_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__mg_0024cache0 = HandleLogMessage;
 			}
 			Log.AddLogHandler(_003C_003Ef__mg_0024cache0);

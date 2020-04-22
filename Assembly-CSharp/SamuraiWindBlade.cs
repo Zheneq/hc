@@ -44,19 +44,6 @@ public class SamuraiWindBlade : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Wind Blade";
 		}
 		SetupTargeter();
@@ -79,19 +66,6 @@ public class SamuraiWindBlade : Ability
 	{
 		if (!base.Targeters.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
@@ -130,19 +104,6 @@ public class SamuraiWindBlade : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -157,19 +118,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -184,19 +132,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(m_minRangeBeforeBend);
 		}
 		else
@@ -211,19 +146,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxRangeBeforeBendMod.GetModifiedValue(m_maxRangeBeforeBend);
 		}
 		else
@@ -243,19 +165,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxBendAngleMod.GetModifiedValue(m_maxBendAngle);
 		}
 		else
@@ -280,19 +189,6 @@ public class SamuraiWindBlade : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -307,19 +203,6 @@ public class SamuraiWindBlade : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageChangePerTargetMod.GetModifiedValue(m_damageChangePerTarget);
 		}
 		else
@@ -334,19 +217,6 @@ public class SamuraiWindBlade : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -371,30 +241,8 @@ public class SamuraiWindBlade : Ability
 		int num = GetLaserDamageAmount();
 		if (GetDamageChangePerTarget() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (hitOrder > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetDamageChangePerTarget() * hitOrder;
 			}
 		}
@@ -406,33 +254,11 @@ public class SamuraiWindBlade : Ability
 		int num = 0;
 		if (base.Targeters != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < base.Targeters.Count && i <= currentTargetIndex; i++)
 			{
 				AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[i] as AbilityUtil_Targeter_BendingLaser;
 				if (abilityUtil_Targeter_BendingLaser != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<ActorData>.Enumerator enumerator = abilityUtil_Targeter_BendingLaser.m_ordererdHitActors.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -452,15 +278,6 @@ public class SamuraiWindBlade : Ability
 								}
 							}
 							num++;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -487,19 +304,6 @@ public class SamuraiWindBlade : Ability
 		Vector3 aimDirection = targets[0].AimDirection;
 		if (maxBendAngle > 0f && maxBendAngle < 360f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			aimDir = Vector3.RotateTowards(aimDirection, aimDir, (float)Math.PI / 180f * maxBendAngle, 0f);
 		}
 		return aimDir;
@@ -518,10 +322,6 @@ public class SamuraiWindBlade : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetMinRangeBeforeBend();
 				}
 			}
@@ -555,19 +355,6 @@ public class SamuraiWindBlade : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_laserDamageAmount > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
 		}
 		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
@@ -579,19 +366,6 @@ public class SamuraiWindBlade : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (m_laserDamageAmount > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = GetLaserDamageAmount();
 			if (GetDamageChangePerTarget() > 0)
 			{
@@ -615,15 +389,6 @@ public class SamuraiWindBlade : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SamuraiWindBlade);
 			SetupTargeter();
 			return;

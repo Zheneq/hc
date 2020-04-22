@@ -20,15 +20,6 @@ public class UITrustWarEndDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_Button.spriteController.callback = ButtonClicked;
 			return;
 		}

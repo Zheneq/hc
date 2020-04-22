@@ -47,19 +47,6 @@ public class BattleMonkBoundingLeap : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Bounding Leap";
 		}
 		SetupTargeter();
@@ -78,19 +65,6 @@ public class BattleMonkBoundingLeap : Ability
 		int includeSelf;
 		if (moddedEffectForSelf != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			includeSelf = (moddedEffectForSelf.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -120,19 +94,6 @@ public class BattleMonkBoundingLeap : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -147,19 +108,6 @@ public class BattleMonkBoundingLeap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(m_damageAfterFirstHit);
 		}
 		else
@@ -174,19 +122,6 @@ public class BattleMonkBoundingLeap : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxTargetsHit;
 		}
 		else
@@ -206,19 +141,6 @@ public class BattleMonkBoundingLeap : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -233,19 +155,6 @@ public class BattleMonkBoundingLeap : Ability
 		object result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -265,19 +174,6 @@ public class BattleMonkBoundingLeap : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxDistancePerBounceMod.GetModifiedValue(m_maxDistancePerBounce);
 		}
 		else
@@ -297,19 +193,6 @@ public class BattleMonkBoundingLeap : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
 		}
 		else
@@ -331,10 +214,6 @@ public class BattleMonkBoundingLeap : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return damageAfterFirstHit;
 				}
 			}
@@ -348,19 +227,6 @@ public class BattleMonkBoundingLeap : Ability
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
 		if (GetAllyHitEffect() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
 		AppendTooltipNumbersFromBaseModEffects(ref numbers);
@@ -389,19 +255,6 @@ public class BattleMonkBoundingLeap : Ability
 						num++;
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				return true;
@@ -429,15 +282,6 @@ public class BattleMonkBoundingLeap : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_BattleMonkBoundingLeap);
 			SetupTargeter();
 			return;

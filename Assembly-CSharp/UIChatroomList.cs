@@ -44,15 +44,6 @@ public class UIChatroomList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -65,15 +56,6 @@ public class UIChatroomList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIClickListener.Get().Disable();
 			return;
 		}
@@ -93,15 +75,6 @@ public class UIChatroomList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!visible)
 			{
 				while (true)
@@ -136,29 +109,11 @@ public class UIChatroomList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < availableChatRooms.Count; j++)
 			{
 				UIAutocompleteEntry uIAutocompleteEntry;
 				if (j < componentsInChildren.Length)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uIAutocompleteEntry = componentsInChildren[j];
 				}
 				else
@@ -196,10 +151,6 @@ public class UIChatroomList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

@@ -59,10 +59,6 @@ public class UITauntButton : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIFrontendTauntMouseoverVideo uIFrontendTauntMouseoverVideo = tooltip as UIFrontendTauntMouseoverVideo;
 					uIFrontendTauntMouseoverVideo.Setup("Video/taunts/" + m_tauntVideoPath);
 					return true;
@@ -93,71 +89,22 @@ public class UITauntButton : MonoBehaviour
 		string text2 = string.Format(StringUtil.TR("TauntFor", "Global"), GetTauntAbilityName(characterTaunt, abilityData));
 		if (!m_tauntUnlockData.ObtainedDescription.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text2 = text2 + Environment.NewLine + m_tauntUnlockData.GetObtainedDescription();
 		}
 		if (!characterTaunt.m_flavorText.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text3 = text2;
 			text2 = text3 + Environment.NewLine + "<i>" + characterTaunt.m_flavorText + "</i>";
 		}
 		SetTextArrayText(m_descriptionTexts, text2);
 		if (!isUnlocked)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text4 = "<sprite name=iso>" + GetIsoCost();
 			if (characterTaunt.m_obtainedText.Trim().IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int unlockCharacterLevel = m_tauntUnlockData.GetUnlockCharacterLevel(charLink.m_characterType);
 				if (unlockCharacterLevel > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text4 = string.Format(StringUtil.TR("UnlocksAtLevel", "Global"), unlockCharacterLevel);
 				}
 			}
@@ -182,10 +129,6 @@ public class UITauntButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return abilityData.m_sprite0;
 				}
 			}
@@ -249,19 +192,6 @@ public class UITauntButton : MonoBehaviour
 		Ability ability = null;
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ability = abilityData.m_ability0;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
@@ -270,41 +200,14 @@ public class UITauntButton : MonoBehaviour
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability2;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability3;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability4;
 		}
 		else if (Application.isEditor)
@@ -326,15 +229,6 @@ public class UITauntButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -347,15 +241,6 @@ public class UITauntButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

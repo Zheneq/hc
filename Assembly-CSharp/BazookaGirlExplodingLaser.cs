@@ -84,10 +84,6 @@ public class BazookaGirlExplodingLaser : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, GetLaserWidth(), GetLaserRange(), LaserPenetrateLos(), false, GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset());
 					abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(m_alwaysExplodeOnPathEnd);
 					abilityUtil_Targeter_LaserWithCone.SetExplodeOnEnvironmentHit(m_explodeOnEnvironmentHit);
@@ -131,19 +127,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		else
@@ -158,19 +141,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength);
 		}
 		else
@@ -185,19 +155,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
@@ -212,19 +169,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -239,19 +183,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -266,19 +197,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserPenetrateLosMod.GetModifiedValue(m_laserPenetrateLos);
 		}
 		else
@@ -293,19 +211,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else
@@ -320,19 +225,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_effectOnLaserHitTargets;
 		}
 		else
@@ -347,19 +239,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserIgnoreCover;
 		}
 		else
@@ -379,19 +258,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_explosionDamageAmount;
 		}
 		else
@@ -411,19 +277,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_explosionIgnoreCover;
 		}
 		else
@@ -461,35 +314,13 @@ public class BazookaGirlExplodingLaser : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = 0;
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetLaserDamage();
 					}
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExplosionDamage();
 					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -509,19 +340,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int val;
 		if ((bool)abilityMod_BazookaGirlExplodingLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_BazookaGirlExplodingLaser.m_laserDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -532,15 +350,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_BazookaGirlExplodingLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_BazookaGirlExplodingLaser.m_laserHitEffectOverride.GetModifiedValue(m_effectOnLaserHitTargets);
 		}
 		else
@@ -552,15 +361,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_BazookaGirlExplodingLaser)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BazookaGirlExplodingLaser.m_explosionEffectOverride.GetModifiedValue(m_effectOnExplosionHitTargets);
 		}
 		else

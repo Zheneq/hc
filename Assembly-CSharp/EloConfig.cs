@@ -45,10 +45,6 @@ public class EloConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return PlacementElo;
 				}
 			}
@@ -60,15 +56,6 @@ public class EloConfig
 				float num = (float)matches * elo;
 				float num2 = (float)(NewPlayerHandicapPeriodInGames - matches) * MatchMakingInitialValue;
 				return (num + num2) / (float)NewPlayerHandicapPeriodInGames;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return elo;
@@ -85,10 +72,6 @@ public class EloConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Math.Max(accountElo, characterElo);
 				}
 			}

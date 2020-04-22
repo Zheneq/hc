@@ -43,15 +43,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ProcessSequenceVisibility();
 			return;
 		}
@@ -61,32 +52,10 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 	{
 		if (m_alreadyHit == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_alreadyHit = new HashSet<ActorData>();
 		}
 		if (m_hitFx == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hitFx = new List<GameObject>();
 		}
 		if (base.Targets == null)
@@ -95,11 +64,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			float num = withinDistanceInSquares * Board.Get().squareSize;
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
@@ -110,26 +74,8 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(num < 0f))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(magnitude <= num))
 					{
 						continue;
@@ -144,15 +90,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				Quaternion quaternion;
 				if (m_hitAlignedWithCaster)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					quaternion = Quaternion.LookRotation(vector2);
 				}
 				else
@@ -162,41 +99,14 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				Quaternion rotation = quaternion;
 				if ((bool)m_hitFxPrefab && IsHitFXVisible(base.Targets[i]))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_hitFx.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
 				}
 				if (!string.IsNullOrEmpty(m_hitAudioEvent))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(m_hitAudioEvent, base.Targets[i].gameObject);
 				}
 				if (base.Targets[i] != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 				}
 			}
@@ -225,15 +135,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastHitEvent == parameter)
 			{
 				SpawnHitFX(-1f);

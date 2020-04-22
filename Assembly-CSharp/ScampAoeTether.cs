@@ -71,19 +71,6 @@ public class ScampAoeTether : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				while (true)
@@ -106,19 +93,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo cachedTetherApplyEnemyEffect;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTetherApplyEnemyEffect = m_abilityMod.m_tetherApplyEnemyEffectMod.GetModifiedValue(m_tetherApplyEnemyEffect);
 		}
 		else
@@ -129,15 +103,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo cachedTetherBreakEnemyEffecf;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTetherBreakEnemyEffecf = m_abilityMod.m_tetherBreakEnemyEffecfMod.GetModifiedValue(m_tetherBreakEnemyEffecf);
 		}
 		else
@@ -152,19 +117,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
 		}
 		else
@@ -184,19 +136,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherBreakDistanceOverrideMod.GetModifiedValue(m_tetherBreakDistanceOverride);
 		}
 		else
@@ -216,19 +155,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist);
 		}
 		else
@@ -253,19 +179,6 @@ public class ScampAoeTether : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
 		}
 		else
@@ -280,19 +193,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo result;
 		if (m_cachedTetherBreakEnemyEffecf != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTetherBreakEnemyEffecf;
 		}
 		else
@@ -307,19 +207,6 @@ public class ScampAoeTether : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfNoTetherTriggerMod.GetModifiedValue(m_cdrIfNoTetherTrigger);
 		}
 		else
@@ -352,15 +239,6 @@ public class ScampAoeTether : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ScampAoeTether);
 			Setup();
 			return;

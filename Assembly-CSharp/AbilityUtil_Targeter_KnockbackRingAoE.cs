@@ -54,30 +54,8 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					boardSquarePathInfo = null;
 					if (m_knockbackType == KnockbackType.PullToSource && m_knockbackAdjacentActorsIfPull)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (Board.Get()._000E(current.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 aimDir = targetingActor.GetTravelBoardSquareWorldPosition() - current.GetTravelBoardSquareWorldPosition();
 							aimDir.y = 0f;
 							float distance = 2f;
@@ -90,15 +68,6 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 						}
 					}
 					boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, centerOfShape, knockbackDistance);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			SetMovementArrowEnabledFromIndex(num, false);

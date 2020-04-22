@@ -13,19 +13,6 @@ public class DebugCommand
 			int result;
 			if (clientGameManager != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (clientGameManager.IsReady)
 				{
 					result = ((clientGameManager.EnvironmentType != EnvironmentType.External || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin) ? 1 : 0);
@@ -121,32 +108,10 @@ public class DebugCommand
 	{
 		if (m_slashCommands == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_slashCommands = new List<string>();
 			string slashCommand = GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_slashCommands.Add(slashCommand.ToLower());
 			}
 		}

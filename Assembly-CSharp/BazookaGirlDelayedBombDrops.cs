@@ -78,10 +78,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, 30f, true);
 					return;
 				}
@@ -107,11 +103,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, GetConeAngle(), GetConeLength(), m_coneBackwardOffset, PenetrateLos(), true);
 			return;
 		}
@@ -132,19 +123,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_bombInfo.m_damageAmount;
 		}
 		else
@@ -159,19 +137,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneLength;
 		}
 		else
@@ -186,19 +151,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneWidthAngle;
 		}
 		else
@@ -213,19 +165,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetAll;
 		}
 		else
@@ -240,19 +179,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -267,19 +193,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(m_maxNumOfAreasForExtraDamage);
 		}
 		else
@@ -294,19 +207,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamagePerFewerAreaMod.GetModifiedValue(m_extraDamagePerFewerArea);
 		}
 		else
@@ -323,19 +223,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int num;
 		if (m_bombDropDelay <= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1;
 		}
 		else
@@ -346,15 +233,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		AbilityTooltipHelper.ReportDamage(ref numbers, subject, m_bombInfo.m_damageAmount);
 		if (m_bombInfo.m_damageAmount != m_bombInfo.m_subsequentDamageAmount)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Quaternary, m_bombInfo.m_subsequentDamageAmount);
 		}
 		return numbers;
@@ -372,10 +250,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					ActorData actorData = base.ActorData;
 					List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
@@ -387,39 +261,12 @@ public class BazookaGirlDelayedBombDrops : Ability
 							ActorData current = enumerator.Current;
 							list.Add(current.GetCurrentBoardSquare());
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					int num = 0;
 					if (GetExtraDamagePerFewerArea() > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GetMaxNumOfAreasForExtraDamage() > 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num2 = GetMaxNumOfAreasForExtraDamage() - visibleActorsInRangeByTooltipSubject.Count;
 							if (num2 > 0)
 							{
@@ -437,26 +284,8 @@ public class BazookaGirlDelayedBombDrops : Ability
 						{
 							if (item2 == targetActor)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 += m_bombInfo.m_subsequentDamageAmount;
 								}
 								else
@@ -484,19 +313,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int val;
 		if ((bool)abilityMod_BazookaGirlDelayedBombDrops)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_BazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(m_maxNumOfAreasForExtraDamage);
 		}
 		else
@@ -508,15 +324,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int val2;
 		if ((bool)abilityMod_BazookaGirlDelayedBombDrops)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_BazookaGirlDelayedBombDrops.m_extraDamagePerFewerAreaMod.GetModifiedValue(m_extraDamagePerFewerArea);
 		}
 		else
@@ -531,19 +338,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if (animIndex != m_bombDropAnimIndexInEffect)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
@@ -564,10 +358,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_BazookaGirlDelayedBombDrops);
 					SetupTargeter();
 					return;
@@ -593,19 +383,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		}
 		else if (m_targetingType == TargetingType.Shape)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AreaEffectUtils.AddShapeCornersToList(ref points, m_targetingShape, targets[0]);
 		}
 		else if (m_targetingType == TargetingType.Cone)

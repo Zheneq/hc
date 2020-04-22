@@ -34,19 +34,6 @@ public class AsyncManager : MonoBehaviour
 	{
 		if (delay > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			yield return new WaitForSeconds(delay);
 		}
 		if (!coroutine.MoveNext())
@@ -78,10 +65,6 @@ public class AsyncManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					StopCoroutine(value);
 					doneTickets.Add(ticket);
 					return;
@@ -117,10 +100,6 @@ public class AsyncManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}

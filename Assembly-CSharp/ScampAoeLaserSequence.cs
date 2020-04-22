@@ -55,19 +55,6 @@ public class ScampAoeLaserSequence : Sequence
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = base.Caster.GetComponent<Scamp_SyncComponent>();
 		}
 		if (!(m_startEvent == null))
@@ -76,11 +63,6 @@ public class ScampAoeLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			SpawnProjectiles();
 			return;
 		}
@@ -90,31 +72,9 @@ public class ScampAoeLaserSequence : Sequence
 	{
 		if (m_projectileList.Count > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_projectileList.Count; i++)
 			{
 				m_projectileList[i].OnSequenceDisable();
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_projectileList.Clear();
 		}
@@ -124,34 +84,15 @@ public class ScampAoeLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_lineFxInstances.Count; j++)
 			{
 				if (m_lineFxInstances[j].m_lineFxInstance != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Object.Destroy(m_lineFxInstances[j].m_lineFxInstance);
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_lineFxInstances.Clear();
 				return;
 			}
@@ -166,15 +107,6 @@ public class ScampAoeLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_projectileList.Count; i++)
 			{
 				m_projectileList[i].OnUpdate();
@@ -182,38 +114,11 @@ public class ScampAoeLaserSequence : Sequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LineJointObjToInstance lineJointObjToInstance = m_lineFxInstances[i];
 				if (m_lineDuration > 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Time.time - lineJointObjToInstance.m_timeOfSpawn > m_lineDuration)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lineJointObjToInstance.m_lineFxInstance.SetActiveIfNeeded(false);
 						continue;
 					}
@@ -222,15 +127,6 @@ public class ScampAoeLaserSequence : Sequence
 				Vector3 vector;
 				if (m_projectileList[i].m_fx != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = m_projectileList[i].m_fx.transform.position;
 				}
 				else
@@ -240,15 +136,6 @@ public class ScampAoeLaserSequence : Sequence
 				Vector3 value = vector;
 				if (m_syncComp.m_suitWasActiveOnTurnStart)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value.y = Board.Get().BaselineHeight;
 				}
 				Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "startPoint", position);
@@ -275,15 +162,6 @@ public class ScampAoeLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnProjectiles();
 			return;
 		}
@@ -297,61 +175,28 @@ public class ScampAoeLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targets.Length <= 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_syncComp != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (m_projectileSpawned)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_projectileSpawned = true;
 						GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
 						if (m_syncComp.m_suitWasActiveOnTurnStart)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_fxJointLeft.Initialize(referenceModel);
 							m_fxJointRight.Initialize(referenceModel);
 						}
@@ -367,30 +212,12 @@ public class ScampAoeLaserSequence : Sequence
 							GameObject gameObject = null;
 							if (m_syncComp.m_suitWasActiveOnTurnStart)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								gameObject = m_suitBeamFxPrefab;
 								Vector3 lhs = base.Targets[i].transform.position - base.Caster.transform.position;
 								lhs.y = 0f;
 								float num = Vector3.Dot(lhs, base.Caster.transform.right);
 								if (num > 0f)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_fxJointRight.IsInitialized())
 									{
 										vector = m_fxJointRight.m_jointObject.transform.position;
@@ -399,15 +226,6 @@ public class ScampAoeLaserSequence : Sequence
 								}
 								else if (m_fxJointLeft.IsInitialized())
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									vector = m_fxJointLeft.m_jointObject.transform.position;
 									attachObj = m_fxJointLeft.m_jointObject;
 								}
@@ -417,15 +235,6 @@ public class ScampAoeLaserSequence : Sequence
 								gameObject = m_noSuitBeamFxPrefab;
 								if (m_fxJointNoSuit.IsInitialized())
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									vector = m_fxJointNoSuit.m_jointObject.transform.position;
 									attachObj = m_fxJointNoSuit.m_jointObject;
 								}
@@ -434,15 +243,6 @@ public class ScampAoeLaserSequence : Sequence
 							m_projectileList.Add(item);
 							if (gameObject != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GameObject lineInst = InstantiateFX(gameObject, vector, Quaternion.identity);
 								LineJointObjToInstance item2 = new LineJointObjToInstance(attachObj, lineInst);
 								m_lineFxInstances.Add(item2);

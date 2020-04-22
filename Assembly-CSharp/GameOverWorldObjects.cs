@@ -40,15 +40,6 @@ public class GameOverWorldObjects : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_worldResultAnimController.Play("ResultAnimation");
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(true);
 			m_GameOverWorldCanvas.gameObject.transform.position = UIManager.Get().GetEnvirontmentCamera().gameObject.transform.position + new Vector3(0f, 0f, 12f);
@@ -61,19 +52,6 @@ public class GameOverWorldObjects : UIScene
 		GameType gameType = GameManager.Get().GameConfig.GameType;
 		if (gameType == GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AudioManager.PostEvent("ui/endgame/victory");
 			UIManager.SetGameObjectActive(m_worldDefeat, false);
 			UIManager.SetGameObjectActive(m_worldTie, false);
@@ -92,38 +70,11 @@ public class GameOverWorldObjects : UIScene
 						{
 							goto IL_00d9;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (gameResult == GameResult.TeamBWon)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendlyTeam == Team.TeamB)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_00d9;
 						}
 					}
@@ -133,15 +84,6 @@ public class GameOverWorldObjects : UIScene
 					UIManager.SetGameObjectActive(m_worldTie, false);
 					UIManager.SetGameObjectActive(m_worldDefeat, true);
 					goto IL_015f;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(m_worldVictory, false);
@@ -165,19 +107,6 @@ public class GameOverWorldObjects : UIScene
 	{
 		if (UIGameOverScreen.Get().m_worldGGBtnHitBox.IsClickable())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(false);
 		}
 		UIManager.SetGameObjectActive(m_GameOverWorldCanvas, false);

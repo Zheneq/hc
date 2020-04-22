@@ -60,19 +60,6 @@ public class InventoryWideData : MonoBehaviour
 		{
 			if (lootTableID == lootTable.Index)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				tablesChecked.Add(lootTableID);
 				using (List<LootTableEntry>.Enumerator enumerator2 = lootTable.Entries.GetEnumerator())
 				{
@@ -81,15 +68,6 @@ public class InventoryWideData : MonoBehaviour
 						LootTableEntry current2 = enumerator2.Current;
 						if (current2.Type == LootTableEntryType.InventoryItemTemplate)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(current2.Index);
 						}
 						else if (current2.Type == LootTableEntryType.LootTable)
@@ -97,40 +75,13 @@ public class InventoryWideData : MonoBehaviour
 							list.AddRange(GetAllItemTemplateIDsFromLootTable(current2.Index, tablesChecked));
 						}
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (lootTable.FallbackEntry.Type == LootTableEntryType.LootTable)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.AddRange(GetAllItemTemplateIDsFromLootTable(lootTable.FallbackEntry.Index, tablesChecked));
 				}
 				else if (lootTable.FallbackEntry.Type == LootTableEntryType.InventoryItemTemplate)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(lootTable.FallbackEntry.Index);
 				}
 				using (List<CheckKarma>.Enumerator enumerator3 = lootTable.CheckKarmas.GetEnumerator())
@@ -140,39 +91,12 @@ public class InventoryWideData : MonoBehaviour
 						CheckKarma current3 = enumerator3.Current;
 						if (current3.KarmaRewardEntry.Type == LootTableEntryType.InventoryItemTemplate)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(current3.KarmaRewardEntry.Index);
 						}
 						else if (current3.KarmaRewardEntry.Type == LootTableEntryType.LootTable)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.AddRange(GetAllItemTemplateIDsFromLootTable(current3.KarmaRewardEntry.Index, tablesChecked));
 						}
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -195,19 +119,6 @@ public class InventoryWideData : MonoBehaviour
 				InventoryItemTemplate current = enumerator.Current;
 				if (num <= current.Index)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = current.Index + 1;
 				}
 			}
@@ -234,19 +145,6 @@ public class InventoryWideData : MonoBehaviour
 				LootTable current = enumerator.Current;
 				if (num <= current.Index)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = current.Index + 1;
 				}
 			}
@@ -273,19 +171,6 @@ public class InventoryWideData : MonoBehaviour
 				KarmaTemplate current = enumerator.Current;
 				if (num <= current.Index)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = current.Index + 1;
 				}
 			}
@@ -323,57 +208,17 @@ public class InventoryWideData : MonoBehaviour
 						InventoryItemTemplate current2 = enumerator2.Current;
 						if (current2.Index == inventoryItemTemplate.Index)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							num2++;
 						}
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num2 > 1)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemTemplate.Index = num;
 				num++;
 			}
@@ -385,20 +230,10 @@ public class InventoryWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (logError)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("Has bad inventory item ID");
 					return;
 				}
@@ -441,10 +276,6 @@ public class InventoryWideData : MonoBehaviour
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								goto end_IL_004d;
 							}
 						}
@@ -452,42 +283,15 @@ public class InventoryWideData : MonoBehaviour
 					}
 					if (num2 > 1)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					current.Index = num;
 					num++;
 				}
 				flag = (flag || flag2);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (flag && logError)
@@ -508,19 +312,6 @@ public class InventoryWideData : MonoBehaviour
 				bool flag2 = false;
 				if (current.Index == 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					flag2 = true;
 				}
 				else
@@ -545,15 +336,6 @@ public class InventoryWideData : MonoBehaviour
 				}
 				flag = (flag || flag2);
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!flag)
 		{
@@ -561,20 +343,10 @@ public class InventoryWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (logError)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("Has bad Karma ID");
 					return;
 				}
@@ -591,15 +363,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CheckInventoryItemTemplateIndexes(logErrorOnBadIndex);
 			CheckLootTableIndexes(logErrorOnBadIndex);
 			CheckKarmaTemplateIndexes(logErrorOnBadIndex);
@@ -618,10 +381,6 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -654,10 +413,6 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -690,10 +445,6 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -725,25 +476,11 @@ public class InventoryWideData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return m_lockboxModels[i].ModelPrefab;
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -759,10 +496,6 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -824,15 +557,6 @@ public class InventoryWideData : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ClientGameManager.Get().IsTitleUnlocked(GameBalanceVars.Get().PlayerTitles[i]);
 				}
 			}
@@ -920,25 +644,12 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
 		}
 		if (!itemTemplate.IconPath.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!itemTemplate.IconPath.Trim().IsNullOrEmpty())
 			{
 				while (true)
@@ -958,27 +669,9 @@ public class InventoryWideData : MonoBehaviour
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(itemTemplate.TypeSpecificData[0]);
 			if (banner != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!banner.m_iconResourceString.IsNullOrEmpty())
 				{
 					return banner.m_iconResourceString;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return "Banners/Background/02_blue";
@@ -1180,27 +873,9 @@ public class InventoryWideData : MonoBehaviour
 			GameBalanceVars.LoadingScreenBackground loadingScreenBackground = GameBalanceVars.Get().GetLoadingScreenBackground(itemTemplate.TypeSpecificData[0]);
 			if (loadingScreenBackground != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!loadingScreenBackground.m_iconPath.IsNullOrEmpty())
 				{
 					return loadingScreenBackground.m_iconPath;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return "QuestRewards/general";
@@ -1224,10 +899,6 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -1236,15 +907,6 @@ public class InventoryWideData : MonoBehaviour
 		AbilityData.ActionType actionType;
 		if (template.Type == InventoryItemType.Taunt)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)template.TypeSpecificData[0]);
 			component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 			int index = template.TypeSpecificData[1];
@@ -1279,28 +941,10 @@ public class InventoryWideData : MonoBehaviour
 							}
 							else if (actionType == AbilityData.ActionType.ABILITY_2)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ability = component.m_ability2;
 							}
 							else if (actionType == AbilityData.ActionType.ABILITY_3)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ability = component.m_ability3;
 							}
 							else if (actionType == AbilityData.ActionType.ABILITY_4)
@@ -1309,28 +953,10 @@ public class InventoryWideData : MonoBehaviour
 							}
 							else if (actionType == AbilityData.ActionType.ABILITY_5)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ability = component.m_ability5;
 							}
 							else if (actionType == AbilityData.ActionType.ABILITY_6)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ability = component.m_ability6;
 							}
 							AbilityMod abilityMod = AbilityModHelper.GetAvailableModsForAbility(ability)[template.TypeSpecificData[2]];
@@ -1340,15 +966,6 @@ public class InventoryWideData : MonoBehaviour
 					}
 				}
 				return null;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)template.TypeSpecificData[0]);
 			component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
@@ -1406,11 +1023,6 @@ public class InventoryWideData : MonoBehaviour
 		case AbilityData.ActionType.ABILITY_6:
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return component.m_sprite6;
 			}
 		default:
@@ -1427,15 +1039,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}

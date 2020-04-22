@@ -326,15 +326,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(componentInChildren, false);
 			return;
 		}
@@ -376,15 +367,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(allyAbilityModifier.m_abilityModifierText, false);
 			SetDebugText(string.Empty);
 			for (int j = 0; j < nameplateCombatText.Length; j++)
@@ -393,11 +375,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilityHighlightStart);
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.TurnTick);
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.ClientResolutionStarted);
@@ -410,26 +387,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						UIOverconData.NameToOverconEntry current = enumerator.Current;
 						if (num < current.m_overconId)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = current.m_overconId;
 						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_numOverconUsesById = new int[num + 1];
@@ -446,15 +405,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsAbilityHighlightStart);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TurnTick);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ClientResolutionStarted);
@@ -473,15 +423,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float tickDivisions = (float)m_maxHPWithShield / HUD_UIResources.Get().m_AmtOfHealthPerTick;
 			for (int i = 0; i < m_tickShaderHelpers.Length; i++)
 			{
@@ -520,10 +461,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return BarColor.None;
 				}
 			}
@@ -590,10 +527,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -648,19 +581,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			abilityModifiers[i].m_abilityModifierText.color = color;
 			if (abilityModifiers[i].m_targetingTextAnimationController.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				abilityModifiers[i].m_targetingTextAnimationController.SetTrigger("DoOff");
 				abilityModifiers[i].m_targetingTextAnimationController.SetBool("IsOn", false);
 			}
@@ -674,11 +594,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			allyAbilityModifier.m_targetingTextAnimationController.SetTrigger("DoOff");
 			allyAbilityModifier.m_targetingTextAnimationController.SetBool("IsOn", false);
 			return;
@@ -700,15 +615,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Color color2 = allyAbilityModifier.m_abilityModifierText.color;
 			color2.a = 1f;
 			allyAbilityModifier.m_abilityModifierText.color = color2;
@@ -739,34 +645,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				AnimatorClipInfo[] currentAnimatorClipInfo = nameplateCombatText[num2].m_CombatTextController.GetCurrentAnimatorClipInfo(0);
 				if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != text2 && currentAnimatorClipInfo[0].clip.name != text3)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = num2;
 					flag4 = true;
 					break;
 				}
 				num2++;
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -776,15 +660,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lastUsedCombatTextIndex = num;
 		}
 		float number = 0f;
@@ -801,15 +676,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (relationshipWithPlayer != BarColor.Self && relationshipWithPlayer != BarColor.Team)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (relationshipWithPlayer == BarColor.Enemy)
 				{
 					nameplateCombatText[num].m_colorToChangeCombatText = new Color(1f, 71f / 85f, 71f / 85f);
@@ -829,26 +695,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		case CombatTextCategory.Healing:
 			if (relationshipWithPlayer != BarColor.Self)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (relationshipWithPlayer != BarColor.Team)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (relationshipWithPlayer == BarColor.Enemy)
 					{
 						nameplateCombatText[num].m_colorToChangeCombatText = new Color(2f / 51f, 127f / 255f, 16f / 255f);
@@ -889,15 +737,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		int doActive;
 		if (m_showCombatTextIcons)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = (flag ? 1 : 0);
 		}
 		else
@@ -907,38 +746,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		UIManager.SetGameObjectActive(combatTextCover, (byte)doActive != 0);
 		if (nameplateCombatText[num].m_iconImage != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HUD_UIResources.Get() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite combatTextIconSprite = HUD_UIResources.Get().GetCombatTextIconSprite(icon);
 				if (combatTextIconSprite != null && m_showCombatTextIcons)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					nameplateCombatText[num].m_iconImage.sprite = combatTextIconSprite;
 					UIManager.SetGameObjectActive(nameplateCombatText[num].m_iconImage, true);
 				}
@@ -952,26 +764,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		bool flag5 = false;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (nameplateCombatText[num].m_CombatTextController != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
 					nameplateCombatText[num].m_CombatTextController.Play(text3, 0, 0f);
@@ -997,20 +791,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					HighlightNameplateForAbility();
 					m_setToDimTime = Time.time + 1f;
 					return;
@@ -1031,19 +815,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (nameplateCombatText[i].m_combatTextCover != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(nameplateCombatText[i].m_combatTextCover, false);
 			}
 		}
@@ -1087,19 +858,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		uINameplateStatus.m_StatusIcon.color = color;
 		if (iconForStatusType.isDebuff)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			uINameplateStatus.m_StatusText.font = m_debuffFont;
 		}
 		else
@@ -1128,15 +886,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_isHoldingFlag = holdingFlag;
 			if (m_isHoldingFlag)
 			{
@@ -1155,15 +904,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (m_redBriefcaseContainer.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_redBriefcaseContainer.Play("BriefcaseUIDefaultOUT");
 			}
 			if (m_blueBriefcaseContainer.gameObject.activeInHierarchy)
@@ -1185,10 +925,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1201,11 +937,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		StatusDisplayInfo item = default(StatusDisplayInfo);
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			UINameplateStatus uINameplateStatus = UnityEngine.Object.Instantiate(m_statusPrefab);
 			uINameplateStatus.transform.SetParent(m_statusContainer.transform);
 			uINameplateStatus.transform.localScale = Vector3.one;
@@ -1226,15 +957,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (iconForStatusType.isDebuff)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uINameplateStatus.DisplayAsNegativeStatus(this);
 			}
 			else
@@ -1256,19 +978,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			StaticStatusDisplayInfo value = m_statusEffects[i];
 			if (value.statusType == newType)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value.m_removedBuff = true;
 				m_statusEffects[i] = value;
 			}
@@ -1305,15 +1014,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			staticStatusDisplayInfo.statusObject.Setup(status, newDuration);
 			return;
 		}
@@ -1328,19 +1028,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 	{
 		if (index < 6)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			while (m_targetingAbilityIndicators.Count <= index)
 			{
 				GameObject gameObject = UnityEngine.Object.Instantiate(m_targetingAbilityIndicatorPrefab);
@@ -1351,41 +1038,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				component.transform.localEulerAngles = Vector3.zero;
 				m_targetingAbilityIndicators.Add(component);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_targetingAbilityIndicators[index].Setup(m_actorData, ability, action);
 			if (!m_targetingAbilityIndicators[index].gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[index], true);
 			}
 		}
 		if (m_catalsystPips == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_catalsystPips = UnityEngine.Object.Instantiate(m_catalystIndicatorPrefab);
 			m_catalsystPips.transform.SetParent(m_targetingAbilityIconsGrid.transform);
 			m_catalsystPips.transform.localScale = Vector3.one;
@@ -1402,19 +1062,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			if (m_targetingAbilityIndicators[i].gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_targetingAbilityIndicators[i], false);
 			}
 		}
@@ -1424,11 +1071,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			SetCatalystsVisible(false);
 			return;
 		}
@@ -1443,41 +1085,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		TextConsole.AllowedEmojis allowedEmojis = default(TextConsole.AllowedEmojis);
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameWideData gameWideData = GameWideData.Get();
 			if (m_overcon != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(m_overcon.gameObject);
 				m_overcon = null;
 			}
 			if (GameFlowData.Get().CurrentTurn > m_lastTurnOverconUsed)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_numOverconUsesThisTurn = 0;
 				m_lastTurnOverconUsed = GameFlowData.Get().CurrentTurn;
 			}
@@ -1490,78 +1105,24 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			else if (m_numOverconUsesThisTurn >= gameWideData.NumOverconsPerTurn)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData.isLocalPlayer)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					term = "OverconLimitPerTurn";
 					num = gameWideData.NumOverconsPerTurn;
 				}
 			}
 			else if (m_numOverconUsesThisMatch >= gameWideData.NumOverconsPerMatch)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData.isLocalPlayer)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					term = "OverconLimitPerMatch";
 					num = gameWideData.NumOverconsPerMatch;
 				}
 			}
 			else if (m_numOverconUsesById[entry.m_overconId] >= entry.m_maxUsesPerMatch)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData.isLocalPlayer)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					term = "SpecificOverconLimitPerMatch";
 					num = entry.m_maxUsesPerMatch;
 				}
@@ -1590,22 +1151,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!skipValidation)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_numOverconUsesThisMatch++;
 					m_numOverconUsesThisTurn++;
 					m_numOverconUsesById[entry.m_overconId]++;
@@ -1655,19 +1202,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			hashSet.Add(type);
 			if (abilityTargeting.CurrentAbilityMod != null)
 			{
@@ -1675,41 +1209,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (type == TechPointInteractionType.RewardOnCast)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 += num9;
 			}
 			else if (type == TechPointInteractionType.RewardOnDamage_OncePerCast)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 += num9;
 			}
 			else if (type == TechPointInteractionType.RewardOnHit_OncePerCast)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 += num9;
 			}
 			else if (type == TechPointInteractionType.RewardOnDamage_PerTarget)
@@ -1718,77 +1225,27 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			else if (type == TechPointInteractionType.RewardOnHit_PerTarget)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 += num9;
 			}
 			else if (type == TechPointInteractionType.RewardOnHit_PerAllyTarget)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num7 += num9;
 			}
 			else if (type == TechPointInteractionType.RewardOnHit_PerEnemyTarget)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num8 += num9;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (abilityTargeting.CurrentAbilityMod != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TechPointInteractionMod[] techPointInteractionMods = abilityTargeting.CurrentAbilityMod.m_techPointInteractionMods;
 				foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 				{
 					if (hashSet.Contains(techPointInteractionMod.interactionType))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					hashSet.Add(techPointInteractionMod.interactionType);
 					int num10 = 0;
@@ -1800,15 +1257,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					if (interactionType == TechPointInteractionType.RewardOnCast)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += num10;
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnDamage_OncePerCast)
@@ -1817,78 +1265,24 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnHit_OncePerCast)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 += num10;
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnDamage_PerTarget)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 += num10;
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnHit_PerTarget)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num6 += num10;
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnHit_PerAllyTarget)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num7 += num10;
 					}
 					else if (interactionType == TechPointInteractionType.RewardOnHit_PerEnemyTarget)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 += num10;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num = AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num2);
@@ -1899,15 +1293,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			int targetCounts = abilityTargeting.GetTargetCounts(activeOwnedActorData, currentTargeterIndex, out numAlliesExcludingSelf, out numEnemies, out hittingSelf);
 			if (num3 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (numEnemies > 0)
 				{
 					num += AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num3);
@@ -1915,28 +1300,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (num5 > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num5) * numEnemies;
 			}
 			if (num4 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetCounts > 0)
 				{
 					num += AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num4);
@@ -1948,56 +1315,20 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (num7 > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num7) * numAlliesExcludingSelf;
 			}
 			if (num8 > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num8) * numEnemies;
 			}
 			int num11 = abilityTargeting.GetAdditionalTechPointGainForNameplateItem(m_actorData, currentTargeterIndex);
 			if (abilityTargeting.StatusAdjustAdditionalTechPointForTargeting())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num11 = AbilityUtils.CalculateTechPointsForTargeter(m_actorData, abilityTargeting, num11);
 			}
 			int num12;
 			if (inConfirm)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num12 = ((Time.time - m_fadeoutStartTime > HUD_UIResources.Get().m_confirmedTargetingFadeoutStartDelay) ? 1 : 0);
 			}
 			else
@@ -2008,29 +1339,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			bool flag = false;
 			if (baseTechPointInteractions.Length <= 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityTargeting.CurrentAbilityMod != null)
 				{
 					if (abilityTargeting.CurrentAbilityMod.m_techPointInteractionMods.Length > 0)
 					{
 						goto IL_0471;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num11 <= 0)
@@ -2045,15 +1358,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			int startModifierIndex;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				startModifierIndex = 1;
 			}
 			else
@@ -2065,28 +1369,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			IL_0471:
 			if (inConfirm && num + num11 == 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(abilityModifiers[0].m_abilityModifierText, false);
 			}
 			else if (m_textVisible)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(abilityModifiers[0].m_abilityModifierText, true);
 				abilityModifiers[0].m_targetingTextAnimationController.SetBool("IsOn", true);
 				flag = true;
@@ -2113,70 +1399,21 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(actorData != targetingActor))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData.GetTeam() != targetingActor.GetTeam())
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			ActorTargeting actorTargeting = actorData.GetActorTargeting();
 			if (!(actorTargeting != null))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingActor.GetTeam() != m_actorData.GetTeam())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorTargeting.IsTargetingActor(m_actorData, AbilityTooltipSymbol.Damage, ref targetedActorValue);
 			}
 			else
@@ -2187,33 +1424,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (targetedActorValue > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HighlightUtils.Get().m_enableAccumulatedAllyNumbers)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_textVisible)
 					{
 						UIManager.SetGameObjectActive(allyAbilityModifier.m_abilityModifierText, true);
@@ -2222,15 +1436,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						int num;
 						if (inConfirm)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((Time.time - m_fadeoutStartTime > HUD_UIResources.Get().m_confirmedTargetingFadeoutStartDelay) ? 1 : 0);
 						}
 						else
@@ -2241,28 +1446,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						Color color;
 						if (targetingActor.GetTeam() != m_actorData.GetTeam())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							color = m_DamageColor;
 						}
 						else if (flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							color = m_AbsorbColor;
 						}
 						else
@@ -2289,24 +1476,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				Image coverSymbol = m_coverSymbol;
 				int doActive;
 				if (inCover)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = (hasDamage ? 1 : 0);
 				}
 				else
@@ -2328,19 +1501,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (m_actorData == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnityEngine.Object.Destroy(base.gameObject);
 		}
 		if (m_visible)
@@ -2400,19 +1560,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 	{
 		if (canvasGroup.blocksRaycasts != interactable)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			canvasGroup.blocksRaycasts = interactable;
 		}
 		if (canvasGroup.interactable != interactable)
@@ -2440,10 +1587,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2458,53 +1601,17 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityRunPhase abilityRunPhase = Card.AbilityPriorityToRunPhase(ability.GetRunPriority());
 			if (abilityRunPhase == AbilityRunPhase.Prep)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = true;
 			}
 			else if (abilityRunPhase == AbilityRunPhase.Dash)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 			}
 			else if (abilityRunPhase == AbilityRunPhase.Combat)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive3 = true;
 			}
 		}
@@ -2523,44 +1630,17 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				if (abilityModifiers[i].m_abilityModifierText.gameObject.activeSelf)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(abilityModifiers[i].m_abilityModifierText, false);
 				}
 			}
 			else if (abilityModifiers[i].m_targetingTextAnimationController.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityModifiers[i].m_targetingTextAnimationController.SetTrigger("DoOff");
 				abilityModifiers[i].m_targetingTextAnimationController.SetBool("IsOn", false);
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (doInstantHide)
 			{
 				if (allyAbilityModifier.m_abilityModifierText.gameObject.activeSelf)
@@ -2570,15 +1650,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			else if (allyAbilityModifier.m_targetingTextAnimationController.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				allyAbilityModifier.m_targetingTextAnimationController.SetTrigger("DoOff");
 				allyAbilityModifier.m_targetingTextAnimationController.SetBool("IsOn", false);
 			}
@@ -2598,19 +1669,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
@@ -2621,15 +1679,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		int num;
 		if (inConfirm)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((Time.time - m_fadeoutStartTime > HUD_UIResources.Get().m_confirmedTargetingFadeoutStartDelay) ? 1 : 0);
 		}
 		else
@@ -2654,15 +1703,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				{
 					if (!m_textVisible)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -2674,15 +1714,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						case AbilityTooltipSymbol.Damage:
 							if (value > 0 && !flag)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(abilityModifier.m_abilityModifierText, true);
 								abilityModifier.m_targetingTextAnimationController.SetBool("IsOn", true);
 								int baseValue = value;
@@ -2690,15 +1721,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 								string accessoryTargeterNumberString = abilityTargeting.GetAccessoryTargeterNumberString(m_actorData, key, baseValue);
 								if (!string.IsNullOrEmpty(accessoryTargeterNumberString))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									text += accessoryTargeterNumberString;
 								}
 								abilityModifier.m_abilityModifierText.text = text;
@@ -2714,26 +1736,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						case AbilityTooltipSymbol.Healing:
 							if (value > 0)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag2)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(abilityModifier.m_abilityModifierText, true);
 									abilityModifier.m_targetingTextAnimationController.SetBool("IsOn", true);
 									int num4 = value;
@@ -2750,15 +1754,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						case AbilityTooltipSymbol.Absorb:
 							if (!flag4)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(abilityModifier.m_abilityModifierText, true);
 								abilityModifier.m_targetingTextAnimationController.SetBool("IsOn", true);
 								abilityModifier.m_abilityModifierText.text = value.ToString();
@@ -2773,15 +1768,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						case AbilityTooltipSymbol.Energy:
 							if (actorData != m_actorData && !flag3)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(abilityModifier.m_abilityModifierText, true);
 								abilityModifier.m_targetingTextAnimationController.SetBool("IsOn", true);
 								int num3 = value;
@@ -2801,15 +1787,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int i = num2; i < abilityModifiers.Length; i++)
 		{
@@ -2817,11 +1794,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return num2;
 		}
 	}
@@ -2838,10 +1810,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Color result = fullColor;
 					result.a = Mathf.Max(0f, alphaNow - Time.deltaTime * HUD_UIResources.Get().m_confirmedTargetingFadeoutSpeed);
 					return result;
@@ -2863,10 +1831,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2903,32 +1867,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		bool result = false;
 		if (m_actorData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 nameplatePosition = m_actorData.GetNameplatePosition(30f);
 			Vector3 vector = Camera.main.WorldToViewportPoint(nameplatePosition);
 			if (vector.z < 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 			else
@@ -2944,19 +1886,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		bool result = false;
 		if (m_actorData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_actorData.ShouldShowNameplate() && IsInFrontOfCamera());
 		}
 		return result;
@@ -2971,15 +1900,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -2988,43 +1908,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 	{
 		if (!m_visible && visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ForceFinishStatusAnims();
 		}
 		if (m_visible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!visible)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HideCombatTexts();
 			}
 		}
@@ -3046,15 +1935,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (!m_visible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_mouseIsOverHP = false;
 		}
 		using (List<UITargetingAbilityIndicator>.Enumerator enumerator = m_targetingAbilityIndicators.GetEnumerator())
@@ -3082,19 +1962,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		m_alphaToUse = alpha;
 		if (m_visible)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_canvasGroup.alpha = m_alphaToUse;
 			m_abilityPreviewCanvasGroup.alpha = m_alphaToUse;
 		}
@@ -3118,19 +1985,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (gainedStatus)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIBuffIndicator uIBuffIndicator = UnityEngine.Object.Instantiate(m_buffIndicatorPrefab);
 				uIBuffIndicator.transform.SetParent(m_buffIndicatorGrid.transform);
 				uIBuffIndicator.transform.localScale = Vector3.one;
@@ -3149,15 +2003,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					StaticStatusDisplayInfo staticStatusDisplayInfo = m_statusEffects[j];
 					if (!staticStatusDisplayInfo.m_removedBuff)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StaticStatusDisplayInfo staticStatusDisplayInfo2 = m_statusEffects[j];
 						if (staticStatusDisplayInfo2.statusType == item2.statusType)
 						{
@@ -3168,15 +2013,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!iconForStatusType.isDebuff)
 					{
 						int index = 0;
@@ -3186,15 +2022,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							HUD_UIResources.StatusTypeIcon iconForStatusType2 = HUD_UIResources.GetIconForStatusType(staticStatusDisplayInfo3.statusType);
 							if (iconForStatusType2.isDebuff)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								index = k;
 								break;
 							}
@@ -3217,15 +2044,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			i--;
 			if (!m_actorData.GetActorStatus().HasStatus(item.statusType))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RemoveStatus(item.statusType);
 			}
 		}
@@ -3250,15 +2068,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			image.fillAmount = percent;
 			return;
 		}
@@ -3270,62 +2079,17 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
 		if (m_setToDimTime > 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Time.time >= m_setToDimTime)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						DimNameplateForAbility();
 						goto IL_0098;
 					}
@@ -3342,86 +2106,23 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					if (activeOwnedActorData != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData == m_actorData)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SetBarColors(BarColor.Self);
 						}
 						else if (activeOwnedActorData.GetTeam() == m_actorData.GetTeam())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SetBarColors(BarColor.Team);
 						}
 						else if (activeOwnedActorData.GetTeam() == m_actorData.GetTeam().OtherTeam())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SetBarColors(BarColor.Enemy);
 						}
 						else
@@ -3431,15 +2132,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					else if (m_actorData.GetTeam() == Team.TeamA)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetBarColors(BarColor.Team);
 					}
 					else
@@ -3451,15 +2143,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (lastBarColor != barsToShow)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetBarColors(barsToShow);
 		}
 		if (!(m_actorData != null))
@@ -3468,42 +2151,15 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (myCanvas == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			myCanvas = HUD_UI.Get().GetTopLevelCanvas();
 		}
 		if (myCanvas != null && CanvasRect == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CanvasRect = (myCanvas.transform as RectTransform);
 		}
 		Vector3 vector;
 		if (m_actorData.ShouldShowNameplate())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = m_actorData.GetNameplatePosition(-2f);
 		}
 		else if (!m_actorData.IsDead())
@@ -3512,15 +2168,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = m_actorData.LastDeathPosition;
 		}
 		Vector2 vector2 = Camera.main.WorldToViewportPoint(vector);
@@ -3538,39 +2185,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		int clientUnappliedHoTTotal_ToDisplay_zq = m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
 		if (hitPointsAfterResolution == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_zeroHealthIcon.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_zeroHealthIcon, true);
 			}
 			if (m_healthLabel.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_healthLabel, false);
 			}
 		}
@@ -3582,15 +2202,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (m_healthLabel.gameObject.activeSelf != m_textVisible)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_healthLabel, m_textVisible);
 			}
 		}
@@ -3601,29 +2212,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		int num = m_actorData._0004();
 		if (num > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (m_actorData.GetAbilityData().GetSelectedAbility() == null);
 			if (m_mouseIsOverHP)
 			{
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_healthLabel.text = $"{hitPointsAfterResolution.ToString()} + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)}>{num.ToString()}</color> + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)}>{clientUnappliedHoTTotal_ToDisplay_zq.ToString()}</color>";
 				}
 				else
@@ -3641,15 +2234,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (m_actorData.GetAbilityData().GetSelectedAbility() == null);
 			if (m_mouseIsOverHP)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_healthLabel.text = $"{hitPointsAfterResolution.ToString()} + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)}>{clientUnappliedHoTTotal_ToDisplay_zq.ToString()}</color>";
 			}
 			else
@@ -3658,15 +2242,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				string text = hitPointsAfterResolution.ToString();
 				if (!m_healthLabel.text.Equals(text))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_healthLabel.text = text;
 				}
 			}
@@ -3678,15 +2253,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			string text2 = hitPointsAfterResolution.ToString();
 			if (!m_healthLabel.text.Equals(text2))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_healthLabel.text = text2;
 			}
 		}
@@ -3697,15 +2263,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			float endValue = 0f;
 			if (actualMaxTechPoints != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				endValue = (float)energyToDisplay / (float)actualMaxTechPoints;
 			}
 			if (energyToDisplay > m_previousTP)
@@ -3725,15 +2282,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				int num2;
 				if (energyToDisplay >= abilitiesAsList[4].GetModdedCost() && !m_actorData.IsDead())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((m_actorData.GetAbilityData().GetCooldownRemaining(AbilityData.ActionType.ABILITY_4) <= 0) ? 1 : 0);
 				}
 				else
@@ -3745,15 +2293,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			int num3;
 			if (energyToDisplay != actualMaxTechPoints)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = (flag2 ? 1 : 0);
 			}
 			else
@@ -3765,15 +2304,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			Color color;
 			if (flag3)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = m_FullEnergyColor;
 			}
 			else
@@ -3783,50 +2313,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			tpGainBar.color = color;
 			if (flag3 != m_isMaxEnergy)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_maxEnergyAnimator.GetComponent<_DisableGameObjectOnAnimationDoneEvent>().enabled = !flag3;
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_maxEnergyContainer, true);
 					if (GameFlowData.Get() != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().activeOwnedActorData == m_actorData)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIFrontEnd.PlaySound(FrontEndButtonSounds.MaxEnergyReached);
 						}
 					}
@@ -3835,15 +2329,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				object str;
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = "IN";
 				}
 				else
@@ -3856,29 +2341,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if ((float)m_TPEased != m_tpGainedEasePercent)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_tpGainedEasePercent = m_TPEased;
 			SetBarPercentVisual(m_tpGainEaseBar, ModifyTPBarPercentForArt(m_tpGainedEasePercent));
 		}
 		if ((float)m_TPEasedGained != m_tpGainedPercent)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_tpGainedPercent = m_TPEasedGained;
 			SetBarPercentVisual(m_tpGainBar, ModifyTPBarPercentForArt(m_tpGainedPercent));
 		}
@@ -3886,15 +2353,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			if (m_ShieldEased.EndValue() <= m_HPEased.EndValue())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetBarPercentVisual(m_shieldBar, 0f);
 			}
 			else
@@ -3909,39 +2367,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			m_hpGainedPercent = m_HPGainedEased;
 			if (m_mouseIsOverHP)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Color color2 = m_hpGainBar.color;
 				if (m_hpGainedIsFading)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color2.a -= 0.05f;
 					if (color2.a <= 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color2.a = 0f;
 						m_hpGainedIsFading = !m_hpGainedIsFading;
 					}
@@ -3951,15 +2382,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					color2.a += 0.05f;
 					if (color2.a >= 1f)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color2.a = 1f;
 						m_hpGainedIsFading = !m_hpGainedIsFading;
 					}
@@ -3974,65 +2396,20 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		BarColor barColor = barsToShow;
 		if (barColor != BarColor.Self)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (barColor != BarColor.Team)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (barColor != BarColor.Enemy)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (m_enemyBars.m_currentHPBar != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetBarPercentVisual(m_enemyBars.m_currentHPBar, ModifyHPBarPercentForArt(m_HPEased));
 						m_enemyBars.m_currentHPPercent = m_HPEased;
 					}
 					if (m_enemyBars.m_damageEasedBar != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetBarPercentVisual(m_enemyBars.m_damageEasedBar, ModifyHPBarPercentForArt(m_HPDamageEased));
 						m_enemyBars.m_damageEasePercent = m_HPDamageEased;
 					}
@@ -4047,15 +2424,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				}
 				if (m_teamBars.m_damageEasedBar != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetBarPercentVisual(m_teamBars.m_damageEasedBar, ModifyHPBarPercentForArt(m_HPDamageEased));
 					m_teamBars.m_damageEasePercent = m_HPDamageEased;
 				}
@@ -4065,44 +2433,17 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		{
 			if (m_selfBars.m_currentHPBar != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetBarPercentVisual(m_selfBars.m_currentHPBar, ModifyHPBarPercentForArt(m_HPEased));
 				m_selfBars.m_currentHPPercent = m_HPEased;
 			}
 			if (m_selfBars.m_damageEasedBar != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetBarPercentVisual(m_selfBars.m_damageEasedBar, ModifyHPBarPercentForArt(m_HPDamageEased));
 				m_selfBars.m_damageEasePercent = m_HPDamageEased;
 			}
 		}
 		if (m_statusEffectsAnimating.Count == 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_currentStatusStackCount = 0;
 		}
 		for (int i = 0; i < m_statusEffects.Count; i++)
@@ -4115,15 +2456,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			if (m_visible)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StaticStatusDisplayInfo staticStatusDisplayInfo2 = m_statusEffects[i];
 				if (!staticStatusDisplayInfo2.m_removedBuff)
 				{
@@ -4148,15 +2480,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			StaticStatusDisplayInfo staticStatusDisplayInfo5 = m_statusEffects[i];
 			if (staticStatusDisplayInfo5.m_removedBuff)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StaticStatusDisplayInfo staticStatusDisplayInfo6 = m_statusEffects[i];
 				StatusFadeOutDone(staticStatusDisplayInfo6.statusType);
 				StaticStatusDisplayInfo staticStatusDisplayInfo7 = m_statusEffects[i];
@@ -4199,19 +2522,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		float num2;
 		if (num == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = 0f;
 		}
 		else
@@ -4256,19 +2566,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		float endValue2 = (float)num2 / (float)m_maxHPWithShield;
 		if (hitPointsAfterResolution < m_previousHP)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lostHealth = true;
 			m_ShieldEased.EaseTo(endValue, 0f);
 			float num5 = Mathf.Abs(num3 - m_HPEased.EndValue());
@@ -4279,28 +2576,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		else if (m_previousHP < hitPointsAfterResolution)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lostHealth = false;
 			float num6 = Mathf.Abs(num3 - num4);
 			if (m_previousShieldValue != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ShieldEased.EaseTo(endValue, 2.5f);
 			}
 			m_HPEased.EaseTo(m_HPEased.EndValue() + num6, 2.5f);
@@ -4319,26 +2598,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		else if (num < m_previousShieldValue)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_lostHealth)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetMaxHPWithShield(m_actorData.GetMaxHitPoints() + num);
 				float endValue5 = (float)hitPointsAfterResolution / (float)m_maxHPWithShield;
 				float endValue6 = ((float)hitPointsAfterResolution + (float)num) / (float)m_maxHPWithShield;
@@ -4350,15 +2611,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		if (num2 != m_previousHPShieldAndHot)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_HPGainedEased.EaseTo(endValue2, 0f);
 			m_previousHPShieldAndHot = num2;
 		}
@@ -4368,11 +2620,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_previousResolvedHP = hitPoints;
 			OnResolvedHitPoints();
 			return;
@@ -4395,10 +2642,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -4433,15 +2676,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (eventType != GameEventManager.EventType.TheatricsAbilityHighlightStart)
 			{
 				while (true)
@@ -4513,28 +2747,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			GameEventManager.TheatricsAbilityHighlightStartArgs theatricsAbilityHighlightStartArgs = (GameEventManager.TheatricsAbilityHighlightStartArgs)args;
 			if (!theatricsAbilityHighlightStartArgs.m_casters.Contains(m_actorData))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!theatricsAbilityHighlightStartArgs.m_targets.Contains(m_actorData))
 				{
 					DimNameplateForAbility();
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			HighlightNameplateForAbility();

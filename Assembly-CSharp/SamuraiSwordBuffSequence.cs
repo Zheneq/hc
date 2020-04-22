@@ -21,24 +21,10 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.isEditor)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 					return;
 				}
@@ -51,53 +37,13 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 	{
 		if (m_initialized)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int damageIncrease = 0;
 				if (m_syncComp.m_swordBuffVfxPending)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fx == null && base.AgeInTurns <= 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnFX();
 					}
 					m_syncComp.m_swordBuffVfxPending = false;
@@ -106,50 +52,14 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 				{
 					if (!m_switchedToActiveBuffFx)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_syncComp.IsSelfBuffActive(ref damageIncrease) && GameFlowData.Get().IsInDecisionState())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_fxPrefabForActiveBuff != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								StopFX();
 								SpawnFX(m_fxPrefabForActiveBuff);
 								if (!string.IsNullOrEmpty(m_onSwordActivateAudioEvent))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									GameObject gameObject = null;
 									if (base.Caster != null)
 									{
@@ -157,15 +67,6 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 									}
 									if (gameObject != null)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										AudioManager.PostEvent(m_onSwordActivateAudioEvent, gameObject);
 									}
 								}
@@ -176,37 +77,10 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 					}
 					if (m_syncComp.m_swordBuffFinalTurnVfxPending)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_switchedToActiveBuffFx)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_syncComp.IsSelfBuffActive(ref damageIncrease))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (base.AgeInTurns > 0)
 								{
 									StopFX();

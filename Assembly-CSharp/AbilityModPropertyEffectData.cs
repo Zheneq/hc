@@ -27,10 +27,6 @@ public class AbilityModPropertyEffectData
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					StandardActorEffectData result = effectData;
 					if (useSequencesFromSource)
 					{

@@ -14,19 +14,6 @@ public class HitOnAnimationEventSequence : Sequence
 			int num;
 			if (hitTargetsList != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = hitTargetsList.Count;
 			}
 			else
@@ -41,15 +28,6 @@ public class HitOnAnimationEventSequence : Sequence
 				int num2;
 				if (list != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = list.Count;
 				}
 				else
@@ -64,15 +42,6 @@ public class HitOnAnimationEventSequence : Sequence
 					int num3;
 					if (actorData != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = actorData.ActorIndex;
 					}
 					else
@@ -98,23 +67,9 @@ public class HitOnAnimationEventSequence : Sequence
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				int num4;
 				if (hitPositionsList != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = hitPositionsList.Count;
 				}
 				else
@@ -153,15 +108,6 @@ public class HitOnAnimationEventSequence : Sequence
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int value4 = 0;
 				stream.Serialize(ref value4);
 				hitPositionsList = new List<Vector3>(value4);
@@ -207,15 +153,6 @@ public class HitOnAnimationEventSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -228,24 +165,10 @@ public class HitOnAnimationEventSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hitEvent == parameter)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					HandleAnimationEvent();
 					return;
 				}
@@ -262,19 +185,6 @@ public class HitOnAnimationEventSequence : Sequence
 		}
 		if (m_hitPositionsList.Count != m_hitTargetsList.Count)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("HitOnAnimationEventSequences: mismatch between targets list and positions list");
 		}
 		if (m_hitsSoFar >= m_hitPositionsList.Count)
@@ -283,11 +193,6 @@ public class HitOnAnimationEventSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_hitsSoFar < m_hitTargetsList.Count)
 			{
 				base.Source.OnSequenceHit(this, m_hitPositionsList[m_hitsSoFar]);
@@ -297,15 +202,6 @@ public class HitOnAnimationEventSequence : Sequence
 					{
 						ActorData current = enumerator.Current;
 						base.Source.OnSequenceHit(this, current, Sequence.CreateImpulseInfoWithActorForward(current));
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_hitsSoFar++;

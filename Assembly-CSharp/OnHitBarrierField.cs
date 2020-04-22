@@ -33,31 +33,9 @@ public class OnHitBarrierField
 	{
 		if (m_centerPosContextKey != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!recalc)
 			{
 				goto IL_003b;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_centerPosContextKey = ContextVars.GetHash(m_centerPosContextName);
@@ -70,31 +48,9 @@ public class OnHitBarrierField
 	{
 		if (m_facingDirContextKey != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!recalc)
 			{
 				goto IL_003b;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_facingDirContextKey = ContextVars.GetHash(m_facingDirContextName);
@@ -107,31 +63,9 @@ public class OnHitBarrierField
 	{
 		if (m_barrierWidthContextKey != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!recalc)
 			{
 				goto IL_0039;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_barrierWidthContextKey = ContextVars.GetHash(m_barrierWidthContextName);
@@ -149,15 +83,6 @@ public class OnHitBarrierField
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_barrierData != null)
 			{
 				m_barrierData.AddTooltipTokens(tokens, identifier);
@@ -171,19 +96,6 @@ public class OnHitBarrierField
 		string result = string.Empty;
 		if (m_barrierData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = "- Barrier To Spawn -\n";
 			if (!string.IsNullOrEmpty(m_identifier))
 			{
@@ -191,15 +103,6 @@ public class OnHitBarrierField
 			}
 			if (!string.IsNullOrEmpty(m_centerPosContextName))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = result + "Center Pos Context Var = " + m_centerPosContextName + "\n";
 			}
 			else

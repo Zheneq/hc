@@ -34,10 +34,6 @@ public class AppState_FoundGame : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("GameInfo must be set before entering app state");
 				}
 			}
@@ -66,19 +62,6 @@ public class AppState_FoundGame : AppState
 	{
 		if (m_messageBox != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_messageBox.Close();
 			m_messageBox = null;
 		}
@@ -101,10 +84,6 @@ public class AppState_FoundGame : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -115,11 +94,6 @@ public class AppState_FoundGame : AppState
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			OnCancelClicked();
 			return;
 		}

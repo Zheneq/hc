@@ -34,15 +34,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_standardActorEffectDataMod, "StandardActorEffectData", rageBeastSelfHeal.m_standardActorEffectData);
 			AbilityMod.AddToken(tokens, m_lowHealthHealOnCastMod, "HealingOnCastIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnCastIfUnder);
 			AbilityMod.AddToken(tokens, m_lowHealthHealOnTickMod, "HealingOnTickIfUnder", string.Empty, rageBeastSelfHeal.m_healingOnTickIfUnder);
@@ -63,19 +54,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rageBeastSelfHeal.m_standardActorEffectData;
 		}
 		else
@@ -88,15 +66,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (rageBeastSelfHeal.m_healOverTime ? 1 : 0);
 		}
 		else
@@ -109,15 +78,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastSelfHeal.m_healthThreshold;
 		}
 		else
@@ -130,15 +90,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rageBeastSelfHeal.m_healingOnCastIfUnder;
 		}
 		else
@@ -151,15 +102,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rageBeastSelfHeal.m_healingOnTickIfUnder;
 		}
 		else
@@ -172,15 +114,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rageBeastSelfHeal.m_healingOnCastIfOver;
 		}
 		else
@@ -193,15 +126,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = rageBeastSelfHeal.m_healingOnTickIfOver;
 		}
 		else

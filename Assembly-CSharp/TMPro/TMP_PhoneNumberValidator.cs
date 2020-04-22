@@ -11,19 +11,6 @@ namespace TMPro
 			Debug.Log("Trying to validate...");
 			if (ch < '0')
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ch > '9')
 				{
 					while (true)
@@ -46,15 +33,6 @@ namespace TMPro
 				case 0:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = "(" + ch;
 					}
 					pos = 2;
@@ -62,15 +40,6 @@ namespace TMPro
 				case 1:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 2;
@@ -78,15 +47,6 @@ namespace TMPro
 				case 2:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 3;
@@ -94,15 +54,6 @@ namespace TMPro
 				case 3:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + ch + ") ";
 					}
 					pos = 6;
@@ -110,15 +61,6 @@ namespace TMPro
 				case 4:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + ") " + ch;
 					}
 					pos = 7;
@@ -126,15 +68,6 @@ namespace TMPro
 				case 5:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + " " + ch;
 					}
 					pos = 7;
@@ -142,15 +75,6 @@ namespace TMPro
 				case 6:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 7;
@@ -172,15 +96,6 @@ namespace TMPro
 				case 9:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + "-" + ch;
 					}
 					pos = 11;
@@ -195,15 +110,6 @@ namespace TMPro
 				case 11:
 					if (i == length)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 12;
@@ -226,11 +132,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return ch;
 			}
 		}

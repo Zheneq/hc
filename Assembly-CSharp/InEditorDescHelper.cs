@@ -23,19 +23,6 @@ public static class InEditorDescHelper
 		string text;
 		if (bold)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = "<b>" + input + "</b>";
 		}
 		else
@@ -67,19 +54,6 @@ public static class InEditorDescHelper
 		object color;
 		if (actorContext)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			color = "orange";
 		}
 		else
@@ -100,19 +74,6 @@ public static class InEditorDescHelper
 		int num;
 		if (showOther)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((myVal != otherVal) ? 1 : 0);
 		}
 		else
@@ -123,15 +84,6 @@ public static class InEditorDescHelper
 		bool num2;
 		if (showFieldDelegate == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (myVal > 0f);
 		}
 		else
@@ -144,29 +96,11 @@ public static class InEditorDescHelper
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = text2 + DiffColorStr(otherSep + otherVal) + " ( diff = " + Mathf.Abs(otherVal - myVal) + " )";
 		}
 		if (text.Length > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -178,31 +112,9 @@ public static class InEditorDescHelper
 		bool flag = showOther && myVal != otherVal;
 		if (!(showFieldDelegate?.Invoke(myVal) ?? true))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
 				goto IL_0072;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text = text + indent + header + ColoredString(myVal.ToString());
@@ -210,28 +122,10 @@ public static class InEditorDescHelper
 		IL_0072:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += DiffColorStr(otherSep + otherVal);
 		}
 		if (text.Length > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -243,19 +137,6 @@ public static class InEditorDescHelper
 		int num;
 		if (showOther)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((Convert.ToInt32(myVal) != Convert.ToInt32(otherVal)) ? 1 : 0);
 		}
 		else
@@ -265,27 +146,9 @@ public static class InEditorDescHelper
 		bool flag = (byte)num != 0;
 		if (Convert.ToInt32(myVal) <= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_0075;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text = text + indent + header + ColoredString(myVal.ToString());
@@ -297,15 +160,6 @@ public static class InEditorDescHelper
 		}
 		if (text.Length > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -316,19 +170,6 @@ public static class InEditorDescHelper
 		int num;
 		if (showOther)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((myVal != otherVal) ? 1 : 0);
 		}
 		else
@@ -343,15 +184,6 @@ public static class InEditorDescHelper
 			{
 				goto IL_0089;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		string text2 = text;
 		text = text2 + indent + header + "\n" + indent + "    " + ColoredString(GetGameObjectEntryStr(myVal));
@@ -363,15 +195,6 @@ public static class InEditorDescHelper
 		}
 		if (text.Length > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -388,10 +211,6 @@ public static class InEditorDescHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return "NULL";
 				}
 			}
@@ -404,19 +223,6 @@ public static class InEditorDescHelper
 		int num;
 		if (myObjList != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = myObjList.Length;
 		}
 		else
@@ -427,15 +233,6 @@ public static class InEditorDescHelper
 		int num3;
 		if (otherObjList != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = otherObjList.Length;
 		}
 		else
@@ -446,39 +243,12 @@ public static class InEditorDescHelper
 		bool result = false;
 		if (num2 != num4)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else if (num2 > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 == num4)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num5 = 0;
 				while (true)
 				{
@@ -494,57 +264,21 @@ public static class InEditorDescHelper
 								T y = otherObjList[num6];
 								if (EqualityComparer<T>.Default.Equals(x, y))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = true;
 									break;
 								}
 								num6++;
 								continue;
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							break;
 						}
 						num5++;
 						continue;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -560,19 +294,6 @@ public static class InEditorDescHelper
 		int num;
 		if (myObjList != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = myObjList.Length;
 		}
 		else
@@ -583,15 +304,6 @@ public static class InEditorDescHelper
 		int num3;
 		if (otherObjList != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = otherObjList.Length;
 		}
 		else
@@ -602,28 +314,10 @@ public static class InEditorDescHelper
 		bool flag = false;
 		if (showDiff)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = HasDifference(myObjList, otherObjList);
 		}
 		if (num2 <= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_02b6;
@@ -632,30 +326,12 @@ public static class InEditorDescHelper
 		text = text + indent + header;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "    \t\t | " + header + " in base";
 		}
 		text += "\n";
 		int num5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = Mathf.Max(num2, num4);
 		}
 		else
@@ -671,38 +347,11 @@ public static class InEditorDescHelper
 				string text2 = "NULL_ENTRY";
 				if (myObjList[i] != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stringFormatter == null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text2 = ColoredString(myObjList[i].ToString());
 						if (typeof(T).IsEnum)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text2 = "[ " + text2 + " ] ";
 						}
 					}
@@ -720,52 +369,16 @@ public static class InEditorDescHelper
 			text += empty;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i < num4)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string str2 = "NULL_ENTRY";
 					if (otherObjList[i] != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (stringFormatter == null)
 						{
 							str2 = otherObjList[i].ToString();
 							if (typeof(T).IsEnum)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								str2 = "[ " + str2 + " ] ";
 							}
 						}
@@ -782,15 +395,6 @@ public static class InEditorDescHelper
 				}
 			}
 			text += "\n";
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_02b6;
 		IL_02b6:

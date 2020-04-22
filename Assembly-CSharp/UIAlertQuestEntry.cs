@@ -30,15 +30,6 @@ public class UIAlertQuestEntry : UISeasonsBaseContract
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_contractedRewardsContainer, flag);
 			UIManager.SetGameObjectActive(m_QuestDescription, flag);
 			UIManager.SetGameObjectActive(m_expandedGroup, flag);
@@ -53,11 +44,6 @@ public class UIAlertQuestEntry : UISeasonsBaseContract
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				UIBaseQuestDisplayInfo uIBaseQuestDisplayInfo = new UIBaseQuestDisplayInfo();
 				uIBaseQuestDisplayInfo.Setup(alert.QuestId);
 				m_questIcon.sprite = Resources.Load<Sprite>(uIBaseQuestDisplayInfo.QuestTemplateRef.ChallengeIconFileName);
@@ -76,19 +62,6 @@ public class UIAlertQuestEntry : UISeasonsBaseContract
 	{
 		if (CheckAndSetCompleted())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			currentProgress = maxProgress;
 		}
 		base.SetProgress(currentProgress, maxProgress, questComponent, questID);
@@ -103,32 +76,10 @@ public class UIAlertQuestEntry : UISeasonsBaseContract
 			DateTime utcLastCompleted = clientGameManager.GetPlayerAccountData().QuestComponent.GetOrCreateQuestMetaData(m_alert.QuestId).UtcLastCompleted;
 			if (utcLastCompleted > DateTime.MinValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				DateTime t = utcLastCompleted - (clientGameManager.ServerUtcTime - clientGameManager.ServerPacificTime);
 				int num;
 				if (t >= m_alert.StartTimePST)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((t <= m_alert.StartTimePST.AddHours(m_alert.DurationHours)) ? 1 : 0);
 				}
 				else

@@ -39,15 +39,6 @@ public class CommerceClient
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_steamMtxResponse = Callback<MicroTxnAuthorizationResponse_t>.Create(OnSteamMtxResponse);
 			return;
 		}
@@ -57,19 +48,6 @@ public class CommerceClient
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnLobbyStatusNotification -= HandleLobbyStatusNotification;
 		}
 		s_instance = null;
@@ -106,15 +84,6 @@ public class CommerceClient
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().ClientAccessLevel > ClientAccessLevel.Locked)
 			{
 				ClientGameManager.Get().LobbyInterface.RequestPrices(HandlePrices);
@@ -128,19 +97,6 @@ public class CommerceClient
 		int num;
 		if (response.lootMatrixPackPrices == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 0;
 		}
 		else
@@ -151,15 +107,6 @@ public class CommerceClient
 		int num3;
 		if (response.gamePackPrices == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 0;
 		}
 		else
@@ -170,15 +117,6 @@ public class CommerceClient
 		int num5;
 		if (response.characterPrices == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = 0;
 		}
 		else
@@ -190,15 +128,6 @@ public class CommerceClient
 		int num8;
 		if (response.stylePrices == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num8 = 0;
 		}
 		else
@@ -209,15 +138,6 @@ public class CommerceClient
 		int num10;
 		if (response.storeItemPrices == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num10 = 0;
 		}
 		else
@@ -228,15 +148,6 @@ public class CommerceClient
 		Log.Info("Got {0} game pack price(s), {1} loot matrix pack price(s), {2} Character price(s), {3} gg price(s), {4} style price(s), and {5} store item price(s) from server.", num4, num2, num6, num7, num9, num11);
 		if (response.gamePackPrices != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_overriddenGamePacks = response.gamePackPrices;
 		}
 		if (response.lootMatrixPackPrices != null)
@@ -249,41 +160,14 @@ public class CommerceClient
 		}
 		if (response.ggPackPrices != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_overriddenGGPacks = response.ggPackPrices;
 		}
 		if (response.stylePrices != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_overriddenStyles = response.stylePrices;
 		}
 		if (response.storeItemPrices != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_overriddenStoreItems = response.storeItemPrices;
 		}
 		LastPacificTimePriceRequestWithServerTimeOffset = response.PacificTimeWithServerTimeOffset;
@@ -308,10 +192,6 @@ public class CommerceClient
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return overriddenLootMatrixPack.prices.GetPrice(currencyCode);
 					}
 				}
@@ -326,11 +206,6 @@ public class CommerceClient
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return lootMatrixPack.Prices.GetPrice(currencyCode);
 			}
 		}
@@ -345,19 +220,6 @@ public class CommerceClient
 		{
 			if (gamePack.ProductCode == productCode)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				originalPrice = gamePack.Prices.GetPrice(currencyCode);
 				continue;
 			}
@@ -369,23 +231,9 @@ public class CommerceClient
 					originalPrice = gamePackUpgrade.Prices.GetPrice(currencyCode);
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			foreach (GamePackPriceOverride overriddenGamePack in m_overriddenGamePacks)
 			{
 				if (overriddenGamePack.productCode == productCode && overriddenGamePack.prices != null)
@@ -410,32 +258,10 @@ public class CommerceClient
 	{
 		if (!m_overriddenCharacters.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (CharacterPriceOverride overriddenCharacter in m_overriddenCharacters)
 			{
 				if (overriddenCharacter.characterType == type)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (overriddenCharacter.prices != null)
 					{
 						return overriddenCharacter.prices.GetPrice(currencyCode);
@@ -452,11 +278,6 @@ public class CommerceClient
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return characterResourceLink.Prices.GetPrice(currencyCode);
 			}
 		}
@@ -472,19 +293,6 @@ public class CommerceClient
 				GGPackPriceOverride current = enumerator.Current;
 				if (current.productCode == productCode)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.prices != null)
 					{
 						while (true)
@@ -499,15 +307,6 @@ public class CommerceClient
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GGPack[] ggPacks = GameWideData.Get().m_ggPackData.m_ggPacks;
@@ -530,30 +329,8 @@ public class CommerceClient
 				StylePriceOverride current = enumerator.Current;
 				if (current.prices != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.characterType == charType && current.skinIndex == skinIndex && current.textureIndex == textureIndex)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.colorIndex == colorIndex)
 						{
 							while (true)
@@ -569,15 +346,6 @@ public class CommerceClient
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
@@ -603,19 +371,6 @@ public class CommerceClient
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		using (List<StoreItemPriceOverride>.Enumerator enumerator = m_overriddenStoreItems.GetEnumerator())
@@ -625,15 +380,6 @@ public class CommerceClient
 				StoreItemPriceOverride current = enumerator.Current;
 				if (current.inventoryTemplateId == templateId)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (current.prices != null)
 					{
 						while (true)
@@ -648,15 +394,6 @@ public class CommerceClient
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return originalPrice;

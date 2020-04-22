@@ -45,15 +45,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AddOnHitDataTokens(tokens, m_dashOnHitDataMod, dinoDashOrShield.m_dashOnHitData);
 			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, dinoDashOrShield.m_shieldPerEnemyHit);
@@ -79,19 +70,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = dinoDashOrShield.m_shieldPerEnemyHit;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = dinoDashOrShield.m_shieldDuration;
 		}
 		else
@@ -126,15 +95,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = dinoDashOrShield.m_healIfNoDash;
 		}
 		else
@@ -147,15 +107,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = dinoDashOrShield.m_cdrIfNoDash;
 		}
 		else
@@ -168,15 +119,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = dinoDashOrShield.m_delayedCooldown;
 		}
 		else
@@ -189,15 +131,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (dinoDashOrShield.m_fullyChargeUpLayerCone ? 1 : 0);
 		}
 		else

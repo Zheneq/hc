@@ -29,10 +29,6 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -54,28 +50,10 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 		}
 		if (!(characterHealBuffArgs.casterActor == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(characterHealBuffArgs.casterActor == characterHealBuffArgs.targetCharacter))
 			{
 				if (m_onSelfBeingHealed)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (characterHealBuffArgs.targetCharacter != component.gameObject.GetComponent<ActorData>())
 					{
 						while (true)
@@ -91,15 +69,6 @@ public class OnHealBuffChatter : ScriptableObject, IChatterData
 					}
 				}
 				return true;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

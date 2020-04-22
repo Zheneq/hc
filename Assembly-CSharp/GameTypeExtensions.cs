@@ -5,30 +5,8 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != GameType.PvP)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.Ranked)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
 				goto IL_002e;
 			}
@@ -44,41 +22,10 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != GameType.Coop)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.PvP)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Ranked)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
 					goto IL_003c;
 				}
@@ -95,19 +42,6 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != 0 && gameType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((gameType == GameType.Tutorial) ? 1 : 0);
 		}
 		else
@@ -122,30 +56,8 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != GameType.PvP)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.Ranked)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((gameType == GameType.NewPlayerPvP) ? 1 : 0);
 				goto IL_002e;
 			}
@@ -161,30 +73,8 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.Tutorial)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((gameType == GameType.NewPlayerSolo) ? 1 : 0);
 				goto IL_002d;
 			}
@@ -200,52 +90,12 @@ public static class GameTypeExtensions
 		int result;
 		if (gameType != GameType.Coop)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.PvP)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Ranked)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameType != GameType.NewPlayerPvP)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((gameType == GameType.Custom) ? 1 : 0);
 						goto IL_004a;
 					}

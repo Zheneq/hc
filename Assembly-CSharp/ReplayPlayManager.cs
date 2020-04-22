@@ -43,26 +43,8 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ReplayTimestamp.Current() < m_seekTarget)
 				{
 					while (true)
@@ -101,10 +83,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					TextConsole.Get().Write("Failed to start replay: already ingame");
 					return;
 				}
@@ -189,10 +167,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_playingReplay.GetMatchData();
 				}
 			}
@@ -208,15 +182,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_appStateLoadingPassed)
 			{
 				while (true)
@@ -275,11 +240,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_appStateLoadingPassed = true;
 					return;
 				}
@@ -296,15 +256,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fastForward = true;
 			try
 			{
@@ -321,20 +272,10 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (ReplayTimestamp.Current() >= target)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						GameEventManager.Get().FireEvent(GameEventManager.EventType.ReplaySeekFinished, null);
 						return;
 					}
@@ -352,41 +293,14 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)GameFlowData.Get())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().GetActors().GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						ActorData current = enumerator.Current;
 						current.OnReplayRestart();
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -395,15 +309,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 			{
 				if (networkIdentity.sceneId.IsEmpty())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(networkIdentity.gameObject.GetComponent<CameraManager>() != null))
 					{
 						UnityEngine.Object.Destroy(networkIdentity.gameObject);
@@ -412,15 +317,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 			}
 			if ((bool)SequenceManager.Get())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SequenceManager.Get().ClearAllSequences();
 			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ReplayRestart, null);
@@ -435,19 +331,6 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		m_seekTarget = target;
 		if (target <= ReplayTimestamp.Current())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Restart();
 		}
 		Update();

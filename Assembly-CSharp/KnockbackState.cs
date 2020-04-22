@@ -29,32 +29,10 @@ public class KnockbackState : MoveState
 		base.stateName = "Knockback";
 		if (m_animHashKnockbackEnd == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_animHashKnockbackEnd = Animator.StringToHash("Base Layer.Reaction.Knockback.KnockbackEnd");
 		}
 		if (m_tagHashKnockdown == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_tagHashKnockdown = Animator.StringToHash("Knockdown");
 		}
 		if (m_tagHashKnockdownImpact == 0)
@@ -65,15 +43,6 @@ public class KnockbackState : MoveState
 		m_travelTime = magnitude / m_ownerActorData.m_knockbackSpeed;
 		if (m_travelTime == 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_travelTime = s_minTravelTime;
 		}
 		m_initialYVelocity = -0.5f * s_gravity * m_travelTime;
@@ -89,42 +58,11 @@ public class KnockbackState : MoveState
 	{
 		if (nextAnimHash != m_animHashKnockbackEnd)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (nextAnimTag != m_animHashKnockbackEnd)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (nextAnimTag != m_tagHashKnockdown)
 				{
 					goto IL_0048;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -133,15 +71,6 @@ public class KnockbackState : MoveState
 		IL_0048:
 		if (prevAnimHash != m_animHashKnockbackEnd)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (prevAnimTag != m_tagHashKnockdownImpact)
 			{
 				return;
@@ -160,34 +89,12 @@ public class KnockbackState : MoveState
 		bool flag = false;
 		if (a.magnitude < 0.01f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			a = m_owner.transform.forward;
 			flag = true;
 		}
 		float num;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 0f;
 		}
 		else
@@ -201,54 +108,18 @@ public class KnockbackState : MoveState
 		float num6 = Mathf.Max(0f, m_initialYVelocity * num5 + 0.5f * s_gravity * num5 * num5);
 		if (m_startedExitAnim)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_updatePath = true;
 		}
 		if (!(num2 > num4))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(num5 < m_travelTime))
 			{
 				if (m_startedExitAnim)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_updatePath = true;
 				}
 				if (m_owner.m_actor.IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_updatePath = true;
 					m_done = true;
 				}
@@ -258,15 +129,6 @@ public class KnockbackState : MoveState
 				}
 				if (!m_endedExitAnim)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!IsOnLastSegment())
 					{
 						return;
@@ -276,29 +138,11 @@ public class KnockbackState : MoveState
 				m_done = true;
 				return;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		a.Normalize();
 		float d = 0f;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			d = Mathf.Min(num3, num2);
 		}
 		Vector3 groundPosition = m_owner.GetGroundPosition(position + a * d);
@@ -320,20 +164,10 @@ public class KnockbackState : MoveState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_owner.m_actor.IsModelAnimatorDisabled())
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_owner.m_actor.TurnToDirection(dir);
 					return;
 				}

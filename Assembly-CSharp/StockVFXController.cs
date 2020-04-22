@@ -31,42 +31,11 @@ public class StockVFXController : CopyableVfxControllerComponent
 	{
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorModelData.m_parentActorData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int stockAmount = GetStockAmount(m_actorModelData.m_parentActorData);
 				if (stockAmount != m_prevStockAmount)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_prevStockAmount = stockAmount;
 					if (m_vfxInstance != null)
 					{
@@ -74,26 +43,8 @@ public class StockVFXController : CopyableVfxControllerComponent
 					}
 					if (stockAmount > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_vfxs.Length > stockAmount - 1)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_vfxInstance = Object.Instantiate(m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
 							m_vfxInstance.transform.parent = base.transform;
 						}
@@ -104,15 +55,6 @@ public class StockVFXController : CopyableVfxControllerComponent
 		}
 		if (m_actorModelData == null && m_vfxInstance == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_vfxs.Length > 0)
 			{
 				m_vfxInstance = Object.Instantiate(m_vfxs[m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
@@ -127,24 +69,10 @@ public class StockVFXController : CopyableVfxControllerComponent
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			bool flag = true;
 			bool flag2 = true;
 			if (m_actorModelData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = m_actorModelData.IsVisibleToClient();
 				flag2 = (m_actorModelData.m_parentActorData == null || !m_actorModelData.m_parentActorData.IsDead());
 			}

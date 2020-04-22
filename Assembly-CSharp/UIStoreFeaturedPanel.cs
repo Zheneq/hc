@@ -17,19 +17,6 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 		{
 			if (!QuestWideData.AreConditionsMet(featuredItems[i].Prerequisites.Conditions, featuredItems[i].Prerequisites.LogicStatement))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				continue;
 			}
 			UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
@@ -57,30 +44,12 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 						GGPack gGPack = GameWideData.Get().m_ggPackData.m_ggPacks[num3];
 						if (gGPack.Index == featuredItems[i].TypeSpecificData)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uIPurchaseableItem.m_ggPack = gGPack;
 							list.Add(itemPair);
 							break;
 						}
 						num3++;
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -93,15 +62,6 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 					GamePack gamePack = GameWideData.Get().m_gamePackData.m_gamePacks[l];
 					if (gamePack.Index == featuredItems[i].TypeSpecificData)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						uIPurchaseableItem.m_gamePack = gamePack;
 						list.Add(itemPair);
 						break;
@@ -119,40 +79,13 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 						LootMatrixPack lootMatrixPack = GameWideData.Get().m_lootMatrixPackData.m_lootMatrixPacks[num];
 						if (lootMatrixPack.IsBundle)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							List<InventoryItemTemplate> templatesFromLootMatrixPack = InventoryWideData.GetTemplatesFromLootMatrixPack(lootMatrixPack);
 							if (templatesFromLootMatrixPack == null)
 							{
 								goto IL_03f6;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (templatesFromLootMatrixPack.Count == 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_03f6;
 							}
 							List<LootTable> list2 = new List<LootTable>();
@@ -160,39 +93,12 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 							{
 								list2.Add(InventoryWideData.Get().GetLootTable(templatesFromLootMatrixPack[j].TypeSpecificData[0]));
 							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (list2.Count == 0)
 							{
 								goto IL_03f6;
 							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (list2[0] == null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_03f6;
 							}
 							List<int> list3 = new List<int>();
@@ -200,26 +106,8 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 							{
 								list3.AddRange(InventoryWideData.Get().GetAllItemTemplateIDsFromLootTable(list2[k].Index));
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (templatesFromLootMatrixPack.Count == 0)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_03f6;
 							}
 							bool flag = true;
@@ -236,15 +124,6 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 									num2++;
 									continue;
 								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (flag)
@@ -254,29 +133,11 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 						}
 						if (lootMatrixPack.Index == featuredItems[i].TypeSpecificData)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uIPurchaseableItem.m_lootMatrixPack = lootMatrixPack;
 							list.Add(itemPair);
 							break;
 						}
 						goto IL_03f6;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 					IL_03f6:
@@ -333,15 +194,6 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((ItemPair x, ItemPair y) => x.SortOrder - y.SortOrder);
 		}
 		list.Sort(_003C_003Ef__am_0024cache0);
@@ -352,11 +204,6 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return list4.ToArray();
 		}
 	}

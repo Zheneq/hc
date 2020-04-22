@@ -32,83 +32,25 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		m_initialized = true;
 		m_friendly = IsFriendly(m_casterTeam, m_cachedLocalPlayerTeam);
 		if (m_hideByMoveOffScreen)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_friendly)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_enemyFxInstance != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HideFxObject(m_enemyFxInstance);
 				}
 			}
 			else if (m_allyFxInstance != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HideFxObject(m_allyFxInstance);
 			}
 		}
 		else if (m_friendly)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_enemyFxInstance != null)
 			{
 				Object.Destroy(m_enemyFxInstance);
@@ -123,15 +65,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject gameObject;
 		if (m_friendly)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = m_friendlyVFX;
 		}
 		else
@@ -145,11 +78,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_friendly)
 			{
 				while (true)
@@ -177,15 +105,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj.transform.localPosition = new Vector3(-10000f, -10000f, -10000f);
 			return;
 		}
@@ -195,30 +114,8 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 	{
 		if (instance == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (fxPrefab != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				instance = Object.Instantiate(fxPrefab);
 				instance.transform.parent = base.transform;
 				instance.gameObject.SetLayerRecursively(LayerMask.NameToLayer("DynamicLit"));
@@ -230,11 +127,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			instance.transform.localPosition = Vector3.zero;
 			instance.transform.localRotation = Quaternion.identity;
 			return;
@@ -247,19 +139,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		int cachedLocalPlayerTeam;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLocalPlayerTeam = (int)GameFlowData.Get().activeOwnedActorData.GetTeam();
 		}
 		else
@@ -287,15 +166,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Sequence.SetAttribute(currentActiveVfxInstance, attributeName, value);
 			return;
 		}
@@ -306,19 +176,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject result;
 		if (m_friendly)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allyFxInstance;
 		}
 		else
@@ -336,27 +193,9 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (int)GameFlowData.Get().activeOwnedActorData.GetTeam();
 			}
 			else
@@ -380,19 +219,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		{
 			if (team0 != Team.Invalid)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((team1 == Team.Invalid) ? 1 : 0);
 			}
 			else

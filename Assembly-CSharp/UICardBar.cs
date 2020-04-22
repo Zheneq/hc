@@ -20,15 +20,6 @@ public class UICardBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityData.AbilityEntry[] abilityEntries = m_abilityData.abilityEntries;
 			for (int i = 0; i < 3; i++)
 			{
@@ -45,19 +36,6 @@ public class UICardBar : MonoBehaviour
 		{
 			if (m_cardButtons[i].GetKeyPreference() == abilitySelectDown)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_cardButtons[i].OnCardButtonClick(null);
 			}
 		}

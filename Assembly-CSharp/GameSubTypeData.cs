@@ -41,19 +41,6 @@ public class GameSubTypeData : MonoBehaviour
 		GameSubTypeInstructions instructionSet = GetInstructionSet(setIndex);
 		if (instructionSet != null && -1 < displayIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (displayIndex < instructionSet.DisplayInfos.Length)
 			{
 				while (true)
@@ -82,10 +69,6 @@ public class GameSubTypeData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Instructions[setIndex];
 				}
 			}
@@ -103,25 +86,11 @@ public class GameSubTypeData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return Instructions[i];
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -140,15 +109,6 @@ public class GameSubTypeData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0059;
 			}

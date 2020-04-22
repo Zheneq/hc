@@ -33,19 +33,6 @@ public class SquareInsideChecker_Box : ISquareInsideChecker
 		bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(square, m_startPos, m_endPos, m_widthInSquares);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			inLos = AreaEffectUtils.IsSquareInLosForBox(square, m_startPos, m_endPos, m_widthInSquares, m_penetrateLos, m_caster, m_additionalLosSources);
 		}
 		return flag;

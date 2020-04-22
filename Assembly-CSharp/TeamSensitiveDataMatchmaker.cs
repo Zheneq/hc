@@ -19,19 +19,6 @@ public class TeamSensitiveDataMatchmaker
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new TeamSensitiveDataMatchmaker();
 		}
 		return s_instance;
@@ -48,25 +35,12 @@ public class TeamSensitiveDataMatchmaker
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_actorIndexToFriendlyData.ContainsKey(actor.ActorIndex))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actor.SetClientFriendlyTeamSensitiveData(m_actorIndexToFriendlyData[actor.ActorIndex]);
 			m_actorIndexToFriendlyData.Remove(actor.ActorIndex);
 		}
@@ -76,11 +50,6 @@ public class TeamSensitiveDataMatchmaker
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			actor.SetClientHostileTeamSensitiveData(m_actorIndexToHostileData[actor.ActorIndex]);
 			m_actorIndexToHostileData.Remove(actor.ActorIndex);
 			return;
@@ -95,53 +64,17 @@ public class TeamSensitiveDataMatchmaker
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (m_actorIndexToFriendlyData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorIndexToFriendlyData.Count > 0)
 				{
 					num = 1;
 					goto IL_006f;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_actorIndexToHostileData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((m_actorIndexToHostileData.Count > 0) ? 1 : 0);
 			}
 			else
@@ -157,11 +90,6 @@ public class TeamSensitiveDataMatchmaker
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					List<ActorData> actors = GameFlowData.Get().GetActors();
@@ -200,10 +128,6 @@ public class TeamSensitiveDataMatchmaker
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -211,28 +135,10 @@ public class TeamSensitiveDataMatchmaker
 		Dictionary<int, ActorTeamSensitiveData> dictionary;
 		if (teamSensitiveData.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Friendlies)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			dictionary = m_actorIndexToFriendlyData;
 		}
 		else if (teamSensitiveData.m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			dictionary = m_actorIndexToHostileData;
 		}
 		else
@@ -245,11 +151,6 @@ public class TeamSensitiveDataMatchmaker
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			dictionary.Add(teamSensitiveData.ActorIndex, teamSensitiveData);
 			return;
 		}

@@ -31,15 +31,6 @@ public class _CanvasLayerSorter : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_theCanvas.overrideSorting = false;
 			m_theCanvas.overrideSorting = true;
 			return;

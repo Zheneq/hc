@@ -86,19 +86,6 @@ public class SenseiHealAoE : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Sensei Heal";
 		}
 		Setup();
@@ -110,19 +97,6 @@ public class SenseiHealAoE : Ability
 		m_abilityData = GetComponent<AbilityData>();
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_bideAbility = (m_abilityData.GetAbilityOfType(typeof(SenseiBide)) as SenseiBide);
 			m_bideActionType = m_abilityData.GetActionTypeOfAbility(m_bideAbility);
 		}
@@ -146,31 +120,9 @@ public class SenseiHealAoE : Ability
 		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
 		if (caster.GetActorTargeting() != null && GetRunPriority() > AbilityPriority.Evasion)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 			if (evadeDestinationForTargeter != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = evadeDestinationForTargeter.ToVector3();
 			}
 		}
@@ -182,19 +134,6 @@ public class SenseiHealAoE : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -205,15 +144,6 @@ public class SenseiHealAoE : Ability
 		StandardEffectInfo cachedAllyEffectOnSubsequentTurns;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyEffectOnSubsequentTurns = m_abilityMod.m_allyEffectOnSubsequentTurnsMod.GetModifiedValue(m_allyEffectOnSubsequentTurns);
 		}
 		else
@@ -228,19 +158,6 @@ public class SenseiHealAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_circleRadiusMod.GetModifiedValue(m_circleRadius);
 		}
 		else
@@ -255,19 +172,6 @@ public class SenseiHealAoE : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 		}
 		else
@@ -287,19 +191,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealMod.GetModifiedValue(m_selfHeal);
 		}
 		else
@@ -314,19 +205,6 @@ public class SenseiHealAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfLowHealthThreshMod.GetModifiedValue(m_selfLowHealthThresh);
 		}
 		else
@@ -341,19 +219,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraSelfHealForLowHealthMod.GetModifiedValue(m_extraSelfHealForLowHealth);
 		}
 		else
@@ -383,19 +248,6 @@ public class SenseiHealAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healChangeStartDistMod.GetModifiedValue(m_healChangeStartDist);
 		}
 		else
@@ -415,19 +267,6 @@ public class SenseiHealAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh);
 		}
 		else
@@ -442,19 +281,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraAllyHealForLowHealthMod.GetModifiedValue(m_extraAllyHealForLowHealth);
 		}
 		else
@@ -469,19 +295,6 @@ public class SenseiHealAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -496,19 +309,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 		}
 		else
@@ -523,19 +323,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrForAnyDamageMod.GetModifiedValue(m_cdrForAnyDamage);
 		}
 		else
@@ -550,19 +337,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrForDamagePerUniqueAbilityMod.GetModifiedValue(m_cdrForDamagePerUniqueAbility);
 		}
 		else
@@ -592,19 +366,6 @@ public class SenseiHealAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyEffectOnSubsequentTurns != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyEffectOnSubsequentTurns;
 		}
 		else
@@ -619,19 +380,6 @@ public class SenseiHealAoE : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignoreDefaultEnergyOnSubseqTurnsMod.GetModifiedValue(m_ignoreDefaultEnergyOnSubseqTurns);
 		}
 		else
@@ -651,19 +399,6 @@ public class SenseiHealAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyOnSelfHitOnSubseqTurnsMod.GetModifiedValue(m_energyOnSelfHitOnSubseqTurns);
 		}
 		else
@@ -685,10 +420,6 @@ public class SenseiHealAoE : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - centerPos;
 					vector.y = 0f;
 					float num = vector.magnitude;
@@ -711,30 +442,8 @@ public class SenseiHealAoE : Ability
 		int num = 0;
 		if (m_bideAbility != null && m_bideAbility.GetExtraHealOnHealAoeIfQueued() > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityData.HasQueuedAction(m_bideActionType))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += m_bideAbility.GetExtraHealOnHealAoeIfQueued();
 			}
 		}
@@ -746,30 +455,8 @@ public class SenseiHealAoE : Ability
 		int num = GetAllyHeal();
 		if (GetExtraAllyHealIfSingleHit() > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (numAllies == 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetExtraAllyHealIfSingleHit();
 			}
 		}
@@ -777,37 +464,10 @@ public class SenseiHealAoE : Ability
 		num += CalcExtraHealFromBide();
 		if (GetExtraAllyHealForLowHealth() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetAllyLowHealthThresh() > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetActor.GetHitPointShareOfMax() < GetAllyLowHealthThresh())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraAllyHealForLowHealth();
 				}
 			}
@@ -821,41 +481,10 @@ public class SenseiHealAoE : Ability
 		selfHeal += CalcExtraHealFromBide();
 		if (GetExtraSelfHealForLowHealth() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetSelfLowHealthThresh() > 0f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster.GetHitPointShareOfMax() < GetSelfLowHealthThresh())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					selfHeal += GetExtraSelfHealForLowHealth();
 				}
 			}
@@ -892,19 +521,6 @@ public class SenseiHealAoE : Ability
 		m_allyHitEffect.ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Ally);
 		if (IncludeSelf())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetSelfHeal());
 			m_allyHitEffect.ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Self);
 		}
@@ -918,72 +534,23 @@ public class SenseiHealAoE : Ability
 		bool flag2 = targetActor == base.ActorData;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag2)
 			{
 				goto IL_00c9;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int healing = 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 			if (base.Targeter is AbilityUtil_Targeter_AoE_Smooth)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = base.Targeter as AbilityUtil_Targeter_AoE_Smooth;
 				healing = CalcTotalAllyHeal(targetActor, abilityUtil_Targeter_AoE_Smooth.m_lastUpdatedCenterPos, visibleActorsCountByTooltipSubject);
 			}
 		}
 		else if (flag2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			healing = CalcTotalSelfHeal(base.ActorData);
 		}
 		results.m_healing = healing;
@@ -1000,15 +567,6 @@ public class SenseiHealAoE : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SenseiHealAoE);
 			Setup();
 			return;

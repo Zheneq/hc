@@ -16,19 +16,6 @@ public class ResolvingState : TurnState
 		{
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PostRespawnMovement", "Global"));
 				UINotificationPanel notificationPanel = HUD_UI.Get().m_mainScreenPanel.m_notificationPanel;
 				notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.Resolving);
@@ -44,15 +31,6 @@ public class ResolvingState : TurnState
 		bool flag2;
 		if ((bool)component2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = component2.HasQueuedAbilities();
 			component2.ClearSelectedAbility();
 			component2.ClearLastSelectedAbility();
@@ -67,20 +45,10 @@ public class ResolvingState : TurnState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!flag2)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_SM.NextState = TurnStateEnum.WAITING;
 					return;
 				}
@@ -97,19 +65,6 @@ public class ResolvingState : TurnState
 			object str;
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				str = component.GetDebugName();
 			}
 			else
@@ -155,11 +110,6 @@ public class ResolvingState : TurnState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_SM.NextState = TurnStateEnum.RESPAWNING;
 			return;
 		}
@@ -178,19 +128,6 @@ public class ResolvingState : TurnState
 		ActorData component = m_SM.GetComponent<ActorData>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (component.IsDead())
 			{
 				m_SM.NextState = TurnStateEnum.WAITING;
@@ -198,26 +135,8 @@ public class ResolvingState : TurnState
 		}
 		if (m_stateTime >= GameFlowData.Get().m_resolveTimeoutLimit * 0.9f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameplayUtils.IsMinion(m_SM))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object[] obj = new object[3]
 				{
 					(!NetworkServer.active) ? "Client" : "Server",
@@ -227,15 +146,6 @@ public class ResolvingState : TurnState
 				object obj2;
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = "NULL";
 				}
 				else
@@ -249,27 +159,9 @@ public class ResolvingState : TurnState
 		}
 		if (!(GameFlowData.Get() == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().IsResolutionPaused())
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_stateTime += GameTime.deltaTime;

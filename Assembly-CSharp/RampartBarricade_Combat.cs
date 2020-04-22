@@ -21,15 +21,6 @@ public class RampartBarricade_Combat : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("Rampart Barricade Chain: did not find parent ability");
 			return;
 		}

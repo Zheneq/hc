@@ -41,19 +41,6 @@ public class RampartBuffAndDelayedAoe : Ability
 		int shapeLowEnergy;
 		if (m_onlyDoAoeIfFullEnergy)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			shapeLowEnergy = 0;
 		}
 		else

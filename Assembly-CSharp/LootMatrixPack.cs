@@ -51,45 +51,14 @@ public class LootMatrixPack
 		bool result = false;
 		if (!EventEndPacific.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!EventStartPacific.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
 				DateTime t = Convert.ToDateTime(EventStartPacific);
 				DateTime t2 = Convert.ToDateTime(EventEndPacific);
 				int num;
 				if (lastPacificTimePriceRequestWithServerTimeOffset >= t)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((lastPacificTimePriceRequestWithServerTimeOffset < t2) ? 1 : 0);
 				}
 				else

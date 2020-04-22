@@ -43,15 +43,6 @@ public class UITakeoverManager : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= HandleAccessLevelChange;
 			return;
 		}
@@ -85,29 +76,11 @@ public class UITakeoverManager : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Time.time >= TakeOverTimeStart))
 			{
 				if (ClientGameManager.Get().ClientAccessLevel <= ClientAccessLevel.Free)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			TakeOverTimeStart = -1f;

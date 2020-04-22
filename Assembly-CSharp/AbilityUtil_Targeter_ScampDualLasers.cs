@@ -93,33 +93,11 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		int num = 2;
 		if (m_delegateLaserCount != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_delegateLaserCount(currentTarget, targetingActor);
 		}
 		List<Vector3> list2;
 		if (num > 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2 = AbilityCommon_DualMeetingLasers.CalcStartingPositions(travelBoardSquareWorldPositionForLos, currentTarget.FreePos, m_laserStartForwardOffset, m_laserStartSideOffset);
 		}
 		else
@@ -132,15 +110,6 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		float finalRadius = AbilityCommon_DualMeetingLasers.CalcAoeRadius(travelBoardSquareWorldPositionForLos, vector, m_aoeBaseRadius, m_minMeetingDistFromCaster, m_aoeRadiusChangePerUnitFromMin, m_aoeMinRadius, m_aoeMaxRadius);
 		if (m_delegateExtraAoeRadius != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			finalRadius += m_delegateExtraAoeRadius(currentTarget, targetingActor, m_aoeBaseRadius);
 		}
 		int aoeEndPosIndex = -1;
@@ -148,29 +117,11 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		Vector3 vector2 = vector;
 		if (list2.Count < 2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector2 = laserEndPosList[0];
 		}
 		float value = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(targetingActor.GetTravelBoardSquareWorldPositionForLos(), vector, m_minMeetingDistFromCaster);
 		if (aoeEndPosIndex >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<ActorData>.Enumerator enumerator = aoeHitActors.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -179,29 +130,11 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 					AddActorInRange(current, vector2, targetingActor);
 					if (m_aoeIgnoreMinCoverDist)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetIgnoreCoverMinDist(current, m_aoeIgnoreMinCoverDist);
 					}
 					ActorHitContext actorHitContext = m_actorContextVars[current];
 					actorHitContext._0015.SetFloat(ContextKeys._0013.GetHash(), value);
 					actorHitContext._0015.SetInt(ContextKeys._001A.GetHash(), 1);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(gameObject, finalRadius, 360f);
@@ -227,51 +160,19 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 					AddActorInRange(current2, list2[i], targetingActor, AbilityTooltipSubject.Secondary);
 					if (!aoeHitActors.Contains(current2))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorHitContext actorHitContext2 = m_actorContextVars[current2];
 						actorHitContext2._0015.SetFloat(ContextKeys._0013.GetHash(), value);
 						actorHitContext2._0015.SetInt(ContextKeys._001A.GetHash(), 0);
 					}
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < 2; j++)
 			{
 				if (j < list2.Count)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_laserPart.AdjustHighlight(m_highlights[j], list2[j], laserEndPosList[j], false);
 					list[j].UpdateBoxProperties(list2[j], laserEndPosList[j], targetingActor);
 					m_highlights[j].SetActiveIfNeeded(true);
@@ -284,11 +185,6 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				ResetSquareIndicatorIndexToUse();
 				for (int k = 0; k < list2.Count; k++)
 				{
@@ -298,22 +194,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (aoeEndPosIndex >= 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, vector2, 0f, 360f, finalRadius, 0f, targetingActor, false, m_squarePosCheckerList);
 					}
 					HideUnusedSquareIndicators();

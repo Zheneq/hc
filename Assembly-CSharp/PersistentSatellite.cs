@@ -50,19 +50,6 @@ public class PersistentSatellite : MonoBehaviour
 		GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
 		if (gameObject2.GetComponent<PersistentSatelliteAnimationEventReceiver>() == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PersistentSatelliteAnimationEventReceiver persistentSatelliteAnimationEventReceiver = gameObject2.AddComponent<PersistentSatelliteAnimationEventReceiver>();
 			persistentSatelliteAnimationEventReceiver.Setup(this);
 		}
@@ -82,15 +69,6 @@ public class PersistentSatellite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_renderer.enabled = shouldBeVisible;
 			return;
 		}
@@ -102,19 +80,6 @@ public class PersistentSatellite : MonoBehaviour
 		Vector3 lhs = m_targetPosition - base.transform.position;
 		if (!Mathf.Approximately(lhs.magnitude, 0f))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_timeTillVisibleForSpawnAndRun > 0f)
 			{
 				m_timeTillVisibleForSpawnAndRun -= Time.deltaTime;
@@ -125,28 +90,10 @@ public class PersistentSatellite : MonoBehaviour
 			}
 			if (m_timeTillVisibleForSpawnAndRun <= 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = base.transform.position + lhs.normalized * Time.deltaTime * m_movementSpeed;
 				Vector3 rhs = m_targetPosition - vector;
 				if (Vector3.Dot(lhs, rhs) < 0f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.transform.position = m_targetPosition;
 				}
 				else
@@ -167,20 +114,10 @@ public class PersistentSatellite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_attackTarget != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
 					return;
 				}
@@ -198,24 +135,10 @@ public class PersistentSatellite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_renderer != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_renderer.enabled = false;
 					return;
 				}
@@ -236,10 +159,6 @@ public class PersistentSatellite : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_renderer.enabled = false;
 					return;
 				}
@@ -262,15 +181,6 @@ public class PersistentSatellite : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TriggerDespawn();
 				return;
 			}
@@ -329,22 +239,9 @@ public class PersistentSatellite : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					object result;
 					if (visible)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = "StartAltRun";
 					}
 					else
@@ -359,15 +256,6 @@ public class PersistentSatellite : MonoBehaviour
 		object result2;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result2 = "StartRun";
 		}
 		else
@@ -394,32 +282,10 @@ public class PersistentSatellite : MonoBehaviour
 			Vector3 position = m_ownerController.transform.position;
 			if (m_startOffsetDistanceWhenInvisible > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 a = targetPos - m_ownerController.transform.position;
 				a.y = 0f;
 				if (a.magnitude == 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = Vector3.forward;
 				}
 				else

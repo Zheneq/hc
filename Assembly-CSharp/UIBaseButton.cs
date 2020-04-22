@@ -94,33 +94,11 @@ public class UIBaseButton : MonoBehaviour
 	{
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_abilityEntry.ability == null))
 			{
 				UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
 				uIAbilityTooltip.Setup(m_abilityEntry.ability);
 				return true;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -134,19 +112,6 @@ public class UIBaseButton : MonoBehaviour
 		m_turnSM = m_abilityData.GetComponent<ActorTurnSM>();
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityEntry.ability != null)
 			{
 				while (true)
@@ -193,19 +158,6 @@ public class UIBaseButton : MonoBehaviour
 		UITooltipHoverObject component;
 		if (theButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component = theButton.GetComponent<UITooltipHoverObject>();
 		}
 		else
@@ -218,11 +170,6 @@ public class UIBaseButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			component.Setup(TooltipType.Ability, ShowTooltip);
 			return;
 		}

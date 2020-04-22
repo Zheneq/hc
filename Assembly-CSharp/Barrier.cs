@@ -189,19 +189,6 @@ public class Barrier
 		int playSequences2;
 		if (playSequences)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			playSequences2 = ((m_barrierSequencePrefabs != null) ? 1 : 0);
 		}
 		else
@@ -212,15 +199,6 @@ public class Barrier
 		m_barrierSequences = new List<Sequence>();
 		if (m_playSequences)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BarrierSequenceSource = new SequenceSource(null, null, false, parentSequenceSource);
 		}
 		m_maxHits = maxHits;
@@ -243,10 +221,6 @@ public class Barrier
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -313,10 +287,6 @@ public class Barrier
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_generatedClientGeometry.transform.localScale = new Vector3(0.25f, 2f * squareSize, a.magnitude);
 					return;
 				}
@@ -329,19 +299,6 @@ public class Barrier
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<Sequence>.Enumerator enumerator = m_barrierSequences.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -349,26 +306,8 @@ public class Barrier
 					Sequence current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						current.MarkForRemoval();
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -378,33 +317,14 @@ public class Barrier
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_makeClientGeo)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_generatedClientGeometry != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Object.DestroyObject(m_generatedClientGeometry);
 				}
 				m_generatedClientGeometry = null;
@@ -418,19 +338,6 @@ public class Barrier
 		int result;
 		if (BlocksVision != BlockingRules.ForEnemies)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((BlocksVision == BlockingRules.ForEverybody) ? 1 : 0);
 		}
 		else
@@ -445,19 +352,6 @@ public class Barrier
 		int result;
 		if (BlocksMovement != BlockingRules.ForEnemies)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((BlocksMovement == BlockingRules.ForEverybody) ? 1 : 0);
 		}
 		else
@@ -481,25 +375,12 @@ public class Barrier
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
 		}
 		if (!flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (VectorUtils.OnSameSideOfLine(src, dest, m_endpoint1, m_endpoint2))
 			{
 				while (true)
@@ -516,15 +397,6 @@ public class Barrier
 		}
 		if (!flag3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (VectorUtils.OnSameSideOfLine(m_endpoint1, m_endpoint2, src, dest))
 			{
 				while (true)
@@ -593,19 +465,6 @@ public class Barrier
 		Vector3 lineLineIntersection = VectorUtils.GetLineLineIntersection(src, vector, m_endpoint1, directionOfSecond, out intersecting);
 		if (intersecting)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lineLineIntersection.y = src.y;
 			Vector3 normalized = (-vector).normalized;
 			lineLineIntersection += normalized * 0.05f;
@@ -617,19 +476,6 @@ public class Barrier
 	{
 		if (m_bidirectional)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Vector3.Dot(incomingDir, m_facingDir) > 0f)
 			{
 				while (true)
@@ -670,19 +516,6 @@ public class Barrier
 		int ownerIndex = ActorData.s_invalidActorIndex;
 		if (barrier.m_owner != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ownerIndex = barrier.m_owner.ActorIndex;
 		}
 		barrierSerializeInfo.m_ownerIndex = ownerIndex;
@@ -700,19 +533,6 @@ public class Barrier
 		ActorData owner = null;
 		if (info.m_ownerIndex != ActorData.s_invalidActorIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			owner = GameFlowData.Get().FindActorByActorIndex(info.m_ownerIndex);
 		}
 		Vector3 facingDir = VectorUtils.AngleDegreesToVector(info.m_facingHorizontalAngle);
@@ -728,19 +548,6 @@ public class Barrier
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		if (m_barrierSequencePrefabs != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_playSequences)
 			{
 				while (true)
@@ -760,15 +567,6 @@ public class Barrier
 								GameObject current = enumerator.Current;
 								if (current != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Sequence[] components = current.GetComponents<Sequence>();
 									bool flag = false;
 									Sequence[] array = components;
@@ -778,30 +576,12 @@ public class Barrier
 										Sequence sequence = array[num];
 										if (!(sequence is OverwatchScanSequence))
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!(sequence is GroundLineSequence))
 											{
 												if (!(sequence is ExoLaserHittingWallSequence))
 												{
 													num++;
 													continue;
-												}
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 										}

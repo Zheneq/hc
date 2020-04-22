@@ -85,15 +85,6 @@ public class ThiefPickPocket : Ability
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -133,19 +124,6 @@ public class ThiefPickPocket : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AccumulateHealthChangesFromTargeter(targetActor, base.Targeter, dictionary);
 		}
 		else
@@ -153,15 +131,6 @@ public class ThiefPickPocket : Ability
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
 				AccumulateHealthChangesFromTargeter(targetActor, base.Targeters[i], dictionary);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return dictionary;
@@ -179,41 +148,10 @@ public class ThiefPickPocket : Ability
 					AbilityTooltipSubject current = enumerator.Current;
 					if (current == AbilityTooltipSubject.Primary)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Damage))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								symbolToValue[AbilityTooltipSymbol.Damage] = m_laserDamageAmount;
 							}
 							else
@@ -225,15 +163,6 @@ public class ThiefPickPocket : Ability
 					}
 					if (current == AbilityTooltipSubject.Primary && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Healing))
 						{
 							symbolToValue[AbilityTooltipSymbol.Healing] = m_laserHealAmount;

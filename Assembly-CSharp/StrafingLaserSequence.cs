@@ -79,19 +79,6 @@ public class StrafingLaserSequence : Sequence
 		GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 		if (referenceModel != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_modelToTargetDir = base.TargetPos - referenceModel.transform.position;
 			m_modelToTargetDir.Normalize();
 			m_fxCasterJoint.Initialize(referenceModel);
@@ -123,29 +110,11 @@ public class StrafingLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			string shotStartAudioEvent = m_shotStartAudioEvent;
 			object parentGameObject;
 			if ((bool)referenceModel)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = referenceModel;
 			}
 			else
@@ -161,45 +130,14 @@ public class StrafingLaserSequence : Sequence
 	{
 		if (m_hitFxPrefab != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject gameObject = shotInfo.m_hitFx = InstantiateFX(m_hitFxPrefab, shotInfo.m_joint.m_jointObject.transform.position, Quaternion.identity);
 		}
 		if (!string.IsNullOrEmpty(m_shotImpactAudioEvent))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string shotImpactAudioEvent = m_shotImpactAudioEvent;
 			object parentGameObject;
 			if ((bool)shotInfo.m_target)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = shotInfo.m_target.gameObject;
 			}
 			else
@@ -224,15 +162,6 @@ public class StrafingLaserSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 position = shotInfo.m_fx.transform.position;
 			Vector3 forward = shotInfo.m_fx.transform.forward;
 			shotInfo.m_curTurnSpeed += m_projectileTurnAcceleration * GameTime.deltaTime;
@@ -247,15 +176,6 @@ public class StrafingLaserSequence : Sequence
 			{
 				if (Vector3.Dot(lhs, vector) <= 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((magnitude < 2f) ? 1 : 0);
 				}
 				else
@@ -305,58 +225,18 @@ public class StrafingLaserSequence : Sequence
 		GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 		if (base.Targets != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
 					if (m_targetToShotInfoMap.ContainsKey(base.Targets[i]))
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 lhs = base.Targets[i].transform.position - referenceModel.transform.position;
 					int num;
 					if (!(Vector3.Dot(lhs, m_modelToTargetDir) < 0f))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((lhs.magnitude < m_shotRange) ? 1 : 0);
 					}
 					else
@@ -367,26 +247,8 @@ public class StrafingLaserSequence : Sequence
 					{
 						goto IL_0116;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_fireShotStartDelay <= 0f))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(m_timeSinceActionStarted >= m_fireShotStartDelay))
 						{
 							goto IL_0116;
@@ -401,15 +263,6 @@ public class StrafingLaserSequence : Sequence
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_013b;
 				}
 				using (Dictionary<ActorData, ShotInfo>.Enumerator enumerator = m_targetToShotInfoMap.GetEnumerator())
@@ -417,15 +270,6 @@ public class StrafingLaserSequence : Sequence
 					while (enumerator.MoveNext())
 					{
 						UpdateShot(enumerator.Current.Value);
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

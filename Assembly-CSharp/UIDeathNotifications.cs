@@ -82,19 +82,6 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		if (isAlly)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<DeathDisplayInfo>.Enumerator enumerator = m_currentAllyDeathDisplays.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -113,15 +100,6 @@ public class UIDeathNotifications : MonoBehaviour
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -146,44 +124,17 @@ public class UIDeathNotifications : MonoBehaviour
 						}
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		int num = -1;
 		int num2 = -1;
 		if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 4;
 			num2 = 4;
 		}
 		else if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = GameManager.Get().GameInfo.GameConfig.TeamAPlayers;
 			num2 = GameManager.Get().GameInfo.GameConfig.TeamBPlayers;
 		}
@@ -196,52 +147,16 @@ public class UIDeathNotifications : MonoBehaviour
 		int numEnemyTakedowns = GetNumEnemyTakedowns();
 		if (numAlliesTakedowns == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemyTakedowns == 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_mainAnimator.Play("TakedownMainSingleIN");
 				goto IL_0268;
 			}
 		}
 		if (numAlliesTakedowns == 0 && isAlly)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemyTakedowns > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_mainAnimator.Play("TakedownMainDoubleIN");
 				goto IL_0268;
 			}
@@ -257,30 +172,12 @@ public class UIDeathNotifications : MonoBehaviour
 		item.m_actorData = actorData;
 		if (isAlly)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_currentAllyDeathDisplays.Add(item);
 			numAlliesTakedowns = GetNumAlliesTakedowns();
 			for (int i = 0; i < m_allyCharacterList.Length; i++)
 			{
 				if (i < m_currentAllyDeathDisplays.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_allyCharacterList[i], true);
 					Image obj = m_allyCharacterSprites[i];
 					GameWideData gameWideData = GameWideData.Get();
@@ -303,15 +200,6 @@ public class UIDeathNotifications : MonoBehaviour
 			{
 				if (j < m_currentEnemyDeathDisplays.Count)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_enemyCharacterList[j], true);
 					Image obj2 = m_enemyCharacterSprites[j];
 					GameWideData gameWideData2 = GameWideData.Get();
@@ -323,40 +211,13 @@ public class UIDeathNotifications : MonoBehaviour
 					UIManager.SetGameObjectActive(m_enemyCharacterList[j], false);
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_enemyTakenDown, true);
 			m_enemyTakenDown.Play("TakedownDefaultIN", 0, 0f);
 		}
 		if (AudioManager.s_deathAudio)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isAlly)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent("ui/ingame/takedown/ally");
 			}
 			else
@@ -368,15 +229,6 @@ public class UIDeathNotifications : MonoBehaviour
 		int singleKillType;
 		if (m_currentAllyDeathDisplays.Count > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			DeathDisplayInfo deathDisplayInfo3 = m_currentAllyDeathDisplays[0];
 			singleKillType = (int)deathDisplayInfo3.m_actorData.m_characterType;
 		}
@@ -389,15 +241,6 @@ public class UIDeathNotifications : MonoBehaviour
 		int singleKillType2;
 		if (m_currentEnemyDeathDisplays.Count > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			DeathDisplayInfo deathDisplayInfo4 = m_currentEnemyDeathDisplays[0];
 			singleKillType2 = (int)deathDisplayInfo4.m_actorData.m_characterType;
 		}
@@ -417,19 +260,6 @@ public class UIDeathNotifications : MonoBehaviour
 		string result = StringUtil.TR("TAKEDOWN", "Global");
 		if (numKills == 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (singleKillType != 0)
 			{
 				result = singleKillType.GetDisplayName();
@@ -438,15 +268,6 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		if (numKills == 2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("DOUBLEKILL", "Global");
 		}
 		else if (numKills == 3)
@@ -455,28 +276,10 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		else if (numKills == 4)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("QUADRAKILL", "Global");
 		}
 		else if (numKills == 5)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = StringUtil.TR("PENTAKILL", "Global");
 		}
 		goto IL_00b4;
@@ -488,31 +291,9 @@ public class UIDeathNotifications : MonoBehaviour
 	{
 		if (m_allyAceOccurred)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = false;
 			if (!m_allyTeamAce.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_allyTakenDown.gameObject.activeInHierarchy && m_allyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 				{
 					flag = true;
@@ -520,15 +301,6 @@ public class UIDeathNotifications : MonoBehaviour
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_allyAceOccurred = false;
 				m_allyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
 				UIManager.SetGameObjectActive(m_allyTeamAce, true);
@@ -536,64 +308,19 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		if (m_enemyAceOccurred)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag2 = false;
 			if (!m_enemyTeamAce.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_enemyTakenDown.gameObject.activeInHierarchy)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_enemyTakenDown.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 				}
 			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_enemyAceOccurred = false;
 				m_enemyTakenDown.Play("TakedownDefaultOUT", 0, 0f);
 				UIManager.SetGameObjectActive(m_enemyTeamAce, true);
@@ -605,58 +332,21 @@ public class UIDeathNotifications : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (GetNumEnemyTakedowns() <= 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetNumAlliesTakedowns() <= 0)
 					{
 						return;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!m_enemyTeamAce.gameObject.activeSelf)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_allyTeamAce.gameObject.activeSelf)
 					{
 						UIManager.SetGameObjectActive(m_allyTakenDown, false);
@@ -666,26 +356,8 @@ public class UIDeathNotifications : MonoBehaviour
 				}
 				if (m_enemyTeamAce.gameObject.activeSelf)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_enemyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_enemyTeamAce.Play("TakedownDefaultOUT");
 					}
 				}
@@ -695,20 +367,10 @@ public class UIDeathNotifications : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (m_allyTeamAce.GetCurrentAnimatorClipInfo(0)[0].clip.name == "TakedownDefaultIDLE")
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							m_allyTeamAce.Play("TakedownDefaultOUT");
 							return;
 						}

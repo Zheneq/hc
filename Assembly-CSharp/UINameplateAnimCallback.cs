@@ -18,15 +18,6 @@ public class UINameplateAnimCallback : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_nameplateReference.HandleAnimCallback(GetComponent<Animator>(), type);
 			return;
 		}

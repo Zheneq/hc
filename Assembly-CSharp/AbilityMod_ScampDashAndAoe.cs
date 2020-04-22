@@ -42,15 +42,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AddOnHitDataTokens(tokens, m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData);
 			AbilityMod.AddToken(tokens, m_shieldCostMod, "ShieldCost", string.Empty, scampDashAndAoe.m_shieldCost);
@@ -69,19 +60,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		string str = base.ModSpecificAutogenDesc(abilityData);
 		if (scampDashAndAoe != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str += GetOnHitDataDesc(m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData, "-- Shield Down On Hit Data Mod --");
 			str += GetTargetSelectModDesc(m_inSuitTargetSelectMod, scampDashAndAoe.m_targetSelectComp, "-- In-Suit Target Select Mod --");
 			str += GetTargetSelectModDesc(m_shieldDownTargetSelectMod, scampDashAndAoe.m_shieldDownTargetSelect, "-- Shield Down Target Select Mod --");
@@ -92,15 +70,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = scampDashAndAoe.m_shieldDownCooldown;
 		}
 		else
@@ -113,15 +82,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampDashAndAoe.m_cdrOnSuitApply;
 		}
 		else
@@ -134,15 +94,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampDashAndAoe.m_shieldDownNoCooldownHealthThresh;
 		}
 		else

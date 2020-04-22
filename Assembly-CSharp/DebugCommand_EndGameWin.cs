@@ -35,10 +35,6 @@ public class DebugCommand_EndGameWin : DebugCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OnIncreaseClick();
 					return true;
 				}
@@ -59,22 +55,9 @@ public class DebugCommand_EndGameWin : DebugCommand
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int result;
 					if (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_leftShoulder))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_rightShoulder) ? 1 : 0);
 					}
 					else

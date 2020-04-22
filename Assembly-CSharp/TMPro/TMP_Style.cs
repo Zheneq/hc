@@ -38,15 +38,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_Name = value;
 					return;
 				}
@@ -67,15 +58,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_HashCode = value;
 					return;
 				}
@@ -100,15 +82,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_ClosingTagArray = new int[m_ClosingDefinition.Length];
 				for (int j = 0; j < m_ClosingDefinition.Length; j++)
 				{

@@ -52,10 +52,6 @@ public class RankedData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Tier;
 				}
 			}
@@ -74,10 +70,6 @@ public class RankedData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1f;
 				}
 			}
@@ -85,15 +77,6 @@ public class RankedData
 		object obj;
 		if (matchmakingConfig.LeaderboardTiers.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = null;
 		}
 		else
@@ -103,15 +86,6 @@ public class RankedData
 		TierInfo tierInfo = (TierInfo)obj;
 		if (tierInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tierInfo.PointType == TierPointsTypes.DerivedFromMMR)
 			{
 				while (true)
@@ -141,10 +115,6 @@ public class RankedData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("Stopping ranked decay processing on {0}", ToString());
 					return;
 				}
@@ -170,11 +140,6 @@ public class RankedData
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			int num = (int)Math.Ceiling(t.TotalDays);
 			TimeSpan t2 = LastDecay - (LastMatch + start);
 			int num2 = (t2 > TimeSpan.Zero) ? ((int)Math.Ceiling(t2.TotalDays)) : 0;
@@ -182,15 +147,6 @@ public class RankedData
 			int val = 1 + (int)Math.Floor((float)Points / (float)amount);
 			if (decayInfo.DoesTierHaveLimitlessLesserNeighborTier(Tier - 1))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Tier++;
 				val = 1;
 			}
@@ -200,15 +156,6 @@ public class RankedData
 			LastDecay = decayInfo.UtcNow;
 			if (Points < 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Tier++;
 				Points += 100;
 				if (Tier == SavedTier)
@@ -226,11 +173,6 @@ public class RankedData
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						ApplyDecayInternal(decayInfo, maxDecent);
 						return;
 					}
@@ -252,10 +194,6 @@ public class RankedData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("IMPLEMENT PLEASE");
 				}
 			}

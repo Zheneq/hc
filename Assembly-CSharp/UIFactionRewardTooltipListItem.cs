@@ -24,15 +24,6 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				int current = enumerator.Current;
@@ -45,10 +36,6 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							goto end_IL_000b;
 						}
 					}
@@ -56,15 +43,6 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current);
 				if (itemTemplate == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (itemTemplate != null)
 				{
@@ -81,11 +59,6 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_obtainedContainer, obtained);
 			if (obtained)
 			{

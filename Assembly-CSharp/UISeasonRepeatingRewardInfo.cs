@@ -25,19 +25,6 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 	{
 		if (SeasonRewardRef is SeasonItemReward)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((SeasonRewardRef as SeasonItemReward).ItemReward.ItemTemplateId);
 			if (itemTemplate != null)
 			{
@@ -59,11 +46,6 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					return Resources.Load((SeasonRewardRef as SeasonUnlockReward).UnlockReward.resourceString, typeof(Sprite)) as Sprite;
 				}
 			}
@@ -96,10 +78,6 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}

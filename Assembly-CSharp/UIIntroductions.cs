@@ -39,15 +39,6 @@ public class UIIntroductions : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!clientGameManager.IsPlayerAccountDataAvailable())
 			{
 				while (true)
@@ -71,11 +62,6 @@ public class UIIntroductions : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					DisplayIntroduction();
 					ClientGameManager.Get().RequestUpdateUIState(UIState, 1, null);
 					return;
@@ -95,53 +81,13 @@ public class UIIntroductions : MonoBehaviour
 			bool isDuplicate = false;
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().GetPlayerAccountData() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num;
 						if (!ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.HasItem(itemList[i]))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (InventoryWideData.IsOwned(itemTemplate) ? 1 : 0);
 						}
 						else
@@ -155,29 +101,11 @@ public class UIIntroductions : MonoBehaviour
 			uILockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
 			if (uILockboxRewardItem.m_rewardFgs != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite itemFg = InventoryWideData.GetItemFg(itemTemplate);
 				for (int j = 0; j < uILockboxRewardItem.m_rewardFgs.Length; j++)
 				{
 					uILockboxRewardItem.m_rewardFgs[j].sprite = itemFg;
 					UIManager.SetGameObjectActive(uILockboxRewardItem.m_rewardFgs[j], itemFg != null);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -191,15 +119,6 @@ public class UIIntroductions : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < GridInfos.Length; i++)
 			{
 				PopulateRewards(GridInfos[i].m_InventoryItemIDs, GridInfos[i].m_GridLayout);
@@ -222,56 +141,16 @@ public class UIIntroductions : MonoBehaviour
 		currentActivePageIndex = -1;
 		if (m_pages != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_pages.Length; i++)
 			{
 				if (m_pages[i].m_backBtn != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_pages[i].m_backBtn.spriteController.callback = BackBtnClicked;
 				}
 				if (m_pages[i].m_nextBtn != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_pages[i].m_nextBtn.spriteController.callback = NextBtnClicked;
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		CheckAutoDisplay();
@@ -291,15 +170,6 @@ public class UIIntroductions : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -309,43 +179,12 @@ public class UIIntroductions : MonoBehaviour
 		currentActivePageIndex++;
 		if (m_pages != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_pages.Length; i++)
 			{
 				if (i == currentActivePageIndex)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_pages[i].m_backBtn != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_pages[i].m_backBtn, true);
 					}
 					m_pages[i].SetVisible(true);
@@ -362,11 +201,6 @@ public class UIIntroductions : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UINewUserFlowManager.OnChapterMoreInfoClosed();
 			return;
 		}
@@ -376,30 +210,8 @@ public class UIIntroductions : MonoBehaviour
 	{
 		if (m_pages != null && m_pages.Length > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pageNum >= m_pages.Length)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				pageNum = m_pages.Length - 1;
 			}
 			currentActivePageIndex = pageNum;
@@ -416,37 +228,10 @@ public class UIIntroductions : MonoBehaviour
 			InventoryItemTemplate template = componentsInChildren[i].GetTemplate();
 			if (template != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData() != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 						{
 							flag = InventoryWideData.IsOwned(template);
@@ -456,15 +241,6 @@ public class UIIntroductions : MonoBehaviour
 			}
 			if (flag && componentsInChildren[i].m_ownedIcon != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i].m_ownedIcon, true);
 			}
 		}
@@ -488,26 +264,8 @@ public class UIIntroductions : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_pages[currentActivePageIndex].m_nextBtn != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InputManager.Get().GetAcceptButtonDown())
 				{
 					while (true)
@@ -529,11 +287,6 @@ public class UIIntroductions : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (InputManager.Get().GetCancelButtonDown())
 				{
 					BackBtnClicked(null);

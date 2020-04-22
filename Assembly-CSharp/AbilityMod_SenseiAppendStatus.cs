@@ -48,15 +48,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", senseiAppendStatus.m_laserInfo);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyCastHitEffectDataMod, "EnemyCastHitEffectData", senseiAppendStatus.m_enemyCastHitEffectData);
 			AbilityMod.AddToken_EffectMod(tokens, m_allyCastHitEffectDataMod, "AllyCastHitEffectData", senseiAppendStatus.m_allyCastHitEffectData);
@@ -79,19 +70,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (senseiAppendStatus.m_canTargetEnemy ? 1 : 0);
 		}
 		else
@@ -106,15 +84,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = senseiAppendStatus.m_laserInfo;
 		}
 		else
@@ -128,15 +97,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiAppendStatus.m_allyCastHitEffectData;
 		}
 		else
@@ -150,15 +110,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (senseiAppendStatus.m_endEffectIfAppendedStatus ? 1 : 0);
 		}
 		else
@@ -171,15 +122,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiAppendStatus.m_effectAddedOnEnemyAttack;
 		}
 		else
@@ -192,15 +134,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiAppendStatus.m_effectAddedOnAllyAttack;
 		}
 		else
@@ -213,15 +146,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiAppendStatus.m_energyGainOnAllyAppendHit;
 		}
 		else

@@ -59,15 +59,6 @@ public class UIDialogPopupManager : UIScene
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -83,15 +74,6 @@ public class UIDialogPopupManager : UIScene
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -119,19 +101,6 @@ public class UIDialogPopupManager : UIScene
 		s_instance = this;
 		if (base.gameObject.transform.parent == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		}
 		base.Awake();
@@ -158,15 +127,6 @@ public class UIDialogPopupManager : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIDialogPopupManager.OnReady();
 			return;
 		}
@@ -232,19 +192,6 @@ public class UIDialogPopupManager : UIScene
 		}
 		if (uIDialogBox != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RectTransform rectTransform = uIDialogBox.transform as RectTransform;
 			rectTransform.SetParent(m_allDialogs.transform);
 			rectTransform.SetAsLastSibling();
@@ -268,10 +215,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -292,10 +235,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -316,10 +255,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -351,10 +286,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -394,19 +325,6 @@ public class UIDialogPopupManager : UIScene
 		}
 		if (!allowDuplicate)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<UIDialogBox>.Enumerator enumerator = Get().m_openBoxes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -415,15 +333,6 @@ public class UIDialogPopupManager : UIScene
 					UIOneButtonDialog uIOneButtonDialog = current as UIOneButtonDialog;
 					if (uIOneButtonDialog != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (uIOneButtonDialog.m_Title.text == Title && uIOneButtonDialog.m_Desc.text == Description && uIOneButtonDialog.m_ButtonLabel[0].text == ButtonLabelText && uIOneButtonDialog.GetCallbackReference() == callback)
 						{
 							while (true)
@@ -439,30 +348,12 @@ public class UIDialogPopupManager : UIScene
 						}
 					}
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		UIOneButtonDialog uIOneButtonDialog2 = Get().CreateNewDialogBox(DialogBoxType.OneButton) as UIOneButtonDialog;
 		uIOneButtonDialog2.Setup(Title, Description, ButtonLabelText, callback);
 		if (fontSize > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uIOneButtonDialog2.m_Desc.fontSize = fontSize;
 		}
 		return uIOneButtonDialog2;
@@ -479,10 +370,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -503,10 +390,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -527,10 +410,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -545,15 +424,6 @@ public class UIDialogPopupManager : UIScene
 				{
 					return null;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UITrustWarEndDialog uITrustWarEndDialog = Get().CreateNewDialogBox(DialogBoxType.TrustWarEnd) as UITrustWarEndDialog;
@@ -575,10 +445,6 @@ public class UIDialogPopupManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -592,32 +458,10 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (m_openBoxes != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_openBoxes.Count; i++)
 			{
 				m_openBoxes[i].DoCloseCallback();
 				UnityEngine.Object.Destroy(m_openBoxes[i].gameObject);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_openBoxes.Clear();
 		}

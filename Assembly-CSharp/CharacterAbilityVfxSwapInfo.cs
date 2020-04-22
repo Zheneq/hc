@@ -76,15 +76,6 @@ public struct CharacterAbilityVfxSwapInfo
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -92,37 +83,10 @@ public struct CharacterAbilityVfxSwapInfo
 		int result;
 		if (VfxSwapForAbility0 == characterAbilityVfxSwapInfo.VfxSwapForAbility0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (VfxSwapForAbility1 == characterAbilityVfxSwapInfo.VfxSwapForAbility1 && VfxSwapForAbility2 == characterAbilityVfxSwapInfo.VfxSwapForAbility2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (VfxSwapForAbility3 == characterAbilityVfxSwapInfo.VfxSwapForAbility3)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((VfxSwapForAbility4 == characterAbilityVfxSwapInfo.VfxSwapForAbility4) ? 1 : 0);
 					goto IL_0090;
 				}

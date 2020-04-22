@@ -77,59 +77,19 @@ public class SparkHealingBeam : Ability
 		SetCachedFields();
 		if (m_energizedAbility == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityData component = GetComponent<AbilityData>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 			}
 		}
 		if (base.Targeter != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeter.ResetTargeter(true);
 		}
 		bool flag = m_healSelfOnInitialAttach && GetHealOnSelfPerTurn() > 0;
 		if (m_targetingMode == TargetingMode.Laser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, GetLaserInfo());
 			abilityUtil_Targeter_Laser.SetAffectedGroups(false, true, flag);
 			abilityUtil_Targeter_Laser.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
@@ -141,23 +101,9 @@ public class SparkHealingBeam : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			int num;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1;
 			}
 			else
@@ -193,19 +139,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialHealingMod.GetModifiedValue(m_laserHealingAmount);
 		}
 		else
@@ -220,19 +153,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_additionalHealOnRadiatedMod.GetModifiedValue(m_additionalEnergizedHealing);
 		}
 		else
@@ -247,19 +167,6 @@ public class SparkHealingBeam : Ability
 		int num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(m_energyOnCasterPerTurn);
 		}
 		else
@@ -269,15 +176,6 @@ public class SparkHealingBeam : Ability
 		int num2 = num;
 		if (m_energizedAbility != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
 		}
 		return num2;
@@ -288,19 +186,6 @@ public class SparkHealingBeam : Ability
 		int num = (!m_abilityMod) ? m_healOnSelfOnTick : m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(m_healOnSelfOnTick);
 		if (m_energizedAbility != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_energizedAbility.CalcHealOnSelfPerTurn(num);
 		}
 		return num;
@@ -311,19 +196,6 @@ public class SparkHealingBeam : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
@@ -338,19 +210,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherDurationMod.GetModifiedValue(m_tetherDuration);
 		}
 		else
@@ -375,19 +234,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxAllyBonusHealAmount.GetModifiedValue(0);
 		}
 		else
@@ -410,19 +256,6 @@ public class SparkHealingBeam : Ability
 			}
 			if (maxBonusHealing > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = Mathf.Min(maxBonusHealing, num);
 			}
 		}
@@ -434,19 +267,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (GetXDamageThreshold() > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetTargetEffectForXDamage() != null) ? 1 : 0);
 		}
 		else
@@ -466,19 +286,6 @@ public class SparkHealingBeam : Ability
 		object result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_effectOnTargetForTakingXDamage;
 		}
 		else
@@ -494,19 +301,6 @@ public class SparkHealingBeam : Ability
 		object mod;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			mod = m_abilityMod.m_laserInfoMod;
 		}
 		else
@@ -528,19 +322,6 @@ public class SparkHealingBeam : Ability
 		StandardActorEffectData result;
 		if (m_cachedAllyEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyEffect;
 		}
 		else
@@ -555,19 +336,6 @@ public class SparkHealingBeam : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -588,10 +356,6 @@ public class SparkHealingBeam : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -600,15 +364,6 @@ public class SparkHealingBeam : Ability
 		object obj;
 		if ((bool)boardSquareSafe)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = boardSquareSafe.OccupantActor;
 		}
 		else
@@ -630,10 +385,6 @@ public class SparkHealingBeam : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -645,15 +396,6 @@ public class SparkHealingBeam : Ability
 			if (targetingParadigm != TargetingParadigm.Position)
 			{
 				return true;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return HasTargetableActorsInDecision(caster, false, true, false, ValidateCheckPath.Ignore, true, false);
@@ -676,30 +418,8 @@ public class SparkHealingBeam : Ability
 		AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Ally, healingOnAttach);
 		if (m_healSelfOnInitialAttach)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetHealOnSelfPerTurn() > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetHealOnSelfPerTurn());
 			}
 		}
@@ -712,19 +432,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (visibleActorsCountByTooltipSubject > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = GetEnergyOnCasterPerTurn();
 		}
 		else
@@ -749,15 +456,6 @@ public class SparkHealingBeam : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SparkHealingBeam);
 			Setup();
 			return;

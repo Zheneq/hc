@@ -44,10 +44,6 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -56,11 +52,6 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_nextMessage >= m_observerMessages.Count)
 				{
 					return;
@@ -73,15 +64,6 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 				Replay.Message message2 = m_observerMessages[m_nextMessage];
 				if (ClientGameManager.Get() != null && ClientGameManager.Get().Connection != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().Connection.TransportReceive(message2.data, message2.data.Length, 0);
 				}
 				m_nextMessage++;
@@ -103,25 +85,12 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_observerMessages == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_observerMessages = new List<Replay.Message>();
 		}
 		m_observerMessages.Add(observerMessage.Message);
@@ -145,26 +114,8 @@ public class ClientObserverManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_observerMessages.Count == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_initialGameTime = GameTime.time;
 			}
 			else

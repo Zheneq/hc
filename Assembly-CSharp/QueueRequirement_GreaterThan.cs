@@ -25,15 +25,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		default:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				throw new Exception($"Unknown QueueRequirement_GreaterThan requirement: {Requirement}");
 			}
 		case RequirementType.TotalMatches:
@@ -54,15 +45,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 				CharacterType characterType = (CharacterType)i;
 				if (applicant.IsCharacterTypeAvailable(characterType))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (systemInfo.IsCharacterAllowed(characterType, gameType, gameSubType))
 					{
 						num++;
@@ -71,11 +53,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return num >= MinValue;
 			}
 		}
@@ -93,15 +70,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		default:
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				throw new Exception($"Unknown requirement is failed: {Requirement}");
 			}
 		case RequirementType.TotalMatches:
@@ -143,11 +111,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			case RequirementMessageContext.SoloQueueing:
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return LocalizationPayload.Create("NotEnoughCharacterGamesPlayedForQueue", "Matchmaking", localizedHandle, localizationArg_Int, localizationArg_Freelancer);
 				}
 			case RequirementMessageContext.GroupQueueing:
@@ -200,11 +163,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			case RequirementMessageContext.SoloQueueing:
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return LocalizationPayload.Create("NotEnoughAccountlevelForQueue", "Matchmaking", localizedHandle, localizationArg_Int);
 				}
 			case RequirementMessageContext.GroupQueueing:
@@ -220,11 +178,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			case RequirementMessageContext.GroupQueueing:
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					return LocalizationPayload.Create("NoGroupMemberHasEnoughSeasonLevelForQueue", "Matchmaking", localizationArg_Int);
 				}
 			default:
@@ -284,30 +237,8 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName && reader.Value != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reader.Value.ToString() == "AnyGroupMember")
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				reader.Read();
 				queueRequirement_GreaterThan.m_anyGroupMember = bool.Parse(reader.Value.ToString());
 				reader.Read();

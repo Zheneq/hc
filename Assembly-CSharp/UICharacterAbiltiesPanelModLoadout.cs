@@ -69,10 +69,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -83,15 +79,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		UIManager.SetGameObjectActive(m_renameButton, false);
 		if (m_saveButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_saveButton.SetDisabled(true);
 			m_saveButton.spriteController.callback = SaveBtnClicked;
 		}
@@ -110,11 +97,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_inputfield.onValueChanged.AddListener(OnTypeInput);
 			return;
 		}
@@ -133,15 +115,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
 			return;
 		}
@@ -171,19 +144,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 		if (UseRankedLoadouts())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 		}
 		if (-1 < num && num < m_loadouts.Count)
@@ -245,34 +205,12 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (i == num)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CharacterModInfo modInfo = (!UseRankedLoadouts()) ? playerCharacterData.CharacterComponent.LastMods : playerCharacterData.CharacterComponent.LastRankedMods;
 				CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
 				string loadoutName = list2[i].LoadoutName;
 				int strictness;
 				if (UseRankedLoadouts())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					strictness = 1;
 				}
 				else
@@ -290,11 +228,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager.Get().UpdateLoadouts(list);
 			return;
 		}
@@ -308,42 +241,15 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterLoadout characterLoadout = null;
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 			if (UseRankedLoadouts())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 			}
 			if (-1 < num && num < m_loadouts.Count)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				characterLoadout = m_loadouts[num];
 			}
 			if (characterLoadout == null)
@@ -352,37 +258,18 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				List<CharacterLoadout> list = new List<CharacterLoadout>();
 				for (int i = 0; i < m_loadouts.Count; i++)
 				{
 					CharacterLoadout characterLoadout2 = new CharacterLoadout(m_loadouts[i].ModSet, m_loadouts[i].VFXSet, m_loadouts[i].LoadoutName, m_loadouts[i].Strictness);
 					if (m_loadouts[i] == characterLoadout)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						characterLoadout2.LoadoutName = m_inputfield.text;
 					}
 					list.Add(characterLoadout2);
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().UpdateLoadouts(list);
 					return;
 				}
@@ -394,84 +281,26 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (response == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Response is null somehow...");
 		}
 		if (response.CharacterInfo == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Character info in response is null");
 		}
 		if (!response.Success)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Failed to update loadouts: " + response.ErrorMessage);
 		}
 		if (ClientGameManager.Get() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Client Game Manager is somehow null...");
 		}
 		if (ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter) == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Failed to get character data");
 		}
 		if (ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Character Componenent is null");
 		}
 		int numCharacterLoadouts = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter).CharacterComponent.NumCharacterLoadouts;
@@ -505,15 +334,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UseRankedLoadouts())
 			{
 				UpdateLoadouts(charData.CharacterComponent.CharacterLoadoutsRanked, charData.CharacterComponent.NumCharacterLoadouts);
@@ -526,11 +346,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_pendingLoadingNewLoadout = false;
 					NotifyModLoadoutClicked(m_modListItems[m_modListItems.Count - 1]);
 					return;
@@ -550,33 +365,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			{
 				if (m_modListItems[num] == item)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					loadoutIndex = num;
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -592,32 +385,10 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (m_modListItems[i] == item)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 				CharacterModInfo modInfo;
 				if (UseRankedLoadouts())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modInfo = playerCharacterData.CharacterComponent.LastRankedMods;
 				}
 				else
@@ -629,15 +400,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				int strictness;
 				if (UseRankedLoadouts())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					strictness = 1;
 				}
 				else
@@ -655,11 +417,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Save Request");
 			ClientGameManager.Get().UpdateLoadouts(list);
 			SetListVisible(false);
@@ -676,15 +433,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -699,15 +447,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_modListItems.Count; i++)
 			{
 				m_modListItems[i].m_btn.spriteController.ResetMouseState();
@@ -735,15 +474,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
 			if (UseRankedLoadouts())
 			{
@@ -769,44 +499,13 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		Init();
 		if (!m_loadoutList.Equals(loadouts))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_loadouts = loadouts;
 			for (int i = 0; i < m_loadouts.Count; i++)
 			{
 				if (i >= m_modListItems.Count)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_modItemPrfab != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UICharacterAbilitiesPanelModItem uICharacterAbilitiesPanelModItem = Object.Instantiate(m_modItemPrfab);
 						uICharacterAbilitiesPanelModItem.transform.SetParent(m_loadoutList.transform);
 						uICharacterAbilitiesPanelModItem.transform.localEulerAngles = Vector3.zero;
@@ -822,40 +521,13 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				if (i < m_modListItems.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_modListItems[i].Setup(m_loadouts[i]);
 					UIManager.SetGameObjectActive(m_modListItems[i], true);
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int num = m_modListItems.Count - 1; num >= m_loadouts.Count; num--)
 			{
 				UIManager.SetGameObjectActive(m_modListItems[num], false);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			CheckCurrentModSelection();
 		}
@@ -871,44 +543,17 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text = StringUtil.TR("SelectLoadout", "Global");
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 			CharacterModInfo characterModInfo = playerCharacterData.CharacterComponent.LastMods;
 			if (UseRankedLoadouts())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 				characterModInfo = playerCharacterData.CharacterComponent.LastRankedMods;
 			}
 			if (-1 < num)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < m_loadouts.Count)
 				{
 					CharacterLoadout characterLoadout = m_loadouts[num];
@@ -917,15 +562,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					{
 						if (m_saveButton != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_saveButton.SetDisabled(true);
 						}
 					}
@@ -937,15 +573,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					m_loadoutListToggleBtn.SetSelected(true, true, string.Empty, string.Empty);
 					SetToggleButtonLabels(text);
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Error("Last selected loadout index is out of range of loadouts");
@@ -961,93 +588,30 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
 							RectTransform rectTransform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform as RectTransform;
 							if (rectTransform != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								RectTransform[] componentsInChildren = m_loadoutListToggleBtn.GetComponentsInChildren<RectTransform>(true);
 								for (int i = 0; i < componentsInChildren.Length; i++)
 								{
 									if (componentsInChildren[i].gameObject.transform == rectTransform)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										break;
 									}
 								}
 								if (flag)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									componentsInChildren = m_dropdownMenuContainer.GetComponentsInChildren<RectTransform>(true);
 									int num = 0;
 									while (true)
@@ -1056,29 +620,11 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 										{
 											if (componentsInChildren[num].gameObject.transform == rectTransform)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = false;
 												break;
 											}
 											num++;
 											continue;
-										}
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										break;
 									}
@@ -1092,11 +638,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					SetListVisible(false);
 					return;
 				}

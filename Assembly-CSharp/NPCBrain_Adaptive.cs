@@ -63,19 +63,6 @@ public class NPCBrain_Adaptive : NPCBrain
 		MakeFSM(nPCBrain_Adaptive);
 		if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.EnableTeamAIOutput))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			nPCBrain_Adaptive.m_sendReasoningToTeamChat = true;
 		}
 		return nPCBrain_Adaptive;

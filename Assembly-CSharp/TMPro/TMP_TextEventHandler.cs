@@ -113,15 +113,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_Canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 					{
 						while (true)
@@ -151,38 +142,11 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = TMP_TextUtilities.FindIntersectingCharacter(m_TextComponent, Input.mousePosition, m_Camera, true);
 				if (num != -1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num != m_lastCharIndex)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_lastCharIndex = num;
 						SendOnCharacterSelection(m_TextComponent.textInfo.characterInfo[num].character, num);
 					}
@@ -190,26 +154,8 @@ namespace TMPro
 				int num2 = TMP_TextUtilities.FindIntersectingWord(m_TextComponent, Input.mousePosition, m_Camera);
 				if (num2 != -1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 != m_lastWordIndex)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_lastWordIndex = num2;
 						TMP_WordInfo tMP_WordInfo = m_TextComponent.textInfo.wordInfo[num2];
 						SendOnWordSelection(tMP_WordInfo.GetWord(), tMP_WordInfo.firstCharacterIndex, tMP_WordInfo.characterCount);
@@ -218,40 +164,13 @@ namespace TMPro
 				int num3 = TMP_TextUtilities.FindIntersectingLine(m_TextComponent, Input.mousePosition, m_Camera);
 				if (num3 != -1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num3 != m_lastLineIndex)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_lastLineIndex = num3;
 						TMP_LineInfo tMP_LineInfo = m_TextComponent.textInfo.lineInfo[num3];
 						char[] array = new char[tMP_LineInfo.characterCount];
 						for (int i = 0; i < tMP_LineInfo.characterCount; i++)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i >= m_TextComponent.textInfo.characterInfo.Length)
 							{
 								break;
@@ -269,20 +188,10 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (num4 != m_selectedLink)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							m_selectedLink = num4;
 							TMP_LinkInfo tMP_LinkInfo = m_TextComponent.textInfo.linkInfo[num4];
 							SendOnLinkSelection(tMP_LinkInfo.GetLinkID(), tMP_LinkInfo.GetLinkText(), num4);
@@ -310,15 +219,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onCharacterSelection.Invoke(character, characterIndex);
 				return;
 			}
@@ -332,15 +232,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onWordSelection.Invoke(word, charIndex, length);
 				return;
 			}
@@ -362,15 +253,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onLinkSelection.Invoke(linkID, linkText, linkIndex);
 				return;
 			}

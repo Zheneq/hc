@@ -31,15 +31,6 @@ public class PrefabResourceLink
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_resourcePath = resourcePath;
 			m_GUID = GUID;
 			m_debugPrefabPath = prefabPath;
@@ -52,19 +43,6 @@ public class PrefabResourceLink
 		SavedResourceLink value = null;
 		if (string.IsNullOrEmpty(m_resourcePath))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning("Attempted to get prefab for NULL or empty resource path, ignoring.");
 		}
 		else if (!s_loadedResourceLinks.TryGetValue(m_resourcePath, out value))
@@ -74,24 +52,10 @@ public class PrefabResourceLink
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (returnNullOnLoadFail)
 					{
 						if (Application.isEditor)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Error("Failed to load Resource Link prefab from " + m_resourcePath);
 						}
 						return null;
@@ -104,15 +68,6 @@ public class PrefabResourceLink
 		object result;
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = null;
 		}
 		else
@@ -133,10 +88,6 @@ public class PrefabResourceLink
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("Attempted to load NULL or empty resource path, ignoring.");
 					yield break;
 				}
@@ -148,11 +99,6 @@ public class PrefabResourceLink
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			yield return Resources.LoadAsync(m_resourcePath);
 			/*Error: Unable to find new state assignment for yield return*/;
 		}
@@ -166,24 +112,10 @@ public class PrefabResourceLink
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value.prefabReference != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					s_loadedResourceLinks.Remove(m_resourcePath);
 					return;
 				}
@@ -197,19 +129,6 @@ public class PrefabResourceLink
 		int result;
 		if (s_loadedResourceLinks != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (s_loadedResourceLinks.ContainsKey(resourcePath) ? 1 : 0);
 		}
 		else
@@ -230,10 +149,6 @@ public class PrefabResourceLink
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Could not load saved Resource Link from: " + m_resourcePath);
 					return null;
 				}
@@ -283,10 +198,6 @@ public class PrefabResourceLink
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -298,19 +209,6 @@ public class PrefabResourceLink
 	{
 		if (link == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			link = new PrefabResourceLink();
 		}
 		stream.Serialize(ref link.m_resourcePath);
@@ -327,32 +225,10 @@ public class PrefabResourceLink
 		bool flag = false;
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = true;
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!string.IsNullOrEmpty(m_debugPrefabPath))
 			{
 				while (true)

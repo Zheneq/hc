@@ -71,15 +71,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -92,15 +83,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetupNextPowerupData();
 			return;
 		}
@@ -114,15 +96,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentPowerUp == null)
 			{
 				while (true)
@@ -173,19 +146,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + GameplayRandom.Range(m_spawnIntervalMin, m_spawnIntervalMax);
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Networkm_nextSpawnTurn = Mathf.Max(m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
 		}
 		SetupNextPowerupData();
@@ -212,33 +172,11 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 				PowerUpLocation powerUpLocation = powerUpLocations[num];
 				if (powerUpLocation != null && powerUpLocation.boardSquare == square)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = true;
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -255,30 +193,8 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		int result;
 		if (m_spawningEnabled)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DebugParameters.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((!DebugParameters.Get().GetParameterAsBool("DisablePowerUps")) ? 1 : 0);
 			}
 			else
@@ -301,15 +217,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_powerUpLocations == null)
 			{
 				return;
@@ -318,29 +225,11 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 			PowerUpLocation powerUpLocation = m_powerUpLocations[GameplayRandom.Range(0, m_powerUpLocations.Length)];
 			if (powerUpLocation != null && powerUpLocation.boardSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_nextPowerUpLocation = powerUpLocation;
 			}
 			object nextPowerUpPrefab;
 			if (m_powerUpPrefabs[m_nextPowerUpIndex] == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nextPowerUpPrefab = null;
 			}
 			else
@@ -364,10 +253,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void PowerUpCoordinator::SpawnPowerUp()' called on client");
 					return;
 				}
@@ -379,22 +264,12 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_nextPowerUpLocation)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if ((bool)m_nextPowerUpLocation.boardSquare)
 				{
 					Vector3 position = m_nextPowerUpLocation.boardSquare.ToVector3();
@@ -432,10 +307,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_nextSpawnTurn);
 					writer.WritePackedUInt32((uint)m_nextPowerUpIndex);
 					return true;
@@ -454,26 +325,8 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -481,15 +334,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -506,10 +350,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
 					m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
 					return;
@@ -527,11 +367,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
 			return;
 		}

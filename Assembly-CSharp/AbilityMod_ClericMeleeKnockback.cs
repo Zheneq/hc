@@ -49,15 +49,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_minSeparationBetweenAoeAndCasterMod, "MinSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster);
 			AbilityMod.AddToken(tokens, m_maxSeparationBetweenAoeAndCasterMod, "MaxSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster);
 			AbilityMod.AddToken(tokens, m_aoeRadiusMod, "AoeRadius", string.Empty, clericMeleeKnockback.m_aoeRadius);
@@ -84,19 +75,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (clericMeleeKnockback.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
@@ -109,15 +87,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster;
 		}
 		else
@@ -131,15 +100,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericMeleeKnockback.m_aoeRadius;
 		}
 		else
@@ -152,15 +112,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericMeleeKnockback.m_maxTargets;
 		}
 		else
@@ -173,15 +124,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericMeleeKnockback.m_damageAmount;
 		}
 		else
@@ -194,15 +136,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericMeleeKnockback.m_knockbackDistance;
 		}
 		else
@@ -215,15 +148,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (int)clericMeleeKnockback.m_knockbackType;
 		}
 		else
@@ -236,15 +160,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = clericMeleeKnockback.m_targetHitEffect;
 		}
 		else
@@ -258,15 +173,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = clericMeleeKnockback.m_connectLaserWidth;
 		}
 		else
@@ -279,15 +185,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = clericMeleeKnockback.m_connectLaserDamage;
 		}
 		else
@@ -300,15 +197,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = clericMeleeKnockback.m_connectLaserEnemyHitEffect;
 		}
 		else

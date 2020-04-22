@@ -68,19 +68,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		ConeTargetingInfo cachedConeTargetInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedConeTargetInfo = m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(m_coneTargetInfo);
 		}
 		else
@@ -91,15 +78,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		StandardEffectInfo cachedConeEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
@@ -119,19 +97,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(m_addConeOnFirstHitTarget);
 		}
 		else
@@ -146,19 +111,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		ConeTargetingInfo result;
 		if (m_cachedConeTargetInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConeTargetInfo;
 		}
 		else
@@ -178,19 +130,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(m_extraDamageToClosestTarget);
 		}
 		else
@@ -210,19 +149,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedConeEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConeEnemyHitEffect;
 		}
 		else
@@ -244,44 +170,13 @@ public class SpaceMarinePrimaryAttack : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_SpaceMarineBasicAttack)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = GetLaserDamage();
 				AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = base.Targeter as AbilityUtil_Targeter_SpaceMarineBasicAttack;
 				List<ActorData> lastLaserHitActors = abilityUtil_Targeter_SpaceMarineBasicAttack.GetLastLaserHitActors();
 				if (lastLaserHitActors.Count > 0 && lastLaserHitActors[0] == targetActor)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraDamageToClosestTarget();
 				}
 				results.m_damage = num;
@@ -289,15 +184,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = GetConeDamageAmount();
 		}
 		return true;
@@ -323,10 +209,6 @@ public class SpaceMarinePrimaryAttack : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SpaceMarinePrimaryAttack);
 					SetupTargeter();
 					return;

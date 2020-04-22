@@ -39,34 +39,12 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgSuperheat != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, fireborgSuperheat.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyInt superheatDurationMod = m_superheatDurationMod;
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = fireborgSuperheat.m_superheatDuration;
 			}
 			else
@@ -79,15 +57,6 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgSuperheat.m_igniteExtraDamageIfSuperheated;
 			}
 			else

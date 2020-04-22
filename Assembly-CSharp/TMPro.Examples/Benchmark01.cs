@@ -29,32 +29,10 @@ namespace TMPro.Examples
 		{
 			if (_001D == 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0015 = base.gameObject.AddComponent<TextMeshPro>();
 				_0015.autoSizeTextContainer = true;
 				if (_000E != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0015.font = _000E;
 				}
 				_0015.fontSize = 48f;
@@ -66,27 +44,9 @@ namespace TMPro.Examples
 			}
 			else if (_001D == 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0013 = base.gameObject.AddComponent<TextMesh>();
 				if (_0012 != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0013.font = _0012;
 					_0013.GetComponent<Renderer>().sharedMaterial = _0013.font.material;
 				}
@@ -103,40 +63,13 @@ namespace TMPro.Examples
 			{
 				if (_001D == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0015.SetText("The <#0050FF>count is: </color>{0}", num % 1000);
 					if (num % 1000 == 999)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TextMeshPro textMeshPro = _0015;
 						Material fontSharedMaterial;
 						if (_0015.fontSharedMaterial == _0019)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Material material = _0011;
 							_0015.fontSharedMaterial = material;
 							fontSharedMaterial = material;
@@ -152,15 +85,6 @@ namespace TMPro.Examples
 				}
 				else if (_001D == 1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0013.text = "The <color=#0050FF>count is: </color>" + num % 1000;
 				}
 				yield return null;
@@ -168,11 +92,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

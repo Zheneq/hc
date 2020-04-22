@@ -33,30 +33,8 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 		}
 		if (currentTargetIndex != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targets != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsUsingMultiTargetUpdate())
 				{
 					goto IL_0077;
@@ -68,15 +46,6 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 		IL_0077:
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, AllowChargeThroughInvalidSquares);
 		}

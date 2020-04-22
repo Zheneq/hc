@@ -38,15 +38,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_depthTextureNameGlobalID = Shader.PropertyToID(m_depthTextureNameGlobal);
 			return;
 		}
@@ -67,19 +58,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		int result;
 		if (IsSupported() && Options_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((Options_UI.Get().GetCurrentGraphicsQuality() >= m_minGraphicsQuality) ? 1 : 0);
 		}
 		else
@@ -93,19 +71,6 @@ public class DepthTextureRenderer : MonoBehaviour
 	{
 		if (m_depthTex == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_depthCam != null)
 			{
 				try
@@ -116,15 +81,6 @@ public class DepthTextureRenderer : MonoBehaviour
 					int isPowerOfTwo;
 					if (Mathf.IsPowerOfTwo(m_depthCam.pixelWidth))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						isPowerOfTwo = (Mathf.IsPowerOfTwo(m_depthCam.pixelHeight) ? 1 : 0);
 					}
 					else
@@ -151,15 +107,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RenderTexture.ReleaseTemporary(m_depthTex);
 			m_depthTex = null;
 			return;
@@ -174,26 +121,12 @@ public class DepthTextureRenderer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!base.gameObject.activeSelf)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!IsFunctioning())
 				{
 					while (true)
@@ -210,15 +143,6 @@ public class DepthTextureRenderer : MonoBehaviour
 				CleanUpTextures();
 				if (m_depthCamObj == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_depthCamObj = new GameObject($"DepthTextureCamera_{m_layerNames[0]}");
 					m_depthCam = m_depthCamObj.AddComponent<Camera>();
 					m_depthCam.enabled = false;
@@ -227,11 +151,6 @@ public class DepthTextureRenderer : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_depthCam.CopyFrom(GetComponent<Camera>());
 						m_depthCam.backgroundColor = new Color(0f, 0f, 0f, 0f);
 						m_depthCam.clearFlags = CameraClearFlags.Color;
@@ -261,15 +180,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnityEngine.Object.DestroyImmediate(m_depthCamObj);
 			return;
 		}

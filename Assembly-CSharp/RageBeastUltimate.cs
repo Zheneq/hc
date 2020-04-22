@@ -58,19 +58,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo cachedExtraEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedExtraEffectOnSelf = m_abilityMod.m_extraEffectOnSelfMod.GetModifiedValue(m_extraEffectOnSelf);
 		}
 		else
@@ -85,19 +72,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealOnCastMod.GetModifiedValue(m_selfHealOnCast);
 		}
 		else
@@ -112,19 +86,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo result;
 		if (m_cachedExtraEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExtraEffectOnSelf;
 		}
 		else
@@ -139,19 +100,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_plasmaDamage;
 		}
 		else
@@ -171,19 +119,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -214,19 +149,6 @@ public class RageBeastUltimate : Ability
 		int val;
 		if ((bool)abilityMod_RageBeastUltimate)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RageBeastUltimate.m_plasmaDamageMod.GetModifiedValue(m_plasmaDamage);
 		}
 		else
@@ -238,15 +160,6 @@ public class RageBeastUltimate : Ability
 		int val2;
 		if ((bool)abilityMod_RageBeastUltimate)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastUltimate.m_plasmaDurationMod.GetModifiedValue(m_plasmaDuration);
 		}
 		else
@@ -258,15 +171,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RageBeastUltimate)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RageBeastUltimate.m_extraEffectOnSelfMod.GetModifiedValue(m_extraEffectOnSelf);
 		}
 		else
@@ -284,15 +188,6 @@ public class RageBeastUltimate : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RageBeastUltimate);
 			Setup();
 			return;

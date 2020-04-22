@@ -23,24 +23,10 @@ public class TimeMultiplierAdjuster : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_plugin != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_plugin.m_TimeMultiplier = GameTime.scale;
 					return;
 				}

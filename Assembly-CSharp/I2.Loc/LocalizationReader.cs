@@ -22,40 +22,13 @@ namespace I2.Loc
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!string.IsNullOrEmpty(value))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary[key] = value;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return dictionary;
 			}
 		}
@@ -70,19 +43,6 @@ namespace I2.Loc
 			int num = line.LastIndexOf("//");
 			if (num >= 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				comment = line.Substring(num + 2).Trim();
 				comment = DecodeString(comment);
 				line = line.Substring(0, num);
@@ -107,26 +67,8 @@ namespace I2.Loc
 			value = DecodeString(value);
 			if (key.Length > 2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key[0] == '[')
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3 = key.IndexOf(']');
 					if (num3 >= 0)
 					{
@@ -158,10 +100,6 @@ namespace I2.Loc
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							((IDisposable)streamReader).Dispose();
 							goto end_IL_0018;
 						}
@@ -184,32 +122,10 @@ namespace I2.Loc
 					string[] array = ParseCSVline(Text, ref iStart, Separator);
 					if (array == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						break;
 					}
 					list.Add(array);
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -229,54 +145,14 @@ namespace I2.Loc
 					char c = Line[iStart];
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (c == '"')
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (iStart + 1 < length)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (Line[iStart + 1] == '"')
 								{
 									if (iStart + 2 < length)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (Line[iStart + 2] == '"')
 										{
 											flag = false;
@@ -299,55 +175,19 @@ namespace I2.Loc
 							{
 								if (c == '"')
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = true;
 								}
 								goto IL_00f0;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						AddCSVtoken(ref list, ref Line, iStart, ref iWordStart);
 						if (c == '\n')
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							iStart++;
 							break;
 						}
 					}
 					goto IL_00f0;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 				IL_00f0:
@@ -355,15 +195,6 @@ namespace I2.Loc
 			}
 			if (iStart > iWordStart)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AddCSVtoken(ref list, ref Line, iStart, ref iWordStart);
 			}
 			return list.ToArray();
@@ -376,30 +207,8 @@ namespace I2.Loc
 			text = text.Replace("\"\"", "\"");
 			if (text.Length > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (text[0] == '"' && text[text.Length - 1] == '"')
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text.Substring(1, text.Length - 2);
 				}
 			}
@@ -419,10 +228,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -464,10 +269,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}

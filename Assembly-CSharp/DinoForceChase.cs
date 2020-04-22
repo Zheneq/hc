@@ -18,19 +18,6 @@ public class DinoForceChase : GenericAbility_Container
 		DinoTargetedKnockback abilityOfType = GetAbilityOfType<DinoTargetedKnockback>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityOfType != null)
 			{
 				m_knockbackActionType = component.GetActionTypeOfAbility(abilityOfType);
@@ -44,19 +31,6 @@ public class DinoForceChase : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(m_cdrOnKnockbackAbility);
 		}
 		else
@@ -71,19 +45,6 @@ public class DinoForceChase : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(m_energyPerUnstoppableEnemyHit);
 		}
 		else

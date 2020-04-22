@@ -36,10 +36,6 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return knockbackDistanceMin;
 				}
 			}
@@ -66,44 +62,13 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 				ActorData current = enumerator.Current;
 				if (current.GetTeam() != targetingActor.GetTeam())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, travelBoardSquareWorldPosition, knockbackDist);
 					if (boardSquarePathInfo.FindMoveCostToEnd() < 0.5f)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(current, travelBoardSquareWorldPosition, targetingActor, AbilityTooltipSubject.HighHP, true);
 					}
 					num = AddMovementArrowWithPrevious(current, boardSquarePathInfo, TargeterMovementType.Knockback, num);
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SetMovementArrowEnabledFromIndex(num, false);

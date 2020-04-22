@@ -16,19 +16,6 @@ namespace TMPro.Examples
 			{
 				if (_001D == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameObject gameObject = new GameObject();
 					gameObject.transform.position = new Vector3(Random.Range(-95f, 95f), 0.25f, Random.Range(-95f, 95f));
 					TextMeshPro textMeshPro = gameObject.AddComponent<TextMeshPro>();
@@ -43,15 +30,6 @@ namespace TMPro.Examples
 				}
 				else if (_001D == 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject gameObject2 = new GameObject();
 					gameObject2.transform.position = new Vector3(Random.Range(-95f, 95f), 0.25f, Random.Range(-95f, 95f));
 					TextMesh textMesh = gameObject2.AddComponent<TextMesh>();

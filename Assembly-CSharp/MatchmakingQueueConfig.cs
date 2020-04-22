@@ -151,10 +151,6 @@ public class MatchmakingQueueConfig
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -182,10 +178,6 @@ public class MatchmakingQueueConfig
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -252,19 +244,6 @@ public class MatchmakingQueueConfig
 		{
 			if (!maxGroupSize.HasValue)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				maxGroupSize = 4;
 			}
 			byte groupSize2 = 1;
@@ -318,10 +297,6 @@ public class MatchmakingQueueConfig
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					byte maxGroupSize = (byte)gameConfig.MaxGroupSize;
 					IEnumerator<byte> enumerator = GetAllEloRelivantGroupSizes(maxGroupSize).GetEnumerator();
 					try
@@ -390,22 +365,9 @@ public class MatchmakingQueueConfig
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					float num;
 					if (unmodifiedPointMovement < 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = PlacementPointMultipleOnLoss;
 					}
 					else

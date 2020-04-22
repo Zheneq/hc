@@ -39,32 +39,10 @@ public class RampartGrab : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Grab";
 		}
 		if (GetNumTargets() != 2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Need 2 entries in Target Data");
 		}
 		SetupTargeter();
@@ -84,10 +62,6 @@ public class RampartGrab : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClearTargeters();
 					AbilityUtil_Targeter_Laser item = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), PenetrateLos(), GetMaxTargets());
 					base.Targeters.Add(item);
@@ -107,19 +81,6 @@ public class RampartGrab : Ability
 		int result;
 		if (ChooseEndPosition())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 2;
 		}
 		else
@@ -154,19 +115,6 @@ public class RampartGrab : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(m_damageAfterFirstHit);
 		}
 		else
@@ -191,19 +139,6 @@ public class RampartGrab : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -218,19 +153,6 @@ public class RampartGrab : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -245,19 +167,6 @@ public class RampartGrab : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -277,19 +186,6 @@ public class RampartGrab : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_destinationSelectRangeMod.GetModifiedValue(m_destinationSelectRange);
 		}
 		else
@@ -304,19 +200,6 @@ public class RampartGrab : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_destinationAngleDegWithBackMod.GetModifiedValue(m_destinationAngleDegWithBack);
 		}
 		else
@@ -331,19 +214,6 @@ public class RampartGrab : Ability
 		int damageAfterFirstHit = GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (hitOrder > 0)
 			{
 				while (true)
@@ -370,19 +240,6 @@ public class RampartGrab : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RampartGrab)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_RampartGrab.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -395,15 +252,6 @@ public class RampartGrab : Ability
 		int val;
 		if ((bool)abilityMod_RampartGrab)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RampartGrab.m_destinationAngleDegWithBackMod.GetModifiedValue(m_destinationAngleDegWithBack);
 		}
 		else
@@ -425,30 +273,8 @@ public class RampartGrab : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_Laser)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 				int num = 0;
@@ -464,15 +290,6 @@ public class RampartGrab : Ability
 						}
 						num++;
 						continue;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -490,19 +307,6 @@ public class RampartGrab : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				bool result = false;
@@ -518,29 +322,11 @@ public class RampartGrab : Ability
 						int num2 = Mathf.RoundToInt(Vector3.Angle(from, to));
 						if (num2 <= GetDestinationAngleDegWithBack())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 					}
 				}
 				return result;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

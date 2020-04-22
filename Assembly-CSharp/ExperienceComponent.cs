@@ -115,40 +115,13 @@ public class ExperienceComponent : ICloneable
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (MatchesPerGameType.TryGetValue(gameType, out int value))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += value;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return num;
 			}
 		}
@@ -168,19 +141,6 @@ public class ExperienceComponent : ICloneable
 					GameType gameType = (GameType)enumerator.Current;
 					if (gameType.IsHumanVsHumanGame())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (WinsPerGameType.TryGetValue(gameType, out int value))
 						{
 							num += value;

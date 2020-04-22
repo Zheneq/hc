@@ -23,43 +23,12 @@ public class AppState_InGameStarting : AppStateInGame
 	{
 		if (UIScreenManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIScreenManager.Get().ClearAllPanels();
 		}
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 				{
 					UILoadingScreenPanel.Get().SetVisible(true);
@@ -72,29 +41,11 @@ public class AppState_InGameStarting : AppStateInGame
 		IL_0093:
 		if (ClientGameManager.Get().PlayerObjectStartedOnClient && ClientGameManager.Get().DesignSceneStarted)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
 			ClientGameManager.Get().CheckAndSendClientPreparedForGameStartNotification();
 		}
 		if (QuestListPanel.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			QuestListPanel.Get().SetVisible(false);
 		}
 		Log.Info("AppState_InGameStarting.OnEnter");
@@ -127,10 +78,6 @@ public class AppState_InGameStarting : AppStateInGame
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AppState_InGameDecision.Get().Enter();
 					return;
 				}
@@ -156,11 +103,6 @@ public class AppState_InGameStarting : AppStateInGame
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			AppState_InGameEnding.Get().Enter();
 			return;
 		}

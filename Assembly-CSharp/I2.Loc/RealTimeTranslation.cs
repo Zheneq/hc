@@ -18,32 +18,10 @@ namespace I2.Loc
 			GUILayout.BeginHorizontal();
 			if (GUILayout.Button("English -> Español", GUILayout.Height(100f)))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				StartTranslating("en", "es");
 			}
 			if (GUILayout.Button("Español -> English", GUILayout.Height(100f)))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StartTranslating("es", "en");
 			}
 			GUILayout.EndHorizontal();

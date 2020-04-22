@@ -52,32 +52,10 @@ public class FriendListPanel : MonoBehaviour
 			}
 			else if (m_subSection == FriendSubsection.Offline)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = StringUtil.TR("OfflineHeading", "NewFrontEndScene");
 			}
 			else if (m_subSection == FriendSubsection.Online)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = StringUtil.TR("OnlineHeading", "NewFrontEndScene");
 			}
 			text = ((!m_isExpanded) ? text.Replace("-", "+") : text.Replace("+", "-"));
@@ -87,21 +65,11 @@ public class FriendListPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				_SelectableBtn component = UIEntry.GetComponent<_SelectableBtn>();
 				if (component != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						component.spriteController.callback = OnTitleClicked;
 						return;
 					}
@@ -140,31 +108,9 @@ public class FriendListPanel : MonoBehaviour
 			FriendListBannerEntry component = UIEntry.GetComponent<FriendListBannerEntry>();
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SocialComponent.FriendData orCreateFriendInfo = ClientGameManager.Get().GetPlayerAccountData().SocialComponent.GetOrCreateFriendInfo(m_friendInfo.FriendAccountId);
 				if (!m_friendInfo.IsOnline)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_friendInfo.BannerID = orCreateFriendInfo.LastSeenBackbroundID;
 					m_friendInfo.EmblemID = orCreateFriendInfo.LastSeenForegroundID;
 					m_friendInfo.TitleID = orCreateFriendInfo.LastSeenTitleID;
@@ -253,19 +199,6 @@ public class FriendListPanel : MonoBehaviour
 	{
 		if (this == s_instance)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 		}
 		if (ClientGameManager.Get() != null)
@@ -305,19 +238,6 @@ public class FriendListPanel : MonoBehaviour
 		_ButtonSwapSprite spriteController = m_recruitButton.spriteController;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 				UIFrontEnd.Get().m_frontEndNavPanel.ToggleReferAFriend();
@@ -384,19 +304,6 @@ public class FriendListPanel : MonoBehaviour
 			list.Add(new FriendInfoSubsectionTitleData(FriendSubsection.FriendRequests, flag));
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.AddRange(friendRequestedFriends);
 			}
 		}
@@ -406,29 +313,11 @@ public class FriendListPanel : MonoBehaviour
 			list.Add(new FriendInfoSubsectionTitleData(FriendSubsection.Online, flag2));
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.AddRange(onlineFriends);
 			}
 		}
 		if (offlineFriends.Count > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag3 = SubsectionExpanded[2];
 			list.Add(new FriendInfoSubsectionTitleData(FriendSubsection.Offline, flag3));
 			if (flag3)
@@ -438,42 +327,15 @@ public class FriendListPanel : MonoBehaviour
 		}
 		if (invitationsSentFriends.Count > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag4 = SubsectionExpanded[3];
 			list.Add(new FriendInfoSubsectionTitleData(FriendSubsection.InvitationsSent, flag4));
 			if (flag4)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.AddRange(invitationsSentFriends);
 			}
 		}
 		if (blockedFriends.Count > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag5 = SubsectionExpanded[4];
 			list.Add(new FriendInfoSubsectionTitleData(FriendSubsection.Blocked, flag5));
 			if (flag5)
@@ -525,27 +387,9 @@ public class FriendListPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				string text = friendInfo.FriendHandle;
 				if (!friendInfo.FriendNote.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = $"{friendInfo.FriendHandle}({friendInfo.FriendNote})";
 				}
 				componentsInChildren[i].m_playerName.text = text;
@@ -569,56 +413,16 @@ public class FriendListPanel : MonoBehaviour
 		DisableScrollViewMask();
 		if (friendInfo.FriendStatus == FriendStatus.Friend)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (friendInfo.IsOnline)
 			{
 				onlineFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.Online));
 				if (!friendsLoggedOff.Contains(friendInfo.FriendAccountId))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = m_loggedInFriends.Exists((string x) => x == friendInfo.FriendHandle);
 					if (friendInfo.IsOnline)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (AppState.GetCurrent() != AppState_FrontendLoadingScreen.Get())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag)
 							{
 								TextConsole.Get().Write(new TextConsole.Message
@@ -642,28 +446,10 @@ public class FriendListPanel : MonoBehaviour
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.RequestReceived)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			friendRequestedFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.FriendRequests));
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.RequestSent)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			invitationsSentFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.InvitationsSent));
 		}
 		else if (friendInfo.FriendStatus == FriendStatus.Blocked)
@@ -681,19 +467,6 @@ public class FriendListPanel : MonoBehaviour
 			FriendInfo friendInfo = (onlineFriends[i] as FriendInfoData).m_friendInfo;
 			if (friendInfo != null && friendAccountId == friendInfo.FriendAccountId)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				onlineFriends.RemoveAt(i);
 				i--;
@@ -701,11 +474,6 @@ public class FriendListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < offlineFriends.Count; j++)
 			{
 				FriendInfo friendInfo2 = (offlineFriends[j] as FriendInfoData).m_friendInfo;
@@ -713,51 +481,19 @@ public class FriendListPanel : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (friendAccountId == friendInfo2.FriendAccountId)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					offlineFriends.RemoveAt(j);
 					j--;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = 0; k < friendRequestedFriends.Count; k++)
 				{
 					FriendInfo friendInfo3 = (friendRequestedFriends[k] as FriendInfoData).m_friendInfo;
 					if (friendInfo3 != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendAccountId == friendInfo3.FriendAccountId)
 						{
 							friendRequestedFriends.RemoveAt(k);
@@ -776,11 +512,6 @@ public class FriendListPanel : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					for (int m = 0; m < blockedFriends.Count; m++)
 					{
 						FriendInfo friendInfo5 = (blockedFriends[m] as FriendInfoData).m_friendInfo;
@@ -788,26 +519,8 @@ public class FriendListPanel : MonoBehaviour
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendAccountId == friendInfo5.FriendAccountId)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							blockedFriends.RemoveAt(m);
 							m--;
 						}
@@ -816,11 +529,6 @@ public class FriendListPanel : MonoBehaviour
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							friendsLoggedOff.Add(friendAccountId);
 							return;
 						}
@@ -886,41 +594,10 @@ public class FriendListPanel : MonoBehaviour
 	{
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.GameType == GameType.Custom)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TextConsole.AllowedEmojis allowedEmojis = default(TextConsole.AllowedEmojis);
 					if (GameManager.Get().GameStatus != GameStatus.Stopped)
 					{
@@ -981,10 +658,6 @@ public class FriendListPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (replayAnim)
 					{
 						DoDisplay(visible, replayAnim, ignoreSound);
@@ -996,15 +669,6 @@ public class FriendListPanel : MonoBehaviour
 		m_isVisible = visible;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true);
 			m_scrollView.verticalScrollbar.value = 1f;
 			(m_scrollView.transform as RectTransform).anchoredPosition = new Vector2(0f, 0f);
@@ -1016,52 +680,12 @@ public class FriendListPanel : MonoBehaviour
 	{
 		if (m_friendListAnimator != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_friendListAnimator.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (visible)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!ignoreSound)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.MainMenuOpen);
 					}
 					UIAnimationEventManager.Get().PlayAnimation(m_friendListAnimator, "FriendPanelDefaultIN", null, string.Empty);
@@ -1070,15 +694,6 @@ public class FriendListPanel : MonoBehaviour
 				{
 					if (!ignoreSound)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.MainMenuClose);
 					}
 					UIAnimationEventManager.Get().PlayAnimation(m_friendListAnimator, "FriendPanelDefaultOUT", null, string.Empty);
@@ -1095,11 +710,6 @@ public class FriendListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			UIFrontEnd.Get().m_playerPanel.m_friendMenuToggleBtn.SetSelected(visible, false, string.Empty, string.Empty);
 			return;
 		}
@@ -1110,19 +720,6 @@ public class FriendListPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(m_errorText, notification.FriendList.IsError);
 		if (!notification.FriendList.IsDelta)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			friendRequestedFriends.Clear();
 			onlineFriends.Clear();
 			offlineFriends.Clear();
@@ -1133,41 +730,14 @@ public class FriendListPanel : MonoBehaviour
 			{
 				if (friend.Value.FriendStatus == FriendStatus.Blocked)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					blockedFriends.Add(FriendInfoToBannerDataEntry(friend.Value, FriendSubsection.Blocked));
 				}
 				else if (friend.Value.FriendStatus == FriendStatus.RequestReceived)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					friendRequestedFriends.Add(FriendInfoToBannerDataEntry(friend.Value, FriendSubsection.FriendRequests));
 				}
 				else if (friend.Value.FriendStatus == FriendStatus.RequestSent)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					invitationsSentFriends.Add(FriendInfoToBannerDataEntry(friend.Value, FriendSubsection.InvitationsSent));
 				}
 				else if (friend.Value.FriendStatus == FriendStatus.Friend)
@@ -1200,30 +770,12 @@ public class FriendListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (response.LocalizedFailure != null)
 			{
 				response.ErrorMessage = response.LocalizedFailure.ToString();
 			}
 			else if (response.ErrorMessage.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				response.ErrorMessage = StringUtil.TR("ServerError", "Global");
 			}
 			string text = null;
@@ -1249,11 +801,6 @@ public class FriendListPanel : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, text, StringUtil.TR("Ok", "Global"));
 					return;
 				}
@@ -1270,15 +817,6 @@ public class FriendListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIDialogPopupManager.Get().IsDialogBoxOpen())
 			{
 				return;
@@ -1287,15 +825,6 @@ public class FriendListPanel : MonoBehaviour
 			int num;
 			if (EventSystem.current.currentSelectedGameObject != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((EventSystem.current.currentSelectedGameObject.GetComponentInParent<FriendListBannerMenu>() != null) ? 1 : 0);
 			}
 			else
@@ -1305,74 +834,20 @@ public class FriendListPanel : MonoBehaviour
 			bool flag2 = (byte)num != 0;
 			if (EventSystem.current != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							FriendListPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<FriendListPanel>();
 							bool flag3 = false;
 							if (componentInParent == null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 								if (UIFrontEnd.Get() != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									while (true)
 									{
 										if (componentInParent2 != null)
@@ -1380,29 +855,11 @@ public class FriendListPanel : MonoBehaviour
 											_SelectableBtn friendMenuToggleBtn = UIFrontEnd.Get().m_playerPanel.m_friendMenuToggleBtn;
 											if (componentInParent2 == friendMenuToggleBtn)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag3 = true;
 												break;
 											}
 											componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
 											continue;
-										}
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										break;
 									}
@@ -1410,27 +867,9 @@ public class FriendListPanel : MonoBehaviour
 							}
 							if (!(componentInParent != null) && !flag3)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag2)
 								{
 									goto IL_01de;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							flag = false;
@@ -1444,11 +883,6 @@ public class FriendListPanel : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UIFrontEnd.Get().TogglePlayerFriendListVisibility();
 					return;
 				}

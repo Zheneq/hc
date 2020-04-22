@@ -60,19 +60,6 @@ public class CameraShotSequence : ScriptableObject
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		Debug.LogError("Taunt " + m_name + " has invalid character type " + m_characterType.ToString() + " and therefore has an invalid id " + m_uniqueTauntID + ".");
 	}
@@ -84,30 +71,8 @@ public class CameraShotSequence : ScriptableObject
 		m_altCamShotIndex = altCamShotIndex;
 		if (m_altCamShotIndex >= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_alternateCameraShots != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_alternateCameraShots.Length > m_altCamShotIndex)
 				{
 					goto IL_005e;
@@ -121,15 +86,6 @@ public class CameraShotSequence : ScriptableObject
 		m_startTime = Time.time;
 		if (_001D())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning(GetDebugDescription());
 		}
 		if (m_startDelay != 0f)
@@ -138,11 +94,6 @@ public class CameraShotSequence : ScriptableObject
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			CameraShot[] runtimeCameraShotsArray = GetRuntimeCameraShotsArray();
 			CameraShot cameraShot = runtimeCameraShotsArray[m_shotIndex];
 			cameraShot.Begin(m_shotIndex, Actor);
@@ -150,11 +101,6 @@ public class CameraShotSequence : ScriptableObject
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " with 0 delay");
 					return;
 				}
@@ -170,29 +116,11 @@ public class CameraShotSequence : ScriptableObject
 		CameraShot cameraShot = runtimeCameraShotsArray[m_shotIndex];
 		if (m_startDelay > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startDelay -= Time.deltaTime;
 			if (m_startDelay > 0f)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
@@ -200,15 +128,6 @@ public class CameraShotSequence : ScriptableObject
 			cameraShot.SetElapsedTime(Time.time - m_startTime);
 			if (_001D())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " seconds after begin");
 			}
 		}
@@ -217,15 +136,6 @@ public class CameraShotSequence : ScriptableObject
 			object obj;
 			if (m_shotIndex + 1 == runtimeCameraShotsArray.Length)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = null;
 			}
 			else
@@ -240,28 +150,10 @@ public class CameraShotSequence : ScriptableObject
 			}
 			if (cameraShot2 != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_shotIndex++;
 				cameraShot2.Begin(m_shotIndex, Actor);
 				if (_001D())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning("[Camera Shot] BEGIN " + (Time.time - m_startTime) + " seconds after begin");
 				}
 			}
@@ -278,19 +170,6 @@ public class CameraShotSequence : ScriptableObject
 	{
 		if (m_altCamShotIndex >= 0 && m_alternateCameraShots.Length > m_altCamShotIndex)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CameraShot[] altCameraShots = m_alternateCameraShots[m_altCamShotIndex].m_altCameraShots;
 			if (altCameraShots != null)
 			{
@@ -314,19 +193,6 @@ public class CameraShotSequence : ScriptableObject
 		int result;
 		if (Application.isEditor && DebugParameters.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (DebugParameters.Get().GetParameterAsBool("TraceCameraTransitions") ? 1 : 0);
 		}
 		else
@@ -352,15 +218,6 @@ public class CameraShotSequence : ScriptableObject
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return str;
 		}
 	}

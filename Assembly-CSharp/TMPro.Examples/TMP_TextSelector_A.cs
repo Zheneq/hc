@@ -29,19 +29,6 @@ namespace TMPro.Examples
 			_0012 = false;
 			if (TMP_TextUtilities.IsIntersectingRectTransform(_001D.rectTransform, Input.mousePosition, Camera.main))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0012 = true;
 			}
 			if (!_0012)
@@ -51,49 +38,13 @@ namespace TMPro.Examples
 			int num = TMP_TextUtilities.FindIntersectingCharacter(_001D, Input.mousePosition, Camera.main, true);
 			if (num != -1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num != _0016)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKey(KeyCode.LeftShift))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!Input.GetKey(KeyCode.RightShift))
 						{
 							goto IL_01b9;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					_0016 = num;
@@ -117,41 +68,14 @@ namespace TMPro.Examples
 				{
 					goto IL_01fe;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			_0015 = -1;
 			goto IL_01fe;
 			IL_01fe:
 			if (num2 != -1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 != _0015)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0015 = num2;
 					TMP_LinkInfo tMP_LinkInfo = _001D.textInfo.linkInfo[num2];
 					Debug.Log("Link ID: \"" + tMP_LinkInfo.GetLinkID() + "\"   Link Text: \"" + tMP_LinkInfo.GetLinkText() + "\"");
@@ -160,26 +84,8 @@ namespace TMPro.Examples
 					string linkID = tMP_LinkInfo.GetLinkID();
 					if (linkID != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(linkID == "id_01"))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (linkID == "id_02")
 							{
 							}
@@ -208,11 +114,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				_001D.mesh.colors32 = colors2;
 				return;
 			}

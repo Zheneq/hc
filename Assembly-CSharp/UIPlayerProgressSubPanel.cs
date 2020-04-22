@@ -19,19 +19,6 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 		m_active = visible;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true);
 		}
 		if (m_animator.isInitialized)
@@ -48,15 +35,6 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false);
 			return;
 		}

@@ -45,15 +45,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, samuraiWindBlade.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, samuraiWindBlade.m_minRangeBeforeBend);
 			AbilityMod.AddToken(tokens, m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, samuraiWindBlade.m_maxRangeBeforeBend);
@@ -81,19 +72,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = samuraiWindBlade.m_maxRangeBeforeBend;
 		}
 		else
@@ -106,15 +84,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiWindBlade.m_maxTotalRange;
 		}
 		else
@@ -127,15 +96,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiWindBlade.m_maxBendAngle;
 		}
 		else
@@ -148,15 +108,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (samuraiWindBlade.m_penetrateLoS ? 1 : 0);
 		}
 		else
@@ -171,15 +122,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = samuraiWindBlade.m_damageChangePerTarget;
 		}
 		else
@@ -192,15 +134,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = samuraiWindBlade.m_laserHitEffect;
 		}
 		else
@@ -213,15 +146,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = samuraiWindBlade.m_shieldingPerEnemyHitNextTurn;
 		}
 		else

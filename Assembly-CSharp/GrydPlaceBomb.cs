@@ -44,19 +44,6 @@ public class GrydPlaceBomb : Ability
 		GridPos start;
 		if (targetIndex == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			start = caster.GetGridPosWithIncrementedHeight();
 		}
 		else
@@ -70,15 +57,6 @@ public class GrydPlaceBomb : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
@@ -92,19 +70,6 @@ public class GrydPlaceBomb : Ability
 		int result;
 		if (!start.CoordsEqual(end))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((start.x == end.x || start.y == end.y) ? 1 : 0);
 		}
 		else

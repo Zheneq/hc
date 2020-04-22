@@ -18,19 +18,6 @@ public class LoreWideData : MonoBehaviour
 	{
 		if (m_loreArticles[index].Index != index)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return m_loreArticles[index];
 	}

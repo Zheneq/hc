@@ -16,15 +16,6 @@ public class AbilityUtil_Targeter_ClericAreaBuff : AbilityUtil_Targeter_Shape
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.UpdateTargeting(currentTarget, targetingActor);
 			return;
 		}

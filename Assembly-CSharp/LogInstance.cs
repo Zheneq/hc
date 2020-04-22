@@ -29,15 +29,6 @@ public class LogInstance
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -53,15 +44,6 @@ public class LogInstance
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -71,25 +53,12 @@ public class LogInstance
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
 		}
 		this.OnLogMessage = _003C_003Ef__am_0024cache0;
-		base._002Ector();
+		
 		m_lock = new object();
 	}
 
@@ -207,10 +176,6 @@ public class LogInstance
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Exception(ex.ToReadableString());
 					return;
 				}
@@ -237,19 +202,6 @@ public class LogInstance
 			{
 				goto IL_0073;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_lastLogEventArgs.formattedMessage == text))
 			{
 				goto IL_0073;
@@ -260,15 +212,6 @@ public class LogInstance
 			IL_0073:
 			if (m_lastLogEventArgs.repeatCount > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnLogMessage(m_lastLogEventArgs);
 			}
 			m_lastLogEventArgs = new Log.Message
@@ -299,15 +242,6 @@ public class LogInstance
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.OnLogMessage(m_lastLogEventArgs);
 			m_lastLogEventArgs = default(Log.Message);
 			return;

@@ -53,34 +53,12 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (obj != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_gridlayoutInfo.Count; i++)
 			{
 				GridLayoutStaggerInfo gridLayoutStaggerInfo = m_gridlayoutInfo[i];
 				if (!(gridLayoutStaggerInfo.m_layoutGroup != null))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				GridLayoutStaggerInfo gridLayoutStaggerInfo2 = m_gridlayoutInfo[i];
 				if (!gridLayoutStaggerInfo2.m_layoutGroup.gameObject.activeInHierarchy)
@@ -96,43 +74,16 @@ public class HitchDetector : MonoBehaviour
 				int result;
 				if (gridLayoutStaggerInfo4.m_layoutGroup.gameObject.activeInHierarchy)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!obj.gameObject.activeInHierarchy)
 					{
 						result = 1;
 						goto IL_0112;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = (m_objectsJustEnabled.Contains(obj.gameObject) ? 1 : 0);
 				goto IL_0112;
 				IL_0112:
 				return (byte)result != 0;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -147,24 +98,10 @@ public class HitchDetector : MonoBehaviour
 		UILoadTimeInfo item = default(UILoadTimeInfo);
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!Application.isEditor)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					item.startTime = Time.unscaledTime;
 					item.recordString = recordString;
 					loadTimeRecordings.Add(item);
@@ -179,30 +116,8 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (m_objectsJustEnabled.Count > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clearObjectsJustEnabledList <= 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_objectsJustEnabled.Clear();
 				goto IL_0051;
 			}
@@ -222,15 +137,6 @@ public class HitchDetector : MonoBehaviour
 			GridLayoutStaggerInfo gridLayoutStaggerInfo2 = m_gridlayoutInfo[i];
 			if (!gridLayoutStaggerInfo2.m_layoutGroup.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TurnOffAllChildren(m_gridlayoutInfo[i]);
 				continue;
 			}
@@ -246,40 +152,13 @@ public class HitchDetector : MonoBehaviour
 				GridLayoutStaggerInfo gridLayoutStaggerInfo4 = m_gridlayoutInfo[i];
 				if (gridLayoutStaggerInfo4.m_children[num] != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GridLayoutStaggerInfo gridLayoutStaggerInfo5 = m_gridlayoutInfo[i];
 					if (!gridLayoutStaggerInfo5.m_children[num].activeSelf)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GridLayoutStaggerInfo gridLayoutStaggerInfo6 = m_gridlayoutInfo[i];
 						StaggerComponent component = gridLayoutStaggerInfo6.m_children[num].GetComponent<StaggerComponent>();
 						if (!(component == null))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!component.DoActivateOnStagger)
 							{
 								goto IL_0280;
@@ -297,15 +176,6 @@ public class HitchDetector : MonoBehaviour
 					StaggerComponent component2 = gridLayoutStaggerInfo9.m_children[num].GetComponent<StaggerComponent>();
 					if (component2 != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!component2.DoActivateOnStagger)
 						{
 							GridLayoutStaggerInfo gridLayoutStaggerInfo10 = m_gridlayoutInfo[i];
@@ -323,11 +193,6 @@ public class HitchDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (Application.isEditor)
 			{
 				return;
@@ -344,15 +209,6 @@ public class HitchDetector : MonoBehaviour
 				}
 				else if (num3 < loadTimeRecordings.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float unscaledTime2 = Time.unscaledTime;
 					UILoadTimeInfo uILoadTimeInfo2 = loadTimeRecordings[num3];
 					float num4 = unscaledTime2 - uILoadTimeInfo2.startTime;
@@ -367,33 +223,14 @@ public class HitchDetector : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!HydrogenConfig.Get().EnableRandomFrameHitchDetection)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (TimeUntilNextLogUpdateHitch > 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TimeUntilNextLogUpdateHitch -= Time.unscaledDeltaTime;
 					}
 					if (flag || !(Time.unscaledDeltaTime >= 0.1f))
@@ -402,20 +239,10 @@ public class HitchDetector : MonoBehaviour
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						if (TimeUntilNextLogUpdateHitch <= 0f)
 						{
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								TimeUntilNextLogUpdateHitch = 5f;
 								Log.Error(string.Format("Unknown cause hitch occurred: Took {0} seconds", Time.unscaledDeltaTime.ToString("F3")));
 								return;
@@ -436,19 +263,6 @@ public class HitchDetector : MonoBehaviour
 			GridLayoutStaggerInfo gridLayoutStaggerInfo = m_gridlayoutInfo[i];
 			if (gridLayoutStaggerInfo.m_layoutGroup == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gridlayoutInfo.RemoveAt(i);
 				continue;
 			}
@@ -468,15 +282,6 @@ public class HitchDetector : MonoBehaviour
 						Transform transform = (Transform)enumerator.Current;
 						if (transform.parent.gameObject == group.gameObject)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value.m_children.Add(transform.gameObject);
 						}
 					}
@@ -527,10 +332,6 @@ public class HitchDetector : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -544,11 +345,6 @@ public class HitchDetector : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				RedoLayoutGroup(group);
 				return;
 			}
@@ -556,11 +352,6 @@ public class HitchDetector : MonoBehaviour
 		GridLayoutStaggerInfo item = default(GridLayoutStaggerInfo);
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			item.m_layoutGroup = group;
 			item.m_children = new List<GameObject>();
 			IEnumerator enumerator = group.gameObject.transform.GetEnumerator();
@@ -571,26 +362,8 @@ public class HitchDetector : MonoBehaviour
 					Transform transform = (Transform)enumerator.Current;
 					if (transform.parent.gameObject == group.gameObject)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						item.m_children.Add(transform.gameObject);
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -634,10 +407,6 @@ public class HitchDetector : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						UIManager.SetGameObjectActive(info.m_children[num], false);
 						num++;
 						goto IL_0059;

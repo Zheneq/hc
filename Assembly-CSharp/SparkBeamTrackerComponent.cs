@@ -49,19 +49,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (m_tetherRangePrefab != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tetherRange = Object.Instantiate(m_tetherRangePrefab);
 			m_tetherRange.transform.parent = base.gameObject.transform;
 			m_tetherRange.transform.localPosition = Vector3.zero;
@@ -81,10 +68,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CallRpcSetTetherRadiusPosition(tetherRadiusCenter);
 					return;
 				}
@@ -129,26 +112,12 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ActorIndexToTetherAge actorIndexToTetherAge2 = m_actorIndexToTetherAge[i];
 				return actorIndexToTetherAge2.m_tetherAge;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return 0;
 		}
 	}
@@ -161,41 +130,10 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_actorData == activeOwnedActorData)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BeamIsActive())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 					else
@@ -207,15 +145,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 							object obj;
 							if ((bool)abilityData)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								obj = abilityData.GetLastSelectedAbility();
 							}
 							else
@@ -225,38 +154,11 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 							Ability ability = (Ability)obj;
 							if (ability != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(ability is SparkBasicAttack))
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(ability is SparkHealingBeam))
 									{
 										goto IL_0120;
-									}
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								result = true;
@@ -280,19 +182,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_beamActorIndex.Contains(actor.ActorIndex) ? 1 : 0);
 		}
 		else
@@ -377,19 +266,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(beamActorIndex);
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (actorData.GetTeam() == m_actorData.GetTeam())
 				{
 					flag = true;
@@ -403,15 +279,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -429,53 +296,17 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = ShouldShowTetherRadius();
 			FriendlyEnemyVFXSelector component = m_tetherRange.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.Setup(GameFlowData.Get().activeOwnedActorData.GetTeam());
 				}
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_tetherRange.activeSelf)
 				{
 					while (true)
@@ -497,11 +328,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_tetherRange.activeSelf)
 				{
 					m_tetherRange.SetActive(false);
@@ -522,10 +348,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_actorsOutOfRangeOnEvade.Contains((uint)actor.ActorIndex);
 				}
 			}
@@ -548,10 +370,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_beamActorIndex called on server.");
 					return;
 				}
@@ -583,10 +401,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_actorsOutOfRangeOnEvade called on server.");
 					return;
 				}
@@ -606,10 +420,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetTetherRadiusPosition called on server.");
 					return;
 				}
@@ -629,10 +439,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetTetherRadiusPosition called on client.");
 					return;
 				}
@@ -665,10 +471,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_beamActorIndex);
 					GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(writer, m_actorIndexToTetherAge);
 					SyncListUInt.WriteInstance(writer, m_actorsOutOfRangeOnEvade);
@@ -681,15 +483,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -697,26 +490,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -724,15 +499,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -758,10 +524,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.ReadReference(reader, m_beamActorIndex);
 					GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, m_actorIndexToTetherAge);
 					SyncListUInt.ReadReference(reader, m_actorsOutOfRangeOnEvade);
@@ -776,15 +538,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, m_actorIndexToTetherAge);
 		}
 		if ((num & 4) != 0)

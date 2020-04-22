@@ -61,15 +61,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_serverHolderActor = value;
 				DamageOnHolderSincePickedUp_Gross = 0;
 				DamageOnHolderSinceTurnStart_Gross = 0;
@@ -107,15 +98,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_clientHolderActor = value;
 				ClientUnresolvedDamageOnHolder = 0;
 				if (!(CaptureTheFlag.Get() != null) || !(CaptureTheFlag.Get().m_flagBeingHeldSequence != null))
@@ -124,33 +106,10 @@ public class CTF_Flag : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (m_flagBeingHeldSequenceInstance != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_flagBeingHeldSequenceInstance.MarkedForRemoval)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_flagBeingHeldSequenceInstance.MarkForRemoval();
 						}
 						m_flagBeingHeldSequenceInstance = null;
@@ -165,28 +124,10 @@ public class CTF_Flag : NetworkBehaviour
 					Sequence[] array = SequenceManager.Get().CreateClientSequences(flagBeingHeldSequence, currentBoardSquare, m_clientHolderActor.AsArray(), m_clientHolderActor, sequenceSource, null);
 					if (array != null && array.Length != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (array.Length <= 1)
 						{
 							m_flagBeingHeldSequenceInstance = array[0];
 							return;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					Debug.LogError("CTF_Flag creating flag-being-held sequence, but had bad output.");
@@ -225,15 +166,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_lastClientUpdateFlagHolderEventGuid = value;
 				return;
 			}
@@ -254,15 +186,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gatheredHolderActor = value;
 				GatheredMovementDamageSincePickedUp = 0;
 				GatheredMovementDamageSinceTurnStart = 0;
@@ -285,15 +208,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gatheredIdleSquare = value;
 				return;
 			}
@@ -314,15 +228,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gatheredPath = value;
 				return;
 			}
@@ -343,15 +248,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gatheredMovementDamageSincePickedUp = value;
 				return;
 			}
@@ -372,15 +268,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gatheredMovementDamageSinceTurnStart = value;
 				return;
 			}
@@ -401,15 +288,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_damageOnHolderSincePickedUp_Gross = value;
 				ClientUnresolvedDamageOnHolder = 0;
 				return;
@@ -462,15 +340,6 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_numFullTurnsSpentHeldInTurninRegion = value;
 				return;
 			}
@@ -515,10 +384,6 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return CaptureTheFlag.Get().m_flagIcon;
 				}
 			}
@@ -549,19 +414,6 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CaptureTheFlag.Get().OnFlagDestroyed(this);
 		}
 		if (!(HUD_UI.Get() != null))
@@ -570,11 +422,6 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveCtfFlag(this);
 			return;
 		}
@@ -591,10 +438,6 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (ClientIdleSquare == null)
 					{
 						while (true)
@@ -639,10 +482,6 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Quaternion.identity;
 				}
 			}
@@ -675,25 +514,12 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Team.TeamA;
 				}
 			}
 		}
 		if (ClientHolderActor != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientHolderActor.GetTeam() == Team.TeamA)
 			{
 				while (true)
@@ -735,10 +561,6 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Calling CTF_Flag.OnPickedUp_Client on a non-client.");
 					return;
 				}
@@ -750,15 +572,6 @@ public class CTF_Flag : NetworkBehaviour
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		LastClientUpdateFlagHolderEventGuid = eventGuid;
 		ActorData clientHolderActor = ClientHolderActor;
@@ -766,15 +579,6 @@ public class CTF_Flag : NetworkBehaviour
 		ClientIdleSquare = null;
 		if (CaptureTheFlag.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, false, m_alreadyTurnedIn);
 		}
 		GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
@@ -807,10 +611,6 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Calling CTF_Flag.OnDropped_Client on a non-client.");
 					return;
 				}
@@ -821,15 +621,6 @@ public class CTF_Flag : NetworkBehaviour
 			if (eventGuid <= LastClientUpdateFlagHolderEventGuid)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		LastClientUpdateFlagHolderEventGuid = eventGuid;
@@ -851,31 +642,9 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (eventGuid != -1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (eventGuid <= LastClientUpdateFlagHolderEventGuid)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		LastClientUpdateFlagHolderEventGuid = eventGuid;
@@ -900,19 +669,6 @@ public class CTF_Flag : NetworkBehaviour
 		int num;
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = -1;
 		}
 		else
@@ -925,15 +681,6 @@ public class CTF_Flag : NetworkBehaviour
 		sbyte value2;
 		if (ServerHolderActor == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value2 = (sbyte)ActorData.s_invalidActorIndex;
 		}
 		else
@@ -944,15 +691,6 @@ public class CTF_Flag : NetworkBehaviour
 		sbyte value4;
 		if (ServerIdleSquare == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value3 = -1;
 			value4 = -1;
 		}
@@ -995,19 +733,6 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (b2 == -1 && b3 == -1)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientIdleSquare = null;
 		}
 		else
@@ -1016,26 +741,8 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (clientHolderActor != ClientHolderActor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CaptureTheFlag.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, false, m_alreadyTurnedIn);
 			}
 		}
@@ -1054,25 +761,12 @@ public class CTF_Flag : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (HUD_UI.Get() != null && !m_initializedOffscreenIndicator)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddCtfFlag(this);
 			m_initializedOffscreenIndicator = true;
 		}
@@ -1083,15 +777,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (ClientHolderActor == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				meshRenderer.enabled = true;
 			}
 			else
@@ -1101,26 +786,12 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			MeshRenderer[] componentsInChildren = GetComponentsInChildren<MeshRenderer>();
 			MeshRenderer[] array2 = componentsInChildren;
 			foreach (MeshRenderer meshRenderer2 in array2)
 			{
 				if (ClientHolderActor == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					meshRenderer2.enabled = true;
 				}
 				else
@@ -1134,20 +805,10 @@ public class CTF_Flag : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (CaptureTheFlag.Get() != null)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						InterfaceManager.Get().DisplayAlert(StringUtil.TR("BriefcaseLocated", "CTF"), CaptureTheFlag.Get().m_textColor_neutral);
 						m_notifiedOfSpawn = true;
 						return;

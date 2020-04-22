@@ -62,19 +62,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		object baseConeInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseConeInfo = soldierDashAndOverwatch.m_coneInfo;
 		}
 		else
@@ -88,15 +75,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = soldierDashAndOverwatch.m_selfHitEffect;
 		}
 		else
@@ -109,15 +87,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = soldierDashAndOverwatch.m_onCastAllyHitRadiusAroundDest;
 		}
 		else
@@ -130,15 +99,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierDashAndOverwatch.m_onCastAllyHitEffect;
 		}
 		else
@@ -151,15 +111,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierDashAndOverwatch.m_coneDamage;
 		}
 		else

@@ -37,19 +37,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			{
 				goto IL_0081;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Array.IndexOf(array, array2[0].ToLower()) == -1)
 			{
 				goto IL_0081;
@@ -60,15 +47,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			int num;
 			if (array2.Length > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = int.Parse(array2[1]);
 			}
 			else
@@ -79,15 +57,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			int num2;
 			if (array2.Length > 2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = int.Parse(array2[2]);
 			}
 			else
@@ -99,15 +68,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			int num3;
 			if (array2.Length > 4)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = (bool.Parse(array2[4]) ? 1 : 0);
 			}
 			else
@@ -118,15 +78,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			int num4;
 			if (array2.Length > 5)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = (bool.Parse(array2[5]) ? 1 : 0);
 			}
 			else

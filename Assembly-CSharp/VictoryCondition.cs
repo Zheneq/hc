@@ -38,19 +38,6 @@ public class VictoryCondition
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 		}
@@ -71,29 +58,11 @@ public class VictoryCondition
 					PointCondition pointCondition2 = conditions_allRequired[num2];
 					if (!pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						break;
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -101,15 +70,6 @@ public class VictoryCondition
 		bool flag3;
 		if (m_conditions_noneAllowed.Length == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = true;
 		}
 		else
@@ -124,29 +84,11 @@ public class VictoryCondition
 					PointCondition pointCondition3 = conditions_noneAllowed[num3];
 					if (pointCondition3.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = false;
 						break;
 					}
 					num3++;
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -154,15 +96,6 @@ public class VictoryCondition
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((flag2 && flag3) ? 1 : 0);
 		}
 		else
@@ -184,30 +117,12 @@ public class VictoryCondition
 			}
 			if (text.Length > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text += " and ";
 			}
 			text += pointCondition.GetVictoryLogString(allyPoints, enemyPoints, bTimeLimitExpired);
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			PointCondition[] conditions_anyMet = m_conditions_anyMet;
 			int num = 0;
 			while (true)
@@ -217,15 +132,6 @@ public class VictoryCondition
 					PointCondition pointCondition2 = conditions_anyMet[num];
 					if (pointCondition2 != null && pointCondition2.IsConditionMet(allyPoints, enemyPoints, bTimeLimitExpired, team))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (text.Length > 0)
 						{
 							text += " and ";
@@ -235,15 +141,6 @@ public class VictoryCondition
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

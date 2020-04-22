@@ -57,19 +57,6 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 			}
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_actorToHitContext.ContainsKey(actorData))
 				{
 					m_actorToHitContext[actorData].m_numHits++;

@@ -39,15 +39,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyMod, "ChargeEnemyEffect", sparkDash.m_effectOnTargetEnemy);
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAllyMod, "ChargeAllyEffect", sparkDash.m_effectOnTargetAlly);
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyInBetweenMod, "EffectOnEnemyInBetween", sparkDash.m_effectOnEnemyInBetween);
@@ -67,19 +58,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sparkDash.m_effectOnTargetEnemy;
 		}
 		else
@@ -92,15 +70,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkDash.m_effectOnTargetAlly;
 		}
 		else
@@ -114,15 +83,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (int)sparkDash.m_chooseDestinationShape;
 		}
 		else
@@ -135,15 +95,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (sparkDash.m_hitActorsInBetween ? 1 : 0);
 		}
 		else
@@ -156,15 +107,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkDash.m_chargeHitWidth;
 		}
 		else

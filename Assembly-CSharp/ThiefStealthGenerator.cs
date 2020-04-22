@@ -17,19 +17,6 @@ public class ThiefStealthGenerator : Ability
 		int affectsCaster;
 		if (m_stealthGeneratorInfo.canIncludeCaster)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = 1;
 		}
 		else

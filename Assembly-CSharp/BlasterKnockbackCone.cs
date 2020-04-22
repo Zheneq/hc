@@ -63,19 +63,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Knockback Cone";
 		}
 		SetupTargeter();
@@ -94,19 +81,6 @@ public class BlasterKnockbackCone : Ability
 			int result;
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((m_syncComp.m_overchargeBuffs > 0) ? 1 : 0);
 			}
 			else
@@ -133,19 +107,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo cachedEnemyEffectOvercharged;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyEffectOvercharged = m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
@@ -160,19 +121,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minLengthMod.GetModifiedValue(m_minLength);
 		}
 		else
@@ -192,19 +140,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minAngleMod.GetModifiedValue(m_minAngle);
 		}
 		else
@@ -224,19 +159,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
@@ -251,19 +173,6 @@ public class BlasterKnockbackCone : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
@@ -283,19 +192,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyEffectNormal != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyEffectNormal;
 		}
 		else
@@ -310,19 +206,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyEffectOvercharged != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyEffectOvercharged;
 		}
 		else
@@ -337,19 +220,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
@@ -364,19 +234,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(m_extraKnockbackDistOnOvercharged);
 		}
 		else
@@ -391,19 +248,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(m_knockbackDistanceOnSelf);
 		}
 		else
@@ -429,10 +273,6 @@ public class BlasterKnockbackCone : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetDamageAmountNormal() + m_overchargeAbility.GetExtraDamage() + GetMultiStackOverchargeDamage();
 				}
 			}
@@ -447,19 +287,6 @@ public class BlasterKnockbackCone : Ability
 		int val;
 		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(m_damageAmountNormal);
 		}
 		else
@@ -470,15 +297,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(m_enemyEffectNormal);
 		}
 		else
@@ -489,15 +307,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_BlasterKnockbackCone)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(m_enemyEffectOvercharged);
 		}
 		else
@@ -527,31 +336,9 @@ public class BlasterKnockbackCone : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetCurrentModdedDamage();
 			}
 		}
@@ -566,15 +353,6 @@ public class BlasterKnockbackCone : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_BlasterKnockbackCone);
 			SetupTargeter();
 			return;
@@ -598,10 +376,6 @@ public class BlasterKnockbackCone : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return MovementAdjustment.ReducedMovement;
 				}
 			}
@@ -616,26 +390,8 @@ public class BlasterKnockbackCone : Ability
 				Card_Standard_Ability card_Standard_Ability = current.ability as Card_Standard_Ability;
 				if (card_Standard_Ability != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (card_Standard_Ability.m_applyEffect)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StatusType[] statusChanges = card_Standard_Ability.m_effect.m_statusChanges;
 						int num = 0;
 						while (num < statusChanges.Length)
@@ -643,43 +399,16 @@ public class BlasterKnockbackCone : Ability
 							StatusType statusType = statusChanges[num];
 							if (statusType != StatusType.KnockbackImmune)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (statusType != StatusType.Unstoppable)
 								{
 									num++;
 									continue;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							return MovementAdjustment.ReducedMovement;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetMovementAdjustment();
@@ -689,19 +418,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Blaster_SyncComponent>();
 		}
 		return m_syncComp.m_overchargeBuffs > 0;
@@ -711,30 +427,8 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_overchargeBuffs > 1 && m_overchargeAbility != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 				{
 					while (true)

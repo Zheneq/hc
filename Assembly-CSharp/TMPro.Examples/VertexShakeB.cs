@@ -53,34 +53,12 @@ namespace TMPro.Examples
 			{
 				if (array.Length < textInfo.meshInfo.Length)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					array = new Vector3[textInfo.meshInfo.Length][];
 				}
 				for (int i = 0; i < textInfo.meshInfo.Length; i++)
 				{
 					int num = textInfo.meshInfo[i].vertices.Length;
 					array[i] = new Vector3[num];
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				_0016 = false;
 			}
@@ -109,15 +87,6 @@ namespace TMPro.Examples
 				{
 					if (!textInfo.characterInfo[k].isVisible)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					int materialReferenceIndex = textInfo.characterInfo[k].materialReferenceIndex;
@@ -168,11 +137,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				for (int l = 0; l < textInfo.meshInfo.Length; l++)
 				{
 					textInfo.meshInfo[l].mesh.vertices = array[l];

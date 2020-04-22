@@ -70,19 +70,6 @@ public class RampartMeleeBasicAttack : Ability
 		StandardEffectInfo cachedConeEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else
@@ -102,19 +89,6 @@ public class RampartMeleeBasicAttack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -129,19 +103,6 @@ public class RampartMeleeBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -156,19 +117,6 @@ public class RampartMeleeBasicAttack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -193,19 +141,6 @@ public class RampartMeleeBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
@@ -225,19 +160,6 @@ public class RampartMeleeBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
@@ -261,19 +183,6 @@ public class RampartMeleeBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartMeleeBasicAttack))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RampartMeleeBasicAttack);
 		}
 		SetupTargeter();
@@ -299,72 +208,23 @@ public class RampartMeleeBasicAttack : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary);
 			bool flag2 = tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary);
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary[AbilityTooltipSymbol.Damage] = GetLaserDamage() + GetBonusDamageForOverlap();
 					goto IL_00ae;
 				}
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetLaserDamage();
 			}
 			else if (flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetConeDamage();
 			}
 		}
@@ -381,19 +241,6 @@ public class RampartMeleeBasicAttack : Ability
 		int val;
 		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RampartMeleeBasicAttack.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -405,15 +252,6 @@ public class RampartMeleeBasicAttack : Ability
 		int val2;
 		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RampartMeleeBasicAttack.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
@@ -424,15 +262,6 @@ public class RampartMeleeBasicAttack : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RampartMeleeBasicAttack.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
@@ -444,15 +273,6 @@ public class RampartMeleeBasicAttack : Ability
 		int val3;
 		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RampartMeleeBasicAttack.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
@@ -463,15 +283,6 @@ public class RampartMeleeBasicAttack : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_RampartMeleeBasicAttack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RampartMeleeBasicAttack.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
 		}
 		else

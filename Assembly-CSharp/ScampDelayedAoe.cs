@@ -61,19 +61,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		StandardActorEffectData cachedDelayedEffectBase;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedDelayedEffectBase = m_abilityMod.m_delayedEffectBaseMod.GetModifiedValue(m_delayedEffectBase);
 		}
 		else
@@ -93,19 +80,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageIfShieldDownFormMod.GetModifiedValue(m_extraDamageIfShieldDownForm);
 		}
 		else
@@ -120,19 +94,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subseqTurnDamageMultiplierMod.GetModifiedValue(m_subseqTurnDamageMultiplier);
 		}
 		else
@@ -147,19 +108,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subseqTurnNoEnergyGainMod.GetModifiedValue(m_subseqTurnNoEnergyGain);
 		}
 		else
@@ -180,19 +128,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				while (true)

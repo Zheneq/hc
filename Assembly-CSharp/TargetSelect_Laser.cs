@@ -38,19 +38,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		AbilityUtil_Targeter abilityUtil_Targeter;
 		if (GetAoeRadiusAroundStart() <= 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityUtil_Targeter = new AbilityUtil_Targeter_Laser(ability, GetLaserWidth(), GetLaserRange(), IgnoreLos(), GetMaxTargets(), IncludeAllies(), IncludeCaster());
 		}
 		else
@@ -72,19 +59,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -99,19 +73,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		int result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -126,19 +87,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_aoeRadiusAroundStartMod.GetModifiedValue(m_aoeRadiusAroundStart);
 		}
 		else

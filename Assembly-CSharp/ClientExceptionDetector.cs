@@ -83,31 +83,9 @@ public class ClientExceptionDetector : MonoBehaviour
 	{
 		if (m_crashServerReportThreadedJob != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_crashServerReportThreadedJob.Update();
 			if (m_crashServerReportThreadedJob.IsFinished)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_crashServerReportThreadedJob = null;
 			}
 		}
@@ -117,22 +95,12 @@ public class ClientExceptionDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!ClientGameManager.Get().IsConnectedToLobbyServer)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_lobbyServerAndDialogReady && UIDialogPopupManager.Ready)
 				{
 					while (true)
@@ -216,15 +184,6 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				if (m_errorReportQueue.Count <= 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_errorUnsentCount.IsNullOrEmpty())
 					{
 						return;
@@ -244,15 +203,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_crashServerReportThreadedJob.Cancel();
 			return;
 		}
@@ -269,19 +219,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		int realExceptionOccurred;
 		if (!m_realExceptionOccurred)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			realExceptionOccurred = ((!belowMinSpecDialogNotException && !flag) ? 1 : 0);
 		}
 		else
@@ -296,28 +233,10 @@ public class ClientExceptionDetector : MonoBehaviour
 		object arg2;
 		if (!m_stopUploadingReports)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_exceptionLogString = logString.Trim().Replace("\r", string.Empty);
 			int num = m_exceptionLogString.IndexOf("\n");
 			if (num >= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_exceptionLogString = m_exceptionLogString.Substring(0, num);
 			}
 			m_exceptionStackTrace = stackTrace;
@@ -327,49 +246,13 @@ public class ClientExceptionDetector : MonoBehaviour
 			text = $"{m_exceptionLogString}\n{m_exceptionStackTrace}";
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsConnectedToLobbyServer)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_crashServerReportThreadedJob == null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						crashDumpDirectoryPath = Path.Combine(Application.temporaryCachePath, Guid.NewGuid().ToString());
 						if (flag)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg = "FileDateTime";
 						}
 						else
@@ -378,30 +261,12 @@ public class ClientExceptionDetector : MonoBehaviour
 						}
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg2 = fileDateTime;
 						}
 						else
 						{
 							if (ClientGameManager.Get() != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ClientGameManager.Get().SessionInfo != null)
 								{
 									arg2 = ClientGameManager.Get().SessionInfo.SessionToken.ToString();
@@ -417,26 +282,8 @@ public class ClientExceptionDetector : MonoBehaviour
 			}
 			if (!belowMinSpecDialogNotException)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						StreamWriter streamWriter = File.CreateText(m_exceptionFilePath);
@@ -478,15 +325,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		int status;
 		if (belowMinSpecDialogNotException)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			status = 4;
 		}
 		else
@@ -499,15 +337,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		string fileDateTime2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			fileDateTime2 = fileDateTime;
 		}
 		else
@@ -519,26 +348,8 @@ public class ClientExceptionDetector : MonoBehaviour
 		flag2 = true;
 		if (UIDialogPopupManager.Ready && !belowMinSpecDialogNotException)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag && UIDialogPopupManager.OpenReportBugDialog(dlgTitle, dlgDescription, StringUtil.TR("Ok", "Global"), StringUtil.TR("Cancel", "Global"), HandleExceptionDialogOKButton) == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Failed to create dialog");
 			}
 		}
@@ -550,26 +361,8 @@ public class ClientExceptionDetector : MonoBehaviour
 		int stopUploadingReports;
 		if (!m_stopUploadingReports)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stopUploadingReports = ((!flag) ? 1 : 0);
 			}
 			else
@@ -593,15 +386,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientMinSpecDetector.BelowMinSpecDetected)
 			{
 				return;
@@ -622,11 +406,6 @@ public class ClientExceptionDetector : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					ClientErrorReport clientErrorReport = new ClientErrorReport();
 					clientErrorReport.Time = Time.unscaledTime;
 					clientErrorReport.LogString = logString.Trim().Replace("\r", string.Empty);
@@ -636,26 +415,8 @@ public class ClientExceptionDetector : MonoBehaviour
 					}, 2, StringSplitOptions.RemoveEmptyEntries);
 					if (array != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (array.Length == 2)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							clientErrorReport.LogString = array[0].Trim();
 							clientErrorReport.StackTrace = array[1];
 							goto IL_011d;
@@ -712,10 +473,6 @@ public class ClientExceptionDetector : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num > float.Epsilon)
 					{
 						while (true)
@@ -771,29 +528,11 @@ public class ClientExceptionDetector : MonoBehaviour
 			uint stackTraceHash = item.StackTraceHash;
 			if (!m_errorBestiary.ContainsKey(stackTraceHash))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_errorBestiary.Add(stackTraceHash, item);
 			}
 			uint value = 0u;
 			if (m_errorUnsentCount.TryGetValue(stackTraceHash, out value))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_errorUnsentCount[stackTraceHash] = value + 1;
 			}
 			else
@@ -808,11 +547,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_lastErrorReportTime = Time.unscaledTime;
 			FlushErrorsToLobby();
 			return;

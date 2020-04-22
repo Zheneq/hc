@@ -26,39 +26,16 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				QuestComponent questComponent = ClientGameManager.Get().GetPlayerAccountData().QuestComponent;
 				QuestMetaData orCreateQuestMetaData = questComponent.GetOrCreateQuestMetaData(questIndex);
 				if (!orCreateQuestMetaData.UtcCompletedTimes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < orCreateQuestMetaData.UtcCompletedTimes.Count; i++)
 					{
 						if (!(orCreateQuestMetaData.UtcCompletedTimes[i] > chapterStartDate) || !(orCreateQuestMetaData.UtcCompletedTimes[i] <= chapterEndDate))
@@ -67,11 +44,6 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							Completed = true;
 							return;
 						}
@@ -87,34 +59,12 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 	{
 		if (obj is UISeasonQuestDisplayInfo)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Equals(obj))
 			{
 				UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = obj as UISeasonQuestDisplayInfo;
 				int result;
 				if (SeasonId == uISeasonQuestDisplayInfo.SeasonId)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((ChapterId == uISeasonQuestDisplayInfo.ChapterId) ? 1 : 0);
 				}
 				else
@@ -122,15 +72,6 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 					result = 0;
 				}
 				return (byte)result != 0;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -141,30 +82,8 @@ public class UISeasonQuestDisplayInfo : UIBaseQuestDisplayInfo
 		int num = Completed.GetHashCode() ^ SeasonId.GetHashCode() ^ ChapterId.GetHashCode();
 		if (QuestProgressRef != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (QuestProgressRef.ObjectiveProgress != null)
 				{
 					while (true)

@@ -11,19 +11,6 @@ public class AsyncTimer
 		{
 			if (obj1 == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (obj2 == null)
 				{
 					while (true)
@@ -102,19 +89,6 @@ public class AsyncTimer
 	{
 		if (intervalMilliseconds < 10)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!isOneShot)
 			{
 				throw new ArgumentOutOfRangeException("IntervalMilliseconds");
@@ -141,10 +115,6 @@ public class AsyncTimer
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("Already scheduled");
 				}
 			}

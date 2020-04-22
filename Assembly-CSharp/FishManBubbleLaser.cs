@@ -71,19 +71,6 @@ public class FishManBubbleLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -94,15 +81,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedEffectOnAllies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnAllies = m_abilityMod.m_effectOnAlliesMod.GetModifiedValue(m_effectOnAllies);
 		}
 		else
@@ -113,15 +91,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemies = m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -133,15 +102,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedExplosionEffectToEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExplosionEffectToEnemies = m_abilityMod.m_explosionEffectToEnemiesMod.GetModifiedValue(m_explosionEffectToEnemies);
 		}
 		else
@@ -161,19 +121,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnAllies != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnAllies;
 		}
 		else
@@ -188,19 +135,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemies != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemies;
 		}
 		else
@@ -215,19 +149,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialHitHealingToAlliesMod.GetModifiedValue(m_initialHitHealingToAllies);
 		}
 		else
@@ -257,19 +178,6 @@ public class FishManBubbleLaser : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionShapeMod.GetModifiedValue(m_explosionShape);
 		}
 		else
@@ -284,19 +192,6 @@ public class FishManBubbleLaser : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionIgnoresLineOfSightMod.GetModifiedValue(m_explosionIgnoresLineOfSight);
 		}
 		else
@@ -311,19 +206,6 @@ public class FishManBubbleLaser : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionCanAffectEffectHolderMod.GetModifiedValue(m_explosionCanAffectEffectHolder);
 		}
 		else
@@ -338,19 +220,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
@@ -365,19 +234,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
@@ -392,19 +248,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedExplosionEffectToAllies != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExplosionEffectToAllies;
 		}
 		else
@@ -419,19 +262,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedExplosionEffectToEnemies != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExplosionEffectToEnemies;
 		}
 		else
@@ -452,10 +282,6 @@ public class FishManBubbleLaser : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_FishManBubbleLaser);
 					Setup();
 					return;
@@ -477,19 +303,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_FishManBubbleLaser.m_effectOnAlliesMod.GetModifiedValue(m_effectOnAllies);
 		}
 		else
@@ -500,15 +313,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_FishManBubbleLaser.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -521,15 +325,6 @@ public class FishManBubbleLaser : Ability
 		int val;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_FishManBubbleLaser.m_initialHitDamageToEnemiesMod.GetModifiedValue(m_initialHitDamageToEnemies);
 		}
 		else
@@ -541,15 +336,6 @@ public class FishManBubbleLaser : Ability
 		int val2;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManBubbleLaser.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(m_numTurnsBeforeFirstExplosion);
 		}
 		else
@@ -562,15 +348,6 @@ public class FishManBubbleLaser : Ability
 		int val3;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManBubbleLaser.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
@@ -582,15 +359,6 @@ public class FishManBubbleLaser : Ability
 		int val4;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManBubbleLaser.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
@@ -601,15 +369,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_FishManBubbleLaser)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_FishManBubbleLaser.m_explosionEffectToAlliesMod.GetModifiedValue(m_explosionEffectToAllies);
 		}
 		else
@@ -625,32 +384,10 @@ public class FishManBubbleLaser : Ability
 		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
 		if (GetInitialHitDamageToEnemies() > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Enemy, GetInitialHitDamageToEnemies());
 		}
 		if (GetInitialHitHealingToAllies() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Ally, GetInitialHitHealingToAllies());
 		}
 		GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Enemy);

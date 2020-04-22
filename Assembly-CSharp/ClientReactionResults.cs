@@ -37,10 +37,6 @@ public class ClientReactionResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -62,15 +58,6 @@ public class ClientReactionResults
 		{
 			if (seqStartData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (seqStartData.HasSequencePrefab())
 				{
 					return true;
@@ -90,19 +77,6 @@ public class ClientReactionResults
 		int result;
 		if (PlayedReaction())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_effectResults.DoneHitting() ? 1 : 0);
 		}
 		else
@@ -125,15 +99,6 @@ public class ClientReactionResults
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_playedReaction = true;
 			if (HasSequencesToStart())
 			{
@@ -169,15 +134,6 @@ public class ClientReactionResults
 			}
 			if (ClientAbilityResults.LogMissingSequences)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 			}
 			m_effectResults.RunClientEffectHits();

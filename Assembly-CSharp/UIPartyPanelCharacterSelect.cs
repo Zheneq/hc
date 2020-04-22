@@ -61,19 +61,6 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 		CharacterResourceLink characterResourceLink = null;
 		if (m_characterType != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_characterType);
 		}
 		if (characterResourceLink != null)
@@ -127,10 +114,6 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -185,10 +168,6 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(m_hover, false);
 					UIManager.SetGameObjectActive(m_pressed, true);
 					return;

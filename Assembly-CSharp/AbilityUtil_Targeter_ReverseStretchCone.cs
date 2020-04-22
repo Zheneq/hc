@@ -72,30 +72,8 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		if (m_includeCaster)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!actors.Contains(targetingActor))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actors.Add(targetingActor);
 			}
 		}
@@ -111,15 +89,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 			AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor);
 			if ((a - actorData.GetTravelBoardSquareWorldPositionForLos()).sqrMagnitude <= num2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Far, true);
 			}
 		}
@@ -136,19 +105,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 			if (m_highlights.Count >= 1)
 			{
 				goto IL_00a4;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -169,15 +125,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_coneChecker.UpdateConeProperties(coneStartPos, coneWidthDegrees, coneLengthSquares - m_coneBackwardOffsetInSquares, m_coneBackwardOffsetInSquares, forwardDir_degrees, targetingActor);
 			m_coneChecker.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), false);
 			ResetSquareIndicatorIndexToUse();
@@ -192,60 +139,20 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_includeCaster;
 		}
 		else
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_includeAllies)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_007f;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_includeEnemies)
 				{
 					result = true;
@@ -259,15 +166,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 			BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 			if (!caster.GetCurrentBoardSquare()._0013(currentBoardSquare.x, currentBoardSquare.y))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 		}

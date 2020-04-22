@@ -48,15 +48,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TextMeshProUGUI[] componentsInChildren3 = m_ability3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 			TextMeshProUGUI[] array3 = componentsInChildren3;
 			foreach (TextMeshProUGUI textMeshProUGUI3 in array3)
@@ -65,11 +56,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				TextMeshProUGUI[] componentsInChildren4 = m_ability4Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 				TextMeshProUGUI[] array4 = componentsInChildren4;
 				foreach (TextMeshProUGUI textMeshProUGUI4 in array4)
@@ -78,11 +64,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					TextMeshProUGUI[] componentsInChildren5 = m_ability5Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 					TextMeshProUGUI[] array5 = componentsInChildren5;
 					foreach (TextMeshProUGUI textMeshProUGUI5 in array5)
@@ -91,22 +72,8 @@ public class UIAbilitySelectPanel : MonoBehaviour
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						if (abilityEntries[7].ability == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_catalyst1Btn, false);
 						}
 						else
@@ -118,27 +85,9 @@ public class UIAbilitySelectPanel : MonoBehaviour
 							{
 								textMeshProUGUI6.text = abilityEntries[7].ability.GetNameString();
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (abilityEntries[8].ability == null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_catalyst2Btn, false);
 						}
 						else
@@ -150,27 +99,9 @@ public class UIAbilitySelectPanel : MonoBehaviour
 							{
 								textMeshProUGUI7.text = abilityEntries[8].ability.GetNameString();
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (abilityEntries[9].ability == null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_catalyst3Btn, false);
 						}
 						else
@@ -181,15 +112,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 							foreach (TextMeshProUGUI textMeshProUGUI8 in array8)
 							{
 								textMeshProUGUI8.text = abilityEntries[9].ability.GetNameString();
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						m_ability1Btn.SetSelected(false, false, string.Empty, string.Empty);
@@ -252,24 +174,10 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!selectableBtn.IsDisabled)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					selectableBtn.SetSelected(!clear, false, string.Empty, string.Empty);
 					return;
 				}
@@ -289,10 +197,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetSelectedButton(m_hoverAbility, true);
 					m_hoverAbility = KeyPreference.NullPreference;
 					return;
@@ -342,22 +246,8 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (m_hoverAbility != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetSelectedButton(m_hoverAbility, true);
 			}
 			m_hoverAbility = keyPreference;

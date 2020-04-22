@@ -46,19 +46,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Healing Explosion";
 		}
 		m_syncComponent = GetComponent<Martyr_SyncComponent>();
@@ -99,19 +86,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -186,19 +160,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		int num;
 		if (martyrHealingExplosionThreshold != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrHealingExplosionThreshold.m_additionalHealing;
 		}
 		else
@@ -215,19 +176,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
 		else

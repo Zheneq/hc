@@ -18,15 +18,6 @@ public class HighlightParent : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float realtimeSinceStartup = Time.realtimeSinceStartup;
 			float num = Mathf.Sin(realtimeSinceStartup * 3f);
 			m_oscillatingAlpha = 0.5f + Mathf.Clamp(num * 0.2f, -0.2f, 0.2f);

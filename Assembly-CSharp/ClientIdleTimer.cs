@@ -17,19 +17,6 @@ public class ClientIdleTimer : MonoBehaviour
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("ClientIdleTimer component is not present on a bootstrap singleton!");
 		}
 		return s_instance;
@@ -52,15 +39,6 @@ public class ClientIdleTimer : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -83,27 +61,9 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (DebugParameters.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DebugParameters.Get().GetParameterAsBool("DisableBotTakeover"))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (GameFlowData.Get() != null && GameFlowData.Get().GetPause())
@@ -121,26 +81,8 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.NoInputIdleDisconnect))
 				{
 					while (true)
@@ -175,15 +117,6 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (ReplayPlayManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				while (true)
@@ -202,15 +135,6 @@ public class ClientIdleTimer : MonoBehaviour
 		bool flag2 = false;
 		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState_GroupCharacterSelect.Get().InQueue())
 			{
 				flag = true;
@@ -220,99 +144,27 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (!(AppState.GetCurrent() == AppState_FoundGame.Get()))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(AppState.GetCurrent() == AppState_GameLoading.Get()))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(AppState.GetCurrent() == AppState_WaitingForGame.Get()))
 						{
 							if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
 								{
 									goto IL_02bd;
 								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (GameFlowData.Get() != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = true;
 								m_timeSinceMatchStart += Time.deltaTime;
 							}
 							goto IL_02bd;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -327,15 +179,6 @@ public class ClientIdleTimer : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo().IsNullOrEmpty())
 				{
 					while (true)
@@ -368,15 +211,6 @@ public class ClientIdleTimer : MonoBehaviour
 			}
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTimeMatchStart)
 				{
 					while (true)
@@ -400,11 +234,6 @@ public class ClientIdleTimer : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				ShowWarningDialog();
 				return;
 			}
@@ -444,15 +273,6 @@ public class ClientIdleTimer : MonoBehaviour
 		IL_02bd:
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				while (true)
@@ -477,15 +297,6 @@ public class ClientIdleTimer : MonoBehaviour
 			{
 				goto IL_034a;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (AccountPreferences.DoesApplicationHaveFocus())
 		{
@@ -504,15 +315,6 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_idleWarningDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InactivityWarning", "Global"), StringUtil.TR("YouWillBeDisconnected", "Global"), StringUtil.TR("DontKickMe", "Global"));
 			return;
 		}
@@ -526,15 +328,6 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIDialogPopupManager.Get().CloseDialog(m_idleWarningDialog);
 			m_idleWarningDialog = null;
 			return;

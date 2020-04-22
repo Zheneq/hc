@@ -43,19 +43,6 @@ public class SpaceMarineDropPod : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Drop Pod";
 		}
 		AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType = AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape;
@@ -69,19 +56,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -96,19 +70,6 @@ public class SpaceMarineDropPod : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_knockbackDistance;
 		}
 		else
@@ -123,19 +84,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyRefundIfNoEnemyHitMod.GetModifiedValue(m_energyRefundIfNoEnemyHit);
 		}
 		else
@@ -150,19 +98,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraPowerupHealIfDirectHitMod.GetModifiedValue(m_extraPowerupHealIfDirectHit);
 		}
 		else
@@ -177,19 +112,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraPowerupEnergyIfDirectHitMod.GetModifiedValue(m_extraPowerupEnergyIfDirectHit);
 		}
 		else
@@ -211,56 +133,16 @@ public class SpaceMarineDropPod : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_groundEffectInfoOnDropPod.m_applyGroundEffect)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData.damageAmount > 0)
 				{
 					List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 					if (tooltipSubjectTypes != null && boardSquareSafe != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GroundEffectField groundEffectData = m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData;
 							if (AreaEffectUtils.IsSquareInShape(targetActor.GetCurrentBoardSquare(), groundEffectData.shape, base.Targeter.LastUpdateFreePos, boardSquareSafe, m_penetrateLoS, base.ActorData))
 							{
@@ -279,19 +161,6 @@ public class SpaceMarineDropPod : Ability
 	{
 		if (GetEnergyRefundIfNoEnemyHit() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 0)
 			{
 				return GetEnergyRefundIfNoEnemyHit();
@@ -312,19 +181,6 @@ public class SpaceMarineDropPod : Ability
 		int val;
 		if ((bool)abilityMod_SpaceMarineDropPod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SpaceMarineDropPod.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -336,15 +192,6 @@ public class SpaceMarineDropPod : Ability
 		int val2;
 		if ((bool)abilityMod_SpaceMarineDropPod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SpaceMarineDropPod.m_energyRefundIfNoEnemyHitMod.GetModifiedValue(m_energyRefundIfNoEnemyHit);
 		}
 		else
@@ -358,15 +205,6 @@ public class SpaceMarineDropPod : Ability
 		int val3;
 		if ((bool)abilityMod_SpaceMarineDropPod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SpaceMarineDropPod.m_extraPowerupHealIfDirectHitMod.GetModifiedValue(m_extraPowerupHealIfDirectHit);
 		}
 		else
@@ -378,15 +216,6 @@ public class SpaceMarineDropPod : Ability
 		int val4;
 		if ((bool)abilityMod_SpaceMarineDropPod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SpaceMarineDropPod.m_extraPowerupEnergyIfDirectHitMod.GetModifiedValue(m_extraPowerupEnergyIfDirectHit);
 		}
 		else
@@ -400,32 +229,17 @@ public class SpaceMarineDropPod : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_powerupPrefab.m_ability != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				PowerUp_Standard_Ability powerUp_Standard_Ability = m_powerupPrefab.m_ability as PowerUp_Standard_Ability;
 				if (powerUp_Standard_Ability != null)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						AddTokenInt(tokens, "PowerupHealing", string.Empty, powerUp_Standard_Ability.m_healAmount);
 						return;
 					}
@@ -447,10 +261,6 @@ public class SpaceMarineDropPod : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SpaceMarineDropPod);
 					AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType = AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape;
 					AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;

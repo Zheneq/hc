@@ -31,19 +31,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (m_freelancerCurrencyButton != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_freelancerCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
 			m_freelancerCurrencyButton.spriteController.SetForceHovercallback(true);
 			m_freelancerCurrencyButton.spriteController.SetForceExitCallback(true);
@@ -54,11 +41,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_realCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, TooltipSetup);
 			m_realCurrencyButton.spriteController.SetForceHovercallback(true);
 			m_realCurrencyButton.spriteController.SetForceExitCallback(true);
@@ -76,19 +58,6 @@ public class UIPurchasePanel : MonoBehaviour
 		int num;
 		if (gameManager != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((gameManager.GameStatus < GameStatus.FreelancerSelecting || gameManager.GameStatus == GameStatus.Stopped) ? 1 : 0);
 		}
 		else
@@ -107,41 +76,10 @@ public class UIPurchasePanel : MonoBehaviour
 		int num;
 		if (!m_allowDuringGame)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (isoPrice <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (freelancerCurrencyPrice <= 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((realCurrencyPrice > 0f) ? 1 : 0);
 					goto IL_004d;
 				}
@@ -156,26 +94,8 @@ public class UIPurchasePanel : MonoBehaviour
 		int num2;
 		if (gameManager != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.GameStatus >= GameStatus.FreelancerSelecting)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((gameManager.GameStatus == GameStatus.Stopped) ? 1 : 0);
 			}
 			else
@@ -198,15 +118,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (m_freelancerCurrencyButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_freelancerCurrencyButton, freelancerCurrencyPrice > 0);
 			SetPriceLabels(m_freelancerCurrencyCostTexts, freelancerCurrencyPrice, "credit");
 		}
@@ -216,11 +127,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_realCurrencyButton, realCurrencyPrice > 0f);
 			SetRealPriceLabels(realCurrencyPrice);
 			return;
@@ -236,15 +142,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -258,15 +155,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -275,19 +163,6 @@ public class UIPurchasePanel : MonoBehaviour
 	{
 		if (m_isoButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_isoButton.m_ignoreDefaultAnimationCall = isDisabled;
 			m_isoButton.m_ignoreHoverAnimationCall = isDisabled;
 			m_isoButton.m_ignorePressAnimationCall = isDisabled;
@@ -296,15 +171,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (m_freelancerCurrencyButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_freelancerCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
 			m_freelancerCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
 			m_freelancerCurrencyButton.m_ignorePressAnimationCall = isDisabled;
@@ -317,11 +183,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_realCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
 			m_realCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
 			m_realCurrencyButton.m_ignorePressAnimationCall = isDisabled;
@@ -348,10 +209,6 @@ public class UIPurchasePanel : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 					uITitledTooltip.Setup(StringUtil.TR("Purchase", "Global"), m_tooltipDescription, string.Empty);
 					return true;

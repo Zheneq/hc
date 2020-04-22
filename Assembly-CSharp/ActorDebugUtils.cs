@@ -58,46 +58,15 @@ public class ActorDebugUtils : MonoBehaviour
 	{
 		if (!ShowDebugGUI)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (requireDebugWindowVisible)
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		DebugCategoryInfo debugCategoryInfo = GetDebugCategoryInfo(cat);
 		int result;
 		if (debugCategoryInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (debugCategoryInfo.m_enabled ? 1 : 0);
 		}
 		else
@@ -111,19 +80,6 @@ public class ActorDebugUtils : MonoBehaviour
 	{
 		if (m_categoryToDebugContainer != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_categoryToDebugContainer.ContainsKey(cat))
 			{
 				while (true)
@@ -210,15 +166,6 @@ public class ActorDebugUtils : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

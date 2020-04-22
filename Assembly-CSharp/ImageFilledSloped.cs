@@ -83,10 +83,6 @@ public class ImageFilledSloped : Image
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (type == Type.Filled)
 					{
 						GenerateFilledSprite(toFill, base.preserveAspect);
@@ -104,15 +100,6 @@ public class ImageFilledSloped : Image
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				toFill.Clear();
 				return;
 			}
@@ -133,15 +120,6 @@ public class ImageFilledSloped : Image
 			Vector4 vector3;
 			if (base.overrideSprite != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector3 = DataUtility.GetOuterUV(base.overrideSprite);
 			}
 			else
@@ -164,51 +142,15 @@ public class ImageFilledSloped : Image
 			{
 				goto IL_0abf;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (base.fillMethod == FillMethod.Horizontal)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Mathf.Approximately(fillSlope, 0f))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fillSlope = 0.1f;
 			}
 			if (base.fillOrigin == 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num5 = (vector.w - vector.y) / fillSlope;
 				float x3 = vector.x;
 				float num6 = x3 - num5 + (1f - fillAmountTrimmed) * (vector.z - x3 + num5);
@@ -233,15 +175,6 @@ public class ImageFilledSloped : Image
 					float num10;
 					if (m_StartIsSloped)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num10 = num5 / num7 * num8;
 					}
 					else
@@ -287,15 +220,6 @@ public class ImageFilledSloped : Image
 					float num15;
 					if (m_StartIsSloped)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num15 = num11;
 					}
 					else
@@ -328,15 +252,6 @@ public class ImageFilledSloped : Image
 		}
 		else if (base.fillMethod == FillMethod.Vertical)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num16 = (num2 - num) * fillAmountTrimmed;
 			if (base.fillOrigin == 1)
 			{
@@ -405,19 +320,6 @@ public class ImageFilledSloped : Image
 		Vector4 vector;
 		if (base.overrideSprite == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = Vector4.zero;
 		}
 		else
@@ -428,15 +330,6 @@ public class ImageFilledSloped : Image
 		Vector2 vector3;
 		if (base.overrideSprite == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector3 = Vector2.zero;
 		}
 		else
@@ -450,39 +343,12 @@ public class ImageFilledSloped : Image
 		Vector4 vector5 = new Vector4(vector2.x / (float)num, vector2.y / (float)num2, ((float)num - vector2.z) / (float)num, ((float)num2 - vector2.w) / (float)num2);
 		if (shouldPreserveAspect)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector4.sqrMagnitude > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num3 = vector4.x / vector4.y;
 				float num4 = pixelAdjustedRect.width / pixelAdjustedRect.height;
 				if (num3 > num4)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float height = pixelAdjustedRect.height;
 					pixelAdjustedRect.height = pixelAdjustedRect.width * (1f / num3);
 					float y = pixelAdjustedRect.y;

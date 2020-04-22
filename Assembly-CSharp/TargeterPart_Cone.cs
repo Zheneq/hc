@@ -54,15 +54,6 @@ public class TargeterPart_Cone
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			aimDir.Normalize();
 			float d = m_backwardOffsetInSquares * Board.Get().squareSize;
 			Vector3 position = coneStartPos - aimDir * d;

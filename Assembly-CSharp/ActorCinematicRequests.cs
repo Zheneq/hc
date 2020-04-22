@@ -59,15 +59,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -89,10 +80,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::OnTurnStart()' called on client");
 					return;
 				}
@@ -109,11 +96,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Networkm_numCinematicRequestsLeft = m_numCinematicRequestsLeft - num;
 			return;
 		}
@@ -132,15 +114,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 					{
 						if (!enumerator.MoveNext())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						GameObject current = enumerator.Current;
@@ -182,40 +155,13 @@ public class ActorCinematicRequests : NetworkBehaviour
 				{
 					if (m_abilityRequested[i])
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num--;
 					}
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					return num;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return 10;
@@ -230,15 +176,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ActorCinematicRequests::ProcessAbilityCinematicRequest(AbilityData/ActionType,System.Boolean,System.Int32,System.Int32)' called on client");
 			return;
 		}
@@ -255,10 +192,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ProcessAbilityCinematicRequest(actionType, requested, animTauntIndex, tauntId);
 					return;
 				}
@@ -288,10 +221,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_abilityRequested called on server.");
 					return;
 				}
@@ -311,10 +240,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_cinematicsPlayedThisMatch called on server.");
 					return;
 				}
@@ -334,10 +259,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSelectAbilityCinematicRequest called on client.");
 					return;
 				}
@@ -357,10 +278,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSelectAbilityCinematicRequest called on server.");
 					return;
 				}
@@ -403,10 +320,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListBool.WriteInstance(writer, m_abilityRequested);
 					writer.WritePackedUInt32((uint)m_numCinematicRequestsLeft);
 					SyncListInt.WriteInstance(writer, m_cinematicsPlayedThisMatch);
@@ -417,15 +330,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -435,26 +339,8 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -464,15 +350,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -480,15 +357,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -505,10 +373,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListBool.ReadReference(reader, m_abilityRequested);
 					m_numCinematicRequestsLeft = (int)reader.ReadPackedUInt32();
 					SyncListInt.ReadReference(reader, m_cinematicsPlayedThisMatch);
@@ -523,15 +387,6 @@ public class ActorCinematicRequests : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_numCinematicRequestsLeft = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)

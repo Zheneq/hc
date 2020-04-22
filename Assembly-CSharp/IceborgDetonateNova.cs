@@ -37,19 +37,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		string text = base.GetOnHitDataDesc();
 		if (m_empoweredDelayedAoeOnHitData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += m_empoweredDelayedAoeOnHitData.GetInEditorDesc();
 		}
 		return text;
@@ -85,19 +72,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (m_cachedEmpoweredDelayedAoeOnHitData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEmpoweredDelayedAoeOnHitData;
 		}
 		else
@@ -112,19 +86,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(m_novaOnReactShieldPerDetonate);
 		}
 		else
@@ -139,19 +100,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(m_shieldOnDetonateDuration);
 		}
 		else
@@ -166,19 +114,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrPerKillMod.GetModifiedValue(m_cdrPerKill);
 		}
 		else
@@ -193,19 +128,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(m_cdrIfAnyKill);
 		}
 		else
@@ -225,19 +147,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		AddTokenInt(tokens, "CdrIfAnyKill", string.Empty, m_cdrIfAnyKill);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (!(m_syncComp != null))
@@ -246,11 +155,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_syncComp.AddTooltipTokens(tokens);
 			return;
 		}
@@ -267,10 +171,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -286,15 +186,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityContext.SetInt(s_cvarNumNovaCores.GetHash(), m_syncComp.m_numNovaEffectsOnTurnStart);
 			return;
 		}

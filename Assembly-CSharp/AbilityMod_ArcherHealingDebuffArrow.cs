@@ -46,15 +46,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", archerHealingDebuffArrow.m_laserHitEffect);
 			AbilityMod.AddToken_EffectMod(tokens, m_extraHitEffectMod, "LaserHitEffect");
 			AbilityMod.AddToken(tokens, m_reactionHealingMod, "ReactionHealing", string.Empty, archerHealingDebuffArrow.m_reactionHealing);
@@ -81,19 +72,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = archerHealingDebuffArrow.m_laserHitEffect;
 		}
 		else
@@ -108,15 +86,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerHealingDebuffArrow.m_reactionHealingOnSelf;
 		}
 		else
@@ -130,15 +99,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerHealingDebuffArrow.m_healsPerAlly;
 		}
 		else
@@ -152,15 +112,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerHealingDebuffArrow.m_reactionEffect;
 		}
 		else
@@ -171,15 +122,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		empty += PropDesc(m_extraHealForShieldGeneratorTargets, "[ExtraHealForShieldGeneratorTargets]", flag);
 		if (m_cooldownReductionIfNoHeals != null && m_cooldownReductionIfNoHeals.HasCooldownReduction())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += m_cooldownReductionIfNoHeals.GetDescription(abilityData);
 		}
 		empty += PropDesc(m_extraHealBelowHealthThresholdMod, "[ExtraHealForAlliesBelowHealthThreshold]", flag);

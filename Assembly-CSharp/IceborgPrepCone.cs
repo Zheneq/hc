@@ -24,19 +24,6 @@ public class IceborgPrepCone : GenericAbility_Container
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (!(m_syncComp != null))
@@ -45,11 +32,6 @@ public class IceborgPrepCone : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_syncComp.AddTooltipTokens(tokens);
 			return;
 		}

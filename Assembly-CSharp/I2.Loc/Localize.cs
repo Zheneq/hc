@@ -145,15 +145,6 @@ namespace I2.Loc
 				while ((object)action != action2);
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -169,15 +160,6 @@ namespace I2.Loc
 				while ((object)action != action2);
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -216,44 +198,13 @@ namespace I2.Loc
 		{
 			if (!Force)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.enabled)
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.gameObject == null)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!base.gameObject.activeInHierarchy)
 				{
@@ -284,15 +235,6 @@ namespace I2.Loc
 			}
 			if (!Force)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (LastLocalizedLanguage == LocalizationManager.CurrentLanguage)
 				{
 					while (true)
@@ -313,15 +255,6 @@ namespace I2.Loc
 				if (!string.IsNullOrEmpty(FinalSecondaryTerm))
 				{
 					goto IL_00ec;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			GetFinalTerms(out FinalTerm, out FinalSecondaryTerm);
@@ -351,64 +284,19 @@ namespace I2.Loc
 			}
 			if (LocalizationManager.IsRight2Left)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!IgnoreRTL)
 				{
 					if (AllowMainTermToBeRTL)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!string.IsNullOrEmpty(MainTranslation))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							MainTranslation = LocalizationManager.ApplyRTLfix(MainTranslation, MaxCharactersInRTL);
 						}
 					}
 					if (AllowSecondTermToBeRTL)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!string.IsNullOrEmpty(SecondaryTranslation))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SecondaryTranslation = LocalizationManager.ApplyRTLfix(SecondaryTranslation);
 						}
 					}
@@ -452,19 +340,6 @@ namespace I2.Loc
 		{
 			if (this.EventFindTarget == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				RegisterTargets();
 			}
 			this.EventFindTarget();
@@ -487,15 +362,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				EventSetFinalTerms = setFinalTerms;
 				EventDoLocalize = doLocalize;
 				CanUseSecondaryTerm = UseSecondaryTerm;
@@ -509,32 +375,10 @@ namespace I2.Loc
 		{
 			if (mTarget != targetCache && (bool)targetCache)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.Destroy(targetCache);
 			}
 			if (mTarget != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				targetCache = (mTarget as GameObject);
 			}
 			else
@@ -543,15 +387,6 @@ namespace I2.Loc
 				object obj;
 				if (transform.childCount < 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = null;
 				}
 				else
@@ -581,31 +416,9 @@ namespace I2.Loc
 		{
 			if (EventSetFinalTerms != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((bool)mTarget || HasTargetCache())
 				{
 					goto IL_0041;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			FindTarget();
@@ -613,15 +426,6 @@ namespace I2.Loc
 			IL_00ba:
 			if (!string.IsNullOrEmpty(mTerm))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PrimaryTerm = mTerm;
 			}
 			if (!string.IsNullOrEmpty(mTermSecondary))
@@ -634,38 +438,11 @@ namespace I2.Loc
 			SecondaryTerm = string.Empty;
 			if (mTarget != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(mTerm))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(mTermSecondary))
 					{
 						goto IL_00ba;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (EventSetFinalTerms != null)
@@ -687,19 +464,6 @@ namespace I2.Loc
 			string result;
 			if (string.IsNullOrEmpty(primaryTerm))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = mTerm;
 			}
 			else
@@ -714,30 +478,8 @@ namespace I2.Loc
 			string text;
 			if (RemoveNonASCII)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!string.IsNullOrEmpty(Main))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = Regex.Replace(Main, "[^a-zA-Z0-9_ ]+", " ");
 					goto IL_003f;
 				}
@@ -753,19 +495,6 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(primary))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				string text2 = FinalTerm = (Term = primary);
 			}
 			if (!string.IsNullOrEmpty(secondary))
@@ -796,31 +525,9 @@ namespace I2.Loc
 			T translatedObject = GetTranslatedObject<T>(Translation);
 			if ((UnityEngine.Object)translatedObject == (UnityEngine.Object)null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = Translation.LastIndexOfAny("/\\".ToCharArray());
 				if (num >= 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Translation = Translation.Substring(num + 1);
 					translatedObject = GetTranslatedObject<T>(Translation);
 				}
@@ -837,41 +544,10 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(translation))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (translation.Length > 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (translation[0] == '[')
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = translation.IndexOf(']');
 						if (num > 0)
 						{
@@ -894,33 +570,11 @@ namespace I2.Loc
 			}
 			if (TranslatedObjects != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int i = 0;
 				for (int num = TranslatedObjects.Length; i < num; i++)
 				{
 					if ((UnityEngine.Object)(TranslatedObjects[i] as T) != (UnityEngine.Object)null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value == TranslatedObjects[i].name)
 						{
 							return TranslatedObjects[i] as T;
@@ -1008,19 +662,6 @@ namespace I2.Loc
 			string text;
 			if (mTarget_TMPUGUILabel.font != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = mTarget_TMPUGUILabel.font.name;
 			}
 			else
@@ -1035,34 +676,12 @@ namespace I2.Loc
 		{
 			if (!Application.isPlaying)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			TMP_FontAsset secondaryTranslatedObj = GetSecondaryTranslatedObj<TMP_FontAsset>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
 				if (mTarget_TMPLabel.font != secondaryTranslatedObj)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mTarget_TMPLabel.font = secondaryTranslatedObj;
 				}
 			}
@@ -1071,38 +690,11 @@ namespace I2.Loc
 				Material secondaryTranslatedObj2 = GetSecondaryTranslatedObj<Material>(ref MainTranslation, ref SecondaryTranslation);
 				if (secondaryTranslatedObj2 != null && mTarget_TMPLabel.fontMaterial != secondaryTranslatedObj2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!secondaryTranslatedObj2.name.StartsWith(mTarget_TMPLabel.font.name))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						secondaryTranslatedObj = GetTMPFontFromMaterial(secondaryTranslatedObj2.name);
 						if (secondaryTranslatedObj != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							mTarget_TMPLabel.font = secondaryTranslatedObj;
 						}
 					}
@@ -1111,15 +703,6 @@ namespace I2.Loc
 			}
 			if (mInitializeAlignment)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mInitializeAlignment = false;
 				mOriginalAlignmentTMPro = mTarget_TMPLabel.alignment;
 			}
@@ -1129,36 +712,17 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(mTarget_TMPLabel.text != MainTranslation))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
 						int alignment = (int)mTarget_TMPLabel.alignment;
 						if (alignment % 4 == 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							mTarget_TMPLabel.alignment = ((!LocalizationManager.IsRight2Left) ? mOriginalAlignmentTMPro : (mTarget_TMPLabel.alignment + 2));
 						}
 						else if (alignment % 4 == 2)
@@ -1167,15 +731,6 @@ namespace I2.Loc
 							int alignment2;
 							if (LocalizationManager.IsRight2Left)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								alignment2 = (int)(mTarget_TMPLabel.alignment - 2);
 							}
 							else
@@ -1196,19 +751,6 @@ namespace I2.Loc
 			TMP_FontAsset secondaryTranslatedObj = GetSecondaryTranslatedObj<TMP_FontAsset>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mTarget_TMPUGUILabel.font != secondaryTranslatedObj)
 				{
 					mTarget_TMPUGUILabel.font = secondaryTranslatedObj;
@@ -1219,49 +761,13 @@ namespace I2.Loc
 				Material secondaryTranslatedObj2 = GetSecondaryTranslatedObj<Material>(ref MainTranslation, ref SecondaryTranslation);
 				if (secondaryTranslatedObj2 != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mTarget_TMPUGUILabel.fontMaterial != secondaryTranslatedObj2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!secondaryTranslatedObj2.name.StartsWith(mTarget_TMPUGUILabel.font.name))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							secondaryTranslatedObj = GetTMPFontFromMaterial(secondaryTranslatedObj2.name);
 							if (secondaryTranslatedObj != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								mTarget_TMPUGUILabel.font = secondaryTranslatedObj;
 							}
 						}
@@ -1271,15 +777,6 @@ namespace I2.Loc
 			}
 			if (mInitializeAlignment)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mInitializeAlignment = false;
 				mOriginalAlignmentTMPro = mTarget_TMPUGUILabel.alignment;
 			}
@@ -1289,58 +786,21 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!(mTarget_TMPUGUILabel.text != MainTranslation))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int alignment = (int)mTarget_TMPUGUILabel.alignment;
 						if (alignment % 4 == 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TextMeshProUGUI textMeshProUGUI = mTarget_TMPUGUILabel;
 							int alignment2;
 							if (LocalizationManager.IsRight2Left)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								alignment2 = (int)(mTarget_TMPUGUILabel.alignment + 2);
 							}
 							else
@@ -1351,15 +811,6 @@ namespace I2.Loc
 						}
 						else if (alignment % 4 == 2)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							mTarget_TMPUGUILabel.alignment = ((!LocalizationManager.IsRight2Left) ? mOriginalAlignmentTMPro : (mTarget_TMPUGUILabel.alignment - 2));
 						}
 					}
@@ -1382,10 +833,6 @@ namespace I2.Loc
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						string translation = matName.Substring(0, num + " SDF".Length);
 						return GetObject<TMP_FontAsset>(translation);
 					}
@@ -1422,19 +869,6 @@ namespace I2.Loc
 			string text;
 			if (mTarget_uGUI_Text.font != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = mTarget_uGUI_Text.font.name;
 			}
 			else
@@ -1466,10 +900,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return (T)null;
 					}
 				}
@@ -1483,15 +913,6 @@ namespace I2.Loc
 					tr = tr.parent;
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			return component;
@@ -1502,44 +923,13 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (secondaryTranslatedObj != mTarget_uGUI_Text.font)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mTarget_uGUI_Text.font = secondaryTranslatedObj;
 				}
 			}
 			if (mInitializeAlignment)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mInitializeAlignment = false;
 				mOriginalAlignmentUGUI = mTarget_uGUI_Text.alignment;
 			}
@@ -1549,92 +939,24 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mTarget_uGUI_Text.alignment != 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (mTarget_uGUI_Text.alignment != TextAnchor.UpperCenter)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (mTarget_uGUI_Text.alignment != TextAnchor.UpperRight)
 							{
 								if (mTarget_uGUI_Text.alignment != TextAnchor.MiddleLeft)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (mTarget_uGUI_Text.alignment != TextAnchor.MiddleCenter)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (mTarget_uGUI_Text.alignment != TextAnchor.MiddleRight)
 										{
 											if (mTarget_uGUI_Text.alignment != TextAnchor.LowerLeft)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (mTarget_uGUI_Text.alignment != TextAnchor.LowerCenter)
 												{
-													while (true)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (mTarget_uGUI_Text.alignment != TextAnchor.LowerRight)
 													{
 														goto IL_0219;
@@ -1645,15 +967,6 @@ namespace I2.Loc
 											int alignment;
 											if (LocalizationManager.IsRight2Left)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												alignment = 8;
 											}
 											else
@@ -1663,30 +976,12 @@ namespace I2.Loc
 											text.alignment = (TextAnchor)alignment;
 											goto IL_0219;
 										}
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 								}
 								Text text2 = mTarget_uGUI_Text;
 								int alignment2;
 								if (LocalizationManager.IsRight2Left)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									alignment2 = 5;
 								}
 								else
@@ -1696,30 +991,12 @@ namespace I2.Loc
 								text2.alignment = (TextAnchor)alignment2;
 								goto IL_0219;
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					Text text3 = mTarget_uGUI_Text;
 					int alignment3;
 					if (LocalizationManager.IsRight2Left)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						alignment3 = 2;
 					}
 					else
@@ -1741,31 +1018,9 @@ namespace I2.Loc
 			Sprite sprite = mTarget_uGUI_Image.sprite;
 			if (!(sprite == null))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(sprite.name != MainTranslation))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			mTarget_uGUI_Image.sprite = FindTranslatedObject<Sprite>(MainTranslation);
@@ -1779,19 +1034,6 @@ namespace I2.Loc
 				if (!(texture.name != MainTranslation))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			mTarget_uGUI_RawImage.texture = FindTranslatedObject<Texture>(MainTranslation);
@@ -1835,30 +1077,8 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(Secondary))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mTarget_GUIText.font != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Secondary = mTarget_GUIText.font.name;
 				}
 			}
@@ -1875,32 +1095,10 @@ namespace I2.Loc
 		{
 			if ((bool)mTarget_GUITexture)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((bool)mTarget_GUITexture.texture)
 				{
 					SetFinalTerms(mTarget_GUITexture.texture.name, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			SetFinalTerms(string.Empty, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
@@ -1910,32 +1108,10 @@ namespace I2.Loc
 		{
 			if ((bool)mTarget_AudioSource)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((bool)mTarget_AudioSource.clip)
 				{
 					SetFinalTerms(mTarget_AudioSource.clip.name, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			SetFinalTerms(string.Empty, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
@@ -1951,30 +1127,8 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mTarget_GUIText.font != secondaryTranslatedObj)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mTarget_GUIText.font = secondaryTranslatedObj;
 				}
 			}
@@ -1989,46 +1143,18 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!(mTarget_GUIText.text != MainTranslation))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GUIText gUIText = mTarget_GUIText;
 						int alignment;
 						if (LocalizationManager.IsRight2Left)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							alignment = 2;
 						}
 						else
@@ -2048,45 +1174,14 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mTarget_TextMesh.font != secondaryTranslatedObj)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mTarget_TextMesh.font = secondaryTranslatedObj;
 					GetComponent<Renderer>().sharedMaterial = secondaryTranslatedObj.material;
 				}
 			}
 			if (mInitializeAlignment)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mInitializeAlignment = false;
 				mOriginalAlignmentStd = mTarget_TextMesh.alignment;
 			}
@@ -2096,26 +1191,12 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!(mTarget_TextMesh.text != MainTranslation))
 				{
 					return;
 				}
 				if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mTarget_TextMesh.alignment = ((!LocalizationManager.IsRight2Left) ? mOriginalAlignmentStd : TextAlignment.Right);
 				}
 				mTarget_TextMesh.text = MainTranslation;
@@ -2130,19 +1211,6 @@ namespace I2.Loc
 			AudioClip audioClip = FindTranslatedObject<AudioClip>(MainTranslation);
 			if (clip != audioClip)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				mTarget_AudioSource.clip = audioClip;
 			}
 			if (!isPlaying)
@@ -2151,20 +1219,10 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if ((bool)mTarget_AudioSource.clip)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						mTarget_AudioSource.Play();
 						return;
 					}
@@ -2182,15 +1240,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (texture.name != MainTranslation)
 				{
 					mTarget_GUITexture.texture = FindTranslatedObject<Texture>(MainTranslation);
@@ -2203,19 +1252,6 @@ namespace I2.Loc
 		{
 			if ((bool)mTarget_Child)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mTarget_Child.name == MainTranslation)
 				{
 					while (true)
@@ -2234,29 +1270,11 @@ namespace I2.Loc
 			GameObject gameObject2 = FindTranslatedObject<GameObject>(MainTranslation);
 			if ((bool)gameObject2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mTarget_Child = UnityEngine.Object.Instantiate(gameObject2);
 				Transform transform = mTarget_Child.transform;
 				Transform transform2;
 				if ((bool)gameObject)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					transform2 = gameObject.transform;
 				}
 				else

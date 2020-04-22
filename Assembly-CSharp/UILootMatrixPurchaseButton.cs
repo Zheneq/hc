@@ -40,10 +40,6 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						List<InventoryItemTemplate> list = new List<InventoryItemTemplate>();
 						if (PackRef.IsInEvent())
 						{
@@ -52,26 +48,8 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(PackRef.BonusMatrixes[i].LootMatrixId);
 								if (itemTemplate.TypeSpecificData.Length > 1 && itemTemplate.TypeSpecificData[1] == 1)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(itemTemplate);
 								}
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (list.Count > 0)
@@ -111,31 +89,9 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		int num = pack.NumberOfMatrixes;
 		if (num == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < pack.BonusMatrixes.Length; i++)
 			{
 				num += pack.BonusMatrixes[i].NumberOfMatrixes;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_packCount.text = num.ToString();
@@ -143,15 +99,6 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		Sprite sprite;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = pack.EventPackSprite;
 		}
 		else
@@ -183,15 +130,6 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

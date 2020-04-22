@@ -51,46 +51,15 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ArcherDashAndShoot";
 		}
 		m_shieldGenAbility = (GetAbilityOfType(typeof(ArcherShieldGeneratorArrow)) as ArcherShieldGeneratorArrow);
 		AbilityData component = GetComponent<AbilityData>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_healArrowAbility = (GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
 			if (m_healArrowAbility != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_healArrowActionType = component.GetActionTypeOfAbility(m_healArrowAbility);
 			}
 		}
@@ -111,15 +80,6 @@ public class ArcherDashAndShoot : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -140,19 +100,6 @@ public class ArcherDashAndShoot : Ability
 		float num = Vector3.Angle(neutralDir, vector);
 		if (num > GetMaxAngleForLaser())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = Vector3.RotateTowards(vector, neutralDir, (num - GetMaxAngleForLaser()) * ((float)Math.PI / 180f), 0f);
 		}
 		return vector;
@@ -170,10 +117,6 @@ public class ArcherDashAndShoot : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 					if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 					{
@@ -212,57 +155,17 @@ public class ArcherDashAndShoot : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = GetDirectDamage();
 			List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[1].GetTooltipSubjectTypes(targetActor);
 			if (!tooltipSubjectTypes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GetAoeDamage();
 				}
 			}
 			if (IsReactionHealTarget(targetActor))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -290,10 +193,6 @@ public class ArcherDashAndShoot : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_001f;
 				}
 			}
@@ -306,19 +205,6 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
 				while (true)
@@ -335,49 +221,13 @@ public class ArcherDashAndShoot : Ability
 		}
 		if (m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actorTargeting != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> abilityTargetsInRequest = m_actorTargeting.GetAbilityTargetsInRequest(m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
@@ -420,10 +270,6 @@ public class ArcherDashAndShoot : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out Vector3 overridePos);
 					Vector3 vec = aimingActor.GetTravelBoardSquareWorldPosition() - overridePos;
 					vec.Normalize();
@@ -468,15 +314,6 @@ public class ArcherDashAndShoot : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ArcherDashAndShoot);
 			Setup();
 			return;
@@ -495,19 +332,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo cachedAoeTargetEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedAoeTargetEffect = m_abilityMod.m_aoeTargetEffectMod.GetModifiedValue(m_aoeTargetEffect);
 		}
 		else
@@ -518,15 +342,6 @@ public class ArcherDashAndShoot : Ability
 		object cachedHealingDebuffTargetEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedHealingDebuffTargetEffect = m_abilityMod.m_healingDebuffTargetEffect.GetModifiedValue(null);
 		}
 		else
@@ -541,19 +356,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(m_maxAngleForLaser);
 		}
 		else
@@ -568,19 +370,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -600,19 +389,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
 		}
 		else
@@ -642,19 +418,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo result;
 		if (m_cachedDirectTargetEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDirectTargetEffect;
 		}
 		else
@@ -669,19 +432,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo result;
 		if (m_cachedAoeTargetEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAoeTargetEffect;
 		}
 		else
@@ -701,19 +451,6 @@ public class ArcherDashAndShoot : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownAdjustmentEachTurnUnderHealthThreshold.GetModifiedValue(0);
 		}
 		else
@@ -728,19 +465,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healthThresholdForCooldownOverride.GetModifiedValue(0f);
 		}
 		else

@@ -41,75 +41,26 @@ public class AppState_GroupCharacterSelect : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
 		}
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
 			{
 				if (ClientGameManager.Get().GroupInfo.Members[i].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().GroupInfo.Members[i].IsReady)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().PlayerInfo == null)
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!ClientGameManager.Get().PlayerInfo.IsSpectator)
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 				}
@@ -140,34 +91,12 @@ public class AppState_GroupCharacterSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null && clientGameManager.GameTypeAvailabilies != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (KeyValuePair<GameType, GameTypeAvailability> gameTypeAvailabily in clientGameManager.GameTypeAvailabilies)
 			{
 				GameType key = gameTypeAvailabily.Key;
 				DateTime? paroleTimeout = gameTypeAvailabily.Value.ParoleTimeout;
 				if (paroleTimeout.HasValue)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_paroleTimesWarned.ContainsKey(key))
 					{
 						m_paroleTimesWarned[key] = paroleTimeout.Value;
@@ -185,15 +114,6 @@ public class AppState_GroupCharacterSelect : AppState
 				}
 				else if (m_paroleTimesWarned.ContainsKey(gameTypeAvailabily.Key))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_paroleTimesWarned.Remove(gameTypeAvailabily.Key);
 				}
 			}
@@ -204,11 +124,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("RecentlyLeftGame", "Global"), LocalizationPayload.Create("RecentlyLeftGameDesc", "Global", localizationArg_GameType, localizationArg_TimeSpan).ToString(), StringUtil.TR("Ok", "Global"));
 			return;
 		}
@@ -231,30 +146,8 @@ public class AppState_GroupCharacterSelect : AppState
 		int result;
 		if (!m_inQueue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_wasRequeued)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (m_pendingJoinQueueRequest ? 1 : 0);
 				goto IL_0036;
 			}
@@ -272,19 +165,6 @@ public class AppState_GroupCharacterSelect : AppState
 		{
 			if (m_inQueue)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((!m_pendingLeaveQueueRequest) ? 1 : 0);
 			}
 			else
@@ -312,19 +192,6 @@ public class AppState_GroupCharacterSelect : AppState
 			{
 				goto IL_006b;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		selectedBotSkillTeamA = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 		selectedBotSkillTeamB = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
@@ -342,10 +209,6 @@ public class AppState_GroupCharacterSelect : AppState
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						string description;
 						if (response.LocalizedFailure == null)
 						{
@@ -353,52 +216,16 @@ public class AppState_GroupCharacterSelect : AppState
 						}
 						else
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							description = response.LocalizedFailure.ToString();
 						}
 						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 						if (gameConfig.GameType != GameType.Practice)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameConfig.GameType != GameType.Solo)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameConfig.GameType != GameType.Coop)
 								{
 									return;
-								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (!gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 								{
@@ -423,15 +250,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UICharacterSelectScreenController.Get().NotifyDroppedGroup();
 			return;
 		}
@@ -445,15 +263,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NotifyQueueDrop();
 			return;
 		}
@@ -466,19 +275,6 @@ public class AppState_GroupCharacterSelect : AppState
 		UICharacterSelectScreenController uICharacterSelectScreenController = UICharacterSelectScreenController.Get();
 		if (uICharacterSelectScreenController != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(uICharacterSelectScreenController.m_readyBtn, true);
 			UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
 			uICharacterSelectScreenController.m_readyBtn.spriteController.SetClickable(true);
@@ -497,11 +293,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!ClientGameManager.Get().GroupInfo.InAGroup)
 			{
 				uICharacterSelectWorldObjects.m_ringAnimations[0].PlayAnimation("ReadyOut");
@@ -521,10 +312,6 @@ public class AppState_GroupCharacterSelect : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.ErrorMessage, StringUtil.TR("Ok", "Global"));
 					return;
 				}
@@ -536,11 +323,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectScreenController.Get().UpdateCharacters(response.PlayerInfo, null, GameManager.Get().GameplayOverrides);
 			return;
 		}
@@ -570,19 +352,6 @@ public class AppState_GroupCharacterSelect : AppState
 		{
 			if (groupInfo.Members[i].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				groupInfo.Members[i].IsReady = ready;
 				break;
 			}
@@ -591,41 +360,14 @@ public class AppState_GroupCharacterSelect : AppState
 		BotDifficulty? enemyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
 		if (ready)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (enemyDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerPrefs.SetInt("CoopDifficulty", (int)(1 + enemyDifficulty.Value));
 			}
 		}
 		int num;
 		if (ready)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 3;
 		}
 		else
@@ -635,48 +377,12 @@ public class AppState_GroupCharacterSelect : AppState
 		ReadyState readyState = (ReadyState)num;
 		if (groupInfo.SelectedQueueType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (groupInfo.SelectedQueueType != GameType.Solo)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (groupInfo.InAGroup)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!groupInfo.IsLeader)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_013b;
 					}
 				}
@@ -758,26 +464,8 @@ public class AppState_GroupCharacterSelect : AppState
 		IL_013b:
 		if (!ready)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (groupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_pendingLeaveQueueRequest = true;
 			}
 		}
@@ -786,15 +474,6 @@ public class AppState_GroupCharacterSelect : AppState
 			if (groupInfo.SelectedQueueType != GameType.Solo)
 			{
 				goto IL_0195;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_readyForSoloGame = true;
@@ -815,10 +494,6 @@ public class AppState_GroupCharacterSelect : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Info("HandlePlayerGroupInfoUpdateResponse failed response");
 					if (response.LocalizedFailure != null)
 					{
@@ -861,11 +536,6 @@ public class AppState_GroupCharacterSelect : AppState
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				ContextualReadyState value = response.OriginalPlayerInfoUpdate.ContextualReadyState.Value;
 				if (value.ReadyState != ReadyState.Ready)
 				{
@@ -873,22 +543,8 @@ public class AppState_GroupCharacterSelect : AppState
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Practice)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Solo)
 						{
 							return;
@@ -913,10 +569,6 @@ public class AppState_GroupCharacterSelect : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -934,10 +586,6 @@ public class AppState_GroupCharacterSelect : AppState
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_inQueue = false;
 						if (IsReady())
 						{
@@ -964,19 +612,6 @@ public class AppState_GroupCharacterSelect : AppState
 		GameType selectedQueueType = groupInfo.SelectedQueueType;
 		if (selectedQueueType.IsQueueable())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!groupInfo.InAGroup && m_inQueue)
 			{
 				while (true)
@@ -1007,10 +642,6 @@ public class AppState_GroupCharacterSelect : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), StringUtil.TR("CantJoinAlreadyQueued", "Frontend"), StringUtil.TR("Ok", "Global"));
 					return;
 				}
@@ -1025,15 +656,6 @@ public class AppState_GroupCharacterSelect : AppState
 		BotDifficulty? enemyDifficulty = null;
 		if (!gameType.IsHumanVsHumanGame())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			allyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 			enemyDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
 		}
@@ -1050,32 +672,10 @@ public class AppState_GroupCharacterSelect : AppState
 				string description;
 				if (response.LocalizedFailure != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					description = response.LocalizedFailure.ToString();
 				}
 				else if (response.ErrorMessage.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					description = StringUtil.TR("UnknownErrorTryAgain", "Global");
 				}
 				else
@@ -1119,19 +719,6 @@ public class AppState_GroupCharacterSelect : AppState
 		gameManager.OnGameStopped += HandleGameStopped;
 		if (m_wasRequeued)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_inQueue = true;
 			m_wasRequeued = false;
 			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Requeued", "Global"), StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"));
@@ -1160,35 +747,16 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().GroupInfo == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Ranked)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						UICharacterSelectScreenController.Get().SetupForRanked(true);
 						return;
 					}
@@ -1225,30 +793,8 @@ public class AppState_GroupCharacterSelect : AppState
 		int num;
 		if (!AppState.IsInGame() && GameManager.Get().GameInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameInfo.IsCustomGame)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
 				goto IL_0068;
 			}
@@ -1259,15 +805,6 @@ public class AppState_GroupCharacterSelect : AppState
 		bool flag = (byte)num != 0;
 		if (GameManager.Get().GameInfo.AcceptTimeout != TimeSpan.Zero)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!flag)
 		{
@@ -1275,11 +812,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			AppState_CharacterSelect.Get().Enter();
 			return;
 		}
@@ -1290,30 +822,8 @@ public class AppState_GroupCharacterSelect : AppState
 		m_receivedGameInfoNotification = true;
 		if (m_receivedGameInfoNotification && m_gameSelecting)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIMatchStartPanel.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIMatchStartPanel.Get().HandleGameStatusChanged(notification);
 			}
 			if (ClientGameManager.Get().GroupInfo.SelectedQueueType != GameType.Ranked)
@@ -1327,11 +837,6 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
 				SelectedEnemyBotDifficulty = (int)notification.GameInfo.SelectedBotSkillTeamB
@@ -1345,19 +850,6 @@ public class AppState_GroupCharacterSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.GroupInfo.SelectedQueueType.IsQueueable() && !GameManager.Get().GameInfo.IsCustomGame)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyMatchFound);
 			WinUtils.FlashWindow();
 			WinUtils.BringApplicationToFront();
@@ -1392,19 +884,6 @@ public class AppState_GroupCharacterSelect : AppState
 		m_readyForSoloGame = false;
 		if (m_messageBox != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_messageBox.Close();
 			m_messageBox = null;
 		}
@@ -1420,35 +899,16 @@ public class AppState_GroupCharacterSelect : AppState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!clientGameManager.IsRegistered)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (clientGameManager.IsReady)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						clientGameManager.RequestPreviousGameInfo(delegate(PreviousGameInfoResponse response)
 						{
 							if (AppState.GetCurrent() != this)
@@ -1460,10 +920,6 @@ public class AppState_GroupCharacterSelect : AppState
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										return;
 									}
 								}

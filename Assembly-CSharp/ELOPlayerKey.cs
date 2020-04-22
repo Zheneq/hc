@@ -116,19 +116,6 @@ public class ELOPlayerKey
 	{
 		if (isCasual)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameType = GameType.Casual;
 		}
 		Func<uint, ELOKeyComponent.BinaryModePhaseEnum> func = delegate(uint modulo)
@@ -145,10 +132,6 @@ public class ELOPlayerKey
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
 					}
 				}
@@ -197,24 +180,11 @@ public class ELOPlayerKey
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							phase = current.BinaryModePhase;
 							return current;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new Exception($"Bad ELO flag {flag}");
@@ -231,19 +201,6 @@ public class ELOPlayerKey
 		List<MatchmakingQueueConfig.EloKeyFlags> list;
 		if (config != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list = config.MatchmakingElo;
 		}
 		else
@@ -307,19 +264,6 @@ public class ELOPlayerKey
 	{
 		if (team == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			teamAAccountPrediction += accountElo;
 			teamACharPrediction += charElo;
 			teamAPredictionWeight++;
@@ -332,15 +276,6 @@ public class ELOPlayerKey
 		}
 		if (accountMatches >= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			accountPredictionWeights.Add(accountMatches);
 		}
 		if (charMatches < 0)
@@ -349,11 +284,6 @@ public class ELOPlayerKey
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			charPredictionWeights.Add(charMatches);
 			return;
 		}
@@ -387,10 +317,6 @@ public class ELOPlayerKey
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						InitializePerCharacter(groupSize);
 						elo = 1500f;
 						count = 0;
@@ -404,15 +330,6 @@ public class ELOPlayerKey
 								accountEloValues.GetElo(alternateKey, out elo, out count);
 								goto IL_0080;
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						accountEloValues.GetElo(keyText, out elo, out count);
 						goto IL_0080;
@@ -420,28 +337,10 @@ public class ELOPlayerKey
 					IL_0080:
 					if (alternateKey != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!charEloValues.Values.ContainsKey(KeyText))
 						{
 							charEloValues.GetElo(alternateKey, out elo2, out count2);
 							goto IL_00cb;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					charEloValues.GetElo(keyText, out elo2, out count2);
@@ -482,15 +381,6 @@ public class ELOPlayerKey
 		case Team.TeamB:
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return (float)(num2 / (num + num2));
 			}
 		default:
@@ -512,10 +402,6 @@ public class ELOPlayerKey
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (acMode == ACEnum.ACCOUNT)
 						{
 							while (true)
@@ -537,11 +423,6 @@ public class ELOPlayerKey
 		case Team.TeamB:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (teamBWeight > 0f)
 				{
 					while (true)
@@ -585,19 +466,6 @@ public class ELOPlayerKey
 			float num4;
 			if (acMode == ACEnum.ACCOUNT)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num4 = value.accountElo;
 			}
 			else
@@ -630,15 +498,6 @@ public class ELOPlayerKey
 				float num7;
 				if (acMode == ACEnum.ACCOUNT)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = current2.accountElo;
 				}
 				else
@@ -648,15 +507,6 @@ public class ELOPlayerKey
 				float num8 = num7 / current2.weight;
 				float num9 = Math.Abs(num8 - num6) * current2.weight;
 				num5 += num9;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num5 / num2;
@@ -675,22 +525,9 @@ public class ELOPlayerKey
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					float num2;
 					if (acMode == ACEnum.ACCOUNT)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = teamAAccountElo + teamBAccountElo;
 					}
 					else
@@ -720,10 +557,6 @@ public class ELOPlayerKey
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return num / value.weight;
 					}
 				}
@@ -746,69 +579,20 @@ public class ELOPlayerKey
 				EloTracking current = enumerator.Current;
 				if (current.team == Team.TeamA)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num3 += 1f;
 					if (current.groupId != 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += 1f;
 					}
 				}
 				else if (current.team == Team.TeamB)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 += 1f;
 					if (current.groupId != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += 1f;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = Math.Max(num, 1f);
@@ -816,15 +600,6 @@ public class ELOPlayerKey
 		float num5;
 		if (num > num2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = num2 / num;
 		}
 		else
@@ -849,22 +624,9 @@ public class ELOPlayerKey
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int result;
 					if (acMode == ACEnum.ACCOUNT)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = value.accountMatches;
 					}
 					else
@@ -887,32 +649,10 @@ public class ELOPlayerKey
 		float num;
 		if (matchCount >= highKDuration)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(placementKFactor <= 0f))
 			{
 				num = placementKFactor;
 				goto IL_0052;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = 0f;
@@ -944,19 +684,6 @@ public class ELOPlayerKey
 			float num = KFactor * (actualResult - expectedResult);
 			if (num > MaxDelta)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = MaxDelta;
 			}
 			else if (num < 0f - MaxDelta)
@@ -967,26 +694,8 @@ public class ELOPlayerKey
 			newElo = Math.Max(1f, newElo);
 			if (newElo > placementMaxElo)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetMatchCount(accountId, acEnum) < highKDuration)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					newElo = placementMaxElo;
 				}
 			}
@@ -1011,22 +720,9 @@ public class ELOPlayerKey
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					float num;
 					if (teamAPredictionWeight > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = teamAAccountPrediction / (float)teamAPredictionWeight;
 					}
 					else
@@ -1038,15 +734,6 @@ public class ELOPlayerKey
 					float num4;
 					if (teamBPredictionWeight > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = teamBAccountPrediction / (float)teamBPredictionWeight;
 					}
 					else
@@ -1088,15 +775,6 @@ public class ELOPlayerKey
 		float num7;
 		if (teamAPredictionWeight > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = teamACharPrediction / (float)teamAPredictionWeight;
 		}
 		else
@@ -1108,15 +786,6 @@ public class ELOPlayerKey
 		float num10;
 		if (teamBPredictionWeight > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num10 = teamBCharPrediction / (float)teamBPredictionWeight;
 		}
 		else

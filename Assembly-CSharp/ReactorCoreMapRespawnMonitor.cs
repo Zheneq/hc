@@ -40,82 +40,28 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ReactorCoreMapMonitorCoordinator reactorCoreMapMonitorCoordinator = ReactorCoreMapMonitorCoordinator.Get();
 			GameObject gameObject = null;
 			if (m_portraitAssetType == PortraitAssetType.Vfx)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = reactorCoreMapMonitorCoordinator.m_portraitPrefabForVfxMonitor;
 			}
 			else if (m_portraitAssetType == PortraitAssetType.PlainTexture)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = reactorCoreMapMonitorCoordinator.m_portraitPrefabForTextureMonitor;
 			}
 			if (gameObject != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_portraitInstance = Object.Instantiate(gameObject, Vector3.zero, Quaternion.identity);
 				m_portraitInstance.transform.parent = base.transform;
 				m_portraitInstance.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 				if (m_respawnMonitorSize == RespawnMonitorSize.Small)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_portraitInstance.transform.localPosition = reactorCoreMapMonitorCoordinator.m_smallMonitorPos;
 					m_portraitInstance.transform.localScale = reactorCoreMapMonitorCoordinator.m_smallMonitorScale * Vector3.one;
 				}
 				else if (m_respawnMonitorSize == RespawnMonitorSize.Large)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_portraitInstance.transform.localPosition = reactorCoreMapMonitorCoordinator.m_largeMonitorPos;
 					m_portraitInstance.transform.localScale = reactorCoreMapMonitorCoordinator.m_largeMonitorScale * Vector3.one;
 				}
@@ -152,38 +98,15 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				GameObject gameObject2 = null;
 				GameObject gameObject3 = null;
 				if (m_respawnMonitorSize == RespawnMonitorSize.Small)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject2 = reactorCoreMapMonitorCoordinator.m_vfxPrefabSmallSearching;
 					gameObject3 = reactorCoreMapMonitorCoordinator.m_vfxPrefabSmallResurrecting;
 				}
 				else if (m_respawnMonitorSize == RespawnMonitorSize.Large)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject2 = reactorCoreMapMonitorCoordinator.m_vfxPrefabLargeSearching;
 					gameObject3 = reactorCoreMapMonitorCoordinator.m_vfxPrefabLargeResurrecting;
 				}
@@ -195,11 +118,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						m_vfxInstanceResurrecting = SpawnVfxInstance(gameObject3);
 						m_vfxInstanceResurrecting.SetActive(false);
 						return;
@@ -232,44 +150,13 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		ReactorCoreMapMonitorCoordinator reactorCoreMapMonitorCoordinator = ReactorCoreMapMonitorCoordinator.Get();
 		if (spriteToDisplay == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reactorCoreMapMonitorCoordinator != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				spriteToDisplay = reactorCoreMapMonitorCoordinator.m_fallbackPortraitSprite;
 			}
 		}
 		if (m_portraitRenderers != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (spriteToDisplay != null)
 			{
 				SetPortraitRendererTextures(spriteToDisplay.texture);
@@ -277,26 +164,8 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 				m_desiredVisible = true;
 				if (m_portraitAssetType == PortraitAssetType.PlainTexture && m_backgroundRenderer != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (reactorCoreMapMonitorCoordinator != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_backgroundRenderer.material = reactorCoreMapMonitorCoordinator.m_resurrectingMaterial;
 					}
 				}
@@ -320,30 +189,8 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		ReactorCoreMapMonitorCoordinator reactorCoreMapMonitorCoordinator = ReactorCoreMapMonitorCoordinator.Get();
 		if (m_portraitAssetType == PortraitAssetType.PlainTexture)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_backgroundRenderer != null && reactorCoreMapMonitorCoordinator != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_backgroundRenderer.material = reactorCoreMapMonitorCoordinator.m_searchingMaterial;
 			}
 		}
@@ -353,11 +200,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SetVfxAsResurrecting(false);
 			return;
 		}
@@ -374,19 +216,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 			Renderer renderer = m_portraitRenderers[i];
 			if (renderer != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (renderer.material != null)
 				{
 					renderer.material.mainTexture = texture;
@@ -417,15 +246,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInstanceSearching.SetActive(!resurrecting);
 			return;
 		}
@@ -439,15 +259,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fadeGroupInParent != null))
 			{
 				return;
@@ -456,15 +267,6 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 			int num;
 			if (m_desiredVisible)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((currentAlpha > 0.98f) ? 1 : 0);
 			}
 			else

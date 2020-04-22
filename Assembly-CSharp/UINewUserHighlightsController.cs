@@ -97,33 +97,11 @@ public class UINewUserHighlightsController : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!m_previousClickState && m_displayState != 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Display display = GetDisplay(m_displayState);
 						if (display != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (display.m_maxTime > 0f)
 							{
 								HideDisplay();
@@ -145,122 +123,28 @@ public class UINewUserHighlightsController : UIScene
 		{
 			if (desiredDisplayState != DisplayState.MainLootMatrixOpenButton)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (desiredDisplayState != DisplayState.GGEarned && desiredDisplayState != DisplayState.SpecialLootMatrixOpenButton)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (desiredDisplayState != DisplayState.FluxEarned && desiredDisplayState != DisplayState.LootMatrixNavButton)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (desiredDisplayState != DisplayState.DailyContracts)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (desiredDisplayState != DisplayState.DailyContractsPowerUp)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (desiredDisplayState != DisplayState.FreelancerToken1)
 								{
 									if (desiredDisplayState != DisplayState.FreelancerToken2)
 									{
 										if (desiredDisplayState != DisplayState.ChapterInfoButton)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (desiredDisplayState != DisplayState.SeasonsChapters)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (desiredDisplayState != DisplayState.SeasonsChapterReward)
 												{
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (desiredDisplayState != DisplayState.SeasonNavButton)
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (desiredDisplayState != DisplayState.SeasonsMissions)
 														{
-															while (true)
-															{
-																switch (2)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (desiredDisplayState != DisplayState.SeasonsStory)
 															{
 																goto IL_012a;
@@ -273,15 +157,6 @@ public class UINewUserHighlightsController : UIScene
 										UINewUserFlowManager.MarkSeasonsNew(false);
 										ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType._001D);
 										return;
-									}
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -304,11 +179,6 @@ public class UINewUserHighlightsController : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_desiredDisplayState = desiredDisplayState;
 			UpdateDisplay();
 			return;
@@ -331,45 +201,14 @@ public class UINewUserHighlightsController : UIScene
 		m_timeInState += Time.deltaTime;
 		if (m_displayState == m_desiredDisplayState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Display display = GetDisplay(m_displayState);
 			if (display == null)
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(display.m_maxTime > 0f))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!(m_timeInState > display.m_maxTime))
 			{
@@ -394,27 +233,9 @@ public class UINewUserHighlightsController : UIScene
 				default:
 					if (!IsAnimationDone(display2, true))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (display2.m_animator.gameObject.activeSelf)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					SetDisplay(m_desiredDisplayState);
@@ -430,31 +251,9 @@ public class UINewUserHighlightsController : UIScene
 	{
 		if (m_displayState != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Display display = GetDisplay(m_displayState);
 			if (!display.m_audioEvent.IsNullOrEmpty() && AnnouncerSounds.GetAnnouncerSounds() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().InstantiateOnboardingVOPrefabIfNeeded();
 				AudioManager.PostEvent(display.m_audioEvent, AudioManager.EventAction.StopSound);
 			}
@@ -464,38 +263,11 @@ public class UINewUserHighlightsController : UIScene
 		SetHighlightActive(newDisplayState);
 		if (display2 != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PlayAnim(display2, false);
 			if (!display2.m_audioEvent.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AnnouncerSounds.GetAnnouncerSounds() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AnnouncerSounds.GetAnnouncerSounds().InstantiateOnboardingVOPrefabIfNeeded();
 					AudioManager.PostEvent(display2.m_audioEvent);
 				}
@@ -503,27 +275,9 @@ public class UINewUserHighlightsController : UIScene
 		}
 		if (newDisplayState != DisplayState.PlayButton)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newDisplayState != DisplayState.DailyContractsFinish)
 			{
 				goto IL_0111;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		QuestListPanel.Get().SetVisible(true);
@@ -535,41 +289,14 @@ public class UINewUserHighlightsController : UIScene
 		m_previousClickState = true;
 		if (displayState == DisplayState.DailyContractsPowerUp)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newDisplayState != DisplayState.DailyContractsPowerUp)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QuestOfferPanel.Get().SetVisible(false);
 				goto IL_017f;
 			}
 		}
 		if (displayState == DisplayState.SeasonsStory && newDisplayState != DisplayState.SeasonsStory)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType._001D);
 		}
 		goto IL_017f;
@@ -600,11 +327,6 @@ public class UINewUserHighlightsController : UIScene
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				ClientGameManager.Get().RequestUpdateUIState(AccountComponent.UIStateIdentifier.HasViewedFreelancerTokenHighlight, 1, null);
 				return;
 			}
@@ -621,25 +343,11 @@ public class UINewUserHighlightsController : UIScene
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return m_displays[i];
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -668,10 +376,6 @@ public class UINewUserHighlightsController : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -732,19 +436,6 @@ public class UINewUserHighlightsController : UIScene
 		object str;
 		if (isOut)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = "OUT";
 		}
 		else

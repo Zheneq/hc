@@ -16,19 +16,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			int num;
 			if (hitActors != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (sbyte)hitActors.Count;
 			}
 			else
@@ -43,15 +30,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				int num2;
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (sbyte)actorData.ActorIndex;
 				}
 				else
@@ -88,15 +66,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -139,31 +108,9 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorParams actorParams = extraSequenceParams as ActorParams;
 			if (m_groupIdentidier == actorParams.m_groupIdentifier)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_actorsToHit = new List<ActorData>(actorParams.m_hitActors);
 			}
 		}
@@ -194,15 +141,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxImpacts.Clear();
 			return;
 		}
@@ -216,26 +154,8 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (parameter == m_hitAnimEvent)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = m_lastHitAnimEvent == null;
 				for (int i = 0; i < m_actorsToHit.Count; i++)
 				{
@@ -243,15 +163,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Source.OnSequenceHit(this, base.TargetPos);
 				}
 			}
@@ -261,11 +172,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < m_actorsToHit.Count; j++)
 				{
 					SpawnImpactFXOnTarget(m_actorsToHit[j], true);
@@ -289,30 +195,8 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		{
 			if (m_hitAlighedWithCaster)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (vector.magnitude > 0.001f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					quaternion = Quaternion.LookRotation(vector);
 					goto IL_00a4;
 				}
@@ -330,15 +214,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		int ragdollActivation;
 		if (lastHit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ragdollActivation = 1;
 		}
 		else

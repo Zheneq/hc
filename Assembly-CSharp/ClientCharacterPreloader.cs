@@ -17,15 +17,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnGameInfoNotification += HandleGameInfoNotification;
 			GameManager.Get().OnGameStatusChanged += HandleGameStatusChanged;
 			return;
@@ -40,26 +31,8 @@ public class ClientCharacterPreloader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().OnGameInfoNotification -= HandleGameInfoNotification;
 			}
 			if (GameManager.Get() != null)
@@ -75,41 +48,10 @@ public class ClientCharacterPreloader : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		if (!(gameManager == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameManager.TeamInfo != null && gameManager.TeamInfo.TeamAPlayerInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.TeamInfo.TeamBPlayerInfo != null && !(GameWideData.Get() == null) && gameManager.GameStatus >= GameStatus.FreelancerSelecting)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameManager.GameStatus <= GameStatus.LoadoutSelecting)
 					{
 						Dictionary<CharacterResourceLink, List<CharacterVisualInfo>> dictionary = new Dictionary<CharacterResourceLink, List<CharacterVisualInfo>>(10);
@@ -121,41 +63,14 @@ public class ClientCharacterPreloader : MonoBehaviour
 								LobbyPlayerInfo current = enumerator.Current;
 								if (current != null && current.CharacterInfo != null)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!current.CharacterInfo.CharacterType.IsValid())
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
 										CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterInfo.CharacterType);
 										if (characterResourceLink != null)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!dictionary.ContainsKey(characterResourceLink))
 											{
 												dictionary[characterResourceLink] = new List<CharacterVisualInfo>();
@@ -193,37 +108,10 @@ public class ClientCharacterPreloader : MonoBehaviour
 								LobbyPlayerInfo current2 = enumerator2.Current;
 								if (current2 != null)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (current2.CharacterInfo != null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!current2.CharacterInfo.CharacterType.IsValid())
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -232,15 +120,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 											{
 												if (!dictionary.ContainsKey(characterResourceLink2))
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													dictionary[characterResourceLink2] = new List<CharacterVisualInfo>();
 												}
 												List<CharacterVisualInfo> list2 = dictionary[characterResourceLink2];
@@ -275,22 +154,8 @@ public class ClientCharacterPreloader : MonoBehaviour
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							if (m_coroutine != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								StopCoroutine(m_coroutine);
 								m_coroutine = null;
 							}
@@ -298,15 +163,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 							m_coroutine = StartCoroutine(CharacterPreloadCoroutine());
 							return;
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -322,15 +178,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StopPreloading();
 			return;
 		}
@@ -344,15 +191,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StopCoroutine(m_coroutine);
 			m_coroutine = null;
 			m_linksToSkins.Clear();
@@ -371,10 +209,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -428,24 +262,6 @@ public class ClientCharacterPreloader : MonoBehaviour
 						}
 					}
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

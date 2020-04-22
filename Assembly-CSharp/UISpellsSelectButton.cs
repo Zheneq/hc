@@ -36,15 +36,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_buttonHitBox.callback = SpellClicked;
 			return;
 		}
@@ -86,15 +77,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -107,15 +89,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -128,19 +101,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		string text = card.m_useAbility.GetFullTooltip();
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text2 = text;
 			text = text2 + Environment.NewLine + "<i>" + card.m_useAbility.m_flavorText + "</i>";
 		}
@@ -155,19 +115,6 @@ public class UISpellsSelectButton : MonoBehaviour
 	{
 		if (selectBtn == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			selectBtn = GetComponent<_SelectableBtn>();
 		}
 		if (selectBtn != null)

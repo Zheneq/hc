@@ -21,52 +21,12 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 	{
 		if (m_parentSequence != null && m_parentSequence.AgeInTurns > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (parentSeqVisible)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_targetSquare != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get() != null)
 						{
 							while (true)
@@ -80,15 +40,6 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 									int result;
 									if (m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										result = ((m_syncComp.m_clientDiscBuffTargetSquare == m_targetSquare) ? 1 : 0);
 									}
 									else

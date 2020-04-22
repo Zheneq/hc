@@ -40,42 +40,11 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (curPath.m_moverClashesHere)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (curPath.next != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (curPath.prev != null)
 				{
 					goto IL_0050;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			OnMidMovementClash(curPath.square);
@@ -85,15 +54,6 @@ public class ClientClashManager : MonoBehaviour
 		IL_0050:
 		if (curPath.prev != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (curPath.prev.m_moverClashesHere)
 			{
 				while (true)
@@ -115,11 +75,6 @@ public class ClientClashManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			List<ClashAtEndOfEvade> list = new List<ClashAtEndOfEvade>();
 			using (List<ClashAtEndOfEvade>.Enumerator enumerator = m_postEvadeClashes.GetEnumerator())
 			{
@@ -131,15 +86,6 @@ public class ClientClashManager : MonoBehaviour
 						list.Add(current);
 						OnMidMovementClash(current.m_clashSquare);
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<ClashAtEndOfEvade>.Enumerator enumerator2 = list.GetEnumerator())
@@ -173,42 +119,11 @@ public class ClientClashManager : MonoBehaviour
 				ActiveClashVfx current = enumerator.Current;
 				if (current.m_square == clashSquare)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (Time.time < current.m_timeCreated + m_timeTillNewClashOnSameSquare)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (flag)
@@ -242,26 +157,12 @@ public class ClientClashManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
 					ClientGameManager.Get().Client.RegisterHandler(72, MsgClashesAtEndOfMovement);
@@ -280,35 +181,16 @@ public class ClientClashManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						ClientGameManager.Get().Client.UnregisterHandler(72);
 						m_currentMessageHandlersState = MessageHandlersState.Unregistered;
 						return;
@@ -342,19 +224,6 @@ public class ClientClashManager : MonoBehaviour
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(b5);
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.Add(actorData);
 				}
 			}
@@ -396,43 +265,12 @@ public class ClientClashManager : MonoBehaviour
 				ActiveClashVfx current = enumerator.Current;
 				if (Time.time > current.m_timeCreated + m_timeTillClashExpires)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (list == null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list = new List<ActiveClashVfx>();
 					}
 					list.Add(current);
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (list == null)
@@ -441,11 +279,6 @@ public class ClientClashManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			using (List<ActiveClashVfx>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())

@@ -8,30 +8,8 @@ public class OffsetVFXTowardsCamera : MonoBehaviour
 		Camera main = Camera.main;
 		if ((bool)main)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)boardSquare)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((bool)boardSquare.occupant)
 				{
 					while (true)

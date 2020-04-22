@@ -45,30 +45,8 @@ namespace TMPro.Examples
 			{
 				if (!_001D.havePropertiesChanged && num == _0012)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (animationCurve.keys[1].value == _000E.keys[1].value)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 == _0015)
 						{
 							while (true)
@@ -95,15 +73,6 @@ namespace TMPro.Examples
 				{
 					break;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			Vector3 min = _001D.bounds.min;
 			float x = min.x;
@@ -113,15 +82,6 @@ namespace TMPro.Examples
 			{
 				if (!textInfo.characterInfo[i].isVisible)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -150,15 +110,6 @@ namespace TMPro.Examples
 				float num7;
 				if (vector3.z > 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = num6;
 				}
 				else
@@ -178,11 +129,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				_001D.UpdateVertexData();
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;

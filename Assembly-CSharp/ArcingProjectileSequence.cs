@@ -37,15 +37,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_doHitsAsProjectileTravels = false;
 			return;
 		}
@@ -62,10 +53,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_fx.transform.position;
 				}
 			}
@@ -83,19 +70,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		Vector3 vector = GetStartPos();
 		if (m_useOverrideStartPos)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = m_overrideStartPos;
 		}
 		vector.y += m_startPosYOffset;
@@ -105,27 +79,9 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		{
 			if (m_useTargetHitPos)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int targetIndex = 0;
 				if (m_useLastTargetHitPos)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					targetIndex = Mathf.Max(0, base.Targets.Length - 1);
 				}
 				vector2 = GetTargetHitPosition(targetIndex, m_hitPosJoint);
@@ -137,15 +93,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 			}
 			if (m_destPosUseSameHeightAsStart)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2.y = vector.y;
 			}
 			if (m_destPosAlwaysUseGroundHeight)
@@ -160,15 +107,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 					{
 						goto IL_0168;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_destPosUseSameHeightIfNoTargets)
 				{
@@ -176,15 +114,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 				}
 				else if (m_destPosUseGroundHeightIfNoTargets)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector2.y = (float)Board.Get().BaselineHeight + m_yOffset;
 				}
 			}
@@ -193,15 +122,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		Vector3 vector3;
 		if (m_useTargetHitPos)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector3 = GetTargetHitPosition(0, m_hitPosJoint);
 		}
 		else
@@ -210,15 +130,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		}
 		if (m_destPosUseSameHeightAsStart)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector3.y = vector.y;
 		}
 		array[0] = vector + Vector3.down * m_maxHeight;
@@ -238,15 +149,6 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 		IL_02cb:
 		if (m_reverseDirection)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector4 = array[0];
 			array[0] = array[4];
 			array[4] = vector4;

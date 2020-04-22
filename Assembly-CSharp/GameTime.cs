@@ -55,15 +55,6 @@ public static class GameTime
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				s_scale = value;
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.GametimeScaleChange, null);
 				return;
@@ -90,15 +81,6 @@ public static class GameTime
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				s_time += (Time.time - s_timeLastSeen) * scale;
 				s_timeDelta = Time.deltaTime * scale;
 				s_timeSmoothDelta = Time.smoothDeltaTime * scale;

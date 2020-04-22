@@ -39,19 +39,6 @@ namespace TMPro.Examples
 			_0018 = base.gameObject.GetComponentInParent<Canvas>();
 			if (_0018.renderMode == RenderMode.ScreenSpaceOverlay)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0009 = null;
 			}
 			else
@@ -82,15 +69,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0003 = _0013.textInfo.CopyMeshInfoVertexData();
 				return;
 			}
@@ -111,34 +89,12 @@ namespace TMPro.Examples
 						break;
 					default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							num = TMP_TextUtilities.FindIntersectingCharacter(_0013, Input.mousePosition, _0009, true);
 							if (num != -1)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num == _0004)
 								{
 									goto IL_006c;
-								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							_000F(_0004);
@@ -148,49 +104,13 @@ namespace TMPro.Examples
 						IL_006c:
 						if (num != -1)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num != _0004)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!Input.GetKey(KeyCode.LeftShift))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!Input.GetKey(KeyCode.RightShift))
 									{
 										goto IL_0406;
-									}
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								_0004 = num;
@@ -229,26 +149,8 @@ namespace TMPro.Examples
 						IL_059e:
 						if (num2 != -1 && num2 != _0011)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								_0011 = num2;
 								TMP_WordInfo tMP_WordInfo = _0013.textInfo.wordInfo[num2];
 								for (int i = 0; i < tMP_WordInfo.characterCount; i++)
@@ -263,30 +165,12 @@ namespace TMPro.Examples
 									colors2[vertexIndex2 + 2] = color2;
 									colors2[vertexIndex2 + 3] = color2;
 								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								_0013.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 							}
 						}
 						num4 = TMP_TextUtilities.FindIntersectingLink(_0013, Input.mousePosition, _0009);
 						if (num4 == -1)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (_001A != -1)
 							{
 								goto IL_0759;
@@ -294,15 +178,6 @@ namespace TMPro.Examples
 						}
 						if (num4 != _001A)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_0759;
 						}
 						goto IL_0773;
@@ -374,40 +249,13 @@ namespace TMPro.Examples
 						num2 = TMP_TextUtilities.FindIntersectingWord(_0013, Input.mousePosition, _0009);
 						if (_000E != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (_0011 != -1)
 							{
 								if (num2 != -1)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num2 == _0011)
 									{
 										goto IL_059e;
-									}
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								TMP_WordInfo tMP_WordInfo2 = _0013.textInfo.wordInfo[_0011];
@@ -422,15 +270,6 @@ namespace TMPro.Examples
 									colors3[vertexIndex3 + 1] = color3;
 									colors3[vertexIndex3 + 2] = color3;
 									colors3[vertexIndex3 + 3] = color3;
-								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								_0013.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 								_0011 = -1;
@@ -480,10 +319,6 @@ namespace TMPro.Examples
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}

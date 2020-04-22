@@ -68,19 +68,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo cachedOnCastEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedOnCastEnemyHitEffect = m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect);
 		}
 		else
@@ -91,15 +78,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo cachedReturnTripEnemyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReturnTripEnemyEffect = m_abilityMod.m_returnTripEnemyEffectMod.GetModifiedValue(m_returnTripEnemyEffect);
 		}
 		else
@@ -114,19 +92,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
 		}
 		else
@@ -141,19 +106,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -168,19 +120,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -195,19 +134,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
@@ -222,19 +148,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo result;
 		if (m_cachedOnCastEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOnCastEnemyHitEffect;
 		}
 		else
@@ -249,19 +162,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targetDamageMod.GetModifiedValue(m_targetDamage);
 		}
 		else
@@ -276,19 +176,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage);
 		}
 		else
@@ -313,19 +200,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo result;
 		if (m_cachedReturnTripEnemyEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReturnTripEnemyEffect;
 		}
 		else
@@ -382,15 +256,6 @@ public class NekoHomingDisc : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NekoHomingDisc);
 			Setup();
 			return;

@@ -34,26 +34,12 @@ public class MouseoverCoverManager
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(m_startSquare != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (!(currentSquare != m_startSquare))
 					{
 						return;
@@ -68,11 +54,6 @@ public class MouseoverCoverManager
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						for (int i = 0; i < result.Count; i++)
 						{
 							BoardSquare boardSquare = result[i];
@@ -80,26 +61,8 @@ public class MouseoverCoverManager
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!AreaEffectUtils.IsSquareInConeByActorRadius(boardSquare, m_startSquare.ToVector3(), 0f, 360f, m_radius, 0f, true, actor))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 							Vector3 to = boardSquare.ToVector3() - currentSquare.ToVector3();
@@ -115,27 +78,9 @@ public class MouseoverCoverManager
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(num < 130f))
 								{
 									continue;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							GameObject nextCoverHighight = m_mouseoverCoverManager.GetNextCoverHighight();
@@ -145,30 +90,12 @@ public class MouseoverCoverManager
 							nextCoverHighight.transform.rotation = ActorCover.GetCoverRotation(coverDirection);
 							if (!nextCoverHighight.activeSelf)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(nextCoverHighight, true);
 							}
 							ParticleSystemRenderer[] componentsInChildren = nextCoverHighight.GetComponentsInChildren<ParticleSystemRenderer>();
 							foreach (ParticleSystemRenderer particleSystemRenderer in componentsInChildren)
 							{
 								AbilityUtil_Targeter.SetMaterialOpacity(particleSystemRenderer.materials, HighlightUtils.Get().m_mouseoverCoverIconAlpha);
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						while (true)
@@ -228,30 +155,8 @@ public class MouseoverCoverManager
 				GameObject gameObject = CreateCoverHighlightInstance();
 				if (gameObject != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_coverHighlights.Add(gameObject);
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_coverHighlightOp = new OperationOnSquare_CoverHighlight(this);
@@ -271,10 +176,6 @@ public class MouseoverCoverManager
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameObject gameObject = Object.Instantiate(mouseoverCoverShieldPrefab);
 					gameObject.transform.parent = m_parentObject.transform;
 					UIManager.SetGameObjectActive(gameObject, false);
@@ -294,26 +195,12 @@ public class MouseoverCoverManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (HighlightUtils.Get() == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!HighlightUtils.Get().m_showMouseoverCoverIndicators)
 				{
 					while (true)
@@ -330,15 +217,6 @@ public class MouseoverCoverManager
 				object obj;
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = GameFlowData.Get().activeOwnedActorData;
 				}
 				else
@@ -348,40 +226,13 @@ public class MouseoverCoverManager
 				ActorData actorData = (ActorData)obj;
 				if (!(actorData == null))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(coverCenterSquare == null))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (coverCenterSquare.IsBaselineHeight())
 						{
 							ActorTurnSM actorTurnSM = actorData.GetActorTurnSM();
 							if (actorTurnSM != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!actorTurnSM.AmTargetingAction())
 								{
 									if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
@@ -409,15 +260,6 @@ public class MouseoverCoverManager
 										}
 										goto IL_0219;
 									}
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								HideCoverHighlights(0);
 								m_lastUpdateSquare = null;
@@ -436,22 +278,12 @@ public class MouseoverCoverManager
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (m_coverDirIndicatorRenderers == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						float timeSinceChange = Time.time - m_tsCoverDirIndicatorShow;
 						float opacityFromTargeterData = AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.Get().m_mouseoverCoverDirParams.m_opacity, timeSinceChange);
 						for (int i = 0; i < m_coverDirIndicatorRenderers.Length; i++)
@@ -479,25 +311,11 @@ public class MouseoverCoverManager
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -515,19 +333,6 @@ public class MouseoverCoverManager
 			GameObject gameObject2 = CreateCoverHighlightInstance();
 			if (gameObject2 != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_coverHighlights.Add(gameObject2);
 			}
 			m_nextHighlightIndex = m_coverHighlights.Count;
@@ -540,34 +345,12 @@ public class MouseoverCoverManager
 	{
 		if (fromIndex < 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			fromIndex = 0;
 		}
 		for (int i = fromIndex; i < m_coverHighlights.Count; i++)
 		{
 			if (!m_coverHighlights[i].activeSelf)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			UIManager.SetGameObjectActive(m_coverHighlights[i], false);
@@ -585,15 +368,6 @@ public class MouseoverCoverManager
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyObjectAndMaterials(m_coverDirHighlight);
 			return;
 		}

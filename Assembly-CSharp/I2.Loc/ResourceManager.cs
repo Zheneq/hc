@@ -22,47 +22,16 @@ namespace I2.Loc
 				bool flag = mInstance == null;
 				if (mInstance == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					mInstance = (ResourceManager)UnityEngine.Object.FindObjectOfType(typeof(ResourceManager));
 				}
 				if (mInstance == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject gameObject = new GameObject("I2ResourceManager", typeof(ResourceManager));
 					gameObject.hideFlags |= HideFlags.HideAndDontSave;
 					mInstance = gameObject.GetComponent<ResourceManager>();
 				}
 				if (flag && Application.isPlaying)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.DontDestroyOnLoad(mInstance.gameObject);
 				}
 				return mInstance;
@@ -96,10 +65,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return val;
 					}
 				}
@@ -111,19 +76,6 @@ namespace I2.Loc
 		{
 			if (Assets != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int i = 0;
 				for (int num = Assets.Length; i < num; i++)
 				{
@@ -133,11 +85,6 @@ namespace I2.Loc
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						return Assets[i];
 					}
 				}
@@ -156,10 +103,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -175,19 +118,6 @@ namespace I2.Loc
 			}
 			if (mResourcesCache.TryGetValue(Path, out UnityEngine.Object value))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value != null)
 				{
 					while (true)
@@ -205,15 +135,6 @@ namespace I2.Loc
 			T val = (T)null;
 			if (Path.EndsWith("]", StringComparison.OrdinalIgnoreCase))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = Path.LastIndexOf("[", StringComparison.OrdinalIgnoreCase);
 				int length = Path.Length - num - 2;
 				string value2 = Path.Substring(num + 1, length);
@@ -227,29 +148,11 @@ namespace I2.Loc
 					{
 						if (array[num2].name.Equals(value2))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							val = array[num2];
 							break;
 						}
 						num2++;
 						continue;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -265,15 +168,6 @@ namespace I2.Loc
 			mResourcesCache[Path] = val;
 			if (!mCleaningScheduled)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Invoke("CleanResourceCache", 0.1f);
 				mCleaningScheduled = true;
 			}
@@ -285,19 +179,6 @@ namespace I2.Loc
 			mResourcesCache.Clear();
 			if (ClientQualityComponentEnabler.OptimizeForMemory())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Resources.UnloadUnusedAssets();
 			}
 			CancelInvoke();

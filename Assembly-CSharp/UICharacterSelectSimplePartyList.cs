@@ -10,30 +10,8 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 		int i = 0;
 		if (playerInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (teamInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (teamInfo.TeamPlayerInfo != null)
 				{
 					using (List<LobbyPlayerInfo>.Enumerator enumerator = teamInfo.TeamPlayerInfo.GetEnumerator())
@@ -43,37 +21,10 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 							LobbyPlayerInfo current = enumerator.Current;
 							if (i < m_simplePartyMembers.Length)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.TeamId != playerInfo.TeamId)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (current.TeamId != Team.Spectator)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(m_simplePartyMembers[i], true);
 										UIManager.SetGameObjectActive(m_simplePartyMembers[i].m_checkmark, current.ReadyState == ReadyState.Ready || current.IsNPCBot);
 										m_simplePartyMembers[i].m_playerName.text = current.GetHandle();
@@ -81,15 +32,6 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 									}
 								}
 							}
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

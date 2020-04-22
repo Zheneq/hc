@@ -62,15 +62,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerEnter, MouseEnter);
 			UIEventTriggerUtils.AddListener(m_mouseHitBox.gameObject, EventTriggerType.PointerExit, MouseExit);
 			m_mouseHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, ShowTooltip);
@@ -86,15 +77,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (visible)
 			{
 				while (true)
@@ -129,10 +111,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -150,15 +128,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_hoverState, true);
 			m_hoverState.GetComponent<CanvasGroup>().alpha = 1f;
 			return;
@@ -173,15 +142,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_hoverState, false);
 			m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
 			return;
@@ -196,15 +156,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_hoverState, false);
 			m_hoverState.GetComponent<CanvasGroup>().alpha = 0f;
 			return;
@@ -219,51 +170,23 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(actor.GetAbilityData() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(ability != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					AbilityData abilityData = actor.GetAbilityData();
 					bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.GetTeam());
 					int num;
 					if (ClientGameManager.Get().PlayerInfo != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().PlayerInfo.IsSpectator)
 						{
 							num = (ClientGameManager.Get().SpectatorHideAbilityTargeter ? 1 : 0);
@@ -277,15 +200,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					int num2;
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (abilityData.HasQueuedAction(action) ? 1 : 0);
 					}
 					else
@@ -296,15 +210,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					int num3;
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = ((abilityData.GetSelectedActionTypeForTargeting() == action) ? 1 : 0);
 					}
 					else
@@ -319,59 +224,14 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					bool flag6 = ability.GetModdedCost() <= actor.GetEnergyToDisplay();
 					if (m_ability == ability && m_cachedIsQueued == flag3)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_cachedIsTargeting == flag4 && m_cachedAbilityUseAllowed == flag5)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_cachedCooldown == cooldownRemaining)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_cachedStocksRemaining == stocksRemaining)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_cachedStockRefreshCountdown == stockRefreshCountdown)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_cachedEnergyOk == flag6)
 										{
 											while (true)
@@ -400,57 +260,21 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					m_cachedEnergyOk = flag6;
 					if (m_queuedState != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_queuedState, false);
 					}
 					ShowDisabledIndicator(false);
 					if (m_targetingState != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_targetingState, false);
 					}
 					if (m_defaultState != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_defaultState, false);
 					}
 					m_abilityIconImage.sprite = ability.sprite;
 					m_cooldownLabel.text = string.Empty;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag3)
 						{
 							if (m_queuedState != null)
@@ -459,15 +283,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 							}
 							if (m_phaseColorImage != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								SetPhaseImageColor(m_phaseColorImage, m_ability.GetRunPriority());
 							}
 							m_abilityIconImage.color = HighlightUtils.Get().m_allyAvailableAbilityIconColor;
@@ -476,15 +291,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag4)
 						{
 							while (true)
@@ -511,15 +317,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					bool flag7 = m_ability.GetModdedMaxStocks() > 0;
 					if (cooldownRemaining > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag7)
 						{
 							while (true)
@@ -555,15 +352,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					}
 					if (flag7)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (stocksRemaining == 0)
 						{
 							while (true)
@@ -607,29 +395,11 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_cooldownState, show);
 			CanvasGroup component = m_cooldownState.GetComponent<CanvasGroup>();
 			int num;
 			if (show)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1;
 			}
 			else
@@ -657,10 +427,6 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					phaseImage.color = m_evasionPhaseColor;
 					return;
 				}

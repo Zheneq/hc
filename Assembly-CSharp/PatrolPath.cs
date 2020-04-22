@@ -80,19 +80,6 @@ public class PatrolPath
 					wayPoint = mWayPoints[index];
 					goto IL_0092;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			Log.Error("Patrol path '" + ToString() + "' has no way points. Add them in mWayPoints");
 			return null;
@@ -108,19 +95,6 @@ public class PatrolPath
 		int num2 = (int)(num + m_Direction);
 		if (m_PatrolStyle == PatrolStyle.OutAndBack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num2 <= -1 || num2 >= mWayPoints.Count)
 			{
 				m_Direction = (Direction)(0 - m_Direction);
@@ -129,15 +103,6 @@ public class PatrolPath
 				int obj;
 				if (m_StartingDirection == m_Direction)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = 2;
 				}
 				else
@@ -154,40 +119,13 @@ public class PatrolPath
 		}
 		else if (m_PatrolStyle == PatrolStyle.Loop)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 < 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = mWayPoints.Count - 1;
 				onIncremenet(IncrementWaypointResult.CycleCompleted);
 			}
 			else if (num2 >= mWayPoints.Count)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0;
 				onIncremenet(IncrementWaypointResult.CycleCompleted);
 			}
@@ -198,26 +136,8 @@ public class PatrolPath
 		}
 		else if (m_PatrolStyle == PatrolStyle.Random)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (mWayPoints.Count <= 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = num;
 			}
 			else
@@ -227,15 +147,6 @@ public class PatrolPath
 					num2 = GameplayRandom.Range(0, mWayPoints.Count);
 				}
 				while (num2 == num);
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			onIncremenet(IncrementWaypointResult.Incremented);
 		}

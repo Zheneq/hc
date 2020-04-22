@@ -158,47 +158,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 			UITooltipClickObject component = m_buttonHitBox.GetComponent<UITooltipClickObject>();
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 				{
 					if (ClientGameManager.Get().GroupInfo != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (ClientGameManager.Get().GroupInfo.Members != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							List<UpdateGroupMemberData> members = ClientGameManager.Get().GroupInfo.Members;
 							for (int i = 0; i < members.Count; i++)
 							{
@@ -220,15 +185,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 									}
 								}
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					return false;
@@ -238,57 +194,21 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		if (ggbuttonHitBox != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(ggbuttonHitBox.gameObject, EventTriggerType.PointerClick, OnGGButtonClick);
 			ggbuttonHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, GGTooltipSetup);
 		}
 		if (expBonusButtonHitBox != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(expBonusButtonHitBox.gameObject, EventTriggerType.PointerClick, OnExpBonusButtonClick);
 			expBonusButtonHitBox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, ExpBonusTooltipSetup);
 		}
 		m_expBonusAmount.raycastTarget = false;
 		if (friendTooltipObj != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			friendTooltipObj.Setup(TooltipType.Titled, FriendTooltipSetup);
 		}
 		if (factionTooltipObj != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			factionTooltipObj.Setup(TooltipType.Titled, FactionTooltipSetup);
 			m_currentFactionName = StringUtil.TR("FactionNone", "Global");
 			UIManager.SetGameObjectActive(m_factionIcon, false);
@@ -308,19 +228,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			{
 				if (currencyData.m_Amount > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_GGPackAnimator.Play("BonusIconDefaultIN");
 				}
 				else
@@ -351,15 +258,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		m_GGPackCount.raycastTarget = false;
 		if (currentAmount > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UINewUserFlowManager.OnGGBoostOwned();
 		}
 		OnFactionCompetitionNotification = delegate
@@ -377,39 +275,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 		clientGameManager.OnTrustBoostUsedNotification += OnTrustBoostUsedNotification;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		if (ClientGameManager.Get().GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo.Members != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				NotifyGroupUpdate(ClientGameManager.Get().GroupInfo.Members);
 			}
 		}
@@ -425,11 +296,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_buttonHitBox.AddSubButton(m_levelNumberHitbox);
 			m_levelNumberHitbox.callback = OnProfileClicked;
 			m_levelNumberHitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -443,10 +309,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return false;
 						}
 					}
@@ -481,19 +343,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 	{
 		if (groupMembers.Count == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_selfPartyDisplay.m_PartyLeaderIconAnimator, false);
 			UIManager.SetGameObjectActive(m_selfPartyDisplay.m_ReadyIconAnimator, false);
 			UIManager.SetGameObjectActive(m_selfPartyDisplay.m_IsInGameAnimator, false);
@@ -502,15 +351,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		{
 			if (groupMembers[i].AccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selfPartyDisplay.Setup(groupMembers[i]);
 				m_selfPartyDisplay.UpdateReadyState(groupMembers[i].IsReady);
 				m_selfPartyDisplay.SetAsLeader(groupMembers[i].IsLeader);
@@ -518,25 +358,11 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			int j = 0;
 			for (int k = 0; k < groupMembers.Count; k++)
 			{
 				if (j < m_partyMemberDisplay.Length && groupMembers[k].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_partyMemberDisplay[j].Setup(groupMembers[k]);
 					m_partyMemberDisplay[j].UpdateReadyState(groupMembers[k].IsReady);
 					m_partyMemberDisplay[j].SetAsLeader(groupMembers[k].IsLeader);
@@ -544,26 +370,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 					j++;
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (; j < m_partyMemberDisplay.Length; j++)
 			{
 				m_partyMemberDisplay[j].SetToHidden();
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				UpdateGroupedWithFriendStatus();
 				return;
 			}
@@ -579,15 +391,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag)
 			{
 				while (true)
@@ -615,52 +418,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(m_container, visible);
 		if (visible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().PlayerWallet != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack) > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_GGPackAnimator.Play("BonusIconDefaultIN");
 						goto IL_0139;
 					}
@@ -670,48 +433,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 			AnimatorClipInfo[] currentAnimatorClipInfo = m_GGPackAnimator.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo.Length > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "BonusIconDefaultOUT")
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentAnimatorClipInfo[0].clip.name != "BonusIconDisabled")
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 					}
@@ -727,15 +454,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		IL_013f:
 		if (!m_receivedDataOnce)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_canvasGroup.alpha = 0f;
 		}
 		m_isVisible = visible;
@@ -743,15 +461,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(m_pressedContainer, false);
 		if (!refreshOnly)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIStorePanel.Get() != null)
 			{
 				UIStorePanel.Get().CloseStore();
@@ -770,19 +479,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(m_pressedContainer, m_isPressed);
 		if (m_failedToGetData > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_failedToGetData -= Time.time;
 			if (m_failedToGetData <= 0f)
 			{
@@ -792,15 +488,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		int num = 0;
 		if (FriendListPanel.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_newFriendNotificationContainer, FriendListPanel.Get().GetNumFriendRequests() > 0);
 			num = FriendListPanel.Get().GetNumOnlineFriends();
 		}
@@ -811,15 +498,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		m_numOnlineFriends.text = num.ToString();
 		if (num != m_lastFriendCount)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lastFriendCount = num;
 			UpdateGroupedWithFriendStatus();
 		}
@@ -848,45 +526,14 @@ public class UIPlayerNavPanel : MonoBehaviour
 		int num = 0;
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().PlayerWallet != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 			}
 		}
 		string empty = string.Empty;
 		if (num > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty = $"<color=green>x{num}</color>";
 		}
 		else
@@ -896,15 +543,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		string text = StringUtil.TR("GGBoostDescription", "Global");
 		if (num == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "\n\n" + StringUtil.TR("NoGGBoostsPurchaseInStore", "Global");
 		}
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
@@ -940,40 +578,17 @@ public class UIPlayerNavPanel : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ClientGameManager.Get().FriendList.Friends.ContainsKey(accountID))
 			{
 				continue;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -1006,10 +621,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1035,15 +646,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int itemTemplateId = gameBalanceVars.StoreItemsForPurchase[0].m_itemTemplateId;
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemTemplateId);
 			UIStorePanel.Get().SelectItem(itemTemplate);
@@ -1060,19 +662,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			DateTime dateTime = ClientGameManager.Get().UtcNow();
 			if (m_freelancerExpBonusTime > dateTime)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TimeSpan difference = m_freelancerExpBonusTime - dateTime;
 				tooltipText = string.Format(StringUtil.TR("FreelancerExpBonusDescWithTime", "Global"), StringUtil.GetTimeDifferenceText(difference, true));
 			}
@@ -1093,10 +682,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OnAccountDataUpdated(clientGameManager.GetPlayerAccountData());
 					return;
 				}
@@ -1113,45 +698,14 @@ public class UIPlayerNavPanel : MonoBehaviour
 	{
 		if (m_container != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isVisible)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_container, true);
 			}
 			m_playerHandle = HydrogenConfig.Get().Ticket.Handle;
 			m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(m_playerName.fontSize * 0.7f));
 			if (FriendListPanel.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FriendListPanel.Get().m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(FriendListPanel.Get().m_playerName.fontSize * 0.7f));
 			}
 			m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, string.Empty);
@@ -1160,15 +714,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			m_receivedDataOnce = true;
 			if (newData.QuestComponent.SeasonExperience.ContainsKey(newData.QuestComponent.ActiveSeason))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_endLevel = newData.QuestComponent.GetReactorLevel(SeasonWideData.Get().m_seasons);
 				m_endExp = newData.QuestComponent.SeasonExperience[newData.QuestComponent.ActiveSeason].XPProgressThroughLevel;
 			}
@@ -1179,15 +724,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			}
 			if (m_curLevel < 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_curLevel = m_endLevel;
 				m_curExp = m_endExp;
 			}
@@ -1202,15 +738,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			m_expPerSecond = 0;
 			if (m_endLevel == m_curLevel)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_expPerSecond = m_endExp - m_curExp;
 			}
 			else
@@ -1224,15 +751,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			}
 			if (m_curLevel > m_endLevel)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_curLevel = m_endLevel;
 				m_curExp = m_endLevel;
 				m_expPerSecond = 1;
@@ -1240,15 +758,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			UIManager.SetGameObjectActive(m_questLevelSlider, true);
 			if (m_curLevel == m_endLevel)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_questLevelSlider.fillAmount = (float)m_endExp / (float)m_expToLevel;
 			}
 			else
@@ -1273,15 +782,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsPlayingLevelUpAnim())
 			{
 				while (true)
@@ -1304,15 +804,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			m_curExp += num;
 			if (m_curLevel <= m_endLevel)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_endExp > m_expToLevel)
 				{
 					m_expPerSecond = 0;
@@ -1321,29 +812,11 @@ public class UIPlayerNavPanel : MonoBehaviour
 			}
 			if (m_curLevel == m_endLevel && m_curExp >= m_endExp)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_curExp = m_endExp;
 				m_expPerSecond = 0;
 			}
 			else if (m_curExp >= m_expToLevel)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = m_endLevel - m_curLevel;
 				int num3 = playerAccountData.QuestComponent.SeasonLevel - num2;
 				if (num3 > 0)
@@ -1353,51 +826,15 @@ public class UIPlayerNavPanel : MonoBehaviour
 					{
 						if (nextSeasonLevelRewards[i].InventoryTemplate == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UINewReward.Get().NotifyNewRewardReceived(nextSeasonLevelRewards[i], CharacterType.None, num3 + 1);
 						}
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerAccountData.QuestComponent.SeasonItemRewardsGranted.ContainsKey(num3 + 1))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<int> list = playerAccountData.QuestComponent.SeasonItemRewardsGranted[num3 + 1];
 						for (int j = 0; j < list.Count; j++)
 						{
 							UINewReward.Get().NotifySeasonReward(InventoryWideData.Get().GetItemTemplate(list[j]), num3 + 1, 1);
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1418,15 +855,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			int doActive;
 			if (seasonTemplate != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = (seasonTemplate.IsTutorial ? 1 : 0);
 			}
 			else
@@ -1438,15 +866,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			int doActive2;
 			if (seasonTemplate != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = ((!seasonTemplate.IsTutorial) ? 1 : 0);
 			}
 			else
@@ -1460,11 +879,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (seasonTemplate.IsTutorial)
 				{
 					while (true)
@@ -1506,15 +920,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 								RewardUtils.RewardData rewardData = null;
 								while (queue.Count > 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (rewardData != null)
 									{
 										break;
@@ -1522,30 +927,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 									int num7 = queue.Peek().Level - 1;
 									if (num7 < num6)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										queue.Dequeue();
 									}
 									else
 									{
 										if (num7 > num6)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											break;
 										}
 										rewardData = queue.Dequeue();
@@ -1576,28 +963,10 @@ public class UIPlayerNavPanel : MonoBehaviour
 					SeasonTemplate seasonTemplate2 = SeasonWideData.Get().GetSeasonTemplate(list2[l]);
 					if (seasonTemplate2.IsTutorial)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					if (!m_levelTooltipString.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_levelTooltipString += Environment.NewLine;
 					}
 					m_levelTooltipString += string.Format(StringUtil.TR("SeasonLevelDisplay", "Global"), seasonTemplate2.GetDisplayName(), playerAccountData.QuestComponent.SeasonExperience[list2[l]].Level);
@@ -1632,10 +1001,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1644,28 +1009,10 @@ public class UIPlayerNavPanel : MonoBehaviour
 		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(activeFactionCompetition);
 		if (factionCompetition != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			RectTransform factionContainer = m_factionContainer;
 			int doActive;
 			if (factionCompetition.Enabled)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = (factionCompetition.ShouldShowcase ? 1 : 0);
 			}
 			else
@@ -1677,15 +1024,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 			int num;
 			if (currentRibbon == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = -1;
 			}
 			else
@@ -1720,15 +1058,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 					break;
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
@@ -1753,10 +1082,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_freelancerExpBonusTime = accountComponent.FreelancerExpBonusTime;
 					TimeSpan difference = accountComponent.FreelancerExpBonusTime - dateTime;
 					m_expBonusAmount.text = StringUtil.GetTimeDifferenceTextAbbreviated(difference);
@@ -1802,10 +1127,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					TimeSpan difference = m_freelancerExpBonusTime - dateTime;
 					m_expBonusAmount.text = StringUtil.GetTimeDifferenceTextAbbreviated(difference);
 					return;
@@ -1823,41 +1144,10 @@ public class UIPlayerNavPanel : MonoBehaviour
 		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(notification.CompetitionIndex);
 		if (factionCompetition != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (notification.FactionIndex < factionCompetition.Factions.Count)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UILootMatrixScreen.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UILootMatrixScreen.Get().IsOpening())
 					{
 						m_pendingTrustNotification = notification;
@@ -1886,15 +1176,6 @@ public class UIPlayerNavPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnTrustBoostUsedNotification(m_pendingTrustNotification);
 			return;
 		}

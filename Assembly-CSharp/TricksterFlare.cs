@@ -59,19 +59,6 @@ public class TricksterFlare : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Flare";
 		}
 		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
@@ -88,55 +75,15 @@ public class TricksterFlare : Ability
 		m_allyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 		if (m_flareSubsequentDamageAmount > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_flareSubsequentDamageAmount != m_flareDamageAmount)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Tertiary, m_flareSubsequentDamageAmount);
 			}
 		}
 		if (m_flareSubsequentHealAmount > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_flareSubsequentHealAmount != m_flareHealAmount)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Quaternary, m_flareSubsequentHealAmount);
 			}
 		}
@@ -147,19 +94,6 @@ public class TricksterFlare : Ability
 	{
 		if (!m_flareAroundSelf)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_afterImageSyncComp != null)
 			{
 				return m_afterImageSyncComp.HasVaidAfterImages();
@@ -177,19 +111,6 @@ public class TricksterFlare : Ability
 		}
 		if (m_includeAllies)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, m_flareHealAmount, m_flareSubsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 		}
 		return symbolToValue;
@@ -202,30 +123,8 @@ public class TricksterFlare : Ability
 		{
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.IsDead())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_afterImageSyncComp.TurnToPosition(item, targetPos);
 					Animator modelAnimator = item.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", animationIndex);
@@ -243,19 +142,6 @@ public class TricksterFlare : Ability
 		{
 			if (item != null && !item.IsDead())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Animator modelAnimator = item.GetModelAnimator();
 				modelAnimator.SetInteger("Attack", 0);
 				modelAnimator.SetBool("CinematicCam", false);

@@ -58,38 +58,11 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fixedStartPos = base.TargetPos;
 			if (m_fixedTargetPosUseGroundHeight)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Board.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fixedStartPos.y = Board.Get().BaselineHeight;
 				}
 			}
@@ -116,30 +89,8 @@ public class LineSequence : Sequence
 		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnFX();
 			}
 		}
@@ -149,31 +100,16 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_fx != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if ((bool)m_fx)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_fx.SetActive(false);
 						m_despawnTime = GameTime.time;
 						return;
@@ -197,59 +133,18 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_fx != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_fx != null && m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 					}
@@ -262,15 +157,6 @@ public class LineSequence : Sequence
 					int num;
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((!flag3) ? 1 : 0);
 					}
 					else
@@ -289,38 +175,11 @@ public class LineSequence : Sequence
 				}
 				if (m_fx != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_useTargetPosAsStartPosition)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(m_fxCasterJoint.m_jointObject != null))
 						{
 							goto IL_0176;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					Vector3 lineStartPos = GetLineStartPos();
@@ -335,20 +194,10 @@ public class LineSequence : Sequence
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (m_despawnTime > 0f)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							Object.Destroy(m_fx);
 							m_fx = null;
 							return;
@@ -359,15 +208,6 @@ public class LineSequence : Sequence
 				IL_0176:
 				if (m_fxTargetJoint.m_jointObject != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 lineEndPos = GetLineEndPos();
 					Sequence.SetAttribute(m_fx, "endPoint", lineEndPos);
 				}
@@ -387,10 +227,6 @@ public class LineSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_fixedStartPos;
 				}
 			}
@@ -423,24 +259,11 @@ public class LineSequence : Sequence
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 result = m_fxTargetJoint.m_jointObject.transform.position;
 					bool flag = false;
 					flag = base.Target.IsModelAnimatorDisabled();
 					if (m_useTargetDeathPosIfRagdolled)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							result = base.Target.LastDeathPosition;
@@ -460,19 +283,6 @@ public class LineSequence : Sequence
 		int result;
 		if (!m_useTargetPosAsStartPosition && m_fxCasterJointReferenceType == ReferenceModelType.Actor)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (ShouldHideForActorIfAttached(base.Caster) ? 1 : 0);
 		}
 		else
@@ -491,31 +301,9 @@ public class LineSequence : Sequence
 	{
 		if (!m_fxCasterJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
@@ -524,64 +312,19 @@ public class LineSequence : Sequence
 			GameObject referenceModel2 = GetReferenceModel(base.Target, m_fxTargetJointReferenceType);
 			if (referenceModel2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxTargetJoint.Initialize(referenceModel2);
 			}
 		}
 		if (m_fxPrefab != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_useTargetPosAsStartPosition)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fx = InstantiateFX(m_fxPrefab, m_fixedStartPos, default(Quaternion));
 			}
 			else if (m_fxCasterJoint != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fxCasterJoint.m_jointObject != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
 					m_fx = InstantiateFX(m_fxPrefab, position, default(Quaternion));
 				}
@@ -599,15 +342,6 @@ public class LineSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -618,22 +352,8 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			}
 			if (m_duration > 0f)
@@ -663,15 +383,6 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_startEvent == parameter)
 			{
 				SpawnFX();
@@ -693,15 +404,6 @@ public class LineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx.gameObject);
 			m_fx = null;
 			return;

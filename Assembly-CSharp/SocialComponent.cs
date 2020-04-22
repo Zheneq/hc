@@ -70,19 +70,6 @@ public class SocialComponent : ICloneable
 	{
 		if (!FriendInfo.TryGetValue(friendAccountId, out FriendData value))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = new FriendData();
 			FriendInfo[friendAccountId] = value;
 		}
@@ -120,26 +107,12 @@ public class SocialComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(TimeOfDecay != DateTime.MinValue))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!(DateTime.UtcNow > TimeOfDecay))
 				{
 					return;
@@ -170,19 +143,6 @@ public class SocialComponent : ICloneable
 		DateTime dateTime;
 		if (muteDuration > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dateTime = DateTime.UtcNow + TimeSpan.FromSeconds(muteDuration) + TimeSpan.FromHours(12.0);
 		}
 		else
@@ -195,11 +155,6 @@ public class SocialComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			TimeOfDecay = dateTime;
 			return;
 		}

@@ -69,32 +69,10 @@ public class KeyBinding_UI : UIScene
 	{
 		if (m_okButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_okButton.spriteController.callback = OnOkButton;
 		}
 		if (m_applyButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_applyButton.spriteController.callback = OnApplyButton;
 		}
 		if (m_revertDefaultsButton != null)
@@ -103,15 +81,6 @@ public class KeyBinding_UI : UIScene
 		}
 		if (m_closeButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_closeButton.spriteController.callback = OnCancelButton;
 		}
 		m_keybindButtons.Clear();
@@ -122,15 +91,6 @@ public class KeyBinding_UI : UIScene
 			if (keyBindingCommand == null)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!keyBindingCommand.Settable)
 			{
@@ -143,15 +103,6 @@ public class KeyBinding_UI : UIScene
 			uIKeyCommandEntry.transform.localEulerAngles = Vector3.zero;
 			if (m_scrollRect != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uIKeyCommandEntry.m_primaryKeyButton.spriteController.RegisterScrollListener(OnScroll);
 				uIKeyCommandEntry.m_secondaryKeyButton.spriteController.RegisterScrollListener(OnScroll);
 			}
@@ -160,11 +111,6 @@ public class KeyBinding_UI : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SortDisplayList();
 			return;
 		}
@@ -187,15 +133,6 @@ public class KeyBinding_UI : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -215,19 +152,6 @@ public class KeyBinding_UI : UIScene
 			UIKeyCommandEntry uIKeyCommandEntry = m_keybindButtons[i];
 			if (uIKeyCommandEntry.transform.GetSiblingIndex() != i)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				uIKeyCommandEntry.transform.SetSiblingIndex(i);
 			}
 		}
@@ -273,10 +197,6 @@ public class KeyBinding_UI : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ShowKeybinds();
 					return;
 				}
@@ -328,10 +248,6 @@ public class KeyBinding_UI : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					try
 					{
 						ClearSetKeyBind();
@@ -415,30 +331,8 @@ public class KeyBinding_UI : UIScene
 			UIKeyCommandEntry uIKeyCommandEntry = m_keybindButtons[i];
 			if (uIKeyCommandEntry.GetKeyPreference() == m_setKeyBindPreference)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_setKeyBindPrimary)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uIKeyCommandEntry.m_primaryKeyButton.SetSelected(true, false, string.Empty, string.Empty);
 					uIKeyCommandEntry.m_secondaryKeyButton.SetSelected(false, false, string.Empty, string.Empty);
 				}
@@ -464,15 +358,6 @@ public class KeyBinding_UI : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_setKeyBindPreference = KeyPreference.NullPreference;
 			ShowCurrentSetKeyBind();
 			return;
@@ -483,19 +368,6 @@ public class KeyBinding_UI : UIScene
 	{
 		if (m_setKeyBindPreference == setKeyBindPreference)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_setKeyBindPrimary == setKeyBindPrimary)
 			{
 				while (true)
@@ -520,30 +392,8 @@ public class KeyBinding_UI : UIScene
 	{
 		if (setKeyBindPreference == m_setKeyBindPreference)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (setKeyBindPrimary == m_setKeyBindPrimary)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClearSetKeyBind();
 			}
 		}
@@ -556,19 +406,6 @@ public class KeyBinding_UI : UIScene
 		int result;
 		if (m_setKeyBindPreference != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (IsVisible() ? 1 : 0);
 		}
 		else
@@ -586,15 +423,6 @@ public class KeyBinding_UI : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IEnumerator enumerator = Enum.GetValues(typeof(KeyCode)).GetEnumerator();
 			try
 			{
@@ -603,30 +431,12 @@ public class KeyBinding_UI : UIScene
 					KeyCode keyCode = (KeyCode)enumerator.Current;
 					if (Input.GetKeyUp(keyCode))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!InputManager.Get().IsUnbindableKey(keyCode))
 						{
 							KeyCode modifier = KeyCode.None;
 							KeyCode additionalModifier = KeyCode.None;
 							if (!InputManager.Get().IsModifierKey(keyCode))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InputManager.Get().GetModifierKeys(out modifier, out additionalModifier);
 							}
 							InputManager.Get().SetCustomKeyBind(m_setKeyBindPreference, keyCode, modifier, additionalModifier, m_setKeyBindPrimary);

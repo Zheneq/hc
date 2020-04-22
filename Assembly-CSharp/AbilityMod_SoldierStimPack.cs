@@ -38,15 +38,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_selfHealAmountMod, "SelfHealAmount", string.Empty, soldierStimPack.m_selfHealAmount);
 			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", soldierStimPack.m_selfHitEffect);
 			AbilityMod.AddToken(tokens, m_grenadeExtraRangeMod, "GrenadeExtraRange", string.Empty, soldierStimPack.m_grenadeExtraRange);
@@ -67,19 +58,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = soldierStimPack.m_selfHealAmount;
 		}
 		else
@@ -93,15 +71,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (soldierStimPack.m_basicAttackIgnoreCover ? 1 : 0);
 		}
 		else
@@ -115,15 +84,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierStimPack.m_grenadeExtraRange;
 		}
 		else
@@ -136,15 +96,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierStimPack.m_dashShootExtraEffect;
 		}
 		else

@@ -40,19 +40,6 @@ public class Replay
 	{
 		if (m_initialMessageTimestamp == 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_initialMessageTimestamp = GameTime.time;
 		}
 		Message item = default(Message);
@@ -82,41 +69,10 @@ public class Replay
 					int num8 = 8 + num6;
 					if (startSeqNum <= num5 && num5 <= endSeqNum)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (num7 != 37)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num7 != 51)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Message value = default(Message);
 								value.data = new byte[num8];
 								Buffer.BlockCopy(message.data, num4, value.data, 0, num8);
@@ -128,39 +84,12 @@ public class Replay
 					num4 += num8;
 					num3 -= num8;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num == endSeqNum - startSeqNum + 1)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				num2--;
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -179,10 +108,6 @@ public class Replay
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"));
 					return;
 				}
@@ -206,10 +131,6 @@ public class Replay
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						for (int i = 0; i < response.MatchData.Count; i++)
 						{
 							if (response.MatchData[i].GameServerProcessCode == gameInfo.GameServerProcessCode)
@@ -267,26 +188,12 @@ public class Replay
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().Connection == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!AppState.IsInGame())
 				{
 					return;
@@ -327,32 +234,10 @@ public class Replay
 	{
 		while (m_messageReadIndex < m_messages.Count && ReplayTimestamp.Current() < target)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!AsyncPump.Current.BreakRequested())
 			{
 				PlayMessage();
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -380,15 +265,6 @@ public class Replay
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Loaded);
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Started);
 			return;

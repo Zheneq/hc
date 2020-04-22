@@ -29,15 +29,6 @@ namespace TMPro
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return null;
 						}
 					}
@@ -68,10 +59,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return value;
 					}
 				}
@@ -87,15 +74,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_Style value = m_StyleDictionary[old_key];
 				m_StyleDictionary.Add(new_key, value);
 				m_StyleDictionary.Remove(old_key);
@@ -121,15 +99,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}

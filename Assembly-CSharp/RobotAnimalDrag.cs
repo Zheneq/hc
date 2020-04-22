@@ -25,19 +25,6 @@ public class RobotAnimalDrag : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Death Snuggle";
 		}
 		Setup();
@@ -64,19 +51,6 @@ public class RobotAnimalDrag : Ability
 		StandardEffectInfo cachedCasterEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedCasterEffect = m_abilityMod.m_casterEffectMod.GetModifiedValue(m_casterEffect);
 		}
 		else
@@ -91,19 +65,6 @@ public class RobotAnimalDrag : Ability
 		StandardEffectInfo result;
 		if (m_cachedCasterEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedCasterEffect;
 		}
 		else
@@ -118,19 +79,6 @@ public class RobotAnimalDrag : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_distance;
 		}
 		else
@@ -150,19 +98,6 @@ public class RobotAnimalDrag : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -177,43 +112,12 @@ public class RobotAnimalDrag : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else if (!m_abilityMod.m_enemyEffectOnNextTurnStart.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_abilityMod.m_powerUpsToSpawn != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_abilityMod.m_powerUpsToSpawn.Count > 0) ? 1 : 0);
 			}
 			else
@@ -233,19 +137,6 @@ public class RobotAnimalDrag : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
@@ -260,19 +151,6 @@ public class RobotAnimalDrag : Ability
 		object result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -304,19 +182,6 @@ public class RobotAnimalDrag : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RobotAnimalDrag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_RobotAnimalDrag.m_casterEffectMod.GetModifiedValue(m_casterEffect);
 		}
 		else
@@ -338,10 +203,6 @@ public class RobotAnimalDrag : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalDrag);
 					Setup();
 					return;

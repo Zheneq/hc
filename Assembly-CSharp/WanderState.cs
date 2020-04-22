@@ -28,15 +28,6 @@ public class WanderState : FSMState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning("Min and Max wander distance of " + WanderData.MaxWanderDistanceInSquares + " are the same for " + base.MyActorData.name);
 			return;
 		}
@@ -57,30 +48,8 @@ public class WanderState : FSMState
 			int result;
 			if (x.OccupantActor == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (x.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((!minBounds.Contains(x.transform.position)) ? 1 : 0);
 					goto IL_0057;
 				}
@@ -118,19 +87,6 @@ public class WanderState : FSMState
 		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
 		if (currentDestination == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!PickNewWanderPoint(thisBrain))
 			{
 				while (true)
@@ -150,38 +106,11 @@ public class WanderState : FSMState
 		float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
 		if (turnsToDelayRemaining == -1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(currentBoardSquare == currentDestination))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(num < remainingHorizontalMovement) || !(currentDestination.OccupantActor != null))
 				{
 					goto IL_0228;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			turnsToDelayRemaining = GameplayRandom.Range(WanderData.MinWaitTurns, WanderData.MaxWaitTurns);
@@ -249,11 +178,6 @@ public class WanderState : FSMState
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			ActorTurnSM component = base.MyFSMBrain.GetComponent<ActorTurnSM>();
 			totalTurnsTravelling++;
 			component.SelectMovementSquareForMovement(currentDestination);

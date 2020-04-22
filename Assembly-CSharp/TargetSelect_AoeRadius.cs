@@ -56,10 +56,6 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return boardSquareSafe.ToVector3();
 					}
 				}
@@ -78,19 +74,6 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_useSquareCenterPosMod.GetModifiedValue(m_useSquareCenterPos);
 		}
 		else

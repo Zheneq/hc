@@ -40,15 +40,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_distanceMod, "Distance", string.Empty, robotAnimalDrag.m_distance);
 			AbilityMod.AddToken(tokens, m_widthMod, "Width", string.Empty, robotAnimalDrag.m_width);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, robotAnimalDrag.m_damage);
@@ -70,19 +61,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = robotAnimalDrag.m_width;
 		}
 		else
@@ -95,15 +73,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalDrag.m_damage;
 		}
 		else
@@ -118,15 +87,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = robotAnimalDrag.m_casterEffect;
 		}
 		else
@@ -136,26 +96,8 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		empty = str3 + PropDesc(casterEffectMod, "[CasterEffect]", flag, (StandardEffectInfo)baseVal3);
 		if (m_powerUpsToSpawn != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_powerUpsToSpawn.Count > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty += "[Spoils to Spawn] = ";
 				using (List<PowerUp>.Enumerator enumerator = m_powerUpsToSpawn.GetEnumerator())
 				{
@@ -164,26 +106,8 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 						PowerUp current = enumerator.Current;
 						if (current != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							empty = empty + current.name + ", ";
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				empty += "\n";

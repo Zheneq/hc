@@ -65,10 +65,6 @@ public class CanvasLayerInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return num;
 				}
 			}
@@ -77,41 +73,18 @@ public class CanvasLayerInfo
 		{
 			if (list.Contains(Scenes[i].RuntimeScene.GetSceneType()))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Scenes[i].RuntimeScene.SetVisible(visible, parameters);
 				Scenes[i].SetBatchScenesVisible(visible);
 				num++;
 			}
 			else if (parameters.TurnOffAllOtherScenesInCanvasLayer)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Scenes[i].RuntimeScene.SetVisible(false, parameters);
 				Scenes[i].SetBatchScenesVisible(false);
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return num;
 		}
 	}
@@ -138,30 +111,8 @@ public class CanvasLayerInfo
 		bool result = false;
 		if (type == CanvasBatchType.Static)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (StaticBatchLayerCanvas == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject = new GameObject("Static Batch Canvas");
 				StaticBatchLayerCanvas = gameObject.AddComponent<Canvas>();
 				SetupCanvas(gameObject, ScenesContainer, StaticBatchLayerCanvas, (LayerPriority + 1) * 60 - 40);
@@ -174,29 +125,11 @@ public class CanvasLayerInfo
 					(StaticCanvasScenes[i].transform as RectTransform).anchorMax = Vector2.one;
 					(StaticCanvasScenes[i].transform as RectTransform).sizeDelta = Vector2.zero;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
 		else if (type == CanvasBatchType.SemiStatic)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SemiStaticBatchLayerCanvas == null)
 			{
 				GameObject gameObject2 = new GameObject("Semi Static Batch Canvas");
@@ -216,26 +149,8 @@ public class CanvasLayerInfo
 		}
 		else if (type == CanvasBatchType.CameraMovement)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CameraMovementBatchLayerCanvas == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject3 = new GameObject("Camera Movement Batch Canvas");
 				CameraMovementBatchLayerCanvas = gameObject3.AddComponent<Canvas>();
 				SetupCanvas(gameObject3, ScenesContainer, CameraMovementBatchLayerCanvas, (LayerPriority + 1) * 60 - 20);
@@ -248,40 +163,13 @@ public class CanvasLayerInfo
 					(CameraMovementCanvasScenes[k].transform as RectTransform).anchorMax = Vector2.one;
 					(CameraMovementCanvasScenes[k].transform as RectTransform).sizeDelta = Vector2.zero;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
 		else if (type == CanvasBatchType.PerFrame)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (PerFrameBatchLayerCanvas == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject4 = new GameObject("Per Frame Batch Canvas");
 				PerFrameBatchLayerCanvas = gameObject4.AddComponent<Canvas>();
 				SetupCanvas(gameObject4, ScenesContainer, PerFrameBatchLayerCanvas, (LayerPriority + 1) * 60 - 10);
@@ -293,15 +181,6 @@ public class CanvasLayerInfo
 					(PerFrameCanvasScenes[l].transform as RectTransform).anchorMin = Vector2.zero;
 					(PerFrameCanvasScenes[l].transform as RectTransform).anchorMax = Vector2.one;
 					(PerFrameCanvasScenes[l].transform as RectTransform).sizeDelta = Vector2.zero;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				result = true;
 			}
@@ -325,45 +204,14 @@ public class CanvasLayerInfo
 					}
 					else if (batchType == CanvasBatchType.SemiStatic)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						result = current.RuntimeSemiStaticSceneContainer;
 					}
 					else if (batchType == CanvasBatchType.CameraMovement)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = current.RuntimeCameraMovementSceneContainer;
 					}
 					else if (batchType == CanvasBatchType.PerFrame)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = current.RuntimePerFrameSceneContainer;
 					}
 				}
@@ -389,15 +237,6 @@ public class CanvasLayerInfo
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CreateCanvasBatchType(batchObject.m_BatchType))
 			{
 				using (List<RuntimeSceneInfo>.Enumerator enumerator = Scenes.GetEnumerator())
@@ -410,93 +249,30 @@ public class CanvasLayerInfo
 						{
 							if (num >= SceneDisplayInfos.Length)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (SceneDisplayInfos[num].m_SceneType == current.RuntimeScene.GetSceneType())
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (batchObject.m_BatchType == CanvasBatchType.Static)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									current.RuntimeStaticSceneContainer = StaticCanvasScenes[num];
 								}
 								else if (batchObject.m_BatchType == CanvasBatchType.SemiStatic)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									current.RuntimeSemiStaticSceneContainer = SemiStaticCanvasScenes[num];
 								}
 								else if (batchObject.m_BatchType == CanvasBatchType.CameraMovement)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									current.RuntimeCameraMovementSceneContainer = CameraMovementCanvasScenes[num];
 								}
 								else if (batchObject.m_BatchType == CanvasBatchType.PerFrame)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									current.RuntimePerFrameSceneContainer = PerFrameCanvasScenes[num];
 								}
 								break;
 							}
 							num++;
 						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -517,15 +293,6 @@ public class CanvasLayerInfo
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Transform[] sceneContainers = sceneInfo.RuntimeScene.GetSceneContainers();
 			List<_CanvasBatchingObject> list = new List<_CanvasBatchingObject>();
 			for (int i = 0; i < sceneContainers.Length; i++)
@@ -535,11 +302,6 @@ public class CanvasLayerInfo
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				using (List<_CanvasBatchingObject>.Enumerator enumerator = list.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -567,32 +329,10 @@ public class CanvasLayerInfo
 	{
 		if (StaticCanvasScenes != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			info.RuntimeStaticSceneContainer = StaticCanvasScenes[index];
 		}
 		if (SemiStaticCanvasScenes != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			info.RuntimeSemiStaticSceneContainer = SemiStaticCanvasScenes[index];
 		}
 		if (CameraMovementCanvasScenes != null)
@@ -605,11 +345,6 @@ public class CanvasLayerInfo
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			info.RuntimePerFrameSceneContainer = PerFrameCanvasScenes[index];
 			return;
 		}
@@ -622,19 +357,6 @@ public class CanvasLayerInfo
 			if (Scenes[i].RuntimeScene.GetSceneType() != theScene.GetSceneType())
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 			if (type == CanvasBatchType.Static)
 			{
@@ -667,11 +389,6 @@ public class CanvasLayerInfo
 			case CanvasBatchType.CameraMovement:
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return CameraMovementBatchLayerCanvas;
 				}
 			case CanvasBatchType.PerFrame:
@@ -680,11 +397,6 @@ public class CanvasLayerInfo
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -699,15 +411,6 @@ public class CanvasLayerInfo
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return DefaultLayerCanvas;
 			}
 		}
@@ -724,25 +427,11 @@ public class CanvasLayerInfo
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return DefaultLayerCanvas;
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -757,42 +446,11 @@ public class CanvasLayerInfo
 			{
 				if (Scenes[num].RuntimeScene.GetSceneType() == SceneType.HUD)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (Scenes[num].RuntimeCameraMovementSceneContainer != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Canvas component = Scenes[num].RuntimeCameraMovementSceneContainer.GetComponent<Canvas>();
 						if (component != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = component.sortingOrder;
 							break;
 						}
@@ -800,15 +458,6 @@ public class CanvasLayerInfo
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -825,15 +474,6 @@ public class CanvasLayerInfo
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				RuntimeSceneInfo runtimeSceneInfo = new RuntimeSceneInfo();
 				runtimeSceneInfo.DisplayInfo = SceneDisplayInfos[i];
 				runtimeSceneInfo.RuntimeScene = scene;
@@ -847,15 +487,6 @@ public class CanvasLayerInfo
 					UIManager.ReparentTransform(sceneContainers[j], runtimeSceneInfo.RuntimeSceneContainer.transform);
 					if (ParentInfo.ParentInfo.CamType != RenderMode.WorldSpace)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						(sceneContainers[j] as RectTransform).anchorMin = Vector2.zero;
 						(sceneContainers[j] as RectTransform).anchorMax = Vector2.one;
 						(sceneContainers[j] as RectTransform).sizeDelta = Vector2.zero;
@@ -863,11 +494,6 @@ public class CanvasLayerInfo
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return runtimeSceneInfo;
 				}
 			}
@@ -883,15 +509,6 @@ public class CanvasLayerInfo
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			init = true;
 			m_parentInfo = parentInfo;
 			DefaultCanvasScenes = new GameObject[SceneDisplayInfos.Length];
@@ -936,70 +553,21 @@ public class CanvasLayerInfo
 	{
 		if (m_parentInfo.ParentInfo.CamType != RenderMode.WorldSpace)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DefaultLayerCanvas.worldCamera = m_parentInfo.ParentInfo.ActiveCamera;
 			if (StaticBatchLayerCanvas != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StaticBatchLayerCanvas.worldCamera = m_parentInfo.ParentInfo.ActiveCamera;
 			}
 			if (SemiStaticBatchLayerCanvas != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SemiStaticBatchLayerCanvas.worldCamera = m_parentInfo.ParentInfo.ActiveCamera;
 			}
 			if (CameraMovementBatchLayerCanvas != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraMovementBatchLayerCanvas.worldCamera = m_parentInfo.ParentInfo.ActiveCamera;
 			}
 			if (PerFrameBatchLayerCanvas != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PerFrameBatchLayerCanvas.worldCamera = m_parentInfo.ParentInfo.ActiveCamera;
 			}
 		}
@@ -1008,15 +576,6 @@ public class CanvasLayerInfo
 		{
 			if (newState == UIManager.ClientState.InGame)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SceneDisplayInfos[i].m_InGame)
 				{
 					goto IL_0161;
@@ -1026,38 +585,15 @@ public class CanvasLayerInfo
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0161;
 			IL_0161:
 			if (SceneDisplayInfos[i].m_SceneType != SceneType.TestScene)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(SceneDisplayInfos[i]);
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}

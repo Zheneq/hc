@@ -30,10 +30,6 @@ public class OnPingChatter : ScriptableObject, IChatterData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -41,26 +37,8 @@ public class OnPingChatter : ScriptableObject, IChatterData
 		ActorData x = null;
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.gameObject != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				x = component.gameObject.GetComponent<ActorData>();
 			}
 		}

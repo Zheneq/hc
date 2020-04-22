@@ -54,19 +54,6 @@ public class HomingProjectileSequence : Sequence
 		GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 		if (referenceModel != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxCasterJoint.Initialize(referenceModel);
 		}
 		if (!(m_startEvent == null))
@@ -75,11 +62,6 @@ public class HomingProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			FireAtTarget();
 			return;
 		}
@@ -112,19 +94,6 @@ public class HomingProjectileSequence : Sequence
 	{
 		if (m_hitFxPrefab != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject gameObject = m_hitFx = InstantiateFX(m_hitFxPrefab, m_joint.m_jointObject.transform.position, Quaternion.identity);
 			if (!string.IsNullOrEmpty(m_impactAudioEvent))
 			{
@@ -146,48 +115,24 @@ public class HomingProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_joint == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_joint.m_jointObject != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (!(m_joint.m_jointObject.transform != null))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						Vector3 position = m_fx.transform.position;
 						Vector3 forward = m_fx.transform.forward;
 						m_curTurnSpeed += m_projectileTurnAcceleration * GameTime.deltaTime;
@@ -200,26 +145,8 @@ public class HomingProjectileSequence : Sequence
 						int num;
 						if (!(magnitude <= 0.5f))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Vector3.Dot(lhs, vector) <= 0f)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = ((magnitude < 2f) ? 1 : 0);
 							}
 							else

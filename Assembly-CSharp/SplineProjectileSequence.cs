@@ -32,15 +32,6 @@ public abstract class SplineProjectileSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref overrideStartPos);
 				return;
 			}
@@ -264,31 +255,9 @@ public abstract class SplineProjectileSequence : Sequence
 		{
 			if (base.Targets != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (base.Targets.Length != 0)
 				{
 					goto IL_0042;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return m_fxNoTargetImpactPrefab;
@@ -302,41 +271,10 @@ public abstract class SplineProjectileSequence : Sequence
 	{
 		if (base.Source.RemoveAtEndOfTurn)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameWideData.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameWideData.Get().ShouldMakeCasterVisibleOnCast())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_forceAlwaysVisible = true;
 				}
 			}
@@ -345,42 +283,15 @@ public abstract class SplineProjectileSequence : Sequence
 		{
 			if (extraSequenceParams is DelayedProjectileExtraParams)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DelayedProjectileExtraParams delayedProjectileExtraParams = extraSequenceParams as DelayedProjectileExtraParams;
 				if (delayedProjectileExtraParams == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_curIndex = delayedProjectileExtraParams.curIndex;
 				m_maxIndex = delayedProjectileExtraParams.maxIndex;
 				if (delayedProjectileExtraParams.startDelay >= 0f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_startDelay = delayedProjectileExtraParams.startDelay;
 				}
 				m_skipImpactFx = delayedProjectileExtraParams.skipImpactFx;
@@ -392,55 +303,19 @@ public abstract class SplineProjectileSequence : Sequence
 				MultiEventExtraParams multiEventExtraParams = extraSequenceParams as MultiEventExtraParams;
 				if (multiEventExtraParams != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_eventNumberToKeyOffOf = multiEventExtraParams.eventNumberToKeyOffOf;
 				}
 			}
 			else if (extraSequenceParams is ProjectilePropertyParams)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ProjectilePropertyParams projectilePropertyParams = extraSequenceParams as ProjectilePropertyParams;
 				if (projectilePropertyParams != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_projectileTravelHitWidth = projectilePropertyParams.projectileWidthInWorld;
 				}
 			}
 			else if (extraSequenceParams is FxAttributeParam)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
 				if (fxAttributeParam == null || fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None)
 				{
@@ -450,30 +325,12 @@ public abstract class SplineProjectileSequence : Sequence
 				float paramValue = fxAttributeParam.m_paramValue;
 				if (fxAttributeParam.m_paramTarget == FxAttributeParam.ParamTarget.MainVfx)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_projectileFxAttributes == null)
 					{
 						m_projectileFxAttributes = new Dictionary<string, float>();
 					}
 					if (!m_projectileFxAttributes.ContainsKey(attributeName))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_projectileFxAttributes.Add(attributeName, paramValue);
 					}
 				}
@@ -516,61 +373,21 @@ public abstract class SplineProjectileSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxImpact);
 			m_fxImpact = null;
 		}
 		if (m_targetHitFx != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_targetHitFx.Count > 0)
 			{
 				for (int i = 0; i < m_targetHitFx.Count; i++)
 				{
 					Object.Destroy(m_targetHitFx[i]);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				m_targetHitFx.Clear();
 			}
@@ -582,79 +399,21 @@ public abstract class SplineProjectileSequence : Sequence
 	{
 		if (!m_skipImpactFx)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_skipImpactFxIfNoTargetActor)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targets.Length <= 0)
 					{
 						goto IL_0305;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			GameObject impactFxPrefab = GetImpactFxPrefab();
 			if ((bool)impactFxPrefab)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_impactAlwaysVisibleIfSpawned)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fxImpact = Object.Instantiate(impactFxPrefab, impactPos, impactRot);
 					m_fxImpact.transform.parent = base.gameObject.transform;
 				}
@@ -663,26 +422,8 @@ public abstract class SplineProjectileSequence : Sequence
 					bool flag = false;
 					if (base.Targets != null && base.Targets.Length > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Caster != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num = 0;
 							while (true)
 							{
@@ -690,29 +431,11 @@ public abstract class SplineProjectileSequence : Sequence
 								{
 									if (base.Caster.GetTeam() != base.Targets[num].GetTeam())
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										break;
 									}
 									num++;
 									continue;
-								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								break;
 							}
@@ -720,15 +443,6 @@ public abstract class SplineProjectileSequence : Sequence
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!LastDesiredVisible())
 						{
 							goto IL_019d;
@@ -737,15 +451,6 @@ public abstract class SplineProjectileSequence : Sequence
 					m_fxImpact = InstantiateFX(impactFxPrefab, impactPos, impactRot);
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_fxImpact.transform.parent = base.gameObject.transform;
 					}
 				}
@@ -765,26 +470,8 @@ public abstract class SplineProjectileSequence : Sequence
 		{
 			goto IL_02df;
 		}
-		while (true)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (base.Targets != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Targets.Length != 0)
 			{
 				goto IL_02df;
@@ -792,15 +479,6 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		if (!string.IsNullOrEmpty(m_impactAudioEventIfNoTarget))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(m_impactAudioEventIfNoTarget, m_fx.gameObject);
 		}
 		goto IL_0305;
@@ -811,26 +489,8 @@ public abstract class SplineProjectileSequence : Sequence
 		m_impactDurationLeft = m_impactDuration;
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_impactFxAttributes != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (KeyValuePair<string, float> impactFxAttribute in m_impactFxAttributes)
 				{
 					Sequence.SetAttribute(m_fxImpact, impactFxAttribute.Key, impactFxAttribute.Value);
@@ -839,26 +499,8 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxImpact.GetComponent<FriendlyEnemyVFXSelector>() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxImpact.GetComponent<FriendlyEnemyVFXSelector>().Setup(GetFoFObservingTeam());
 			}
 		}
@@ -878,15 +520,6 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_eventNumberToKeyOffOf == m_numStartEventsReceived)
 			{
 				while (true)
@@ -919,19 +552,6 @@ public abstract class SplineProjectileSequence : Sequence
 		Vector3 lookRotation = a - splinePath[1];
 		if (lookRotation.magnitude > 1E-05f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lookRotation.Normalize();
 		}
 		else
@@ -943,57 +563,21 @@ public abstract class SplineProjectileSequence : Sequence
 		{
 			if (m_keepAlignmentOnHorizontalPlane)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lookRotation.y = 0f;
 			}
 			if (lookRotation.sqrMagnitude > 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				rotation.SetLookRotation(lookRotation);
 			}
 		}
 		if (m_projectileSpeed <= 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_projectileSpeed = 10f;
 		}
 		float num = (splinePath[1] - splinePath[2]).magnitude + (splinePath[2] - splinePath[3]).magnitude;
 		float num2 = num / m_projectileSpeed;
 		if (num2 == 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_splineSpeed = m_projectileSpeed;
 		}
 		else
@@ -1014,30 +598,12 @@ public abstract class SplineProjectileSequence : Sequence
 		m_fx = InstantiateFX(GetProjectileFxPrefab(), m_fxSpawnPos, rotation, true, false);
 		if (m_fx != null && m_projectileFxAttributes != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (Dictionary<string, float>.Enumerator enumerator = m_projectileFxAttributes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					KeyValuePair<string, float> current = enumerator.Current;
 					Sequence.SetAttribute(m_fx, current.Key, current.Value);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1047,11 +613,6 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			return;
 		}
@@ -1065,41 +626,18 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!IsHitFXVisibleWrtTeamFilter(target, m_hitFxTeamFilter))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_targetHitFxPrefab != null)
 				{
 					GameObject gameObject = m_hitPosJoint.FindJointObject(target.gameObject);
 					Vector3 vector;
 					if (gameObject != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = gameObject.transform.position;
 					}
 					else
@@ -1110,26 +648,8 @@ public abstract class SplineProjectileSequence : Sequence
 					GameObject gameObject2 = InstantiateFX(m_targetHitFxPrefab, position, m_fx.transform.rotation);
 					if (gameObject2 != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_targetHitFxAttachToJoint)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AttachToBone(gameObject2, gameObject);
 							gameObject2.transform.localPosition = Vector3.zero;
 							gameObject2.transform.localScale = Vector3.one;
@@ -1144,15 +664,6 @@ public abstract class SplineProjectileSequence : Sequence
 				}
 				if (target.GetTeam() == base.Caster.GetTeam())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(m_allyTargetHitAudioEvent))
 					{
 						while (true)
@@ -1172,11 +683,6 @@ public abstract class SplineProjectileSequence : Sequence
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						AudioManager.PostEvent(m_targetHitAudioEvent, target.gameObject);
 						return;
 					}
@@ -1200,15 +706,6 @@ public abstract class SplineProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fx == null)
 			{
 				while (true)
@@ -1246,37 +743,10 @@ public abstract class SplineProjectileSequence : Sequence
 			}
 			if (m_fx.activeSelf)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fx != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(GetFoFObservingTeam());
 					}
 				}
@@ -1285,51 +755,15 @@ public abstract class SplineProjectileSequence : Sequence
 				m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
 				if (m_splineTraveled < m_splineFractionUntilImpact)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = m_spline.Interp(m_splineTraveled);
 					if (m_alignToTravelDir)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameTime.scale != 0f)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Quaternion rotation = default(Quaternion);
 							Vector3 vector2 = vector - m_fx.transform.position;
 							if (m_keepAlignmentOnHorizontalPlane)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector2.y = 0f;
 							}
 							if (vector2.sqrMagnitude > 0f)
@@ -1341,15 +775,6 @@ public abstract class SplineProjectileSequence : Sequence
 					}
 					if (m_doHitsAsProjectileTravels && base.Targets != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector3 = vector - m_fx.transform.position;
 						vector3.Normalize();
 						float actorTargetingRadius = AreaEffectUtils.GetActorTargetingRadius();
@@ -1360,15 +785,6 @@ public abstract class SplineProjectileSequence : Sequence
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_actorsAlreadyHit.Contains(actorData))
 							{
 								continue;
@@ -1378,26 +794,8 @@ public abstract class SplineProjectileSequence : Sequence
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(m_projectileTravelHitWidth <= 0f))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(AreaEffectUtils.PointToLineDistance2D(actorData.transform.position, vector - vector3, vector + vector3) <= m_projectileTravelHitWidth + actorTargetingRadius))
 								{
 									continue;
@@ -1409,15 +807,6 @@ public abstract class SplineProjectileSequence : Sequence
 							m_actorsAlreadyHit.Add(actorData);
 							SpawnTargetHitFx(actorData);
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					m_fx.transform.position = vector;
 				}
@@ -1425,29 +814,11 @@ public abstract class SplineProjectileSequence : Sequence
 				{
 					if (m_splineFractionUntilImpact > 0f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 position2 = m_spline.Interp(m_splineFractionUntilImpact);
 						m_fx.transform.position = position2;
 					}
 					if (m_spawnImpactAtFXDespawn)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnImpactFX(m_fx.transform.position, m_fx.transform.rotation);
 					}
 					else
@@ -1457,37 +828,10 @@ public abstract class SplineProjectileSequence : Sequence
 					m_fx.SetActive(false);
 					if (GetImpactFxPrefab() == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_markForRemovalAfterImpact)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_hitReactPlayed)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								MarkForRemoval();
 							}
 						}
@@ -1496,26 +840,8 @@ public abstract class SplineProjectileSequence : Sequence
 			}
 			if (GameTime.time > m_hitReactTime)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_hitReactTime > 0f && !m_hitReactPlayed)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_hitReactPlayed = true;
 					Vector3 forward = m_fx.transform.forward;
 					ActorData[] targets2 = base.Targets;
@@ -1530,15 +856,6 @@ public abstract class SplineProjectileSequence : Sequence
 							SpawnTargetHitFx(actorData2);
 						}
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CallHitSequenceOnTargets(base.TargetPos, 1f, m_actorsAlreadyHit, !m_doHitsAsProjectileTravels);
 				}
 			}
@@ -1548,22 +865,12 @@ public abstract class SplineProjectileSequence : Sequence
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_fxImpact.activeSelf)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (m_impactDurationLeft > 0f)
 					{
 						while (true)
@@ -1584,20 +891,10 @@ public abstract class SplineProjectileSequence : Sequence
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						if (m_hitReactPlayed)
 						{
 							while (true)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								MarkForRemoval();
 								return;
 							}

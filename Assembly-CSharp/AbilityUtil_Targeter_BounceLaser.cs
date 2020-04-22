@@ -106,10 +106,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Highlight = HighlightUtils.Get().CreateBouncingLaserCursor(originalStart2, laserAnglePoints, num);
 					return;
 				}
@@ -132,19 +128,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -155,43 +138,16 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		float num = m_maxDistancePerBounce;
 		if (m_extraDistancePerBounceDelegate != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += m_extraDistancePerBounceDelegate();
 		}
 		float num2 = m_maxTotalDistance;
 		if (m_extraTotalDistanceDelegate != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 += m_extraTotalDistanceDelegate();
 		}
 		int num3 = m_maxBounces;
 		if (m_extraBouncesDelegate != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 += Mathf.RoundToInt(m_extraBouncesDelegate());
 		}
 		int num4 = m_maxTargetsHit;
@@ -212,15 +168,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, num, num2, num3, targetingActor, m_width, num4, false, GetAffectedTeams(), m_bounceOnActors, out bounceHitActors, out orderedHitActors, null, penetrateTargetsAndHitCaster);
 		if (penetrateTargetsAndHitCaster)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 1)
 			{
 				float totalMaxDistanceInSquares = num2 - (list[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
@@ -244,26 +191,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				AddActorInRange(current.Key, segmentOrigin, targetingActor);
 				if (endpointIndex > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetIgnoreCoverMinDist(current.Key, true);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		HitActorContext item = default(HitActorContext);
@@ -282,11 +211,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			CreateLaserHighlights(travelBoardSquareWorldPositionForLos, list);
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 			{
@@ -300,11 +224,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				int num7 = 0;
 				EnableAllMovementArrows();
 				for (int j = 0; j < orderedHitActors.Count; j++)
@@ -314,26 +233,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_maxKnockbackTargets > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j >= m_maxKnockbackTargets)
 						{
 							continue;
@@ -342,15 +243,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 					float num8;
 					if (m_extraKnockdownDelegate != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 = m_extraKnockdownDelegate(actorData2);
 					}
 					else
@@ -367,11 +259,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					SetMovementArrowEnabledFromIndex(num7, false);
 					return;
 				}

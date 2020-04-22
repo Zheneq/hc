@@ -109,10 +109,6 @@ public class TricksterCatchMeIfYouCan : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (HitActorsInPath())
 					{
 						while (true)
@@ -142,29 +138,11 @@ public class TricksterCatchMeIfYouCan : Ability
 		{
 			if (HitActorsInPath())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE2 = new AbilityUtil_Targeter_ChargeAoE(this, GetPathStartRadius(), GetPathEndRadius(), GetPathRadius(), -1, true, PenetrateLos());
 				abilityUtil_Targeter_ChargeAoE2.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
 				abilityUtil_Targeter_ChargeAoE2.AllowChargeThroughInvalidSquares = m_chargeThroughInvalidSquares;
 				if (i > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityUtil_Targeter_ChargeAoE2.SkipEvadeMovementLines = true;
 				}
 				base.Targeters.Add(abilityUtil_Targeter_ChargeAoE2);
@@ -199,19 +177,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -223,15 +188,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -246,19 +202,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_hitActorsInPathMod.GetModifiedValue(m_hitActorsInPath);
 		}
 		else
@@ -273,19 +216,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_pathRadiusMod.GetModifiedValue(m_pathRadius);
 		}
 		else
@@ -305,19 +235,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_pathEndRadiusMod.GetModifiedValue(m_pathEndRadius);
 		}
 		else
@@ -332,19 +249,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -359,19 +263,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -386,19 +277,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
@@ -413,19 +291,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -440,19 +305,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(m_useEnemyMultiHitEffect);
 		}
 		else
@@ -467,19 +319,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyMultipleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyMultipleHitEffect;
 		}
 		else
@@ -494,19 +333,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealingAmountMod.GetModifiedValue(m_allyHealingAmount);
 		}
 		else
@@ -521,19 +347,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subsequentHealingAmountMod.GetModifiedValue(m_subsequentHealingAmount);
 		}
 		else
@@ -548,19 +361,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 		}
 		else
@@ -575,19 +375,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -602,19 +389,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(m_useAllyMultiHitEffect);
 		}
 		else
@@ -629,19 +403,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyMultipleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyMultipleHitEffect;
 		}
 		else
@@ -656,19 +417,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealingAmountMod.GetModifiedValue(m_selfHealingAmount);
 		}
 		else
@@ -683,19 +431,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -710,19 +445,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if (GetSelfHealingAmount() <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GetSelfHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -737,32 +459,10 @@ public class TricksterCatchMeIfYouCan : Ability
 		int result;
 		if (GetAllyHealingAmount() <= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetAllyEnergyGain() <= 0)
 			{
 				if (GetAllyHitEffect() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetAllyHitEffect().m_applyEffect)
 					{
 						goto IL_007d;
@@ -770,15 +470,6 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				if (UseAllyMultiHitEffect())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetAllyMultipleHitEffect() != null)
 					{
 						result = (GetAllyMultipleHitEffect().m_applyEffect ? 1 : 0);
@@ -803,47 +494,16 @@ public class TricksterCatchMeIfYouCan : Ability
 		{
 			goto IL_0069;
 		}
-		while (true)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (1 == 0)
-		{
-			/*OpCode not supported: LdMemberToken*/;
-		}
 		if (GetEnemyHitEffect() != null)
 		{
 			if (GetEnemyHitEffect().m_applyEffect)
 			{
 				goto IL_0069;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		int result;
 		if (UseEnemyMultiHitEffect() && GetEnemyMultipleHitEffect() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (GetEnemyMultipleHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -868,19 +528,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		}
 		if (IncludeAllies())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetAllyHealingAmount());
 			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Ally, GetAllyEnergyGain());
 			GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
@@ -899,42 +546,11 @@ public class TricksterCatchMeIfYouCan : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					goto IL_0067;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -943,99 +559,27 @@ public class TricksterCatchMeIfYouCan : Ability
 		IL_0067:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetIndex > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < targetIndex; i++)
 				{
 					if (Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos) == boardSquareSafe)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.OccupantActor != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_targeterAllowOccupiedSquares)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData occupantActor = boardSquareSafe.OccupantActor;
 					int num;
 					if (NetworkClient.active)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (occupantActor.IsVisibleToClient() ? 1 : 0);
 					}
 					else
@@ -1052,15 +596,6 @@ public class TricksterCatchMeIfYouCan : Ability
 							{
 								if (!enumerator.MoveNext())
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								ActorData current = enumerator.Current;
@@ -1078,15 +613,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), m_chargeThroughInvalidSquares, out int _);
 		}
 		return flag;
@@ -1119,19 +645,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int val;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_TricksterCatchMeIfYouCan.m_subsequentDamageAmountMod.GetModifiedValue(m_subsequentDamageAmount);
 		}
 		else
@@ -1142,15 +655,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_TricksterCatchMeIfYouCan.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -1161,15 +665,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterCatchMeIfYouCan.m_enemyMultipleHitEffectMod.GetModifiedValue(m_enemyMultipleHitEffect);
 		}
 		else
@@ -1181,15 +676,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int val2;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_TricksterCatchMeIfYouCan.m_allyHealingAmountMod.GetModifiedValue(m_allyHealingAmount);
 		}
 		else
@@ -1201,15 +687,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int val3;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_TricksterCatchMeIfYouCan.m_subsequentHealingAmountMod.GetModifiedValue(m_subsequentHealingAmount);
 		}
 		else
@@ -1221,15 +698,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int val4;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_TricksterCatchMeIfYouCan.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
 		}
 		else
@@ -1240,15 +708,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_TricksterCatchMeIfYouCan.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -1259,15 +718,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		StandardEffectInfo effectInfo4;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo4 = abilityMod_TricksterCatchMeIfYouCan.m_allyMultipleHitEffectMod.GetModifiedValue(m_allyMultipleHitEffect);
 		}
 		else
@@ -1279,15 +729,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		int val5;
 		if ((bool)abilityMod_TricksterCatchMeIfYouCan)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_TricksterCatchMeIfYouCan.m_selfHealingAmountMod.GetModifiedValue(m_selfHealingAmount);
 		}
 		else
@@ -1308,30 +749,8 @@ public class TricksterCatchMeIfYouCan : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Animator modelAnimator = current.GetModelAnimator();
 						modelAnimator.SetFloat(animDistToGoal, 10f);
 						modelAnimator.ResetTrigger(animStartDamageReaction);
@@ -1364,30 +783,8 @@ public class TricksterCatchMeIfYouCan : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Animator modelAnimator = current.GetModelAnimator();
 						modelAnimator.SetInteger(animAttack, 0);
 						modelAnimator.SetBool(animCinematicCam, false);
@@ -1417,30 +814,8 @@ public class TricksterCatchMeIfYouCan : Ability
 				ActorData current = enumerator.Current;
 				if (current != null && !current.IsDead())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.GetActorModelData() != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						current.GetActorModelData().EnableRendererAndUpdateVisibility();
 						current.GetActorModelData().gameObject.transform.localScale = Vector3.one;
 						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(caster, current, true);
@@ -1476,10 +851,6 @@ public class TricksterCatchMeIfYouCan : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetAllyHealingAmount() + (hitCount - 1) * GetSubsequentHealingAmount();
 				}
 			}
@@ -1498,10 +869,6 @@ public class TricksterCatchMeIfYouCan : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetDamageAmount() + (hitCount - 1) * GetSubsequentDamageAmount();
 				}
 			}
@@ -1517,15 +884,6 @@ public class TricksterCatchMeIfYouCan : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_TricksterCatchMeIfYouCan);
 			Setup();
 			return;

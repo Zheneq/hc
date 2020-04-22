@@ -84,10 +84,6 @@ public class BoardSquarePathInfo : IComparable
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						float num2 = 1.5f * (float)num + 0.1f;
 						return moveCost + heuristicCost + num2;
 					}
@@ -109,10 +105,6 @@ public class BoardSquarePathInfo : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 1;
 				}
 			}
@@ -158,15 +150,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -184,76 +167,22 @@ public class BoardSquarePathInfo : IComparable
 		flag &= (other.segmentMovementDuration == segmentMovementDuration);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (next != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (other.next != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = next.IsSamePathAs(other.next);
 					goto IL_0168;
 				}
 			}
 			if (next == null && other.next != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else if (next != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (other.next == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -284,32 +213,10 @@ public class BoardSquarePathInfo : IComparable
 		boardSquarePathInfo.m_moverBumpedFromClash = m_moverBumpedFromClash;
 		if (previous != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquarePathInfo.prev = previous;
 		}
 		if (next != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo.next = next.Clone(boardSquarePathInfo);
 		}
 		return boardSquarePathInfo;
@@ -325,19 +232,6 @@ public class BoardSquarePathInfo : IComparable
 			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num += 1.5f;
 				continue;
 			}
@@ -348,54 +242,18 @@ public class BoardSquarePathInfo : IComparable
 			}
 			if (flag3)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.next != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Calculating move costs on a path, but it has the same square twice in a row.");
 				}
 				continue;
 			}
 			if (boardSquarePathInfo.connectionType != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.connectionType != ConnectionType.Vault)
 				{
 					num += boardSquarePathInfo.square.HorizontalDistanceOnBoardTo(boardSquarePathInfo.prev.square);
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Warning("Calculating move costs on a path, but it has two non-adjacent consecutive squares.");
@@ -427,19 +285,6 @@ public class BoardSquarePathInfo : IComparable
 		float num = moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquarePathInfo.next == null)
 			{
 				break;
@@ -458,15 +303,6 @@ public class BoardSquarePathInfo : IComparable
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return num;
 		}
 	}
@@ -479,31 +315,9 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (checkDuplicate)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(boardSquarePathInfo.next.square != boardSquarePathInfo.square))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num++;
@@ -532,19 +346,6 @@ public class BoardSquarePathInfo : IComparable
 				}
 				break;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		return result;
@@ -569,15 +370,6 @@ public class BoardSquarePathInfo : IComparable
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return boardSquarePathInfo;
 		}
 	}
@@ -593,10 +385,6 @@ public class BoardSquarePathInfo : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -615,10 +403,6 @@ public class BoardSquarePathInfo : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -631,19 +415,6 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo pathEndpoint = GetPathEndpoint();
 		if (pathEndpoint != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pathEndpoint.prev != null)
 			{
 				while (true)
@@ -674,15 +445,6 @@ public class BoardSquarePathInfo : IComparable
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -698,10 +460,6 @@ public class BoardSquarePathInfo : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return next == null;
 				}
 			}
@@ -715,19 +473,6 @@ public class BoardSquarePathInfo : IComparable
 		int result;
 		if (connectionType != ConnectionType.Flight && connectionType != ConnectionType.Teleport)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (connectionType != ConnectionType.Knockback)
 			{
 				result = ((connectionType != ConnectionType.Charge) ? 1 : 0);
@@ -752,19 +497,6 @@ public class BoardSquarePathInfo : IComparable
 				string text2;
 				if (boardSquarePathInfo.square != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					text2 = boardSquarePathInfo.square.ToString();
 				}
 				else
@@ -775,29 +507,11 @@ public class BoardSquarePathInfo : IComparable
 				text = text3 + "\n" + text2 + " | Connection Type = " + boardSquarePathInfo.connectionType;
 				if (boardSquarePathInfo == boardSquarePathInfo.next)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				boardSquarePathInfo = boardSquarePathInfo.next;
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -811,33 +525,11 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo boardSquarePathInfo = this;
 		while (boardSquarePathInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num < 100)
 			{
 				string text2;
 				if (boardSquarePathInfo.square != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					text2 = boardSquarePathInfo.square.ToString();
 				}
 				else
@@ -848,29 +540,11 @@ public class BoardSquarePathInfo : IComparable
 				text = text3 + "\n" + text2 + " | Connection Type = " + boardSquarePathInfo.connectionType;
 				if (boardSquarePathInfo == boardSquarePathInfo.prev)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				boardSquarePathInfo = boardSquarePathInfo.prev;
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -896,10 +570,6 @@ public class BoardSquarePathInfo : IComparable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -920,45 +590,14 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (num2 >= 100)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 			if (square == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3++;
 			}
 			if (pathStartPoint.m_moverDiesHere)
@@ -970,72 +609,27 @@ public class BoardSquarePathInfo : IComparable
 		}
 		if (num <= 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 < 100)
 			{
 				if (num3 <= 0)
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		string text = num + " null squares";
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "INVALID SQUARES: " + text;
 		}
 		string text2 = num2 + " total path nodes";
 		if (num2 >= 100)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text2 = "INVALID LENGTH: " + text2;
 		}
 		string text3 = num3 + " steps after death";
 		if (num3 > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text3 = "INVALID DEATH-MOVEMENT: " + text3;
 		}
 		string str = "Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t" + text2 + "\n\t" + text + "\n\t" + text3;
@@ -1049,19 +643,6 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (includePresent)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquarePathInfo = this;
 		}
 		else
@@ -1074,29 +655,11 @@ public class BoardSquarePathInfo : IComparable
 			{
 				if (other == boardSquarePathInfo)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
 				boardSquarePathInfo = boardSquarePathInfo.next;
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1109,32 +672,10 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (boardSquarePathInfo.m_moverClashesHere)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				boardSquarePathInfo.m_moverClashesHere = false;
 			}
 			if (boardSquarePathInfo.m_moverBumpedFromClash)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo.m_moverBumpedFromClash = false;
 			}
 		}

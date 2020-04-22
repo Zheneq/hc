@@ -40,41 +40,14 @@ public class PKFxRenderingPlugin : PKFxCamera
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_BoundShaders.Count; i++)
 			{
 				if (!(m_BoundShaders[i] != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(m_BoundShaders[i].m_ShaderName))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(m_BoundShaders[i].m_ShaderGroup))
 					{
 						m_BoundShaders[i].UpdateShaderConstants(false);

@@ -76,10 +76,6 @@ public class DamageSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Ability.m_tags.Contains(AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs);
 				}
 			}
@@ -98,25 +94,12 @@ public class DamageSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
 		}
 		if (!(caster == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(caster.GetAbilityData() == null))
 			{
 				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);

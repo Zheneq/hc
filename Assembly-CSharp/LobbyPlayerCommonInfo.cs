@@ -59,19 +59,6 @@ public class LobbyPlayerCommonInfo
 			int result;
 			if (CharacterInfo == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else
@@ -89,30 +76,8 @@ public class LobbyPlayerCommonInfo
 			int result;
 			if (ReadyState != ReadyState.Ready)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsAIControlled)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (IsRemoteControlled ? 1 : 0);
 					goto IL_003b;
 				}
@@ -137,30 +102,8 @@ public class LobbyPlayerCommonInfo
 			int result;
 			if (!IsNPCBot)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsLoadTestBot)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (ReplacedWithBots ? 1 : 0);
 					goto IL_003a;
 				}
@@ -188,15 +131,6 @@ public class LobbyPlayerCommonInfo
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameAccountType = PlayerGameAccountType.None;
 				return;
 			}
@@ -226,15 +160,6 @@ public class LobbyPlayerCommonInfo
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameplayOverrides.UseFakeGameServersForLoadTests)
 			{
 				while (true)

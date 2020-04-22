@@ -42,19 +42,6 @@ public class FSMSystem : IGameEventListener
 			object obj2;
 			if ((bool)associatedBrain)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj2 = associatedBrain.ToString();
 			}
 			else
@@ -92,45 +79,14 @@ public class FSMSystem : IGameEventListener
 	{
 		if (!(currentState == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentState.StateID != 0)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		StateID num;
 		if (StartingStateID == StateID.NullStateID)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = states[0].StateID;
 		}
 		else
@@ -147,58 +103,18 @@ public class FSMSystem : IGameEventListener
 		bool flag = true;
 		if (eventType != GameEventManager.EventType.ActorDamaged_Server)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (eventType != GameEventManager.EventType.CharacterHealedOrBuffed)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = args as GameEventManager.CharacterHealBuffArgs;
 				if (characterHealBuffArgs.targetCharacter == currentState.MyActorData)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FSMState fSMState = currentState;
 					int num;
 					if (characterHealBuffArgs.healed)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 4;
 					}
 					else
@@ -215,15 +131,6 @@ public class FSMSystem : IGameEventListener
 			GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 			if (actorHitHealthChangeArgs.m_target == currentState.MyActorData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currentState.SetPendingTransition(Transition.TookDamage);
 				flag = false;
 			}
@@ -234,15 +141,6 @@ public class FSMSystem : IGameEventListener
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		CurrentState.OnGameEvent(eventType, args);
 	}
@@ -251,19 +149,6 @@ public class FSMSystem : IGameEventListener
 	{
 		if (s == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("FSM ERROR: Null reference is not allowed when adding a state");
 		}
 		if (states.Find((FSMState x) => x.StateID == s.StateID) != null)
@@ -294,10 +179,6 @@ public class FSMSystem : IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("FSM ERROR: NullStateID is not allowed for a real state");
 					return;
 				}
@@ -314,15 +195,6 @@ public class FSMSystem : IGameEventListener
 					return;
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Debug.LogError("FSM ERROR: Impossible to delete state " + id.ToString() + ". It was not on the list of states");
 	}
@@ -334,29 +206,11 @@ public class FSMSystem : IGameEventListener
 			FSMState fSMState = states[i];
 			if (fSMState != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.Destroy(fSMState.gameObject);
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			states.Clear();
 			return;
 		}
@@ -369,32 +223,10 @@ public class FSMSystem : IGameEventListener
 		{
 			if (currentState.GetOutputState(trans) == StateID.NullStateID)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!currentState.GetOutputBrain(trans))
 				{
 					if (currentState.GetPopBrain(trans).HasValue)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (currentState.GetPopBrain(trans).Value ? 1 : 0);
 					}
 					else
@@ -436,10 +268,6 @@ public class FSMSystem : IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("FSM ERROR: NullTransition is not allowed for a real transition");
 					return;
 				}
@@ -515,40 +343,13 @@ public class FSMSystem : IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pendingTransition != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(string.Concat("Hmm, a transition caused a transition (", pendingTransition, "). Not sure if this is good. FSM: ", ToString()));
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			IsTakingTurn = true;
 			IEnumerator result = CurrentState.OnTurn(associatedBrain);
 			IsTakingTurn = false;

@@ -71,19 +71,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = fishManBubbleLaser.m_effectOnAllies;
 		}
 		else
@@ -96,15 +83,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManBubbleLaser.m_effectOnEnemies;
 		}
 		else
@@ -117,15 +95,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManBubbleLaser.m_initialHitHealingToAllies;
 		}
 		else
@@ -139,15 +108,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManBubbleLaser.m_numTurnsBeforeFirstExplosion;
 		}
 		else
@@ -162,15 +122,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (fishManBubbleLaser.m_explosionIgnoresLineOfSight ? 1 : 0);
 		}
 		else
@@ -184,15 +135,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = fishManBubbleLaser.m_explosionHealingToAllies;
 		}
 		else
@@ -205,15 +147,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = fishManBubbleLaser.m_explosionDamageToEnemies;
 		}
 		else
@@ -226,15 +159,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManBubbleLaser.m_explosionEffectToAllies;
 		}
 		else
@@ -247,15 +171,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		object baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManBubbleLaser.m_explosionEffectToEnemies;
 		}
 		else

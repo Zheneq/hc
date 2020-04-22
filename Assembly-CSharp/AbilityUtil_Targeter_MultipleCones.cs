@@ -54,29 +54,11 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 			}
 			if (m_coneDimensions[i].m_coneAngle > m_maxConeAngle)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_maxConeAngle = m_coneDimensions[i].m_coneAngle;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_penetrateLoS = penetrateLoS;
 			m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
 			m_useCursorHighlight = useCursorHighlight;
@@ -97,19 +79,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -126,27 +95,9 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		{
 			if (m_affectCasterDelegate != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_affectCasterDelegate(targetingActor, actors))
 				{
 					goto IL_00de;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			actors.Add(targetingActor);
@@ -160,26 +111,8 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				if (ShouldAddActor(current, targetingActor))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		DrawInvalidSquareIndicators(currentTarget, targetingActor);
@@ -190,45 +123,14 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_includeCaster;
 		}
 		else
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_includeAllies)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_0077;
 				}
@@ -263,19 +165,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 				}
 				m_highlights.Add(gameObject);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		for (int j = 0; j < m_highlights.Count; j++)
 		{
@@ -295,19 +184,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else

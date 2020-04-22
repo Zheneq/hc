@@ -157,15 +157,6 @@ public class UINewUserFlowManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			controller.HideDisplay();
 			return;
 		}
@@ -183,10 +174,6 @@ public class UINewUserFlowManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return controller.m_debugMode;
 				}
 			}
@@ -202,41 +189,10 @@ public class UINewUserFlowManager
 		}
 		if (!(GetController() == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UITutorialSeasonInterstitial.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UITutorialSeasonInterstitial.Get().IsVisible())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0071;
 				}
 			}
@@ -255,31 +211,9 @@ public class UINewUserFlowManager
 		UINewUserHighlightsController controller = GetController();
 		if (!shouldShow)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!IsDebugMode())
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!controller)
@@ -288,11 +222,6 @@ public class UINewUserFlowManager
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			controller.SetDesiredDisplay(UINewUserHighlightsController.DisplayState.None);
 			return;
 		}

@@ -18,33 +18,11 @@ public class TrackerHuntingCrossbow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Hunting Crossbow";
 		}
 		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		SetupTargeter();
@@ -71,19 +49,6 @@ public class TrackerHuntingCrossbow : Ability
 		int num;
 		if ((bool)abilityMod_TrackerHuntingCrossbow)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = abilityMod_TrackerHuntingCrossbow.m_damageOnUntrackedMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -109,54 +74,14 @@ public class TrackerHuntingCrossbow : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_droneTracker != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num;
 					if (m_droneTracker.IsTrackingActor(targetActor.ActorIndex))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = GetDamageOnTracked();
 					}
 					else
@@ -166,28 +91,10 @@ public class TrackerHuntingCrossbow : Ability
 					int num2 = num;
 					if (m_abilityMod != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actorData = base.ActorData;
 						bool num3;
 						if (m_abilityMod.m_requireFunctioningBrush)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = actorData.IsHiddenInBrush();
 						}
 						else
@@ -196,28 +103,10 @@ public class TrackerHuntingCrossbow : Ability
 						}
 						if (num3)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 += GetExtraDamageWhileInBrush();
 						}
 						if (GetDamageChangeAfterFirstHit() != 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 							List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 							using (List<AbilityUtil_Targeter_Laser.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
@@ -227,26 +116,8 @@ public class TrackerHuntingCrossbow : Ability
 									AbilityUtil_Targeter_Laser.HitActorContext current = enumerator.Current;
 									if (current.actor == targetActor && current.hitOrderIndex != 0)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 += GetDamageChangeAfterFirstHit();
 									}
-								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -266,15 +137,6 @@ public class TrackerHuntingCrossbow : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_TrackerHuntingCrossbow);
 			SetupTargeter();
 			return;
@@ -292,19 +154,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else
@@ -319,19 +168,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else
@@ -351,19 +187,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else

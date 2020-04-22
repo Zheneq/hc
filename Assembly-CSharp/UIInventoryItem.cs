@@ -70,32 +70,10 @@ public class UIInventoryItem : MonoBehaviour
 		int amount = 1;
 		if (item != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			amount = item.Count;
 		}
 		if (m_mainAnimator != null && m_mainAnimator.isActiveAndEnabled)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_mainAnimator.Play("InventoryItemSalvageIDLE");
 		}
 		MakeBorderError(false);
@@ -104,15 +82,6 @@ public class UIInventoryItem : MonoBehaviour
 		string spritePath = InventoryWideData.GetSpritePath(itemTemplate);
 		if (!spritePath.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_itemImage.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
 		}
 		UIManager.SetGameObjectActive(m_itemImage, !spritePath.IsNullOrEmpty());
@@ -125,15 +94,6 @@ public class UIInventoryItem : MonoBehaviour
 		int doActive;
 		if (itemTemplate != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = ((itemTemplate.Rarity == InventoryItemRarity.Common) ? 1 : 0);
 		}
 		else
@@ -145,15 +105,6 @@ public class UIInventoryItem : MonoBehaviour
 		int doActive2;
 		if (itemTemplate != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = ((itemTemplate.Rarity == InventoryItemRarity.Uncommon) ? 1 : 0);
 		}
 		else
@@ -165,15 +116,6 @@ public class UIInventoryItem : MonoBehaviour
 		int doActive3;
 		if (itemTemplate != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive3 = ((itemTemplate.Rarity == InventoryItemRarity.Rare) ? 1 : 0);
 		}
 		else
@@ -186,15 +128,6 @@ public class UIInventoryItem : MonoBehaviour
 		int doActive4;
 		if (itemTemplate != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive4 = ((itemTemplate.Rarity == InventoryItemRarity.Legendary) ? 1 : 0);
 		}
 		else
@@ -209,15 +142,6 @@ public class UIInventoryItem : MonoBehaviour
 			int doActive5;
 			if (itemTemplate != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive5 = ((itemTemplate.Rarity == InventoryItemRarity.Uncommon) ? 1 : 0);
 			}
 			else
@@ -229,15 +153,6 @@ public class UIInventoryItem : MonoBehaviour
 			int doActive6;
 			if (itemTemplate != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive6 = ((itemTemplate.Rarity == InventoryItemRarity.Rare) ? 1 : 0);
 			}
 			else
@@ -249,15 +164,6 @@ public class UIInventoryItem : MonoBehaviour
 			int doActive7;
 			if (itemTemplate != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive7 = ((itemTemplate.Rarity == InventoryItemRarity.Epic) ? 1 : 0);
 			}
 			else
@@ -269,15 +175,6 @@ public class UIInventoryItem : MonoBehaviour
 			int doActive8;
 			if (itemTemplate != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive8 = ((itemTemplate.Rarity == InventoryItemRarity.Legendary) ? 1 : 0);
 			}
 			else
@@ -292,11 +189,6 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_tooltipHoverObj.Refresh();
 			return;
 		}
@@ -310,15 +202,6 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -334,10 +217,6 @@ public class UIInventoryItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -377,10 +256,6 @@ public class UIInventoryItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -393,19 +268,6 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (m_normalBorder != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_normalBorder, !makeError);
 		}
 		if (!(m_redBorder != null))
@@ -414,11 +276,6 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_redBorder, makeError);
 			return;
 		}
@@ -435,10 +292,6 @@ public class UIInventoryItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}
@@ -457,10 +310,6 @@ public class UIInventoryItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}
@@ -476,15 +325,6 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (item.TemplateId != m_item.TemplateId)
 			{
 				while (true)
@@ -502,11 +342,6 @@ public class UIInventoryItem : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_item.Count = item.Count;
 					UpdateItemCount(item.Count);
 					return;
@@ -520,32 +355,10 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (m_amountContainer == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_amountContainer = m_amount.rectTransform;
 		}
 		if (amount > 99)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (capAt99)
 			{
 				while (true)
@@ -560,15 +373,6 @@ public class UIInventoryItem : MonoBehaviour
 						object str;
 						if (includeX)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							str = "x";
 						}
 						else
@@ -585,26 +389,8 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		if (amount <= 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (showIf1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (amount == 1)
 				{
 					goto IL_00ad;
@@ -619,15 +405,6 @@ public class UIInventoryItem : MonoBehaviour
 		object arg;
 		if (includeX)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg = "x";
 		}
 		else

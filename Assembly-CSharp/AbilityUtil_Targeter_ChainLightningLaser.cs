@@ -75,10 +75,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_00cd;
 				}
 			}
@@ -87,15 +83,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		int num = 0;
 		if (actorsInLaser.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorData actorData = actorsInLaser[actorsInLaser.Count - 1];
 			while (actorData != null)
 			{
@@ -104,28 +91,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 					ActorData actorData2 = FindChainHitActor(actorData, targetingActor, list);
 					if (actorData2 != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(actorData2, actorData.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Secondary);
 						list.Add(actorData2);
 						if (num + 1 < m_highlights.Count)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject = m_highlights[1 + num];
 							AdjustLaserHighlight(gameObject, actorData.GetTravelBoardSquareWorldPosition(), actorData2.GetTravelBoardSquareWorldPosition(), m_chainHighlightWidthInSquares);
 							gameObject.SetActive(true);
@@ -137,15 +106,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 					actorData = actorData2;
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
@@ -155,11 +115,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = num + 1; j < m_squarePosCheckerList.Count; j++)
 			{
 				SquareInsideChecker_Box squareInsideChecker_Box3 = m_squarePosCheckerList[j] as SquareInsideChecker_Box;
@@ -171,11 +126,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				ResetSquareIndicatorIndexToUse();
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, laserCoords.start, laserCoords.end, m_width, targetingActor, m_penetrateLos, null, m_squarePosCheckerList);
 				for (int k = 0; k < num; k++)
@@ -185,11 +135,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					HideUnusedSquareIndicators();
 					return;
 				}
@@ -219,10 +164,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
@@ -246,19 +187,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		float widthInWorld = m_width * Board.Get().squareSize;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= m_numChainHighlights + 1)
 			{
 				return;

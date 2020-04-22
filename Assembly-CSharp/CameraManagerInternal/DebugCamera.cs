@@ -39,69 +39,20 @@ namespace CameraManagerInternal
 			bool flag = GameManager.IsEditorAndNotGame();
 			if (Camera.main.fieldOfView != m_debugFOV)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Camera.main.fieldOfView = m_debugFOV;
 			}
 			Vector3 position = base.transform.position;
 			if (!Input.GetMouseButton(2))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
 					goto IL_0105;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButton(0))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButton(1))
 					{
 						goto IL_0105;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -115,80 +66,26 @@ namespace CameraManagerInternal
 			Vector3 zero;
 			if (Input.GetKey(KeyCode.W))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero += base.transform.forward * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.A))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero -= base.transform.right * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.S))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero -= base.transform.forward * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.D))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero += base.transform.right * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.R))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero += base.transform.up * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.F))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero -= base.transform.up * m_translationSpeed;
 			}
 			if (Input.GetKey(KeyCode.LeftShift))
@@ -200,40 +97,13 @@ namespace CameraManagerInternal
 			zero = Vector3.zero;
 			if (!UIUtils.InputFieldHasFocus())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AccountPreferences.DoesApplicationHaveFocus())
 				{
 					goto IL_0142;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_0142;
 			}
 			goto IL_02bd;
@@ -245,11 +115,6 @@ namespace CameraManagerInternal
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel != null)
 				{
 					HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SortNameplates();

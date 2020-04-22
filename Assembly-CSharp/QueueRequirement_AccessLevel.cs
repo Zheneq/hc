@@ -41,15 +41,6 @@ public class QueueRequirement_AccessLevel : QueueRequirement
 		case RequirementMessageContext.GroupQueueing:
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return LocalizationPayload.Create("OneGroupMemberNeedsAccessLevelToQueue", "Matchmaking", localizationArg_AccessLevel);
 			}
 		default:
@@ -77,19 +68,6 @@ public class QueueRequirement_AccessLevel : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reader.Value != null && reader.Value.ToString() == "AnyGroupMember")
 			{
 				reader.Read();

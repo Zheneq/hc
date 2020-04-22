@@ -65,19 +65,6 @@ namespace TMPro.Examples
 		{
 			if (QualitySettings.vSyncCount > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Application.targetFrameRate = 60;
 			}
 			else
@@ -86,15 +73,6 @@ namespace TMPro.Examples
 			}
 			if (Application.platform != RuntimePlatform.IPhonePlayer)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.platform != RuntimePlatform.Android)
 				{
 					goto IL_004d;
@@ -115,15 +93,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_000E = new GameObject("Camera Target").transform;
 				_0012 = _000E;
 				return;
@@ -139,39 +108,12 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (_001A == CameraModes._000E)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0002 = _0012.position + Quaternion.Euler(_0018, _0011, 0f) * new Vector3(0f, 0f, 0f - _0015);
 				}
 				else if (_001A == CameraModes._001D)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_0002 = _0012.position + _0012.TransformDirection(Quaternion.Euler(_0018, _0011, 0f) * new Vector3(0f, 0f, 0f - _0015));
 				}
 				if (_0004)
@@ -208,42 +150,11 @@ namespace TMPro.Examples
 			float num = Input.touchCount;
 			if (!Input.GetKey(KeyCode.LeftShift))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!Input.GetKey(KeyCode.RightShift))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(num > 0f))
 					{
 						goto IL_0541;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -254,41 +165,14 @@ namespace TMPro.Examples
 			}
 			if (Input.GetKeyDown(KeyCode.F))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_001A = CameraModes._001D;
 			}
 			if (Input.GetKeyDown(KeyCode.S))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0004 = !_0004;
 			}
 			if (Input.GetMouseButton(1))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0006 = Input.GetAxis("Mouse Y");
 				_000A = Input.GetAxis("Mouse X");
 				if (!(_0006 > 0.01f))
@@ -296,15 +180,6 @@ namespace TMPro.Examples
 					if (!(_0006 < -0.01f))
 					{
 						goto IL_016c;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				_0018 -= _0006 * _000D;
@@ -316,39 +191,12 @@ namespace TMPro.Examples
 			Vector2 deltaPosition;
 			if (num == 1f && Input.GetTouch(0).phase == TouchPhase.Moved)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				deltaPosition = Input.GetTouch(0).deltaPosition;
 				if (!(deltaPosition.y > 0.01f))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(deltaPosition.y < -0.01f))
 					{
 						goto IL_02a3;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				_0018 -= deltaPosition.y * 0.1f;
@@ -359,15 +207,6 @@ namespace TMPro.Examples
 			IL_0541:
 			if (num == 2f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Touch touch = Input.GetTouch(0);
 				Touch touch2 = Input.GetTouch(1);
 				Vector2 a = touch.position - touch.deltaPosition;
@@ -381,15 +220,6 @@ namespace TMPro.Examples
 					{
 						goto IL_062d;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				_0015 += num2 * 0.25f;
 				_0015 = Mathf.Clamp(_0015, _0013, _0016);
@@ -398,27 +228,9 @@ namespace TMPro.Examples
 			IL_062d:
 			if (!(_000C < -0.01f))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(_000C > 0.01f))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			_0015 -= _000C * 5f;
@@ -427,41 +239,14 @@ namespace TMPro.Examples
 			IL_016c:
 			if (!(_000A > 0.01f))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(_000A < -0.01f))
 				{
 					goto IL_01fc;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			_0011 += _000A * _000D;
 			if (_0011 > 360f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0011 -= 360f;
 			}
 			if (_0011 < 0f)
@@ -472,92 +257,29 @@ namespace TMPro.Examples
 			IL_02a3:
 			if (!(deltaPosition.x > 0.01f))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(deltaPosition.x < -0.01f))
 				{
 					goto IL_033f;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			_0011 += deltaPosition.x * 0.1f;
 			if (_0011 > 360f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0011 -= 360f;
 			}
 			if (_0011 < 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0011 += 360f;
 			}
 			goto IL_033f;
 			IL_033f:
 			if (Input.GetMouseButton(0))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				if (Physics.Raycast(ray, out RaycastHit hitInfo, 300f, 23552))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hitInfo.transform == _0012)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_0011 = 0f;
 					}
 					else
@@ -570,26 +292,8 @@ namespace TMPro.Examples
 			}
 			if (Input.GetMouseButton(2))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_000E == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_000E = new GameObject("Camera Target").transform;
 					_000E.position = _0012.position;
 					_000E.rotation = _0012.rotation;
@@ -599,15 +303,6 @@ namespace TMPro.Examples
 				}
 				else if (_000E != _0012)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_000E.position = _0012.position;
 					_000E.rotation = _0012.rotation;
 					_0012 = _000E;

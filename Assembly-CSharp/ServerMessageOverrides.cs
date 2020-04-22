@@ -98,10 +98,6 @@ public class ServerMessageOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -114,19 +110,6 @@ public class ServerMessageOverrides
 		string value = GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;
@@ -144,10 +127,6 @@ public class ServerMessageOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -160,19 +139,6 @@ public class ServerMessageOverrides
 		string value = GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;

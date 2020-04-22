@@ -101,24 +101,10 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor == GameFlowData.Get().activeOwnedActorData)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					CameraManager.Get().SetTargetObject(base.gameObject, CameraManager.CameraTargetReason.ClientActorRespawned);
 					return;
 				}
@@ -136,29 +122,11 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!Input.GetMouseButtonUp(0))
 			{
 				if (!Input.GetMouseButtonUp(1))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (!InterfaceManager.Get().ShouldHandleMouseClick())
@@ -167,11 +135,6 @@ public class ActorController : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				BoardSquare playerClampedSquare = Board.Get().PlayerClampedSquare;
 				bool flag = actor.respawnSquares.Contains(playerClampedSquare);
 				if (!(playerClampedSquare != null))
@@ -180,20 +143,10 @@ public class ActorController : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (flag)
 					{
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							CallCmdPickedRespawnRequest(playerClampedSquare.x, playerClampedSquare.y);
 							actor.ShowRespawnFlare(playerClampedSquare, false);
 							return;
@@ -219,26 +172,12 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!playerFreeSquare.IsBaselineHeight())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
 				bool flag2 = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
 				if (!flag)
@@ -247,42 +186,22 @@ public class ActorController : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (!flag2)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						if (!Input.GetMouseButtonUp(2))
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							if (InterfaceManager.Get().ShouldHandleMouseClick())
 							{
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									CallCmdDebugTeleportRequest(playerFreeSquare.x, playerFreeSquare.y);
 									return;
 								}
@@ -341,19 +260,6 @@ public class ActorController : NetworkBehaviour
 		m_currentTargetingSquares.Clear();
 		if ((bool)m_targetingHighlight)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_targetingHighlight);
 			m_targetingHighlight = null;
 		}
@@ -370,15 +276,6 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_respawnHighlight);
 			m_respawnHighlight = null;
 			return;
@@ -394,15 +291,6 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorTurnSM actorTurnSM = actor.GetActorTurnSM();
 			if (actorTurnSM.CanPickRespawnLocation())
 			{
@@ -422,11 +310,6 @@ public class ActorController : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					HandleDebugTeleport();
 					return;
 				}
@@ -440,19 +323,6 @@ public class ActorController : NetworkBehaviour
 		m_movementLinesVisible = visible;
 		if (m_canMoveToHighlight != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_canMoveToHighlight.gameObject.SetActive(m_movementLinesVisible);
 		}
 		if (m_canMoveToWithAbilityHighlight != null)
@@ -473,10 +343,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_actor.GetActorMovement().SquaresCanMoveTo;
 				}
 			}
@@ -528,43 +394,12 @@ public class ActorController : NetworkBehaviour
 		bool flag6 = abilityData.GetQueuedAbilitiesMovementAdjust() < 0f;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (markedForUpdateValidSquares)
 			{
 				if (flag5)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag6)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (HashSet<BoardSquare>.Enumerator enumerator = actorMovement.SquaresCanMoveTo.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
@@ -572,40 +407,13 @@ public class ActorController : NetworkBehaviour
 								BoardSquare current = enumerator.Current;
 								m_canMoveToSquaresScratch.Add(current);
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
 				if (actorMovement.SquaresCanMoveToWithQueuedAbility.SetEquals(actorMovement.SquaresCanMoveTo))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag5)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag6)
 						{
 							goto IL_01b1;
@@ -619,15 +427,6 @@ public class ActorController : NetworkBehaviour
 						BoardSquare current2 = enumerator2.Current;
 						m_canMoveToWithQueuedAbilityScratch.Add(current2);
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				goto IL_01b1;
 			}
@@ -636,28 +435,10 @@ public class ActorController : NetworkBehaviour
 		}
 		if (flag4)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Ability selectedAbility = abilityData.GetSelectedAbility();
 			int targetSelectionIndex = m_actor.GetActorTurnSM().GetTargetSelectionIndex();
 			if (!(selectedAbility != m_lastTargetedAbility))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetSelectionIndex == m_lastTargetIndex)
 				{
 					flag2 = true;
@@ -679,15 +460,6 @@ public class ActorController : NetworkBehaviour
 		int num;
 		if (GameFlowData.Get().IsInDecisionState() && m_actor.IsDead() && SpawnPointManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (SpawnPointManager.Get().m_playersSelectRespawn ? 1 : 0);
 		}
 		else
@@ -698,64 +470,19 @@ public class ActorController : NetworkBehaviour
 		List<BoardSquare> respawnSquares = actor.respawnSquares;
 		if (flag7)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actor.IsDead() && !respawnSquares.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_currentRespawnSquares.Count == respawnSquares.Count)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (respawnSquares.TrueForAll((BoardSquare s) => m_currentRespawnSquares.Contains(s)))
 					{
 						goto IL_06b9;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				ClearRespawnHighlights();
 				m_respawnHighlight = HighlightUtils.Get().CreateBoundaryHighlight(respawnSquares, BoardSquare.s_respawnOptionHighlightColor, true);
 				if ((bool)m_respawnHighlight)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_respawnHighlight.AddComponent<HighlightParent>();
 				}
 				m_currentRespawnSquares.Clear();
@@ -768,27 +495,9 @@ public class ActorController : NetworkBehaviour
 		IL_06b9:
 		if ((bool)m_canMoveToWithAbilityHighlight)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag8 = flag3 && m_currentCanMoveToWithAbilitySquares.Count > 0 && m_movementLinesVisible;
 			if (m_canMoveToWithAbilityHighlight.gameObject.activeSelf != flag8)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_canMoveToWithAbilityHighlight.gameObject.SetActive(flag8);
 			}
 		}
@@ -797,15 +506,6 @@ public class ActorController : NetworkBehaviour
 			int num2;
 			if (flag3 && m_currentCanMoveToSquares.Count > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (m_movementLinesVisible ? 1 : 0);
 			}
 			else
@@ -815,42 +515,15 @@ public class ActorController : NetworkBehaviour
 			bool flag9 = (byte)num2 != 0;
 			if (flag9 && !FirstTurnMovement.ForceShowSprintRange(actor))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position = HighlightUtils.Get().MovementMouseOverCursor.transform.position;
 				BoardSquare boardSquareSafe = board.GetBoardSquareSafe(position.x, position.z);
 				if (m_canMoveToWithQueuedAbilityScratch.Contains(boardSquareSafe))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag9 = false;
 				}
 			}
 			if (m_canMoveToHighlight.gameObject.activeSelf != flag9)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_canMoveToHighlight.gameObject.SetActive(flag9);
 			}
 		}
@@ -861,15 +534,6 @@ public class ActorController : NetworkBehaviour
 		int num3;
 		if (!flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = ((m_currentTargetingSquares.Count > 0) ? 1 : 0);
 		}
 		else
@@ -883,93 +547,34 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_targetingHighlight.gameObject.SetActive(flag10);
 			return;
 		}
 		IL_0241:
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_currentCanMoveToSquares != m_canMoveToSquaresScratch)
 			{
 				if (!m_currentCanMoveToSquares.SetEquals(m_canMoveToSquaresScratch))
 				{
 					goto IL_02fc;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_currentCanMoveToWithAbilitySquares != m_canMoveToWithQueuedAbilityScratch)
 			{
 				if (!m_currentCanMoveToWithAbilitySquares.SetEquals(m_canMoveToWithQueuedAbilityScratch))
 				{
 					goto IL_02fc;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (!flag2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_currentTargetingSquares != m_targetingSquaresScratch && !m_currentTargetingSquares.SetEquals(m_targetingSquaresScratch))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_02fc;
 			}
 		}
@@ -977,53 +582,17 @@ public class ActorController : NetworkBehaviour
 		IL_02fc:
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((bool)m_canMoveToWithAbilityHighlight)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HighlightUtils.DestroyBoundaryHighlightObject(m_canMoveToWithAbilityHighlight);
 			}
 			m_canMoveToWithAbilityHighlight = HighlightUtils.Get().CreateBoundaryHighlight(m_canMoveToWithQueuedAbilityScratch, BoardSquare.s_moveableHighlightColor, true);
 			if ((bool)m_canMoveToWithAbilityHighlight)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_canMoveToWithAbilityHighlight.AddComponent<HighlightParent>();
 			}
 			if ((bool)m_canMoveToHighlight)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HighlightUtils.DestroyBoundaryHighlightObject(m_canMoveToHighlight);
 			}
 			m_canMoveToHighlight = HighlightUtils.Get().CreateBoundaryHighlight(m_canMoveToSquaresScratch, BoardSquare.s_moveableHighlightColor);
@@ -1037,38 +606,11 @@ public class ActorController : NetworkBehaviour
 			HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
 			if (actor.GetCurrentBoardSquare() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hashSet.Add(actor.GetCurrentBoardSquare());
 				if (m_lastTargetedAbility != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_lastTargetedAbility.Targeters != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<AbilityUtil_Targeter>.Enumerator enumerator3 = m_lastTargetedAbility.Targeters.GetEnumerator())
 						{
 							while (enumerator3.MoveNext())
@@ -1076,39 +618,12 @@ public class ActorController : NetworkBehaviour
 								AbilityUtil_Targeter current3 = enumerator3.Current;
 								if (current3 != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(current3.LastUpdatingGridPos);
 									if (boardSquareSafe2 != null)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										hashSet.Add(boardSquareSafe2);
 									}
 								}
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -1116,43 +631,16 @@ public class ActorController : NetworkBehaviour
 			}
 			if ((bool)m_targetingHighlight)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HighlightUtils.DestroyBoundaryHighlightObject(m_targetingHighlight);
 			}
 			m_targetingHighlight = HighlightUtils.Get().CreateBoundaryHighlight(m_targetingSquaresScratch, BoardSquare.s_targetableByAbilityHighlightColor, false, hashSet);
 			if ((bool)m_targetingHighlight)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_targetingHighlight.AddComponent<HighlightParent>();
 			}
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CopyOverHashsetValues(m_currentCanMoveToSquares, m_canMoveToSquaresScratch);
 			CopyOverHashsetValues(m_currentCanMoveToWithAbilitySquares, m_canMoveToWithQueuedAbilityScratch);
 		}
@@ -1180,10 +668,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1197,19 +681,6 @@ public class ActorController : NetworkBehaviour
 		UISounds.GetUISounds().Play("ui/ingame/v1/hud/ability_select");
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actionTypeInt = component.GetSelectedActionType();
 		}
 		CallCmdSelectAbilityRequest((int)actionTypeInt);
@@ -1220,19 +691,6 @@ public class ActorController : NetworkBehaviour
 		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
@@ -1246,44 +704,24 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (!(x != null) || !m_actor.IsVisibleToClient())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(HUD_UI.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (!(UIOverconData.Get() != null))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						UIOverconData.NameToOverconEntry overconEntryById = UIOverconData.Get().GetOverconEntryById(overconId);
 						if (overconEntryById == null)
 						{
@@ -1291,20 +729,10 @@ public class ActorController : NetworkBehaviour
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							if (!overconEntryById.m_isHidden)
 							{
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SpawnOverconForActor(m_actor, overconEntryById, false);
 									return;
 								}
@@ -1328,30 +756,8 @@ public class ActorController : NetworkBehaviour
 		ActorData actor = m_actor;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor.GetAbilityData() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actor.GetAbilityData().SetLastSelectedAbility(actor.GetAbilityData().GetAbilityOfActionType(actionType));
 			}
 		}
@@ -1374,10 +780,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					HandleCustomGamePauseOnServer(desiredPause, requestActorIndex);
 					return;
 				}
@@ -1405,52 +807,20 @@ public class ActorController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get() != null) || !(GameFlowData.Get().activeOwnedActorData == m_actor))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = false;
 				if (m_actor.RemainingHorizontalMovement != remainingMovement)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_actor.RemainingHorizontalMovement = remainingMovement;
 					flag = true;
 				}
 				if (m_actor.RemainingMovementWithQueuedAbility != remainingMovementWithQueuedAbility)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_actor.RemainingMovementWithQueuedAbility = remainingMovementWithQueuedAbility;
 					flag = true;
 				}
@@ -1458,11 +828,6 @@ public class ActorController : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
 						return;
 					}
@@ -1487,10 +852,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdDebugTeleportRequest called on client.");
 					return;
 				}
@@ -1510,10 +871,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdPickedRespawnRequest called on client.");
 					return;
 				}
@@ -1533,10 +890,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSendMinimapPing called on client.");
 					return;
 				}
@@ -1568,10 +921,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSelectAbilityRequest called on client.");
 					return;
 				}
@@ -1591,10 +940,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdQueueSimpleActionRequest called on client.");
 					return;
 				}
@@ -1653,10 +998,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdPickedRespawnRequest(x, y);
 					return;
 				}
@@ -1683,10 +1024,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSendMinimapPing called on server.");
 					return;
 				}
@@ -1719,10 +1056,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSendAbilityPing called on server.");
 					return;
 				}
@@ -1768,10 +1101,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdSelectAbilityRequest(actionTypeInt);
 					return;
 				}
@@ -1797,10 +1126,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdQueueSimpleActionRequest called on server.");
 					return;
 				}
@@ -1831,10 +1156,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdCustomGamePause called on server.");
 					return;
 				}
@@ -1887,10 +1208,6 @@ public class ActorController : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcUpdateRemainingMovement called on client.");
 					return;
 				}

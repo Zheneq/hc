@@ -82,15 +82,6 @@ public class NPCSpawner
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActivatableObject[] activationsOnDeath = m_activationsOnDeath;
 			foreach (ActivatableObject activatableObject in activationsOnDeath)
 			{
@@ -122,15 +113,6 @@ public class NPCSpawner
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -143,25 +125,11 @@ public class NPCSpawner
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorTurnSM component = m_actor.GetComponent<ActorTurnSM>();
 			if ((bool)component)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					component.OnMessage(TurnMessage.BEGIN_RESOLVE);
 					return;
 				}

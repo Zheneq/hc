@@ -106,10 +106,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_curMoveState.stateName;
 				}
 			}
@@ -156,50 +152,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actor.GetModelAnimator() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = m_brushTransitionAnimationSpeedEased;
 					Animator modelAnimator = m_actor.GetModelAnimator();
 					if (modelAnimator.speed != num)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						modelAnimator.speed = num;
 					}
 				}
@@ -210,25 +170,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier))
 				{
 					if (!InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier))
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UpdateSquaresCanMoveTo();
@@ -241,19 +187,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		float maxMoveDist = m_actor.RemainingHorizontalMovement;
 		float innerMoveDist = m_actor.RemainingMovementWithQueuedAbility;
@@ -261,28 +194,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num;
 		if (Options_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
 			{
 				num = 1;
 				goto IL_0097;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = ((!FirstTurnMovement.CanWaypoint()) ? 1 : 0);
@@ -290,26 +205,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		IL_0097:
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				maxMoveDist = CalculateMaxHorizontalMovement();
 				innerMoveDist = CalculateMaxHorizontalMovement(true);
 				squareToStartFrom = m_actor.InitialMoveStartSquare;
@@ -318,15 +215,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out m_squaresCanMoveTo, out m_squareCanMoveToWithQueuedAbility);
 		if (Board.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board.Get().MarkForUpdateValidSquares();
 		}
 		if (!(m_actor == GameFlowData.Get().activeOwnedActorData))
@@ -335,21 +223,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			LineData component = m_actor.GetComponent<LineData>();
 			if (component != null)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					component.OnCanMoveToSquaresUpdated();
 					return;
 				}
@@ -364,19 +242,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
 		if ((bool)boardSquare)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = CanMoveToBoardSquare(boardSquare);
 		}
 		return result;
@@ -392,19 +257,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		object obj;
 		if (alwaysIncludeMoverSquare)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actor.GetCurrentBoardSquare();
 		}
 		else
@@ -415,15 +267,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num;
 		if (alwaysIncludeMoverSquare)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = boardSquare.HorizontalDistanceOnBoardTo(selectedSquare);
 		}
 		else
@@ -449,15 +292,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							float num3 = current.HorizontalDistanceOnBoardTo(selectedSquare);
 							if (num3 <= num2)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = num3;
 								boardSquare = current;
 							}
@@ -486,43 +320,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float result = 0f;
 		if (!m_actor.IsDead())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_actor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
 			AbilityData abilityData = m_actor.GetAbilityData();
 			if ((bool)abilityData)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = 0f;
 					num = ((!forcePostAbility) ? abilityData.GetQueuedAbilitiesMovementAdjust() : (-1f * m_actor.GetPostAbilityHorizontalMovementChange()));
 					result += num;
@@ -552,19 +355,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (actorStatus.HasStatus(StatusType.RecentlyRespawned))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += (float)GameplayData.Get().m_recentlyRespawnedBonusMovement;
 		}
 		List<StatusType> queuedAbilitiesOnRequestStatuses = m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
@@ -572,15 +362,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num2;
 		if (!actorStatus.IsMovementDebuffImmune() && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable) ? 1 : 0);
 		}
 		else
@@ -592,15 +373,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num3;
 		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable) ? 1 : 0);
 		}
 		else
@@ -611,15 +383,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num4;
 		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute) ? 1 : 0);
 		}
 		else
@@ -630,28 +393,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num5;
 		if (flag4)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3)
 			{
 				num5 = 1;
 				goto IL_0129;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num5 = (flag5 ? 1 : 0);
@@ -660,105 +405,33 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag6 = (byte)num5 != 0;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorStatus.HasStatus(StatusType.Rooted))
 			{
 				goto IL_0165;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (actorStatus.HasStatus(StatusType.AnchoredNoMovement))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0165;
 		}
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorStatus.HasStatus(StatusType.CrippledMovement))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Clamp(num, 0f, 1f);
 				goto IL_03df;
 			}
 		}
 		if (flag6 && !forcePostAbility && m_actor.GetAbilityData() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num -= m_actor.GetPostAbilityHorizontalMovementChange();
 			}
 		}
 		int num6;
 		if (!actorStatus.HasStatus(StatusType.Snared))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num6 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared) ? 1 : 0);
 		}
 		else
@@ -769,15 +442,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int num7;
 		if (!actorStatus.HasStatus(StatusType.Hasted))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = (queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted) ? 1 : 0);
 		}
 		else
@@ -787,79 +451,25 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag8 = (byte)num7 != 0;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag7)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag8)
 				{
 					goto IL_028a;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (calculateAsIfSnared)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_028a;
 		}
 		if (flag8)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3)
 			{
 				if (flag7)
 				{
 					goto IL_03df;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment);
@@ -872,27 +482,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num8 = fullMoveAdjustment;
 				if (m_actor.GetAbilityData() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
 					if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 = halfMoveAdjustment;
 					}
 				}
@@ -908,15 +500,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		CalcSnaredMovementAdjustments(out float mult2, out int halfMoveAdjust, out int fullMoveAdjust);
 		if (forcePostAbility)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.Clamp(num + (float)halfMoveAdjust, 0f, 99f);
 		}
 		else
@@ -927,15 +510,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
 				if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num9 = halfMoveAdjust;
 				}
 			}
@@ -953,19 +527,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameplayMutators.Get().m_useHasteOverride)
 			{
 				halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
@@ -983,34 +544,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameplayMutators.Get().m_useSlowOverride)
 			{
 				halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
 				fullMoveAdjust = GameplayMutators.Get().m_slowFullMovementAdjustAmount;
 				mult = GameplayMutators.Get().m_slowMovementMultiplier;
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
@@ -1030,15 +569,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquareMovementInfo value3 = default(BoardSquareMovementInfo);
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (maxHorizontalMovement == 0f)
 			{
 				while (true)
@@ -1066,15 +596,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			int num;
 			if (GameplayData.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax) ? 1 : 0);
 			}
 			else
@@ -1095,15 +616,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						if (i == 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (j == 0)
 							{
 								continue;
@@ -1114,41 +626,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (hashSet.Contains(boardSquare))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						bool flag2 = board._0015(square, boardSquare);
 						float num2;
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = value2.cost + 1.5f;
 						}
 						else
@@ -1159,27 +644,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int diagonalFlag;
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							diagonalFlag = 1;
 						}
 						else
@@ -1189,15 +656,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						if (!CanCrossToAdjacentSquare(square, boardSquare, false, (DiagonalCalcFlag)diagonalFlag))
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						value3.square = boardSquare;
 						value3.cost = num2;
@@ -1214,43 +672,16 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 									flag3 = true;
 									if (value4.cost > num2)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										linkedListNode.Value = value3;
 									}
 									else if (value4.cost == num2 && value3.prevCost < value4.prevCost)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										linkedListNode.Value = value3;
 									}
 									break;
 								}
 								linkedListNode = linkedListNode.Next;
 								continue;
-							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 						}
@@ -1262,60 +693,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(m_actor, square))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
 						{
 							if (!eligibleSquares.Contains(square))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								eligibleSquares.Add(square);
 							}
 							if (innerMaxMove > 0f && !innerSquares.Contains(square))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag4 = false;
 								if (flag)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag4 = (value2.cost <= innerMaxMove);
 								}
 								else
@@ -1324,15 +714,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								}
 								if (flag4)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									innerSquares.Add(square);
 								}
 							}
@@ -1381,30 +762,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			result.Clear();
 			if (GameplayData.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameplayData.Get().m_diagonalMovement == GameplayData.DiagonalMovement.Disabled)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
 					goto IL_00fb;
 				}
@@ -1423,15 +782,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				float num;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = value2.cost + 1.5f;
 				}
 				else
@@ -1441,26 +791,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag2;
 				if (GameplayData.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = (num <= maxHorizontalMovement);
 						goto IL_01a6;
 					}
@@ -1471,15 +803,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				if (!flag2)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				value3.square = boardSquare;
 				value3.cost = num;
@@ -1493,15 +816,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						BoardSquareMovementInfo value4 = linkedListNode.Value;
 						if (value4.square == boardSquare)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = true;
 							if (value4.cost > num)
 							{
@@ -1512,95 +826,27 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						linkedListNode = linkedListNode.Next;
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				if (flag3)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CanCrossToAdjacentSquare(square, boardSquare, false, flag ? DiagonalCalcFlag.IsDiagonal : DiagonalCalcFlag.NotDiagonal) && FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					linkedList.AddLast(value3);
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!hashSet.Contains(square))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (MovementUtils.CanStopOnSquare(square))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (SinglePlayerManager.IsDestinationAllowed(m_actor, square))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (FirstTurnMovement.CanActorMoveToSquare(m_actor, square))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								hashSet.Add(square);
 							}
 						}
@@ -1621,59 +867,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int squaresCanMoveToSinglePlayerState = -1;
 		if (SinglePlayerManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor.SpawnerId == -1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 			}
 		}
 		int squaresCanMoveToBarrierState = -1;
 		if (BarrierManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(m_actor);
 		}
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
 		if (FirstTurnMovement.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
 		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
@@ -1692,48 +898,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = m_squaresCanMoveToCache[num2];
 				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
 								item = squaresCanMoveToCacheEntry2;
 								num = num2;
@@ -1744,15 +914,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				num2++;
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1771,45 +932,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
 		if (SinglePlayerManager.Get() != null && m_actor.SpawnerId == -1)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 		}
 		if (BarrierManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(m_actor);
 		}
 		if (FirstTurnMovement.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
 		SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new SquaresCanMoveToCacheEntry();
@@ -1838,10 +968,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return hashSet;
 				}
 			}
@@ -1857,34 +983,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		HashSet<BoardSquare> innerSquares = CheckSquareCanMoveToCache(squareToStartFrom, innerMoveDist);
 		if (eligibleSquares == null && innerSquares == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out eligibleSquares, out innerSquares);
 			AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, eligibleSquares);
 			AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, innerSquares);
 		}
 		else if (eligibleSquares == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out eligibleSquares, out HashSet<BoardSquare> _);
 			AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, eligibleSquares);
 		}
@@ -1907,55 +1011,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (!(dest == null))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (dest.IsBaselineHeight())
 			{
 				if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						return false;
 					}
 				}
 				if (!ignoreBarriers)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BarrierManager.Get() != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (BarrierManager.Get().IsMovementBlocked(m_actor, src, dest))
 						{
 							return false;
@@ -1965,15 +1033,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num;
 				if (!knownAdjacent)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (Board.Get()._000E(src, dest) ? 1 : 0);
 				}
 				else
@@ -1989,50 +1048,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				{
 					goto IL_00f6;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (diagonalFlag == DiagonalCalcFlag.Unknown)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Board.Get()._0015(src, dest))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_00f6;
 					}
 				}
 				goto IL_018a;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2041,28 +1064,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag &= CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, DiagonalCalcFlag.NotDiagonal);
 		}
 		if (flag)
@@ -2095,19 +1100,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gameplayPath = null;
 		}
 		Client_ClearAestheticPath();
@@ -2130,19 +1122,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float radius = 0.1f;
 		if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hitInfo, 100f, layerMask))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 point = hitInfo.point;
 			result.y = point.y;
 		}
@@ -2155,66 +1134,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int result;
 		if (!(modelAnimator == null))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				if (!currentAnimatorStateInfo.IsName("Run_Vault"))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!currentAnimatorStateInfo.IsName("Run_End"))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsTag("Run_End"))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!currentAnimatorStateInfo.IsName("KnockbackEnd") && !currentAnimatorStateInfo.IsTag("Knockdown") && !currentAnimatorStateInfo.IsTag("Damage"))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = ((!m_actor.GetActorModelData().IsPlayingIdleAnim()) ? 1 : 0);
 								goto IL_00f2;
 							}
@@ -2223,15 +1153,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				result = 0;
 				goto IL_00f2;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2244,44 +1165,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = m_actor.GetModelAnimator();
 		if (!decisionState)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 			}
 		}
 		while (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_gameplayPath.next == null || m_actor.IsDead())
 			{
 				break;
@@ -2290,67 +1180,22 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (m_curMoveState != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_curMoveState = null;
 			StopMovementAnimator();
 		}
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (modelAnimator.GetInteger(animIdleType) < 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetInteger(animIdleType, 0);
 			}
 		}
 		if (ShouldSetForceIdle())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetTrigger(animForceIdle);
 		}
 		if (m_actor.GetCurrentBoardSquare() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actor.SetTransformPositionToSquare(m_actor.GetCurrentBoardSquare());
 		}
 		Client_ClearAestheticPath();
@@ -2366,15 +1211,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			modelAnimator.SetInteger(animNextChargeCycleType, 0);
 			modelAnimator.SetInteger(animChargeCycleType, 0);
 			modelAnimator.SetInteger(animChargeEndType, 4);
@@ -2390,45 +1226,18 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
 				return;
 			}
 		}
 		if (m_aestheticPath.next == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			while (m_gameplayPath.next != null)
 			{
 				AdvanceGameplayPath();
 				int num;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
 				}
 				else
@@ -2438,40 +1247,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag2 = (byte)num != 0;
 				flag = !flag2;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorCover actorCover = m_actor.GetActorCover();
 			actorCover.RecalculateCover();
 		}
 		if (m_aestheticPath != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_aestheticPath.next != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_aestheticPath = m_aestheticPath.next;
 				goto IL_0108;
 			}
@@ -2485,11 +1267,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			UpdateClientFogOfWarIfNeeded();
 			return;
@@ -2501,42 +1278,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (m_curMoveState != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_curMoveState is ChargeState)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ChargeState chargeState = m_curMoveState as ChargeState;
 				if (chargeState.DoneMoving())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else
@@ -2546,15 +1292,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			else if (m_curMoveState.m_done)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
@@ -2569,15 +1306,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((!ShouldPauseAnimator()) ? 1 : 0);
 		}
 		else
@@ -2597,30 +1325,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float result;
 		if (AmMoving())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_gameplayPath != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_gameplayPath.FindDistanceToEnd();
 				goto IL_003f;
 			}
@@ -2649,10 +1355,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -2666,19 +1368,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_aestheticPath != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_aestheticPath.connectionType == type) ? 1 : 0);
 		}
 		else
@@ -2693,19 +1382,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		UpdatePosition();
 		if (m_curMoveState != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_curMoveState.Update();
 		}
 		StopMovementAnimator();
@@ -2727,15 +1403,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquarePathInfo gameplayPathClosestTo = GetGameplayPathClosestTo(m_actor.transform.position);
 			bool flag = false;
 			while (m_gameplayPath != gameplayPathClosestTo)
@@ -2744,15 +1411,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement") ? 1 : 0);
 				}
 				else
@@ -2764,37 +1422,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 					UpdateClientFogOfWarIfNeeded();
 				}
 				int num2;
 				if (!m_actor.IsDead())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((!m_actor.IsModelAnimatorDisabled()) ? 1 : 0);
 				}
 				else
@@ -2807,62 +1442,21 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					bool updatePath = m_curMoveState.m_updatePath;
 					m_curMoveState.Update();
 					UpdateValuesAnimator();
 					if (!updatePath)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_curMoveState.m_updatePath)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UpdatePath();
 						}
 					}
 					if (m_curMoveState != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_curMoveState.m_done)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					UpdateMovementState();
@@ -2871,11 +1465,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							StopMovementAnimator();
 							return;
 						}
@@ -2894,37 +1483,18 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(FogOfWar.GetClientFog() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (!(GameFlowData.Get().LocalPlayerData != null))
 					{
 						return;
@@ -2933,15 +1503,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					int num;
 					if (m_actor.GetActorStatus() != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (m_actor.GetActorStatus().HasStatus(StatusType.Revealed) ? 1 : 0);
 					}
 					else
@@ -2956,27 +1517,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					FogOfWar.GetClientFog().MarkForRecalculateVisibility();
@@ -3000,30 +1543,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (ShouldPauseAnimator())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_brushTransitionAnimationSpeedEased.GetEndValue() != m_brushTransitionAnimationSpeed)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_brushTransitionAnimationSpeedEased.EaseTo(m_brushTransitionAnimationSpeed, m_brushTransitionAnimationSpeedEaseTime);
 			}
 		}
@@ -3040,20 +1561,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (m_actor.GetActorModelData() != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_actor.GetActorModelData().OnMovementAnimatorStop();
 					return;
 				}
@@ -3076,41 +1587,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Vector3 result;
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor.transform != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aestheticPath != null && m_aestheticPath.square != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = m_actor.transform.position;
 					Vector3 worldPosition = m_aestheticPath.square.GetWorldPosition();
 					result = worldPosition - position;
@@ -3138,10 +1618,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -3149,15 +1625,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num;
 		if (ShouldPauseAnimator())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_brushTransitionAnimationSpeed;
 		}
 		else
@@ -3167,28 +1634,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num2 = num;
 		if (m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EasedOutFloat brushTransitionAnimationSpeedEased = m_brushTransitionAnimationSpeedEased;
 			float duration;
 			if (num2 == 1f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				duration = 0f;
 			}
 			else
@@ -3199,39 +1648,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (m_curMoveState != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetFloat(animDistToGoal, GetDistToGoal());
 			modelAnimator.SetFloat(animTimeInAnim, m_curMoveState.m_timeInAnim);
 			if (m_curMoveState.m_forceAnimReset)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ShouldSetForceIdle())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modelAnimator.SetTrigger(animForceIdle);
 				}
 			}
@@ -3243,11 +1665,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			modelAnimator.SetInteger(animNextLinkType, MovementUtils.GetLinkType(m_aestheticPath.next));
 			modelAnimator.SetInteger(animChargeCycleType, (int)m_aestheticPath.chargeCycleType);
 			modelAnimator.SetInteger(animChargeEndType, (int)m_aestheticPath.chargeEndType);
@@ -3256,11 +1673,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					modelAnimator.SetInteger(animNextChargeCycleType, (int)m_aestheticPath.next.chargeCycleType);
 					return;
 				}
@@ -3273,114 +1685,29 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!m_actor.VisibleTillEndOfPhase && !m_actor.CurrentlyVisibleForAbilityCast && !m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(m_actor))
 			{
 				if (pathEndInfo == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_actor.IsVisibleToClient())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_actor.IsHiddenInBrush())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_actor.GetActorMovement().IsPast2ndToLastSquare())
 							{
 								goto IL_013b;
-							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 				}
 				if (pathEndInfo != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!pathEndInfo.m_visibleToEnemies)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!pathEndInfo.m_moverHasGameplayHitHere && pathEndInfo.square != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (BrushCoordinator.Get() != null && BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_013b;
 							}
 						}
@@ -3411,19 +1738,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			boardSquarePathInfo = boardSquarePathInfo.next;
 			if (boardSquarePathInfo != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				pathEndInfo = boardSquarePathInfo;
 			}
 		}
@@ -3450,32 +1764,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (m_actor.IsDead())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Client_ClearAestheticPath();
 		}
 		if (m_actor.IsModelAnimatorDisabled())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Client_ClearAestheticPath();
 		}
 		if (m_aestheticPath != null)
@@ -3490,53 +1782,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						if (m_curMoveState != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
 								{
 									goto IL_00ca;
-								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
 						Animator modelAnimator = m_actor.GetModelAnimator();
 						if (modelAnimator != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							modelAnimator.SetTrigger(animMoveSegmentStart);
 						}
 						goto IL_00ca;
@@ -3593,23 +1849,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			Animator modelAnimator2 = m_actor.GetModelAnimator();
 			if (modelAnimator2 != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator2.SetTrigger(animMoveSegmentStart);
 			}
 			m_curMoveState = null;
@@ -3624,19 +1866,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		object obj;
 		if (m_gameplayPath == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = null;
 		}
 		else
@@ -3647,15 +1876,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result = m_gameplayPath;
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = m_gameplayPath.square.transform.position;
 			float x = position.x;
 			Vector3 position2 = m_gameplayPath.square.transform.position;
@@ -3675,15 +1895,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				boardSquarePathInfo = boardSquarePathInfo.next;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return result;
 	}
@@ -3697,19 +1908,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		ActorVFX actorVFX = m_actor.GetActorVFX();
 		if (actorVFX != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actorVFX.OnMove(m_gameplayPath, m_gameplayPath.prev);
 		}
 		CameraManager.Get().OnActorMoved(m_actor);
@@ -3717,26 +1915,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(m_actor, m_gameplayPath);
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actor.GetActorModelData() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_actor.GetActorModelData().OnMovementAnimatorUpdate(m_aestheticPath.connectionType);
 			}
 		}
@@ -3751,22 +1931,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (HighlightUtils.Get().m_coverDirIndicatorTiming != 0 || !HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (!(activeOwnedActorData != null))
 				{
@@ -3774,42 +1944,22 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!(activeOwnedActorData == m_actor))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (!(m_actor.GetActorCover() != null))
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							if (m_actor.IsVisibleToClient())
 							{
 								while (true)
 								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
 									m_actor.GetActorCover().RecalculateCover();
 									m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();
 									return;
@@ -3834,19 +1984,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			Vector3 a;
 			if (prev == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				a = m_actor.transform.position;
 			}
 			else
@@ -3869,15 +2006,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				float num;
 				if (boardSquarePathInfo.segmentMovementSpeed > 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = boardSquarePathInfo.segmentMovementSpeed;
 				}
 				else
@@ -3911,34 +2039,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		m_gameplayPath = gameplayPath;
 		if (travelBoardSquare != GetTravelBoardSquare())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actor.ForceUpdateIsVisibleToClientCache();
 			m_actor.ForceUpdateActorModelVisibility();
 		}
 		m_aestheticPath = m_gameplayPath.Clone(null);
 		if (movementType == ActorData.MovementType.Normal)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MovementUtils.CreateRunAndVaultAestheticPath(ref m_aestheticPath, m_actor);
 		}
 		else
@@ -3954,19 +2060,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (movementType == ActorData.MovementType.Knockback)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorKnockback, new GameEventManager.ActorKnockback
 			{
 				m_target = m_actor
@@ -3974,39 +2067,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (src == null && dest != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			src = dest;
 		}
 		else if (src != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (dest == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dest = src;
 			}
 		}
@@ -4016,20 +2082,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (dest != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_actor.SetTransformPositionToSquare(src);
 					m_gameplayPath = gameplayPath;
 					m_aestheticPath = m_gameplayPath.Clone(null);
@@ -4082,15 +2138,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num;
 				if (claimedSquares != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (claimedSquares.Contains(dest) ? 1 : 0);
 				}
 				else
@@ -4110,15 +2157,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					result.Clear();
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						board.GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 					}
 					else
@@ -4132,15 +2170,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						float num2;
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = boardSquarePathInfo2.moveCost + 1.5f;
 						}
 						else
@@ -4149,30 +2178,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						}
 						if (!(flag2 ? (boardSquarePathInfo2.moveCost < maxHorizontalMovement) : (num2 <= maxHorizontalMovement)))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						BoardSquare square = boardSquarePathInfo2.square;
 						int diagonalFlag;
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							diagonalFlag = 1;
 						}
 						else
@@ -4181,28 +2192,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						}
 						if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
@@ -4214,29 +2207,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
 							while (boardSquarePathInfo3 != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (claimedSquares.Contains(boardSquarePathInfo3.square))
 								{
 									num3++;
 									boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 									continue;
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								break;
 							}
@@ -4245,15 +2220,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						float squareSize = board.squareSize;
 						if (!flag2)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
 						}
 						else
@@ -4267,124 +2233,39 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						bool flag5 = false;
 						if (tempClosedSquares.ContainsKey(allocatedNode2.square))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag5 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
 						}
 						if (flag5)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						bool flag6 = false;
 						BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
 						if (boardSquarePathInfo4 != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag6 = true;
 							if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								normalPathNodeHeap.UpdatePriority(allocatedNode2);
 							}
 						}
 						if (!flag6)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							normalPathNodeHeap.Insert(allocatedNode2);
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (boardSquarePathInfo != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					while (boardSquarePathInfo.prev != null)
 					{
 						boardSquarePathInfo.prev.next = boardSquarePathInfo;
 						boardSquarePathInfo = boardSquarePathInfo.prev;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
 					normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				}
 				return boardSquarePathInfo;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return boardSquarePathInfo;
@@ -4395,19 +2276,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		if (!(src == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(dest == null))
 			{
 				Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
@@ -4425,15 +2293,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				int num;
 				if (claimedSquares != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (claimedSquares.Contains(dest) ? 1 : 0);
 				}
 				else
@@ -4457,10 +2316,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 										break;
 									default:
 									{
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
 										Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
 										return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
@@ -4474,28 +2329,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
 						if (boardSquarePathInfo2.prev != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
 						}
 						if (boardSquarePathInfo2.square == dest)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquarePathInfo = boardSquarePathInfo2;
 							break;
 						}
@@ -4504,15 +2341,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						result.Clear();
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref result);
 						}
 						else
@@ -4526,15 +2354,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							float num2;
 							if (flag4)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = boardSquarePathInfo2.moveCost + 1.5f;
 							}
 							else
@@ -4544,15 +2363,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							bool flag5;
 							if (!flag2)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag5 = (num2 <= maxHorizontalMovement);
 							}
 							else
@@ -4567,15 +2377,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							int diagonalFlag;
 							if (flag4)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								diagonalFlag = 1;
 							}
 							else
@@ -4584,28 +2385,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							}
 							if (!CanCrossToAdjacentSquare(square, boardSquare, ignoreBarriers, (DiagonalCalcFlag)diagonalFlag))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 							if (!FirstTurnMovement.CanActorMoveToSquare(m_actor, boardSquare))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 							BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
@@ -4613,53 +2396,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							allocatedNode2.moveCost = num2;
 							if (claimedSquares != null && flag3)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (allocatedNode2.square == dest)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int num3 = 1;
 									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
 									while (boardSquarePathInfo3 != null)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (claimedSquares.Contains(boardSquarePathInfo3.square))
 										{
 											num3++;
 											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
 											continue;
-										}
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										break;
 									}
@@ -4669,15 +2416,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							float squareSize = Board.Get().squareSize;
 							if (!flag2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
 							}
 							else
@@ -4705,27 +2443,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag7 = true;
 								if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
 									boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
 									boardSquarePathInfo4.prev = allocatedNode2.prev;
@@ -4735,28 +2455,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							}
 							if (!flag7)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(allocatedNode2);
 							}
 						}
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -4767,28 +2469,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						boardSquarePathInfo.prev.next = boardSquarePathInfo;
 						boardSquarePathInfo = boardSquarePathInfo.prev;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
 					normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				}
 				return boardSquarePathInfo;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return boardSquarePathInfo;
@@ -4799,19 +2483,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		object result;
 		if (m_curMoveState == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -4826,19 +2497,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare = null;
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquare = m_gameplayPath.square;
 		}
 		if (boardSquare == null)
@@ -4853,32 +2511,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result;
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_gameplayPath.prev != null)
 			{
 				result = m_gameplayPath.prev;
 				goto IL_0045;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		result = m_gameplayPath;
@@ -4892,19 +2528,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result;
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_gameplayPath.next != null)
 			{
 				result = m_gameplayPath.next;
@@ -4925,24 +2548,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					TheatricsManager.EncapsulatePathInBound(ref bound, m_gameplayPath, m_actor);
 					return;
 				}
@@ -4956,19 +2565,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_aestheticPath != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_aestheticPath.next == null) ? 1 : 0);
 		}
 		else
@@ -4988,19 +2584,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_gameplayPath != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_gameplayPath.next == null) ? 1 : 0);
 		}
 		else
@@ -5021,15 +2604,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			modelAnimator.SetBool(animDecisionPhase, true);
 			return;
 		}
@@ -5046,10 +2620,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -5075,15 +2645,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			if (boardSquarePathInfo.prev != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.prev.square != null)
 				{
 					Gizmos.DrawLine(boardSquarePathInfo.square.GetWorldPosition() + Vector3.up * num, boardSquarePathInfo.prev.square.GetWorldPosition() + Vector3.up * num);
@@ -5092,49 +2653,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Gizmos.color = Color.black;
 			for (BoardSquarePathInfo boardSquarePathInfo2 = m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
 			{
 				if (boardSquarePathInfo2.square != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.DrawSphere(boardSquarePathInfo2.square.GetWorldPosition(), 0.15f);
 				}
 				if (boardSquarePathInfo2.prev != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquarePathInfo2.prev.square != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Gizmos.DrawLine(boardSquarePathInfo2.square.GetWorldPosition(), boardSquarePathInfo2.prev.square.GetWorldPosition());
 					}
 				}
@@ -5144,11 +2673,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					Gizmos.color = Color.cyan;
 					Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
 					return;

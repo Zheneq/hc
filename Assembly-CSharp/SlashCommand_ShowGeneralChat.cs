@@ -27,15 +27,6 @@ public class SlashCommand_ShowGeneralChat : SlashCommand
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Options_UI.Get().SetShowGlobalChat(false);
 				message.Text = StringUtil.TR("GlobalChatHidden", "SlashCommand");
 				TextConsole.Get().Write(message);

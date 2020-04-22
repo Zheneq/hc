@@ -88,15 +88,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_dashTargetRangeMod, "DashTargetRange", string.Empty, nekoFlipDash.m_dashTargetRange);
 			AbilityMod.AddToken(tokens, m_maxDistanceFromTargetMod, "MaxDistanceFromTarget", string.Empty, nekoFlipDash.m_maxDistanceFromTarget);
 			AbilityMod.AddToken(tokens, m_minDistanceFromTargetMod, "MinDistanceFromTarget", string.Empty, nekoFlipDash.m_minDistanceFromTarget);
@@ -134,19 +125,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = nekoFlipDash.m_dashTargetRange;
 		}
 		else
@@ -159,15 +137,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (nekoFlipDash.m_canTargetDiscs ? 1 : 0);
 		}
 		else
@@ -180,15 +149,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (nekoFlipDash.m_canTargetEnemies ? 1 : 0);
 		}
 		else
@@ -202,15 +162,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nekoFlipDash.m_minDistanceFromTarget;
 		}
 		else
@@ -223,15 +174,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = nekoFlipDash.m_maxAngleChange;
 		}
 		else
@@ -245,15 +187,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nekoFlipDash.m_laserLength;
 		}
 		else
@@ -266,15 +199,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nekoFlipDash.m_aoeRadiusAtLaserEnd;
 		}
 		else
@@ -287,15 +211,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = nekoFlipDash.m_discReturnEndRadius;
 		}
 		else
@@ -308,15 +223,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = nekoFlipDash.m_chargeRadius;
 		}
 		else
@@ -329,15 +235,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = nekoFlipDash.m_chargeRadiusAtStart;
 		}
 		else
@@ -351,15 +248,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		float baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = nekoFlipDash.m_explosionRadiusAtTargetedDisc;
 		}
 		else
@@ -372,15 +260,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = (nekoFlipDash.m_continueToEndIfTargetEvades ? 1 : 0);
 		}
 		else
@@ -393,15 +272,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = (nekoFlipDash.m_leaveDiscAtStartSquare ? 1 : 0);
 		}
 		else
@@ -414,15 +284,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = (nekoFlipDash.m_throwDiscFromStart ? 1 : 0);
 		}
 		else
@@ -435,15 +296,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = (nekoFlipDash.m_canMoveAfterEvade ? 1 : 0);
 		}
 		else
@@ -456,15 +308,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal16;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = (nekoFlipDash.m_explodeTargetedDisc ? 1 : 0);
 		}
 		else
@@ -477,15 +320,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal17;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = nekoFlipDash.m_discMaxTargets;
 		}
 		else
@@ -498,15 +332,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		object baseVal18;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal18 = nekoFlipDash.m_effectOnSelf;
 		}
 		else
@@ -519,15 +344,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal19;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal19 = nekoFlipDash.m_damage;
 		}
 		else
@@ -540,15 +356,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal20;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal20 = nekoFlipDash.m_discDirectDamage;
 		}
 		else
@@ -562,15 +369,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal21;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal21 = nekoFlipDash.m_discReturnTripSubsequentHitDamage;
 		}
 		else
@@ -583,15 +381,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal22;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal22 = (nekoFlipDash.m_returnTripIgnoreCover ? 1 : 0);
 		}
 		else
@@ -604,15 +393,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		object baseVal23;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal23 = nekoFlipDash.m_enemyHitEffect;
 		}
 		else
@@ -625,15 +405,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal24;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal24 = nekoFlipDash.m_explodingTargetDiscDamage;
 		}
 		else
@@ -648,15 +419,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		int baseVal25;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal25 = nekoFlipDash.m_cdrOnEnlargeDiscIfCastSameTurn;
 		}
 		else

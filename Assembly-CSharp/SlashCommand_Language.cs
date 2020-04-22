@@ -22,10 +22,6 @@ public class SlashCommand_Language : SlashCommand
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						LocalizationManager.CurrentLanguage = arguments;
 						string text = $"Language changed to: {LocalizationManager.CurrentLanguage}";
 						TextConsole.Get().Write(text);

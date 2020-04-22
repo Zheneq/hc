@@ -28,19 +28,6 @@ public class QuestCondition
 		QuestCondition questCondition = obj as QuestCondition;
 		if (questCondition != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ConditionType == questCondition.ConditionType)
 			{
 				int result;
@@ -108,15 +95,6 @@ public class QuestCondition
 					int result2;
 					if (typeSpecificData == questCondition.typeSpecificData && typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result2 = ((typeSpecificData3 == questCondition.typeSpecificData3) ? 1 : 0);
 					}
 					else
@@ -131,15 +109,6 @@ public class QuestCondition
 				case QuestConditionType.HasUnlockedStyle:
 					if (typeSpecificData == questCondition.typeSpecificData && typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (typeSpecificData3 == questCondition.typeSpecificData3)
 						{
 							result = ((typeSpecificData4 == questCondition.typeSpecificData4) ? 1 : 0);
@@ -171,21 +140,11 @@ public class QuestCondition
 						}
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							return false;
 						}
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
 				}
@@ -196,15 +155,6 @@ public class QuestCondition
 					IL_021d:
 					return (byte)result != 0;
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

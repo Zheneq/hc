@@ -85,15 +85,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_superheatActionType = m_abilityData.GetActionTypeOfAbility(m_superheatAbility);
 			return;
 		}
@@ -116,38 +107,16 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = false;
 					int currentTurn = GameFlowData.Get().CurrentTurn;
 					int superheatDuration = m_superheatAbility.GetSuperheatDuration();
 					if (m_superheatLastCastTurn > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (currentTurn < m_superheatLastCastTurn + superheatDuration);
 					}
 					int result;
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (m_abilityData.HasQueuedAction(m_superheatActionType) ? 1 : 0);
 					}
 					else
@@ -176,27 +145,9 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (InSuperheatMode())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_groundFireDamageSuperheated;
 			}
 			else
@@ -208,11 +159,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					results.m_damage += num2;
 					return;
 				}
@@ -228,19 +174,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 			int num;
 			if (InSuperheatMode())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_groundFireDamageSuperheated;
 			}
 			else
@@ -280,10 +213,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_actorsInGroundFireOnTurnStart called on server.");
 					return;
 				}
@@ -308,10 +237,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_superheatLastCastTurn);
 					SyncListUInt.WriteInstance(writer, m_actorsInGroundFireOnTurnStart);
 					return true;
@@ -321,15 +246,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -339,26 +255,8 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -382,10 +280,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_superheatLastCastTurn = (int)reader.ReadPackedUInt32();
 					SyncListUInt.ReadReference(reader, m_actorsInGroundFireOnTurnStart);
 					return;
@@ -395,15 +289,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_superheatLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) == 0)
@@ -412,11 +297,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SyncListUInt.ReadReference(reader, m_actorsInGroundFireOnTurnStart);
 			return;
 		}

@@ -28,10 +28,6 @@ public class UIQueuedCardButton : UIBaseButton
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerDown, OnPointerDown);
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerClick, OnPointerClick);
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
@@ -73,15 +69,6 @@ public class UIQueuedCardButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 			ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 			if (m_abilityEntry != null)
@@ -120,46 +107,22 @@ public class UIQueuedCardButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SinglePlayerManager.IsCancelDisabled())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.IsAnimCancelPlaying())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_isLockedIn)
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							m_parentReference.CardCanceled();
 							return;
 						}
@@ -179,30 +142,8 @@ public class UIQueuedCardButton : UIBaseButton
 		m_parentReference = reference;
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityEntry.ability != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_theSprite, true);
 				m_theSprite.sprite = m_abilityEntry.ability.sprite;
 				goto IL_00d2;
@@ -227,15 +168,6 @@ public class UIQueuedCardButton : UIBaseButton
 			int doActive;
 			if (i == num)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = ((num != -1) ? 1 : 0);
 			}
 			else

@@ -20,15 +20,6 @@ public class ArcherHealingReactionSequence : SimpleAttachedVFXOnTargetSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = base.Caster.GetComponent<Archer_SyncComponent>();
 			return;
 		}
@@ -43,15 +34,6 @@ public class ArcherHealingReactionSequence : SimpleAttachedVFXOnTargetSequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (!(activeOwnedActorData != null))
 			{
@@ -59,51 +41,19 @@ public class ArcherHealingReactionSequence : SimpleAttachedVFXOnTargetSequence
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_syncComp != null))
 				{
 					return;
 				}
 				if (!m_switchedToUsedUpFx && m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SwitchFxTo(m_usedUpFxPrefab);
 					m_switchedToUsedUpFx = true;
 				}
 				else if (m_switchedToUsedUpFx)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != m_activeClientActor && !m_syncComp.ActorShouldSwapVfxForHealReaction(activeOwnedActorData))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SwitchFxTo(m_fxPrefab);
 						m_switchedToUsedUpFx = false;
 					}

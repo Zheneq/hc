@@ -11,19 +11,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				TextConsole.Get().Write(new TextConsole.Message
@@ -38,31 +25,9 @@ public class SlashCommand_GroupInvite : SlashCommand
 						string text;
 						if (r.LocalizedFailure != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							int num;
 							if (ClientGameManager.Get().GroupInfo != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = (ClientGameManager.Get().GroupInfo.InAGroup ? 1 : 0);
 							}
 							else
@@ -89,19 +54,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 											string friendHandle = arguments;
 											if (_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache1 == null)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (1 == 0)
-												{
-													/*OpCode not supported: LdMemberToken*/;
-												}
 												_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache1 = delegate(GroupJoinResponse response)
 												{
 													if (response.Success)
@@ -113,10 +65,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 															case 0:
 																break;
 															default:
-																if (1 == 0)
-																{
-																	/*OpCode not supported: LdMemberToken*/;
-																}
 																return;
 															}
 														}
@@ -128,15 +76,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 													}
 													else if (!response.ErrorMessage.IsNullOrEmpty())
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														text2 = $"Failed: {response.ErrorMessage}#NeedsLocalization";
 													}
 													else
@@ -154,15 +93,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 										};
 										if (_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache0 == null)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache0 = delegate
 											{
 											};
@@ -177,15 +107,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 						}
 						else if (!r.ErrorMessage.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = $"Failed: {r.ErrorMessage}#NeedsLocalization";
 						}
 						else
@@ -200,15 +121,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 					}
 				});
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

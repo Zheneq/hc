@@ -30,45 +30,14 @@ public class ClientMovementResults
 		m_gameModeResults = gameModeResults;
 		if (m_effectResults != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_effectResults.MarkActorHitsAsMovementHits();
 		}
 		if (m_barrierResults != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_barrierResults.MarkActorHitsAsMovementHits();
 		}
 		if (m_powerupResults != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_powerupResults.MarkActorHitsAsMovementHits();
 		}
 		if (m_gameModeResults != null)
@@ -93,10 +62,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -115,10 +80,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -140,15 +101,6 @@ public class ClientMovementResults
 		{
 			if (seqStartData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (seqStartData.HasSequencePrefab())
 				{
 					while (true)
@@ -171,34 +123,12 @@ public class ClientMovementResults
 	{
 		if (HasSequencesToStart())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					ServerClientUtils.SequenceStartData current = enumerator.Current;
 					current.CreateSequencesFromData(OnMoveResultsHitActor, OnMoveResultsHitPosition);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -210,54 +140,18 @@ public class ClientMovementResults
 			}
 			if (m_effectResults != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_effectResults.RunClientEffectHits();
 			}
 			else if (m_barrierResults != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_barrierResults.RunClientBarrierHits();
 			}
 			else if (m_powerupResults != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_powerupResults.RunClientAbilityHits();
 			}
 			else if (m_gameModeResults != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_gameModeResults.RunClientAbilityHits();
 			}
 		}
@@ -275,10 +169,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_effectResults.OnEffectHitActor(target);
 					return;
 				}
@@ -309,11 +199,6 @@ public class ClientMovementResults
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_gameModeResults.OnAbilityHitActor(target);
 			return;
 		}
@@ -335,10 +220,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_barrierResults.OnBarrierHitPosition(position);
 					return;
 				}
@@ -364,11 +245,6 @@ public class ClientMovementResults
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_gameModeResults.OnAbilityHitPosition(position);
 			return;
 		}
@@ -385,10 +261,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_effectResults.DoneHitting();
 				}
 			}
@@ -432,58 +304,18 @@ public class ClientMovementResults
 		bool result = false;
 		if (m_effectResults != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_effectResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (m_barrierResults != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_barrierResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (m_powerupResults != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_powerupResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (m_gameModeResults != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_gameModeResults.HasUnexecutedHitOnActor(actor);
 		}
 		return result;
@@ -519,19 +351,6 @@ public class ClientMovementResults
 		bool result = false;
 		if (m_seqStartDataList != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -539,29 +358,11 @@ public class ClientMovementResults
 				{
 					if (m_seqStartDataList[num].ContainsSequenceSourceID(id))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -578,32 +379,10 @@ public class ClientMovementResults
 		}
 		else if (m_barrierResults != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = m_barrierResults.GetDebugDescription();
 		}
 		else if (m_powerupResults != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = m_powerupResults.GetDebugDescription();
 		}
 		else if (m_gameModeResults != null)
@@ -624,10 +403,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_effectResults.ExecuteUnexecutedClientHits();
 					return;
 				}
@@ -667,11 +442,6 @@ public class ClientMovementResults
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_gameModeResults.ExecuteUnexecutedClientHits();
 			return;
 		}
@@ -693,10 +463,6 @@ public class ClientMovementResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_barrierResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 					return;
 				}
@@ -722,11 +488,6 @@ public class ClientMovementResults
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_gameModeResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 			return;
 		}
@@ -737,19 +498,6 @@ public class ClientMovementResults
 		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + m_triggeringMover.GetDebugName() + "\n";
 		if (m_effectResults != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += m_effectResults.UnexecutedHitsDebugStr();
 		}
 		else if (m_barrierResults != null)
@@ -758,28 +506,10 @@ public class ClientMovementResults
 		}
 		else if (m_powerupResults != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += m_powerupResults.UnexecutedHitsDebugStr();
 		}
 		else if (m_gameModeResults != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += m_gameModeResults.UnexecutedHitsDebugStr();
 		}
 		return text;

@@ -16,10 +16,6 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
 					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 					GameBalanceVars.TauntUnlockData[] tauntUnlockData = gameBalanceVars.GetCharacterUnlockData(m_charType).tauntUnlockData;
@@ -54,19 +50,6 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 					return true;
 				}
 				return false;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;

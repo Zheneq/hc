@@ -30,19 +30,6 @@ public class SpaceMarineJetpack : Ability
 		SetCachedFields();
 		if (base.Targeter == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Targeter = new AbilityUtil_Targeter_Jetpack(this, m_landingShape, m_penetrateLineOfSight);
 		}
 		AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack = base.Targeter as AbilityUtil_Targeter_Jetpack;
@@ -52,36 +39,13 @@ public class SpaceMarineJetpack : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			int num;
 			if (!HasAbsorbOnCasterPerEnemyHit())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GetEffectOnSelf().m_applyEffect)
 				{
 					if (m_abilityMod != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (m_abilityMod.m_effectToSelfOnCast.m_applyEffect ? 1 : 0);
 					}
 					else
@@ -97,15 +61,6 @@ public class SpaceMarineJetpack : Ability
 			int affectsCaster;
 			if (num != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				affectsCaster = 2;
 			}
 			else
@@ -122,19 +77,6 @@ public class SpaceMarineJetpack : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -149,19 +91,6 @@ public class SpaceMarineJetpack : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -176,19 +105,6 @@ public class SpaceMarineJetpack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damage;
 		}
 		else
@@ -203,19 +119,6 @@ public class SpaceMarineJetpack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -230,30 +133,8 @@ public class SpaceMarineJetpack : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_effectOnCasterPerEnemyHit.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount > 0) ? 1 : 0);
 				goto IL_005a;
 			}
@@ -269,19 +150,6 @@ public class SpaceMarineJetpack : Ability
 		StandardActorEffectData standardActorEffectData = null;
 		if (m_applyDebuffs)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardActorEffectData = m_debuffData;
 		}
 		if (m_abilityMod != null)
@@ -316,19 +184,6 @@ public class SpaceMarineJetpack : Ability
 		GetEffectOnEnemies()?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
 		}
 		else
@@ -344,19 +199,6 @@ public class SpaceMarineJetpack : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
 			int num = actorsInRange.Count - 1;
@@ -371,19 +213,6 @@ public class SpaceMarineJetpack : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SpaceMarineJetpack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_SpaceMarineJetpack.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -395,15 +224,6 @@ public class SpaceMarineJetpack : Ability
 		int val;
 		if ((bool)abilityMod_SpaceMarineJetpack)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_SpaceMarineJetpack.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -430,10 +250,6 @@ public class SpaceMarineJetpack : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SpaceMarineJetpack);
 					SetupTargeter();
 					return;

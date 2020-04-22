@@ -38,19 +38,6 @@ public class UIRankingDisplayEntry : IDataEntry
 		int inMasterOrContender;
 		if (entry.Tier != 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			inMasterOrContender = ((entry.Tier == 2) ? 1 : 0);
 		}
 		else
@@ -72,48 +59,12 @@ public class UIRankingDisplayEntry : IDataEntry
 		TimeSpan rankedLeaderboardExpirationTime = GameManager.Get().GameplayOverrides.RankedLeaderboardExpirationTime;
 		if (entry.Tier != -1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (entry.YesterdaysTier != -1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (entry.TierPoints >= 0f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (entry.YesterdaysPoints >= 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (t < rankedLeaderboardExpirationTime)
 						{
 							while (true)
@@ -153,30 +104,12 @@ public class UIRankingDisplayEntry : IDataEntry
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TimeSpan difference = ClientGameManager.Get().UtcNow() - LastMatch;
 			string timeDifferenceText = StringUtil.GetTimeDifferenceText(difference);
 			timeDifferenceText = string.Format(StringUtil.TR("MatchTimeDifference", "Global"), timeDifferenceText);
 			component.LastMatchText.text = timeDifferenceText;
 			if (StreakLength > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.StreakText.text = StreakLength.ToString();
 			}
 			else
@@ -198,15 +131,6 @@ public class UIRankingDisplayEntry : IDataEntry
 			{
 				if (InMasterOrContender)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.RankText.text = StringUtil.GetLocalizedFloat(TierPoints, "####.#");
 				}
 				else
@@ -215,26 +139,8 @@ public class UIRankingDisplayEntry : IDataEntry
 				}
 				if (Change > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.ChangeText.text = $"<sprite={6}>{Change}";
 					}
 					else
@@ -244,15 +150,6 @@ public class UIRankingDisplayEntry : IDataEntry
 				}
 				else if (Change < 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
 						component.ChangeText.text = $"<sprite={7}>{Change}";
@@ -271,11 +168,6 @@ public class UIRankingDisplayEntry : IDataEntry
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (component.m_theBtn.spriteController.gameObject.GetComponent<_MouseEventPasser>() == null)
 				{
 					_MouseEventPasser mouseEventPasser = component.m_theBtn.spriteController.gameObject.AddComponent<_MouseEventPasser>();

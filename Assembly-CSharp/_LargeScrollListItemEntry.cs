@@ -22,19 +22,6 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 			}
 			if (m_overrideDataEntryInterface == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_overrideDataEntryInterface = (monoBehaviour as IUIDataEntry);
 			}
 			else
@@ -68,15 +55,6 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, m_isVisible);
 			return;
 		}

@@ -14,19 +14,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num;
 			if (m_segmentData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_segmentData.Count;
 			}
 			else
@@ -42,15 +29,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num2;
 			if (m_hitActors != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = m_hitActors.Count;
 			}
 			else
@@ -88,15 +66,6 @@ public class GrydCardinalBombSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				sbyte value2 = 0;
 				stream.Serialize(ref value2);
 				m_hitActors = new List<HitActorEntry>();
@@ -141,19 +110,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num;
 			if (entry.m_startSquare != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = entry.m_startSquare.x;
 			}
 			else
@@ -164,15 +120,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num2;
 			if (entry.m_startSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = entry.m_startSquare.y;
 			}
 			else
@@ -183,15 +130,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num3;
 			if (entry.m_endSquare != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = entry.m_endSquare.x;
 			}
 			else
@@ -202,15 +140,6 @@ public class GrydCardinalBombSequence : Sequence
 			int num4;
 			if (entry.m_endSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = entry.m_endSquare.y;
 			}
 			else
@@ -295,27 +224,9 @@ public class GrydCardinalBombSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SegmentExtraParams segmentExtraParams = extraSequenceParams as SegmentExtraParams;
 				if (segmentExtraParams.m_segmentData != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<SegmentDataEntry>.Enumerator enumerator = segmentExtraParams.m_segmentData.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -323,52 +234,16 @@ public class GrydCardinalBombSequence : Sequence
 							SegmentDataEntry current = enumerator.Current;
 							if (current.m_startSquare != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.m_endSquare != null && current.m_startSquare != current.m_endSquare)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_segmentData.Add(current);
 									continue;
 								}
 							}
 							if (Application.isEditor)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Debug.LogError(base.name + " has bad segment data for projectile");
 							}
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -376,11 +251,6 @@ public class GrydCardinalBombSequence : Sequence
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						using (List<HitActorEntry>.Enumerator enumerator2 = segmentExtraParams.m_hitActors.GetEnumerator())
 						{
 							while (enumerator2.MoveNext())
@@ -391,15 +261,6 @@ public class GrydCardinalBombSequence : Sequence
 								ActorData item = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 								if (!m_indexToHitActors.ContainsKey(key))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_indexToHitActors[key] = new List<ActorData>();
 								}
 								m_indexToHitActors[key].Add(item);
@@ -438,19 +299,6 @@ public class GrydCardinalBombSequence : Sequence
 		{
 			if (projectContainer != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				projectContainer.OnSequenceDisable();
 			}
 		}
@@ -465,15 +313,6 @@ public class GrydCardinalBombSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startedInitialProjectile = true;
 			if (m_initiatingProjectileInfo.m_fxPrefab != null)
 			{
@@ -495,15 +334,6 @@ public class GrydCardinalBombSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startedInitialProjectile = true;
 			if (m_initiatingProjectileInfo.m_fxPrefab != null)
 			{
@@ -533,55 +363,15 @@ public class GrydCardinalBombSequence : Sequence
 		}
 		if (m_initialProjectileContainer != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_initialProjectileContainer.OnUpdate();
 		}
 		if (!m_startedGroundProjectile)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_initialProjectileContainer != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_initialProjectileContainer.m_finished)
 				{
 					goto IL_0083;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			StartGroundProjectileChain();
@@ -598,52 +388,16 @@ public class GrydCardinalBombSequence : Sequence
 			SegmentDataEntry segmentDataEntry = m_segmentData[i];
 			if (!segmentDataEntry.m_markedChildrenToStart)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (segmentDataEntry.m_projectileContainer != null && segmentDataEntry.m_projectileContainer.m_finished)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StartChildrenProjectile(segmentDataEntry);
 				}
 			}
 			if (segmentDataEntry.m_projectileContainer != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (segmentDataEntry.m_projectileContainer.m_finished)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = true;
@@ -654,20 +408,10 @@ public class GrydCardinalBombSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!flag)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					base.Source.OnSequenceHit(this, base.TargetPos);
 					m_didFinalPosHit = true;
 					return;
@@ -685,29 +429,11 @@ public class GrydCardinalBombSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_initiatingProjectileInfo.m_jointReferenceType);
 			Vector3 startPos = base.Caster.GetTravelBoardSquareWorldPosition();
 			Vector3 targetPos = base.TargetPos;
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_initiatingProjectileInfo.m_fxJoint.Initialize(referenceModel);
 				startPos = m_initiatingProjectileInfo.m_fxJoint.m_jointObject.transform.position;
 			}
@@ -725,40 +451,13 @@ public class GrydCardinalBombSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_segmentData[i].m_prevSegmentIndex < 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnProjectileForSegment(m_segmentData[i]);
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_startedGroundProjectile = true;
 			return;
 		}
@@ -773,40 +472,13 @@ public class GrydCardinalBombSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (segmentDataEntry.m_prevSegmentIndex == parentSegment.m_segmentIndex)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnProjectileForSegment(segmentDataEntry);
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			parentSegment.m_markedChildrenToStart = true;
 			return;
 		}

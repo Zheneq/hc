@@ -19,19 +19,6 @@ namespace AbilityContextNamespace
 		{
 			if (_001D == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Trying to add null actor");
 			}
 			if (!this._000E.ContainsKey(_001D))
@@ -48,11 +35,6 @@ namespace AbilityContextNamespace
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Log.Warning("TargetSelect context: trying to add actor more than once");
 					return;
 				}
@@ -70,10 +52,6 @@ namespace AbilityContextNamespace
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						this._000E[_001D]._0015.SetInt(_000E, _0012);
 						return;
 					}
@@ -96,10 +74,6 @@ namespace AbilityContextNamespace
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						this._000E[_001D]._0015.SetFloat(_000E, _0012);
 						return;
 					}
@@ -111,11 +85,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				Log.Warning("Setting context for actor we didn't track");
 				return;
 			}
@@ -132,10 +101,6 @@ namespace AbilityContextNamespace
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						this._000E[_001D]._0015.SetVector(_000E, _0012);
 						return;
 					}
@@ -147,11 +112,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				Log.Warning("Setting context for actor we didn't track");
 				return;
 			}

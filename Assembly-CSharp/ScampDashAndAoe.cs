@@ -43,19 +43,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (m_shieldDownTargetSelect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -86,19 +73,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 				collection = m_shieldDownTargetSelect.CreateTargeters(this);
 				goto IL_004a;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		collection = m_targetSelectComp.CreateTargeters(this);
 		goto IL_004a;
@@ -116,19 +90,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDownCooldownMod.GetModifiedValue(m_shieldDownCooldown);
 		}
 		else
@@ -143,19 +104,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnSuitApplyMod.GetModifiedValue(m_cdrOnSuitApply);
 		}
 		else
@@ -170,19 +118,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDownNoCooldownHealthThreshMod.GetModifiedValue(m_shieldDownNoCooldownHealthThresh);
 		}
 		else
@@ -197,19 +132,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraEnergyForDashOnOrbMod.GetModifiedValue(m_extraEnergyForDashOnOrb);
 		}
 		else
@@ -235,19 +157,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
@@ -268,10 +177,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetTargetSelectComp();
 				}
 			}
@@ -288,19 +193,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (m_cachedShieldDownOnHitData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedShieldDownOnHitData;
 		}
 		else
@@ -314,31 +206,9 @@ public class ScampDashAndAoe : GenericAbility_Container
 	{
 		if (!IsInSuit())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetShieldDownCooldown() >= 0)
 			{
 				return GetShieldDownCooldown();
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetBaseCooldown();
@@ -349,19 +219,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int num;
 		if (inSuit)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_cooldown;
 		}
 		else
@@ -387,10 +244,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return MovementAdjustment.ReducedMovement;
 				}
 			}
@@ -403,19 +256,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (!IsInSuit())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_shieldDownAllowMoveAfterEvade ? 1 : 0);
 		}
 		else
@@ -446,10 +286,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_targetSelectComp.SetTargetSelectMod(m_abilityMod.m_inSuitTargetSelectMod);
 					m_shieldDownTargetSelect.SetTargetSelectMod(m_abilityMod.m_shieldDownTargetSelectMod);
 					return;

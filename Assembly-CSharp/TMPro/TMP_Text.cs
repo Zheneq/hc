@@ -511,10 +511,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -546,10 +542,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -601,10 +593,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -643,19 +631,6 @@ namespace TMPro
 			{
 				if (m_sharedMaterial != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
 					{
 						while (true)
@@ -712,10 +687,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -760,10 +731,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -836,10 +803,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -867,10 +830,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -894,10 +853,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return m_faceColor;
 						}
 					}
@@ -916,10 +871,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -954,10 +905,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -982,10 +929,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return m_outlineWidth;
 						}
 					}
@@ -1022,10 +965,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1061,10 +1000,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1090,10 +1025,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return 1f;
 						}
 					}
@@ -1113,38 +1044,11 @@ namespace TMPro
 				}
 				if (!(m_currentFontAsset == null))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_currentFontAsset.fontInfo.PointSize <= 0f))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(m_fontSize <= 0f))
 						{
 							return m_fontSize / m_currentFontAsset.fontInfo.PointSize;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1169,10 +1073,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1217,10 +1117,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1248,10 +1144,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1283,10 +1175,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1314,10 +1202,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1347,10 +1231,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1399,10 +1279,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1432,10 +1308,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1484,10 +1356,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1518,10 +1386,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1551,10 +1415,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1580,10 +1440,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
@@ -1604,30 +1460,8 @@ namespace TMPro
 			{
 				if (m_linkedTextComponent != value)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_linkedTextComponent != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_linkedTextComponent.overflowMode = TextOverflowModes.Overflow;
 						m_linkedTextComponent.linkedTextComponent = null;
 						m_linkedTextComponent.isLinkedTextComponent = false;
@@ -1684,10 +1518,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1717,10 +1547,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1769,10 +1595,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1821,10 +1643,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1852,10 +1670,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1883,10 +1697,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1929,10 +1739,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1960,10 +1766,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2008,10 +1810,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2052,10 +1850,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2083,10 +1877,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2114,10 +1904,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2163,10 +1949,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2194,10 +1976,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2225,10 +2003,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -2289,19 +2063,6 @@ namespace TMPro
 			{
 				if (m_rectTransform == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_rectTransform = GetComponent<RectTransform>();
 				}
 				return m_rectTransform;
@@ -2393,19 +2154,6 @@ namespace TMPro
 			{
 				if (m_LayoutElement == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_LayoutElement = GetComponent<LayoutElement>();
 				}
 				return m_LayoutElement;
@@ -2494,10 +2242,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -2660,44 +2404,13 @@ namespace TMPro
 				char c = text[i];
 				if (c == '{')
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (text[i + 2] == ':')
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						precision = text[i + 3] - 48;
 					}
 					int num = text[i + 1] - 48;
 					if (num != 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						switch (num)
 						{
 						case 1:
@@ -2714,15 +2427,6 @@ namespace TMPro
 					}
 					if (text[i + 2] == ':')
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						i += 4;
 					}
 					else
@@ -2772,25 +2476,12 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
 			}
 			if (m_char_buffer == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_char_buffer = new int[8];
 			}
 			m_styleStack.Clear();
@@ -2799,15 +2490,6 @@ namespace TMPro
 			{
 				if (sourceText[i] == '\\')
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i < sourceText.Length - 1)
 					{
 						int num = sourceText[i + 1];
@@ -2815,15 +2497,6 @@ namespace TMPro
 						{
 							if (writeIndex == m_char_buffer.Length)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref m_char_buffer);
 							}
 							m_char_buffer[writeIndex] = 10;
@@ -2831,28 +2504,10 @@ namespace TMPro
 							writeIndex++;
 							continue;
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 114)
 						{
 							if (writeIndex == m_char_buffer.Length)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref m_char_buffer);
 							}
 							m_char_buffer[writeIndex] = 13;
@@ -2860,28 +2515,10 @@ namespace TMPro
 							writeIndex++;
 							continue;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 116)
 						{
 							if (writeIndex == m_char_buffer.Length)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref m_char_buffer);
 							}
 							m_char_buffer[writeIndex] = 9;
@@ -2889,39 +2526,12 @@ namespace TMPro
 							writeIndex++;
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				if (sourceText[i] == '<')
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsTagName(ref sourceText, "<BR>", i))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (writeIndex == m_char_buffer.Length)
 						{
 							ResizeInternalArray(ref m_char_buffer);
@@ -2933,27 +2543,9 @@ namespace TMPro
 					}
 					if (IsTagName(ref sourceText, "<STYLE=", i))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int srcOffset = 0;
 						if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref m_char_buffer, ref writeIndex))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = srcOffset;
 							continue;
 						}
@@ -2967,15 +2559,6 @@ namespace TMPro
 				}
 				if (writeIndex == m_char_buffer.Length)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref m_char_buffer);
 				}
 				m_char_buffer[writeIndex] = sourceText[i];
@@ -2983,22 +2566,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (writeIndex == m_char_buffer.Length)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref m_char_buffer);
 				}
 				m_char_buffer[writeIndex] = 0;
@@ -3020,26 +2589,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (sourceText.Length == 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (length == 0)
 					{
 						while (true)
@@ -3064,41 +2619,14 @@ namespace TMPro
 					{
 						if (sourceText[i] == '\\')
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i < length - 1)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2 = sourceText[i + 1];
 								switch (num2)
 								{
 								case 110:
 									if (writeIndex == m_char_buffer.Length)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeInternalArray(ref m_char_buffer);
 									}
 									m_char_buffer[writeIndex] = 10;
@@ -3108,30 +2636,12 @@ namespace TMPro
 								case 114:
 									if (writeIndex == m_char_buffer.Length)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeInternalArray(ref m_char_buffer);
 									}
 									m_char_buffer[writeIndex] = 13;
 									i++;
 									writeIndex++;
 									continue;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (num2 == 116)
 								{
@@ -3148,37 +2658,10 @@ namespace TMPro
 						}
 						if (sourceText[i] == '<')
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref sourceText, "<BR>", i))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == m_char_buffer.Length)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref m_char_buffer);
 								}
 								m_char_buffer[writeIndex] = 10;
@@ -3188,42 +2671,15 @@ namespace TMPro
 							}
 							if (IsTagName(ref sourceText, "<STYLE=", i))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int srcOffset = 0;
 								if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref m_char_buffer, ref writeIndex))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = srcOffset;
 									continue;
 								}
 							}
 							else if (IsTagName(ref sourceText, "</STYLE>", i))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ReplaceClosingStyleTag(ref sourceText, i, ref m_char_buffer, ref writeIndex);
 								i += 7;
 								continue;
@@ -3231,15 +2687,6 @@ namespace TMPro
 						}
 						if (writeIndex == m_char_buffer.Length)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref m_char_buffer);
 						}
 						m_char_buffer[writeIndex] = sourceText[i];
@@ -3247,15 +2694,6 @@ namespace TMPro
 					}
 					if (writeIndex == m_char_buffer.Length)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ResizeInternalArray(ref m_char_buffer);
 					}
 					m_char_buffer[writeIndex] = 0;
@@ -3278,41 +2716,18 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (sourceText.Length == 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (length == 0)
 					{
 						return;
 					}
 					if (m_char_buffer == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_char_buffer = new int[8];
 					}
 					m_styleStack.Clear();
@@ -3322,40 +2737,13 @@ namespace TMPro
 					{
 						if (sourceText[i] == 92)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i < length - 1)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2 = sourceText[i + 1];
 								if (num2 == 110)
 								{
 									if (writeIndex == m_char_buffer.Length)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeInternalArray(ref m_char_buffer);
 									}
 									m_char_buffer[writeIndex] = 10;
@@ -3363,43 +2751,16 @@ namespace TMPro
 									writeIndex++;
 									continue;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num2 == 114)
 								{
 									if (writeIndex == m_char_buffer.Length)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeInternalArray(ref m_char_buffer);
 									}
 									m_char_buffer[writeIndex] = 13;
 									i++;
 									writeIndex++;
 									continue;
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (num2 == 116)
 								{
@@ -3412,41 +2773,14 @@ namespace TMPro
 									writeIndex++;
 									continue;
 								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 						if (sourceText[i] == 60)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref sourceText, "<BR>", i))
 							{
 								if (writeIndex == m_char_buffer.Length)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref m_char_buffer);
 								}
 								m_char_buffer[writeIndex] = 10;
@@ -3459,15 +2793,6 @@ namespace TMPro
 								int srcOffset = 0;
 								if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref m_char_buffer, ref writeIndex))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = srcOffset;
 									continue;
 								}
@@ -3488,22 +2813,8 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						if (writeIndex == m_char_buffer.Length)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref m_char_buffer);
 						}
 						m_char_buffer[writeIndex] = 0;
@@ -3527,15 +2838,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_charArray_Length == 0)
 				{
 					while (true)
@@ -3551,15 +2853,6 @@ namespace TMPro
 				}
 				if (charBuffer == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					charBuffer = new int[8];
 				}
 				m_styleStack.Clear();
@@ -3568,28 +2861,10 @@ namespace TMPro
 				{
 					if (char.IsHighSurrogate(sourceText[i]))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsLowSurrogate(sourceText[i + 1]))
 						{
 							if (writeIndex == charBuffer.Length)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref charBuffer);
 							}
 							charBuffer[writeIndex] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -3600,37 +2875,10 @@ namespace TMPro
 					}
 					if (sourceText[i] == '<')
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (IsTagName(ref sourceText, "<BR>", i))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref charBuffer);
 							}
 							charBuffer[writeIndex] = 10;
@@ -3640,42 +2888,15 @@ namespace TMPro
 						}
 						if (IsTagName(ref sourceText, "<STYLE=", i))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int srcOffset = 0;
 							if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref charBuffer, ref writeIndex))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								i = srcOffset;
 								continue;
 							}
 						}
 						else if (IsTagName(ref sourceText, "</STYLE>", i))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ReplaceClosingStyleTag(ref sourceText, i, ref charBuffer, ref writeIndex);
 							i += 7;
 							continue;
@@ -3683,15 +2904,6 @@ namespace TMPro
 					}
 					if (writeIndex == charBuffer.Length)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ResizeInternalArray(ref charBuffer);
 					}
 					charBuffer[writeIndex] = sourceText[i];
@@ -3699,22 +2911,8 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (writeIndex == charBuffer.Length)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ResizeInternalArray(ref charBuffer);
 					}
 					charBuffer[writeIndex] = 0;
@@ -3734,10 +2932,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						charBuffer[0] = 0;
 						return;
 					}
@@ -3753,76 +2947,22 @@ namespace TMPro
 			{
 				if (m_inputSource == TextInputSources.Text && sourceText[i] == '\\')
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sourceText.Length > i + 1)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = sourceText[i + 1];
 						switch (num)
 						{
 						default:
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num != 110)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (!m_parseCtrlCharacters)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (writeIndex == charBuffer.Length)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref charBuffer);
 							}
 							charBuffer[writeIndex] = 10;
@@ -3836,15 +2976,6 @@ namespace TMPro
 							}
 							if (writeIndex == charBuffer.Length)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref charBuffer);
 							}
 							charBuffer[writeIndex] = GetUTF32(i + 2);
@@ -3854,28 +2985,10 @@ namespace TMPro
 						case 92:
 							if (!m_parseCtrlCharacters)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (sourceText.Length <= i + 2)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (writeIndex + 2 > charBuffer.Length)
@@ -3890,15 +3003,6 @@ namespace TMPro
 						case 114:
 							if (!m_parseCtrlCharacters)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (writeIndex == charBuffer.Length)
@@ -3912,15 +3016,6 @@ namespace TMPro
 						case 116:
 							if (!m_parseCtrlCharacters)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (writeIndex == charBuffer.Length)
@@ -3936,26 +3031,8 @@ namespace TMPro
 							{
 								break;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ResizeInternalArray(ref charBuffer);
 							}
 							charBuffer[writeIndex] = (ushort)GetUTF16(i + 2);
@@ -3967,37 +3044,10 @@ namespace TMPro
 				}
 				if (char.IsHighSurrogate(sourceText[i]))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (char.IsLowSurrogate(sourceText[i + 1]))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -4008,28 +3058,10 @@ namespace TMPro
 				}
 				if (sourceText[i] == '<')
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_isRichText)
 					{
 						if (IsTagName(ref sourceText, "<BR>", i))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
 								ResizeInternalArray(ref charBuffer);
@@ -4041,42 +3073,15 @@ namespace TMPro
 						}
 						if (IsTagName(ref sourceText, "<STYLE=", i))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int srcOffset = 0;
 							if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref charBuffer, ref writeIndex))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								i = srcOffset;
 								continue;
 							}
 						}
 						else if (IsTagName(ref sourceText, "</STYLE>", i))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ReplaceClosingStyleTag(ref sourceText, i, ref charBuffer, ref writeIndex);
 							i += 7;
 							continue;
@@ -4085,15 +3090,6 @@ namespace TMPro
 				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = sourceText[i];
@@ -4101,22 +3097,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = 0;
@@ -4135,10 +3117,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						charBuffer[0] = 0;
 						return;
 					}
@@ -4146,15 +3124,6 @@ namespace TMPro
 			}
 			if (charBuffer == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				charBuffer = new int[8];
 			}
 			m_styleStack.Clear();
@@ -4163,68 +3132,23 @@ namespace TMPro
 			{
 				if (m_parseCtrlCharacters)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sourceText[i] == '\\')
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (sourceText.Length > i + 1)
 						{
 							int num = sourceText[i + 1];
 							switch (num)
 							{
 							default:
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								switch (num)
 								{
 								case 92:
 									if (sourceText.Length <= i + 2)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									if (writeIndex + 2 > charBuffer.Length)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeInternalArray(ref charBuffer);
 									}
 									charBuffer[writeIndex] = sourceText[i + 1];
@@ -4248,26 +3172,8 @@ namespace TMPro
 								{
 									break;
 								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == charBuffer.Length)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref charBuffer);
 								}
 								charBuffer[writeIndex] = GetUTF32(i + 2);
@@ -4286,15 +3192,6 @@ namespace TMPro
 							case 116:
 								if (writeIndex == charBuffer.Length)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref charBuffer);
 								}
 								charBuffer[writeIndex] = 9;
@@ -4308,15 +3205,6 @@ namespace TMPro
 								}
 								if (writeIndex == charBuffer.Length)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref charBuffer);
 								}
 								charBuffer[writeIndex] = (ushort)GetUTF16(i + 2);
@@ -4329,28 +3217,10 @@ namespace TMPro
 				}
 				if (char.IsHighSurrogate(sourceText[i]))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (char.IsLowSurrogate(sourceText[i + 1]))
 					{
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -4361,37 +3231,10 @@ namespace TMPro
 				}
 				if (sourceText[i] == '<')
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsTagName(ref sourceText, "<BR>", i))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = 10;
@@ -4401,15 +3244,6 @@ namespace TMPro
 					}
 					if (IsTagName(ref sourceText, "<STYLE=", i))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int srcOffset = 0;
 						if (ReplaceOpeningStyleTag(ref sourceText, i, out srcOffset, ref charBuffer, ref writeIndex))
 						{
@@ -4426,15 +3260,6 @@ namespace TMPro
 				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = sourceText[i];
@@ -4442,22 +3267,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = 0;
@@ -4481,26 +3292,8 @@ namespace TMPro
 						int num2 = text[i];
 						if (num2 == 60)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref text, "<BR>", i))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == charBuffer.Length)
 								{
 									ResizeInternalArray(ref charBuffer);
@@ -4512,42 +3305,15 @@ namespace TMPro
 							}
 							if (IsTagName(ref text, "<STYLE=", i))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int srcOffset2 = 0;
 								if (ReplaceOpeningStyleTag(ref text, i, out srcOffset2, ref charBuffer, ref writeIndex))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = srcOffset2;
 									continue;
 								}
 							}
 							else if (IsTagName(ref text, "</STYLE>", i))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 								i += 7;
 								continue;
@@ -4561,19 +3327,6 @@ namespace TMPro
 						writeIndex++;
 					}
 					return true;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			return false;
@@ -4595,26 +3348,8 @@ namespace TMPro
 						int num2 = text[i];
 						if (num2 == 60)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref text, "<BR>", i))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == charBuffer.Length)
 								{
 									ResizeInternalArray(ref charBuffer);
@@ -4629,30 +3364,12 @@ namespace TMPro
 								int srcOffset2 = 0;
 								if (ReplaceOpeningStyleTag(ref text, i, out srcOffset2, ref charBuffer, ref writeIndex))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = srcOffset2;
 									continue;
 								}
 							}
 							else if (IsTagName(ref text, "</STYLE>", i))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 								i += 7;
 								continue;
@@ -4660,15 +3377,6 @@ namespace TMPro
 						}
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
@@ -4676,26 +3384,8 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			return false;
@@ -4717,37 +3407,10 @@ namespace TMPro
 						int num2 = text[i];
 						if (num2 == 60)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref text, "<BR>", i))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == charBuffer.Length)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref charBuffer);
 								}
 								charBuffer[writeIndex] = 10;
@@ -4757,15 +3420,6 @@ namespace TMPro
 							}
 							if (IsTagName(ref text, "<STYLE=", i))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int srcOffset2 = 0;
 								if (ReplaceOpeningStyleTag(ref text, i, out srcOffset2, ref charBuffer, ref writeIndex))
 								{
@@ -4782,15 +3436,6 @@ namespace TMPro
 						}
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
@@ -4798,26 +3443,8 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			return false;
@@ -4829,19 +3456,6 @@ namespace TMPro
 			TMP_Style style = TMP_StyleSheet.GetStyle(tagHashCode);
 			if (style != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (srcOffset != 0)
 				{
 					m_styleStack.Add(style.hashCode);
@@ -4852,37 +3466,10 @@ namespace TMPro
 						int num2 = text[i];
 						if (num2 == 60)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (IsTagName(ref text, "<BR>", i))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (writeIndex == charBuffer.Length)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ResizeInternalArray(ref charBuffer);
 								}
 								charBuffer[writeIndex] = 10;
@@ -4895,30 +3482,12 @@ namespace TMPro
 								int srcOffset2 = 0;
 								if (ReplaceOpeningStyleTag(ref text, i, out srcOffset2, ref charBuffer, ref writeIndex))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = srcOffset2;
 									continue;
 								}
 							}
 							else if (IsTagName(ref text, "</STYLE>", i))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 								i += 7;
 								continue;
@@ -4926,30 +3495,12 @@ namespace TMPro
 						}
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
 						writeIndex++;
 					}
 					return true;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -4969,10 +3520,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -4984,26 +3531,8 @@ namespace TMPro
 				int num2 = text[i];
 				if (num2 == 60)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsTagName(ref text, "<BR>", i))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (writeIndex == charBuffer.Length)
 						{
 							ResizeInternalArray(ref charBuffer);
@@ -5024,15 +3553,6 @@ namespace TMPro
 					}
 					else if (IsTagName(ref text, "</STYLE>", i))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 						i += 7;
 						continue;
@@ -5062,10 +3582,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -5077,26 +3593,8 @@ namespace TMPro
 				int num2 = text[i];
 				if (num2 == 60)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsTagName(ref text, "<BR>", i))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (writeIndex == charBuffer.Length)
 						{
 							ResizeInternalArray(ref charBuffer);
@@ -5108,15 +3606,6 @@ namespace TMPro
 					}
 					if (IsTagName(ref text, "<STYLE=", i))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int srcOffset = 0;
 						if (ReplaceOpeningStyleTag(ref text, i, out srcOffset, ref charBuffer, ref writeIndex))
 						{
@@ -5126,15 +3615,6 @@ namespace TMPro
 					}
 					else if (IsTagName(ref text, "</STYLE>", i))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 						i += 7;
 						continue;
@@ -5142,15 +3622,6 @@ namespace TMPro
 				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = num2;
@@ -5179,19 +3650,6 @@ namespace TMPro
 					{
 						if (writeIndex == charBuffer.Length)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							ResizeInternalArray(ref charBuffer);
 						}
 						charBuffer[writeIndex] = 10;
@@ -5201,42 +3659,15 @@ namespace TMPro
 					}
 					if (IsTagName(ref text, "<STYLE=", i))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int srcOffset = 0;
 						if (ReplaceOpeningStyleTag(ref text, i, out srcOffset, ref charBuffer, ref writeIndex))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = srcOffset;
 							continue;
 						}
 					}
 					else if (IsTagName(ref text, "</STYLE>", i))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 						i += 7;
 						continue;
@@ -5244,15 +3675,6 @@ namespace TMPro
 				}
 				if (writeIndex == charBuffer.Length)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResizeInternalArray(ref charBuffer);
 				}
 				charBuffer[writeIndex] = num2;
@@ -5260,11 +3682,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -5287,19 +3704,6 @@ namespace TMPro
 				{
 					if (IsTagName(ref text, "<BR>", i))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (writeIndex == charBuffer.Length)
 						{
 							ResizeInternalArray(ref charBuffer);
@@ -5314,30 +3718,12 @@ namespace TMPro
 						int srcOffset = 0;
 						if (ReplaceOpeningStyleTag(ref text, i, out srcOffset, ref charBuffer, ref writeIndex))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = srcOffset;
 							continue;
 						}
 					}
 					else if (IsTagName(ref text, "</STYLE>", i))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ReplaceClosingStyleTag(ref text, i, ref charBuffer, ref writeIndex);
 						i += 7;
 						continue;
@@ -5352,11 +3738,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -5372,10 +3753,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -5389,11 +3766,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -5409,10 +3781,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -5426,11 +3794,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -5446,10 +3809,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -5462,21 +3821,11 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -5495,15 +3844,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -5523,19 +3863,6 @@ namespace TMPro
 					{
 						if (text[num2] == '>')
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							closeIndex = num2;
 							break;
 						}
@@ -5543,15 +3870,6 @@ namespace TMPro
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -5566,32 +3884,10 @@ namespace TMPro
 			{
 				if (text[i] == '"')
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					continue;
 				}
 				if (text[i] == '>')
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					closeIndex = i;
 					break;
 				}
@@ -5611,33 +3907,11 @@ namespace TMPro
 				{
 					if (text[num2] == 34)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 					}
 					else
 					{
 						if (text[num2] == 62)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							closeIndex = num2;
 							break;
 						}
@@ -5645,15 +3919,6 @@ namespace TMPro
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -5671,19 +3936,6 @@ namespace TMPro
 				{
 					if (text[num2] == '"')
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 					}
 					else
 					{
@@ -5696,15 +3948,6 @@ namespace TMPro
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -5721,19 +3964,6 @@ namespace TMPro
 		{
 			if (number < 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_input_CharArray[index++] = '-';
 				number = 0f - number;
 			}
@@ -5746,11 +3976,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_input_CharArray[index++] = '.';
 				number -= (float)num;
 				for (int i = 0; i < precision; i++)
@@ -5789,15 +4014,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				index = num2;
 				return;
 			}
@@ -5828,31 +4044,9 @@ namespace TMPro
 		{
 			if (!m_isInputParsingRequired)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_isTextTruncated)
 				{
 					goto IL_003a;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_isCalculatingPreferredValues = true;
@@ -5892,19 +4086,6 @@ namespace TMPro
 			float num;
 			if (m_enableAutoSizing)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_fontSizeMax;
 			}
 			else
@@ -5917,27 +4098,9 @@ namespace TMPro
 			Vector2 marginSize = k_LargePositiveVector2;
 			if (!m_isInputParsingRequired)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_isTextTruncated)
 				{
 					goto IL_0079;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_isCalculatingPreferredValues = true;
@@ -5969,19 +4132,6 @@ namespace TMPro
 			float marginWidth;
 			if (m_marginWidth != 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				marginWidth = m_marginWidth;
 			}
 			else
@@ -5991,27 +4141,9 @@ namespace TMPro
 			Vector2 marginSize = new Vector2(marginWidth, k_LargePositiveFloat);
 			if (!m_isInputParsingRequired)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_isTextTruncated)
 				{
 					goto IL_0099;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_isCalculatingPreferredValues = true;
@@ -6030,19 +4162,6 @@ namespace TMPro
 			float num;
 			if (m_enableAutoSizing)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_fontSizeMax;
 			}
 			else
@@ -6096,43 +4215,12 @@ namespace TMPro
 			int totalCharacterCount;
 			if (!(m_fontAsset == null))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_fontAsset.characterDictionary != null)
 				{
 					if (m_char_buffer != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_char_buffer.Length != 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_char_buffer[0] != 0)
 							{
 								m_currentFontAsset = m_fontAsset;
@@ -6146,27 +4234,9 @@ namespace TMPro
 									{
 										goto IL_0125;
 									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								m_internalCharacterInfo = new TMP_CharacterInfo[(totalCharacterCount <= 1024) ? Mathf.NextPowerOfTwo(totalCharacterCount) : (totalCharacterCount + 256)];
 								goto IL_0125;
-							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -6180,15 +4250,6 @@ namespace TMPro
 			float num2;
 			if (m_isOrthographic)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 1f;
 			}
 			else
@@ -6201,15 +4262,6 @@ namespace TMPro
 			float num4;
 			if (m_isOrthographic)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = 1f;
 			}
 			else
@@ -6272,28 +4324,10 @@ namespace TMPro
 				int currentMaterialIndex = m_currentMaterialIndex;
 				if (m_isRichText && num8 == 60)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_isParsingText = true;
 					m_textElementType = TMP_TextElementType.Character;
 					if (ValidateHtmlTag(m_char_buffer, i + 1, out endIndex))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						i = endIndex;
 						if (m_textElementType == TMP_TextElementType.Character)
 						{
@@ -6308,51 +4342,15 @@ namespace TMPro
 				{
 					if ((m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsLower((char)num8))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num8 = char.ToUpper((char)num8);
 						}
 					}
 					else if ((m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsUpper((char)num8))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num8 = char.ToLower((char)num8);
 						}
 					}
@@ -6360,27 +4358,9 @@ namespace TMPro
 					{
 						if ((m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 							{
 								goto IL_0545;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (char.IsLower((char)num8))
@@ -6394,40 +4374,13 @@ namespace TMPro
 				IL_14b6:
 				if (num8 > 4352)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 < 4607)
 					{
 						goto IL_1586;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (num8 > 11904)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 < 40959)
 					{
 						goto IL_1586;
@@ -6435,15 +4388,6 @@ namespace TMPro
 				}
 				if (num8 > 43360)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 < 43391)
 					{
 						goto IL_1586;
@@ -6453,27 +4397,9 @@ namespace TMPro
 				{
 					if (num8 > 63744)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 < 64255)
 						{
 							goto IL_1586;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (num8 <= 65072 || num8 >= 65103)
@@ -6482,15 +4408,6 @@ namespace TMPro
 						{
 							goto IL_163f;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				goto IL_1586;
@@ -6498,15 +4415,6 @@ namespace TMPro
 				float num17;
 				if (m_width != -1f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num17 = Mathf.Min(x + 0.0001f - m_marginLeft - m_marginRight, m_width);
 				}
 				else
@@ -6517,15 +4425,6 @@ namespace TMPro
 				int num19;
 				if ((m_lineJustification & (TextAlignmentOptions)16) != (TextAlignmentOptions)16)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num19 = (((m_lineJustification & (TextAlignmentOptions)8) == (TextAlignmentOptions)8) ? 1 : 0);
 				}
 				else
@@ -6539,15 +4438,6 @@ namespace TMPro
 				float num22;
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num22 = 1.05f;
 				}
 				else
@@ -6556,48 +4446,12 @@ namespace TMPro
 				}
 				if (num21 > num18 * num22)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (enableWordWrapping)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_characterCount != m_firstCharacterOfLine)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num15 != state2.previous_WordBreak)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag)
 								{
 									goto IL_0cc0;
@@ -6605,15 +4459,6 @@ namespace TMPro
 							}
 							if (!m_isCharacterWrappingEnabled)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_isCharacterWrappingEnabled = true;
 							}
 							else
@@ -6625,15 +4470,6 @@ namespace TMPro
 					}
 					if (!ignoreTextAutoSizing)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (defaultFontSize > m_fontSizeMin)
 						{
 							while (true)
@@ -6645,15 +4481,6 @@ namespace TMPro
 								default:
 									if (m_charWidthAdjDelta < m_charWidthMaxAdj / 100f)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									m_maxFontSize = defaultFontSize;
 									defaultFontSize -= Mathf.Max((defaultFontSize - m_minFontSize) / 2f, 0.05f);
@@ -6681,70 +4508,16 @@ namespace TMPro
 				IL_1586:
 				if (!m_isNonBreakingSpace)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!TMP_Settings.linebreakingRules.leadingCharacters.ContainsKey(num8))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_characterCount < totalCharacterCount - 1)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!TMP_Settings.linebreakingRules.followingCharacters.ContainsKey(m_internalCharacterInfo[m_characterCount + 1].character))
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_1623;
 									}
 								}
@@ -6769,15 +4542,6 @@ namespace TMPro
 				float num23;
 				if (m_textElementType == TMP_TextElementType.Character)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num23 = num6;
 				}
 				else
@@ -6789,15 +4553,6 @@ namespace TMPro
 				float maxLineAscender;
 				if (num24 > m_maxLineAscender)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					maxLineAscender = num24;
 				}
 				else
@@ -6809,15 +4564,6 @@ namespace TMPro
 				float num25;
 				if (m_textElementType == TMP_TextElementType.Character)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num25 = num6;
 				}
 				else
@@ -6829,15 +4575,6 @@ namespace TMPro
 				float maxLineDescender;
 				if (num26 < m_maxLineDescender)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					maxLineDescender = num26;
 				}
 				else
@@ -6847,15 +4584,6 @@ namespace TMPro
 				m_maxLineDescender = maxLineDescender;
 				if ((m_style & FontStyles.Subscript) != FontStyles.Subscript)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((m_style & FontStyles.Superscript) != FontStyles.Superscript)
 					{
 						goto IL_0b10;
@@ -6866,15 +4594,6 @@ namespace TMPro
 				float maxLineAscender2;
 				if (num28 > m_maxLineAscender)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					maxLineAscender2 = num28;
 				}
 				else
@@ -6889,15 +4608,6 @@ namespace TMPro
 				IL_13d7:
 				if (!m_enableWordWrapping && m_overflowMode != TextOverflowModes.Truncate)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_overflowMode != TextOverflowModes.Ellipsis)
 					{
 						goto IL_1673;
@@ -6905,37 +4615,10 @@ namespace TMPro
 				}
 				if (!char.IsWhiteSpace((char)num8))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 != 8203)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 != 45)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num8 != 173)
 							{
 								goto IL_14b6;
@@ -6945,48 +4628,12 @@ namespace TMPro
 				}
 				if (!m_isNonBreakingSpace)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 != 160)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 != 8209)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num8 != 8239)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num8 != 8288)
 								{
 									SaveWordWrappingState(ref state2, i, m_characterCount);
@@ -7002,42 +4649,15 @@ namespace TMPro
 				IL_0545:
 				if (m_textElementType == TMP_TextElementType.Sprite)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_currentSpriteAsset = m_textInfo.characterInfo[m_characterCount].spriteAsset;
 					m_spriteIndex = m_textInfo.characterInfo[m_characterCount].spriteIndex;
 					TMP_Sprite tMP_Sprite = m_currentSpriteAsset.spriteInfoList[m_spriteIndex];
 					if (tMP_Sprite == null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					if (num8 == 60)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 = 57344 + m_spriteIndex;
 					}
 					m_currentFontAsset = m_fontAsset;
@@ -7045,15 +4665,6 @@ namespace TMPro
 					float num31;
 					if (m_isOrthographic)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num31 = 1f;
 					}
 					else
@@ -7069,15 +4680,6 @@ namespace TMPro
 				}
 				else if (m_textElementType == TMP_TextElementType.Character)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_cached_TextElement = m_textInfo.characterInfo[m_characterCount].textElement;
 					if (m_cached_TextElement == null)
 					{
@@ -7088,15 +4690,6 @@ namespace TMPro
 					float num34;
 					if (m_isOrthographic)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num34 = 1f;
 					}
 					else
@@ -7110,54 +4703,18 @@ namespace TMPro
 				num20 = num6;
 				if (num8 == 173)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num6 = 0f;
 				}
 				m_internalCharacterInfo[m_characterCount].character = (char)num8;
 				if (m_enableKerning)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_characterCount >= 1)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int character = m_internalCharacterInfo[m_characterCount - 1].character;
 						KerningPairKey kerningPairKey = new KerningPairKey(character, num8);
 						m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out KerningPair value);
 						if (value != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_xAdvance += value.XadvanceOffset * num6;
 						}
 					}
@@ -7170,49 +4727,13 @@ namespace TMPro
 				}
 				if (m_textElementType == TMP_TextElementType.Character)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!isUsingAlternateTypeface)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((m_style & FontStyles.Bold) != FontStyles.Bold)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 							{
 								goto IL_0908;
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						num9 = 1f + m_currentFontAsset.boldSpacing * 0.01f;
@@ -7232,37 +4753,10 @@ namespace TMPro
 				}
 				if (m_lineNumber > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_lineHeight == -32767f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num36 = m_maxLineAscender - m_startOfLineAscender;
 							m_lineOffset += num36;
 							state2.lineOffset = m_lineOffset;
@@ -7275,15 +4769,6 @@ namespace TMPro
 				float maxDescender;
 				if (m_maxDescender < num38)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					maxDescender = m_maxDescender;
 				}
 				else
@@ -7295,15 +4780,6 @@ namespace TMPro
 				num12 += m_xAdvance;
 				if (m_enableWordWrapping)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num13 = m_maxAscender - m_maxDescender;
 				}
 				else
@@ -7314,15 +4790,6 @@ namespace TMPro
 				m_lineNumber++;
 				if (m_lineHeight == -32767f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num39 = m_internalCharacterInfo[m_characterCount].ascender - m_internalCharacterInfo[m_characterCount].baseLine;
 					num11 = 0f - m_maxLineDescender + num39 + (num10 + m_lineSpacing + m_lineSpacingDelta) * num5;
 					m_lineOffset += num11;
@@ -7339,77 +4806,23 @@ namespace TMPro
 				IL_11ac:
 				if (num8 == 13)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = Mathf.Max(a, num12 + m_xAdvance);
 					num12 = 0f;
 					m_xAdvance = tag_Indent;
 				}
 				if (num8 != 10)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_characterCount != totalCharacterCount - 1)
 					{
 						goto IL_13d7;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_lineNumber > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_lineHeight == -32767f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num40 = m_maxLineAscender - m_startOfLineAscender;
 							num27 -= num40;
 							m_lineOffset += num40;
@@ -7436,15 +4849,6 @@ namespace TMPro
 					m_lineNumber++;
 					if (m_lineHeight == -32767f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num11 = 0f - m_maxLineDescender + num24 + (num10 + m_lineSpacing + m_paragraphSpacing + m_lineSpacingDelta) * num5;
 						m_lineOffset += num11;
 					}
@@ -7461,27 +4865,9 @@ namespace TMPro
 				IL_163f:
 				if (!flag && !m_isCharacterWrappingEnabled)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
 						goto IL_1673;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				SaveWordWrappingState(ref state2, i, m_characterCount);
@@ -7489,27 +4875,9 @@ namespace TMPro
 				IL_0b10:
 				if (m_lineNumber == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float maxAscender;
 					if (m_maxAscender > num24)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						maxAscender = m_maxAscender;
 					}
 					else
@@ -7522,41 +4890,14 @@ namespace TMPro
 				{
 					if (!char.IsWhiteSpace((char)num8))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 != 8203)
 						{
 							goto IL_0b8b;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (m_textElementType != TMP_TextElementType.Sprite)
 					{
 						goto IL_0fb6;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				goto IL_0b8b;
@@ -7566,37 +4907,10 @@ namespace TMPro
 				IL_0fb6:
 				if (m_lineNumber > 0 && !TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_lineHeight == -32767f)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_isNewPage)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num42 = m_maxLineAscender - m_startOfLineAscender;
 							num27 -= num42;
 							m_lineOffset += num42;
@@ -7613,15 +4927,6 @@ namespace TMPro
 					float xAdvance;
 					if (num44 > m_xAdvance)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						xAdvance = num44;
 					}
 					else
@@ -7635,27 +4940,9 @@ namespace TMPro
 					m_xAdvance += m_monoSpacing - num35 + (m_characterSpacing + m_currentFontAsset.normalSpacingOffset) * num6 + m_cSpacing;
 					if (!char.IsWhiteSpace((char)num8))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 != 8203)
 						{
 							goto IL_11ac;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					m_xAdvance += m_wordSpacing * num6;
@@ -7665,27 +4952,9 @@ namespace TMPro
 					m_xAdvance += (m_cached_TextElement.xAdvance * num9 + m_characterSpacing + m_currentFontAsset.normalSpacingOffset) * num6 + m_cSpacing;
 					if (!char.IsWhiteSpace((char)num8))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num8 != 8203)
 						{
 							goto IL_11ac;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					m_xAdvance += m_wordSpacing * num6;
@@ -7694,23 +4963,9 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				num7 = m_maxFontSize - m_minFontSize;
 				if (!m_isCharacterWrappingEnabled && !ignoreTextAutoSizing && num7 > 0.051f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (defaultFontSize < m_fontSizeMax)
 					{
 						m_minFontSize = defaultFontSize;
@@ -7738,15 +4993,6 @@ namespace TMPro
 				float num46;
 				if (m_margin.x > 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num46 = m_margin.x;
 				}
 				else
@@ -7758,15 +5004,6 @@ namespace TMPro
 				float num48;
 				if (m_margin.z > 0f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num48 = m_margin.z;
 				}
 				else
@@ -7778,15 +5015,6 @@ namespace TMPro
 				float num50;
 				if (m_margin.y > 0f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num50 = m_margin.y;
 				}
 				else
@@ -7798,15 +5026,6 @@ namespace TMPro
 				float num52;
 				if (m_margin.w > 0f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num52 = m_margin.w;
 				}
 				else
@@ -7829,46 +5048,15 @@ namespace TMPro
 		{
 			if (m_textInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_textInfo.characterCount <= m_textInfo.characterInfo.Length)
 				{
 					Extents extents = new Extents(k_LargePositiveVector2, k_LargeNegativeVector2);
 					for (int i = 0; i < m_textInfo.characterCount; i++)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i < m_textInfo.characterInfo.Length)
 						{
 							if (!m_textInfo.characterInfo[i].isVisible)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -7878,15 +5066,6 @@ namespace TMPro
 								extents.max.y = Mathf.Max(extents.max.y, m_textInfo.characterInfo[i].ascender);
 							}
 							continue;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -7911,10 +5090,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return default(Bounds);
 					}
 				}
@@ -7927,27 +5102,9 @@ namespace TMPro
 				{
 					if (num <= maxVisibleCharacters)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_textInfo.characterInfo[num].lineNumber <= m_maxVisibleLines)
 						{
 							goto IL_0082;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (onlyVisibleCharacters)
@@ -7956,15 +5113,6 @@ namespace TMPro
 					}
 					goto IL_0082;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 				IL_0186:
 				num++;
@@ -7972,26 +5120,8 @@ namespace TMPro
 				IL_0082:
 				if (onlyVisibleCharacters)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_textInfo.characterInfo[num].isVisible)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_0186;
 					}
 				}
@@ -8017,19 +5147,6 @@ namespace TMPro
 			int num;
 			if (size > 1024)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = size + 256;
 			}
 			else
@@ -8042,15 +5159,6 @@ namespace TMPro
 			{
 				if (i < m_textInfo.lineInfo.Length)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array[i] = m_textInfo.lineInfo[i];
 				}
 				else
@@ -8063,11 +5171,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_textInfo.lineInfo = array;
 				return;
 			}
@@ -8188,19 +5291,6 @@ namespace TMPro
 			m_spriteAnimationID = state.spriteAnimationID;
 			if (m_lineNumber < m_textInfo.lineInfo.Length)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_textInfo.lineInfo[m_lineNumber] = state.lineInfo;
 			}
 			return previous_WordBreak;
@@ -8215,19 +5305,6 @@ namespace TMPro
 			byte a;
 			if (m_fontColor32.a < vertexColor.a)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				a = m_fontColor32.a;
 			}
 			else
@@ -8244,15 +5321,6 @@ namespace TMPro
 			}
 			else if (!m_overrideHtmlColors && m_colorStack.index > 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo.characterInfo[m_characterCount].vertex_BL.color = vertexColor;
 				m_textInfo.characterInfo[m_characterCount].vertex_TL.color = vertexColor;
 				m_textInfo.characterInfo[m_characterCount].vertex_TR.color = vertexColor;
@@ -8274,15 +5342,6 @@ namespace TMPro
 			}
 			if (!m_isSDFShader)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				style_padding = 0f;
 			}
 			FaceInfo fontInfo = m_currentFontAsset.fontInfo;
@@ -8312,33 +5371,11 @@ namespace TMPro
 			m_textInfo.characterInfo[m_characterCount].vertex_BR.position = m_textInfo.characterInfo[m_characterCount].bottomRight;
 			if (m_tintAllSprites)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_tintSprite = true;
 			}
 			Color32 color;
 			if (m_tintSprite)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = m_spriteColor.Multiply(vertexColor);
 			}
 			else
@@ -8349,15 +5386,6 @@ namespace TMPro
 			byte a;
 			if (color2.a < m_fontColor32.a)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = (color2.a = ((color2.a >= vertexColor.a) ? vertexColor.a : color2.a));
 			}
 			else
@@ -8367,15 +5395,6 @@ namespace TMPro
 			color2.a = a;
 			if (!m_enableVertexGradient)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo.characterInfo[m_characterCount].vertex_BL.color = color2;
 				m_textInfo.characterInfo[m_characterCount].vertex_TL.color = color2;
 				m_textInfo.characterInfo[m_characterCount].vertex_TR.color = color2;
@@ -8385,26 +5404,8 @@ namespace TMPro
 			{
 				if (!m_overrideHtmlColors)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_colorStack.index > 1)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_textInfo.characterInfo[m_characterCount].vertex_BL.color = color2;
 						m_textInfo.characterInfo[m_characterCount].vertex_TL.color = color2;
 						m_textInfo.characterInfo[m_characterCount].vertex_TR.color = color2;
@@ -8418,15 +5419,6 @@ namespace TMPro
 					Color32 color3;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color3 = color2.Multiply(m_fontColorGradientPreset.bottomLeft);
 					}
 					else
@@ -8438,15 +5430,6 @@ namespace TMPro
 					Color32 color4;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color4 = color2.Multiply(m_fontColorGradientPreset.topLeft);
 					}
 					else
@@ -8458,15 +5441,6 @@ namespace TMPro
 					Color32 color5;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color5 = color2.Multiply(m_fontColorGradientPreset.topRight);
 					}
 					else
@@ -8483,15 +5457,6 @@ namespace TMPro
 					Color32 color6;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color6 = color2.Multiply(m_fontColorGradient.topLeft);
 					}
 					else
@@ -8503,15 +5468,6 @@ namespace TMPro
 					Color32 color7;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color7 = color2.Multiply(m_fontColorGradient.topRight);
 					}
 					else
@@ -8523,15 +5479,6 @@ namespace TMPro
 					Color32 color8;
 					if (m_tintSprite)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color8 = color2.Multiply(m_fontColorGradient.bottomRight);
 					}
 					else
@@ -8602,19 +5549,6 @@ namespace TMPro
 			m_textInfo.meshInfo[materialReferenceIndex].uvs0[3 + index_X4] = characterInfo[i].vertex_BR.uv;
 			if (isVolumetric)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_textInfo.meshInfo[materialReferenceIndex].uvs0[4 + index_X4] = characterInfo[i].vertex_BL.uv;
 				m_textInfo.meshInfo[materialReferenceIndex].uvs0[5 + index_X4] = characterInfo[i].vertex_TL.uv;
 				m_textInfo.meshInfo[materialReferenceIndex].uvs0[6 + index_X4] = characterInfo[i].vertex_TR.uv;
@@ -8626,15 +5560,6 @@ namespace TMPro
 			m_textInfo.meshInfo[materialReferenceIndex].uvs2[3 + index_X4] = characterInfo[i].vertex_BR.uv2;
 			if (isVolumetric)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo.meshInfo[materialReferenceIndex].uvs2[4 + index_X4] = characterInfo[i].vertex_BL.uv2;
 				m_textInfo.meshInfo[materialReferenceIndex].uvs2[5 + index_X4] = characterInfo[i].vertex_TL.uv2;
 				m_textInfo.meshInfo[materialReferenceIndex].uvs2[6 + index_X4] = characterInfo[i].vertex_TR.uv2;
@@ -8691,10 +5616,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!TMP_Settings.warningsDisabled)
 						{
 							while (true)
@@ -8723,15 +5644,6 @@ namespace TMPro
 			float num2 = m_cached_Underline_GlyphInfo.width / 2f * maxScale;
 			if (end.x - start.x < m_cached_Underline_GlyphInfo.width * maxScale)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (end.x - start.x) / 2f;
 			}
 			float num3 = m_padding * startScale / maxScale;
@@ -8818,10 +5730,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!TMP_Settings.warningsDisabled)
 						{
 							Debug.LogWarning("Unable to add underline since the Font Asset doesn't contain the underline character.", this);
@@ -8833,15 +5741,6 @@ namespace TMPro
 			int num = index + 4;
 			if (num > m_textInfo.meshInfo[0].vertices.Length)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo.meshInfo[0].ResizeMeshInfo(num / 4);
 			}
 			Vector3[] vertices = m_textInfo.meshInfo[0].vertices;
@@ -8865,15 +5764,6 @@ namespace TMPro
 			byte a;
 			if (m_htmlColor.a < highlightColor.a)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = m_htmlColor.a;
 			}
 			else
@@ -8899,21 +5789,8 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (TMP_Settings.autoSizeTextContainer)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							autoSizeTextContainer = true;
 						}
 						else
@@ -8921,15 +5798,6 @@ namespace TMPro
 							m_rectTransform = rectTransform;
 							if (GetType() == typeof(TextMeshPro))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_rectTransform.sizeDelta = TMP_Settings.defaultTextMeshProTextContainerSize;
 							}
 							else
@@ -8956,11 +5824,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				m_isAlignmentEnumConverted = true;
 				m_textAlignment = TMP_Compatibility.ConvertTextAlignmentEnumValues(m_textAlignment);
 				return;
@@ -8971,19 +5834,6 @@ namespace TMPro
 		{
 			if (!fontAsset.characterDictionary.TryGetValue(95, out m_cached_Underline_GlyphInfo))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			if (!fontAsset.characterDictionary.TryGetValue(8230, out m_cached_Ellipsis_GlyphInfo))
 			{
@@ -9009,15 +5859,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -9027,19 +5868,6 @@ namespace TMPro
 			int num;
 			if ((m_style & FontStyles.Italic) != FontStyles.Italic)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (((m_fontStyle & FontStyles.Italic) == FontStyles.Italic) ? 1 : 0);
 			}
 			else
@@ -9092,10 +5920,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}
@@ -9104,28 +5928,10 @@ namespace TMPro
 			char[] array = new char[characterCount];
 			for (int i = 0; i < characterCount; i++)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i < m_textInfo.characterInfo.Length)
 				{
 					array[i] = m_textInfo.characterInfo[i].character;
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -9242,10 +6048,6 @@ namespace TMPro
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						byte r2 = (byte)(HexToInt(hexChars[1]) * 16 + HexToInt(hexChars[1]));
 						byte g2 = (byte)(HexToInt(hexChars[2]) * 16 + HexToInt(hexChars[2]));
 						byte b2 = (byte)(HexToInt(hexChars[3]) * 16 + HexToInt(hexChars[3]));
@@ -9354,15 +6156,6 @@ namespace TMPro
 			case 7:
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					byte r2 = (byte)(HexToInt(hexChars[startIndex + 1]) * 16 + HexToInt(hexChars[startIndex + 2]));
 					byte g2 = (byte)(HexToInt(hexChars[startIndex + 3]) * 16 + HexToInt(hexChars[startIndex + 4]));
 					byte b2 = (byte)(HexToInt(hexChars[startIndex + 5]) * 16 + HexToInt(hexChars[startIndex + 6]));
@@ -9412,10 +6205,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						lastIndex = 0;
 						return -9999f;
 					}
@@ -9431,28 +6220,10 @@ namespace TMPro
 				char c = chars[i];
 				if (c == ' ')
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				if (c == '.')
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = i;
 					num3 = -1;
 					continue;
@@ -9463,15 +6234,6 @@ namespace TMPro
 					num5 = -1;
 					continue;
 				case '+':
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5 = 1;
 					continue;
 				case ',':
@@ -9523,15 +6285,6 @@ namespace TMPro
 				}
 				if (num4 == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3++;
 				}
 				else
@@ -9541,11 +6294,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				lastIndex = num;
 				return num2 *= (float)num5;
 			}
@@ -9572,26 +6320,8 @@ namespace TMPro
 			bool flag2 = false;
 			for (int num3 = startIndex; num3 < chars.Length; num3++)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (chars[num3] == 0)
 				{
-					break;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 				if (num >= m_htmlTag.Length || chars[num3] == 60)
@@ -9600,19 +6330,6 @@ namespace TMPro
 				}
 				if (chars[num3] == 62)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					flag2 = true;
 					endIndex = num3;
 					m_htmlTag[num] = '\0';
@@ -9622,61 +6339,16 @@ namespace TMPro
 				num++;
 				if (b == 1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tagType == TagType.None)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[num3] != 43)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (chars[num3] != 45)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!char.IsDigit((char)chars[num3]))
 								{
 									if (chars[num3] == 35)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										tagType = TagType.ColorValue;
 										m_xmlAttribute[num2].valueType = TagType.ColorValue;
 										m_xmlAttribute[num2].valueStartIndex = num - 1;
@@ -9684,15 +6356,6 @@ namespace TMPro
 									}
 									else if (chars[num3] == 34)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										tagType = TagType.StringValue;
 										m_xmlAttribute[num2].valueType = TagType.StringValue;
 										m_xmlAttribute[num2].valueStartIndex = num;
@@ -9707,15 +6370,6 @@ namespace TMPro
 									}
 									goto IL_0554;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 						tagType = TagType.NumericalValue;
@@ -9727,37 +6381,10 @@ namespace TMPro
 					{
 						if (chars[num3] != 112)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (chars[num3] != 101)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (chars[num3] != 37)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (chars[num3] != 32)
 									{
 										if (b != 2)
@@ -9765,15 +6392,6 @@ namespace TMPro
 											m_xmlAttribute[num2].valueLength++;
 										}
 										goto IL_0554;
-									}
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -9788,42 +6406,15 @@ namespace TMPro
 						m_xmlAttribute[num2].valueLength = 0;
 						if (chars[num3] == 101)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagUnits = TagUnits.FontUnits;
 						}
 						else if (chars[num3] == 37)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagUnits = TagUnits.Percentage;
 						}
 					}
 					else if (tagType == TagType.ColorValue)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[num3] != 32)
 						{
 							m_xmlAttribute[num2].valueLength++;
@@ -9842,15 +6433,6 @@ namespace TMPro
 					}
 					else if (tagType == TagType.StringValue)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[num3] != 34)
 						{
 							m_xmlAttribute[num2].valueHashCode = (((m_xmlAttribute[num2].valueHashCode << 5) + m_xmlAttribute[num2].valueHashCode) ^ chars[num3]);
@@ -9873,39 +6455,16 @@ namespace TMPro
 				IL_0554:
 				if (chars[num3] == 61)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b = 1;
 				}
 				if (b == 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chars[num3] == 32)
 					{
 						if (flag)
 						{
 							while (true)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								return false;
 							}
 						}
@@ -9922,39 +6481,12 @@ namespace TMPro
 				}
 				if (b == 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_xmlAttribute[num2].nameHashCode = (m_xmlAttribute[num2].nameHashCode << 3) - m_xmlAttribute[num2].nameHashCode + chars[num3];
 				}
 				if (b == 2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chars[num3] == 32)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						b = 0;
 					}
 				}
@@ -9974,15 +6506,6 @@ namespace TMPro
 			}
 			if (tag_NoParsing)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_xmlAttribute[0].nameHashCode != 53822163 && m_xmlAttribute[0].nameHashCode != 49429939)
 				{
 					while (true)
@@ -9999,28 +6522,10 @@ namespace TMPro
 			}
 			if (m_xmlAttribute[0].nameHashCode != 53822163)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_xmlAttribute[0].nameHashCode != 49429939)
 				{
 					if (m_htmlTag[0] == '#')
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 4)
 						{
 							while (true)
@@ -10054,15 +6559,6 @@ namespace TMPro
 					}
 					if (m_htmlTag[0] == '#')
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 7)
 						{
 							while (true)
@@ -10081,15 +6577,6 @@ namespace TMPro
 					}
 					if (m_htmlTag[0] == '#')
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 9)
 						{
 							while (true)
@@ -10126,15 +6613,6 @@ namespace TMPro
 					{
 					default:
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						switch (nameHashCode)
 						{
 						case 427:
@@ -10146,160 +6624,43 @@ namespace TMPro
 						case 16034505:
 							goto IL_1cfd;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (nameHashCode != 343615334)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (nameHashCode != 374360934)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (nameHashCode == 457225591)
 								{
 									goto IL_1c09;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (nameHashCode == 514803617)
 								{
 									goto IL_3a41;
 								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (nameHashCode != 551025096)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (nameHashCode != 566686826)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (nameHashCode == 730022849)
 										{
 											goto IL_3a41;
-										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (nameHashCode == 766244328)
 										{
 											goto IL_3aca;
 										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (nameHashCode != 781906058)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (nameHashCode == 1100728678)
 											{
 												goto IL_3c5d;
-											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 											if (nameHashCode == 1109349752)
 											{
 												goto IL_3eaf;
 											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (nameHashCode == 1109386397)
 											{
 												goto IL_3288;
-											}
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 											if (nameHashCode != 1897350193)
 											{
@@ -10319,114 +6680,33 @@ namespace TMPro
 												{
 													goto IL_3a60;
 												}
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (nameHashCode != -1847322671)
 												{
 													if (nameHashCode != -1831660941)
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (nameHashCode != -1690034531)
 														{
-															while (true)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (nameHashCode == -1668324918)
 															{
 																goto IL_3a60;
-															}
-															while (true)
-															{
-																switch (2)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 															if (nameHashCode == -1632103439)
 															{
 																goto IL_3aeb;
 															}
-															while (true)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (nameHashCode == -1616441709)
 															{
 																goto IL_3aaa;
 															}
-															while (true)
-															{
-																switch (2)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (nameHashCode != -884817987)
 															{
-																while (true)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (nameHashCode == -855002522)
 																{
 																	goto IL_3c5d;
 																}
-																while (true)
-																{
-																	switch (4)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (nameHashCode == -842693512)
 																{
 																	goto IL_3eaf;
-																}
-																while (true)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
 																}
 																if (nameHashCode == -842656867)
 																{
@@ -10436,98 +6716,26 @@ namespace TMPro
 																{
 																	if (nameHashCode != -445537194)
 																	{
-																		while (true)
-																		{
-																			switch (7)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (nameHashCode != -330774850)
 																		{
-																			while (true)
-																			{
-																				switch (4)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			if (nameHashCode != 66)
 																			{
-																				while (true)
-																				{
-																					switch (2)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				if (nameHashCode != 73)
 																				{
 																					if (nameHashCode == 98)
 																					{
 																						goto IL_13f7;
 																					}
-																					while (true)
-																					{
-																						switch (5)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					if (nameHashCode != 105)
 																					{
-																						while (true)
-																						{
-																							switch (5)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (nameHashCode != 395)
 																						{
 																							if (nameHashCode != 402)
 																							{
-																								while (true)
-																								{
-																									switch (2)
-																									{
-																									case 0:
-																										continue;
-																									}
-																									break;
-																								}
 																								if (nameHashCode != 434)
 																								{
-																									while (true)
-																									{
-																										switch (4)
-																										{
-																										case 0:
-																											continue;
-																										}
-																										break;
-																									}
 																									if (nameHashCode != 656)
 																									{
-																										while (true)
-																										{
-																											switch (2)
-																											{
-																											case 0:
-																												continue;
-																											}
-																											break;
-																										}
 																										if (nameHashCode != 660)
 																										{
 																											if (nameHashCode != 670)
@@ -10540,63 +6748,18 @@ namespace TMPro
 																												{
 																													goto IL_41c8;
 																												}
-																												while (true)
-																												{
-																													switch (2)
-																													{
-																													case 0:
-																														continue;
-																													}
-																													break;
-																												}
 																												if (nameHashCode != 926)
 																												{
-																													while (true)
-																													{
-																														switch (7)
-																														{
-																														case 0:
-																															continue;
-																														}
-																														break;
-																													}
 																													if (nameHashCode == 2959)
 																													{
 																														break;
 																													}
 																													if (nameHashCode != 2963)
 																													{
-																														while (true)
-																														{
-																															switch (1)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (nameHashCode != 2973)
 																														{
-																															while (true)
-																															{
-																																switch (7)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
-																															}
 																															if (nameHashCode == 3215)
 																															{
-																																break;
-																															}
-																															while (true)
-																															{
-																																switch (5)
-																																{
-																																case 0:
-																																	continue;
-																																}
 																																break;
 																															}
 																															if (nameHashCode == 3219)
@@ -10605,39 +6768,12 @@ namespace TMPro
 																															}
 																															if (nameHashCode != 3229)
 																															{
-																																while (true)
-																																{
-																																	switch (3)
-																																	{
-																																	case 0:
-																																		continue;
-																																	}
-																																	break;
-																																}
 																																if (nameHashCode != 4556)
 																																{
 																																	if (nameHashCode != 4728)
 																																	{
-																																		while (true)
-																																		{
-																																			switch (6)
-																																			{
-																																			case 0:
-																																				continue;
-																																			}
-																																			break;
-																																		}
 																																		if (nameHashCode != 4742)
 																																		{
-																																			while (true)
-																																			{
-																																				switch (1)
-																																				{
-																																				case 0:
-																																					continue;
-																																				}
-																																				break;
-																																			}
 																																			if (nameHashCode == 6380)
 																																			{
 																																				goto IL_1c44;
@@ -10646,96 +6782,24 @@ namespace TMPro
 																																			{
 																																				goto IL_177c;
 																																			}
-																																			while (true)
-																																			{
-																																				switch (5)
-																																				{
-																																				case 0:
-																																					continue;
-																																				}
-																																				break;
-																																			}
 																																			if (nameHashCode != 6566)
 																																			{
-																																				while (true)
-																																				{
-																																					switch (2)
-																																					{
-																																					case 0:
-																																						continue;
-																																					}
-																																					break;
-																																				}
 																																				if (nameHashCode != 20677)
 																																				{
-																																					while (true)
-																																					{
-																																						switch (6)
-																																						{
-																																						case 0:
-																																							continue;
-																																						}
-																																						break;
-																																					}
 																																					if (nameHashCode != 20849)
 																																					{
-																																						while (true)
-																																						{
-																																							switch (6)
-																																							{
-																																							case 0:
-																																								continue;
-																																							}
-																																							break;
-																																						}
 																																						if (nameHashCode != 20863)
 																																						{
-																																							while (true)
-																																							{
-																																								switch (2)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
-																																							}
 																																							if (nameHashCode == 22501)
 																																							{
 																																								goto IL_1cf4;
-																																							}
-																																							while (true)
-																																							{
-																																								switch (3)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
 																																							}
 																																							if (nameHashCode == 22673)
 																																							{
 																																								goto IL_181c;
 																																							}
-																																							while (true)
-																																							{
-																																								switch (7)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
-																																							}
 																																							if (nameHashCode != 22687)
 																																							{
-																																								while (true)
-																																								{
-																																									switch (6)
-																																									{
-																																									case 0:
-																																										continue;
-																																									}
-																																									break;
-																																								}
 																																								if (nameHashCode == 28511)
 																																								{
 																																									goto IL_2116;
@@ -10744,101 +6808,29 @@ namespace TMPro
 																																								{
 																																									goto IL_16b0;
 																																								}
-																																								while (true)
-																																								{
-																																									switch (4)
-																																									{
-																																									case 0:
-																																										continue;
-																																									}
-																																									break;
-																																								}
 																																								if (nameHashCode != 30266)
 																																								{
-																																									while (true)
-																																									{
-																																										switch (5)
-																																										{
-																																										case 0:
-																																											continue;
-																																										}
-																																										break;
-																																									}
 																																									if (nameHashCode != 31169)
 																																									{
-																																										while (true)
-																																										{
-																																											switch (6)
-																																											{
-																																											case 0:
-																																												continue;
-																																											}
-																																											break;
-																																										}
 																																										if (nameHashCode != 31191)
 																																										{
 																																											if (nameHashCode != 32745)
 																																											{
-																																												while (true)
-																																												{
-																																													switch (7)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
-																																												}
 																																												if (nameHashCode == 41311)
 																																												{
 																																													goto IL_2116;
-																																												}
-																																												while (true)
-																																												{
-																																													switch (7)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
 																																												}
 																																												if (nameHashCode == 43045)
 																																												{
 																																													goto IL_16b0;
 																																												}
-																																												while (true)
-																																												{
-																																													switch (7)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
-																																												}
 																																												if (nameHashCode == 43066)
 																																												{
 																																													goto IL_28a9;
 																																												}
-																																												while (true)
-																																												{
-																																													switch (1)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
-																																												}
 																																												if (nameHashCode == 43969)
 																																												{
 																																													goto IL_1de1;
-																																												}
-																																												while (true)
-																																												{
-																																													switch (1)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
 																																												}
 																																												if (nameHashCode == 43991)
 																																												{
@@ -10846,125 +6838,35 @@ namespace TMPro
 																																												}
 																																												if (nameHashCode != 45545)
 																																												{
-																																													while (true)
-																																													{
-																																														switch (1)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
-																																													}
 																																													if (nameHashCode == 141358)
 																																													{
 																																														goto IL_246b;
-																																													}
-																																													while (true)
-																																													{
-																																														switch (3)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
 																																													}
 																																													if (nameHashCode == 143092)
 																																													{
 																																														goto IL_171e;
 																																													}
-																																													while (true)
-																																													{
-																																														switch (3)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
-																																													}
 																																													if (nameHashCode != 143113)
 																																													{
-																																														while (true)
-																																														{
-																																															switch (5)
-																																															{
-																																															case 0:
-																																																continue;
-																																															}
-																																															break;
-																																														}
 																																														if (nameHashCode != 144016)
 																																														{
-																																															while (true)
-																																															{
-																																																switch (4)
-																																																{
-																																																case 0:
-																																																	continue;
-																																																}
-																																																break;
-																																															}
 																																															if (nameHashCode != 145592)
 																																															{
-																																																while (true)
-																																																{
-																																																	switch (6)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																if (nameHashCode == 154158)
 																																																{
 																																																	goto IL_246b;
-																																																}
-																																																while (true)
-																																																{
-																																																	switch (2)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
 																																																}
 																																																if (nameHashCode == 155892)
 																																																{
 																																																	goto IL_171e;
 																																																}
-																																																while (true)
-																																																{
-																																																	switch (6)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																if (nameHashCode == 155913)
 																																																{
 																																																	goto IL_29f7;
 																																																}
-																																																while (true)
-																																																{
-																																																	switch (6)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																if (nameHashCode == 156816)
 																																																{
 																																																	goto IL_1dea;
-																																																}
-																																																while (true)
-																																																{
-																																																	switch (1)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
 																																																}
 																																																if (nameHashCode != 158392)
 																																																{
@@ -10976,61 +6878,16 @@ namespace TMPro
 																																																	{
 																																																		goto IL_2855;
 																																																	}
-																																																	while (true)
-																																																	{
-																																																		switch (2)
-																																																		{
-																																																		case 0:
-																																																			continue;
-																																																		}
-																																																		break;
-																																																	}
 																																																	if (nameHashCode == 192323)
 																																																	{
 																																																		goto IL_2c4f;
 																																																	}
-																																																	while (true)
-																																																	{
-																																																		switch (4)
-																																																		{
-																																																		case 0:
-																																																			continue;
-																																																		}
-																																																		break;
-																																																	}
 																																																	if (nameHashCode != 227814)
 																																																	{
-																																																		while (true)
-																																																		{
-																																																			switch (2)
-																																																			{
-																																																			case 0:
-																																																				continue;
-																																																			}
-																																																			break;
-																																																		}
 																																																		if (nameHashCode != 230446)
 																																																		{
-																																																			while (true)
-																																																			{
-																																																				switch (5)
-																																																				{
-																																																				case 0:
-																																																					continue;
-																																																				}
-																																																				break;
-																																																			}
 																																																			if (nameHashCode != 237918)
 																																																			{
-																																																				while (true)
-																																																				{
-																																																					switch (5)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (nameHashCode == 275917)
 																																																				{
 																																																					goto IL_2a77;
@@ -11039,126 +6896,36 @@ namespace TMPro
 																																																				{
 																																																					goto IL_2855;
 																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (4)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (nameHashCode == 280416)
 																																																				{
 																																																					return false;
-																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (3)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
 																																																				}
 																																																				if (nameHashCode == 281955)
 																																																				{
 																																																					goto IL_2c4f;
 																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (3)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (nameHashCode == 317446)
 																																																				{
 																																																					goto IL_40e7;
-																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (3)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
 																																																				}
 																																																				if (nameHashCode == 320078)
 																																																				{
 																																																					goto IL_278d;
 																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (1)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (nameHashCode != 327550)
 																																																				{
-																																																					while (true)
-																																																					{
-																																																						switch (6)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					if (nameHashCode == 976214)
 																																																					{
 																																																						goto IL_2b85;
-																																																					}
-																																																					while (true)
-																																																					{
-																																																						switch (2)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
 																																																					}
 																																																					if (nameHashCode == 982252)
 																																																					{
 																																																						goto IL_3168;
 																																																					}
-																																																					while (true)
-																																																					{
-																																																						switch (3)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					if (nameHashCode != 1017743)
 																																																					{
-																																																						while (true)
-																																																						{
-																																																							switch (3)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						if (nameHashCode != 1027847)
 																																																						{
-																																																							while (true)
-																																																							{
-																																																								switch (1)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
-																																																							}
 																																																							if (nameHashCode == 1065846)
 																																																							{
 																																																								goto IL_2b85;
@@ -11167,39 +6934,12 @@ namespace TMPro
 																																																							{
 																																																								goto IL_3168;
 																																																							}
-																																																							while (true)
-																																																							{
-																																																								switch (6)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
-																																																							}
 																																																							if (nameHashCode == 1107375)
 																																																							{
 																																																								goto IL_41c2;
 																																																							}
-																																																							while (true)
-																																																							{
-																																																								switch (2)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
-																																																							}
 																																																							if (nameHashCode != 1117479)
 																																																							{
-																																																								while (true)
-																																																								{
-																																																									switch (5)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
-																																																								}
 																																																								if (nameHashCode == 1286342)
 																																																								{
 																																																									goto IL_3f97;
@@ -11208,79 +6948,25 @@ namespace TMPro
 																																																								{
 																																																									goto IL_2f5d;
 																																																								}
-																																																								while (true)
-																																																								{
-																																																									switch (7)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
-																																																								}
 																																																								if (nameHashCode == 1441524)
 																																																								{
 																																																									goto IL_317d;
-																																																								}
-																																																								while (true)
-																																																								{
-																																																									switch (3)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
 																																																								}
 																																																								if (nameHashCode == 1482398)
 																																																								{
 																																																									goto IL_3b17;
 																																																								}
-																																																								while (true)
-																																																								{
-																																																									switch (6)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
-																																																								}
 																																																								if (nameHashCode == 1524585)
 																																																								{
 																																																									goto IL_3095;
 																																																								}
-																																																								while (true)
-																																																								{
-																																																									switch (6)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
-																																																								}
 																																																								if (nameHashCode != 1600507)
 																																																								{
-																																																									while (true)
-																																																									{
-																																																										switch (4)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									if (nameHashCode != 1619421)
 																																																									{
 																																																										if (nameHashCode == 1750458)
 																																																										{
 																																																											return false;
-																																																										}
-																																																										while (true)
-																																																										{
-																																																											switch (4)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
 																																																										}
 																																																										if (nameHashCode == 1913798)
 																																																										{
@@ -11290,15 +6976,6 @@ namespace TMPro
 																																																										{
 																																																											goto IL_2f5d;
 																																																										}
-																																																										while (true)
-																																																										{
-																																																											switch (6)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										if (nameHashCode == 2068980)
 																																																										{
 																																																											goto IL_317d;
@@ -11307,27 +6984,9 @@ namespace TMPro
 																																																										{
 																																																											goto IL_3b17;
 																																																										}
-																																																										while (true)
-																																																										{
-																																																											switch (3)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										if (nameHashCode == 2152041)
 																																																										{
 																																																											goto IL_3095;
-																																																										}
-																																																										while (true)
-																																																										{
-																																																											switch (6)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
 																																																										}
 																																																										if (nameHashCode == 2227963)
 																																																										{
@@ -11335,114 +6994,33 @@ namespace TMPro
 																																																										}
 																																																										if (nameHashCode != 2246877)
 																																																										{
-																																																											while (true)
-																																																											{
-																																																												switch (2)
-																																																												{
-																																																												case 0:
-																																																													continue;
-																																																												}
-																																																												break;
-																																																											}
 																																																											if (nameHashCode != 6815845)
 																																																											{
 																																																												if (nameHashCode == 6886018)
 																																																												{
 																																																													goto IL_302b;
 																																																												}
-																																																												while (true)
-																																																												{
-																																																													switch (1)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												if (nameHashCode == 6971027)
 																																																												{
 																																																													goto IL_3273;
 																																																												}
-																																																												while (true)
-																																																												{
-																																																													switch (5)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												if (nameHashCode != 7011901)
 																																																												{
-																																																													while (true)
-																																																													{
-																																																														switch (1)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													if (nameHashCode != 7054088)
 																																																													{
-																																																														while (true)
-																																																														{
-																																																															switch (6)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														if (nameHashCode != 7130010)
 																																																														{
-																																																															while (true)
-																																																															{
-																																																																switch (2)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
-																																																															}
 																																																															if (nameHashCode == 7443301)
 																																																															{
 																																																																goto IL_3ffb;
-																																																															}
-																																																															while (true)
-																																																															{
-																																																																switch (7)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
 																																																															}
 																																																															if (nameHashCode == 7513474)
 																																																															{
 																																																																goto IL_302b;
 																																																															}
-																																																															while (true)
-																																																															{
-																																																																switch (3)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
-																																																															}
 																																																															if (nameHashCode == 7598483)
 																																																															{
 																																																																goto IL_3273;
-																																																															}
-																																																															while (true)
-																																																															{
-																																																																switch (1)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
 																																																															}
 																																																															if (nameHashCode == 7639357)
 																																																															{
@@ -11454,40 +7032,13 @@ namespace TMPro
 																																																															}
 																																																															if (nameHashCode != 7757466)
 																																																															{
-																																																																while (true)
-																																																																{
-																																																																	switch (4)
-																																																																	{
-																																																																	case 0:
-																																																																		continue;
-																																																																	}
-																																																																	break;
-																																																																}
 																																																																if (nameHashCode != 9133802)
 																																																																{
 																																																																	if (nameHashCode != 10723418)
 																																																																	{
-																																																																		while (true)
-																																																																		{
-																																																																			switch (2)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
-																																																																		}
 																																																																		if (nameHashCode == 11642281)
 																																																																		{
 																																																																			goto IL_1cfd;
-																																																																		}
-																																																																		while (true)
-																																																																		{
-																																																																			switch (1)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
 																																																																		}
 																																																																		if (nameHashCode == 13526026)
 																																																																		{
@@ -11497,38 +7048,11 @@ namespace TMPro
 																																																																		{
 																																																																			if (nameHashCode != 47840323)
 																																																																			{
-																																																																				while (true)
-																																																																				{
-																																																																					switch (2)
-																																																																					{
-																																																																					case 0:
-																																																																						continue;
-																																																																					}
-																																																																					break;
-																																																																				}
 																																																																				if (nameHashCode != 50348802)
 																																																																				{
-																																																																					while (true)
-																																																																					{
-																																																																						switch (1)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					if (nameHashCode == 52232547)
 																																																																					{
 																																																																						goto IL_3aaa;
-																																																																					}
-																																																																					while (true)
-																																																																					{
-																																																																						switch (7)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
 																																																																					}
 																																																																					if (nameHashCode != 54741026)
 																																																																					{
@@ -11555,28 +7079,10 @@ namespace TMPro
 																																																																								valueHashCode4 = m_xmlAttribute[0].valueHashCode;
 																																																																								if (valueHashCode4 != 764638571)
 																																																																								{
-																																																																									while (true)
-																																																																									{
-																																																																										switch (5)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (valueHashCode4 != 523367755)
 																																																																									{
 																																																																										if (MaterialReferenceManager.TryGetMaterial(valueHashCode4, out material))
 																																																																										{
-																																																																											while (true)
-																																																																											{
-																																																																												switch (4)
-																																																																												{
-																																																																												case 0:
-																																																																													continue;
-																																																																												}
-																																																																												break;
-																																																																											}
 																																																																											if (m_currentFontAsset.atlas.GetInstanceID() != material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 																																																																											{
 																																																																												return false;
@@ -11620,15 +7126,6 @@ namespace TMPro
 																																																																											m_materialReferenceStack.Add(m_materialReferences[m_currentMaterialIndex]);
 																																																																										}
 																																																																										return true;
-																																																																									}
-																																																																									while (true)
-																																																																									{
-																																																																										switch (4)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
 																																																																									}
 																																																																								}
 																																																																								if (m_currentFontAsset.atlas.GetInstanceID() != m_currentMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
@@ -11678,15 +7175,6 @@ namespace TMPro
 																																																									m_spriteIndex = -1;
 																																																									if (m_xmlAttribute[0].valueType != 0)
 																																																									{
-																																																										while (true)
-																																																										{
-																																																											switch (1)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										if (m_xmlAttribute[0].valueType != TagType.NumericalValue)
 																																																										{
 																																																											if (MaterialReferenceManager.TryGetSpriteAsset(valueHashCode5, out TMP_SpriteAsset spriteAsset))
@@ -11697,15 +7185,6 @@ namespace TMPro
 																																																											{
 																																																												if (spriteAsset == null)
 																																																												{
-																																																													while (true)
-																																																													{
-																																																														switch (6)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													spriteAsset = Resources.Load<TMP_SpriteAsset>(TMP_Settings.defaultSpriteAssetPath + new string(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength));
 																																																												}
 																																																												if (spriteAsset == null)
@@ -11717,64 +7196,19 @@ namespace TMPro
 																																																											}
 																																																											goto IL_353f;
 																																																										}
-																																																										while (true)
-																																																										{
-																																																											switch (2)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																									}
 																																																									if (m_spriteAsset != null)
 																																																									{
-																																																										while (true)
-																																																										{
-																																																											switch (6)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										m_currentSpriteAsset = m_spriteAsset;
 																																																									}
 																																																									else if (m_defaultSpriteAsset != null)
 																																																									{
-																																																										while (true)
-																																																										{
-																																																											switch (4)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										m_currentSpriteAsset = m_defaultSpriteAsset;
 																																																									}
 																																																									else if (m_defaultSpriteAsset == null)
 																																																									{
-																																																										while (true)
-																																																										{
-																																																											switch (3)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										if (TMP_Settings.defaultSpriteAsset != null)
 																																																										{
-																																																											while (true)
-																																																											{
-																																																												switch (7)
-																																																												{
-																																																												case 0:
-																																																													continue;
-																																																												}
-																																																												break;
-																																																											}
 																																																											m_defaultSpriteAsset = TMP_Settings.defaultSpriteAsset;
 																																																										}
 																																																										else
@@ -11810,52 +7244,16 @@ namespace TMPro
 																																																			num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 																																																			if (num4 != -9999f)
 																																																			{
-																																																				while (true)
-																																																				{
-																																																					switch (6)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (num4 != 0f)
 																																																				{
 																																																					if (tagUnits != 0)
 																																																					{
-																																																						while (true)
-																																																						{
-																																																							switch (5)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						if (tagUnits == TagUnits.FontUnits)
 																																																						{
 																																																							return false;
 																																																						}
-																																																						while (true)
-																																																						{
-																																																							switch (5)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						if (tagUnits != TagUnits.Percentage)
 																																																						{
-																																																							while (true)
-																																																							{
-																																																								switch (6)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
-																																																							}
 																																																						}
 																																																						else
 																																																						{
@@ -11867,15 +7265,6 @@ namespace TMPro
 																																																						m_width = num4;
 																																																					}
 																																																					return true;
-																																																				}
-																																																				while (true)
-																																																				{
-																																																					switch (7)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
 																																																				}
 																																																			}
 																																																			return false;
@@ -11890,15 +7279,6 @@ namespace TMPro
 																																															float num6;
 																																															if (m_isOrthographic)
 																																															{
-																																																while (true)
-																																																{
-																																																	switch (1)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																num6 = 1f;
 																																															}
 																																															else
@@ -11932,11 +7312,6 @@ namespace TMPro
 																																											default:
 																																												while (true)
 																																												{
-																																													switch (1)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
 																																													return false;
 																																												}
 																																											case TagUnits.Pixels:
@@ -11956,15 +7331,6 @@ namespace TMPro
 																																															float num8;
 																																															if (m_isOrthographic)
 																																															{
-																																																while (true)
-																																																{
-																																																	switch (7)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																num8 = 1f;
 																																															}
 																																															else
@@ -11993,15 +7359,6 @@ namespace TMPro
 																																															float num10;
 																																															if (m_isOrthographic)
 																																															{
-																																																while (true)
-																																																{
-																																																	switch (3)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																num10 = 1f;
 																																															}
 																																															else
@@ -12026,15 +7383,6 @@ namespace TMPro
 																																												float num12;
 																																												if (m_isOrthographic)
 																																												{
-																																													while (true)
-																																													{
-																																														switch (3)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
-																																													}
 																																													num12 = 1f;
 																																												}
 																																												else
@@ -12060,40 +7408,13 @@ namespace TMPro
 																																						}
 																																						if ((m_style & FontStyles.Superscript) == FontStyles.Superscript)
 																																						{
-																																							while (true)
-																																							{
-																																								switch (7)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
-																																							}
 																																							if (m_fontScaleMultiplier < 1f)
 																																							{
-																																								while (true)
-																																								{
-																																									switch (4)
-																																									{
-																																									case 0:
-																																										continue;
-																																									}
-																																									break;
-																																								}
 																																								m_baselineOffset = m_baselineOffsetStack.Pop();
 																																								float fontScaleMultiplier = m_fontScaleMultiplier;
 																																								float num13;
 																																								if (m_currentFontAsset.fontInfo.SubSize > 0f)
 																																								{
-																																									while (true)
-																																									{
-																																										switch (4)
-																																										{
-																																										case 0:
-																																											continue;
-																																										}
-																																										break;
-																																									}
 																																									num13 = m_currentFontAsset.fontInfo.SubSize;
 																																								}
 																																								else
@@ -12104,15 +7425,6 @@ namespace TMPro
 																																							}
 																																							if (m_fontStyleStack.Remove(FontStyles.Superscript) == 0)
 																																							{
-																																								while (true)
-																																								{
-																																									switch (4)
-																																									{
-																																									case 0:
-																																										continue;
-																																									}
-																																									break;
-																																								}
 																																								m_style &= (FontStyles)(-129);
 																																							}
 																																						}
@@ -12149,15 +7461,6 @@ namespace TMPro
 																							}
 																							if (m_fontStyleStack.Remove(FontStyles.Italic) == 0)
 																							{
-																								while (true)
-																								{
-																									switch (3)
-																									{
-																									case 0:
-																										continue;
-																									}
-																									break;
-																								}
 																								m_style &= (FontStyles)(-3);
 																							}
 																							return true;
@@ -12181,51 +7484,15 @@ namespace TMPro
 														num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 														if (num4 != -9999f)
 														{
-															while (true)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (num4 != 0f)
 															{
 																m_marginRight = num4;
 																if (tagUnits != 0)
 																{
-																	while (true)
-																	{
-																		switch (6)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (tagUnits != TagUnits.FontUnits)
 																	{
-																		while (true)
-																		{
-																			switch (7)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (tagUnits != TagUnits.Percentage)
 																		{
-																			while (true)
-																			{
-																				switch (1)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																		}
 																		else
 																		{
@@ -12233,15 +7500,6 @@ namespace TMPro
 																			float num14;
 																			if (m_width != -1f)
 																			{
-																				while (true)
-																				{
-																					switch (2)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				num14 = m_width;
 																			}
 																			else
@@ -12259,15 +7517,6 @@ namespace TMPro
 																float marginRight;
 																if (m_marginRight >= 0f)
 																{
-																	while (true)
-																	{
-																		switch (5)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	marginRight = m_marginRight;
 																}
 																else
@@ -12276,15 +7525,6 @@ namespace TMPro
 																}
 																m_marginRight = marginRight;
 																return true;
-															}
-															while (true)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 														}
 														return false;
@@ -12327,15 +7567,6 @@ namespace TMPro
 						m_fontStyleStack.Add(FontStyles.Strikethrough);
 						if (m_xmlAttribute[1].nameHashCode != 281955)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_xmlAttribute[1].nameHashCode != 192323)
 							{
 								m_strikethroughColor = m_htmlColor;
@@ -12356,15 +7587,6 @@ namespace TMPro
 							{
 								m_underlineColor = m_htmlColor;
 								goto IL_164c;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						m_underlineColor = HexCharsToColor(m_htmlTag, m_xmlAttribute[1].valueStartIndex, m_xmlAttribute[1].valueLength);
@@ -12458,51 +7680,15 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits == TagUnits.Percentage)
 										{
 											return false;
-										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									else
@@ -12517,15 +7703,6 @@ namespace TMPro
 								}
 								return true;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						return false;
 						IL_164c:
@@ -12536,15 +7713,6 @@ namespace TMPro
 						IL_2c4f:
 						if (m_htmlTag[6] == '#')
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num == 10)
 							{
 								while (true)
@@ -12563,15 +7731,6 @@ namespace TMPro
 						}
 						if (m_htmlTag[6] == '#')
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num == 11)
 							{
 								while (true)
@@ -12605,15 +7764,6 @@ namespace TMPro
 						}
 						if (m_htmlTag[6] == '#')
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num == 15)
 							{
 								while (true)
@@ -12737,27 +7887,9 @@ namespace TMPro
 						IL_165f:
 						if ((m_fontStyle & FontStyles.Underline) != FontStyles.Underline)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_underlineColor = m_underlineColorStack.Remove();
 							if (m_fontStyleStack.Remove(FontStyles.Underline) == 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_style &= (FontStyles)(-5);
 							}
 						}
@@ -12774,15 +7906,6 @@ namespace TMPro
 						m_fontWeightInternal = m_fontWeightStack.Remove();
 						if (m_fontWeightInternal == 400)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_style &= (FontStyles)(-2);
 						}
 						return true;
@@ -12799,26 +7922,8 @@ namespace TMPro
 						IL_156e:
 						if ((m_fontStyle & FontStyles.Strikethrough) != FontStyles.Strikethrough)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_fontStyleStack.Remove(FontStyles.Strikethrough) == 0)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_style &= (FontStyles)(-65);
 							}
 						}
@@ -12827,50 +7932,14 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits != TagUnits.Percentage)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -12890,29 +7959,11 @@ namespace TMPro
 								m_xAdvance += tag_LineIndent;
 								return true;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						return false;
 						IL_353f:
 						if (m_xmlAttribute[0].valueType == TagType.NumericalValue)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num15 = (int)ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 							if (num15 == -9999)
 							{
@@ -12922,11 +7973,6 @@ namespace TMPro
 							{
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									return false;
 								}
 							}
@@ -12939,11 +7985,6 @@ namespace TMPro
 							{
 								while (true)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
 									return false;
 								}
 							}
@@ -12960,11 +8001,6 @@ namespace TMPro
 							{
 								while (true)
 								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
 									return false;
 								}
 							}
@@ -12979,15 +8015,6 @@ namespace TMPro
 						m_tintSprite = false;
 						for (int i = 0; i < m_xmlAttribute.Length; i++)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num17;
 							if (m_xmlAttribute[i].nameHashCode != 0)
 							{
@@ -12995,37 +8022,10 @@ namespace TMPro
 								num17 = 0;
 								if (nameHashCode2 != 26705)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (nameHashCode2 != 30547)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (nameHashCode2 != 33019)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (nameHashCode2 == 39505)
 											{
 												goto IL_3907;
@@ -13034,42 +8034,15 @@ namespace TMPro
 											{
 												goto IL_37e1;
 											}
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (nameHashCode2 != 45819)
 											{
 												if (nameHashCode2 != 192323)
 												{
-													while (true)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (nameHashCode2 != 205930)
 													{
 														if (nameHashCode2 == 281955)
 														{
 															goto IL_38ca;
-														}
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 														if (nameHashCode2 != 295562)
 														{
@@ -13077,26 +8050,12 @@ namespace TMPro
 															{
 																continue;
 															}
-															while (true)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (nameHashCode2 == 1619421)
 															{
 																continue;
 															}
 															while (true)
 															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
 																return false;
 															}
 														}
@@ -13131,15 +8090,6 @@ namespace TMPro
 									goto IL_37e1;
 								}
 								goto IL_3907;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 							IL_37e1:
@@ -13199,37 +8149,10 @@ namespace TMPro
 						m_lineHeight = num4;
 						if (tagUnits != 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (tagUnits != TagUnits.FontUnits)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (tagUnits != TagUnits.Percentage)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -13245,15 +8168,6 @@ namespace TMPro
 						IL_3ffb:
 						if (m_isParsingText)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.Log("Action ID: [" + m_actionStack.CurrentItem() + "] Last character index: " + (m_characterCount - 1));
 						}
 						m_actionStack.Remove();
@@ -13264,27 +8178,9 @@ namespace TMPro
 						IL_171e:
 						if ((m_fontStyle & FontStyles.Highlight) != FontStyles.Highlight)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_highlightColor = m_highlightColorStack.Remove();
 							if (m_fontStyleStack.Remove(FontStyles.Highlight) == 0)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_style &= (FontStyles)(-513);
 							}
 						}
@@ -13293,15 +8189,6 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								switch (tagUnits)
@@ -13323,15 +8210,6 @@ namespace TMPro
 						IL_3a60:
 						if (m_fontStyleStack.Remove(FontStyles.LowerCase) == 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_style &= (FontStyles)(-9);
 						}
 						return true;
@@ -13342,40 +8220,13 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								m_marginLeft = num4;
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits == TagUnits.Percentage)
 										{
 											m_marginLeft = (m_marginWidth - ((m_width == -1f) ? 0f : m_width)) * m_marginLeft / 100f;
@@ -13389,15 +8240,6 @@ namespace TMPro
 								float marginLeft;
 								if (m_marginLeft >= 0f)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									marginLeft = m_marginLeft;
 								}
 								else
@@ -13406,15 +8248,6 @@ namespace TMPro
 								}
 								m_marginLeft = marginLeft;
 								return true;
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						return false;
@@ -13438,11 +8271,6 @@ namespace TMPro
 						default:
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								return false;
 							}
 						case TagUnits.Pixels:
@@ -13478,15 +8306,6 @@ namespace TMPro
 						}
 						if (m_characterCount > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_xAdvance -= m_cSpacing;
 							m_textInfo.characterInfo[m_characterCount - 1].xAdvance = m_xAdvance;
 						}
@@ -13517,40 +8336,13 @@ namespace TMPro
 						IL_181c:
 						if ((m_style & FontStyles.Subscript) == FontStyles.Subscript)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_fontScaleMultiplier < 1f)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_baselineOffset = m_baselineOffsetStack.Pop();
 								float fontScaleMultiplier2 = m_fontScaleMultiplier;
 								float num18;
 								if (m_currentFontAsset.fontInfo.SubSize > 0f)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num18 = m_currentFontAsset.fontInfo.SubSize;
 								}
 								else
@@ -13561,15 +8353,6 @@ namespace TMPro
 							}
 							if (m_fontStyleStack.Remove(FontStyles.Subscript) == 0)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_style &= (FontStyles)(-257);
 							}
 						}
@@ -13577,54 +8360,18 @@ namespace TMPro
 						IL_41cc:
 						for (int j = 1; j < m_xmlAttribute.Length; j++)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_xmlAttribute[j].nameHashCode != 0)
 							{
 								int nameHashCode3 = m_xmlAttribute[j].nameHashCode;
 								if (nameHashCode3 != 327550)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (nameHashCode3 != 275917)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										continue;
 									}
 									int valueHashCode6 = m_xmlAttribute[j].valueHashCode;
 									if (valueHashCode6 != -523808257)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										switch (valueHashCode6)
 										{
 										case 3774683:
@@ -13634,26 +8381,8 @@ namespace TMPro
 											Debug.Log("TD align=\"center\".");
 											continue;
 										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (valueHashCode6 != 136703040)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -13669,37 +8398,10 @@ namespace TMPro
 								float num19 = ConvertToFloat(m_htmlTag, m_xmlAttribute[j].valueStartIndex, m_xmlAttribute[j].valueLength);
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits != TagUnits.Percentage)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -13717,15 +8419,6 @@ namespace TMPro
 								}
 								continue;
 							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						return true;
@@ -13733,15 +8426,6 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if ((m_fontStyle & FontStyles.Bold) == FontStyles.Bold)
@@ -13754,81 +8438,18 @@ namespace TMPro
 								{
 									if (num20 != 200)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num20 != 300)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num20 != 400)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num20 != 500)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (num20 != 600)
 													{
-														while (true)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (num20 != 700)
 														{
-															while (true)
-															{
-																switch (3)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (num20 != 800)
 															{
-																while (true)
-																{
-																	switch (3)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (num20 == 900)
 																{
 																	m_fontWeightInternal = 900;
@@ -13877,15 +8498,6 @@ namespace TMPro
 								m_fontWeightStack.Add(m_fontWeightInternal);
 								return true;
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						return false;
 						IL_177c:
@@ -13901,15 +8513,6 @@ namespace TMPro
 						IL_1431:
 						if ((m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_fontWeightInternal = m_fontWeightStack.Remove();
 							if (m_fontStyleStack.Remove(FontStyles.Bold) == 0)
 							{
@@ -13923,15 +8526,6 @@ namespace TMPro
 						IL_3aeb:
 						if (m_fontStyleStack.Remove(FontStyles.SmallCaps) == 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_style &= (FontStyles)(-33);
 						}
 						return true;
@@ -13939,15 +8533,6 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if (tagUnits != 0)
@@ -14017,39 +8602,12 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits == TagUnits.Percentage)
 										{
 											return false;
@@ -14066,15 +8624,6 @@ namespace TMPro
 									m_monoSpacing = num4;
 								}
 								return true;
-							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						return false;
@@ -14093,11 +8642,6 @@ namespace TMPro
 									{
 										while (true)
 										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
 											return false;
 										}
 									}
@@ -14105,26 +8649,8 @@ namespace TMPro
 								}
 								if (nameHashCode4 == 0)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (valueHashCode4 == 0)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_currentMaterial = fontAsset.material;
 										m_currentMaterialIndex = MaterialReference.AddMaterialReference(m_currentMaterial, fontAsset, m_materialReferences, m_materialReferenceIndexLookup);
 										m_materialReferenceStack.Add(m_materialReferences[m_currentMaterialIndex]);
@@ -14133,15 +8659,6 @@ namespace TMPro
 								}
 								if (nameHashCode4 != 103415287)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (nameHashCode4 != 72669687)
 									{
 										return false;
@@ -14149,15 +8666,6 @@ namespace TMPro
 								}
 								if (MaterialReferenceManager.TryGetMaterial(valueHashCode4, out material))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_currentMaterial = material;
 									m_currentMaterialIndex = MaterialReference.AddMaterialReference(m_currentMaterial, fontAsset, m_materialReferences, m_materialReferenceIndexLookup);
 									m_materialReferenceStack.Add(m_materialReferences[m_currentMaterialIndex]);
@@ -14169,11 +8677,6 @@ namespace TMPro
 									{
 										while (true)
 										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
 											return false;
 										}
 									}
@@ -14183,15 +8686,6 @@ namespace TMPro
 									m_materialReferenceStack.Add(m_materialReferences[m_currentMaterialIndex]);
 								}
 								goto IL_2410;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						m_currentFontAsset = m_materialReferences[0].fontAsset;
@@ -14203,15 +8697,6 @@ namespace TMPro
 						IL_1d99:
 						if (m_overflowMode == TextOverflowModes.Page)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_xAdvance = tag_LineIndent + tag_Indent;
 							m_lineOffset = 0f;
 							m_pageNumber++;
@@ -14229,15 +8714,6 @@ namespace TMPro
 						num21 = m_currentFontSize / m_currentFontAsset.fontInfo.PointSize * m_currentFontAsset.fontInfo.Scale;
 						if (m_isOrthographic)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num22 = 1f;
 						}
 						else
@@ -14250,43 +8726,16 @@ namespace TMPro
 						nameHashCode5 = m_xmlAttribute[1].nameHashCode;
 						if (nameHashCode5 != 327550)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							float num23 = ConvertToFloat(m_htmlTag, m_xmlAttribute[1].valueStartIndex, m_xmlAttribute[1].valueLength);
 							if (tagUnits != 0)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (tagUnits != TagUnits.FontUnits)
 								{
 									if (tagUnits != TagUnits.Percentage)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
@@ -14310,27 +8759,9 @@ namespace TMPro
 						IL_28a9:
 						if (m_isParsingText && !m_isCalculatingPreferredValues)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int linkCount = m_textInfo.linkCount;
 							if (linkCount + 1 > m_textInfo.linkInfo.Length)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								TMP_TextInfo.Resize(ref m_textInfo.linkInfo, linkCount + 1);
 							}
 							m_textInfo.linkInfo[linkCount].textComponent = this;
@@ -14344,26 +8775,8 @@ namespace TMPro
 						IL_29f7:
 						if (m_isParsingText)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_isCalculatingPreferredValues)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_textInfo.linkInfo[m_textInfo.linkCount].linkTextLength = m_characterCount - m_textInfo.linkInfo[m_textInfo.linkCount].linkTextfirstCharacterIndex;
 								m_textInfo.linkCount++;
 							}
@@ -14377,15 +8790,6 @@ namespace TMPro
 						num24 = m_currentFontSize / m_currentFontAsset.fontInfo.PointSize * m_currentFontAsset.fontInfo.Scale;
 						if (m_isOrthographic)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num25 = 1f;
 						}
 						else
@@ -14398,50 +8802,14 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits != TagUnits.Percentage)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -14468,55 +8836,19 @@ namespace TMPro
 						num4 = ConvertToFloat(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength);
 						if (num4 != -9999f)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0f)
 							{
 								m_marginLeft = num4;
 								if (tagUnits != 0)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tagUnits != TagUnits.FontUnits)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tagUnits == TagUnits.Percentage)
 										{
 											float marginWidth2 = m_marginWidth;
 											float num26;
 											if (m_width != -1f)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num26 = m_width;
 											}
 											else
@@ -14535,15 +8867,6 @@ namespace TMPro
 								m_marginRight = m_marginLeft;
 								return true;
 							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						return false;
 						IL_1dea:
@@ -14551,15 +8874,6 @@ namespace TMPro
 						return true;
 					}
 					return true;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			tag_NoParsing = false;

@@ -35,19 +35,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		OnHitAuthoredData cachedKnockbackDestOnHitData;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedKnockbackDestOnHitData = m_abilityMod.m_knockbackDestOnHitDataMod._001D(m_knockbackDestOnHitData);
 		}
 		else
@@ -67,19 +54,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageIfFullPowerLayerConeMod.GetModifiedValue(m_extraDamageIfFullPowerLayerCone);
 		}
 		else
@@ -94,19 +68,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
@@ -121,19 +82,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
@@ -148,19 +96,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_doHitsAroundKnockbackDestMod.GetModifiedValue(m_doHitsAroundKnockbackDest);
 		}
 		else
@@ -180,19 +115,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (m_cachedKnockbackDestOnHitData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedKnockbackDestOnHitData;
 		}
 		else
@@ -223,66 +145,17 @@ public class DinoTargetedKnockback : GenericAbility_Container
 					ActorData key = current.Key;
 					if (current.Value._0012)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num++;
 						}
 					}
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (results.m_absorb > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_absorb += num * GetShieldPerEnemyHit();
 				}
 				else
@@ -297,31 +170,16 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_layerConeAbility != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (GetExtraDamageIfFullPowerLayerCone() > 0 && m_layerConeAbility.IsAtMaxPowerLevel())
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						results.m_damage += GetExtraDamageIfFullPowerLayerCone();
 						return;
 					}

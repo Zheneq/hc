@@ -68,42 +68,11 @@ public class QuestOfferPanel : UIScene
 		int num = 0;
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 				if (playerAccountData != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (Dictionary<int, QuestProgress>.Enumerator enumerator = playerAccountData.QuestComponent.Progress.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -113,15 +82,6 @@ public class QuestOfferPanel : UIScene
 							{
 								num++;
 							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -138,24 +98,10 @@ public class QuestOfferPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
 					return;
 				}
@@ -174,30 +120,8 @@ public class QuestOfferPanel : UIScene
 				int key = enumerator.Current.Key;
 				if (QuestWideData.Get().IsDailyQuest(key))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num++;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_currentContractCount.text = Convert.ToString(num);
@@ -212,31 +136,9 @@ public class QuestOfferPanel : UIScene
 			componentsInChildren[i].Clickable = false;
 			if (componentsInChildren[i] != offerClicked)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num;
 				if (!componentsInChildren[i].NotifyRejectedQuest())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (flag ? 1 : 0);
 				}
 				else
@@ -252,11 +154,6 @@ public class QuestOfferPanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumDailiesChosen;
 			int uIState = clientGameManager.GetPlayerAccountData().AccountComponent.GetUIState(uiState);
@@ -269,11 +166,6 @@ public class QuestOfferPanel : UIScene
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					SetVisible(false);
 					return;
 				}
@@ -286,33 +178,11 @@ public class QuestOfferPanel : UIScene
 	{
 		if (QuestListPanel.Get().DisplayState != QuestListPanel.DisplayStates.FadeIn)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QuestListPanel.Get().DisplayState != QuestListPanel.DisplayStates.Idle)
 			{
 				m_questListButton.SetSelected(true, false, string.Empty, string.Empty);
 				QuestListPanel.Get().SetVisible(true);
 				return;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_questListButton.SetSelected(false, false, string.Empty, string.Empty);
@@ -337,19 +207,6 @@ public class QuestOfferPanel : UIScene
 	{
 		if (!m_initialized)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Setup();
 		}
 		m_quests = quests;
@@ -361,15 +218,6 @@ public class QuestOfferPanel : UIScene
 		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 		if (!(accountCurrency == "GBP"))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(accountCurrency == "EUR"))
 			{
 				goto IL_0099;
@@ -384,15 +232,6 @@ public class QuestOfferPanel : UIScene
 			string text2;
 			if (QuestWideData.Get().m_questResetHour < 12)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = StringUtil.TR("AM", "Global");
 			}
 			else
@@ -415,28 +254,10 @@ public class QuestOfferPanel : UIScene
 			componentsInChildren[i].Clickable = true;
 			if (i < quests.DailyQuestIds.Count)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i], true);
 				int rejectedCount = 0;
 				if (quests.RejectedQuestCount.ContainsKey(quests.DailyQuestIds[i]))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					rejectedCount = quests.RejectedQuestCount[quests.DailyQuestIds[i]];
 				}
 				componentsInChildren[i].SetupDailyQuest(quests.DailyQuestIds[i], rejectedCount);
@@ -476,19 +297,6 @@ public class QuestOfferPanel : UIScene
 	{
 		if (!UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.IsSelected())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.SetSelected(true, false, string.Empty, string.Empty);
 		}
 		QuestListPanel.Get().SetVisible(true);
@@ -504,15 +312,6 @@ public class QuestOfferPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StartFadeOut();
 			return;
 		}
@@ -522,30 +321,8 @@ public class QuestOfferPanel : UIScene
 	{
 		if (m_displayState == DisplayStates.FadeIn)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsAnimationDone(m_animator, "PickContractDefaultIN"))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StartIdle();
 			}
 		}
@@ -555,11 +332,6 @@ public class QuestOfferPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_animator, false);
 			m_displayState = DisplayStates.None;
 			return;
@@ -582,10 +354,6 @@ public class QuestOfferPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}

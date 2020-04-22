@@ -34,15 +34,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 			return;
 		}
@@ -52,19 +43,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 	{
 		if (ChatterManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ChatterManager.Get().EnableChatter = true;
 		}
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
@@ -81,15 +59,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -102,15 +71,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITutorialPanel.Get().ClearAll();
 			if (m_chatTextAtEndOfMatch == null)
 			{
@@ -118,22 +78,12 @@ public class SinglePlayerCoordinator : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_chatTextAtEndOfMatch.Length <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					SinglePlayerScriptedChat[] chatTextAtEndOfMatch = m_chatTextAtEndOfMatch;
 					foreach (SinglePlayerScriptedChat singlePlayerScriptedChat in chatTextAtEndOfMatch)
 					{

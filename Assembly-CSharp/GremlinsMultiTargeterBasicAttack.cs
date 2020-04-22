@@ -51,19 +51,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		AbilityAreaShape result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_bombShape;
 		}
 		else
@@ -83,19 +70,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_useShapeForDeadzone;
 		}
 		else
@@ -110,19 +84,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		AbilityAreaShape result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_deadZoneShape;
 		}
 		else
@@ -136,30 +97,8 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_directHitDamagePerShot.Count > shotIndex)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (shotIndex >= 0)
 				{
 					return m_abilityMod.m_directHitDamagePerShot[shotIndex].GetModifiedValue(m_bombInfoComp.m_directHitDamageAmount);
@@ -186,15 +125,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_GremlinsMultiTargeterBasicAttack);
 			SetupTargeter();
 			ResetTargetingNumbersForMines();
@@ -213,19 +143,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 	{
 		if (m_bombInfoComp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		if (GetExpectedNumberOfTargeters() > 1)
@@ -246,26 +163,8 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 						abilityUtil_Targeter_GremlinsBombInCone.SetTooltipSubjectTypes();
 						if (num < 180f)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_useAngleIndicators)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								abilityUtil_Targeter_GremlinsBombInCone.SetAngleIndicatorConfig(true, num, m_indicatorLineLength);
 							}
 						}
@@ -305,15 +204,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gremlinsDropMines.ResetNameplateTargetingNumbers();
 			return;
 		}
@@ -342,19 +232,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_bombInfoComp.m_directHitDamageAmount);
 			if (m_bombInfoComp.m_directHitDamageAmount != m_bombInfoComp.m_directHitSubsequentDamageAmount)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_bombInfoComp.m_directHitSubsequentDamageAmount);
 			}
 		}
@@ -382,44 +259,13 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		{
 			if (i > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
 				if (boardSquareSafe2 == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 == boardSquareSafe)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -427,11 +273,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return symbolToValue;
 		}
 	}
@@ -452,32 +293,10 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				if (UseShapeForDeadzone())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, GetDeadzoneShape(), caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster))
 					{
 						while (true)
@@ -507,28 +326,10 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 							Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 							if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)ModdedMaxAngleWithFirst())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = false;
 							}
 							if (flag)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								float num = GetMinDistBetweenBombs() * Board.Get().squareSize;
 								for (int i = 0; i < targetIndex; i++)
 								{
@@ -543,15 +344,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 									float magnitude = vector.magnitude;
 									if (magnitude < num)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										break;
 									}
@@ -563,15 +355,6 @@ public class GremlinsMultiTargeterBasicAttack : Ability
 					}
 				}
 				return true;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

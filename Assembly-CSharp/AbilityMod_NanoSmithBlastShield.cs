@@ -28,15 +28,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectOverride, "ShieldEffect", nanoSmithBlastShield.m_shieldEffect);
 			AbilityMod.AddToken(tokens, m_healOnEndIfHasRemainingAbsorbMod, "HealOnEndIfHasRemainingAbsorb", string.Empty, nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb);
 			AbilityMod.AddToken(tokens, m_energyGainOnShieldTargetMod, "EnergyGainOnShieldTarget", string.Empty, nanoSmithBlastShield.m_energyGainOnShieldTarget);
@@ -55,19 +46,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = nanoSmithBlastShield.m_shieldEffect;
 		}
 		else
@@ -81,15 +59,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithBlastShield.m_energyGainOnShieldTarget;
 		}
 		else
@@ -102,15 +71,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly;
 		}
 		else

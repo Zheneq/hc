@@ -20,44 +20,13 @@ public class ItemData : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.syncVarDirtyBits == 0)
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		OnSerializeHelper(new NetworkWriterAdapter(writer));
@@ -69,19 +38,6 @@ public class ItemData : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num == 0)
@@ -90,11 +46,6 @@ public class ItemData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			OnSerializeHelper(new NetworkReaderAdapter(reader));
 			return;
 		}
@@ -104,19 +55,6 @@ public class ItemData : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (stream.isReading)
 			{
 				while (true)
@@ -168,10 +106,6 @@ public class ItemData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ItemData::OnTurnStart()' called on client");
 					return;
 				}
@@ -179,15 +113,6 @@ public class ItemData : NetworkBehaviour
 		}
 		if (GameFlowData.Get().CurrentTurn == 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_credits = GameplayData.Get().m_startingCredits;
 		}
 		else
@@ -211,10 +136,6 @@ public class ItemData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ItemData::GiveCredits(System.Int32)' called on client");
 					return;
 				}
@@ -236,10 +157,6 @@ public class ItemData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ItemData::SpendCredits(System.Int32)' called on client");
 					return;
 				}
@@ -247,26 +164,8 @@ public class ItemData : NetworkBehaviour
 		}
 		if (Debug.isDebugBuild)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numCredits > m_credits)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = m_actorData;
 				Log.Error("Spending " + numCredits + " credits from actor " + actorData.DisplayName + "  but they only have " + m_credits + " credits.");
 			}

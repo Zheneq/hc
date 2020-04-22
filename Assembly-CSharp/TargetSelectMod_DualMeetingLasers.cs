@@ -40,19 +40,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = targetSelect_DualMeetingLasers.m_laserWidth;
 		}
 		else
@@ -65,15 +52,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = targetSelect_DualMeetingLasers.m_minMeetingDistFromCaster;
 		}
 		else
@@ -87,15 +65,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = targetSelect_DualMeetingLasers.m_laserStartForwardOffset;
 		}
 		else
@@ -108,15 +77,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = targetSelect_DualMeetingLasers.m_laserStartSideOffset;
 		}
 		else
@@ -129,15 +89,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = targetSelect_DualMeetingLasers.m_aoeBaseRadius;
 		}
 		else
@@ -150,15 +101,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = targetSelect_DualMeetingLasers.m_aoeMinRadius;
 		}
 		else
@@ -171,15 +113,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = targetSelect_DualMeetingLasers.m_aoeMaxRadius;
 		}
 		else
@@ -192,15 +125,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = targetSelect_DualMeetingLasers.m_aoeRadiusChangePerUnitFromMin;
 		}
 		else
@@ -213,15 +137,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = targetSelect_DualMeetingLasers.m_radiusMultIfPartialBlock;
 		}
 		else
@@ -234,15 +149,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (targetSelect_DualMeetingLasers.m_aoeIgnoreMinCoverDist ? 1 : 0);
 		}
 		else

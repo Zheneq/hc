@@ -11,33 +11,11 @@ namespace I2
 		{
 			if (CoroutineManager._001D == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameObject gameObject = new GameObject("_Coroutiner");
 				gameObject.hideFlags |= HideFlags.HideAndDontSave;
 				CoroutineManager._001D = gameObject.AddComponent<CoroutineManager>();
 				if (Application.isPlaying)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Object.DontDestroyOnLoad(gameObject);
 				}
 			}

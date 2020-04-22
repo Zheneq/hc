@@ -22,15 +22,6 @@ public class PowerUp_Berzerk_Ability : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ANGER JUICE";
 			return;
 		}

@@ -40,19 +40,6 @@ public class AbilityUtil_Targeter_VariableLaser : AbilityUtil_Targeter_Laser
 		{
 			if (num >= m_infoValues[i].m_threshold)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				index = i;
 			}
 		}

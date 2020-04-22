@@ -15,19 +15,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 			int result;
 			if (m_isInGeneralMode)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else
@@ -50,19 +37,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		}
 		if (m_gameType != GameType.PvP)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_gameType != GameType.NewPlayerPvP)
 			{
 				if (m_gameType == GameType.Ranked)
@@ -114,15 +88,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 				}
 				return 'o';
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return 'v';
 	}
@@ -132,19 +97,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		int result;
 		if (m_isInGeneralMode)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 48;
 		}
 		else
@@ -159,19 +111,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		object result;
 		if (m_isInGeneralMode)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = "all";
 		}
 		else
@@ -193,19 +132,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		int gameType2;
 		if (isCasual)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameType2 = 15;
 		}
 		else

@@ -22,19 +22,6 @@ public class ProcessManager
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new ProcessManager();
 		}
 		return s_instance;
@@ -55,19 +42,6 @@ public class ProcessManager
 	{
 		if (m_hostCode == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IPAddress iPAddress = null;
 			try
 			{
@@ -105,19 +79,6 @@ public class ProcessManager
 			int num = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 			if (num <= TimeCode)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = TimeCode + 1;
 			}
 			TimeCode = num;
@@ -132,19 +93,6 @@ public class ProcessManager
 		string hostCode;
 		if (host != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			hostCode = GetHostCode(host);
 		}
 		else

@@ -36,15 +36,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_plasmaDamageMod, "PlasmaDamage", string.Empty, rageBeastUltimate.m_plasmaDamage);
 			AbilityMod.AddToken(tokens, m_plasmaDurationMod, "PlasmaDuration", string.Empty, rageBeastUltimate.m_plasmaDuration);
 			AbilityMod.AddToken(tokens, m_selfHealOnCastMod, "SelfHealOnCast", string.Empty, rageBeastUltimate.m_selfHealOnCast);
@@ -63,19 +54,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rageBeastUltimate.m_plasmaDamage;
 		}
 		else
@@ -86,15 +64,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		empty += PropDesc(m_plasmaDurationMod, "[Plasma Duration]", flag, flag ? rageBeastUltimate.m_plasmaDuration : 0);
 		if (m_passiveTechPointRegen > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "Passive TechPoint Regen while has Mod: " + m_passiveTechPointRegen + "\n";
 		}
@@ -105,15 +74,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastUltimate.m_selfHealOnCast;
 		}
 		else
@@ -126,15 +86,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastUltimate.m_extraEffectOnSelf;
 		}
 		else

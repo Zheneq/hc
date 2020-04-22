@@ -35,15 +35,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_normalHealingMod, "OnCastHealAmount_Normal", string.Empty, sorceressHealingKnockback.m_onCastHealAmount);
 			AbilityMod.AddToken(tokens, m_lowHealthHealingMod, "OnCastHealAmount_LowHealth", string.Empty, sorceressHealingKnockback.m_onCastHealAmount);
 			AbilityMod.AddToken(tokens, m_onCastAllyEnergyGainMod, "OnCastAllyEnergyGain", string.Empty, sorceressHealingKnockback.m_onCastAllyEnergyGain);
@@ -64,19 +55,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sorceressHealingKnockback.m_onCastHealAmount;
 		}
 		else
@@ -89,15 +67,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressHealingKnockback.m_onCastHealAmount;
 		}
 		else
@@ -112,26 +81,8 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		}
 		else if (m_lowHealthHealingMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lowHealthHealingMod.operation != 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty += "Low Health Threshold not used, ignore [Healing when Low Health]\n";
 			}
 		}
@@ -140,15 +91,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressHealingKnockback.m_onCastAllyEnergyGain;
 		}
 		else
@@ -162,15 +104,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressHealingKnockback.m_onDetonateEnemyEffect;
 		}
 		else
@@ -183,15 +116,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sorceressHealingKnockback.m_knockbackDistance;
 		}
 		else

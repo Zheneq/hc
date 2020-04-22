@@ -33,27 +33,9 @@ public class IceborgConsumeNova : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int numNovaEffects = 0;
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numNovaEffects = m_syncComp.m_numNovaEffectsOnTurnStart;
 			}
 			int num = results.m_absorb = CalcTotalShields(numNovaEffects);
@@ -70,19 +52,6 @@ public class IceborgConsumeNova : GenericAbility_Container
 		}
 		if (m_shieldGainPerNova > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += numNovaEffects * m_shieldGainPerNova;
 		}
 		return num;

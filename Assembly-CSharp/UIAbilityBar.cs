@@ -48,15 +48,6 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_cardBar, false);
 			return;
 		}
@@ -68,33 +59,11 @@ public class UIAbilityBar : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = activeOwnedActorData.IsDead();
 		}
 		int num;
 		if (isResolving)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((!flag) ? 1 : 0);
 		}
 		else
@@ -105,26 +74,8 @@ public class UIAbilityBar : MonoBehaviour
 		int num2;
 		if (isResolving)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((activeOwnedActorData != null) ? 1 : 0);
 				goto IL_0073;
 			}
@@ -138,26 +89,8 @@ public class UIAbilityBar : MonoBehaviour
 		bool doActive = flag4 || flag3;
 		if (SinglePlayerManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetDecisionTimerForceOff())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = false;
 			}
 			if (SinglePlayerManager.Get().GetLockInCancelButtonForceOff())
@@ -171,23 +104,9 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_theTimer.SetGameObjectActive(flag4);
 			if (flag4)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.NotifyDecisionTimerShow();
 				HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.NotifyDecisionTimerShow();
 			}
@@ -196,11 +115,6 @@ public class UIAbilityBar : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_timerBackground, doActive);
 					return;
 				}
@@ -211,15 +125,6 @@ public class UIAbilityBar : MonoBehaviour
 		flag4 = ((byte)num2 != 0);
 		if (isResolving)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				num3 = ((activeOwnedActorData != null) ? 1 : 0);
@@ -255,32 +160,10 @@ public class UIAbilityBar : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(m_abilityButtons[j], false);
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = false;
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_cardBar, true);
 			HUD_UI.Get().m_mainScreenPanel.m_cardBar.Setup(m_abilityData);
 		}
@@ -296,11 +179,6 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_timerBackground, flag2);
 			return;
 		}
@@ -314,15 +192,6 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -338,26 +207,8 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((double)num != 1.0)
 				{
 					if (num < 0)
@@ -371,15 +222,6 @@ public class UIAbilityBar : MonoBehaviour
 							if (num > 5)
 							{
 								goto IL_00b3;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						HUD_UI.Get().m_mainScreenPanel.m_alertDisplay.TriggerLowTimePulse(UIAlertDisplay.LowTimePulseType.Standard);
@@ -406,10 +248,6 @@ public class UIAbilityBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -433,11 +271,6 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			TimeBank component = m_abilityData.GetComponent<TimeBank>();
 			ActorTurnSM component2 = m_abilityData.GetComponent<ActorTurnSM>();
 			float num = component.TimeToDisplay();
@@ -449,15 +282,6 @@ public class UIAbilityBar : MonoBehaviour
 			m_theTimer.UpdateTimeLabels(m_theTimer.m_secondsLabel, m_theTimer.m_millisecondsLabel, component.TimeToDisplay());
 			if (!component2.AmStillDeciding())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetTimeSaved() > 0f)
 				{
 					while (true)
@@ -494,10 +318,6 @@ public class UIAbilityBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!isResolving)
 					{
 						while (true)
@@ -525,15 +345,6 @@ public class UIAbilityBar : MonoBehaviour
 					m_lockInCancelButton.UpdatePhase();
 					if (SinglePlayerManager.Get() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (SinglePlayerManager.Get().GetLockinPhaseColorForceOff())
 						{
 							UIManager.SetGameObjectActive(m_lockInCancelButton.m_phaseColor, false);
@@ -559,10 +370,6 @@ public class UIAbilityBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -570,15 +377,6 @@ public class UIAbilityBar : MonoBehaviour
 		bool isResolving = IsResolving();
 		if (GameFlowData.Get().activeOwnedActorData != m_actorData)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Setup(GameFlowData.Get().activeOwnedActorData);
 		}
 		UpdateLockInButton(isResolving);
@@ -611,15 +409,6 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_turnSM.RequestCancel();
 			m_lockInCancelButton.CancelClicked();
 			return;
@@ -637,10 +426,6 @@ public class UIAbilityBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
 					m_turnSM.RequestEndTurn();
 					m_lockInCancelButton.LockedInClicked();
@@ -650,27 +435,9 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		if (m_turnSM.CurrentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_turnSM.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_turnSM.LockInBuffered = true;
@@ -682,29 +449,11 @@ public class UIAbilityBar : MonoBehaviour
 		{
 			if (m_abilityButtons[i].GetKeyPreference() == abilitySelectDown)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_abilityButtons[i].OnAbilityButtonClick(null);
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_cardBar.DoAbilityButtonClick(abilitySelectDown);
 			return;
 		}

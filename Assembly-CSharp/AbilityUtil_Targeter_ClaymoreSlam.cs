@@ -41,19 +41,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		int shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
 		}
 		else
@@ -79,30 +66,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!actorsInLaser.Contains(targetingActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Self);
 			}
 		}
@@ -116,15 +81,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				if (ShouldAddActor(current, targetingActor))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float value = (current.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 					AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 					ActorHitContext actorHitContext = m_actorContextVars[current];
@@ -133,15 +89,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), value);
 					num++;
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
@@ -157,26 +104,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					AddActorInRange(current2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary, m_appendTooltipForDuplicates);
 					if (!actorsInLaser.Contains(current2))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current2 != targetingActor)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float value2 = (current2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = m_actorContextVars[current2];
 							actorHitContext2._001D = laserCoords2.start;
@@ -184,15 +113,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameObject gameObject = m_highlights[0];
@@ -208,11 +128,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[0] as SquareInsideChecker_Box;
 			SquareInsideChecker_Cone squareInsideChecker_Cone = m_squarePosCheckerList[1] as SquareInsideChecker_Cone;
 			squareInsideChecker_Box.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, laserCoords2.end, targetingActor);
@@ -236,45 +151,14 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_affectsAllies)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_0077;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam() && m_affectsEnemies)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -287,31 +171,9 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 	{
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 2)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();

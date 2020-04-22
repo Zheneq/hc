@@ -9,30 +9,8 @@ namespace TMPro
 		{
 			if (currentValue.r == newValue.r)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (currentValue.g == newValue.g)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentValue.b == newValue.b && currentValue.a == newValue.a)
 					{
 						while (true)
@@ -73,10 +51,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -89,44 +63,13 @@ namespace TMPro
 		{
 			if (currentValue == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (newValue == null)
 				{
 					goto IL_005d;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (currentValue != null && currentValue.Equals(newValue))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_005d;
 			}
 			currentValue = newValue;

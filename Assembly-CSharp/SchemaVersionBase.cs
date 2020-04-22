@@ -39,19 +39,6 @@ public class SchemaVersionBase
 		{
 			if (value.StartsWith("0x"))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value = value.Substring(2);
 			}
 			IntValue = ulong.Parse(value, NumberStyles.HexNumber);

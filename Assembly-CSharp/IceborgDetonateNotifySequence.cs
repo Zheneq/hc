@@ -14,24 +14,10 @@ public class IceborgDetonateNotifySequence : SimpleTimingSequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.isEditor)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 					return;
 				}
@@ -48,15 +34,6 @@ public class IceborgDetonateNotifySequence : SimpleTimingSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp.m_clientDetonateNovaUsedTurn = GameFlowData.Get().CurrentTurn;
 			return;
 		}

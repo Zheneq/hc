@@ -30,28 +30,10 @@ public class Tutorial : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RectTransform rectTransform = Object.Instantiate(m_gameModePanelPrefab);
 			m_tutorialPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
 			if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay != null)
 				{
 					m_tutorialPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
@@ -73,26 +55,12 @@ public class Tutorial : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay != null)
 				{
 					m_startPending = false;
@@ -111,19 +79,6 @@ public class Tutorial : NetworkBehaviour
 	{
 		if ((bool)m_tutorialPanel)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_tutorialPanel.gameObject);
 			m_tutorialPanel = null;
 		}
@@ -141,67 +96,18 @@ public class Tutorial : NetworkBehaviour
 		int num = -1;
 		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 0;
 			tutorialInMatchValue = StringUtil.TR("Decision", "Global");
 		}
 		else if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Abilities)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
 			if (uIPhaseFromAbilityPriority != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -225,27 +131,9 @@ public class Tutorial : NetworkBehaviour
 		{
 			if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.Movement)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.MovementChase)
 				{
 					goto IL_011a;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num = 4;
@@ -257,15 +145,6 @@ public class Tutorial : NetworkBehaviour
 		{
 			if (num == i)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uIObjectivePointsPanel.SetPhaseIndicatorActive(true, i);
 			}
 			else

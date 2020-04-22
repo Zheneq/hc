@@ -53,15 +53,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
 			return;
 		}
@@ -73,87 +64,20 @@ public class UISideCharacterProfile : MonoBehaviour
 		int num;
 		if (m_actorData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorTurnSM = m_actorData.GetActorTurnSM();
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorTurnSM != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_actorData.GetTeam() == activeOwnedActorData.GetTeam())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activeOwnedActorData == m_actorData)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorTurnSM.CurrentState != TurnStateEnum.RESOLVING)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num = ((actorTurnSM.CurrentState != TurnStateEnum.WAITING) ? 1 : 0);
 									goto IL_00ec;
 								}
@@ -165,15 +89,6 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				if (activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
 						SetCurrentActorArrowActive(false);
@@ -197,11 +112,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			SetAlphaForImage(m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
 			return;
 		}
@@ -211,53 +121,13 @@ public class UISideCharacterProfile : MonoBehaviour
 	{
 		if (m_currentCharacterArrow != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentCharacterArrow.gameObject.activeSelf != active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentCharacterArrow.gameObject.SetActive(active);
 				if (m_childAnchor != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (active)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector2 offsetMin = new Vector2(m_activeActorSideOffset, 0f);
 						Vector2 offsetMax = new Vector2(m_activeActorSideOffset, 0f);
 						m_childAnchor.offsetMin = offsetMin;
@@ -277,11 +147,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_sideHealthBar.SetHealthBarColorForActiveActor(active);
 			return;
 		}
@@ -305,15 +170,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Color color = uiImage.color;
 			color.a = alpha;
 			uiImage.color = color;
@@ -331,19 +187,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		int num;
 		if (forActor != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GameFlowData.Get().IsActorDataOwned(forActor) ? 1 : 0);
 		}
 		else
@@ -353,15 +196,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		bool flag = (byte)num != 0;
 		if (forActor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_playerHandleText != null)
 			{
 				m_playerHandleText.text = forActor.DisplayName;
@@ -369,15 +203,6 @@ public class UISideCharacterProfile : MonoBehaviour
 				Color color;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = Color.white;
 				}
 				else
@@ -391,39 +216,12 @@ public class UISideCharacterProfile : MonoBehaviour
 		m_hotkeyText.text = hotKeyText;
 		if (m_hitbox != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hitbox.gameObject.SetActiveIfNeeded(flag);
 		}
 		if (m_characterIcon != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actorData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_characterIcon.sprite = m_actorData.GetAliveHUDIcon();
 			}
 		}
@@ -434,11 +232,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_sideHealthBar.SetActor(forActor);
 			return;
 		}

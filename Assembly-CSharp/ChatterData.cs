@@ -56,19 +56,6 @@ public class ChatterData
 	{
 		if (chatter.GetCommonData().m_oncePerTurn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (chatter.GetCommonData().m_playedThisTurn)
 			{
 				while (true)
@@ -98,15 +85,6 @@ public class ChatterData
 		}
 		if ((bool)TheatricsManager.Get())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (TheatricsManager.Get().IsCinematicPlaying())
 			{
 				while (true)
@@ -143,51 +121,23 @@ public class ChatterData
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData component2 = component.gameObject.GetComponent<ActorData>();
 				if (component2 == null)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						Log.Error($"Chatter component {component} is on an object that does not have ActorData; non-All locality isn't allowed. (audio event {chatter.GetCommonData().m_audioEvent})");
 						return false;
 					}
 				}
 				if (locality == Locality.LocalOnly)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != component2)
 					{
 						return false;
@@ -195,15 +145,6 @@ public class ChatterData
 				}
 				if (locality == Locality.TeamOnly)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.GetTeam() != component2.GetTeam())
 					{
 						return false;
@@ -231,15 +172,6 @@ public class ChatterData
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_playedThisTurn = true;
 			m_audioEventOverride = null;
 			return;

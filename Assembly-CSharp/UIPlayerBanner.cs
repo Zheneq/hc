@@ -38,32 +38,10 @@ public class UIPlayerBanner : MonoBehaviour
 			SetRibbon(ClientGameManager.Get().GetCurrentRibbon());
 			if (m_playerName != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_playerName.text = accountData.UserName;
 			}
 			if (m_playerTitle != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_playerTitle.text = GameBalanceVars.Get().GetTitle(accountData.AccountComponent.SelectedTitleID, string.Empty);
 			}
 			if (m_playerLevel != null)
@@ -84,19 +62,6 @@ public class UIPlayerBanner : MonoBehaviour
 		ClientGameManager.Get().OnAccountDataUpdated += m_onAccountDataUpdated;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_onAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		SetBanner(ClientGameManager.Get().GetCurrentBackgroundBanner(), GameBalanceVars.PlayerBanner.BannerType.Background);
@@ -127,10 +92,6 @@ public class UIPlayerBanner : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -145,19 +106,6 @@ public class UIPlayerBanner : MonoBehaviour
 		Sprite sprite = null;
 		if (banner != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			if (sprite == null)
 			{
@@ -178,11 +126,6 @@ public class UIPlayerBanner : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (bannerType == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
 				while (true)
@@ -213,10 +156,6 @@ public class UIPlayerBanner : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -224,27 +163,9 @@ public class UIPlayerBanner : MonoBehaviour
 		Sprite sprite = null;
 		if (ribbon != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 			if (sprite == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, $"Could not load ribbon resource from [{ribbon.m_resourceString}] as sprite.");
 			}
 		}

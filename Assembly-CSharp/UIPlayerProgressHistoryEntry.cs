@@ -52,31 +52,9 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(m_drawLabel, entry.MatchComponent.Result == PlayerGameResult.Tie);
 		if (entry.MatchComponent.GetFirstPlayerCharacter() != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(entry.MatchComponent.GetFirstPlayerCharacter());
 			if (characterResourceLink != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_heroIcon.sprite = characterResourceLink.GetCharacterSelectIcon();
 				m_heroIcon.enabled = true;
 				SetAllLabels(m_heroLabels, characterResourceLink.GetDisplayName());
@@ -98,15 +76,6 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		m_replayPath = parent.GetReplayFilename(GameServerProcessCode);
 		if (!m_replayPath.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string json = File.ReadAllText(m_replayPath);
 			Replay replay = JsonUtility.FromJson<Replay>(json);
 			LobbyGameInfo lobbyGameInfo = JsonUtility.FromJson<LobbyGameInfo>(replay.m_gameInfo_Serialized);
@@ -123,15 +92,6 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

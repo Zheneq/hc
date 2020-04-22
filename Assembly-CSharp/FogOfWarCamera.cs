@@ -23,32 +23,10 @@ public class FogOfWarCamera : MonoBehaviour
 				fogOfWarCamera = camera.GetComponent<FogOfWarCamera>();
 				if (fogOfWarCamera != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

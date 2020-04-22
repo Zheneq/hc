@@ -29,32 +29,10 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			List<Team> list = new List<Team>();
 			if (m_affectEnemies)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(caster.GetOpposingTeam());
 			}
 			if (m_affectAllies)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetTeam());
 			}
 			return list;
@@ -146,10 +124,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_centerSquareDelegate(currentTarget, targetingActor);
 				}
 			}
@@ -170,10 +144,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
 					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + 0.1f;
@@ -193,25 +163,11 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (num < m_highlights.Count)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (num < m_shapes.Count)
 					{
 						AbilityAreaShape shape = m_shapes[num].m_shape;
@@ -250,15 +206,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(knockbackTarget, data.m_knockbackType, abilityTarget.AimDirection, origin, data.m_knockbackDistance);
 			nextMovementArrowIndex = AddMovementArrowWithPrevious(knockbackTarget, path, TargeterMovementType.Knockback, nextMovementArrowIndex);
 			return;
@@ -275,30 +222,12 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
 		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ResetSquareIndicatorIndexToUse();
 		}
 		BoardSquare targetSquare = GetTargetSquare(currentTarget, targetingActor);
@@ -326,26 +255,8 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 						ActorData current = enumerator.Current;
 						if (!list.Contains(current))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.GetTeam() != targetingActor.GetTeam())
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								AddActorInRange(current, centerOfShape, targetingActor, subjectEnemyInShape);
 								HandleKnockbackArrowForActor(current, centerOfShape, currentTarget, m_shapes[i], ref nextMovementArrowIndex);
 								list.Add(current);
@@ -353,15 +264,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 							}
 							else if (current != targetingActor)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								AddActorInRange(current, centerOfShape, targetingActor, subjectAllyInShape);
 								list.Add(current);
 								m_hitActorContext.Add(new HitActorContext(current, i));
@@ -371,39 +273,12 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 								flag2 = true;
 								if (num < 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num = i;
 								}
 							}
 						}
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (flag2 || m_affectsTargetingActor)
 			{
@@ -411,26 +286,8 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			}
 			if (m_affectCasterDelegate != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_affectCasterDelegate(targetingActor, list))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0298;
 				}
 			}
@@ -441,26 +298,8 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		ActorData occupantActor = targetSquare.OccupantActor;
 		if (m_alwaysIncludeShapeCenterActor)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (occupantActor != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!list.Contains(occupantActor))
 				{
 					AddActorInRange(occupantActor, occupantActor.GetTravelBoardSquareWorldPosition(), targetingActor);
@@ -471,15 +310,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		}
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count >= m_shapes.Count)
 			{
 				goto IL_0400;
@@ -494,15 +324,6 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			gameObject.transform.position = highlightGoalPos;
 			m_highlights.Add(gameObject);
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		goto IL_0400;
 		IL_04e4:
 		for (int k = 0; k < m_hitActorContext.Count; k++)
@@ -513,20 +334,10 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					HideUnusedSquareIndicators();
 					return;
 				}
@@ -543,27 +354,9 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			m_highlights[l].transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos2, m_highlights[l], ref currentSpeed);
 			curSpeed = currentSpeed;
 		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		m_curSpeed = curSpeed;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MultiShapeData multiShapeData = m_shapes[m_shapes.Count - 1];
 			AreaEffectUtils.OperateOnSquaresInShape(m_indicatorHandler, multiShapeData.m_shape, currentTarget.FreePos, targetSquare, multiShapeData.m_penetrateLoS, targetingActor);
 		}

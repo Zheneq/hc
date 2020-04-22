@@ -36,19 +36,6 @@ public class ClientAbilityResults
 		m_casterActor = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
 		if (m_casterActor == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("ClientAbilityResults error: Actor with index " + casterActorIndex + " is null.");
 			m_castedAbility = null;
 			m_actionType = AbilityData.ActionType.INVALID_ACTION;
@@ -84,10 +71,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -112,15 +95,6 @@ public class ClientAbilityResults
 				ServerClientUtils.SequenceStartData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (current.HasSequencePrefab())
 					{
 						while (true)
@@ -136,15 +110,6 @@ public class ClientAbilityResults
 					}
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -154,19 +119,6 @@ public class ClientAbilityResults
 		int result;
 		if (sequenceSource != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (ContainsSequenceSourceID(sequenceSource.RootID) ? 1 : 0);
 		}
 		else
@@ -181,32 +133,10 @@ public class ClientAbilityResults
 		bool result = false;
 		if (m_seqStartDataList != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_seqStartDataList.Count; i++)
 			{
 				if (m_seqStartDataList[i].ContainsSequenceSourceID(id))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
@@ -246,10 +176,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 					{
 						seqStartData.CreateSequencesFromData(OnAbilityHitActor, OnAbilityHitPosition);
@@ -260,15 +186,6 @@ public class ClientAbilityResults
 		}
 		if (LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 		}
 		RunClientAbilityHits();
@@ -293,10 +210,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -314,10 +227,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_actorToHitResults[target].ExecuteActorHit(target, m_casterActor);
 					return;
 				}
@@ -370,10 +279,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -394,19 +299,6 @@ public class ClientAbilityResults
 			{
 				if (seqStartData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string text2 = text;
 					text = text2 + "SeqStartData Actors with prefab ID " + seqStartData.GetSequencePrefabId() + ": " + seqStartData.GetTargetActorsString() + "\n";
 				}
@@ -455,10 +347,6 @@ public class ClientAbilityResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -470,19 +358,6 @@ public class ClientAbilityResults
 		object obj;
 		if (m_casterActor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_casterActor.GetDebugName();
 		}
 		else
@@ -493,15 +368,6 @@ public class ClientAbilityResults
 		object obj2;
 		if (m_castedAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj2 = m_castedAbility.m_abilityName;
 		}
 		else

@@ -57,19 +57,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		AbilityMod.AddToken(tokens, m_additionalHealOnRadiatedMod, "Heal_AdditionalOnRadiated", "additional damage on Radiated", sparkHealingBeam.m_additionalEnergizedHealing);
 		if (m_useBonusHealOverTime)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_bonusAllyHealIncreaseRate, "BonusAllyHeal_GrowthRate", "increase in bonus heal per turn", 0);
 			AbilityMod.AddToken(tokens, m_maxAllyBonusHealAmount, "BonusAllyHeal_MaxHealAmount", "max bonus heal amount", 0);
 		}
@@ -96,19 +83,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sparkHealingBeam.m_laserHealingAmount;
 		}
 		else
@@ -122,15 +96,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkHealingBeam.m_additionalEnergizedHealing;
 		}
 		else
@@ -140,15 +105,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		empty = str2 + AbilityModHelper.GetModPropertyDesc(additionalHealOnRadiatedMod, "[Additional Healing on Radiated]", flag, baseVal2);
 		if (m_useBonusHealOverTime)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += "Using Bonus Heal Over Time (please remember to put in a max cap)\n";
 			empty += AbilityModHelper.GetModPropertyDesc(m_bonusAllyHealIncreaseRate, "[Bonus Ally Heal Increase Rate]", flag);
 			empty += AbilityModHelper.GetModPropertyDesc(m_maxAllyBonusHealAmount, "[Max Bonus Ally Heal Amount]", flag);
@@ -159,15 +115,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkHealingBeam.m_energyOnCasterPerTurn;
 		}
 		else
@@ -181,15 +128,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkHealingBeam.m_laserHitEffect;
 		}
 		else
@@ -202,15 +140,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkHealingBeam.m_tetherDuration;
 		}
 		else
@@ -223,15 +152,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = sparkHealingBeam.m_laserInfo;
 		}
 		else
@@ -241,15 +161,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		empty = str6 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, "LaserInfo", flag, (LaserTargetingInfo)baseLaserInfo);
 		if (m_xDamageThreshold > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "Applying Effect for taking X Damage, threshold = " + m_xDamageThreshold + "\n";
 			empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetForTakingXDamage, "{ Effect on Target for Taking X Damage }", string.Empty, flag);

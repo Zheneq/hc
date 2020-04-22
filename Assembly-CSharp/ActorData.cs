@@ -424,41 +424,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (m_clientLastKnownPosSquare != value)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ActorDebugUtils.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.LastKnownPosition, false))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string[] obj = new string[5]
 						{
 							GetDebugName(),
@@ -470,15 +439,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						object obj2;
 						if ((bool)value)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj2 = value.ToString();
 						}
 						else
@@ -509,15 +469,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ActorDebugUtils.Get() != null && ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.LastKnownPosition, false))
 				{
 					string[] obj = new string[5]
@@ -531,15 +482,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					object obj2;
 					if ((bool)m_serverLastKnownPosSquare)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj2 = m_serverLastKnownPosSquare.ToString();
 					}
 					else
@@ -601,19 +543,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			bool flag = m_hitPoints > 0;
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_hitPoints = Mathf.Clamp(value, 0, GetMaxHitPoints());
 			}
 			else
@@ -623,28 +552,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			int num = 0;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = GameFlowData.Get().CurrentTurn;
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_hitPoints == 0)
 				{
 					while (true)
@@ -656,15 +567,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						default:
 							if (GameFlowData.Get() != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								LastDeathTurn = GameFlowData.Get().CurrentTurn;
 							}
 							LastDeathPosition = base.gameObject.transform.position;
@@ -672,29 +574,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							FogOfWar.CalculateFogOfWarForTeam(GetTeam());
 							if (GetCurrentBoardSquare() != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								SetMostRecentDeathSquare(GetCurrentBoardSquare());
 							}
 							base.gameObject.SendMessage("OnDeath");
 							if (GameFlowData.Get() != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GameFlowData.Get().NotifyOnActorDeath(this);
 							}
 							UnoccupyCurrentBoardSquare();
@@ -712,22 +596,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_hitPoints <= 0 || LastDeathTurn <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					base.gameObject.SendMessage("OnRespawn");
 					m_lastVisibleTurnToClient = 0;
 					if (!NetworkServer.active)
@@ -736,35 +610,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						if (m_teamSensitiveData_friendly != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_teamSensitiveData_friendly.MarkAsRespawning();
 						}
 						if (m_teamSensitiveData_hostile != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_teamSensitiveData_hostile.MarkAsRespawning();
 						}
 						if (num > 0)
@@ -797,19 +648,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (MatchLogger.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				MatchLogger.Get().Log(string.Concat(this, " UnresolvedDamage.set ", value, ", old: ", UnresolvedDamage));
 			}
 			if (_unresolvedDamage == value)
@@ -818,11 +656,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				_unresolvedDamage = value;
 				ClientUnresolvedDamage = 0;
 				return;
@@ -848,15 +681,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_unresolvedHealing = value;
 				ClientUnresolvedHealing = 0;
 				return;
@@ -882,15 +706,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_unresolvedTechPointGain = value;
 				ClientUnresolvedTechPointGain = 0;
 				return;
@@ -908,19 +723,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (MatchLogger.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				MatchLogger.Get().Log(string.Concat(this, " UnresolvedTechPointLoss.set ", value, ", old: ", UnresolvedTechPointLoss));
 			}
 			if (_unresolvedTechPointLoss == value)
@@ -929,11 +731,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				_unresolvedTechPointLoss = value;
 				ClientUnresolvedTechPointLoss = 0;
 				return;
@@ -955,15 +752,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_serverExpectedHoTTotal = value;
 				ClientExpectedHoTTotalAdjust = 0;
 				return;
@@ -985,15 +773,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_serverExpectedHoTThisTurn = value;
 				return;
 			}
@@ -1055,30 +834,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			int result;
 			if (DebugParameters.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (DebugParameters.Get().GetParameterAsBool("InfiniteTP"))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = GetActualMaxTechPoints();
 					goto IL_0049;
 				}
@@ -1099,10 +856,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_techPoints = Mathf.Clamp(value, 0, GetActualMaxTechPoints());
 						return;
 					}
@@ -1142,15 +895,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_ignoreForEnergyForHit = value;
 				return;
 			}
@@ -1186,26 +930,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (NetworkServer.active)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_absorbPoints = Mathf.Max(value, 0);
 				}
 				else
@@ -1247,15 +973,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_spawnerId = value;
 				return;
 			}
@@ -1279,10 +996,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_teamSensitiveData_friendly;
 					}
 				}
@@ -1304,10 +1017,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_trueMoveFromBoardSquare;
 					}
 				}
@@ -1335,15 +1044,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_trueMoveFromBoardSquare = value;
 				if (m_teamSensitiveData_friendly != null)
 				{
@@ -1367,10 +1067,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_serverInitialMoveStartSquare;
 					}
 				}
@@ -1398,49 +1094,21 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(m_serverInitialMoveStartSquare != value))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_serverInitialMoveStartSquare = value;
 					if (GetActorMovement() != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GetActorMovement().UpdateSquaresCanMoveTo();
 					}
 					if (m_teamSensitiveData_friendly != null)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							m_teamSensitiveData_friendly.InitialMoveStartSquare = value;
 							return;
 						}
@@ -1527,10 +1195,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_trueRespawnSquares;
 					}
 				}
@@ -1576,10 +1240,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_trueRespawnPositionSquare;
 					}
 				}
@@ -1620,38 +1280,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_trueRespawnPositionSquare = value;
 				if (m_teamSensitiveData_friendly != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!GameFlowData.Get().IsInDecisionState())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().CurrentTurn != NextRespawnTurn)
 						{
 							m_teamSensitiveData_friendly.RespawnPickedSquare = null;
@@ -1732,30 +1365,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (ActorDebugUtils.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.LastKnownPosition, false))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning(GetDebugName() + "Setting visible for ability cast to " + value);
 				}
 			}
@@ -1777,15 +1388,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_movedForEvade = value;
 				return;
 			}
@@ -1806,15 +1408,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_serverSuppressInvisibility = value;
 				return;
 			}
@@ -1866,15 +1459,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1907,15 +1491,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1931,15 +1506,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1959,15 +1525,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1994,19 +1551,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		};
 		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache2 = delegate
 			{
 			};
@@ -2014,15 +1558,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		this.OnSelectedAbilityChangedDelegates = _003C_003Ef__am_0024cache2;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 			};
@@ -2030,7 +1565,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		this.OnClientQueuedActionChangedDelegates = _003C_003Ef__am_0024cache3;
 		m_serializeHelper = new SerializeHelper();
 		m_forceShowOutlineCheckers = new List<IForceActorOutlineChecker>();
-		base._002Ector();
+		
 	}
 
 	static ActorData()
@@ -2100,10 +1635,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ServerLastKnownPosSquare.transform.position;
 				}
 			}
@@ -2119,26 +1650,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (updateLastKnownPos)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientLastKnownPosSquare = movementSquare;
 				m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 			}
@@ -2220,19 +1733,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorController actorController = GetActorController();
 		if (actorController != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NPCBrain[] components = GetComponents<NPCBrain>();
 			NPCBrain[] array = components;
 			foreach (NPCBrain nPCBrain in array)
@@ -2243,11 +1743,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return nPCBrain;
 				}
 			}
@@ -2294,41 +1789,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (HasBotController)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetAccountIdWithSomeConditionB_zq() == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_characterType != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!GetPlayerDetails().m_botsMasqueradeAsHumans)
 					{
 						while (true)
@@ -2350,15 +1814,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			TricksterAfterImageNetworkBehaviour[] componentsInChildren = GameFlowData.Get().GetActorRoot().GetComponentsInChildren<TricksterAfterImageNetworkBehaviour>();
 			if (componentsInChildren != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < componentsInChildren.Length; i++)
 				{
 					for (int j = 0; j < componentsInChildren[i].m_afterImages.Count; j++)
@@ -2369,15 +1824,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData component = componentsInChildren[i].GetComponent<ActorData>();
 						if (!(component.m_displayName != "FT"))
 						{
@@ -2385,11 +1831,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							return component.GetFancyDisplayName();
 						}
 					}
@@ -2406,15 +1847,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						end_IL_0136:
 						break;
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2466,19 +1898,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorStats actorStats = m_actorStats;
 		if (actorStats != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = actorStats.GetModifiedStatInt(StatType.MaxHitPoints);
 		}
 		return result;
@@ -2495,10 +1914,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2529,19 +1944,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = Mathf.RoundToInt((float)num * GameplayMutators.GetPassiveHpRegenMultiplier());
 		}
 		return num;
@@ -2553,19 +1955,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorStats actorStats = m_actorStats;
 		if (actorStats != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = actorStats.GetModifiedStatInt(StatType.MaxTechPoints);
 		}
 		return result;
@@ -2582,10 +1971,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2614,11 +1999,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			int techPoints = TechPoints;
 			TechPoints = Mathf.Min(TechPoints, actualMaxTechPoints);
 			if (techPoints - TechPoints == 0)
@@ -2632,19 +2012,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (movementHit)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_endVisibilityForHitTime = Time.time + s_visibleTimeAfterMovementHit;
 		}
 		else
@@ -2658,11 +2025,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (GetCurrentBoardSquare() != null)
 			{
 				ClientLastKnownPosSquare = GetTravelBoardSquare();
@@ -2676,43 +2038,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_shouldUpdateLastVisibleToClientThisFrame)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientLastKnownPosSquare != GetCurrentBoardSquare())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Team team = (!(GameFlowData.Get() != null) || !(GameFlowData.Get().activeOwnedActorData != null)) ? Team.Invalid : GameFlowData.Get().activeOwnedActorData.GetTeam();
 				int num;
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (GameFlowData.Get().IsInResolveState() ? 1 : 0);
 				}
 				else
@@ -2724,37 +2055,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				bool flag3 = GetTeam() != team;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag3 && IsVisibleToClient())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ForceUpdateIsVisibleToClientCache();
 							if (IsVisibleToClient())
 							{
@@ -2778,30 +2082,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (PlayerData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlow.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlow.Get().playerDetails != null && GameFlow.Get().playerDetails.ContainsKey(PlayerData.GetPlayer()))
 				{
 					while (true)
@@ -2827,46 +2109,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (item.GetAbilityData() != null)
 				{
 					for (int i = 0; i <= 4; i++)
 					{
 						item.ApplyAbilityModById(i, item.m_selectedMods.GetModForAbility(i));
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorTargeting component = item.GetComponent<ActorTargeting>();
 					if (component != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.MarkForForceRedraw();
 					}
 				}
@@ -2882,15 +2133,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get() != null))
 			{
 				return;
@@ -2900,15 +2142,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				if (ServerClientUtils.GetCurrentActionPhase() <= ActionBufferPhase.MovementWait)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			ActorModelData actorModelData = GetActorModelData();
@@ -2924,11 +2157,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					ShowRespawnFlare(RespawnPickedPositionSquare, true);
 					return;
 				}
@@ -2951,32 +2179,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				int num2 = -1;
 				if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityMod defaultModForAbility = AbilityModManager.Get().GetDefaultModForAbility(current);
 					int num3;
 					if (defaultModForAbility != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = defaultModForAbility.m_abilityScopeId;
 					}
 					else
@@ -2992,26 +2198,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				AbilityData.ActionType actionTypeOfAbility = abilityData.GetActionTypeOfAbility(current);
 				if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ApplyAbilityModById((int)actionTypeOfAbility, num2);
 					}
 				}
@@ -3042,15 +2230,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientLastKnownPosSquare != ServerLastKnownPosSquare))
 			{
 				return;
@@ -3062,11 +2241,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
 				}
@@ -3081,32 +2255,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorStats actorStats = m_actorStats;
 		if (actorStats != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = actorStats.GetModifiedStatInt(StatType.TechPointRegen);
 		}
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.RoundToInt((float)num * GameplayMutators.GetPassiveEnergyRegenMultiplier());
 		}
 		return num;
@@ -3117,43 +2269,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		float result = 1f;
 		if (m_actorStats != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_actorStats.GetModifiedStatFloat(StatType.SightRange);
 		}
 		if (m_actorStatus != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actorStatus.HasStatus(StatusType.Blind))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = 0.1f;
 			}
 		}
@@ -3172,35 +2293,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (sourceName == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (num != 0)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						DoTechPointsLogAndCombatText(caster, this, sourceName, num);
 						return;
 					}
@@ -3217,19 +2319,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		string text;
 		if (caster == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = string.Empty;
 		}
 		else
@@ -3241,15 +2330,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int category;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			category = 5;
 		}
 		else
@@ -3296,10 +2376,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_teamSensitiveData_hostile;
 				}
 			}
@@ -3316,15 +2392,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_teamSensitiveData_friendly.RespawnAvailableSquares = new List<BoardSquare>();
 			return;
 		}
@@ -3360,15 +2427,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.OnClientQueuedActionChangedDelegates();
 			return;
 		}
@@ -3386,33 +2444,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (_003C_003Ef__mg_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__mg_0024cache0 = OnGameStateChanged;
 		}
 		GameFlowData.s_onGameStateChanged -= _003C_003Ef__mg_0024cache0;
 		if (_003C_003Ef__mg_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__mg_0024cache1 = OnGameStateChanged;
 		}
 		GameFlowData.s_onGameStateChanged += _003C_003Ef__mg_0024cache1;
@@ -3433,43 +2469,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_actorMovement = base.gameObject.GetComponent<ActorMovement>();
 		if (m_actorMovement == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorMovement = base.gameObject.AddComponent<ActorMovement>();
 		}
 		m_actorTurnSM = base.gameObject.GetComponent<ActorTurnSM>();
 		if (m_actorTurnSM == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorTurnSM = base.gameObject.AddComponent<ActorTurnSM>();
 		}
 		m_actorCover = base.gameObject.GetComponent<ActorCover>();
 		if (m_actorCover == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorCover = base.gameObject.AddComponent<ActorCover>();
 		}
 		m_actorVFX = base.gameObject.GetComponent<ActorVFX>();
@@ -3480,29 +2489,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_timeBank = base.gameObject.GetComponent<TimeBank>();
 		if (m_timeBank == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_timeBank = base.gameObject.AddComponent<TimeBank>();
 		}
 		m_additionalVisionProvider = base.gameObject.GetComponent<ActorAdditionalVisionProviders>();
 		if (m_additionalVisionProvider == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_additionalVisionProvider = base.gameObject.AddComponent<ActorAdditionalVisionProviders>();
 		}
 		m_actorBehavior = GetComponent<ActorBehavior>();
@@ -3517,30 +2508,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_freelancerStats = GetComponent<FreelancerStats>();
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorIndex = checked(++s_nextActorIndex);
 		}
 		Layer = LayerMask.NameToLayer("Actor");
 		Layer_Mask = 1 << Layer;
 		if ((bool)GameFlowData.Get())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lastSpawnTurn = Mathf.Max(1, GameFlowData.Get().CurrentTurn);
 		}
 		else
@@ -3560,29 +2533,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
 		if (m_actorSkinPrefabLink != null && !m_actorSkinPrefabLink.IsEmpty)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning(Log.Category.ActorData, string.Format("ActorData already initialized to a different prefab.  Currently [{0}], setting to [{1}]", m_actorSkinPrefabLink.ToString()));
 		}
 		m_actorSkinPrefabLink = heroPrefabLink;
@@ -3596,15 +2551,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				goto IL_0155;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		GameObject gameObject = heroPrefabLink.InstantiatePrefab();
 		if ((bool)gameObject)
@@ -3612,29 +2558,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			m_actorModelData = gameObject.GetComponent<ActorModelData>();
 			if ((bool)m_actorModelData)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int layer = LayerMask.NameToLayer("Actor");
 				Transform[] componentsInChildren = m_actorModelData.gameObject.GetComponentsInChildren<Transform>(true);
 				foreach (Transform transform in componentsInChildren)
 				{
 					transform.gameObject.layer = layer;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -3642,27 +2570,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		IL_0155:
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorModelData.Setup(this);
 			if (addMasterSkinVfx)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkClient.active && MasterSkinVfxData.Get() != null)
 				{
 					GameObject masterSkinVfxInst = MasterSkinVfxData.Get().AddMasterSkinVfxOnCharacterObject(m_actorModelData.gameObject, m_characterType, 1f);
@@ -3672,15 +2582,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (m_faceActorModelData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_faceActorModelData.Setup(this);
 		}
 		if (!NPCCoordinator.IsSpawnedNPC(this))
@@ -3689,22 +2590,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_addedToUI)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null)
 				{
 					m_addedToUI = true;
@@ -3717,11 +2604,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					GetActorModelData().ForceUpdateVisibility();
 					return;
 				}
@@ -3734,19 +2616,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_nameplateJoint = new JointPopupProperty();
 			m_nameplateJoint.m_joint = "VFX_name";
 			m_nameplateJoint.Initialize(base.gameObject);
@@ -3771,26 +2640,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		EnableRagdoll(false);
 		if (!m_addedToUI && HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HUD_UI.Get().m_mainScreenPanel != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_addedToUI = true;
 				HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.AddActor(this);
 				HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddActor(this);
@@ -3803,11 +2654,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			Log.Info("ActorData.Start {0} {1}", this, value);
 			GameFlowData.Get().AddOwnedActorData(this);
 			return;
@@ -3824,15 +2670,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CallCmdDebugReplaceWithBot();
 			return;
 		}
@@ -3855,48 +2692,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					ActorData current2 = enumerator2.Current;
 					if (current2 != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current2.IsDead())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current2.GetActorModelData() != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current2.IsModelAnimatorDisabled())
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Debug.LogError("Unragdolling undead actor on Turn Tick (" + currentTurn + "): " + current2.GetDebugName());
 									current2.EnableRagdoll(false);
 									flag = true;
@@ -3906,70 +2707,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					}
 					if (current2 != null && !current2.IsDead())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current2.GetCurrentBoardSquare() == null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current2.PlayerIndex != PlayerData.s_invalidPlayerIndex)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (NetworkClient.active)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!NetworkServer.active)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(current2.GetTeam()))
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											Debug.LogError("On client, living friendly-to-client actor " + current2.GetDebugName() + " has null square on Turn Tick");
 											flag = true;
 										}
@@ -3979,15 +2726,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						}
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!NetworkServer.active)
 			{
@@ -3995,11 +2733,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					while (true)
@@ -4028,38 +2761,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						if (current.GetActorModelData() != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Animator modelAnimator = current.GetModelAnimator();
 							if (modelAnimator != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.GetActorModelData().HasTurnStartParameter())
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									modelAnimator.SetBool("TurnStart", false);
 								}
 							}
@@ -4070,15 +2776,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						}
 						if (HUD_UI.Get() != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateNameplateUntargeted(current);
 						}
 					}
@@ -4098,15 +2795,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (newState != GameState.EndingGame)
 			{
 				while (true)
@@ -4135,56 +2823,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!actorData.IsDead())
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (actorData.LastDeathTurn == GameFlowData.Get().CurrentTurn || actorData.IsModelAnimatorDisabled())
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData.NextRespawnTurn != GameFlowData.Get().CurrentTurn)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorData.DoVisualDeath(Sequence.CreateImpulseInfoWithActorForward(actorData));
 			}
 		}
@@ -4211,10 +2859,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_actorModelData.GetModelAnimator();
 				}
 			}
@@ -4234,10 +2878,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -4248,35 +2888,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_actorMovement.AmMoving())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = false;
 				int num;
 				if (ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Combat_Knockback)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientKnockbackManager.Get() != null)
 					{
 						num = (ClientKnockbackManager.Get().ActorHasIncomingKnockback(this) ? 1 : 0);
@@ -4292,23 +2913,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					object trigger;
 					if (string.IsNullOrEmpty(customDamageReactTriggerName))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						trigger = "StartDamageReaction";
 					}
 					else
@@ -4328,19 +2935,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int result;
 		if (modelAnimator == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 1;
 		}
 		else
@@ -4354,19 +2948,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (IsModelAnimatorDisabled())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("Already in ragdoll");
 		}
 		if (m_actorVFX != null)
@@ -4380,15 +2961,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		});
 		if (AudioManager.s_deathAudio)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent("ui/ingame/death", base.gameObject);
 			if (!string.IsNullOrEmpty(m_onDeathAudioEvent))
 			{
@@ -4398,52 +2970,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		Team team = Team.Invalid;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 			}
 		}
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetTeam() == team)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				clientFog.MarkForRecalculateVisibility();
 			}
 		}
@@ -4453,48 +2989,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (ObjectivePoints.Get() != null)
 			{
 				ObjectivePoints.Get().Client_OnActorDeath(this);
 				if (GameplayUtils.IsPlayerControlled(this) && GameFlowData.Get().LocalPlayerData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = ObjectivePoints.Get().Client_GetNumDeathOnTeamForCurrentTurn(GetTeam());
 					if (num > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIDeathNotifications.Get() != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIDeathNotifications.Get().NotifyDeathOccurred(this, GetTeam() == team);
 						}
 					}
@@ -4502,28 +3006,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (CaptureTheFlag.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CaptureTheFlag.Get().Client_OnActorDeath(this);
 			}
 			if (CollectTheCoins.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CollectTheCoins.Get().Client_OnActorDeath(this);
 			}
 			if (GameWideData.Get().FreeAutomaticOverconOnDeath_OverconID == -1)
@@ -4532,20 +3018,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (UIOverconData.Get() != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						UIOverconData.Get().UseOvercon(GameWideData.Get().FreeAutomaticOverconOnDeath_OverconID, ActorIndex, true);
 						return;
 					}
@@ -4559,19 +3035,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (ragDollOn && GetHitPointsAfterResolution() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!isDebugRagdoll)
 			{
 				Log.Error("early_ragdoll: enabling ragdoll on " + GetDebugName() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsAfterResolution() + ")\n" + Environment.StackTrace);
@@ -4599,35 +3062,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(SpawnPointManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (SpawnPointManager.Get().m_spawnInDuringMovement)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						InterfaceManager.Get().DisplayAlert(StringUtil.TR("PostRespawnMovement", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
 						return;
 					}
@@ -4643,43 +3087,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorModelData actorModelData = GetActorModelData();
 		if (actorModelData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actorModelData.ForceUpdateVisibility();
 		}
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NPCCoordinator.IsSpawnedNPC(this))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				NPCCoordinator.Get().OnActorSpawn(this);
 			}
 		}
@@ -4689,15 +3102,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		});
 		if (GameFlowData.Get().activeOwnedActorData == this)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().SetTargetObject(base.gameObject, CameraManager.CameraTargetReason.ClientActorRespawned);
 		}
 		m_lastSpawnTurn = GameFlowData.Get().CurrentTurn;
@@ -4708,41 +3112,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int result;
 		if (!IsDead())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NextRespawnTurn > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NextRespawnTurn == GameFlowData.Get().CurrentTurn && SpawnPointManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (SpawnPointManager.Get().m_spawnInDuringMovement ? 1 : 0);
 					goto IL_0074;
 				}
@@ -4758,19 +3131,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameFlowData.Get().RemoveReferencesToDestroyedActor(this);
 		}
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
@@ -4782,30 +3142,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_needAddToTeam)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_needAddToTeam = false;
 				GameFlowData.Get().AddToTeam(this);
 				TeamStatusDisplay.GetTeamStatusDisplay().RebuildTeamDisplay();
@@ -4817,42 +3155,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (Quaternion.Angle(base.transform.localRotation, m_targetRotation) > 0.01f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.transform.localRotation = m_targetRotation;
 		}
 		if (m_callHandleOnSelectInUpdate)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandleOnSelect();
 			m_callHandleOnSelectInUpdate = false;
 		}
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetDirtyBit(1u);
 		}
 		if (m_addedToUI)
@@ -4861,11 +3172,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (HUD_UI.Get() != null)
 			{
 				m_addedToUI = true;
@@ -4888,10 +3194,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -4918,19 +3220,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		BoardSquare travelBoardSquare = GetTravelBoardSquare();
 		if (travelBoardSquare != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (travelBoardSquare.IsInBrushRegion())
 			{
 				result = travelBoardSquare.BrushRegion;
@@ -4944,52 +3233,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int result;
 		if (!m_hideNameplate && !m_alwaysHideNameplate && ShowInGameGUI)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(GetActorModelData() == null))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (GetActorModelData().IsVisibleToClient() ? 1 : 0);
 					}
 					else
@@ -5016,110 +3265,34 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		bool result = false;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("AllCharactersVisible"))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						goto IL_0234;
 					}
 				}
 				if (GameFlowData.Get().gameState == GameState.Deployment)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				else
 				{
 					if (activeOwnedActorData != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == GetTeam())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							goto IL_0234;
 						}
 					}
 					if (activeOwnedActorData == null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (localPlayerData.IsViewingTeam(GetTeam()))
 						{
 							result = true;
@@ -5134,41 +3307,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						if (m_actorModelData != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_actorModelData.IsInCinematicCam())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = true;
 								goto IL_0234;
 							}
 						}
 						if (CurrentlyVisibleForAbilityCast)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 						else if (m_disappearingAfterCurrentMovement && CurrentBoardSquare == null && !GetActorMovement().AmMoving())
@@ -5185,41 +3331,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							}
 							else if (flag2)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 							}
 							else if (FogOfWar.GetClientFog() == null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 							}
 							else if (FogOfWar.GetClientFog().IsVisible(GetTravelBoardSquare()))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = true;
 							}
 							else
@@ -5270,45 +3389,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		bool result = false;
 		if (GameFlowData.Get().IsActorDataOwned(this))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetTeam() == _001D.GetTeam())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 				goto IL_00c8;
 			}
 		}
 		if (m_endVisibilityForHitTime > Time.time)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else
@@ -5317,28 +3405,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			bool flag2 = SomeVisibilityCheckB_zq(_001D.PlayerData);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else if (flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 			else if ((bool)_001D.GetFogOfWar())
@@ -5364,19 +3434,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CaptureTheFlag.IsActorRevealedByFlag_Client(this))
 			{
 				return true;
@@ -5384,15 +3441,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (VisibleTillEndOfPhase)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!MovedForEvade)
 			{
 				while (true)
@@ -5428,41 +3476,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		Team team = Team.TeamA;
 		if (player != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (player.ActorData != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					team = player.ActorData.GetTeam();
 					goto IL_005e;
 				}
@@ -5486,15 +3503,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (GetActorStatus().IsInvisibleToEnemies(flag))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetTeam() != team)
 			{
 				while (true)
@@ -5506,15 +3514,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					default:
 						if ((bool)player.ActorData)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (player.ActorData.GetActorStatus().HasStatus(StatusType.SeeInvisible, flag))
 							{
 								while (true)
@@ -5548,10 +3547,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -5571,15 +3566,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("Calling the server-only method ActorData::IsActorVisibleToActor on a client. Clients can only depend on ActorData::IsActorVisibleToClient.");
 		}
 		bool flag = SomeVisibilityCheckA_zq(_001D.PlayerData);
@@ -5625,19 +3611,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				ActorData current = enumerator.Current;
 				if (!current.IsDead())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (IsActorVisibleToActor(current, true))
 					{
 						while (true)
@@ -5679,10 +3652,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -5704,15 +3673,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int result;
 		if (IsHiddenInBrush())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag3 ? 1 : 0);
 		}
 		else
@@ -5731,15 +3691,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (overrideDir != Vector3.zero)
 			{
 				ApplyForce(overrideDir.normalized, amount);
@@ -5761,15 +3712,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			hipJointRigidBody.AddForce(dir * amount, ForceMode.Impulse);
 			return;
 		}
@@ -5813,10 +3755,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 squareWorldPosition = GetSquareWorldPosition(square);
 					squareWorldPosition.y += BoardSquare.s_LoSHeightOffset;
 					return squareWorldPosition;
@@ -5839,10 +3777,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return square.GetWorldPosition();
 				}
 			}
@@ -5919,19 +3853,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (!(GameFlow.Get() == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlow.Get().playerDetails != null)
 			{
 				if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails value))
@@ -5939,15 +3860,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					return false;
 				}
 				return value.IsHumanControlled;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Error("Method called too early, results may be incorrect");
@@ -5965,10 +3877,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -6030,10 +3938,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1L;
 				}
 			}
@@ -6059,30 +3963,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		long result = -1L;
 		if (PlayerData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlow.Get().playerDetails.ContainsKey(PlayerData.GetPlayer()))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = GameFlow.Get().playerDetails[PlayerData.GetPlayer()].m_accountId;
 			}
 		}
@@ -6093,19 +3975,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.RemoveActor(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveActor(this);
 		}
@@ -6125,32 +3994,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			OnSerializeHelper(new NetworkReaderAdapter(reader), initialState);
 		}
 		if (!initialState)
@@ -6159,11 +4006,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (AsyncPump.Current != null)
 			{
 				while (true)
@@ -6195,10 +4037,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -6243,30 +4081,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		byte value29 = 0;
 		if (stream.isWriting)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value = (sbyte)PlayerIndex;
 			value2 = (sbyte)ActorIndex;
 			value8 = (sbyte)m_team;
 			value26 = m_lastVisibleTurnToClient;
 			if (ServerLastKnownPosSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value27 = (short)ServerLastKnownPosSquare.x;
 				value28 = (short)ServerLastKnownPosSquare.y;
 			}
@@ -6323,93 +4143,30 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (value11 > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value11);
 			}
 			if (value14 > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value14);
 			}
 			if (value15 > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value15);
 			}
 			if (value13 != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value13);
 			}
 			if (value16 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value16);
 			}
 			if (value17 > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value17);
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value18);
 				stream.Serialize(ref value19);
 			}
@@ -6433,15 +4190,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					short value30 = (short)current.ActorIndex;
 					stream.Serialize(ref value30);
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			stream.Serialize(ref value26);
 			stream.Serialize(ref value27);
@@ -6450,15 +4198,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		Team team;
 		if (stream.isReading)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref value);
 			stream.Serialize(ref value2);
 			stream.Serialize(ref value3);
@@ -6482,15 +4221,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			ServerClientUtils.GetBoolsFromBitfield(value20, out out9, out out10, out out11, out out12, out out13, out out14, out out15, out out16);
 			if (out9)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value10);
 			}
 			if (out10)
@@ -6507,54 +4237,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (out13)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value13);
 			}
 			if (out14)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value16);
 			}
 			if (out15)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value17);
 			}
 			if (out16)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value18);
 				stream.Serialize(ref value19);
 			}
@@ -6579,80 +4273,26 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				{
 					goto IL_08b4;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			PrefabResourceLink prefabResourceLink = null;
 			CharacterResourceLink characterResourceLink = null;
 			if (m_characterType > CharacterType.None)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_characterType);
 			}
 			if (characterResourceLink == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NPCCoordinator.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					characterResourceLink = NPCCoordinator.Get().GetNpcCharacterResourceLinkBySpawnerId(value24);
 				}
 			}
 			if (characterResourceLink != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(m_visualInfo, out CharacterSkin _);
 			}
 			if (prefabResourceLink != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!prefabResourceLink.IsEmpty)
 				{
 					GameObject prefab = prefabResourceLink.GetPrefab(true);
@@ -6665,37 +4305,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					bool addMasterSkinVfx = false;
 					if (MasterSkinVfxData.Get() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (MasterSkinVfxData.Get().m_addMasterSkinVfx)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (characterResourceLink.IsVisualInfoSelectionValid(m_visualInfo))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								CharacterColor characterColor = characterResourceLink.GetCharacterColor(m_visualInfo);
 								addMasterSkinVfx = (characterColor.m_styleLevel == StyleLevelType.Mastery);
 							}
@@ -6703,15 +4316,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					}
 					InitializeModel(prefabResourceLink, addMasterSkinVfx);
 					goto IL_08b4;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Error(string.Concat("Failed to find character resource link for ", m_characterType, " with visual info ", m_visualInfo.ToString()));
@@ -6740,29 +4344,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		bool flag2 = false;
 		if (value4 != RemainingHorizontalMovement)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			RemainingHorizontalMovement = value4;
 			flag2 = true;
 		}
 		if (value5 != RemainingMovementWithQueuedAbility)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			RemainingMovementWithQueuedAbility = value5;
 			flag2 = true;
 		}
@@ -6780,28 +4366,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(value6);
 		if (m_queuedChaseTarget != actorOfActorIndex)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_queuedChaseTarget = actorOfActorIndex;
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorMovement.UpdateSquaresCanMoveTo();
 		}
 		goto IL_0c03;
@@ -6809,15 +4377,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_displayName = value3;
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForActor(this);
 		}
 		stream.Serialize(ref value25);
@@ -6829,65 +4388,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(value31);
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lineOfSightVisibleExceptions.Add(actorData);
 			}
-		}
-		while (true)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		stream.Serialize(ref value26);
 		stream.Serialize(ref value27);
 		stream.Serialize(ref value28);
 		if (value26 > m_lastVisibleTurnToClient)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lastVisibleTurnToClient = value26;
 		}
 		if (value27 == -1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value28 == -1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ServerLastKnownPosSquare = null;
 				goto IL_09b6;
 			}
@@ -6904,15 +4418,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		VisibleTillEndOfPhase = out6;
 		if (m_setTeam)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == m_team)
 			{
 				goto IL_0acc;
@@ -6920,15 +4425,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameFlowData.Get().AddToTeam(this);
 		}
 		else
@@ -6937,50 +4433,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (TeamStatusDisplay.GetTeamStatusDisplay() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TeamStatusDisplay.GetTeamStatusDisplay().RebuildTeamDisplay();
 		}
 		if (GameplayUtils.IsMinion(base.gameObject))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (MinionManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_setTeam)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MinionManager.Get().RemoveMinion(this);
 					MinionManager.Get().AddMinion(this);
 				}
@@ -7028,15 +4488,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityVfxSwapInfo.VfxSwapForAbility0 = value;
 			abilityVfxSwapInfo.VfxSwapForAbility1 = value2;
 			abilityVfxSwapInfo.VfxSwapForAbility2 = value3;
@@ -7060,10 +4511,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					value = (sbyte)cardInfo.PrepCard;
 					value2 = (sbyte)cardInfo.DashCard;
 					value3 = (sbyte)cardInfo.CombatCard;
@@ -7122,19 +4569,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		GridPos result = default(GridPos);
 		if ((bool)GetCurrentBoardSquare())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = GetCurrentBoardSquare().GetGridPos();
 			result.height++;
 		}
@@ -7164,15 +4598,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_facingDirAfterMovement = facingDirAfterMovement;
 			if (!NetworkServer.active)
 			{
@@ -7180,11 +4605,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_teamSensitiveData_friendly != null)
 				{
 					m_teamSensitiveData_friendly.FacingDirAfterMovement = m_facingDirAfterMovement;
@@ -7193,11 +4613,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						m_teamSensitiveData_hostile.FacingDirAfterMovement = m_facingDirAfterMovement;
 						return;
 					}
@@ -7221,30 +4636,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (GetCurrentBoardSquare() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetCurrentBoardSquare().occupant == base.gameObject)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnoccupyCurrentBoardSquare();
 			}
 		}
@@ -7260,19 +4653,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (moverWillDisappear)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (path == null)
 				{
 					while (true)
@@ -7303,29 +4683,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Evasion)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MovedForEvade = true;
 		}
 		int num;
 		if (path != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (path.WillDieAtEnd() ? 1 : 0);
 		}
 		else
@@ -7336,15 +4698,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		BoardSquare dest2;
 		if (path != null && path.GetPathEndpoint() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (path.GetPathEndpoint().square != null)
 			{
 				dest2 = path.GetPathEndpoint().square;
@@ -7358,70 +4711,25 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (movementType == MovementType.Teleport)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ForceUpdateIsVisibleToClientCache();
 			ForceUpdateActorModelVisibility();
 			SetTransformPositionToSquare(dest);
 			m_actorMovement.ClearPath();
 			if ((bool)m_actorCover)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_actorCover.RecalculateCover();
 			}
 			UpdateFacingAfterMovement();
 			if (currentBoardSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo = MovementUtils.Build2PointTeleportPath(currentBoardSquare, dest);
 				boardSquarePathInfo = boardSquarePathInfo.next;
 				if (ClientClashManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientClashManager.Get().OnActorMoved_ClientClashManager(this, boardSquarePathInfo);
 				}
 				if (ClientResolutionManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(this, boardSquarePathInfo);
 				}
 			}
@@ -7430,39 +4738,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (movementType != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (movementType != MovementType.Flight)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (movementType != MovementType.WaypointFlight)
 					{
 						if (movementType != MovementType.Knockback)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (movementType != MovementType.Charge)
 							{
 								goto IL_0458;
@@ -7470,52 +4751,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						}
 						if ((bool)m_actorCover)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_actorCover.DisableCover();
 						}
 						m_actorMovement.BeginChargeOrKnockback(currentBoardSquare, dest, path, movementType);
 						m_actorMovement.UpdatePosition();
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!moverWillDisappear)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (path.square == dest)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (path.next == null)
 									{
 										UpdateFacingAfterMovement();
@@ -7529,41 +4774,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						}
 						goto IL_0458;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if ((bool)m_actorCover)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_actorCover.DisableCover();
 			}
 			if (path == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				path = new BoardSquarePathInfo();
 				path.square = currentBoardSquare;
 				path.prev = null;
@@ -7583,29 +4801,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		IL_0131:
 		if (ClientMovementManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientMovementManager.Get().OnActorMoveStart_ClientMovementManager(this, dest2, movementType, path);
 			ClientResolutionManager.Get().OnActorMoveStart_ClientResolutionManager(this, path);
 		}
 		if (GetCurrentBoardSquare() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetCurrentBoardSquare().occupant == base.gameObject)
 			{
 				UnoccupyCurrentBoardSquare();
@@ -7615,51 +4815,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		boardSquarePathInfo = null;
 		if (movementType == MovementType.Teleport)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actorMovement.ClearPath();
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!moverWillDisappear)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetCurrentBoardSquare(dest);
 				if (GetCurrentBoardSquare() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					OccupyCurrentBoardSquare();
 				}
 				goto IL_021e;
@@ -7680,30 +4844,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (GetCurrentBoardSquare() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetCurrentBoardSquare().occupant == base.gameObject)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnoccupyCurrentBoardSquare();
 			}
 		}
@@ -7723,15 +4865,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 worldPosition = refSquare.GetWorldPosition();
 			SetTransformPositionToVector(worldPosition);
 			return;
@@ -7746,28 +4879,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(base.transform.position);
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(newPos);
 			if (boardSquare != boardSquare2 && boardSquare != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PreviousBoardSquarePosition = boardSquare.ToVector3();
 			}
 			base.transform.position = newPos;
@@ -7783,24 +4898,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetCurrentBoardSquare().occupant == base.gameObject)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					GetCurrentBoardSquare().occupant = null;
 					return;
 				}
@@ -7837,15 +4938,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetCurrentBoardSquare().occupant = base.gameObject;
 			return;
 		}
@@ -7862,10 +4954,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -7874,15 +4962,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetBool("Cover", ActorCover.CalcCoverLevelGeoOnly(out bool[] _, CurrentBoardSquare));
 		}
 		if (MoveFromBoardSquare == null)
@@ -7896,19 +4975,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (CurrentBoardSquare != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnoccupyCurrentBoardSquare();
 		}
 		m_clientCurrentBoardSquare = null;
@@ -7923,15 +4989,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_teamSensitiveData_friendly != null)
 			{
 				m_teamSensitiveData_friendly.ClearPreviousMovementInfo();
@@ -7940,11 +4997,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_teamSensitiveData_hostile.ClearPreviousMovementInfo();
 					return;
 				}
@@ -7981,15 +5033,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TurnToDirection(m_facingDirAfterMovement);
 			return;
 		}
@@ -8006,15 +5049,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -8035,10 +5069,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Team.TeamB;
 				}
 			}
@@ -8089,10 +5119,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return "Blue";
 				}
 			}
@@ -8116,10 +5142,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_teamAColor;
 				}
 			}
@@ -8138,10 +5160,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_teamBColor;
 				}
 			}
@@ -8166,41 +5184,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		GetFogOfWar().MarkForRecalculateVisibility();
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_serverMovementWaitForEvent != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_serverMovementDestination != GetCurrentBoardSquare() && !IsDead())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MoveToBoardSquareLocal(m_serverMovementDestination, MovementType.Teleport, m_serverMovementPath, false);
 				}
 			}
@@ -8210,26 +5197,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Animator modelAnimator = GetModelAnimator();
 			if (modelAnimator != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetActorModelData().HasTurnStartParameter())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modelAnimator.SetBool("TurnStart", true);
 				}
 				modelAnimator.SetInteger("Attack", 0);
@@ -8238,26 +5207,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientUnresolvedDamage != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("ClientUnresolvedDamage not cleared on TurnTick for " + GetDebugName());
 				ClientUnresolvedDamage = 0;
 			}
@@ -8268,54 +5219,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (ClientUnresolvedTechPointGain != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientUnresolvedTechPointGain = 0;
 			}
 			if (ClientUnresolvedTechPointLoss != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientUnresolvedTechPointLoss = 0;
 			}
 			if (ClientReservedTechPoints != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientReservedTechPoints = 0;
 			}
 			if (ClientUnresolvedAbsorb != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("ClientUnresolvedAbsorb not cleared on TurnTick for " + GetDebugName());
 				ClientUnresolvedAbsorb = 0;
 			}
@@ -8340,26 +5255,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						goto IL_02e2;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTurn > 2)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentTurn == NextRespawnTurn + 1)
 						{
 							goto IL_02e2;
@@ -8375,118 +5272,28 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		KnockbackMoveStarted = false;
 		if (GetActorBehavior() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GetActorBehavior().Client_ResetKillAssistContribution();
 		}
 		if (GetActorCover() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GetActorCover().RecalculateCover();
 			if (!IsDead())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().CurrentTurn > 1)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (HighlightUtils.Get() != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnTurnStart)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 									if (activeOwnedActorData != null && activeOwnedActorData == this)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (IsVisibleToClient())
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											GetActorCover().StartShowMoveIntoCoverIndicator();
 										}
 									}
@@ -8503,11 +5310,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			this.OnTurnStartDelegates();
 			return;
 		}
@@ -8521,19 +5323,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int result;
 		if (!m_queuedMovementRequest)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_queuedChaseRequest ? 1 : 0);
 		}
 		else
@@ -8562,15 +5351,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.transform.localRotation = m_targetRotation.GetEndValue();
 			m_targetRotation.EaseTo(quaternion, 0.1f);
 			return;
@@ -8594,15 +5374,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_targetRotation.EaseTo(quaternion, turnDuration);
 			return;
 		}
@@ -8623,15 +5394,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Quaternion quaternion = default(Quaternion);
 			quaternion.SetLookRotation(vector);
 			base.transform.localRotation = quaternion;
@@ -8646,19 +5408,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		GameObject gameObject = base.gameObject.FindInChildren(boneName);
 		if ((bool)gameObject)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = gameObject.GetComponentInChildren<Rigidbody>();
 		}
 		else
@@ -8672,19 +5421,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_cachedHipJoint == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cachedHipJoint = GetRigidBody("hip_JNT");
 		}
 		return m_cachedHipJoint;
@@ -8713,10 +5449,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return gameObject.transform.position;
 				}
 			}
@@ -8737,10 +5469,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return gameObject.transform.rotation;
 				}
 			}
@@ -8753,19 +5481,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (GetActorController() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetActorController().ClearHighlights();
 		}
 		GetActorCover().UpdateCoverHighlights(null);
@@ -8794,15 +5509,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetActorMovement().UpdateSquaresCanMoveTo();
 			return;
 		}
@@ -8822,30 +5528,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ActorTurnSM actorTurnSM;
 		if (gameFlowData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameFlowData.gameState == GameState.BothTeams_Decision)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameFlowData.activeOwnedActorData != null)
 				{
 					activeOwnedActorData = gameFlowData.activeOwnedActorData;
@@ -8855,15 +5539,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING && abilityData != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Ability lastSelectedAbility = abilityData.GetLastSelectedAbility();
 							if (ShouldUpdateForConfirmedTargeting(lastSelectedAbility, actorTurnSM.GetAbilityTargets().Count))
 							{
@@ -8871,15 +5546,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 								int num;
 								if (lastSelectedAbility.IsSimpleAction())
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num = 0;
 								}
 								else
@@ -8889,51 +5555,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 								int num2 = num;
 								if (num2 >= 0)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (lastSelectedAbility.Targeters != null)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = Mathf.Clamp(num2, 0, lastSelectedAbility.Targeters.Count - 1);
 										UpdateNameplateForTargetingAbility(activeOwnedActorData, lastSelectedAbility, flag, inCover, num2, true);
 										updatingInConfirm = true;
 										if (HUD_UI.Get() != null)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (activeOwnedActorData.ForceDisplayTargetHighlight)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.ShowTargetingNumberForConfirmedTargeting(this);
 												m_showingTargetingNumAtFullAlpha = true;
 											}
@@ -8945,15 +5575,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 													{
 														goto IL_02a3;
 													}
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.StartTargetingNumberFadeout(this);
 												m_showingTargetingNumAtFullAlpha = false;
@@ -8964,53 +5585,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							}
 							else if (m_wasUpdatingForConfirmedTargeting)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.StartTargetingNumberFadeout(this);
 								m_showingTargetingNumAtFullAlpha = false;
 							}
 						}
 						goto IL_02a3;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability selectedAbility = abilityData.GetSelectedAbility();
 					if (selectedAbility != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (selectedAbility.Targeters != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = selectedAbility.IsActorInTargetRange(this, out inCover);
 							int count = actorTurnSM.GetAbilityTargets().Count;
 							count = Mathf.Clamp(count, 0, selectedAbility.Targeters.Count - 1);
@@ -9027,48 +5612,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		IL_02a3:
 		if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!activeOwnedActorData.ForceDisplayTargetHighlight)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UI.Get() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateNameplateUntargeted(this, !updatingInConfirm);
 					}
 				}
@@ -9085,15 +5634,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_forceShowOutlineCheckers.Add(checker);
 			return;
 		}
@@ -9111,19 +5651,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
 				while (true)
@@ -9137,40 +5664,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 						bool flag = false;
 						for (int i = 0; i < m_forceShowOutlineCheckers.Count; i++)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							IForceActorOutlineChecker forceActorOutlineChecker = m_forceShowOutlineCheckers[i];
 							if (forceActorOutlineChecker != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = forceActorOutlineChecker.ShouldForceShowOutline(actor);
 							}
 						}
@@ -9195,10 +5695,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void ActorData::UpdateNameplateForTargetingAbility(ActorData,Ability,System.Boolean,System.Boolean,System.Int32,System.Boolean)' called on server");
 					return;
 				}
@@ -9210,11 +5706,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (this == targetingActor)
 			{
 				while (true)
@@ -9260,54 +5751,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
 		int result;
 		if (!ForceDisplayTargetHighlight)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (lastSelectedAbility.Targeter != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lastSelectedAbility.Targeter.GetConfirmedTargetingRemainingTime() > 0f)
 				{
 					if (!lastSelectedAbility.IsSimpleAction())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((numAbilityTargets > 0) ? 1 : 0);
 					}
 					else
@@ -9337,19 +5792,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (!activeOwnedActorData.HasQueuedMovement())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!activeOwnedActorData.HasQueuedChase())
 			{
 				while (true)
@@ -9378,15 +5820,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				return false;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return true;
 	}
@@ -9395,43 +5828,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (!(square == null))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(square.occupant == null))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(square.occupant.GetComponent<ActorData>() == null))
 				{
 					if (!(GameFlowData.Get() == null))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 						{
 							ActorData component = square.occupant.GetComponent<ActorData>();
@@ -9497,15 +5899,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		return false;
@@ -9519,15 +5912,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorVFX != null)
 			{
 				m_actorVFX.ShowHitWhileInCoverVfx(GetTravelBoardSquareWorldPosition(), hitOrigin, caster);
@@ -9545,24 +5929,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorVFX != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_actorVFX.ShowKnockbackWhileUnstoppableVfx(GetTravelBoardSquareWorldPosition(), hitOrigin, caster);
 					AudioManager.PostEvent("ablty/generic/feedback/unstoppable", base.gameObject);
 					return;
@@ -9579,19 +5949,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		string eventName;
 		if (num == -1)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			audioTag = "default";
 			eventName = eventAndTag;
 		}
@@ -9603,15 +5960,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		CharacterResourceLink characterResourceLink = GetCharacterResourceLink();
 		if (characterResourceLink != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!characterResourceLink.AllowAudioTag(audioTag, m_visualInfo))
 			{
 				return;
@@ -9626,19 +5974,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		string text;
 		if (characterResourceLink != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = characterResourceLink.ReplaceAudioEvent(eventName, m_visualInfo);
 		}
 		else
@@ -9647,15 +5982,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (text != eventName)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (notifyCallback != null)
 		{
@@ -9686,10 +6012,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9706,15 +6028,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameFlowData.Get().SetResolutionSingleStepping(singleStepping);
 			return;
 		}
@@ -9729,15 +6042,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameFlowData.Get().SetResolutionSingleSteppingAdvance();
 			return;
 		}
@@ -9787,15 +6091,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = IsDead();
 			UnresolvedDamage = 0;
 			UnresolvedHealing = 0;
@@ -9809,11 +6104,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!IsModelAnimatorDisabled())
 				{
 					Debug.LogError("Actor " + GetDebugName() + " died on HP resolved; he should have already been ragdolled, but wasn't.");
@@ -9841,10 +6131,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error(base.gameObject.name + " does not have a combat text component.");
 					return;
 				}
@@ -9862,15 +6148,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("[Client] function 'System.Void ActorData::ShowDamage(System.String)' called on server");
 			return;
 		}
@@ -9885,24 +6162,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkClient.active && abilityScopeId >= 0)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					ApplyAbilityModById(actionTypeInt, abilityScopeId);
 					return;
 				}
@@ -9916,19 +6179,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int num;
 		if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (AbilityModHelper.IsModAllowed(m_characterType, actionTypeInt, abilityScopeId) ? 1 : 0);
 		}
 		else
@@ -9956,11 +6206,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
 			AbilityMod abilityModForAbilityById = AbilityModManager.Get().GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
 			if (!(abilityModForAbilityById != null))
@@ -10015,33 +6260,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		ability.ApplyAbilityMod(abilityMod, this);
 		if (abilityMod.m_useChainAbilityOverrides)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ability.SanitizeChainAbilities();
 			GetAbilityData().ReInitializeChainAbilityList();
 			Ability[] chainAbilities = ability.GetChainAbilities();
 			if (chainAbilities != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability[] array = chainAbilities;
 				foreach (Ability ability2 in array)
 				{
@@ -10058,11 +6281,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Debug.LogWarning("Applied " + abilityMod.GetDebugIdentifier("white") + " to ability " + ability.GetDebugIdentifier("orange"));
 			return;
 		}
@@ -10077,15 +6295,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetFogOfWar().MarkForRecalculateVisibility();
 			return;
 		}
@@ -10097,19 +6306,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		bool flag2 = false;
 		if (m_respawnPositionFlare != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag2 = (m_respawnFlareVfxSquare == flareSquare && m_respawnFlareForSameTeam == flag);
 			UnityEngine.Object.Destroy(m_respawnPositionFlare);
 			m_respawnPositionFlare = null;
@@ -10119,15 +6315,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (SpawnPointManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!SpawnPointManager.Get().m_spawnInDuringMovement)
 			{
 				while (true)
@@ -10148,11 +6335,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			GameObject original;
 			if (!flag)
 			{
@@ -10160,15 +6342,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			else if (respawningThisTurn)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				original = HighlightUtils.Get().m_respawnPositionFinalFriendlyVFXPrefab;
 			}
 			else
@@ -10180,15 +6353,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			m_respawnFlareForSameTeam = flag;
 			if (!flag2 && this == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UISounds.GetUISounds().Play("ui/ingame/v1/respawn_locator");
 			}
 			m_respawnPositionFlare.transform.position = flareSquare.ToVector3();
@@ -10206,24 +6370,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ClientGameManager.Get().IsFastForward)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().LeaveGame(false, gameResult);
 					return;
 				}
@@ -10240,15 +6390,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetActorController().CallCmdSendMinimapPing(teamIndex, worldPosition, pingType);
 			return;
 		}
@@ -10262,15 +6403,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetActorController().CallCmdSendAbilityPing(teamIndex, localizedPing);
 			return;
 		}
@@ -10304,19 +6436,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		string text = string.Empty;
 		if (GetActorTurnSM() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text2 = text;
 			text = string.Concat(text2, "ActorTurnSM: CurrentState= ", GetActorTurnSM().CurrentState, " | PrevState= ", GetActorTurnSM().PreviousState, "\n");
 		}
@@ -10349,10 +6468,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -10364,11 +6479,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Gizmos.DrawWireCube(GetCurrentBoardSquare().CameraBounds.center, GetCurrentBoardSquare().CameraBounds.size * 0.9f);
 			Gizmos.DrawRay(GetCurrentBoardSquare().ToVector3(), base.transform.forward);
 			return;
@@ -10386,10 +6496,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_actorTags.HasTag(tag);
 				}
 			}
@@ -10401,19 +6507,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_actorTags == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actorTags = base.gameObject.AddComponent<ActorTag>();
 		}
 		m_actorTags.AddTag(tag);
@@ -10427,15 +6520,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actorTags.RemoveTag(tag);
 			return;
 		}
@@ -10445,42 +6529,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_characterResourceLink == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_characterType != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameWideData gameWideData = GameWideData.Get();
 				if ((bool)gameWideData)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterResourceLink = gameWideData.GetCharacterResourceLink(m_characterType);
 				}
 			}
@@ -10499,10 +6552,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -10532,15 +6581,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.OnAnimationEventDelegates(eventObject, sourceObject);
 			return;
 		}
@@ -10554,25 +6594,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Animator modelAnimator = GetModelAnimator();
 			if (modelAnimator != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					modelAnimator.speed = GameTime.scale;
 					return;
 				}
@@ -10596,10 +6622,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSetPausedForDebugging called on client.");
 					return;
 				}
@@ -10619,10 +6641,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSetResolutionSingleStepping called on client.");
 					return;
 				}
@@ -10642,10 +6660,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSetResolutionSingleSteppingAdvance called on client.");
 					return;
 				}
@@ -10665,10 +6679,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSetDebugToggleParam called on client.");
 					return;
 				}
@@ -10688,10 +6698,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdDebugReslotCards called on client.");
 					return;
 				}
@@ -10723,10 +6729,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdDebugReplaceWithBot called on client.");
 					return;
 				}
@@ -10763,10 +6765,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdSetPausedForDebugging(pause);
 					return;
 				}
@@ -10792,10 +6790,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSetResolutionSingleStepping called on server.");
 					return;
 				}
@@ -10840,10 +6834,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdSetResolutionSingleSteppingAdvance();
 					return;
 				}
@@ -10868,10 +6858,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSetDebugToggleParam called on server.");
 					return;
 				}
@@ -10912,10 +6898,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdDebugReslotCards called on server.");
 					return;
 				}
@@ -10956,10 +6938,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdDebugSetAbilityMod called on server.");
 					return;
 				}
@@ -11005,10 +6983,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdDebugReplaceWithBot();
 					return;
 				}
@@ -11033,10 +7007,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdDebugSetHealthOrEnergy called on server.");
 					return;
 				}
@@ -11093,10 +7063,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcApplyAbilityModById called on server.");
 					return;
 				}
@@ -11156,10 +7122,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcCombatText called on client.");
 					return;
 				}
@@ -11205,10 +7167,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcMarkForRecalculateClientVisibility called on client.");
 					return;
 				}

@@ -93,15 +93,6 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnityEngine.Object.Destroy(fogTexture);
 			return;
 		}
@@ -118,10 +109,6 @@ public class UIMinimap : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -153,37 +140,10 @@ public class UIMinimap : MonoBehaviour
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.GetFogOfWar().IsVisible(boardSquareSafe))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pixels[i] = HUD_UIResources.Get().m_fogValidPlaySquareVisible;
 					}
 					else
@@ -209,11 +169,6 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			fogSprite = Sprite.Create(fogTexture, new Rect(0f, 0f, fogXPixelSize, fogYPixelSize), new Vector2(0.5f, 0.5f));
 			m_fogImage.sprite = fogSprite;
 			Image fogImage = m_fogImage;
@@ -264,15 +219,6 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Image image = UnityEngine.Object.Instantiate(m_pingPrefab);
 			image.transform.SetParent(base.gameObject.transform);
 			Vector3 mousePosition = Input.mousePosition;
@@ -292,46 +238,22 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get().activeOwnedActorData.GetActorController() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (Time.time - m_lastPingSendTime > HUD_UIResources.Get().m_mapPingCooldown)
 					{
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							m_lastPingSendTime = Time.time;
 							GameFlowData.Get().activeOwnedActorData.SendPingRequestToServer((int)GameFlowData.Get().activeOwnedActorData.GetTeam(), worldPosition, pingType);
 							return;
@@ -347,30 +269,8 @@ public class UIMinimap : MonoBehaviour
 	{
 		if (m_mouseDown)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SendMiniMapPing(m_lastWorldPositionClicked, ActorController.PingType.Default);
 			}
 		}
@@ -413,23 +313,10 @@ public class UIMinimap : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -446,10 +333,6 @@ public class UIMinimap : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -479,23 +362,9 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			MapData mapData = GameWideData.Get().GetMapData(GameManager.Get().GameInfo.GameConfig.Map);
 			if (mapData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite sprite = Resources.Load(mapData.MinimapImageLocation, typeof(Sprite)) as Sprite;
 				if (sprite != null)
 				{
@@ -521,28 +390,10 @@ public class UIMinimap : MonoBehaviour
 					ControlPoint controlPointAtSquare = GetControlPointAtSquare(j, k);
 					if (controlPointAtSquare != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rectTransform.gameObject.name = "ControlPoint minimap image";
 					}
 					else if (boardSquareSafe.IsBaselineHeight())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				while (true)
@@ -561,11 +412,6 @@ public class UIMinimap : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				UpdateFogOfWar();
 				return;
 			}
@@ -583,10 +429,6 @@ public class UIMinimap : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -602,15 +444,6 @@ public class UIMinimap : MonoBehaviour
 				{
 					if (!enumerator2.MoveNext())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					MinimapActor current2 = enumerator2.Current;
@@ -633,15 +466,6 @@ public class UIMinimap : MonoBehaviour
 			}
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				MinimapActor item = default(MinimapActor);
 				item.m_actorData = item2;
 				item.m_uiPlayerIcon = UnityEngine.Object.Instantiate(m_playerIconPrefab);
@@ -666,15 +490,6 @@ public class UIMinimap : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			MinimapActor minimapActor3 = m_minimapActors[i];
 			UnityEngine.Object.Destroy(minimapActor3.m_uiPlayerIcon.gameObject);
@@ -684,46 +499,22 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_minimapActors.Count; j++)
 			{
 				MinimapActor minimapActor4 = m_minimapActors[j];
 				Vector3 minimapPositionFromWorldPosition = GetMinimapPositionFromWorldPosition(minimapActor4.m_actorData.GetNameplatePosition(0f));
 				if (minimapPositionFromWorldPosition != minimapActor4.m_uiPlayerIcon.transform.position)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					minimapActor4.m_uiPlayerIcon.transform.position = minimapPositionFromWorldPosition;
 					flag = true;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						UpdateFogOfWar();
 						return;
 					}
@@ -771,10 +562,6 @@ public class UIMinimap : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -789,15 +576,6 @@ public class UIMinimap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CheckMinimapOrientation();
 			CheckPlayerActorPositions();
 			if (!m_mouseDown)
@@ -806,11 +584,6 @@ public class UIMinimap : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 position = m_tiles[0, 0].transform.position;
 				Vector3 from = GetComponentInParent<Canvas>().worldCamera.ScreenToWorldPoint(Input.mousePosition) - position;
 				Vector3 to = m_tiles[m_maxX - 1, 0].transform.position - position;
@@ -838,11 +611,6 @@ public class UIMinimap : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (component.enabled && !InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing))
 					{
 						Vector3 targetPos = a;

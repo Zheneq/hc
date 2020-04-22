@@ -50,19 +50,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
@@ -78,31 +65,9 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		LastUpdatePathSquareCount = 0;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 3)
 			{
 				goto IL_00cd;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -133,15 +98,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						Vector3 travelBoardSquareWorldPosition;
 						if (m_directHitIgnoreCover)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							travelBoardSquareWorldPosition = firstHitActor.GetTravelBoardSquareWorldPosition();
 						}
 						else
@@ -159,15 +115,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					}
 					else if (!flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						active = true;
 						Vector3 position2 = knockbackDestSquare.ToVector3();
 						position2.y = HighlightUtils.GetHighlightHeight();
@@ -181,38 +128,11 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 							ActorData current = enumerator.Current;
 							AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Secondary);
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (m_affectCasterDelegate != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_affectCasterDelegate(targetingActor, GetVisibleActorsInRange()))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 						}
 					}
@@ -228,37 +148,10 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					arrowIndex = AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, TargeterMovementType.Knockback, arrowIndex);
 					if (m_enemyKnockbackDist > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstHitActor != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!aoeHitActors.Contains(firstHitActor))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								aoeHitActors.Add(firstHitActor);
 							}
 						}
@@ -271,68 +164,23 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 								aimDir.y = 0f;
 								if (aimDir.sqrMagnitude > 0f)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									aimDir.Normalize();
 								}
 								BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current2, m_enemyKnockbackType, aimDir2, vector, m_enemyKnockbackDist);
 								arrowIndex = AddMovementArrowWithPrevious(current2, path, TargeterMovementType.Knockback, arrowIndex);
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 					SetMovementArrowEnabledFromIndex(arrowIndex, false);
 					if (boardSquarePathInfo != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						LastUpdatePathSquareCount = boardSquarePathInfo.GetNumSquaresToEnd();
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 a = vector;
 						if (boardSquarePathInfo != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 							a = pathEndpoint.square.ToVector3();
 						}

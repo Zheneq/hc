@@ -42,15 +42,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_auraDurationMod, "AuraDuration", string.Empty, fireborgDamageAura.m_auraDuration);
 			AbilityMod.AddToken(tokens, m_auraDurationIfSuperheatedMod, "AuraDurationIfSuperheated", string.Empty, fireborgDamageAura.m_auraDurationIfSuperheated);
@@ -67,34 +58,12 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgDamageAura != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, fireborgDamageAura.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyBool excludeTargetedActorMod = m_excludeTargetedActorMod;
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = (fireborgDamageAura.m_excludeTargetedActor ? 1 : 0);
 			}
 			else
@@ -107,15 +76,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgDamageAura.m_auraDuration;
 			}
 			else
@@ -128,15 +88,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgDamageAura.m_auraDurationIfSuperheated;
 			}
 			else
@@ -149,15 +100,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = (fireborgDamageAura.m_igniteIfNormal ? 1 : 0);
 			}
 			else
@@ -170,15 +112,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			int baseVal5;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal5 = (fireborgDamageAura.m_igniteIfSuperheated ? 1 : 0);
 			}
 			else
@@ -191,15 +124,6 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			object baseVal6;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = fireborgDamageAura.m_onCastTargetAllyEffect;
 			}
 			else

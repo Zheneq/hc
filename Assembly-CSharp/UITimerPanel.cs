@@ -37,15 +37,6 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_matchStartTime = Time.realtimeSinceStartup;
 			return;
 		}
@@ -104,40 +95,18 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_turn != GameFlowData.Get().CurrentTurn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_turn = GameFlowData.Get().CurrentTurn;
 			m_turnLabel.text = $"-{GetTurn()}-";
 		}
 		float num = 0f;
 		if (!AppState.GetCurrent() != (bool)AppState_InGameDeployment.Get())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Time.realtimeSinceStartup - m_matchStartTime;
 		}
 		int num2 = (int)(num / 60f);
@@ -148,27 +117,9 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (num3 < 10)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_timeLabel.text = $"{num2}:0{num3}";
 		}
 		else

@@ -30,19 +30,6 @@ public class GrydCardinalBomb : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "GrydCardinalBomb";
 		}
 		Setup();
@@ -73,19 +60,6 @@ public class GrydCardinalBomb : Ability
 		AbilityUtil_Targeter_GrydCardinalBomb abilityUtil_Targeter_GrydCardinalBomb = base.Targeter as AbilityUtil_Targeter_GrydCardinalBomb;
 		if (abilityUtil_Targeter_GrydCardinalBomb != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityUtil_Targeter_GrydCardinalBomb.m_actorToHitContext.ContainsKey(targetActor))
 			{
 				while (true)

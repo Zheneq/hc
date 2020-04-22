@@ -21,10 +21,6 @@ public static class NetUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_hostName;
 				}
 			}
@@ -70,10 +66,6 @@ public static class NetUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return cachedAddress;
 				}
 			}
@@ -106,15 +98,6 @@ public static class NetUtil
 							}
 						}
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			catch (Exception)
@@ -122,25 +105,11 @@ public static class NetUtil
 			}
 			if (num < 3)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Thread.Sleep(100);
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			throw new Exception($"Could not resolve {host}");
 		}
 	}
@@ -185,10 +154,6 @@ public static class NetUtil
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("This method works for IPv4 addresses only");
 				}
 			}
@@ -200,15 +165,6 @@ public static class NetUtil
 		}
 		if (addressBytes[0] == 192)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (addressBytes[1] == 168)
 			{
 				while (true)
@@ -243,19 +199,6 @@ public static class NetUtil
 	{
 		if (!address.Contains("://"))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			address = "tcp://" + address;
 		}
 		Uri uri = new Uri(address);
@@ -271,19 +214,6 @@ public static class NetUtil
 	{
 		if (hex.Length % 2 != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			hex = "0" + hex;
 		}
 		int length = hex.Length;

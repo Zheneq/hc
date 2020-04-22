@@ -33,26 +33,12 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				List<ActorData> actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData);
 				for (int i = 0; i < actorsVisibleToActor.Count; i++)
 				{
@@ -61,27 +47,9 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.IgnoreForAbilityHits)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (actorData == targetingActor && m_affectsTargetingActor)
 					{
@@ -89,41 +57,14 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 					}
 					if (actorData != targetingActor && actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_affectsAllies)
 						{
 							goto IL_011e;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					int num;
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (m_affectsEnemies ? 1 : 0);
 					}
 					else
@@ -139,26 +80,8 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_shouldAddActorDelegate != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_shouldAddActorDelegate(actorData, targetingActor))
 						{
 							continue;
@@ -167,15 +90,6 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 					Vector3 travelBoardSquareWorldPosition;
 					if (m_damageOriginType == DamageOriginType.CasterPos)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 					}
 					else

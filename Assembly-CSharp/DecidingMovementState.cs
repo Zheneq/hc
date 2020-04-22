@@ -75,15 +75,6 @@ public class DecidingMovementState : TurnState
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SinglePlayerManager.Get().OnActorLockInEntered(m_SM.GetComponent<ActorData>());
 				return;
 			}
@@ -94,53 +85,13 @@ public class DecidingMovementState : TurnState
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == m_SM)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButtonUp(0))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButtonUp(1))
 					{
 						goto IL_00b4;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (InterfaceManager.Get().ShouldHandleMouseClick() && !m_SM.HandledMouseInput)

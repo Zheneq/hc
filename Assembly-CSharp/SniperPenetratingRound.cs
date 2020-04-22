@@ -22,19 +22,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Penetrating Round";
 		}
 		SetupTargeter();
@@ -51,10 +38,6 @@ public class SniperPenetratingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_SniperPenetratingRound(this, GetLaserWidth(), GetLaserRange(), m_laserInfo.penetrateLos, m_laserInfo.maxTargets, true, GetKnockbackThresholdDistance(), m_abilityMod.m_knockbackType, m_abilityMod.m_knockbackDistance);
 					return;
 				}
@@ -84,10 +67,6 @@ public class SniperPenetratingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_laserDamage.GetModifiedValue(m_laserDamageAmount);
 				}
 			}
@@ -99,30 +78,8 @@ public class SniperPenetratingRound : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_knockbackHitEnemy)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_knockbackDistance > 0f)
 				{
 					while (true)
@@ -146,19 +103,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserInfo.width;
 		}
 		else
@@ -173,19 +117,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserInfo.range;
 		}
 		else
@@ -206,10 +137,6 @@ public class SniperPenetratingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_enemyHitEffectOverride;
 				}
 			}
@@ -222,19 +149,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = -1f;
 		}
 		else
@@ -249,19 +163,6 @@ public class SniperPenetratingRound : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_additionalDamageOnLowHealthTargetMod.GetModifiedValue(m_additionalDamageOnLowHealthTarget);
 		}
 		else
@@ -276,19 +177,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lowHealthThresholdMod.GetModifiedValue(m_lowHealthThreshold);
 		}
 		else
@@ -303,19 +191,6 @@ public class SniperPenetratingRound : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (GetModdedDamage() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetModdedDamage());
 		}
 		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
@@ -327,46 +202,15 @@ public class SniperPenetratingRound : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (GetLowHealthThreshold() > 0f && GetAdditionalDamageOnLowHealthTarget() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 			if (tooltipSubjectTypes != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 				{
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num;
 					if (targetActor.GetHitPointShareOfMax() < GetLowHealthThreshold())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = GetAdditionalDamageOnLowHealthTarget();
 					}
 					else
@@ -388,19 +232,6 @@ public class SniperPenetratingRound : Ability
 		int val;
 		if ((bool)abilityMod_SniperPenetratingRound)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SniperPenetratingRound.m_laserDamage.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -413,15 +244,6 @@ public class SniperPenetratingRound : Ability
 		int val2;
 		if ((bool)abilityMod_SniperPenetratingRound)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SniperPenetratingRound.m_additionalDamageOnLowHealthTargetMod.GetModifiedValue(m_additionalDamageOnLowHealthTarget);
 		}
 		else
@@ -442,10 +264,6 @@ public class SniperPenetratingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SniperPenetratingRound);
 					SetupTargeter();
 					return;

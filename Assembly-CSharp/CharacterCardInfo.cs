@@ -27,15 +27,6 @@ public struct CharacterCardInfo
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -43,15 +34,6 @@ public struct CharacterCardInfo
 		int result;
 		if (PrepCard == characterCardInfo.PrepCard)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CombatCard == characterCardInfo.CombatCard)
 			{
 				result = ((DashCard == characterCardInfo.DashCard) ? 1 : 0);
@@ -69,30 +51,8 @@ public struct CharacterCardInfo
 		int result;
 		if (PrepCard > CardType.NoOverride)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DashCard > CardType.NoOverride)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((CombatCard <= CardType.NoOverride) ? 1 : 0);
 				goto IL_003e;
 			}
@@ -108,19 +68,6 @@ public struct CharacterCardInfo
 		int result;
 		if (PrepCard == CardType.NoOverride)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DashCard == CardType.NoOverride)
 			{
 				result = ((CombatCard == CardType.NoOverride) ? 1 : 0);

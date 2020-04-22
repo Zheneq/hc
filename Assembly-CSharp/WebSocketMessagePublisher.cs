@@ -29,34 +29,12 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		Type type = Type.GetType(typeName);
 		if (type == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 			foreach (Assembly assembly in assemblies)
 			{
 				type = assembly.GetType(typeName);
 				if (type != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}
@@ -73,15 +51,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Subscribe(type, subscriber);
 			return;
 		}
@@ -101,19 +70,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 				int result;
 				if (s.Type == messageType)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = (s.Subscriber.Equals(subscriber) ? 1 : 0);
 				}
 				else
@@ -131,10 +87,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						SubscriberToken subscriberToken = new SubscriberToken();
 						subscriberToken.Type = messageType;
 						subscriberToken.Subscriber = subscriber;
@@ -174,15 +126,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Unsubscribe(type, subscriber);
 			return;
 		}
@@ -197,19 +140,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 				int result;
 				if (s.Subscriber.Equals(subscriber))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = ((s.Type == type) ? 1 : 0);
 				}
 				else
@@ -237,30 +167,8 @@ public class WebSocketMessagePublisher : IMessagePublisher
 					SubscriberToken current = enumerator.Current;
 					if (current.Type == typeof(TMessageType))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						list.Add(current.Subscriber);
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

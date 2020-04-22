@@ -37,15 +37,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, rampartBarricade_Prep.m_damageAmount);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", rampartBarricade_Prep.m_enemyHitEffect);
 			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, rampartBarricade_Prep.m_laserRange);
@@ -55,11 +46,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					AbilityMod.AddToken_BarrierMod(tokens, m_shieldBarrierDataMod, "ShieldBarrier", component.m_normalShieldBarrierData);
 					return;
 				}
@@ -75,19 +61,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		object obj;
 		if ((bool)abilityData)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = abilityData.GetComponent<Passive_Rampart>();
 		}
 		else
@@ -101,15 +74,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (rampartBarricade_Prep.m_allowAimAtDiagonals ? 1 : 0);
 		}
 		else
@@ -122,15 +86,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartBarricade_Prep.m_enemyHitEffect;
 		}
 		else
@@ -143,15 +98,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartBarricade_Prep.m_laserRange;
 		}
 		else

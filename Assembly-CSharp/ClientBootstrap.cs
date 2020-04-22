@@ -40,19 +40,6 @@ public class ClientBootstrap : MonoBehaviour
 		hydrogenConfig.ProcessType = ProcessType.AtlasReactor;
 		if (hydrogenConfig.ProcessCode.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			hydrogenConfig.ProcessCode = ProcessManager.Get().GetNextProcessCode(null, true);
 		}
 		if (hydrogenConfig.EnableLogging)
@@ -60,15 +47,6 @@ public class ClientBootstrap : MonoBehaviour
 			UnityConsoleLog.MinLevel = Log.FromString(hydrogenConfig.MinConsoleLogLevel);
 			if (Path.GetFileName(hydrogenConfig.LogFilePath).IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hydrogenConfig.LogFilePath = $"{hydrogenConfig.LogFilePath}/AtlasReactor-{hydrogenConfig.ProcessCode}.log";
 			}
 			m_fileLog = new FileLog();
@@ -86,15 +64,6 @@ public class ClientBootstrap : MonoBehaviour
 		Console.WriteLine(buildInfoString);
 		if (!hydrogenConfig.ProcessCode.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Notice("Process: AtlasReactor-{0}", hydrogenConfig.ProcessCode);
 		}
 		if (hydrogenConfig.Language == null)
@@ -133,19 +102,6 @@ public class ClientBootstrap : MonoBehaviour
 		AppState_LandingPage.Create();
 		if (GetComponent<ClientIdleTimer>() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.gameObject.AddComponent<ClientIdleTimer>();
 		}
 		CommerceClient.Get();
@@ -158,11 +114,6 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager.Get().OnConnectedToLobbyServer += HandleConnectedToLobbyServer;
 			return;
 		}
@@ -172,43 +123,12 @@ public class ClientBootstrap : MonoBehaviour
 	{
 		if (AppState.GetCurrent() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AppState_Startup.Get().Enter();
 		}
 		if (LoadTest)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState.GetCurrent() == AppState_LandingPage.Get())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIFrontEnd.Get() != null)
 				{
 					AppState_LandingPage.Get().OnQuickPlayClicked();
@@ -219,15 +139,6 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		if (m_fileLog != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_fileLog.Update();
 		}
 		if (m_asyncPump == null)
@@ -236,11 +147,6 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_asyncPump.Run(0);
 			return;
 		}
@@ -250,19 +156,6 @@ public class ClientBootstrap : MonoBehaviour
 	{
 		if (m_fileLog != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fileLog.Close();
 		}
 		if (!(ClientGameManager.Get() != null))
@@ -271,11 +164,6 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager.Get().OnConnectedToLobbyServer -= HandleConnectedToLobbyServer;
 			return;
 		}
@@ -291,19 +179,6 @@ public class ClientBootstrap : MonoBehaviour
 		string text3 = string.Empty;
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text2 = text;
 			text3 = "dev";
 		}
@@ -313,67 +188,22 @@ public class ClientBootstrap : MonoBehaviour
 			string a = m_commandLine[i].ToLower();
 			if (!(a == "-o"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "-option"))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(a == "--option"))
 					{
 						goto IL_018d;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (i + 1 < m_commandLine.Length)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text4 = m_commandLine[i + 1];
 				string[] array = text4.Split('=');
 				string text5 = array[0];
 				object obj;
 				if (array.Length > 1)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = array[1];
 				}
 				else
@@ -391,67 +221,22 @@ public class ClientBootstrap : MonoBehaviour
 			IL_04ad:
 			if (a == "-loadtest")
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LoadTest = true;
 			}
 			continue;
 			IL_01ea:
 			if (!(a == "-s"))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "-server"))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(a == "--server"))
 					{
 						goto IL_0281;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (i + 1 < m_commandLine.Length)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string arg2 = m_commandLine[i + 1];
 				string item2 = $"{{ \"DirectoryServerAddress\" : \"{arg2}\" }}";
 				list.Add(item2);
@@ -462,26 +247,8 @@ public class ClientBootstrap : MonoBehaviour
 			IL_0281:
 			if (!(a == "-p"))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "-processcode"))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(a == "--processcode"))
 					{
 						goto IL_0302;
@@ -500,15 +267,6 @@ public class ClientBootstrap : MonoBehaviour
 			IL_018d:
 			if (!(a == "-c") && !(a == "-config"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "--config"))
 				{
 					goto IL_01ea;
@@ -524,40 +282,13 @@ public class ClientBootstrap : MonoBehaviour
 			IL_0302:
 			if (!(a == "-t") && !(a == "-ticket"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "--ticket"))
 				{
 					goto IL_039a;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (i + 1 < m_commandLine.Length)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text6 = m_commandLine[i + 1];
 				text6 = text6.Replace('\\', '/');
 				string item4 = $"{{ \"TicketFile\" : \"{text6}\" }}";
@@ -569,38 +300,11 @@ public class ClientBootstrap : MonoBehaviour
 			IL_039a:
 			if (!(a == "-l"))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "-language"))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(a == "--language"))
 					{
 						goto IL_0434;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -617,52 +321,16 @@ public class ClientBootstrap : MonoBehaviour
 			IL_0434:
 			if (!(a == "-e"))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(a == "-environment"))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(a == "--environment"))
 					{
 						goto IL_04ad;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (i + 1 < m_commandLine.Length)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = m_commandLine[i + 1];
 				i++;
 				continue;
@@ -671,11 +339,6 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (LoadTest)
 			{
 				Debug.Log("-loadtest");
@@ -684,30 +347,12 @@ public class ClientBootstrap : MonoBehaviour
 			string fileName2 = text2.Replace(".json", ".salt.json");
 			if (text3.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HydrogenConfig hydrogenConfig2 = new HydrogenConfig();
 				hydrogenConfig2.LoadFromFile(fileName2, false);
 				text3 = hydrogenConfig2.EnvironmentName;
 			}
 			if (text3.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HydrogenConfig hydrogenConfig3 = new HydrogenConfig();
 				hydrogenConfig3.LoadFromFile(fileName, false);
 				text3 = hydrogenConfig3.EnvironmentName;
@@ -716,15 +361,6 @@ public class ClientBootstrap : MonoBehaviour
 			hydrogenConfig.LoadFromFile(text2, false);
 			if (!text3.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string newValue = $".{text3}.json";
 				string fileName3 = text2.Replace(".json", newValue);
 				hydrogenConfig.LoadFromFile(fileName3, false);
@@ -737,15 +373,6 @@ public class ClientBootstrap : MonoBehaviour
 				{
 					string current = enumerator.Current;
 					hydrogenConfig.Load(current);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			hydrogenConfig.EnvironmentName = text3;
@@ -761,24 +388,10 @@ public class ClientBootstrap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fileLog.File != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_fileLog.File.Write(DateTime.Now.ToString(Log.TimestampFormat) + " [SYS] ");
 					m_fileLog.File.WriteLine(format, args);
 					m_fileLog.File.Flush();
@@ -804,19 +417,6 @@ public class ClientBootstrap : MonoBehaviour
 		object obj;
 		if (response.Success)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = "Success";
 		}
 		else
@@ -838,15 +438,6 @@ public class ClientBootstrap : MonoBehaviour
 				{
 					if (!enumerator.MoveNext())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					KeyValuePair<ushort, GameSubType> current = enumerator.Current;
@@ -881,10 +472,6 @@ public class ClientBootstrap : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Log.Warning("Failed to create game: {0}", r.ErrorMessage);
 						return;
 					}
@@ -898,19 +485,6 @@ public class ClientBootstrap : MonoBehaviour
 		string result;
 		if (m_fileLog == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = string.Empty;
 		}
 		else

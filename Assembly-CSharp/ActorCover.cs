@@ -66,19 +66,6 @@ public class ActorCover : NetworkBehaviour
 	{
 		if (recalculate)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RecalculateCover();
 		}
 		bool result = false;
@@ -106,15 +93,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InitCoverObjs(m_mouseOverCoverObjs, HighlightUtils.Get().m_coverIndicatorPrefab);
 			InitCoverObjs(m_actorCoverObjs, HighlightUtils.Get().m_coverShieldOnlyPrefab);
 			for (int j = 0; j < m_actorCoverObjs.Length; j++)
@@ -122,15 +100,6 @@ public class ActorCover : NetworkBehaviour
 				ParticleSystemRenderer[] array = null;
 				if (m_actorCoverObjs[j] != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array = m_actorCoverObjs[j].GetComponentsInChildren<ParticleSystemRenderer>();
 				}
 				else
@@ -141,11 +110,6 @@ public class ActorCover : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				m_coverDir[1] = Vector3.left;
 				m_coverDir[0] = Vector3.right;
 				m_coverDir[3] = Vector3.back;
@@ -194,15 +158,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -222,15 +177,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ParticleSystemRenderer[] componentsInChildren = particleObject.GetComponentsInChildren<ParticleSystemRenderer>();
 			ParticleSystemRenderer[] array = componentsInChildren;
 			foreach (ParticleSystemRenderer particleSystemRenderer in array)
@@ -259,15 +205,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -283,58 +220,18 @@ public class ActorCover : NetworkBehaviour
 		Vector3 result = Vector3.zero;
 		if (dir == CoverDirections.X_POS)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new Vector3(num, 0f, 0f);
 		}
 		else if (dir == CoverDirections.X_NEG)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Vector3(0f - num, 0f, 0f);
 		}
 		else if (dir == CoverDirections.Y_POS)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Vector3(0f, 0f, num);
 		}
 		else if (dir == CoverDirections.Y_NEG)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Vector3(0f, 0f, 0f - num);
 		}
 		return result;
@@ -351,15 +248,6 @@ public class ActorCover : NetworkBehaviour
 		case CoverDirections.Y_POS:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return Quaternion.LookRotation(Vector3.back);
 			}
 		default:
@@ -389,19 +277,6 @@ public class ActorCover : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(item.GetCurrentBoardSquare() != null))
 			{
 				continue;
@@ -413,41 +288,14 @@ public class ActorCover : NetworkBehaviour
 			}
 			if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(vector.x < 0f))
 				{
 					goto IL_011c;
 				}
 				if (!HasNonThinCover(square, -1, 0, true))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (square.GetCoverInDirection(CoverDirections.X_NEG) != ThinCover.CoverType.Half)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_011c;
 					}
 				}
@@ -455,54 +303,18 @@ public class ActorCover : NetworkBehaviour
 			}
 			if (vector.z < 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HasNonThinCover(square, 0, -1, true) || square.GetCoverInDirection(CoverDirections.Y_NEG) == ThinCover.CoverType.Half)
 				{
 					goto IL_0280;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (vector.z > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!HasNonThinCover(square, 0, 1, true))
 				{
 					if (square.GetCoverInDirection(CoverDirections.Y_POS) != ThinCover.CoverType.Half)
 					{
 						goto IL_028d;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				goto IL_0280;
@@ -516,37 +328,10 @@ public class ActorCover : NetworkBehaviour
 			{
 				goto IL_01b5;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!HasNonThinCover(square, -1, 0, false))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (square.GetCoverInDirection(CoverDirections.X_NEG) != ThinCover.CoverType.Full)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_01b5;
 				}
 			}
@@ -557,38 +342,11 @@ public class ActorCover : NetworkBehaviour
 			IL_011c:
 			if (vector.x > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!HasNonThinCover(square, 1, 0, true))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (square.GetCoverInDirection(CoverDirections.X_POS) != ThinCover.CoverType.Half)
 					{
 						goto IL_016f;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				goto IL_0162;
@@ -601,15 +359,6 @@ public class ActorCover : NetworkBehaviour
 			}
 			if (!HasNonThinCover(square, 0, -1, false))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (square.GetCoverInDirection(CoverDirections.Y_NEG) != ThinCover.CoverType.Full)
 				{
 					goto IL_02bd;
@@ -624,38 +373,11 @@ public class ActorCover : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!HasNonThinCover(square, 0, 1, false))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (square.GetCoverInDirection(CoverDirections.Y_POS) != ThinCover.CoverType.Full)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			goto IL_0303;
@@ -667,38 +389,11 @@ public class ActorCover : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!HasNonThinCover(square, 1, 0, false))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (square.GetCoverInDirection(CoverDirections.X_POS) != ThinCover.CoverType.Full)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			goto IL_01fb;
@@ -718,15 +413,6 @@ public class ActorCover : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				bool flag = actorTurnSM.AmTargetingAction();
 				List<BoardSquare> result = null;
 				Board.Get().GetStraightAdjacentSquares(currentSquare.x, currentSquare.y, ref result);
@@ -736,25 +422,11 @@ public class ActorCover : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					for (int i = 0; i < result.Count; i++)
 					{
 						BoardSquare boardSquare = result[i];
 						if (boardSquare == null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						CoverDirections coverDirection = GetCoverDirection(currentSquare, boardSquare);
@@ -762,15 +434,6 @@ public class ActorCover : NetworkBehaviour
 						object obj;
 						if ((int)coverDirection < m_mouseOverCoverObjs.Length)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = m_mouseOverCoverObjs[(int)coverDirection];
 						}
 						else
@@ -782,87 +445,24 @@ public class ActorCover : NetworkBehaviour
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num < 1)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentSquare.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
 							{
 								goto IL_01e5;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorTurnSM.CurrentState != TurnStateEnum.PICKING_RESPAWN)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 vector = new Vector3(currentSquare.worldX, (float)currentSquare.height + m_coverHeight, currentSquare.worldY);
 								vector += GetCoverOffset(coverDirection);
 								if (!(gameObject.transform.position != vector))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gameObject.activeSelf)
 									{
 										continue;
-									}
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								gameObject.transform.position = vector;
@@ -918,71 +518,22 @@ public class ActorCover : NetworkBehaviour
 				MeshRenderer meshRenderer = m_coverDirIndicatorRenderers[i];
 				if (meshRenderer != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, opacity);
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			float opacity2 = (float)m_coverDirIndicatorOpacity * GetCoverDirParticleInitialOpacity();
 			for (int j = 0; j < m_hasCover.Length; j++)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (j >= m_actorCoverSymbolRenderers.Count)
 				{
 					break;
 				}
 				if (m_hasCover[j])
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ParticleSystemRenderer[] array = m_actorCoverSymbolRenderers[j];
 					foreach (ParticleSystemRenderer particleSystemRenderer in array)
 					{
 						AbilityUtil_Targeter.SetMaterialOpacity(particleSystemRenderer.materials, opacity2);
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -994,26 +545,8 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (m_coverDirIndicatorFadeStartTime > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Time.time > m_coverDirIndicatorFadeStartTime)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_coverDirIndicatorOpacity.EaseTo(0f, GetCoverDirIndicatorDuration() - GetCoverDirFadeoutStartDelay());
 				m_coverDirIndicatorFadeStartTime = -1f;
 			}
@@ -1024,11 +557,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (Time.time > m_coverDirIndicatorHideTime)
 			{
 				HideRelevantCover();
@@ -1052,25 +580,12 @@ public class ActorCover : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare currentBoardSquare = m_owner.GetCurrentBoardSquare();
 					for (int i = 0; i < 4; i++)
 					{
 						CoverDirections coverDirections2 = (CoverDirections)i;
 						if (coverDirections.Contains(coverDirections2))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 a = new Vector3(currentBoardSquare.worldX, (float)currentBoardSquare.height + m_coverHeight, currentBoardSquare.worldY);
 							m_actorCoverObjs[i].transform.position = a + GetCoverOffset(coverDirections2);
 							m_actorCoverObjs[i].SetActive(true);
@@ -1099,10 +614,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_coverDirIndicatorSpawnTime = Time.time + GetCoverDirIndicatorSpawnDelay();
 					return;
 				}
@@ -1116,19 +627,6 @@ public class ActorCover : NetworkBehaviour
 		float num;
 		if ((bool)GameplayData.Get())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GameplayData.Get().m_coverProtectionAngle;
 		}
 		else
@@ -1144,29 +642,11 @@ public class ActorCover : NetworkBehaviour
 		{
 			if (hasCoverFlags[i])
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4++;
 			}
 		}
 		if (num4 == 2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (hasCoverFlags[1] == hasCoverFlags[0]);
 		}
 		float borderStartOffset = 0.7f;
@@ -1175,29 +655,11 @@ public class ActorCover : NetworkBehaviour
 		UIDynamicCone component = gameObject2.GetComponent<UIDynamicCone>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.SetBorderStartOffset(borderStartOffset);
 		}
 		Vector3 forward = Vector3.forward;
 		if (num4 <= 3)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				Vector3 zero = Vector3.zero;
@@ -1205,66 +667,21 @@ public class ActorCover : NetworkBehaviour
 				{
 					if (hasCoverFlags[j])
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						zero += m_coverDir[j];
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				forward = (zero / num4).normalized;
 			}
 		}
 		if (num4 == 2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject3 = HighlightUtils.Get().CreateDynamicConeMesh(radiusInSquares, num2, false);
 				HighlightUtils.Get().SetDynamicConeMeshBorderActive(gameObject3, false);
 				UIDynamicCone component2 = gameObject3.GetComponent<UIDynamicCone>();
 				if (component2 != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component2.SetBorderStartOffset(borderStartOffset);
 				}
 				MeshRenderer[] componentsInChildren = gameObject3.GetComponentsInChildren<MeshRenderer>();
@@ -1273,30 +690,12 @@ public class ActorCover : NetworkBehaviour
 				{
 					if (HighlightUtils.Get() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, color);
 					}
 					AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, GetCoverDirInitialOpacity());
 				}
 				if (hasCoverFlags[1])
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					forward = Vector3.right;
 					gameObject3.transform.localRotation = Quaternion.LookRotation(Vector3.left);
 				}
@@ -1312,15 +711,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (num4 == 2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(gameObject2, radiusInSquares, 180f + num3);
 		}
 		else if (num4 == 3)
@@ -1329,15 +719,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		else if (num4 == 4)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(gameObject2, radiusInSquares, 360f);
 		}
 		goto IL_0320;
@@ -1351,26 +732,12 @@ public class ActorCover : NetworkBehaviour
 		{
 			if (HighlightUtils.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter.SetMaterialColor(meshRenderer2.materials, color);
 			}
 			AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer2.materials, GetCoverDirInitialOpacity());
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return gameObject;
 		}
 	}
@@ -1384,37 +751,18 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)dir >= m_hasCover.Length)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if ((int)dir >= m_actorCoverObjs.Length)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (!(m_actorCoverObjs[(int)dir] != null))
 					{
 						return;
@@ -1456,10 +804,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1472,15 +816,6 @@ public class ActorCover : NetworkBehaviour
 		object obj;
 		if (m_owner != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = m_owner.GetCurrentBoardSquare();
 		}
 		else
@@ -1519,15 +854,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyObjectAndMaterials(m_coverDirHighlight);
 			return;
 		}
@@ -1544,10 +870,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return HighlightUtils.Get().m_coverDirIndicatorInitialOpacity;
 				}
 			}
@@ -1575,10 +897,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Mathf.Max(0.1f, HighlightUtils.Get().m_coverDirIndicatorDuration);
 				}
 			}
@@ -1600,19 +918,6 @@ public class ActorCover : NetworkBehaviour
 		float b = 1f;
 		if (HighlightUtils.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			b = HighlightUtils.Get().m_coverDirFadeoutStartDelay;
 		}
 		return Mathf.Min(GetCoverDirIndicatorDuration(), b);
@@ -1629,10 +934,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return HighlightUtils.Get().m_coverDirIndicatorRadiusInSquares;
 				}
 			}
@@ -1644,19 +945,6 @@ public class ActorCover : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TempCoverInfo item = new TempCoverInfo(direction, ignoreMinDist);
 			m_syncTempCoverProviders.Add(item);
 			ResetTempCoverListFromSyncList();
@@ -1676,19 +964,6 @@ public class ActorCover : NetworkBehaviour
 			TempCoverInfo tempCoverInfo = m_syncTempCoverProviders[num];
 			if (tempCoverInfo.m_coverDir == direction)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TempCoverInfo tempCoverInfo2 = m_syncTempCoverProviders[num];
 				if (tempCoverInfo2.m_ignoreMinDist == ignoreMinDist)
 				{
@@ -1743,19 +1018,6 @@ public class ActorCover : NetworkBehaviour
 			TempCoverInfo tempCoverInfo = m_syncTempCoverProviders[i];
 			if (tempCoverInfo.m_ignoreMinDist)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<CoverDirections> tempCoverIgnoreMinDist = m_tempCoverIgnoreMinDist;
 				TempCoverInfo tempCoverInfo2 = m_syncTempCoverProviders[i];
 				tempCoverIgnoreMinDist.Add(tempCoverInfo2.m_coverDir);
@@ -1787,15 +1049,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare currentBoardSquare = m_owner.GetCurrentBoardSquare();
 			if (!(BarrierManager.Get() != null))
 			{
@@ -1803,20 +1056,10 @@ public class ActorCover : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (currentBoardSquare != null)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						BarrierManager.Get().UpdateCachedCoverDirections(m_owner, currentBoardSquare, ref m_cachedHasCoverFromBarriers);
 						return;
 					}
@@ -1845,10 +1088,6 @@ public class ActorCover : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<BoardSquare> result = null;
 					Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref result);
 					{
@@ -1861,15 +1100,6 @@ public class ActorCover : NetworkBehaviour
 								int num2;
 								if (tempCoversIgnoreMinDist != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = (tempCoversIgnoreMinDist.Contains(coverDirection) ? 1 : 0);
 								}
 								else
@@ -1883,49 +1113,13 @@ public class ActorCover : NetworkBehaviour
 							}
 							if (num < 1)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (square.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (tempCoversNormal != null)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (tempCoversNormal.Contains(coverDirection))
 										{
 											goto IL_0129;
-										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									if (tempCoversIgnoreMinDist != null)
@@ -1934,38 +1128,11 @@ public class ActorCover : NetworkBehaviour
 										{
 											goto IL_0129;
 										}
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (coverDirFromBarriers != null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (coverDirFromBarriers[(int)coverDirection])
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_0129;
 										}
 									}
@@ -1998,10 +1165,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return CoverDirections.X_NEG;
 				}
 			}
@@ -2078,15 +1241,6 @@ public class ActorCover : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -2099,38 +1253,11 @@ public class ActorCover : NetworkBehaviour
 		bool flag = sqrMagnitude >= num2;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tempCoversIgnoreMinDist != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tempCoversIgnoreMinDist.Count != 0)
 				{
 					goto IL_00a1;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -2162,67 +1289,18 @@ public class ActorCover : NetworkBehaviour
 		CalcCover(out bool[] hasCover, targetSquare, tempCoverProviders, tempCoverIgnoreMinDist, coverDirFromBarriers, minDistOk);
 		if (hasCover[1])
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (vector2.x < 0f - num2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector2 lhs = new Vector2(-1f, 0f);
 					float num4 = Mathf.Acos(Vector2.Dot(lhs, normalized));
 					float num5 = num4 * 57.29578f;
 					if (num5 <= num3)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 						if (coverDirections != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							coverDirections.Add(CoverDirections.X_NEG);
 						}
 					}
@@ -2231,15 +1309,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (hasCover[0] && flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector2.x > num2)
 			{
 				Vector2 lhs2 = new Vector2(1f, 0f);
@@ -2247,15 +1316,6 @@ public class ActorCover : NetworkBehaviour
 				float num7 = num6 * 57.29578f;
 				if (num7 <= num3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 					if (coverDirections != null)
 					{
@@ -2266,52 +1326,16 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (hasCover[3] && flag3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector2.y < 0f - num2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector2 lhs3 = new Vector2(0f, -1f);
 				float num8 = Mathf.Acos(Vector2.Dot(lhs3, normalized));
 				float num9 = num8 * 57.29578f;
 				if (num9 <= num3)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 					if (coverDirections != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						coverDirections.Add(CoverDirections.Y_NEG);
 					}
 				}
@@ -2319,52 +1343,16 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (hasCover[2])
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag4 && vector2.y > num2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector2 lhs4 = new Vector2(0f, 1f);
 				float num10 = Mathf.Acos(Vector2.Dot(lhs4, normalized));
 				float num11 = num10 * 57.29578f;
 				if (num11 <= num3)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 					if (coverDirections != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						coverDirections.Add(CoverDirections.Y_POS);
 					}
 				}
@@ -2392,10 +1380,6 @@ public class ActorCover : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
@@ -2427,10 +1411,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Trying to get the covered regions for a null actor.");
 					return list;
 				}
@@ -2462,15 +1442,6 @@ public class ActorCover : NetworkBehaviour
 		{
 			if (m_hasCover[i])
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CoverDirections dir = (CoverDirections)i;
 				float centerAngleOfDirection = GetCenterAngleOfDirection(dir);
 				CoverRegion item = new CoverRegion(center, centerAngleOfDirection - num, centerAngleOfDirection + num);
@@ -2479,15 +1450,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (list.Count != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count != 1)
 			{
 				if (list.Count == 4)
@@ -2538,15 +1500,6 @@ public class ActorCover : NetworkBehaviour
 					int num4;
 					if (coverRegion.m_startAngle <= coverRegion2.m_startAngle)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = ((coverRegion2.m_startAngle <= coverRegion.m_endAngle) ? 1 : 0);
 					}
 					else
@@ -2557,15 +1510,6 @@ public class ActorCover : NetworkBehaviour
 					bool flag2 = coverRegion.m_startAngle <= coverRegion2.m_endAngle && coverRegion2.m_endAngle <= coverRegion.m_endAngle;
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							return list;
@@ -2597,19 +1541,6 @@ public class ActorCover : NetworkBehaviour
 			bool flag3 = item.IsDirInCover(angle_deg2);
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (flag3)
 				{
 					while (true)
@@ -2628,15 +1559,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<CoverRegion>.Enumerator enumerator2 = coveredRegions.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -2648,15 +1570,6 @@ public class ActorCover : NetworkBehaviour
 						int num2;
 						if (!current2.IsDirInCover(angle_deg))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = (current2.IsDirInCover(angle_deg2) ? 1 : 0);
 						}
 						else
@@ -2666,40 +1579,13 @@ public class ActorCover : NetworkBehaviour
 						bool flag5 = (byte)num2 != 0;
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = current2.m_endAngle - coneWidthDegrees / 2f;
 						}
 						else if (flag5)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = current2.m_startAngle + coneWidthDegrees / 2f;
 						}
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2747,10 +1633,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_syncTempCoverProviders called on server.");
 					return;
 				}
@@ -2770,10 +1652,6 @@ public class ActorCover : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GeneratedNetworkCode._WriteStructSyncListTempCoverInfo_None(writer, m_syncTempCoverProviders);
 					return true;
 				}
@@ -2782,15 +1660,6 @@ public class ActorCover : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2800,15 +1669,6 @@ public class ActorCover : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;

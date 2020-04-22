@@ -15,15 +15,6 @@ namespace CameraManagerInternal
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				base.transform.position = m_animatorObject.transform.position;
 				base.transform.rotation = m_animatorObject.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
 				return;

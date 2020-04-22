@@ -50,19 +50,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 	{
 		if (m_disabled != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_disabled, false);
 		}
 		m_selectedModIndex = -1;
@@ -74,34 +61,12 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 	{
 		if (m_theAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_theAbility.ability == null))
 			{
 				UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
 				string movieAssetName = "Video/AbilityPreviews/" + m_theAbility.ability.m_previewVideo;
 				uIAbilityTooltip.Setup(m_theAbility.ability, m_selectedMod, movieAssetName);
 				return true;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -129,10 +94,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_selectedModIcon.sprite = m_selectedMod.m_iconSprite;
 					UIManager.SetGameObjectActive(m_selectedModIcon, true);
 					return;
@@ -181,15 +142,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -202,15 +154,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_theAbility.InitHotkey();
 			SetHotKeyText(m_theAbility.hotkey);
 			return;
@@ -225,15 +168,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -243,19 +177,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		m_theAbility = theAbilityEntry;
 		if (m_theAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_theAbility.ability != null)
 			{
 				UIManager.SetGameObjectActive(base.gameObject, true);
@@ -269,11 +190,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Color color;
 					if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Blast", "Global"))
 					{
@@ -281,28 +197,10 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 					}
 					else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Dash", "Global"))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color = m_dashColor;
 					}
 					else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Prep", "Global"))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color = m_prepColor;
 					}
 					else
@@ -331,15 +229,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
 			return;
 		}

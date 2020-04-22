@@ -49,19 +49,6 @@ public class NekoBoomerangDisc : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Boomerang Disc";
 		}
 		Setup();
@@ -81,19 +68,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if (GetShieldPerTargetHitOnThrow() > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
@@ -108,19 +82,6 @@ public class NekoBoomerangDisc : Ability
 		StandardActorEffectData cachedShieldEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedShieldEffectData = m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(m_shieldEffectData);
 		}
 		else
@@ -140,19 +101,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -167,19 +115,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(m_aoeRadiusAtEnd);
 		}
 		else
@@ -194,19 +129,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -221,19 +143,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
@@ -248,19 +157,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_directDamageMod.GetModifiedValue(m_directDamage);
 		}
 		else
@@ -280,19 +176,6 @@ public class NekoBoomerangDisc : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover);
 		}
 		else
@@ -312,19 +195,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(m_extraReturnDamageIfHitNoOne);
 		}
 		else
@@ -339,19 +209,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(m_shieldPerTargetHitOnThrow);
 		}
 		else
@@ -366,19 +223,6 @@ public class NekoBoomerangDisc : Ability
 		StandardActorEffectData result;
 		if (m_cachedShieldEffectData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedShieldEffectData;
 		}
 		else
@@ -414,41 +258,10 @@ public class NekoBoomerangDisc : Ability
 			int num = GetDirectDamage();
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GetExtraDamageIfHitByReturnDisc() > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraDamageIfHitByReturnDisc();
 					}
 				}
@@ -487,15 +300,6 @@ public class NekoBoomerangDisc : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NekoBoomerangDisc);
 			Setup();
 			return;

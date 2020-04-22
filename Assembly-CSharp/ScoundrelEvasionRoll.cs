@@ -12,19 +12,6 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Evasion Roll";
 		}
 		SetupTargeter();
@@ -42,10 +29,6 @@ public class ScoundrelEvasionRoll : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 					return;
 				}
@@ -57,11 +40,6 @@ public class ScoundrelEvasionRoll : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 			return;
 		}
@@ -72,30 +50,8 @@ public class ScoundrelEvasionRoll : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
@@ -111,32 +67,10 @@ public class ScoundrelEvasionRoll : Ability
 		StandardEffectInfo standardEffectInfo = EffectForLandingInBrush();
 		if (standardEffectInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardEffectInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
 		if (HasAdditionalEffectFromMod())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_abilityMod.m_additionalEffectOnStart.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
 		return numbers;
@@ -146,19 +80,6 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (GetExtraEnergyPerStep() > 0 && base.Targeter is AbilityUtil_Targeter_ScoundrelEvasionRoll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_ScoundrelEvasionRoll abilityUtil_Targeter_ScoundrelEvasionRoll = base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll;
 			int numNodesInPath = abilityUtil_Targeter_ScoundrelEvasionRoll.m_numNodesInPath;
 			if (numNodesInPath > 1)
@@ -189,10 +110,6 @@ public class ScoundrelEvasionRoll : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_ScoundrelEvasionRoll);
 					SetupTargeter();
 					return;
@@ -218,30 +135,8 @@ public class ScoundrelEvasionRoll : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_dropTrapWireOnStart)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_abilityMod.m_trapwirePattern != AbilityGridPattern.NoPattern) ? 1 : 0);
 				goto IL_004c;
 			}
@@ -257,19 +152,6 @@ public class ScoundrelEvasionRoll : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_additionalEffectOnStart.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -298,30 +180,8 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_effectToSelfForLandingInBrush != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_effectToSelfForLandingInBrush.m_applyEffect)
 				{
 					while (true)
@@ -352,19 +212,6 @@ public class ScoundrelEvasionRoll : Ability
 		int val;
 		if ((bool)abilityMod_ScoundrelEvasionRoll)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ScoundrelEvasionRoll.m_extraEnergyPerStepMod.GetModifiedValue(m_extraEnergyPerStep);
 		}
 		else
@@ -377,15 +224,6 @@ public class ScoundrelEvasionRoll : Ability
 		int val2;
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.m_damageToAdvanceCooldown > 0)
 			{
 				val2 = 1;

@@ -36,19 +36,6 @@ public class GrydKnockbackTrap : Ability
 		int num;
 		if (trapFieldInfo.IncludeAllies())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1;
 		}
 		else
@@ -92,19 +79,6 @@ public class GrydKnockbackTrap : Ability
 		GroundEffectField result;
 		if (m_cachedTrapFieldInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTrapFieldInfo;
 		}
 		else
@@ -141,19 +115,6 @@ public class GrydKnockbackTrap : Ability
 		int val;
 		if ((bool)abilityMod_ThiefHiddenTrap)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
 		}
 		else

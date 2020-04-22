@@ -79,26 +79,12 @@ public class UIMainScreenPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Info("HEALTHBARCHECK: ENDPOINT " + visible);
 			UIManager.SetGameObjectActive(m_nameplatePanel, visible);
 			if (visible)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_nameplatePanel.RefreshNameplates();
 					return;
 				}

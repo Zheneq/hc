@@ -17,26 +17,12 @@ public class SpoilsData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(desiredSquare != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				ActorData component = GetComponent<ActorData>();
 				if (!GameplayUtils.IsPlayerControlled(component))
 				{
@@ -45,15 +31,6 @@ public class SpoilsData : MonoBehaviour
 				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.GetOpposingTeam(), 1, true, true, 3);
 				if (list.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_overrideSpoils != null)
 					{
 						m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], m_overrideSpoils, component.GetOpposingTeam(), false);
@@ -69,11 +46,6 @@ public class SpoilsData : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_spawnedPowerUp.CalculateBoardSquare();
 					return;
 				}

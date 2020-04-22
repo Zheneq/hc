@@ -86,19 +86,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo cachedEffectOnAllies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnAllies = m_abilityMod.m_effectOnAlliesMod.GetModifiedValue(m_effectOnAllies);
 		}
 		else
@@ -110,15 +97,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo cachedExplosionEffectToAllies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExplosionEffectToAllies = m_abilityMod.m_explosionEffectToAlliesMod.GetModifiedValue(m_explosionEffectToAllies);
 		}
 		else
@@ -129,15 +107,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo cachedExplosionEffectToEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExplosionEffectToEnemies = m_abilityMod.m_explosionEffectToEnemiesMod.GetModifiedValue(m_explosionEffectToEnemies);
 		}
 		else
@@ -152,19 +121,6 @@ public class FishManBubble : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targetShapeMod.GetModifiedValue(m_targetShape);
 		}
 		else
@@ -179,19 +135,6 @@ public class FishManBubble : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTargetEnemiesMod.GetModifiedValue(m_canTargetEnemies);
 		}
 		else
@@ -206,19 +149,6 @@ public class FishManBubble : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTargetAlliesMod.GetModifiedValue(m_canTargetAllies);
 		}
 		else
@@ -233,19 +163,6 @@ public class FishManBubble : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTargetSelfMod.GetModifiedValue(m_canTargetSelf);
 		}
 		else
@@ -260,19 +177,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnAllies != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnAllies;
 		}
 		else
@@ -287,19 +191,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemies != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemies;
 		}
 		else
@@ -319,19 +210,6 @@ public class FishManBubble : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialHitDamageToEnemiesMod.GetModifiedValue(m_initialHitDamageToEnemies);
 		}
 		else
@@ -351,19 +229,6 @@ public class FishManBubble : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_numExplosionsBeforeEndingMod.GetModifiedValue(m_numExplosionsBeforeEnding);
 		}
 		else
@@ -378,19 +243,6 @@ public class FishManBubble : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionShapeMod.GetModifiedValue(m_explosionShape);
 		}
 		else
@@ -405,19 +257,6 @@ public class FishManBubble : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionIgnoresLineOfSightMod.GetModifiedValue(m_explosionIgnoresLineOfSight);
 		}
 		else
@@ -432,19 +271,6 @@ public class FishManBubble : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionCanAffectEffectHolderMod.GetModifiedValue(m_explosionCanAffectEffectHolder);
 		}
 		else
@@ -459,19 +285,6 @@ public class FishManBubble : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
@@ -486,19 +299,6 @@ public class FishManBubble : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
@@ -513,19 +313,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo result;
 		if (m_cachedExplosionEffectToAllies != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExplosionEffectToAllies;
 		}
 		else
@@ -540,19 +327,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo result;
 		if (m_cachedExplosionEffectToEnemies != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExplosionEffectToEnemies;
 		}
 		else
@@ -567,19 +341,6 @@ public class FishManBubble : Ability
 		int result;
 		if (GetExplosionHealingToAllies() <= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GetExplosionEffectToAllies().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -605,10 +366,6 @@ public class FishManBubble : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_FishManBubble);
 					Setup();
 					return;
@@ -631,19 +388,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_FishManBubble.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -655,15 +399,6 @@ public class FishManBubble : Ability
 		int val;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_FishManBubble.m_initialHitHealingToAlliesMod.GetModifiedValue(m_initialHitHealingToAllies);
 		}
 		else
@@ -675,15 +410,6 @@ public class FishManBubble : Ability
 		int val2;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManBubble.m_initialHitDamageToEnemiesMod.GetModifiedValue(m_initialHitDamageToEnemies);
 		}
 		else
@@ -695,15 +421,6 @@ public class FishManBubble : Ability
 		int val3;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManBubble.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(m_numTurnsBeforeFirstExplosion);
 		}
 		else
@@ -716,15 +433,6 @@ public class FishManBubble : Ability
 		int val4;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManBubble.m_explosionHealingToAlliesMod.GetModifiedValue(m_explosionHealingToAllies);
 		}
 		else
@@ -736,15 +444,6 @@ public class FishManBubble : Ability
 		int val5;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_FishManBubble.m_explosionDamageToEnemiesMod.GetModifiedValue(m_explosionDamageToEnemies);
 		}
 		else
@@ -755,15 +454,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_FishManBubble.m_explosionEffectToAlliesMod.GetModifiedValue(m_explosionEffectToAllies);
 		}
 		else
@@ -774,15 +464,6 @@ public class FishManBubble : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_FishManBubble)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_FishManBubble.m_explosionEffectToEnemiesMod.GetModifiedValue(m_explosionEffectToEnemies);
 		}
 		else
@@ -801,19 +482,6 @@ public class FishManBubble : Ability
 		}
 		if (GetInitialHitHealingToAllies() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Secondary, GetInitialHitHealingToAllies());
 		}
 		AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Enemy, GetExplosionDamageToEnemies());
@@ -829,41 +497,10 @@ public class FishManBubble : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targeter is AbilityUtil_Targeter_Shape)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = base.Targeter as AbilityUtil_Targeter_Shape;
 					ActorData lastCenterSquareActor = abilityUtil_Targeter_Shape.m_lastCenterSquareActor;
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -874,15 +511,6 @@ public class FishManBubble : Ability
 						int value;
 						if (targetActor != lastCenterSquareActor)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = GetExplosionHealingToAllies();
 						}
 						else

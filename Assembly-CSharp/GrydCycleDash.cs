@@ -22,32 +22,10 @@ public class GrydCycleDash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Cycle Dash";
 		}
 		if (m_targetData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_targetData.Length >= GetExpectedNumberOfTargeters())
 			{
 				goto IL_0074;
@@ -71,15 +49,6 @@ public class GrydCycleDash : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -106,19 +75,6 @@ public class GrydCycleDash : Ability
 		GridPos gridPos = (targetIndex != 0) ? currentTargets[targetIndex - 1].GridPos : caster.GetGridPosWithIncrementedHeight();
 		if (m_lockToCardinalDirs)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!CardinallyAligned(gridPos, target.GridPos))
 			{
 				while (true)
@@ -136,15 +92,6 @@ public class GrydCycleDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(gridPos), false);
@@ -165,15 +112,6 @@ public class GrydCycleDash : Ability
 				float num = boardSquarePathInfo.FindMoveCostToEnd();
 				return num <= m_legRange * Board.Get().squareSize;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -190,19 +128,6 @@ public class GrydCycleDash : Ability
 		{
 			if (start.x != end.x)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((start.y == end.y) ? 1 : 0);
 			}
 			else

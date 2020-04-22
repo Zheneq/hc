@@ -19,32 +19,10 @@ public class AbilityUtil_Targeter_BazookaGirlDelayedMissile : AbilityUtil_Target
 		base.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, bestTarget);
 		if (m_useInnerShape)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_innerShape, currentTarget, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			if (actors.Contains(potentialTarget))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Near, true);
 			}
 		}

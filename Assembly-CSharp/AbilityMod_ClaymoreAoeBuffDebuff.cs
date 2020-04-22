@@ -49,15 +49,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_baseSelfHealMod, "BaseSelfHeal", string.Empty, claymoreAoeBuffDebuff.m_baseSelfHeal);
 			AbilityMod.AddToken(tokens, m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, claymoreAoeBuffDebuff.m_selfHealAmountPerHit);
 			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", claymoreAoeBuffDebuff.m_selfHitEffect);
@@ -69,11 +60,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_cooldownReductionWhenOnlyHittingSelf.AddTooltipTokens(tokens, "OnOnlyHitSelf");
 					return;
 				}
@@ -92,19 +78,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (int)claymoreAoeBuffDebuff.m_shape;
 		}
 		else
@@ -118,15 +91,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreAoeBuffDebuff.m_baseSelfHeal;
 		}
 		else
@@ -139,15 +103,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
@@ -160,15 +115,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (claymoreAoeBuffDebuff.m_selfHealCountEnemyHit ? 1 : 0);
 		}
 		else
@@ -181,15 +127,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (claymoreAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
@@ -202,15 +139,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreAoeBuffDebuff.m_selfHitEffect;
 		}
 		else
@@ -223,15 +151,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreAoeBuffDebuff.m_allyHitEffect;
 		}
 		else
@@ -244,15 +163,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreAoeBuffDebuff.m_enemyHitEffect;
 		}
 		else
@@ -266,15 +176,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreAoeBuffDebuff.m_enemyEnergyLoss;
 		}
 		else
@@ -287,15 +188,6 @@ public class AbilityMod_ClaymoreAoeBuffDebuff : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (claymoreAoeBuffDebuff.m_energyChangeOnlyIfHasAdjacent ? 1 : 0);
 		}
 		else

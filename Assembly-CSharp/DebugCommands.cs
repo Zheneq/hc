@@ -48,19 +48,6 @@ public class DebugCommands
 				DebugCommand current = enumerator.Current;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.AvailableInFrontEnd())
 					{
 						continue;
@@ -68,15 +55,6 @@ public class DebugCommands
 				}
 				if (current._0018().Contains(command.ToLower()))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = current.OnSlashCommand(arguments);
 					if (flag2)
 					{
@@ -122,19 +100,6 @@ public class DebugCommands
 		{
 			if (inFrontEnd)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!debugCommand.AvailableInFrontEnd())
 				{
 					continue;
@@ -143,51 +108,15 @@ public class DebugCommands
 			string slashCommand = debugCommand.GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (slashCommand.IndexOf(searchStr, StringComparison.OrdinalIgnoreCase) < 0)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!list.Contains(slashCommand))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(slashCommand);
 				}
 			}
@@ -205,15 +134,6 @@ public class DebugCommands
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get()._001D(command.GetDebugItemName(), command.GetDebugItemValue());
 			return;
 		}
@@ -228,15 +148,6 @@ public class DebugCommands
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get()._001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
 			return;
 		}

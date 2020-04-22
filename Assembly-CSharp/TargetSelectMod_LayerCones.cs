@@ -18,19 +18,6 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 		TargetSelect_LayerCones targetSelect_LayerCones = targetSelectBase as TargetSelect_LayerCones;
 		if (targetSelect_LayerCones != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", true, targetSelect_LayerCones.m_coneWidthAngle);
 			if (m_useConeRadiusOverrides)
 			{

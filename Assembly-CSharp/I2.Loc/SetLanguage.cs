@@ -22,15 +22,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				LocalizationManager.CurrentLanguage = _Language;
 				return;
 			}

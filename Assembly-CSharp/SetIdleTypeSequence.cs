@@ -28,15 +28,6 @@ public class SetIdleTypeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetIdleType();
 			return;
 		}
@@ -51,27 +42,9 @@ public class SetIdleTypeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (m_useAltIntIdleType)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_altIntIdleType;
 			}
 			else
@@ -81,26 +54,12 @@ public class SetIdleTypeSequence : Sequence
 			int value = num;
 			if (!m_animParameter.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetInteger(m_animParameter, value);
 			}
 			if (!m_triggerAnimParameter.IsNullOrEmpty())
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					modelAnimator.SetTrigger(m_triggerAnimParameter);
 					return;
 				}
@@ -129,10 +88,6 @@ public class SetIdleTypeSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetIdleType();
 					return;
 				}
@@ -144,11 +99,6 @@ public class SetIdleTypeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			RestoreIdleType();
 			return;
 		}
@@ -162,24 +112,10 @@ public class SetIdleTypeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_restoreOnDisable)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					RestoreIdleType();
 					return;
 				}

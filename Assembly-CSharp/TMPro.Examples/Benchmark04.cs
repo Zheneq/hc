@@ -28,19 +28,6 @@ namespace TMPro.Examples
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameObject gameObject = new GameObject("Text - " + i + " Pts");
 				if (num > num3 * 2f)
 				{

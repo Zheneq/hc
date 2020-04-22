@@ -64,19 +64,6 @@ public class SorceressHealingCrossBeam : Ability
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount));
 		if (m_alsoHealSelf)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, m_healAmount));
 		}
 		return list;
@@ -104,10 +91,6 @@ public class SorceressHealingCrossBeam : Ability
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								goto end_IL_0035;
 							}
 						}
@@ -123,28 +106,10 @@ public class SorceressHealingCrossBeam : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmount(numTargetsInLaser);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Healing] = GetHealAmount(numTargetsInLaser);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
@@ -162,19 +127,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val;
 		if ((bool)abilityMod_SorceressHealingCrossBeam)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SorceressHealingCrossBeam.m_normalDamageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -185,15 +137,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SorceressHealingCrossBeam)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SorceressHealingCrossBeam.m_enemyEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -205,15 +148,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val2;
 		if ((bool)abilityMod_SorceressHealingCrossBeam)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressHealingCrossBeam.m_normalHealingMod.GetModifiedValue(m_healAmount);
 		}
 		else
@@ -224,15 +158,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_SorceressHealingCrossBeam)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_SorceressHealingCrossBeam.m_allyEffectOverride.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -244,15 +169,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val3;
 		if ((bool)abilityMod_SorceressHealingCrossBeam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SorceressHealingCrossBeam.m_laserNumberMod.GetModifiedValue(m_numLasers);
 		}
 		else
@@ -273,10 +189,6 @@ public class SorceressHealingCrossBeam : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SorceressHealingCrossBeam);
 					SetupTargeter();
 					return;
@@ -297,19 +209,6 @@ public class SorceressHealingCrossBeam : Ability
 		int result = m_numLasers;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = Mathf.Max(1, m_abilityMod.m_laserNumberMod.GetModifiedValue(m_numLasers));
 		}
 		return result;
@@ -320,41 +219,10 @@ public class SorceressHealingCrossBeam : Ability
 		int result = m_damageAmount;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (numTargetsInLaser == 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_useSingleTargetHitMods)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_abilityMod.m_singleTargetDamageMod.GetModifiedValue(m_damageAmount);
 					goto IL_0083;
 				}
@@ -371,41 +239,10 @@ public class SorceressHealingCrossBeam : Ability
 		int result = m_healAmount;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (numTargetsInLaser == 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_useSingleTargetHitMods)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_abilityMod.m_singleTargetHealingMod.GetModifiedValue(m_healAmount);
 					goto IL_0083;
 				}
@@ -427,19 +264,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allyHitEffect;
 		}
 		else
@@ -454,19 +278,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_width;
 		}
 		else
@@ -481,19 +292,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_distance;
 		}
 		else
@@ -513,19 +311,6 @@ public class SorceressHealingCrossBeam : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 4;
 		}
 		else
@@ -540,19 +325,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = -1f;
 		}
 		else

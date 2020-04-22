@@ -70,19 +70,6 @@ public class LobbyGameInfo
 		{
 			if (!GameServerProcessCode.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameConfig != null)
 				{
 					if (!GameConfig.HasSelectedSubType)
@@ -100,15 +87,6 @@ public class LobbyGameInfo
 					}
 					return $"{GameServerProcessCode} ({GameServerAddress}) [{GameConfig.Map} {GameConfig.GameType} {GameConfig.InstanceSubType.GetNameAsPayload().Term}]";
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			return "unknown";
 		}
@@ -125,19 +103,6 @@ public class LobbyGameInfo
 			int result;
 			if (GameConfig != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (GameConfig.GameType.IsQueueable() ? 1 : 0);
 			}
 			else

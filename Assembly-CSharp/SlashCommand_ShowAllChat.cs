@@ -13,15 +13,6 @@ public class SlashCommand_ShowAllChat : SlashCommand
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				return;
@@ -50,11 +41,6 @@ public class SlashCommand_ShowAllChat : SlashCommand
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				Options_UI.Get().SetShowAllChat(false);
 				message.Text = StringUtil.TR("AllChatDisabled", "SlashCommand");
 				TextConsole.Get().Write(message);

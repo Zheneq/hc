@@ -67,15 +67,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageRadiusMod, "DamageRadius", string.Empty, samuraiSwordDash.m_damageRadius);
 			AbilityMod.AddToken(tokens, m_damageRadiusAtStartMod, "DamageRadiusAtStart", string.Empty, samuraiSwordDash.m_damageRadiusAtStart);
 			AbilityMod.AddToken(tokens, m_damageRadiusAtEndMod, "DamageRadiusAtEnd", string.Empty, samuraiSwordDash.m_damageRadiusAtEnd);
@@ -107,19 +98,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = samuraiSwordDash.m_damageRadius;
 		}
 		else
@@ -132,15 +110,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiSwordDash.m_damageRadiusAtStart;
 		}
 		else
@@ -153,15 +122,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiSwordDash.m_damageRadiusAtEnd;
 		}
 		else
@@ -174,15 +134,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (samuraiSwordDash.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
@@ -195,15 +146,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (samuraiSwordDash.m_canMoveAfterEvade ? 1 : 0);
 		}
 		else
@@ -216,15 +158,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = samuraiSwordDash.m_maxTargets;
 		}
 		else
@@ -237,15 +170,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = samuraiSwordDash.m_maxDamageTargets;
 		}
 		else
@@ -258,15 +182,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = samuraiSwordDash.m_dashDamage;
 		}
 		else
@@ -279,15 +194,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = samuraiSwordDash.m_dashLessDamagePerTarget;
 		}
 		else
@@ -300,15 +206,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		object baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = samuraiSwordDash.m_dashEnemyHitEffect;
 		}
 		else
@@ -321,15 +218,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = samuraiSwordDash.m_dashSelfHitEffect;
 		}
 		else
@@ -342,15 +230,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		object baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = samuraiSwordDash.m_markEffectInfo;
 		}
 		else
@@ -365,15 +244,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = samuraiSwordDash.m_knockbackLessDamagePerTarget;
 		}
 		else
@@ -386,15 +256,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult;
 		}
 		else
@@ -407,15 +268,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = samuraiSwordDash.m_knockbackExtraDamageByDist;
 		}
 		else
@@ -429,15 +281,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal16;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = samuraiSwordDash.m_knockbackDist;
 		}
 		else

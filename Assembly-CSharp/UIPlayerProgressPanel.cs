@@ -145,15 +145,6 @@ public class UIPlayerProgressPanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_subPanels = new List<UIPlayerProgressSubPanel>();
 			m_subPanels.Add(m_overviewPanel);
 			m_subPanels.Add(m_bannersPanel);
@@ -187,15 +178,6 @@ public class UIPlayerProgressPanel : UIScene
 			ClientGameManager.Get().OnServerQueueConfigurationUpdateNotification += OnServerQueueConfigurationUpdateNotification;
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 			}
 			OnServerQueueConfigurationUpdateNotification(null);
@@ -221,10 +203,6 @@ public class UIPlayerProgressPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -252,15 +230,6 @@ public class UIPlayerProgressPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UILootMatrixScreen.Get() != null && UILootMatrixScreen.Get().IsOpening())
 			{
 				while (true)
@@ -276,15 +245,6 @@ public class UIPlayerProgressPanel : UIScene
 			}
 			if (m_isInTransition)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (visible)
 				{
 					while (true)
@@ -343,15 +303,6 @@ public class UIPlayerProgressPanel : UIScene
 					default:
 						if (UIGameSettingsPanel.Get().m_lastVisible)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIGameSettingsPanel.Get().CancelClicked(null);
 						}
 						m_isInTransition = true;
@@ -399,19 +350,6 @@ public class UIPlayerProgressPanel : UIScene
 											m_overviewPanel.Setup(m_playerAccountData, m_charactersList);
 											if (m_isVisible)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (1 == 0)
-												{
-													/*OpCode not supported: LdMemberToken*/;
-												}
 												UIManager.SetGameObjectActive(base.gameObject, true);
 											}
 										}
@@ -445,19 +383,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (m_needToUpdateInfo && m_InfoUpdated >= 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NotifyMenuButtonClicked(m_overview);
 			m_needToUpdateInfo = false;
 			m_InfoUpdated = 0;
@@ -468,44 +393,20 @@ public class UIPlayerProgressPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (!IsVisible())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (UIStorePanel.Get().IsWaitingForPurchaseRequest || UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (!(EventSystem.current.currentSelectedGameObject == null))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null))
 						{
 							return;
@@ -540,60 +441,15 @@ public class UIPlayerProgressPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_playerAccountData.AccountComponent.SelectedTitleID == m_originalSelectedTitleID)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_playerAccountData.AccountComponent.SelectedRibbonID == m_originalSelectedRibbonID)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_playerAccountData.AccountComponent.SelectedForegroundBannerID == m_originalSelectedForegroundBannerID)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_playerAccountData.AccountComponent.SelectedBackgroundBannerID == m_originalSelectedBackgroundBannerID)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -620,30 +476,8 @@ public class UIPlayerProgressPanel : UIScene
 				KeyValuePair<CharacterType, PersistedCharacterData> current = enumerator.Current;
 				if (current.Key.IsValidForHumanGameplay())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num += current.Value.ExperienceComponent.Level;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num2 = 0;
@@ -655,36 +489,13 @@ public class UIPlayerProgressPanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (questTemplate.Enabled && newData.QuestComponent.GetOrCreateQuestMetaData(questTemplate.Index).CompletedCount > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 += questTemplate.AchievementPoints;
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_matchesPlayedText.text = UIStorePanel.FormatIntToString(newData.ExperienceComponent.Matches, true);
 			m_freelancerLevelsText.text = UIStorePanel.FormatIntToString(num, true);
 			m_reactorLevelText.text = UIStorePanel.FormatIntToString(newData.GetReactorLevel(SeasonWideData.Get().m_seasons), true);
@@ -719,19 +530,6 @@ public class UIPlayerProgressPanel : UIScene
 		{
 			if (m_subPanels[i].IsActive)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_subPanels[i].ClickedOnPageIndicator(pageIndicator);
 			}
 		}
@@ -757,29 +555,11 @@ public class UIPlayerProgressPanel : UIScene
 			uIContentNavButton.SetSelected(flag);
 			if (i < m_subPanels.Count)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_subPanels[i], flag);
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
 			return;
 		}
@@ -799,19 +579,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (m_freelancerDropdown.Initialize())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_freelancerDropdown.AddOption(0, StringUtil.TR("AllFreelancers", "Global"));
 			IEnumerator enumerator = Enum.GetValues(typeof(CharacterRole)).GetEnumerator();
 			try
@@ -821,29 +588,11 @@ public class UIPlayerProgressPanel : UIScene
 					CharacterRole characterRole = (CharacterRole)enumerator.Current;
 					if (characterRole == CharacterRole.None)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						m_freelancerDropdown.AddOption(0 - characterRole, StringUtil.TR("CharacterRole_" + characterRole, "Global"), characterRole);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -876,27 +625,9 @@ public class UIPlayerProgressPanel : UIScene
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!characterResourceLink.m_characterType.IsValidForHumanGameplay())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -909,15 +640,6 @@ public class UIPlayerProgressPanel : UIScene
 			}
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName()));
 			}
 			list.Sort(_003C_003Ef__am_0024cache0);
@@ -931,15 +653,6 @@ public class UIPlayerProgressPanel : UIScene
 						m_freelancerDropdown.AddOption((int)current.m_characterType, current.GetDisplayName(), current.m_characterType);
 					}
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			m_freelancerDropdown.AddHitbox(m_statsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
 			m_freelancerDropdown.AddHitbox(m_achievementsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
@@ -948,27 +661,9 @@ public class UIPlayerProgressPanel : UIScene
 		int num = 0;
 		if (withRoles)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIPlayerProgressDropdownList freelancerDropdown = m_freelancerDropdown;
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache1 = ((int x) => true);
 			}
 			freelancerDropdown.CheckOptionDisplayState(_003C_003Ef__am_0024cache1);
@@ -979,15 +674,6 @@ public class UIPlayerProgressPanel : UIScene
 			UIPlayerProgressDropdownList freelancerDropdown2 = m_freelancerDropdown;
 			if (_003C_003Ef__am_0024cache2 == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache2 = ((int x) => x >= 0);
 			}
 			freelancerDropdown2.CheckOptionDisplayState(_003C_003Ef__am_0024cache2);
@@ -1000,19 +686,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (m_gameModeDropdown.Initialize())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IEnumerator enumerator = Enum.GetValues(typeof(PersistedStatBucket)).GetEnumerator();
 			try
 			{
@@ -1021,15 +694,6 @@ public class UIPlayerProgressPanel : UIScene
 					PersistedStatBucket persistedStatBucket = (PersistedStatBucket)enumerator.Current;
 					if (persistedStatBucket.IsTracked())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_gameModeDropdown.AddOption((int)persistedStatBucket, StringUtil.TR_PersistedStatBucketName(persistedStatBucket));
 					}
 				}
@@ -1052,45 +716,14 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (m_seasonsDropdown.Initialize())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 			List<SeasonTemplate> list = new List<SeasonTemplate>();
 			for (int i = 0; i < SeasonWideData.Get().m_seasons.Count; i++)
 			{
 				if (SeasonWideData.Get().m_seasons[i].DisplayStats)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(SeasonWideData.Get().m_seasons[i]);
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Reverse();
 			using (List<SeasonTemplate>.Enumerator enumerator = list.GetEnumerator())
@@ -1101,15 +734,6 @@ public class UIPlayerProgressPanel : UIScene
 					string text;
 					if (current.Index == activeSeason)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("CurrentSeason", "Global");
 					}
 					else
@@ -1117,15 +741,6 @@ public class UIPlayerProgressPanel : UIScene
 						text = current.GetDisplayName();
 					}
 					m_seasonsDropdown.AddOption(current.Index, text);
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_seasonsDropdown.AddHitbox(m_statsPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
@@ -1139,19 +754,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (m_achievementDropdown.Initialize())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<AchievementType> list = new List<AchievementType>();
 			list.Add(AchievementType.None);
 			for (int i = 0; i < QuestWideData.Get().m_quests.Count; i++)
@@ -1159,29 +761,11 @@ public class UIPlayerProgressPanel : UIScene
 				AchievementType achievmentType = QuestWideData.Get().m_quests[i].AchievmentType;
 				if (achievmentType != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list.Contains(achievmentType))
 					{
 						list.Add(achievmentType);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Sort();
 			using (List<AchievementType>.Enumerator enumerator = list.GetEnumerator())
@@ -1190,15 +774,6 @@ public class UIPlayerProgressPanel : UIScene
 				{
 					AchievementType current = enumerator.Current;
 					m_achievementDropdown.AddOption((int)current, StringUtil.TR("AchievementCategory_" + current, "Global"));
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_achievementDropdown.AddHitbox(m_achievementsPanel.m_categoryDropdownBtn.m_button.spriteController.gameObject);

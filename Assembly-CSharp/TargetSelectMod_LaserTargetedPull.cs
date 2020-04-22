@@ -23,19 +23,6 @@ public class TargetSelectMod_LaserTargetedPull : TargetSelectModBase
 		TargetSelect_LaserTargetedPull targetSelect_LaserTargetedPull = targetSelectBase as TargetSelect_LaserTargetedPull;
 		if (targetSelect_LaserTargetedPull != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserTargetedPull.m_laserRange);
 			text += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserTargetedPull.m_laserWidth);
 			text += AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[MaxTargets]", true, targetSelect_LaserTargetedPull.m_maxTargets);

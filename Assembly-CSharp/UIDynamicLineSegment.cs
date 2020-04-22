@@ -39,15 +39,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MeshFilter component = m_segmentObject.GetComponent<MeshFilter>();
 			if (!(component != null))
 			{
@@ -55,20 +46,10 @@ public class UIDynamicLineSegment : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (component.sharedMesh != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						Object.Destroy(component.sharedMesh);
 						return;
 					}
@@ -94,19 +75,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		Material material;
 		if (dotted)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			material = m_segmentMaterialDotted;
 		}
 		else
@@ -129,15 +97,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		{
 			if (i == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = list[i + 1] - list[i];
 				Vector3 normalized = Vector3.Cross(lhs, new Vector3(0f, 1f, 0f)).normalized;
 				normalized.y = 0f;
@@ -151,15 +110,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 			}
 			if (i == list.Count - 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 normalized2 = (list[i] - list[i - 1]).normalized;
 				Vector3 normalized3 = Vector3.Cross(normalized2, new Vector3(0f, 1f, 0f)).normalized;
 				normalized3.y = 0f;
@@ -187,15 +137,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 			float num = Vector3.Dot(vector4, normalized7);
 			if (num == 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1f;
 			}
 			vector4.y = 0f;
@@ -226,11 +167,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_segmentMesh.vertices = list2.ToArray();
 			m_segmentMesh.normals = list3.ToArray();
 			m_segmentMesh.uv = list4.ToArray();
@@ -250,15 +186,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AdjustSegmentLength(lengthInWorld);
 			AdjustSegmentColor(color);
 			return;
@@ -273,15 +200,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentLengthInWorld = lengthInWorld;
 			float z = lengthInWorld / 5f;
 			Vector3 localScale = new Vector3(1f, 1f, z);
@@ -304,24 +222,10 @@ public class UIDynamicLineSegment : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (component.material != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					component.material.SetColor("_TintColor", color);
 					return;
 				}

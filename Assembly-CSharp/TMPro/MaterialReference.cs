@@ -32,19 +32,6 @@ namespace TMPro
 			int num;
 			if (material.GetInstanceID() == fontAsset.material.GetInstanceID())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = 1;
 			}
 			else
@@ -63,19 +50,6 @@ namespace TMPro
 			int instanceID = fontAsset.GetInstanceID();
 			for (int i = 0; i < materialReferences.Length; i++)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(materialReferences[i].fontAsset != null))
 				{
 					break;
@@ -101,10 +75,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return value;
 					}
 				}
@@ -132,10 +102,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return value;
 					}
 				}

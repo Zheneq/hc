@@ -63,19 +63,6 @@ public class ClaymoreCharge : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Berserker Charge";
 		}
 		SetupTargeter();
@@ -88,30 +75,8 @@ public class ClaymoreCharge : Ability
 		AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge = new AbilityUtil_Targeter_ClaymoreCharge(this, GetChargeWidth(), GetChargeRange(), GetAoeShape(), DirectHitIgnoreCover());
 		if (GetHealOnSelfPerTargetHit() > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 			}
 			abilityUtil_Targeter_ClaymoreCharge.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
@@ -140,19 +105,6 @@ public class ClaymoreCharge : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape);
 		}
 		else
@@ -182,19 +134,6 @@ public class ClaymoreCharge : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_directHitDamageMod.GetModifiedValue(m_directHitDamage);
 		}
 		else
@@ -209,19 +148,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo result;
 		if (m_cachedDirectEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDirectEnemyHitEffect;
 		}
 		else
@@ -241,19 +167,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo result;
 		if (m_cachedAoeEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAoeEnemyHitEffect;
 		}
 		else
@@ -273,19 +186,6 @@ public class ClaymoreCharge : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healOnSelfPerTargetHitMod.GetModifiedValue(m_healOnSelfPerTargetHit);
 		}
 		else
@@ -305,19 +205,6 @@ public class ClaymoreCharge : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chaseHitActorMod.GetModifiedValue(m_chaseHitActor);
 		}
 		else
@@ -339,19 +226,6 @@ public class ClaymoreCharge : Ability
 		int val;
 		if ((bool)abilityMod_ClaymoreCharge)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ClaymoreCharge.m_directHitDamageMod.GetModifiedValue(m_directHitDamage);
 		}
 		else
@@ -364,15 +238,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ClaymoreCharge)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreCharge.m_aoeEnemyHitEffectMod.GetModifiedValue(m_aoeEnemyHitEffect);
 		}
 		else
@@ -384,15 +249,6 @@ public class ClaymoreCharge : Ability
 		int val2;
 		if ((bool)abilityMod_ClaymoreCharge)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreCharge.m_extraDirectHitDamagePerSquareMod.GetModifiedValue(m_extraDirectHitDamagePerSquare);
 		}
 		else
@@ -405,15 +261,6 @@ public class ClaymoreCharge : Ability
 		int val3;
 		if ((bool)abilityMod_ClaymoreCharge)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreCharge.m_cooldownOnHitMod.GetModifiedValue(m_cooldownOnHit);
 		}
 		else
@@ -443,42 +290,11 @@ public class ClaymoreCharge : Ability
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = GetDirectHitDamage();
 				if (GetExtraDirectHitDamagePerSquare() > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targeter is AbilityUtil_Targeter_ClaymoreCharge)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge = base.Targeter as AbilityUtil_Targeter_ClaymoreCharge;
 						int num2 = Mathf.Max(0, abilityUtil_Targeter_ClaymoreCharge.LastUpdatePathSquareCount - 1);
 						num += num2 * GetExtraDirectHitDamagePerSquare();
@@ -492,15 +308,6 @@ public class ClaymoreCharge : Ability
 			}
 			else if (GetHealOnSelfPerTargetHit() > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 				{
 					int num4 = dictionary[AbilityTooltipSymbol.Healing] = GetHealOnSelfPerTargetHit() * Mathf.Max(0, base.Targeter.GetActorsInRange().Count - 1);
@@ -515,19 +322,6 @@ public class ClaymoreCharge : Ability
 		object result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -554,45 +348,14 @@ public class ClaymoreCharge : Ability
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (relevantTeams != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!relevantTeams.Contains(occupantActor.GetTeam()))
 					{
 						continue;
 					}
 				}
 				list.Add(occupantActor);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -605,44 +368,13 @@ public class ClaymoreCharge : Ability
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(startPos);
 		if (pathEndSquare != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pathEndSquare != boardSquare)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 pointToProject = pathEndSquare.ToVector3();
 				Vector3 projectionPoint = VectorUtils.GetProjectionPoint(aimDir, startPos, pointToProject);
 				float num = (projectionPoint - startPos).magnitude + 0.5f;
 				if (num < laserMaxDistInWorld)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = num;
 				}
 				goto IL_00a8;
@@ -660,19 +392,6 @@ public class ClaymoreCharge : Ability
 		BoardSquare result = null;
 		if (chargePath != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquarePathInfo boardSquarePathInfo = chargePath;
 			result = boardSquarePathInfo.square;
 			int num = 0;
@@ -681,37 +400,10 @@ public class ClaymoreCharge : Ability
 				BoardSquare square = boardSquarePathInfo.next.square;
 				if (boardSquarePathInfo.square._0015())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!square._0015())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num > 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = boardSquarePathInfo.square;
 							differentFromInputDest = true;
 							break;
@@ -731,34 +423,12 @@ public class ClaymoreCharge : Ability
 		BoardSquare boardSquare = null;
 		if (lastChargeHitActor != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquare = lastChargeHitActor.GetCurrentBoardSquare();
 		}
 		else
 		{
 			if (initialPathEndSquare != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = initialPathEndSquare;
 			}
 			else
@@ -769,15 +439,6 @@ public class ClaymoreCharge : Ability
 			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, true);
 			if (boardSquarePathInfo != null && trimBeforeFirstInvalid)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = GetTrimmedDestinationInPath(boardSquarePathInfo, out bool _);
 			}
 		}

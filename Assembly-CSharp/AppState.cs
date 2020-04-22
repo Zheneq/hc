@@ -46,19 +46,6 @@ public class AppState : MonoBehaviour
 		object result;
 		if (GetCurrent() == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = "NULL";
 		}
 		else
@@ -73,41 +60,10 @@ public class AppState : MonoBehaviour
 		int result;
 		if (!(GetCurrent() == AppState_InGameDecision.Get()))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GetCurrent() == AppState_InGameStarting.Get()) && !(GetCurrent() == AppState_InGameDeployment.Get()))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GetCurrent() == AppState_InGameResolve.Get()))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((GetCurrent() == AppState_InGameEnding.Get()) ? 1 : 0);
 					goto IL_0096;
 				}
@@ -123,19 +79,6 @@ public class AppState : MonoBehaviour
 	{
 		if (base.enabled)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.enabled = false;
 		}
 		base.enabled = true;
@@ -156,15 +99,6 @@ public class AppState : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (s_currentAppState == this)
 			{
 				while (true)
@@ -182,15 +116,6 @@ public class AppState : MonoBehaviour
 			s_nextAppState = this;
 			if (s_currentAppState != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				s_currentAppState.Leave();
 			}
 			Log.Info("Entering {0}", GetType().Name);
@@ -210,15 +135,6 @@ public class AppState : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(s_currentAppState != this))
 			{
 				OnLeave();
@@ -253,10 +169,6 @@ public class AppState : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("AppState.Create not ready! code error");
 					return (AppStateType)null;
 				}

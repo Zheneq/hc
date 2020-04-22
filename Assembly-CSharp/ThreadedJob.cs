@@ -34,19 +34,6 @@ public abstract class ThreadedJob
 			int result;
 			if (m_thread != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (m_thread.IsAlive ? 1 : 0);
 			}
 			else
@@ -72,15 +59,6 @@ public abstract class ThreadedJob
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_thread.Abort();
 			return;
 		}
@@ -100,15 +78,6 @@ public abstract class ThreadedJob
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnThreadFunctionReturned();
 			ThreadFunctionReturned = false;
 			return;

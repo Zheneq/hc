@@ -35,34 +35,12 @@ public class OverconSelectBtn : MonoBehaviour
 		m_sprite.sprite = Resources.Load<Sprite>(overcon.m_iconSpritePath);
 		if (unlocked)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_selectableBtn.spriteController.callback = OverconClicked;
 		}
 		Color color = m_sprite.color;
 		float a;
 		if (unlocked)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			a = 1f;
 		}
 		else
@@ -75,15 +53,6 @@ public class OverconSelectBtn : MonoBehaviour
 		Sprite sprite;
 		if (unlocked)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = m_activeHoverSprite;
 		}
 		else
@@ -116,37 +85,18 @@ public class OverconSelectBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!(UIOverconData.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (ClientGameManager.Get() != null)
 					{
 						ClientGameManager.Get().SendUseOverconRequest(m_overconRef.m_overconId, m_overconRef.m_commandName, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);

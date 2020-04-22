@@ -24,19 +24,6 @@ public class ConeTargetingInfo
 	{
 		if (m_affectsEnemies)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_affectsAllies)
 			{
 				while (true)
@@ -54,28 +41,10 @@ public class ConeTargetingInfo
 		List<Team> list = new List<Team>();
 		if (m_affectsEnemies)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(caster.GetOpposingTeam());
 		}
 		if (m_affectsAllies)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(caster.GetTeam());
 		}
 		return list;
@@ -86,30 +55,8 @@ public class ConeTargetingInfo
 		ConeTargetingInfo coneTargetingInfo = new ConeTargetingInfo();
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.m_radiusMod == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.isEditor)
 				{
 					Debug.LogError("mod property not initialized, probably not yet serialized. Inspect the selected mod and save");
@@ -120,15 +67,6 @@ public class ConeTargetingInfo
 		float radiusInSquares;
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			radiusInSquares = modProp.m_radiusMod.GetModifiedValue(m_radiusInSquares);
 		}
 		else
@@ -139,15 +77,6 @@ public class ConeTargetingInfo
 		float widthAngleDeg;
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			widthAngleDeg = modProp.m_widthAngleMod.GetModifiedValue(m_widthAngleDeg);
 		}
 		else
@@ -160,15 +89,6 @@ public class ConeTargetingInfo
 		bool affectsCaster;
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = modProp.m_affectsCasterOverride.GetModifiedValue(m_affectsCaster);
 		}
 		else
@@ -179,15 +99,6 @@ public class ConeTargetingInfo
 		bool affectsAllies;
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsAllies = modProp.m_affectsAllyOverride.GetModifiedValue(m_affectsAllies);
 		}
 		else

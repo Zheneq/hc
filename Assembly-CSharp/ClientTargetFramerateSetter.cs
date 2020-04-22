@@ -26,30 +26,8 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 	{
 		if (m_isGameInBackground)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AppState.IsInGame())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Application.targetFrameRate = m_backgroundInGameMaxFramerate;
 			}
 			else
@@ -71,20 +49,10 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (Application.targetFrameRate > HydrogenConfig.Get().TargetFrameRate)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					Application.targetFrameRate = HydrogenConfig.Get().TargetFrameRate;
 					return;
 				}

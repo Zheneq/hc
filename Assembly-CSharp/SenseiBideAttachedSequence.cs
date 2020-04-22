@@ -81,19 +81,6 @@ public class SenseiBideAttachedSequence : Sequence
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
 			if (extraSequenceParams is ActorIndexExtraParam)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameFlowData.Get() != null)
 				{
 					ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
@@ -104,11 +91,6 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (actorData != null)
 			{
 				while (true)
@@ -127,11 +109,6 @@ public class SenseiBideAttachedSequence : Sequence
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("Did not find Sensei for sensei ult sequence");
 					return;
 				}
@@ -152,10 +129,6 @@ public class SenseiBideAttachedSequence : Sequence
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = m_fxPrefabs.Count - 1;
 					float syncBideExtraDamagePct = m_syncComp.m_syncBideExtraDamagePct;
 					if (syncBideExtraDamagePct >= 0.99f)
@@ -188,15 +161,6 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
 				return;
@@ -235,41 +199,10 @@ public class SenseiBideAttachedSequence : Sequence
 		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_phaseTimingParameters.ShouldSequenceBeActive())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnFX();
 				}
 			}
@@ -280,20 +213,10 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_fxInstances != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					StopFX();
 					return;
 				}
@@ -310,44 +233,13 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		if (m_timeToSpawnVfx > 0f && GameTime.time >= m_timeToSpawnVfx)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_timeToSpawnVfx = -1f;
 			SpawnFX();
 		}
 		if (m_hitSpawnTime > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameTime.time > m_hitSpawnTime)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnHitFX();
 				m_hitSpawnTime = -1f;
 			}
@@ -355,72 +247,18 @@ public class SenseiBideAttachedSequence : Sequence
 		int num = GetCurrnetFxIndex();
 		if (m_switchBetweenLevelsAfterSpawn)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxInstances != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fxInstances.Count > 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int count = m_fxInstances.Count;
 					num = Mathf.Min(num, count - 1);
 					if (num != m_lastActiveIndex)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_lastActiveIndex >= 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_lastActiveIndex < count)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_fxInstances[m_lastActiveIndex] != null)
 								{
 									m_fxInstances[m_lastActiveIndex].SetActive(false);
@@ -429,26 +267,8 @@ public class SenseiBideAttachedSequence : Sequence
 						}
 						if (num <= 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(m_alternateBaseFxInstance == null))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (base.AgeInTurns > 0)
 								{
 									goto IL_01c5;
@@ -457,15 +277,6 @@ public class SenseiBideAttachedSequence : Sequence
 						}
 						if (m_fxInstances[num] != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_fxInstances[num].SetActive(true);
 						}
 						goto IL_01c5;
@@ -481,11 +292,6 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_fxInstances.Count; i++)
 			{
 				GameObject gameObject = m_fxInstances[i];
@@ -493,52 +299,16 @@ public class SenseiBideAttachedSequence : Sequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameObject.GetComponent<FriendlyEnemyVFXSelector>() != null && base.Caster != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 				}
 				if (!m_useRootOrientation)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.transform.rotation = base.Caster.transform.rotation;
 				}
 			}
@@ -547,52 +317,16 @@ public class SenseiBideAttachedSequence : Sequence
 		IL_0205:
 		if (num == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.AgeInTurns > 0 && m_alternateBaseFxInstance != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_alternateBaseFxInstance.activeSelf)
 				{
 					m_alternateBaseFxInstance.SetActive(true);
 				}
 				if (m_fxInstances != null && m_fxInstances.Count > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fxInstances[0].activeSelf)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_fxInstances[0].SetActive(false);
 					}
 				}
@@ -600,48 +334,12 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		if (m_fxInstances != null && m_fxAttachToJoint)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxJoint.IsInitialized())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ShouldHideForActorIfAttached(base.Caster))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetSequenceVisibility(false);
 						goto IL_032a;
 					}
@@ -676,30 +374,8 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_fxJoint.IsInitialized())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxJoint.Initialize(base.Caster.gameObject);
 			}
 			if (m_fxPrefabs != null)
@@ -710,26 +386,8 @@ public class SenseiBideAttachedSequence : Sequence
 				currnetFxIndex = Mathf.Clamp(currnetFxIndex, 0, m_fxPrefabs.Count - 1);
 				if (!m_switchBetweenLevelsAfterSpawn)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fxPrefabs.Count > 1)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameObject item = m_fxPrefabs[currnetFxIndex];
 						List<GameObject> list2 = new List<GameObject>();
 						list2.Add(item);
@@ -742,67 +400,22 @@ public class SenseiBideAttachedSequence : Sequence
 					GameObject gameObject = InstantiateAttachedFx(fxPrefab);
 					if (m_switchBetweenLevelsAfterSpawn)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameObject.SetActive(i == currnetFxIndex);
 						if (i == currnetFxIndex)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_lastActiveIndex = i;
 						}
 					}
 					m_fxInstances.Add(gameObject);
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fxPrefabAfterFirstTurn != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_alternateBaseFxInstance = InstantiateAttachedFx(m_fxPrefabAfterFirstTurn);
 					m_alternateBaseFxInstance.SetActive(false);
 				}
 			}
 			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			}
 		}
@@ -812,33 +425,14 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_attemptedToSpawnHitFx)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_hitEvent == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_hitDelay <= 0f)
 					{
 						while (true)
@@ -865,30 +459,8 @@ public class SenseiBideAttachedSequence : Sequence
 		GameObject gameObject = null;
 		if (m_fxJoint.m_jointObject != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && m_fxAttachToJoint)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = InstantiateFX(fxPrefab);
 				AttachToBone(gameObject, m_fxJoint.m_jointObject);
 				gameObject.transform.localPosition = Vector3.zero;
@@ -913,47 +485,16 @@ public class SenseiBideAttachedSequence : Sequence
 		{
 			if (m_hitFxInstances == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_hitFxInstances = new List<GameObject>();
 			}
 			if (base.Targets != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
 					Vector3 targetHitPosition = GetTargetHitPosition(i, m_hitFxJoint);
 					Vector3 position = base.Caster.transform.position;
 					if ((position - base.Targets[i].transform.position).magnitude < 0.1f)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						position -= base.Caster.transform.forward * 0.5f;
 					}
 					Vector3 vector = targetHitPosition - position;
@@ -963,15 +504,6 @@ public class SenseiBideAttachedSequence : Sequence
 					Quaternion quaternion;
 					if (m_hitAlignedWithCaster)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						quaternion = Quaternion.LookRotation(vector);
 					}
 					else
@@ -982,15 +514,6 @@ public class SenseiBideAttachedSequence : Sequence
 					bool flag = IsHitFXVisibleForActor(base.Targets[i]);
 					if ((bool)m_hitFxPrefab)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							m_hitFxInstances.Add(InstantiateFX(m_hitFxPrefab, targetHitPosition, rotation));
@@ -998,52 +521,16 @@ public class SenseiBideAttachedSequence : Sequence
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string hitAudioEvent = m_hitAudioEvent;
 						if (!string.IsNullOrEmpty(hitAudioEvent))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AudioManager.PostEvent(hitAudioEvent, base.Targets[i].gameObject);
 						}
 					}
 					if (base.Targets[i] != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo);
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.Source.OnSequenceHit(this, base.TargetPos);
@@ -1059,39 +546,12 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_startEvent == parameter)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnFX();
 			}
 			else if (m_stopEvent == parameter)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StopFX();
 			}
 			if (m_hitEvent == parameter)
@@ -1106,33 +566,11 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (m_fxInstances != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_fxInstances.Count; i++)
 			{
 				GameObject gameObject = m_fxInstances[i];
 				if (gameObject != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Object.Destroy(gameObject.gameObject);
 				}
 			}
@@ -1140,15 +578,6 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		if (m_alternateBaseFxInstance != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_alternateBaseFxInstance);
 			m_alternateBaseFxInstance = null;
 		}
@@ -1158,11 +587,6 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_hitFxInstances.Count; j++)
 			{
 				GameObject gameObject2 = m_hitFxInstances[j];
@@ -1173,11 +597,6 @@ public class SenseiBideAttachedSequence : Sequence
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_hitFxInstances.Clear();
 				return;
 			}

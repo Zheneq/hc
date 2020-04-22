@@ -61,30 +61,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 			ref bool wasAnchoredOnTurnStart = ref m_wasAnchoredOnTurnStart;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetWasAnchoredOnTurnStart(value);
 					base.syncVarHookGuard = false;
@@ -163,19 +141,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (m_owner == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_owner = GetComponent<ActorData>();
 		}
 		return m_owner;
@@ -190,15 +155,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_anchorLaserAbility = (component.GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser);
 			return;
 		}
@@ -208,19 +164,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastBasicAttackUsedTurn > 0)
 			{
 				return GameFlowData.Get().CurrentTurn - m_lastBasicAttackUsedTurn == 1;
@@ -238,24 +181,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkServer.active && m_anchorLaserAbility != null && m_anchorLaserAbility.ShouldUpdateMovementOnAnchorChange())
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					GetOwner().GetActorMovement().UpdateSquaresCanMoveTo();
 					return;
 				}
@@ -278,15 +207,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int integer = owner.GetModelAnimator().GetInteger(animIdleType);
 			if (integer != idleType)
 			{
@@ -295,11 +215,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						owner.GetModelAnimator().SetTrigger(animExitAnchor);
 						return;
 					}
@@ -319,15 +234,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData owner = GetOwner();
 			if (owner != null)
 			{
@@ -346,15 +252,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData owner = GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
@@ -379,10 +276,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetIdleType called on server.");
 					return;
 				}
@@ -402,10 +295,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetFacingDirection called on server.");
 					return;
 				}
@@ -425,10 +314,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetSweepingRight called on server.");
 					return;
 				}
@@ -448,10 +333,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetIdleType called on client.");
 					return;
 				}
@@ -477,10 +358,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
 					return;
 				}
@@ -506,10 +383,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetSweepingRight called on client.");
 					return;
 				}
@@ -539,30 +412,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -581,15 +432,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -597,26 +439,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -624,26 +448,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -651,15 +457,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -669,15 +466,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -694,10 +482,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_anchored = reader.ReadBoolean();
 					m_wasAnchoredOnTurnStart = reader.ReadBoolean();
 					m_laserBarrierIsUp = reader.ReadBoolean();
@@ -711,15 +495,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_anchored = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
@@ -732,28 +507,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_anchoredLaserAimDirection = reader.ReadVector3();
 		}
 		if ((num & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_turnsAnchored = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)

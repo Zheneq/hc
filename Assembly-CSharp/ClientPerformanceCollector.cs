@@ -67,15 +67,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_collect = false;
 			StopCoroutine(m_collectCoroutine);
 			return;
@@ -105,15 +96,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			yield break;
 		}
 	}
@@ -139,10 +121,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_cpuCounterSamples = 0;
 					m_ramCounterSamples = 0;
 					m_roundtripSamples = 0;

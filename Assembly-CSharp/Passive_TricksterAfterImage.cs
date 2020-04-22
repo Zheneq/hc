@@ -26,45 +26,14 @@ public class Passive_TricksterAfterImage : Passive
 	{
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PassiveData passiveData = actor.GetPassiveData();
 			if (passiveData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Passive[] passives = passiveData.m_passives;
 				foreach (Passive passive in passives)
 				{
 					if (passive != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (passive is Passive_TricksterAfterImage)
 						{
 							return passive as Passive_TricksterAfterImage;

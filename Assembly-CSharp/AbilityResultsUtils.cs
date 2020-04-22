@@ -16,29 +16,11 @@ public static class AbilityResultsUtils
 			ClientActorHitResults value3 = new ClientActorHitResults(ref stream);
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				dictionary.Add(actorData, value3);
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return dictionary;
 		}
 	}
@@ -57,15 +39,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return dictionary;
 		}
 	}
@@ -105,31 +78,9 @@ public static class AbilityResultsUtils
 					stream.Serialize(ref value7);
 					list3.Add((StatusType)value7);
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			if (value5 != ActorData.s_invalidActorIndex)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte value8 = 0;
 				stream.Serialize(ref value8);
 				for (int l = 0; l < value8; l++)
@@ -150,29 +101,11 @@ public static class AbilityResultsUtils
 			short value11 = 0;
 			if (out4)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value11);
 			}
 			short value12 = 0;
 			if (out5)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref value12);
 			}
 			ClientEffectStartData item2 = new ClientEffectStartData((int)value2, list2, effectTarget, caster, list3, list4, value11, value12, @out, out2, out3);
@@ -180,11 +113,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -212,15 +140,6 @@ public static class AbilityResultsUtils
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ClientBarrierStartData clientBarrierStartData = new ClientBarrierStartData(num2, list2, info);
 				list.Add(clientBarrierStartData);
 				if (BarrierManager.Get() != null)
@@ -248,15 +167,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -274,15 +184,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -312,15 +213,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -380,58 +272,18 @@ public static class AbilityResultsUtils
 		ClientAbilityResults gameModeResults = null;
 		if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Effect)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectResults = DeSerializeClientEffectResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Barrier)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			barrierResults = DeSerializeClientBarrierResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Powerup)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			powerupResults = DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.GameMode)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameModeResults = DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
 		ActorData triggeringMover = GameFlowData.Get().FindActorByActorIndex(value);
@@ -450,15 +302,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -479,15 +322,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -505,15 +339,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -533,15 +358,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -565,15 +381,6 @@ public static class AbilityResultsUtils
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -598,30 +405,8 @@ public static class AbilityResultsUtils
 		BoardSquare square;
 		if (value5 == -1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value6 == -1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				square = null;
 				goto IL_0096;
 			}
@@ -633,15 +418,6 @@ public static class AbilityResultsUtils
 		ActorData secondaryActor;
 		if (value4 == ActorData.s_invalidActorIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			secondaryActor = null;
 		}
 		else

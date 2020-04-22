@@ -69,19 +69,6 @@ public class LobbyPlayerInfo
 			int result;
 			if (CharacterInfo == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0;
 			}
 			else
@@ -100,19 +87,6 @@ public class LobbyPlayerInfo
 			int result;
 			if (ReadyState != ReadyState.Ready && !IsAIControlled)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (IsRemoteControlled ? 1 : 0);
 			}
 			else
@@ -139,19 +113,6 @@ public class LobbyPlayerInfo
 		}
 		if (IsNPCBot)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!BotsMasqueradeAsHumans)
 			{
 				while (true)
@@ -174,31 +135,9 @@ public class LobbyPlayerInfo
 		LobbyPlayerInfo lobbyPlayerInfo = null;
 		if (serverInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<LobbyCharacterInfo> list = null;
 			if (serverInfo.RemoteCharacterInfos != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = new List<LobbyCharacterInfo>();
 				using (List<LobbyCharacterInfo>.Enumerator enumerator = serverInfo.RemoteCharacterInfos.GetEnumerator())
 				{
@@ -206,15 +145,6 @@ public class LobbyPlayerInfo
 					{
 						LobbyCharacterInfo current = enumerator.Current;
 						list.Add(current.Clone());
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -235,15 +165,6 @@ public class LobbyPlayerInfo
 			int botsMasqueradeAsHumans;
 			if (queueConfig != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				botsMasqueradeAsHumans = (queueConfig.BotsMasqueradeAsHumans ? 1 : 0);
 			}
 			else
@@ -260,15 +181,6 @@ public class LobbyPlayerInfo
 			int controllingPlayerId;
 			if (serverInfo.IsRemoteControlled)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				controllingPlayerId = serverInfo.ControllingPlayerInfo.PlayerId;
 			}
 			else
@@ -280,15 +192,6 @@ public class LobbyPlayerInfo
 			lobbyPlayerInfo = lobbyPlayerInfo2;
 			if (serverInfo.AccountLevel >= maxPlayerLevel)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lobbyPlayerInfo.DisplayedStat = LocalizationPayload.Create("TotalSeasonLevelStatNumber", "Global", LocalizationArg_Int32.Create(serverInfo.TotalLevel));
 			}
 			else

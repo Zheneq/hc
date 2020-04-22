@@ -89,19 +89,6 @@ public struct GridPos
 		int result;
 		if (x == other.x)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((y == other.y) ? 1 : 0);
 		}
 		else

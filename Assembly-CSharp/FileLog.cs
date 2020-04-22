@@ -53,19 +53,6 @@ public class FileLog
 	{
 		if (dateTime == default(DateTime))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dateTime = DateTime.Now;
 		}
 		return $"{basePath}/{dateTime.Year:d4}-{dateTime.Month:d2}-{dateTime.Day:d2}";
@@ -81,19 +68,6 @@ public class FileLog
 				m_logFileCreationTime = DateTime.Now;
 				if (UseDatedFolder)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string text = AsDatedDirectory(Path.GetDirectoryName(BaseFilePath), m_logFileCreationTime);
 					Directory.CreateDirectory(text);
 					CurrentFilePath = $"{text}/{Path.GetFileName(BaseFilePath)}";
@@ -144,10 +118,6 @@ public class FileLog
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						try
 						{
 							m_file.Close();
@@ -187,10 +157,6 @@ public class FileLog
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (args.level >= MinLevel)
 						{
 							try
@@ -208,50 +174,14 @@ public class FileLog
 											{
 												if (!RawLogging)
 												{
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													m_file.Write($"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ");
 												}
 												if (args.level >= Log.Level.Warning)
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (args.level <= Log.Level.Critical)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (!args.message.IsNullOrEmpty())
 														{
-															while (true)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															string[] array = text.Split(new char[2]
 															{
 																'\r',
@@ -263,15 +193,6 @@ public class FileLog
 															object arg;
 															if (args.level == Log.Level.Warning)
 															{
-																while (true)
-																{
-																	switch (5)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																arg = "warningid";
 															}
 															else
@@ -283,15 +204,6 @@ public class FileLog
 															foreach (string value in array4)
 															{
 																m_file.WriteLine(value);
-															}
-															while (true)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 															goto IL_019f;
 														}
@@ -346,10 +258,6 @@ public class FileLog
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (m_file != null)
 							{
 								while (true)

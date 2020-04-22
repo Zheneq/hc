@@ -54,42 +54,11 @@ public class UIAnimationEventManager : MonoBehaviour
 			{
 				if (animationEventTracker.callback == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (animationEventTracker.callbackWithGameObjectParam == null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!animationEventTracker.AnimatorWasInactive)
 						{
 							goto IL_013e;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -97,27 +66,9 @@ public class UIAnimationEventManager : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(animationEventTracker.AnimationCheckTime <= Time.time))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (animationEventTracker.AnimatorWasInactive)
 				{
@@ -128,39 +79,12 @@ public class UIAnimationEventManager : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animationEventTracker.callback != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					animationEventTracker.callback();
 				}
 				if (animationEventTracker.callbackWithGameObjectParam != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					animationEventTracker.callbackWithGameObjectParam(animationEventTracker.gameObjectParam);
 				}
 				ActiveAnimations.RemoveAt(i);
@@ -195,10 +119,6 @@ public class UIAnimationEventManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Animator is null");
 					return;
 				}
@@ -223,26 +143,8 @@ public class UIAnimationEventManager : MonoBehaviour
 		{
 			if (ActiveAnimations[num].AnimationController == animator)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Layer == ActiveAnimations[num].AnimationLayerToPlayOn)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActiveAnimations.RemoveAt(num);
 					flag = true;
 				}
@@ -250,55 +152,14 @@ public class UIAnimationEventManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (checkCurrentState)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animator.isActiveAndEnabled)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (animator.isInitialized)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (animator.GetCurrentAnimatorStateInfo(Layer).IsName(AnimToPlay))
 							{
 								while (true)
@@ -318,41 +179,14 @@ public class UIAnimationEventManager : MonoBehaviour
 			}
 			if (setAnimatorGameObjectActive)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(animator, true);
 			}
 			bool flag2 = true;
 			if (animator.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animator.isInitialized)
 				{
 					goto IL_0178;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag2 = false;
@@ -360,15 +194,6 @@ public class UIAnimationEventManager : MonoBehaviour
 			IL_0178:
 			if (AnimNameForDoneCallback.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnimNameForDoneCallback = AnimToPlay;
 			}
 			float num2 = 0f;
@@ -376,15 +201,6 @@ public class UIAnimationEventManager : MonoBehaviour
 			{
 				if (animator.runtimeAnimatorController.animationClips[i].name == AnimToPlay)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = animator.runtimeAnimatorController.animationClips[i].length;
 				}
 			}
@@ -402,15 +218,6 @@ public class UIAnimationEventManager : MonoBehaviour
 			AnimationEventTracker item = animationEventTracker;
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				animator.Play(AnimToPlay, Layer, NormalizedTime);
 			}
 			ActiveAnimations.Add(item);
@@ -429,10 +236,6 @@ public class UIAnimationEventManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}

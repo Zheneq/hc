@@ -32,22 +32,9 @@ namespace I2.Loc
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						object result;
 						if (!string.IsNullOrEmpty(Languages_Touch[idx]))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = Languages_Touch[idx];
 						}
 						else
@@ -73,10 +60,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return (Flags[idx] & 2) > 0;
 					}
 				}
@@ -93,31 +76,9 @@ namespace I2.Loc
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (string.IsNullOrEmpty(Languages[i]))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!(Languages_Touch[i] != Languages[i]))
 				{
@@ -125,21 +86,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return false;
 			}
 		}
@@ -149,32 +100,10 @@ namespace I2.Loc
 			int num = Mathf.Max(Languages.Length, Mathf.Max(Languages_Touch.Length, Flags.Length));
 			if (Languages.Length != num)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Array.Resize(ref Languages, num);
 			}
 			if (Languages_Touch.Length != num)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Array.Resize(ref Languages_Touch, num);
 			}
 			if (Flags.Length == num)
@@ -183,11 +112,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				Array.Resize(ref Flags, num);
 				return;
 			}
@@ -209,10 +133,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return name == Term;
 					}
 				}

@@ -76,19 +76,6 @@ public class SenseiAppendStatus : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "SenseiAppendStatus";
 		}
 		Setup();
@@ -107,22 +94,9 @@ public class SenseiAppendStatus : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num;
 					if (CanTagetSelf())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 1;
 					}
 					else
@@ -155,19 +129,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData cachedEnemyCastHitEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyCastHitEffectData = m_abilityMod.m_enemyCastHitEffectDataMod.GetModifiedValue(m_enemyCastHitEffectData);
 		}
 		else
@@ -178,15 +139,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData cachedAllyCastHitEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyCastHitEffectData = m_abilityMod.m_allyCastHitEffectDataMod.GetModifiedValue(m_allyCastHitEffectData);
 		}
 		else
@@ -198,15 +150,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo cachedEffectAddedOnAllyAttack;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectAddedOnAllyAttack = m_abilityMod.m_effectAddedOnAllyAttackMod.GetModifiedValue(m_effectAddedOnAllyAttack);
 		}
 		else
@@ -226,19 +169,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy);
 		}
 		else
@@ -253,19 +183,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTagetSelfMod.GetModifiedValue(m_canTagetSelf);
 		}
 		else
@@ -280,19 +197,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
 		}
 		else
@@ -312,19 +216,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData result;
 		if (m_cachedEnemyCastHitEffectData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyCastHitEffectData;
 		}
 		else
@@ -344,19 +235,6 @@ public class SenseiAppendStatus : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyToAllyTargetOnCastMod.GetModifiedValue(m_energyToAllyTargetOnCast);
 		}
 		else
@@ -371,19 +249,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_endEffectIfAppendedStatusMod.GetModifiedValue(m_endEffectIfAppendedStatus);
 		}
 		else
@@ -398,19 +263,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectAddedOnEnemyAttack != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectAddedOnEnemyAttack;
 		}
 		else
@@ -425,19 +277,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectAddedOnAllyAttack != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectAddedOnAllyAttack;
 		}
 		else
@@ -452,19 +291,6 @@ public class SenseiAppendStatus : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainOnAllyAppendHitMod.GetModifiedValue(m_energyGainOnAllyAppendHit);
 		}
 		else
@@ -493,10 +319,6 @@ public class SenseiAppendStatus : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = false;
 					ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
 					return CanTargetActorInDecision(caster, currentBestActorTarget, CanTargetEnemy(), CanTargetAlly(), CanTagetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
@@ -518,10 +340,6 @@ public class SenseiAppendStatus : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return HasTargetableActorsInDecision(caster, CanTargetEnemy(), CanTargetAlly(), CanTagetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
 				}
 			}
@@ -547,15 +365,6 @@ public class SenseiAppendStatus : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SenseiAppendStatus);
 			Setup();
 			return;

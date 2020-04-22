@@ -63,19 +63,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (m_targetSelectForDash != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			relevantTargetSelectCompForEditor.Add(m_targetSelectForDash);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -97,15 +84,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_LaserChargeReverseCones abilityUtil_Targeter_LaserChargeReverseCones = base.Targeter as AbilityUtil_Targeter_LaserChargeReverseCones;
 			GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 			abilityUtil_Targeter_LaserChargeReverseCones.SetAffectedGroups(targetSelectComp.IncludeEnemies(), targetSelectComp.IncludeAllies(), true);
@@ -119,19 +97,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (GetShieldPerEnemyHit() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
@@ -149,24 +114,10 @@ public class DinoDashOrShield : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetShieldPerEnemyHit() > 0)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, GetShieldPerEnemyHit(), actorHitContext, results);
 					return;
 				}
@@ -183,26 +134,12 @@ public class DinoDashOrShield : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(targetActor == caster))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				int num = 0;
 				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 				{
@@ -212,38 +149,11 @@ public class DinoDashOrShield : GenericAbility_Container
 						ActorData key = current.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.Value._0012)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 							}
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num <= 0)
@@ -281,19 +191,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		StandardEffectInfo cachedShieldEffect;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedShieldEffect = m_abilityMod.m_shieldEffectMod.GetModifiedValue(m_shieldEffect);
 		}
 		else
@@ -316,19 +213,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
@@ -343,19 +227,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
@@ -370,19 +241,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		StandardEffectInfo result;
 		if (m_cachedShieldEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedShieldEffect;
 		}
 		else
@@ -402,19 +260,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfNoDashMod.GetModifiedValue(m_cdrIfNoDash);
 		}
 		else
@@ -429,19 +274,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_delayedCooldownMod.GetModifiedValue(m_delayedCooldown);
 		}
 		else
@@ -471,19 +303,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_dashOrShieldInReadyStance ? 1 : 0);
 		}
 		else
@@ -504,10 +323,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_iconColorWhileActive;
 				}
 			}
@@ -526,10 +341,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_targetSelectForDash;
 				}
 			}
@@ -557,10 +368,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_dashMovementAdjust;
 				}
 			}
@@ -579,10 +386,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_dashTechPointInteractions;
 				}
 			}
@@ -619,10 +422,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_dashAnimIndex;
 				}
 			}
@@ -661,10 +460,6 @@ public class DinoDashOrShield : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_targetSelectComp.SetTargetSelectMod(m_abilityMod.m_initialCastTargetSelectMod);
 					m_targetSelectForDash.SetTargetSelectMod(m_abilityMod.m_dashTargetSelectMod);
 					return;

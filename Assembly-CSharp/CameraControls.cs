@@ -87,68 +87,19 @@ public class CameraControls : MonoBehaviour
 			int result;
 			if (m_enabled)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (AccountPreferences.DoesApplicationHaveFocus())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UI.Get() != null)
 					{
 						if (!(HUD_UI.Get().m_textConsole == null))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HUD_UI.Get().m_textConsole.IsTextInputFocused())
 							{
 								goto IL_00b0;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (!(UIDialogPopupManager.Get() == null))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((!UIDialogPopupManager.Get().IsDialogBoxOpen()) ? 1 : 0);
 						}
 						else
@@ -197,19 +148,6 @@ public class CameraControls : MonoBehaviour
 		int result;
 		if (IsTiltUserControlled())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (Input.GetKey(KeyCode.G) ? 1 : 0);
 		}
 		else
@@ -224,19 +162,6 @@ public class CameraControls : MonoBehaviour
 		int result;
 		if (!IsMouseDragRotationRequested())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (Input.GetMouseButton(2) ? 1 : 0);
 		}
 		else
@@ -253,33 +178,11 @@ public class CameraControls : MonoBehaviour
 		zoomDelta = CalcZoomVelocity() * Mathf.Min(Time.unscaledDeltaTime, 0.06f);
 		if (zoomDelta == 0f && !Mathf.Approximately(vector.x, 0f))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rotationChangedTime = Time.time;
 			m_prevRotation = currentTransform.rotation;
 			m_desiredRotationEulerAngles.x += vector.x;
 			if (toggleInput)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num = Mathf.Abs(vector.x);
 				m_desiredRotationEulerAngles.x = (float)(int)(m_desiredRotationEulerAngles.x / num) * num;
 			}
@@ -289,27 +192,9 @@ public class CameraControls : MonoBehaviour
 		{
 			if (toggleInput)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(Time.time - m_keyboardRotationTime >= m_keyboardRotationRepeatDelay))
 				{
 					goto IL_01c6;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_rotationChangedTime = Time.time;
@@ -331,15 +216,6 @@ public class CameraControls : MonoBehaviour
 			float num3 = Easing.ExpoEaseOut(Time.time - m_rotationChangedTime, 0f, 1f, m_keyboardRotationDuration);
 			if (num3 < 1f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 eulerAngles = rotationThisFrame.eulerAngles;
 				float x = eulerAngles.x;
 				Vector3 eulerAngles2 = m_prevRotation.eulerAngles;
@@ -353,11 +229,6 @@ public class CameraControls : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 eulerAngles3 = rotationThisFrame.eulerAngles;
 			Quaternion rotation = Quaternion.Euler(0f, eulerAngles3.y, 0f);
 			Vector3 a = rotation * -Vector3.forward;
@@ -372,19 +243,6 @@ public class CameraControls : MonoBehaviour
 		bool flag;
 		if (ControlpadGameplay.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ControlpadGameplay.Get().UsingControllerInput)
 			{
 				flag = false;
@@ -396,62 +254,17 @@ public class CameraControls : MonoBehaviour
 		IL_0034:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!Input.GetMouseButton(2))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Enabled)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UIUtils.IsMouseOnGUI())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(KeyBinding_UI.Get() == null))
 						{
 							if (KeyBinding_UI.Get().IsVisible())
 							{
 								goto IL_0163;
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (!EmoticonPanel.IsMouseOverEmoticonPanel())
@@ -473,49 +286,13 @@ public class CameraControls : MonoBehaviour
 		}
 		else if (Enabled)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!UIUtils.IsMouseOnGUI())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(KeyBinding_UI.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (KeyBinding_UI.Get().IsVisible())
 					{
 						goto IL_0163;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (!EmoticonPanel.IsMouseOverEmoticonPanel())
@@ -537,67 +314,18 @@ public class CameraControls : MonoBehaviour
 		bool flag = false;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().gameState == GameState.EndingGame)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		if ((bool)SinglePlayerManager.Get())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().HasPendingCameraUpdate())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position;
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					position = base.transform.position;
 				}
 				else
@@ -625,38 +353,11 @@ public class CameraControls : MonoBehaviour
 		int num4;
 		if (Enabled)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2;
 				if (!CameraRotateClockwiseToggled)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateClockwise) ? 1 : 0);
 				}
 				else
@@ -667,26 +368,8 @@ public class CameraControls : MonoBehaviour
 				bool flag3 = CameraRotateCounterClockwiseToggled || InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraRotateCounterClockwise);
 				if (Input.GetKeyDown(KeyCode.V) && DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("CameraTiltControl"))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						zero.x = m_keyboardPitchIncrement;
 						toggleInput = true;
 						goto IL_041f;
@@ -694,37 +377,10 @@ public class CameraControls : MonoBehaviour
 				}
 				if (Input.GetKeyDown(KeyCode.B))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get() != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (DebugParameters.Get().GetParameterAsBool("CameraTiltControl"))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							zero.x = 0f - m_keyboardPitchIncrement;
 							toggleInput = true;
 							goto IL_041f;
@@ -733,53 +389,17 @@ public class CameraControls : MonoBehaviour
 				}
 				if (flag2 ^ flag3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool @bool = AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd);
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!@bool)
 						{
 							num3 = 1;
 							goto IL_02f0;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = (@bool ? 1 : 0);
 					}
 					else
@@ -790,15 +410,6 @@ public class CameraControls : MonoBehaviour
 				}
 				if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) != 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) < 0f)
 					{
 						if (!AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd))
@@ -806,27 +417,9 @@ public class CameraControls : MonoBehaviour
 							num4 = 1;
 							goto IL_03a9;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.DpadX) > 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = (AccountPreferences.Get().GetBool(BoolPreference.InvertCameraRotationKbd) ? 1 : 0);
 					}
 					else
@@ -857,15 +450,6 @@ public class CameraControls : MonoBehaviour
 		float num5;
 		if (flag5)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = 1f;
 		}
 		else
@@ -884,30 +468,8 @@ public class CameraControls : MonoBehaviour
 		bool flag = false;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().gameState == GameState.EndingGame)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
@@ -916,50 +478,14 @@ public class CameraControls : MonoBehaviour
 		bool flag2;
 		if (Enabled)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 0f;
 				num2 = 0f;
 				if (ControlpadGameplay.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ControlpadGameplay.Get().UsingControllerInput)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						goto IL_00b7;
 					}
@@ -970,15 +496,6 @@ public class CameraControls : MonoBehaviour
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().ResetCursor();
 		}
 		goto IL_05f0;
@@ -989,78 +506,24 @@ public class CameraControls : MonoBehaviour
 		WinUtils.User32.POINT lpPoint;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_mouseMoveFringeSpeedEased.EaseTo(zero, m_mouseMoveFringeEaseIn, m_mouseMoveFringeEaseInTime);
 			HighlightUtils.Get().SetScrollCursor(scrollCursorDirection);
 			if (scrollCursorDirection != m_lastScrollCursorDirection)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lastScrollCursorDirection = scrollCursorDirection;
 				m_timeLastScrollCursorStarted = Time.unscaledTime;
 			}
 			else if (Time.unscaledTime > m_timeLastScrollCursorStarted + m_secondsUntilScrollCursorStop)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lpPoint = default(WinUtils.User32.POINT);
 				WinUtils.User32.GetCursorPos(out lpPoint);
 				if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.E)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
 						{
 							goto IL_03ad;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1079,27 +542,9 @@ public class CameraControls : MonoBehaviour
 		IL_03ad:
 		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW && m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.W)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
 			{
 				goto IL_03eb;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		lpPoint.X += 2;
@@ -1107,38 +552,11 @@ public class CameraControls : MonoBehaviour
 		IL_041e:
 		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SE)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.S)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.SW)
 				{
 					goto IL_0466;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1147,15 +565,6 @@ public class CameraControls : MonoBehaviour
 		IL_04bb:
 		if (IsMouseDragMoveRequested())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			a.x = Input.GetAxis("Mouse X") * m_mouseMoveSpeed;
 			a.z = Input.GetAxis("Mouse Y") * m_mouseMoveSpeed;
 		}
@@ -1163,40 +572,13 @@ public class CameraControls : MonoBehaviour
 		{
 			if (num == 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 == 0f)
 				{
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector;
 						if (m_mouseMoveFringeEaseInTime > 0f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector = m_mouseMoveFringeSpeedEased;
 						}
 						else
@@ -1210,15 +592,6 @@ public class CameraControls : MonoBehaviour
 						Vector3 vector2;
 						if (m_mouseMoveFringeEaseOutTime > 0f)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector2 = m_mouseMoveFringeSpeedEased;
 						}
 						else
@@ -1229,27 +602,9 @@ public class CameraControls : MonoBehaviour
 					}
 					goto IL_05f0;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (num2 != 0f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a.z += 0f - m_keyboardMoveSpeed * num2;
 			}
 			if (num != 0f)
@@ -1266,15 +621,6 @@ public class CameraControls : MonoBehaviour
 		IL_03eb:
 		if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NE && m_lastScrollCursorDirection != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lastScrollCursorDirection != HighlightUtils.ScrollCursorDirection.NW)
 			{
 				goto IL_041e;
@@ -1285,26 +631,8 @@ public class CameraControls : MonoBehaviour
 		IL_00b7:
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanUp))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 1f;
 			}
 			if (InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraPanLeft))
@@ -1333,105 +661,33 @@ public class CameraControls : MonoBehaviour
 		zero = Vector3.zero;
 		if (Cursor.lockState == CursorLockMode.Confined)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_mouseMoveFringeInEditor)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.isEditor)
 				{
 					goto IL_02ad;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (vector3.x <= m_mouseMoveFringeLeft)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero.x = m_mouseMoveFringeSpeed;
 				scrollCursorDirection = HighlightUtils.ScrollCursorDirection.W;
 			}
 			else if (vector3.x >= 1f - m_mouseMoveFringeRight)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero.x = 0f - m_mouseMoveFringeSpeed;
 				scrollCursorDirection = HighlightUtils.ScrollCursorDirection.E;
 			}
 			if (vector3.y <= m_mouseMoveFringeBottom)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero.z = m_mouseMoveFringeSpeed;
 				int num3;
 				if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.W)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = 5;
 				}
 				else if (scrollCursorDirection == HighlightUtils.ScrollCursorDirection.E)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = 3;
 				}
 				else
@@ -1442,15 +698,6 @@ public class CameraControls : MonoBehaviour
 			}
 			else if (vector3.y >= 1f - m_mouseMoveFringeTop)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				zero.z = 0f - m_mouseMoveFringeSpeed;
 				int num4;
 				switch (scrollCursorDirection)

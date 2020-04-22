@@ -48,19 +48,6 @@ public class ArcherShieldingArrow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Resonance Arrow";
 		}
 		SetupTargeter();
@@ -89,19 +76,6 @@ public class ArcherShieldingArrow : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserTargetingInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserTargetingInfo;
 		}
 		else
@@ -116,19 +90,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllySingleEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllySingleEffect;
 		}
 		else
@@ -143,19 +104,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyMultiEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyMultiEffect;
 		}
 		else
@@ -175,19 +123,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyMultiEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyMultiEffect;
 		}
 		else

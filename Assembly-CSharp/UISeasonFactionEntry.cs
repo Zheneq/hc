@@ -32,19 +32,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, m_factionId);
 		if (!longName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
 				while (true)
@@ -72,19 +59,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 		float[] rBGA = FactionWideData.Get().GetRBGA(faction);
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, false);
 			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, true);
 			num = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
@@ -104,31 +78,9 @@ public class UISeasonFactionEntry : MonoBehaviour
 	{
 		if (m_factionBars != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_factionBars.Length == faction.Tiers.Count)
 			{
 				goto IL_0210;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_factionBars != null)
@@ -136,15 +88,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			for (int i = 0; i < m_factionBars.Length; i++)
 			{
 				Object.Destroy(m_factionBars[i].gameObject);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
@@ -155,15 +98,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			m_factionBars[j] = Object.Instantiate(m_ProgressBarPrefab);
 			UIManager.ReparentTransform(m_factionBars[j].transform, m_FactionLevelContainer.gameObject.transform);
 			m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
-		}
-		while (true)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (m_factionBars.Length == 1)
 		{
@@ -190,26 +124,8 @@ public class UISeasonFactionEntry : MonoBehaviour
 			int num4;
 			if (num3 != faction.Tiers.Count - 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score >= faction.Tiers[num3].ContributionToComplete)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = ((score < faction.Tiers[num3].ContributionToComplete + faction.Tiers[num3 + 1].ContributionToComplete) ? 1 : 0);
 					goto IL_02be;
 				}
@@ -222,15 +138,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			long remainingScore;
 			if (score < 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				remainingScore = 0L;
 			}
 			else
@@ -240,15 +147,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			SetupProgressBar(faction, tierIndex, remainingScore, showText);
 			if (score >= 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = num3 + 1;
 				if (score < faction.Tiers[num3].ContributionToComplete)
 				{
@@ -264,11 +162,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_expLevel.text = num2.ToString();
 			if (flag)
 			{
@@ -276,20 +169,10 @@ public class UISeasonFactionEntry : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_expLabel != null)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_expLabel.text = num.ToString();
 						return;
 					}

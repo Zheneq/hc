@@ -40,31 +40,9 @@ public class SimpleTimingSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2.hitDelayTime > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_hitDelay = extraParams2.hitDelayTime;
 			}
 		}
@@ -78,19 +56,6 @@ public class SimpleTimingSequence : Sequence
 		}
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_calledOnHitForNullStartEvent)
 			{
 				StartHits();
@@ -103,20 +68,10 @@ public class SimpleTimingSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (m_hitTime > 0f && GameTime.time > m_hitTime)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					DoSequenceHits();
 					return;
 				}
@@ -144,10 +99,6 @@ public class SimpleTimingSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					DoSequenceHits();
 					return;
 				}
@@ -164,57 +115,17 @@ public class SimpleTimingSequence : Sequence
 		base.Source.OnSequenceHit(this, base.TargetPos);
 		if (base.Targets != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData[] targets = base.Targets;
 			foreach (ActorData actorData in targets)
 			{
 				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData));
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!string.IsNullOrEmpty(m_onHitAudioEvent))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = null;
 			if (base.Caster != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = base.Caster.gameObject;
 			}
 			if (gameObject != null)

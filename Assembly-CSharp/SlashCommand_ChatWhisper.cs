@@ -15,15 +15,6 @@ public class SlashCommand_ChatWhisper : SlashCommand
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				while (true)

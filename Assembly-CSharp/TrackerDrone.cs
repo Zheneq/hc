@@ -32,33 +32,11 @@ public class TrackerDrone : Ability
 		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		m_visionProvider = GetComponent<ActorAdditionalVisionProviders>();
 		if (m_visionProvider == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No additional vision provider component");
 		}
 		Setup();
@@ -69,45 +47,14 @@ public class TrackerDrone : Ability
 	{
 		if (m_droneInfoComp == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_droneInfoComp = GetComponent<TrackerDroneInfoComponent>();
 		}
 		if (m_droneInfoComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No Drone Info component");
 		}
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		}
 		if (m_droneTracker == null)
@@ -130,19 +77,6 @@ public class TrackerDrone : Ability
 		int num;
 		if ((bool)abilityMod_TrackerDrone)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = abilityMod_TrackerDrone.m_untrackedHitDamageMod.GetModifiedValue(component.m_untrackedDroneHitDamageAmount);
 		}
 		else
@@ -153,15 +87,6 @@ public class TrackerDrone : Ability
 		StandardEffectInfo standardEffectInfo;
 		if ((bool)abilityMod_TrackerDrone)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo = abilityMod_TrackerDrone.m_trackedHitEffectOverride.GetModifiedValue(component.m_droneHitEffect);
 		}
 		else
@@ -172,15 +97,6 @@ public class TrackerDrone : Ability
 		StandardEffectInfo standardEffectInfo2;
 		if ((bool)abilityMod_TrackerDrone)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo2 = abilityMod_TrackerDrone.m_untrackedHitEffectOverride.GetModifiedValue(component.m_untrackedDroneHitEffect);
 		}
 		else
@@ -199,19 +115,6 @@ public class TrackerDrone : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_droneInfoComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.m_droneHitDamageAmount);
 			m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.m_untrackedDroneHitDamageAmount);
@@ -225,19 +128,6 @@ public class TrackerDrone : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_droneInfoComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_droneInfoComp.GetDamageOnTracked(true));
 			m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_droneInfoComp.GetDamageOnUntracked(true));
@@ -252,19 +142,6 @@ public class TrackerDrone : Ability
 		TrackerDroneInfoComponent component = GetComponent<TrackerDroneInfoComponent>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(component.m_droneHitDamageAmount);
 			list.Add(component.m_untrackedDroneHitDamageAmount);
 		}
@@ -277,30 +154,8 @@ public class TrackerDrone : Ability
 		int result;
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster.GetCurrentBoardSquare() != null)
 				{
 					float num = m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
@@ -308,36 +163,13 @@ public class TrackerDrone : Ability
 					Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 					if (m_droneTracker.DroneIsActive())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquare = Board.Get().GetBoardSquare(m_droneTracker.BoardX(), m_droneTracker.BoardY());
 						if (boardSquare != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe == boardSquare)
 							{
 								while (true)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
 									return false;
 								}
 							}
@@ -351,27 +183,9 @@ public class TrackerDrone : Ability
 							result = 0;
 							goto IL_0172;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (!(num2 <= 0f))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2) ? 1 : 0);
 					}
 					else
@@ -395,15 +209,6 @@ public class TrackerDrone : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_TrackerDrone);
 			Setup();
 			return;

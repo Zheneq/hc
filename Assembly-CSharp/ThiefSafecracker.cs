@@ -27,19 +27,6 @@ public class ThiefSafecracker : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Safecracker";
 		}
 		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, m_laserWidth, m_laserRange, m_laserPenetrateLos, -1, m_knockbackDistance, m_knockbackDistance, m_knockbackType, false);
@@ -50,19 +37,6 @@ public class ThiefSafecracker : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_damageAmount > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
 		}
 		return numbers;

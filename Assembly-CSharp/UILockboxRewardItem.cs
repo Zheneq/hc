@@ -53,19 +53,6 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (m_rewardName != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rewardName.raycastTarget = false;
 		}
 		if (m_rewardType != null)
@@ -74,15 +61,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (m_rewardAmount != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewardAmount.raycastTarget = false;
 		}
 		if (m_circleHitbox != null)
@@ -106,19 +84,6 @@ public class UILockboxRewardItem : MonoBehaviour
 			m_rewardName.text = template.GetDisplayName();
 			if (template.Type == InventoryItemType.Currency)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CurrencyType currencyType = (CurrencyType)template.TypeSpecificData[0];
 				if (currencyType == CurrencyType.Dust)
 				{
@@ -129,37 +94,10 @@ public class UILockboxRewardItem : MonoBehaviour
 				ActiveAlertMission currentAlert = ClientGameManager.Get().AlertMissionsData.CurrentAlert;
 				if (currentAlert != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAlert.Type == AlertMissionType.Bonus)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currencyType == currentAlert.BonusType)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num3 = (float)currentAlert.BonusMultiplier / 100f;
 							num = (int)((float)template.TypeSpecificData[1] * num3);
 						}
@@ -168,37 +106,10 @@ public class UILockboxRewardItem : MonoBehaviour
 				GameManager gameManager = GameManager.Get();
 				if (gameManager != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetIsEligibleForEventBonus(gameManager.GameplayOverrides))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameManager.GameplayOverrides.EventISOBonusPercent > 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currencyType == CurrencyType.ISO)
 							{
 								num2 = (int)((double)(template.TypeSpecificData[1] * gameManager.GameplayOverrides.EventISOBonusPercent) / 100.0);
@@ -209,15 +120,6 @@ public class UILockboxRewardItem : MonoBehaviour
 				int num4 = num + num2;
 				if (num4 > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TextMeshProUGUI rewardName = m_rewardName;
 					string text = rewardName.text;
 					rewardName.text = text + " (+" + num4 + ")";
@@ -231,39 +133,12 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (m_rewardType != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewardType.text = InventoryWideData.GetTypeString(template, item.Count);
 		}
 		if (m_rewardIcon != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_rewardBanner != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.BannerID && GameBalanceVars.Get().GetBanner(template.TypeSpecificData[0]).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 				{
 					m_rewardBanner.sprite = (Sprite)Resources.Load(InventoryWideData.GetSpritePath(template), typeof(Sprite));
@@ -271,15 +146,6 @@ public class UILockboxRewardItem : MonoBehaviour
 					UIManager.SetGameObjectActive(m_rewardBanner, true);
 					if (m_bannerShadow != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_bannerShadow, true);
 					}
 				}
@@ -290,15 +156,6 @@ public class UILockboxRewardItem : MonoBehaviour
 					UIManager.SetGameObjectActive(m_rewardBanner, false);
 					if (m_bannerShadow != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_bannerShadow, false);
 					}
 				}
@@ -306,39 +163,12 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (m_rewardIcons != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_rewardBanners != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite sprite = (Sprite)Resources.Load(InventoryWideData.GetSpritePath(template), typeof(Sprite));
 				int num5;
 				if (template.Type == InventoryItemType.BannerID)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5 = ((GameBalanceVars.Get().GetBanner(template.TypeSpecificData[0]).m_type == GameBalanceVars.PlayerBanner.BannerType.Background) ? 1 : 0);
 				}
 				else
@@ -351,28 +181,10 @@ public class UILockboxRewardItem : MonoBehaviour
 					m_rewardIcons[i].sprite = sprite;
 					UIManager.SetGameObjectActive(m_rewardIcons[i], !flag);
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < m_rewardBanners.Length; j++)
 				{
 					m_rewardBanners[j].sprite = sprite;
 					UIManager.SetGameObjectActive(m_rewardBanners[j], flag);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -383,56 +195,20 @@ public class UILockboxRewardItem : MonoBehaviour
 				m_rewardFgs[k].sprite = InventoryWideData.GetItemFg(template);
 				UIManager.SetGameObjectActive(m_rewardFgs[k], m_rewardFgs[k].sprite != null);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_rewardFg != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewardFg.sprite = InventoryWideData.GetItemFg(template);
 			UIManager.SetGameObjectActive(m_rewardFg, m_rewardFg.sprite != null);
 		}
 		if (m_ownedIcon != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_ownedIcon, isDuplicate);
 		}
 		if (m_isoCountText != null)
 		{
 			if (isoCount > template.Value)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num6 = isoCount - template.Value;
 				m_isoCountText.text = "+" + template.Value + " (+" + num6 + ")";
 			}
@@ -445,15 +221,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		PlayDuplicateAnimation();
 		if (m_rewardType != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_rewardType, template.Type != InventoryItemType.Currency);
 		}
 		m_template = template;
@@ -472,15 +239,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -499,15 +257,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_duplicateAnimator.isInitialized)
 			{
 				while (true)
@@ -521,15 +270,6 @@ public class UILockboxRewardItem : MonoBehaviour
 						object str;
 						if (m_isDuplicate)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							str = "DefaultIN";
 						}
 						else
@@ -556,15 +296,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_duplicateAnimator.Update(Time.deltaTime);
 			return;
 		}
@@ -578,15 +309,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIStorePanel.Get() == null)
 			{
 				while (true)
@@ -606,44 +328,24 @@ public class UILockboxRewardItem : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_template.Type == InventoryItemType.Experience)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (m_template.Type == InventoryItemType.Faction)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (m_template.Type == InventoryItemType.Unlock || m_template.Type == InventoryItemType.Conveyance)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							if (m_template.Type == InventoryItemType.FreelancerExpBonus)
 							{
 								while (true)
@@ -675,15 +377,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_isDuplicate)
 			{
 				return;
@@ -694,27 +387,9 @@ public class UILockboxRewardItem : MonoBehaviour
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_duplicateAnimator.IsInTransition(0))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				m_animationFinishedOnce = true;
 			}
@@ -731,35 +406,16 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_isDuplicate)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_animationFinishedOnce)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						m_duplicateAnimator.Play("LockboxRewardDuplicateDefaultIDLE", -1, 0f);
 						return;
 					}
@@ -773,54 +429,14 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (gameplayOverrides != null && gameplayOverrides.EnableEventBonus)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(gameplayOverrides.EventBonusStartDate > ClientGameManager.Get().UtcNow()))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(gameplayOverrides.EventBonusEndDate < ClientGameManager.Get().UtcNow()))
 				{
 					if (!gameplayOverrides.RequiredEventBonusEntitlement.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameplayOverrides.RequiredEventBonusEntitlement != "*")
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetAppliedEntitlementCount(gameplayOverrides.RequiredEventBonusEntitlement) == 0)
 							{
 								return false;
@@ -828,15 +444,6 @@ public class UILockboxRewardItem : MonoBehaviour
 						}
 					}
 					return true;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

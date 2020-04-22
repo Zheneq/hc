@@ -45,19 +45,6 @@ public class PlayerDetails
 			int result;
 			if (!IsNPCBot && !IsLoadTestBot)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (ReplacedWithBots ? 1 : 0);
 			}
 			else
@@ -84,15 +71,6 @@ public class PlayerDetails
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gameAccountType = PlayerGameAccountType.None;
 				return;
 			}
@@ -139,19 +117,6 @@ public class PlayerDetails
 	{
 		if ((bool)ClientGameManager.Get())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().Observer)
 			{
 				while (true)
@@ -168,15 +133,6 @@ public class PlayerDetails
 		}
 		if ((bool)ReplayPlayManager.Get())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				while (true)
@@ -194,15 +150,6 @@ public class PlayerDetails
 		int result;
 		if (m_accountId != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((m_accountId == HydrogenConfig.Get().Ticket.AccountId) ? 1 : 0);
 		}
 		else

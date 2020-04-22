@@ -15,15 +15,6 @@ public static class NPCUtils
 		}
 		while (list.Count > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare == null)
 			{
 				BoardSquare boardSquare2 = list[0];
@@ -43,15 +34,6 @@ public static class NPCUtils
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							BoardSquare current = enumerator.Current;
@@ -64,25 +46,12 @@ public static class NPCUtils
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										goto end_IL_00aa;
 									}
 								}
 							}
 							if (!list.Contains(current))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!list2.Contains(current))
 								{
 									list.Add(current);
@@ -93,15 +62,6 @@ public static class NPCUtils
 					}
 				}
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

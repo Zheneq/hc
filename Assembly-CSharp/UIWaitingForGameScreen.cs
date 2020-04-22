@@ -29,15 +29,6 @@ public class UIWaitingForGameScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_circleWidgetAnimController, visible);
 			if (visible)
 			{
@@ -102,26 +93,8 @@ public class UIWaitingForGameScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameInfo.GameStatus != GameStatus.Assembling)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameInfo.GameStatus != GameStatus.FreelancerSelecting)
 				{
 					if (gameInfo.GameStatus == GameStatus.LoadoutSelecting)
@@ -156,25 +129,11 @@ public class UIWaitingForGameScreen : MonoBehaviour
 					{
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							m_statusLabel.text = StringUtil.TR("GameServerReady", "Global");
 							return;
 						}
 					}
 					return;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (gameInfo.ActivePlayers >= gameInfo.GameConfig.TotalHumanPlayers)

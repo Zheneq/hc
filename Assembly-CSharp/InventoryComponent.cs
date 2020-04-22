@@ -93,30 +93,8 @@ public class InventoryComponent
 		InventoryItem inventoryItem = GetItem(itemToAdd);
 		if (inventoryItem != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (inventoryItem.IsStackable())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItem.Count += itemToAdd.Count;
 				OnItemAdded(inventoryItem);
 				goto IL_00e6;
@@ -124,15 +102,6 @@ public class InventoryComponent
 		}
 		if (itemToAdd.IsStackable())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			inventoryItem = new InventoryItem(itemToAdd, NextItemId++);
 			Items.Add(inventoryItem);
 			OnItemAdded(inventoryItem);
@@ -144,15 +113,6 @@ public class InventoryComponent
 				inventoryItem = new InventoryItem(itemToAdd.TemplateId, 1, NextItemId++);
 				Items.Add(inventoryItem);
 				OnItemAdded(inventoryItem);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		goto IL_00e6;
@@ -180,24 +140,11 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (item.IsStackable())
 					{
 						item.Count -= itemToRemove.Count;
 						if (item.Count <= 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							RemoveItemInternal(item);
 						}
 					}
@@ -232,24 +179,11 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (itemByTemplateId.IsStackable())
 					{
 						itemByTemplateId.Count -= itemCount;
 						if (itemByTemplateId.Count <= 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							RemoveItemInternal(itemByTemplateId);
 						}
 					}
@@ -271,31 +205,9 @@ public class InventoryComponent
 		{
 			if (item.IsStackable())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				item.Count -= itemCount;
 				if (item.Count <= 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RemoveItemInternal(item);
 				}
 			}
@@ -328,31 +240,9 @@ public class InventoryComponent
 		int num = 0;
 		if (itemToUpdate.Id > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItem item = GetItem(itemToUpdate.Id);
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = item.Count;
 			}
 		}
@@ -382,11 +272,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			itemToUpdate.Count = -num2;
 			RemoveItem(itemToUpdate);
 			return;
@@ -412,10 +297,6 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetItem(itemToSearch.Id);
 				}
 			}
@@ -440,19 +321,6 @@ public class InventoryComponent
 	{
 		if (m_itemByIdCache == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemByIdCache = new Dictionary<int, InventoryItem>();
 			using (List<InventoryItem>.Enumerator enumerator = Items.GetEnumerator())
 			{
@@ -460,15 +328,6 @@ public class InventoryComponent
 				{
 					InventoryItem current = enumerator.Current;
 					m_itemByIdCache[current.Id] = current;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -487,10 +346,6 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return allItemsByTemplateId.Items.FirstOrDefault();
 				}
 			}
@@ -509,19 +364,6 @@ public class InventoryComponent
 				InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(template.Index);
 				if (inventoryItemListCache == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					inventoryItemListCache = new InventoryItemListCache();
 					inventoryItemListCache.Count += item.Count;
 					inventoryItemListCache.Items.Add(item);
@@ -551,19 +393,6 @@ public class InventoryComponent
 					InventoryItemListCache inventoryItemListCache = m_itemsByTypeCache.TryGetValue(template.Type);
 					if (inventoryItemListCache == null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						inventoryItemListCache = new InventoryItemListCache();
 						inventoryItemListCache.Count += current.Count;
 						inventoryItemListCache.Items.Add(current);
@@ -573,15 +402,6 @@ public class InventoryComponent
 					{
 						inventoryItemListCache.Items.Add(current);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -594,19 +414,6 @@ public class InventoryComponent
 		InventoryItemListCache allItemsByTemplateId = GetAllItemsByTemplateId(itemTemplateId);
 		if (allItemsByTemplateId != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = allItemsByTemplateId.Count;
 		}
 		return result;
@@ -618,19 +425,6 @@ public class InventoryComponent
 		InventoryItemListCache allItemsByType = GetAllItemsByType(itemType);
 		if (allItemsByType != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = allItemsByType.Count;
 		}
 		return result;
@@ -649,15 +443,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Karma karma = new Karma();
 			karma.TemplateId = karmaTemplateId;
 			Karma value = karma;
@@ -677,10 +462,6 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Karmas[karma.TemplateId].Quantity += karma.Quantity;
 					return;
 				}
@@ -699,19 +480,6 @@ public class InventoryComponent
 				KeyValuePair<int, Karma> current = enumerator.Current;
 				if (Karmas.ContainsKey(current.Key))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Karmas[current.Key].Quantity += current.Value.Quantity;
 				}
 				else
@@ -771,10 +539,6 @@ public class InventoryComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -795,15 +559,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Loots.Add(itemId, loot);
 			return;
 		}
@@ -835,23 +590,10 @@ public class InventoryComponent
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -867,19 +609,6 @@ public class InventoryComponent
 				InventoryItemTemplate template = current.GetTemplate();
 				if (template.Type.IsCharacterBound())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CharacterType bindingCharacterType = template.GetBindingCharacterType();
 					AddCharacterItemDropBalanceValue(bindingCharacterType);
 				}
@@ -910,15 +639,6 @@ public class InventoryComponent
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				CharacterType key = (CharacterType)enumerator.Current;
@@ -932,10 +652,6 @@ public class InventoryComponent
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							flag = false;
 							goto end_IL_0056;
 						}
@@ -969,11 +685,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			IEnumerator enumerator2 = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 			try
 			{
@@ -1059,31 +770,9 @@ public class InventoryComponent
 		}
 		if (m_itemsByTemplateIdCache != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache = new InventoryItemListCache();
 				inventoryItemListCache.Count += item.Count;
 				inventoryItemListCache.Items.Add(item);
@@ -1101,11 +790,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			InventoryItemType type = item.GetTemplate().Type;
 			InventoryItemListCache inventoryItemListCache2 = m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
@@ -1134,56 +818,16 @@ public class InventoryComponent
 	{
 		if (m_itemByIdCache != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemByIdCache.Remove(item.Id);
 		}
 		if (m_itemsByTemplateIdCache != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItemListCache inventoryItemListCache = m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache.Items.Remove(item);
 				if (inventoryItemListCache.Items.Count == 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_itemsByTemplateIdCache.Remove(item.TemplateId);
 				}
 			}
@@ -1194,11 +838,6 @@ public class InventoryComponent
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			InventoryItemType type = item.GetTemplate().Type;
 			InventoryItemListCache inventoryItemListCache2 = m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
@@ -1208,11 +847,6 @@ public class InventoryComponent
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						m_itemsByTypeCache.Remove(type);
 						return;
 					}

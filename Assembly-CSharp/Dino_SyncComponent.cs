@@ -102,15 +102,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_dashOrShieldAbility.ResetTargetersForStanceChange();
 			return;
 		}
@@ -131,15 +122,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator != null)
 			{
 				modelAnimator.SetInteger(s_aHashIdleType, idleType);
@@ -147,11 +129,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						modelAnimator.SetTrigger(s_aHashForceIdle);
 						return;
 					}
@@ -177,10 +154,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcResetDashOrShieldTargeter called on server.");
 					return;
 				}
@@ -200,10 +173,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetDashReadyStanceAnimParams called on server.");
 					return;
 				}
@@ -256,10 +225,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_dashOrShieldLastCastTurn);
 					writer.Write(m_dashOrShieldInReadyStance);
 					writer.WritePackedUInt32((uint)m_layerConePowerLevel);
@@ -270,26 +235,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -297,26 +244,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -324,26 +253,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -367,10 +278,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
 					m_dashOrShieldInReadyStance = reader.ReadBoolean();
 					m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
@@ -381,15 +288,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
@@ -402,11 +300,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
 			return;
 		}

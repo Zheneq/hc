@@ -36,30 +36,8 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		base.Initialize();
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_targetSelMod.m_useConeRadiusOverrides)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cachedRadiusList = new List<float>(m_targetSelMod.m_coneRadiusOverrides);
 				goto IL_0061;
 			}
@@ -84,19 +62,6 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		else
@@ -112,19 +77,6 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		int numActiveLayers = GetNumActiveLayers();
 		if (numActiveLayers > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedRadiusList[numActiveLayers - 1];
 		}
 		return result;

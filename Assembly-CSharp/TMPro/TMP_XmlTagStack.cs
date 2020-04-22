@@ -57,31 +57,9 @@ namespace TMPro
 		{
 			if (index == m_capacity)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_capacity *= 2;
 				if (m_capacity == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_capacity = 4;
 				}
 				Array.Resize(ref itemStack, m_capacity);
@@ -113,10 +91,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return itemStack[index - 1];
 					}
 				}

@@ -84,31 +84,9 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (m_chainAbilities.Length > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability ability = m_chainAbilities[0];
 			if (ability is BattleMonkBuffCharge_Dash)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
 			}
 		}
@@ -119,42 +97,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (m_dashAbility == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_chainAbilities.Length > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability ability = m_chainAbilities[0];
 				if (ability is BattleMonkBuffCharge_Dash)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
 				}
 			}
@@ -165,15 +112,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo selfBuffEffect = GetSelfBuffEffect();
 		if (selfBuffEffect.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_cachedAbsorbOnSelf = selfBuffEffect.m_effectData.m_absorbAmount;
 		}
 		StandardEffectInfo selfBuffEffect2 = GetSelfBuffEffect();
@@ -205,10 +143,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
 					actors.Remove(caster);
 					if (NetworkClient.active)
@@ -229,33 +163,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				bool result = false;
 				if (GetRequireHitAlly())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), GetAllySelectRadius(), m_buffAoePenetratesLoS, caster, caster.GetTeam(), null);
 					actorsInRadius.Remove(caster);
 					int num = 0;
@@ -267,15 +179,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 							bool num2;
 							if (NetworkClient.active)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = actorData.IsVisibleToClient();
 							}
 							else
@@ -284,38 +187,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 							}
 							if (num2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
 								if (currentBoardSquare != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, m_buffAlliesShape, currentBoardSquare.ToVector3(), currentBoardSquare, m_buffAoePenetratesLoS, caster))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										result = true;
 										break;
 									}
@@ -323,15 +199,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 							}
 							num++;
 							continue;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -341,15 +208,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 					result = true;
 				}
 				return result;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -363,32 +221,10 @@ public class BattleMonkBuffCharge_Prep : Ability
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetModdedDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Absorb] = GetModdedAbsorbOnSelf();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
@@ -409,15 +245,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability ability = m_chainAbilities[0];
 			if (!(ability is BattleMonkBuffCharge_Dash))
 			{
@@ -425,25 +252,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = ability as BattleMonkBuffCharge_Dash;
 				string empty = string.Empty;
 				int val;
 				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					val = abilityMod_BattleMonkBuffCharge_Prep.m_damageMod.GetModifiedValue(battleMonkBuffCharge_Dash.m_damage);
 				}
 				else
@@ -454,15 +267,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 				StandardEffectInfo effectInfo;
 				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectInfo = abilityMod_BattleMonkBuffCharge_Prep.m_selfEffectOverride.GetModifiedValue(m_selfBuff);
 				}
 				else
@@ -473,15 +277,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 				StandardEffectInfo effectInfo2;
 				if ((bool)abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectInfo2 = abilityMod_BattleMonkBuffCharge_Prep.m_allyEffectOverride.GetModifiedValue(m_allyBuff);
 				}
 				else
@@ -505,10 +300,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_BattleMonkBuffCharge_Prep);
 					SetupTargeter();
 					return;
@@ -534,19 +325,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_mustHitAllies;
 		}
 		else
@@ -566,19 +344,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		int result;
 		if (m_dashAbility == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -593,19 +358,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_selfBuff;
 		}
 		else
@@ -620,19 +372,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allyBuff;
 		}
 		else
@@ -647,19 +386,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_removeAllNegativeStatusFromAllies ? 1 : 0);
 		}
 		else
@@ -688,19 +414,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		}
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityAreaShape = m_abilityMod.m_enemyShapeMod.GetModifiedValue(abilityAreaShape);
 		}
 		return abilityAreaShape;
@@ -711,33 +424,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 		int num = 0;
 		if (m_dashAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_dashAbility.m_damage;
 		}
 		int result = num;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(num);
 		}
 		return result;

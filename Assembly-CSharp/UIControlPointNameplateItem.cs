@@ -25,15 +25,6 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -45,32 +36,10 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		bool flag;
 		if (!(vector.z < 0f))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_controlPoint.CurrentControlPointState != ControlPoint.State.Disabled)
 			{
 				flag = true;
 				goto IL_0076;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag = false;
@@ -83,11 +52,6 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Canvas componentInParent = GetComponentInParent<Canvas>();
 			RectTransform rectTransform = componentInParent.transform as RectTransform;
 			float x = vector.x;

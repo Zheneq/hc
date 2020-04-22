@@ -41,15 +41,6 @@ public class UIReplayRestartingScreen : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false);
 			return;
 		}
@@ -63,19 +54,6 @@ public class UIReplayRestartingScreen : MonoBehaviour, IGameEventListener
 		{
 			if ((bool)m_lastTexture)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Object.Destroy(m_lastTexture);
 			}
 			UIManager.SetGameObjectActive(base.gameObject, true);

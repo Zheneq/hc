@@ -56,26 +56,12 @@ public class AttachedActorVFXInfo
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(vfxPrefab != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_joint.Initialize(attachedToObject);
 				if (m_joint.m_jointObject != null)
 				{
@@ -113,19 +99,6 @@ public class AttachedActorVFXInfo
 	{
 		if (m_vfxInstance != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fofSelector = null;
 			Object.Destroy(m_vfxInstance);
 			m_vfxInstance = null;
@@ -145,51 +118,19 @@ public class AttachedActorVFXInfo
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_attachParentObject != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				int num;
 				if (m_friendOrFoeVisibility != 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_friendOrFoeVisibility != FriendOrFoeVisibility.FriendlyOnly || !sameTeamAsClientActor)
 					{
 						if (m_friendOrFoeVisibility == FriendOrFoeVisibility.EnemyOnly)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((!sameTeamAsClientActor) ? 1 : 0);
 						}
 						else
@@ -206,15 +147,6 @@ public class AttachedActorVFXInfo
 				bool flag2 = actorVisible && flag;
 				if (m_vfxInstance.activeSelf != flag2)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_vfxInstance.SetActive(flag2);
 				}
 				if (flag2 && m_alignToRootOrientation)
@@ -248,15 +180,6 @@ public class AttachedActorVFXInfo
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInstance.transform.localScale = scale;
 			return;
 		}
@@ -270,15 +193,6 @@ public class AttachedActorVFXInfo
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInstance.transform.localPosition = localPosition;
 			return;
 		}
@@ -295,10 +209,6 @@ public class AttachedActorVFXInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_vfxInstance.transform.position;
 				}
 			}
@@ -314,15 +224,6 @@ public class AttachedActorVFXInfo
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_vfxInstance.transform.gameObject.SetLayerRecursively(layer);
 			return;
 		}

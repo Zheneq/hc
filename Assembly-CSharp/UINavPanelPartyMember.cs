@@ -46,30 +46,8 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (m_memberInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_memberInfo.IsLeader)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, true);
 				m_PartyLeaderIconAnimator.Play("leaderIconIN");
 			}
@@ -94,28 +72,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (m_invitationSentContainer != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_invitationSentContainer, false);
 		}
 		if (m_playerLevel != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerLevel.text = string.Empty;
 		}
 		if (m_ribbonImage != null)
@@ -136,25 +96,12 @@ public class UINavPanelPartyMember : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string tooltipText = StringUtil.TR("UnknownCharacter", "Global");
 					if (m_memberInfo.MemberDisplayCharacter != 0)
 					{
 						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(m_memberInfo.MemberDisplayCharacter);
 						if (characterResourceLink != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tooltipText = characterResourceLink.GetDisplayName();
 						}
 					}
@@ -179,10 +126,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					FriendListPanel.Get().SetVisible(true, true);
 					return false;
 				}
@@ -205,10 +148,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!m_PartyLeaderIconAnimator.gameObject.activeSelf)
 					{
 						UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, true);
@@ -233,10 +172,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_IsInGameAnimator.Play("readyIconIN");
 					return;
 				}
@@ -246,37 +181,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		AnimatorClipInfo[] currentAnimatorClipInfo = m_IsInGameAnimator.GetCurrentAnimatorClipInfo(0);
 		if (currentAnimatorClipInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconOUT")
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo[0].clip.name != "readyIconOFF")
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
@@ -287,11 +195,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_IsInGameAnimator.Play("readyIconOUT");
 			return;
 		}
@@ -310,10 +213,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AnimatorClipInfo[] currentAnimatorClipInfo = m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
 					if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconIN")
 					{
@@ -341,37 +240,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		AnimatorClipInfo[] currentAnimatorClipInfo2 = m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
 		if (currentAnimatorClipInfo2 != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentAnimatorClipInfo2.Length > 0 && currentAnimatorClipInfo2[0].clip.name != "readyIconOUT")
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo2[0].clip.name != "readyIconOFF")
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
@@ -391,31 +263,9 @@ public class UINavPanelPartyMember : MonoBehaviour
 		Sprite sprite = null;
 		if (m_bannerImage != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(info.BackgroundBannerID);
 			if (banner == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
@@ -426,27 +276,9 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (m_emblemImage != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(info.ForegroundBannerID);
 			if (banner2 == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
@@ -457,15 +289,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (m_ribbonImage != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(info.RibbonID);
 			if (ribbon == null)
 			{
@@ -479,15 +302,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (m_memberInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_memberInfo.AccountID == info.AccountID)
 			{
 				while (true)
@@ -505,15 +319,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		m_isHidden = false;
 		if (m_playerContainer != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_playerContainer, true);
 		}
 		UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, info.IsLeader);
@@ -525,15 +330,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		m_memberInfo = info;
 		if (m_animController != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_animController.Play("UIBannerInviteIN", 1, 0f);
 		}
 		if (!(m_groupMenuClickListener != null))
@@ -542,11 +338,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_groupMenuClickListener.Refresh();
 			return;
 		}
@@ -557,45 +348,14 @@ public class UINavPanelPartyMember : MonoBehaviour
 		m_isHidden = true;
 		if (m_playerContainer != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_playerContainer, false);
 		}
 		if (m_ribbonImage != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_ribbonImage, false);
 		}
 		if (m_animController != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_animController.Play("UIBannerDisabledIN", 1, 0f);
 		}
 		UIManager.SetGameObjectActive(m_PartyLeaderIconAnimator, false);
@@ -612,15 +372,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DoHidden();
 			return;
 		}

@@ -43,15 +43,6 @@ public class UINameplateStatus : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_parent.NotifyStatusAnimationDone(this, gainedStatus);
 			return;
 		}

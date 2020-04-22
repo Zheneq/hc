@@ -46,10 +46,6 @@ public class ClientEffectResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -77,15 +73,6 @@ public class ClientEffectResults
 					return true;
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -101,10 +88,6 @@ public class ClientEffectResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 					{
 						seqStartData.CreateSequencesFromData(OnEffectHitActor, OnEffectHitPosition);
@@ -115,15 +98,6 @@ public class ClientEffectResults
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 		}
 		RunClientEffectHits();
@@ -144,10 +118,6 @@ public class ClientEffectResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -192,15 +162,6 @@ public class ClientEffectResults
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_posToHitResults[position].ExecutePositionHit();
 			return;
 		}
@@ -239,19 +200,6 @@ public class ClientEffectResults
 				{
 					if (!incomingKnockbacks.ContainsKey(key))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						incomingKnockbacks.Add(key, 1);
 					}
 					else
@@ -260,26 +208,8 @@ public class ClientEffectResults
 					}
 					if (value.KnockbackSourceActor != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!outgoingKnockbacks.ContainsKey(value.KnockbackSourceActor))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							outgoingKnockbacks.Add(value.KnockbackSourceActor, 1);
 						}
 						else
@@ -307,19 +237,6 @@ public class ClientEffectResults
 		int result;
 		if (sequenceSource != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (ContainsSequenceSourceID(sequenceSource.RootID) ? 1 : 0);
 		}
 		else
@@ -334,19 +251,6 @@ public class ClientEffectResults
 		bool result = false;
 		if (m_seqStartDataList != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -359,15 +263,6 @@ public class ClientEffectResults
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -411,10 +306,6 @@ public class ClientEffectResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

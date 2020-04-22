@@ -25,15 +25,6 @@ public abstract class UITooltipObject : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_disableCall();
 			return;
 		}
@@ -52,15 +43,6 @@ public abstract class UITooltipObject : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITooltipManager.Get().UpdateTooltip(this);
 			return;
 		}

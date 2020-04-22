@@ -24,10 +24,6 @@ namespace LobbyGameClientMessages
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return PersistedStats.GetGameplayStat(Type).Average();
 					}
 				}
@@ -54,10 +50,6 @@ namespace LobbyGameClientMessages
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
 					}
 				}

@@ -38,10 +38,6 @@ public class ClientBarrierResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -59,10 +55,6 @@ public class ClientBarrierResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_actorToHitResults[target].ExecuteActorHit(target, m_barrierCaster);
 					return;
 				}
@@ -79,15 +71,6 @@ public class ClientBarrierResults
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_posToHitResults[position].ExecutePositionHit();
 			return;
 		}

@@ -18,19 +18,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
@@ -50,15 +37,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnPlayerBannerChange -= OnPlayerBannerChange;
 			ClientGameManager.Get().OnPlayerTitleChange -= OnPlayerTitleChange;
 			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterUpdated;
@@ -96,19 +74,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		{
 			if (storeItemForPurchase.GetUnlockFreelancerCurrencyPrice() > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list2.Add(storeItemForPurchase);
 			}
 		}
@@ -119,25 +84,11 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		{
 			if (chatEmoticon.GetUnlockFreelancerCurrencyPrice() > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list2.Add(chatEmoticon);
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			list.AddRange(SortItems(list2));
 			list2.Clear();
 			GameBalanceVars.OverconUnlockData[] overcons = GameBalanceVars.Get().Overcons;
@@ -145,25 +96,11 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 			{
 				if (overconUnlockData.GetUnlockFreelancerCurrencyPrice() > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2.Add(overconUnlockData);
 				}
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				list.AddRange(SortItems(list2));
 				list2.Clear();
 				GameBalanceVars.PlayerBanner[] playerBanners = GameBalanceVars.Get().PlayerBanners;
@@ -171,15 +108,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 				{
 					if (playerBanner.GetUnlockFreelancerCurrencyPrice() > 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2.Add(playerBanner);
 					}
 				}
@@ -190,25 +118,11 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 				{
 					if (playerTitle.GetUnlockFreelancerCurrencyPrice() > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2.Add(playerTitle);
 					}
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					list.AddRange(SortItems(list2));
 					list2.Clear();
 					GameBalanceVars.LoadingScreenBackground[] loadingScreenBackgrounds = GameBalanceVars.Get().LoadingScreenBackgrounds;
@@ -216,25 +130,11 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						if (loadingScreenBackground.GetUnlockFreelancerCurrencyPrice() > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list2.Add(loadingScreenBackground);
 						}
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						list.AddRange(SortItems(list2));
 						list2.Clear();
 						GameBalanceVars.CharacterUnlockData[] characterUnlockData = GameBalanceVars.Get().characterUnlockData;
@@ -242,15 +142,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 						{
 							if (GameWideData.Get().GetCharacterResourceLink(characterUnlockData2.character).m_isHidden)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 							GameBalanceVars.SkinUnlockData[] skinUnlockData = characterUnlockData2.skinUnlockData;
@@ -264,15 +155,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 									{
 										if (colorUnlockData2.GetUnlockFreelancerCurrencyPrice() > 0)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											list2.Add(colorUnlockData2);
 										}
 									}
@@ -309,11 +191,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							return list.ToArray();
 						}
 					}
@@ -337,41 +214,10 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedBackgroundBannerID != item.ID)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedForegroundBannerID == item.ID) ? 1 : 0);
 					}
 					else
@@ -397,26 +243,8 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						if (ClientGameManager.Get() != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result2 = ((ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedTitleID == item.ID) ? 1 : 0);
 								goto IL_010f;
 							}
@@ -442,15 +270,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						if (ClientGameManager.Get() != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 							{
 								result3 = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID) ? 1 : 0);
@@ -474,30 +293,8 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 	{
 		if (m_ownedToggle.isOn)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (item is GameBalanceVars.ColorUnlockData)
@@ -516,11 +313,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							return !accountComponent.IsChatEmojiUnlocked(item.ID);
 						}
 					}
@@ -528,11 +320,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							return !accountComponent.UnlockedBannerIDs.Contains(item.ID);
 						}
 					}
@@ -540,11 +327,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							return !accountComponent.UnlockedTitleIDs.Contains(item.ID);
 						}
 					}
@@ -552,11 +334,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							return !accountComponent.IsLoadingScreenBackgroundUnlocked(item.ID);
 						}
 					}
@@ -574,15 +351,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 						}
 					}
 					goto IL_018d;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;
@@ -607,10 +375,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClientGameManager.Get().RequestTitleSelect(item.ID, null);
 					return;
 				}
@@ -642,11 +406,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
 				ClientGameManager.Get().RequestLoadingScreenBackgroundToggle(item.ID, !flag, null);
 				return;
@@ -663,19 +422,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 	{
 		if (item is GameBalanceVars.ColorUnlockData)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterType index = (CharacterType)item.Index1;
 			string text = StringUtil.TR_CharacterPatternColorDescription(index.ToString(), item.Index2 + 1, item.Index3 + 1, item.ID + 1);
 			if (text.Trim().Length > 0)
@@ -700,15 +446,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = StringUtil.TR_InventoryItemDescription((item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId);
 			if (text2.Trim().Length > 0)
 			{
@@ -756,19 +493,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		m_newItemToPurchase = new UIPurchaseableItem();
 		if (type == CurrencyType.NONE)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_newItemToPurchase.m_purchaseForCash = true;
 		}
 		else
@@ -777,86 +501,32 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		}
 		if (item is GameBalanceVars.OverconUnlockData)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.Overcon;
 			m_newItemToPurchase.m_overconID = item.ID;
 		}
 		else if (item is GameBalanceVars.ChatEmoticon)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.Emoticon;
 			m_newItemToPurchase.m_emoticonID = item.ID;
 		}
 		else if (item is GameBalanceVars.PlayerBanner)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.Banner;
 			m_newItemToPurchase.m_bannerID = item.ID;
 		}
 		else if (item is GameBalanceVars.PlayerTitle)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.Title;
 			m_newItemToPurchase.m_titleID = item.ID;
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.InventoryItem;
 			m_newItemToPurchase.m_inventoryTemplateId = (item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId;
 			m_newItemToPurchase.m_overlayText = (item as GameBalanceVars.StoreItemForPurchase).m_overlayText;
 		}
 		else if (item is GameBalanceVars.ColorUnlockData)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.ColorUnlockData colorUnlockData = item as GameBalanceVars.ColorUnlockData;
 			m_newItemToPurchase.m_itemType = PurchaseItemType.Tint;
 			m_newItemToPurchase.m_charLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)colorUnlockData.Index1);
@@ -866,15 +536,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		}
 		else if (item is GameBalanceVars.LoadingScreenBackground)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.LoadingScreenBackground;
 			m_newItemToPurchase.m_loadingScreenBackgroundId = item.ID;
 		}

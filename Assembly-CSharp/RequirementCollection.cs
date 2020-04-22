@@ -27,10 +27,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -58,11 +54,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (reader.TokenType != JsonToken.EndArray)
 				{
 					while (true)
@@ -104,10 +95,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0014;
 					}
 				}
@@ -150,19 +137,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		{
 			if (s_serializer == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				s_serializer = new Serializer();
 				s_serializer.AddTypes(QueueRequirement.MessageTypes);
 			}
@@ -178,15 +152,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<byte[]>.Enumerator enumerator = RequirementsAsBinaryData.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -196,15 +161,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					InternalSerializer.Deserialize(stream, out object arg);
 					if (arg != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (arg is QueueRequirement)
 						{
 							yield return arg as QueueRequirement;
@@ -234,19 +190,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			InternalSerializer.Serialize(memoryStream, item);
 			if (RequirementsAsBinaryData == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				RequirementsAsBinaryData = new List<byte[]>();
 			}
 			RequirementsAsBinaryData.Add(memoryStream.ToArray());
@@ -270,10 +213,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0009;
 				}
 			}
@@ -301,10 +240,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0009;
 				}
 			}
@@ -340,10 +275,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						enumerator.Dispose();
 						goto end_IL_0036;
 					}
@@ -375,23 +306,10 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.GenerateFailure(systemInfo, applicant, context);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -452,10 +370,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_001b;
 					}
 				}
@@ -471,19 +385,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 	{
 		if (m_dirty)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_dirty = false;
 			m_queueRequirementAsList.Clear();
 			using (IEnumerator<QueueRequirement> enumerator = GetEnumerator())

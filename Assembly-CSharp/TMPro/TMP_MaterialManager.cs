@@ -59,15 +59,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CleanupFallbackMaterials();
 				isFallbackListDirty = false;
 				return;
@@ -82,15 +73,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CleanupFallbackMaterials();
 				isFallbackListDirty = false;
 				return;
@@ -108,10 +90,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Debug.LogWarning("Selected Shader does not support Stencil Masking. Please select the Distance Field or Mobile Distance Field Shader.");
 						return baseMaterial;
 					}
@@ -122,15 +100,6 @@ namespace TMPro
 			{
 				if (m_materialList[i].baseMaterial.GetInstanceID() == instanceID)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_materialList[i].stencilID == stencilID)
 					{
 						m_materialList[i].count++;
@@ -140,11 +109,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				Material material = new Material(baseMaterial);
 				material.hideFlags = HideFlags.HideAndDontSave;
 				material.shaderKeywords = baseMaterial.shaderKeywords;
@@ -172,15 +136,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_materialList[i].count > 1)
 					{
 						while (true)
@@ -225,10 +180,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -241,19 +192,6 @@ namespace TMPro
 			material.SetFloat(ShaderUtilities.ID_StencilID, stencilID);
 			if (stencilID == 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				material.SetFloat(ShaderUtilities.ID_StencilComp, 8f);
 			}
 			else
@@ -276,10 +214,6 @@ namespace TMPro
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						MaskingMaterial maskingMaterial = new MaskingMaterial();
 						maskingMaterial.baseMaterial = baseMaterial;
 						maskingMaterial.stencilMaterial = stencilMaterial;
@@ -304,15 +238,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_materialList.RemoveAt(num);
 				return;
 			}
@@ -330,10 +255,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Debug.Log("No Masking Material exists for " + baseMaterial.name);
 						return;
 					}
@@ -370,10 +291,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Debug.Log("Material List has already been cleared.");
 						return;
 					}
@@ -411,10 +328,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return num;
 					}
 				}
@@ -434,56 +347,20 @@ namespace TMPro
 							Mask mask = list[num2];
 							if (mask != null && mask.MaskEnabled() && mask.graphic.IsActive())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 								break;
 							}
 							num2++;
 							continue;
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					if (parent == y)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					parent = parent.parent;
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -502,10 +379,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -534,32 +407,10 @@ namespace TMPro
 					canvas = list[num];
 					if (canvas.overrideSorting)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -567,15 +418,6 @@ namespace TMPro
 			object result;
 			if (canvas != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = canvas.transform;
 			}
 			else
@@ -595,30 +437,12 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value.fallbackMaterial;
 				}
 			}
 			Material material = null;
 			if (sourceMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 				{
 					material = new Material(sourceMaterial);
@@ -657,10 +481,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -672,11 +492,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				value2.count++;
 				return;
 			}
@@ -693,10 +508,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -708,22 +519,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					value2.count--;
 					if (value2.count < 1)
 					{
@@ -766,10 +567,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -777,26 +574,8 @@ namespace TMPro
 			int instanceID = fallackMaterial.GetInstanceID();
 			if (m_fallbackMaterialLookup.TryGetValue(instanceID, out long value))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value2.count--;
 					if (value2.count < 1)
 					{
@@ -815,15 +594,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!destination.HasProperty(ShaderUtilities.ID_GradientScale))
 				{
 					while (true)

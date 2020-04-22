@@ -59,32 +59,10 @@ public class UIDebugItem : MonoBehaviour
 		{
 			if (listener._000E())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text += "Ctrl+";
 			}
 			if (listener._0012())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Alt+";
 			}
 			if (listener._0015())
@@ -103,15 +81,6 @@ public class UIDebugItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemValue.text = m_listener.GetDebugItemValue();
 			return;
 		}
@@ -125,15 +94,6 @@ public class UIDebugItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DebugCommands.Get() != null)
 			{
 				DebugCommands.Get().OnIncreaseClick(m_listener);
@@ -150,24 +110,10 @@ public class UIDebugItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DebugCommands.Get() != null)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					DebugCommands.Get().OnDecreaseClick(m_listener);
 					return;
 				}

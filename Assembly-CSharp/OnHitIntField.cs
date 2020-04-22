@@ -50,15 +50,6 @@ public class OnHitIntField
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return onHitIntField;
 		}
 	}
@@ -75,73 +66,24 @@ public class OnHitIntField
 			float input = 0f;
 			if (numericContextOperand.m_nonActorSpecificContext)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityContext.ContainsInt(contextKey))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					input = abilityContext.GetInt(contextKey);
 					flag = true;
 				}
 				else if (abilityContext.ContaintFloat(contextKey))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					input = abilityContext.GetFloat(contextKey);
 					flag = true;
 				}
 			}
 			else if (hitContext._0015.ContainsInt(contextKey))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				input = hitContext._0015.GetInt(contextKey);
 				flag = true;
 			}
 			else if (hitContext._0015.ContaintFloat(contextKey))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				input = hitContext._0015.GetFloat(contextKey);
 				flag = true;
 			}
@@ -149,39 +91,12 @@ public class OnHitIntField
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float modifiedValue = numericContextOperand.m_modifier.GetModifiedValue(input);
 			if (numericContextOperand.m_additionalModifiers != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < numericContextOperand.m_additionalModifiers.Count; j++)
 				{
 					modifiedValue = numericContextOperand.m_additionalModifiers[j].GetModifiedValue(modifiedValue);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			int num2 = Mathf.RoundToInt(modifiedValue);
@@ -189,65 +104,24 @@ public class OnHitIntField
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (num < m_baseAddTotalMinValue)
 			{
 				num = m_baseAddTotalMinValue;
 			}
 			else if (num > m_baseAddTotalMaxValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_baseAddTotalMaxValue > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = m_baseAddTotalMaxValue;
 				}
 			}
 			baseValue += num;
 			if (baseValue < m_minValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseValue = m_minValue;
 			}
 			else if (baseValue > m_maxValue && m_maxValue > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseValue = m_maxValue;
 			}
 			return baseValue;
@@ -272,47 +146,16 @@ public class OnHitIntField
 		string str = "Field Type < " + InEditorDescHelper.ColoredString(m_hitType.ToString()) + " >\n";
 		if (!string.IsNullOrEmpty(m_identifier))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = str + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 		}
 		str = str + "Conditions:\n" + m_conditions._001D("    ");
 		str = str + "BaseValue= " + InEditorDescHelper.ColoredString(m_baseValue) + "\n";
 		if (m_minValue > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = str + "MinValue= " + InEditorDescHelper.ColoredString(m_minValue) + "\n";
 		}
 		if (m_maxValue > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = str + "MaxValue= " + InEditorDescHelper.ColoredString(m_maxValue) + "\n";
 		}
 		if (m_baseAddModifiers.Count > 0)

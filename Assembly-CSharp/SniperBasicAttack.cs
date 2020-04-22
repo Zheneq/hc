@@ -44,19 +44,6 @@ public class SniperBasicAttack : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_laserDamageAmount > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
 		}
 		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
@@ -68,31 +55,9 @@ public class SniperBasicAttack : Ability
 		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 		if (abilityUtil_Targeter_Laser != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData component = GetComponent<ActorData>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 				for (int i = 0; i < hitActorContext.Count; i++)
 				{
@@ -103,38 +68,15 @@ public class SniperBasicAttack : Ability
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						if (targetActor.GetTeam() != component.GetTeam())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int hitOrder = i;
 							AbilityUtil_Targeter_Laser.HitActorContext hitActorContext3 = hitActorContext[i];
 							int num = dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountByHitOrder(hitOrder, hitActorContext3.squaresFromCaster);
 						}
 						return dictionary;
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -148,19 +90,6 @@ public class SniperBasicAttack : Ability
 		int val;
 		if ((bool)abilityMod_SniperBasicAttack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SniperBasicAttack.m_damageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -172,15 +101,6 @@ public class SniperBasicAttack : Ability
 		int val2;
 		if ((bool)abilityMod_SniperBasicAttack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SniperBasicAttack.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
 		}
 		else
@@ -192,15 +112,6 @@ public class SniperBasicAttack : Ability
 		int val3;
 		if ((bool)abilityMod_SniperBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SniperBasicAttack.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
 		}
 		else
@@ -216,30 +127,8 @@ public class SniperBasicAttack : Ability
 		int num = GetBaseDamage();
 		if (GetFarDistanceThreshold() > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (distanceFromCasterInSquares > GetFarDistanceThreshold() && GetFarEnemyDamageAmount() > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = GetFarEnemyDamageAmount();
 			}
 		}
@@ -282,21 +171,8 @@ public class SniperBasicAttack : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_abilityMod.m_useTargetDataOverrides)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_abilityMod.m_targetDataOverrides.Length > 0)
 						{
 							return m_abilityMod.m_targetDataOverrides[0].m_range;
@@ -313,30 +189,8 @@ public class SniperBasicAttack : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useTargetDataOverrides)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_targetDataOverrides.Length > 0)
 				{
 					return !m_abilityMod.m_targetDataOverrides[0].m_checkLineOfSight;
@@ -351,19 +205,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserInfo.maxTargets;
 		}
 		else
@@ -378,19 +219,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else
@@ -405,19 +233,6 @@ public class SniperBasicAttack : Ability
 		int b;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			b = m_minDamageAmount;
 		}
 		else
@@ -432,19 +247,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageChangePerHit;
 		}
 		else
@@ -464,19 +266,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else

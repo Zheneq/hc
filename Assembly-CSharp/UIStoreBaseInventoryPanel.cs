@@ -32,55 +32,15 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			m_canAfford = false;
 			if (item.IsOwned())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.CanStillPurchaseIfOwned())
 				{
 					goto IL_006e;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!item.m_unlockData.UnlockConditions.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().AreUnlockConditionsMet(item, true))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_006e;
 				}
 			}
@@ -98,43 +58,16 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 						{
 							if (item.Prices.Prices[num].Currency.ToString() == accountCurrency)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_realCurrencyData = new CountryPrice();
 								m_realCurrencyData.Currency = item.Prices.Prices[num].Currency;
 								m_realCurrencyData.Price = item.Prices.Prices[num].Price;
 								if (item is GameBalanceVars.StoreItemForPurchase)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int itemTemplateId = ((GameBalanceVars.StoreItemForPurchase)item).m_itemTemplateId;
 									m_realCurrencyData.Price = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, accountCurrency, out float _);
 								}
 								else if (item is GameBalanceVars.ColorUnlockData)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_realCurrencyData.Price = CommerceClient.Get().GetStylePrice((CharacterType)item.Index1, item.Index2, item.Index3, item.ID, accountCurrency);
 								}
 								break;
@@ -142,43 +75,16 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 							num++;
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
 				if (m_realCurrencyData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_realCurrencyData.Price <= 0f))
 					{
 						UIManager.SetGameObjectActive(m_container, true);
 						m_canAfford = true;
 						goto IL_02aa;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UIManager.SetGameObjectActive(m_container, false);
@@ -201,30 +107,12 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			bool flag2 = false;
 			if (flag && item is GameBalanceVars.ColorUnlockData)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType index = (CharacterType)item.Index1;
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(index);
 				CharacterColor characterColor = characterResourceLink.m_skins[item.Index2].m_patterns[item.Index3].m_colors[item.ID];
 				flag2 = (characterColor.m_requiredLevelForEquip > ClientGameManager.Get().GetPlayerCharacterLevel(index));
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -232,15 +120,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			int disabled;
 			if (m_canAfford)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disabled = ((!flag) ? 1 : 0);
 			}
 			else
@@ -251,37 +130,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			m_tooltipMessage = null;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!item.PurchaseDescription.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_tooltipMessage = item.GetPurchaseDescription();
 					}
 				}
@@ -291,15 +143,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			switch (currencyType)
 			{
 			default:
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currencyType != CurrencyType.NONE)
 				{
 					while (true)
@@ -344,11 +187,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -445,15 +283,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -463,25 +292,12 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 	{
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache1 = delegate
 			{
 			};
 		}
 		this.OnCountsRefreshed = _003C_003Ef__am_0024cache1;
-		base._002Ector();
+		
 	}
 
 	protected abstract GameBalanceVars.PlayerUnlockable[] GetRawItemsList();
@@ -516,19 +332,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		CurrencyData currencyData = new CurrencyData();
 		if (type == CurrencyType.ISO)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			currencyData.Amount = item.GetUnlockISOPrice();
 		}
 		else if (type == CurrencyType.FreelancerCurrency)
@@ -537,15 +340,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		else if (type == CurrencyType.RankedCurrency)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			currencyData.Amount = item.GetUnlockRankedCurrencyPrice();
 		}
 		else
@@ -577,10 +371,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -589,15 +379,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		InitRawItemsList();
 		if (HitchDetector.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(m_itemsGrid);
 		}
 		m_pageNum = 0;
@@ -615,15 +396,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		Image component = GetComponent<Image>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, OnScroll);
 		}
 		Toggle[] filters = GetFilters();
@@ -633,11 +405,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
 				RefreshVisibleItemsList();
@@ -669,19 +436,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		Initialize();
 		if (m_isFreelancerItems)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
 		}
 		else
@@ -699,15 +453,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isFreelancerItems)
 			{
 				ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
@@ -732,10 +477,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RefreshVisibleItemsList();
 					ShowPage(m_pageNum);
 					return;
@@ -758,15 +499,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdatePanel();
 			return;
 		}
@@ -791,24 +523,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (isUpdatePending)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					RefreshVisibleItemsList();
 					ShowPage(m_pageNum);
 					isUpdatePending = false;
@@ -851,26 +569,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((AdjustedPlayerUnlockable first, AdjustedPlayerUnlockable second) => first.AdjustedSortOrder.CompareTo(second.AdjustedSortOrder));
 			}
 			list.Sort(_003C_003Ef__am_0024cache0);
@@ -882,22 +582,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (list2.Count > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (list2[list2.Count - 1].m_sortOrder != 0)
 					{
 						while (list2[0].m_sortOrder == 0)
@@ -925,33 +611,11 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			{
 				if (!gameplayOverrides.IsColorAllowed((CharacterType)m_rawItemsList[i].Index1, m_rawItemsList[i].Index2, m_rawItemsList[i].Index3, m_rawItemsList[i].ID))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					continue;
 				}
 			}
 			else if (m_rawItemsList[i] is GameBalanceVars.PlayerRibbon)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!FactionWideData.Get().IsRibbonInCompetition(m_rawItemsList[i].ID, ClientGameManager.Get().ActiveFactionCompetition))
 				{
 					continue;
@@ -962,15 +626,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				int num;
 				if (!m_rawItemsList[i].m_isHidden)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((!GameBalanceVarsExtensions.MeetsVisibilityConditions(m_rawItemsList[i])) ? 1 : 0);
 				}
 				else
@@ -980,53 +635,17 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				bool flag = (byte)num != 0;
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_rawItemsList[i] is GameBalanceVars.ColorUnlockData)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_rawItemsList[i].Index1).skinUnlockData[m_rawItemsList[i].Index2].m_isHidden;
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_rawItemsList[i].Index1).skinUnlockData[m_rawItemsList[i].Index2].patternUnlockData[m_rawItemsList[i].Index3].m_isHidden;
 						}
 					}
 				}
 				if (!enableHiddenCharacters && flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -1037,15 +656,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			m_numTotal++;
 			if (ShouldFilter(m_rawItemsList[i]))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1054,24 +664,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			this.OnCountsRefreshed(this, m_numOwned, m_numTotal);
 			m_numberOfPages = m_visibleItemsList.Count / m_itemBtns.Length;
 			if (m_visibleItemsList.Count % m_itemBtns.Length > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_numberOfPages++;
 			}
 			for (int j = m_pageMarkers.Count; j < m_numberOfPages; j++)
@@ -1088,11 +684,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				int num2;
 				for (num2 = m_numberOfPages; num2 < m_pageMarkers.Count; num2++)
 				{
@@ -1102,11 +693,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_nextPage.transform.parent.SetAsLastSibling();
 					m_prevPage.callback = ClickedOnPrevPage;
 					m_nextPage.callback = ClickedOnNextPage;
@@ -1128,15 +714,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ShowPage(i);
 				return;
 			}
@@ -1166,10 +743,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClickedOnPrevPage(null);
 					return;
 				}
@@ -1182,11 +755,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			ClickedOnNextPage(null);
 			return;
 		}
@@ -1203,10 +771,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1226,10 +790,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1247,26 +807,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_pageNum != pageNum)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentSelectedButton = null;
 			}
 			m_pageNum = pageNum;
@@ -1277,15 +819,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				int num2 = j + num;
 				if (num2 < m_visibleItemsList.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerUnlockable = m_visibleItemsList[num2];
 				}
 				m_itemBtns[j].Setup(playerUnlockable);
@@ -1297,11 +830,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_currentSelectedButton != null)
 				{
 					while (true)
@@ -1350,19 +878,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 	{
 		if (m_currentSelectedButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_currentSelectedButton.m_selectableBtn.m_selectedContainer, false);
 		}
 		m_currentSelectedItem = item;
@@ -1387,36 +902,13 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		{
 			if (m_buyButtons[i].Setup(item, this))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = true;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (item is GameBalanceVars.StoreItemForPurchase)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_buyLabel.text = StringUtil.TR("Purchase", "Global");
 			}
 			else
@@ -1435,30 +927,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		{
 			if (unlockable is GameBalanceVars.PlayerTitle)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (template.Type == InventoryItemType.TitleID)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
 						while (true)
@@ -1476,26 +946,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.PlayerBanner)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.BannerID)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
 						while (true)
@@ -1513,37 +965,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.SkinUnlockData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Skin)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == template.TypeSpecificData[0])
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[1])
 						{
 							while (true)
@@ -1562,37 +987,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.PatternUnlockData && template.Type == InventoryItemType.Texture)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == template.TypeSpecificData[1])
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[2])
 						{
 							while (true)
@@ -1611,37 +1009,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.ColorUnlockData)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Style && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == template.TypeSpecificData[1] && unlockable.Index3 == template.TypeSpecificData[2])
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[3])
 						{
 							while (true)
@@ -1660,37 +1031,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.TauntUnlockData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Taunt)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == template.TypeSpecificData[0])
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == template.TypeSpecificData[1])
 						{
 							while (true)
@@ -1709,26 +1053,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.AbilityModUnlockData)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.Mod && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[1])
 					{
 						while (true)
@@ -1746,26 +1072,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.AbilityVfxUnlockData)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.AbilityVfxSwap && unlockable.Index1 == template.TypeSpecificData[0])
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[1])
 					{
 						while (true)
@@ -1783,26 +1091,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.ChatEmoticon)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.ChatEmoji)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == template.TypeSpecificData[0])
 					{
 						while (true)
@@ -1820,15 +1110,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.OverconUnlockData && template.Type == InventoryItemType.Overcon)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.ID == template.TypeSpecificData[0])
 				{
 					while (true)
@@ -1845,26 +1126,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.StoreItemForPurchase)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.FreelancerExpBonus)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((unlockable as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId == template.Index)
 					{
 						while (true)
@@ -1882,15 +1145,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.LoadingScreenBackground && template.Type == InventoryItemType.LoadingScreenBackground)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.ID == template.TypeSpecificData[0])
 				{
 					while (true)
@@ -1920,10 +1174,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return SelectItem(InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId));
 				}
 			}
@@ -1932,19 +1182,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		{
 			if (unlockable is GameBalanceVars.PlayerTitle && item.m_itemType == PurchaseItemType.Title)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (unlockable.ID == item.m_titleID)
 				{
 					while (true)
@@ -1961,26 +1198,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.PlayerBanner)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Banner)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == item.m_bannerID)
 					{
 						while (true)
@@ -1998,37 +1217,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.SkinUnlockData)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Skin)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == item.m_skinIndex)
 						{
 							while (true)
@@ -2047,37 +1239,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.PatternUnlockData)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Texture)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.Index2 == item.m_skinIndex && unlockable.ID == item.m_textureIndex)
 						{
 							while (true)
@@ -2096,48 +1261,12 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.ColorUnlockData)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Tint && unlockable.Index1 == (int)item.m_charLink.m_characterType)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index2 == item.m_skinIndex)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.Index3 == item.m_textureIndex)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (unlockable.ID == item.m_tintIndex)
 							{
 								return true;
@@ -2148,37 +1277,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.TauntUnlockData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Taunt)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockable.ID == item.m_tauntIndex)
 						{
 							while (true)
@@ -2197,26 +1299,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.AbilityVfxUnlockData && item.m_itemType == PurchaseItemType.AbilityVfx)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockable.Index1 == (int)item.m_charLink.m_characterType)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == item.m_abilityVfxID)
 					{
 						return true;
@@ -2225,15 +1309,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.ChatEmoticon)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Emoticon && unlockable.ID == item.m_emoticonID)
 				{
 					while (true)
@@ -2250,15 +1325,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.OverconUnlockData)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Overcon && unlockable.ID == item.m_overconID)
 				{
 					while (true)
@@ -2275,15 +1341,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.LoadingScreenBackground)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.LoadingScreenBackground && unlockable.ID == item.m_loadingScreenBackgroundId)
 				{
 					while (true)
@@ -2300,26 +1357,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			if (unlockable is GameBalanceVars.CharacterUnlockData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType == PurchaseItemType.Character)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockable.ID == (int)item.m_charLink.m_characterType)
 					{
 						while (true)
@@ -2351,28 +1390,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = i % m_itemBtns.Length;
 				int pageNum;
 				if (i > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					pageNum = i / m_itemBtns.Length;
 				}
 				else
@@ -2386,11 +1407,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -2407,10 +1423,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -2422,15 +1434,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			GameObject y;
 			if (isHover)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				y = pointerEventData.pointerEnter;
 			}
 			else
@@ -2457,10 +1460,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2472,11 +1471,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (buyButton.CanAfford())
 			{
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
@@ -2499,10 +1493,6 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					(tooltip as UITitledTooltip).Setup(StringUtil.TR("Purchase", "Global"), tooltipMessage, string.Empty);
 					return true;
 				}

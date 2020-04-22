@@ -62,19 +62,6 @@ public class BazookaGirlDelayedMissile : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damage;
 		}
 		else
@@ -95,10 +82,6 @@ public class BazookaGirlDelayedMissile : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_onCastEnemyHitEffect;
 				}
 			}
@@ -111,19 +94,6 @@ public class BazookaGirlDelayedMissile : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
@@ -144,10 +114,6 @@ public class BazookaGirlDelayedMissile : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_additionalShapeToHitInfoMod.Count > 0;
 				}
 			}
@@ -175,19 +141,6 @@ public class BazookaGirlDelayedMissile : Ability
 		StandardEffectInfo result;
 		if (m_cachedOnExplosionEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOnExplosionEffect;
 		}
 		else
@@ -221,10 +174,6 @@ public class BazookaGirlDelayedMissile : Ability
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0047;
 					}
 				}
@@ -246,15 +195,6 @@ public class BazookaGirlDelayedMissile : Ability
 				{
 					ShapeToHitInfo current2 = enumerator2.Current;
 					m_additionalShapes.Add(current2.m_shape);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -291,26 +231,8 @@ public class BazookaGirlDelayedMissile : Ability
 			AbilityUtil_Targeter_BazookaGirlDelayedMissile abilityUtil_Targeter_BazookaGirlDelayedMissile = new AbilityUtil_Targeter_BazookaGirlDelayedMissile(this, GetShape(), m_penetrateLineOfSight, false, AbilityAreaShape.SingleSquare);
 			if (GetUseFakeMarkerIndexStart() > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i >= GetUseFakeMarkerIndexStart())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityUtil_Targeter_BazookaGirlDelayedMissile.SetTooltipSubjectTypes(AbilityTooltipSubject.Quaternary, AbilityTooltipSubject.Quaternary);
 					abilityUtil_Targeter_BazookaGirlDelayedMissile.SetAffectedGroups(false, false, false);
 				}
@@ -325,30 +247,8 @@ public class BazookaGirlDelayedMissile : Ability
 		int result = 1;
 		if (m_abilityMod != null && m_abilityMod.m_useTargetDataOverrides)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_targetDataOverrides.Length > 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_abilityMod.m_targetDataOverrides.Length;
 			}
 		}
@@ -379,10 +279,6 @@ public class BazookaGirlDelayedMissile : Ability
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
 						using (List<AbilityUtil_Targeter_MultipleShapes.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
 						{
@@ -421,15 +317,6 @@ public class BazookaGirlDelayedMissile : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmount();
 			}
 			return dictionary;
@@ -443,19 +330,6 @@ public class BazookaGirlDelayedMissile : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_BazookaGirlDelayedMissile.m_effectOnEnemyOnCastOverride.GetModifiedValue(m_onCastEnemyHitEffect);
 		}
 		else
@@ -467,15 +341,6 @@ public class BazookaGirlDelayedMissile : Ability
 		int val;
 		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_BazookaGirlDelayedMissile.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -486,15 +351,6 @@ public class BazookaGirlDelayedMissile : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_BazookaGirlDelayedMissile)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BazookaGirlDelayedMissile.m_onExplosionEffectMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
@@ -524,41 +380,10 @@ public class BazookaGirlDelayedMissile : Ability
 		List<ShapeToHitInfo> shapeToHitInfo = GetShapeToHitInfo();
 		if (index > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UseAdditionalShapes())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (index <= m_additionalShapes.Count)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = shapeToHitInfo[index - 1].m_damage;
 				}
 			}
@@ -571,19 +396,6 @@ public class BazookaGirlDelayedMissile : Ability
 		int result;
 		if (animIndex != m_explosionAnimationIndex)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
@@ -601,15 +413,6 @@ public class BazookaGirlDelayedMissile : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_BazookaGirlDelayedMissile);
 			SetupTargeter();
 			return;

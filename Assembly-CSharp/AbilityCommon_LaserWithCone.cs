@@ -8,19 +8,6 @@ public class AbilityCommon_LaserWithCone
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(adjustedEndPoint);
 		if (boardSquare != null && boardSquare.HasFullCoverFromAnyDirection_zq())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = adjustedEndPoint - startPos;
 			vector.y = 0f;
 			float maxDistance = vector.magnitude + 0.1f;
@@ -29,15 +16,6 @@ public class AbilityCommon_LaserWithCone
 			LayerMask mask = 1 << VectorUtils.s_raycastLayerDynamicLineOfSight;
 			if (Physics.Raycast(origin, vector, out RaycastHit hitInfo, maxDistance, mask))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((hitInfo.collider.gameObject.layer & VectorUtils.s_raycastLayerDynamicLineOfSight) != 0)
 				{
 					while (true)

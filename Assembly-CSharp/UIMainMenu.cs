@@ -77,19 +77,6 @@ public class UIMainMenu : MonoBehaviour
 		}
 		if (m_menuListCanvasGroup != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_menuListCanvasGroup.interactable = visible;
 			m_menuListCanvasGroup.blocksRaycasts = visible;
 		}
@@ -99,11 +86,6 @@ public class UIMainMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_menuBtn.SetSelected(visible, false, string.Empty, string.Empty);
 			return;
 		}
@@ -185,40 +167,13 @@ public class UIMainMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = true;
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (AppState_GroupCharacterSelect.Get().InQueue())
@@ -233,11 +188,6 @@ public class UIMainMenu : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					componentInChildren.color = Color.white;
@@ -260,75 +210,21 @@ public class UIMainMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = true;
 			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIMainMenu componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UIMainMenu>();
 						bool flag2 = false;
 						if (componentInParent == null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								while (true)
 								{
 									if (componentInParent2 != null)
@@ -336,29 +232,11 @@ public class UIMainMenu : MonoBehaviour
 										_SelectableBtn menuBtn = UIFrontEnd.Get().m_frontEndNavPanel.m_menuBtn;
 										if (componentInParent2 == menuBtn)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag2 = true;
 											break;
 										}
 										componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
 										continue;
-									}
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									break;
 								}
@@ -375,11 +253,6 @@ public class UIMainMenu : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					SetMenuVisible(false);
 					return;
 				}

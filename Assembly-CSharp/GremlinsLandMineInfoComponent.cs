@@ -62,118 +62,33 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		int num = m_mineDuration;
 		if (m_dropMinesAbility != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_dropMinesAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_dropMinesAbility.GetMod().m_mineDurationMod.GetModifiedValue(num);
 			}
 		}
 		if (m_bigBangAbility != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bigBangAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_bigBangAbility.GetMod().m_mineDurationMod.GetModifiedValue(num);
 			}
 		}
 		if (m_bombingRunAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bombingRunAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_bombingRunAbility.GetMod().m_mineDurationMod.GetModifiedValue(num);
 			}
 		}
 		if (m_basicAttackAbility != null && m_basicAttackAbility.GetMod() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_basicAttackAbility.GetMod().m_mineDurationMod.GetModifiedValue(num);
 		}
 		if (m_ultAbility != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_ultAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_ultAbility.GetMod().m_mineDurationMod.GetModifiedValue(num);
 			}
 		}
@@ -185,118 +100,33 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		int num = m_damageAmount;
 		if (m_dropMinesAbility != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_dropMinesAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_dropMinesAbility.GetMod().m_mineDamageMod.GetModifiedValue(num);
 			}
 		}
 		if (m_bigBangAbility != null && m_bigBangAbility.GetMod() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_bigBangAbility.GetMod().m_mineDamageMod.GetModifiedValue(num);
 		}
 		if (m_bombingRunAbility != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bombingRunAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_bombingRunAbility.GetMod().m_mineDamageMod.GetModifiedValue(num);
 			}
 		}
 		if (m_basicAttackAbility != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_basicAttackAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_basicAttackAbility.GetMod().m_mineDamageMod.GetModifiedValue(num);
 			}
 		}
 		if (m_ultAbility != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_ultAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_ultAbility.GetMod().m_mineDamageMod.GetModifiedValue(num);
 			}
 		}
@@ -308,32 +138,10 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		StandardEffectInfo standardEffectInfo = m_enemyHitEffect;
 		if (m_dropMinesAbility != null && m_dropMinesAbility.GetMod() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardEffectInfo = m_dropMinesAbility.GetMod().m_effectOnEnemyOverride.GetModifiedValue(standardEffectInfo);
 		}
 		if (m_bigBangAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bigBangAbility.GetMod() != null)
 			{
 				standardEffectInfo = m_bigBangAbility.GetMod().m_effectOnEnemyOverride.GetModifiedValue(standardEffectInfo);
@@ -341,51 +149,15 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		}
 		if (m_bombingRunAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bombingRunAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				standardEffectInfo = m_bombingRunAbility.GetMod().m_effectOnEnemyOverride.GetModifiedValue(standardEffectInfo);
 			}
 		}
 		if (m_basicAttackAbility != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_basicAttackAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				standardEffectInfo = m_basicAttackAbility.GetMod().m_effectOnEnemyOverride.GetModifiedValue(standardEffectInfo);
 			}
 		}
@@ -401,44 +173,13 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		int num = m_energyGainOnExplosion;
 		if (m_dropMinesAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_dropMinesAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_dropMinesAbility.GetMod().m_energyOnMineExplosionMod.GetModifiedValue(num);
 			}
 		}
 		if (m_bigBangAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bigBangAbility.GetMod() != null)
 			{
 				num = m_bigBangAbility.GetMod().m_energyOnMineExplosionMod.GetModifiedValue(num);
@@ -446,65 +187,20 @@ public class GremlinsLandMineInfoComponent : MonoBehaviour
 		}
 		if (m_bombingRunAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_bombingRunAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_bombingRunAbility.GetMod().m_energyOnMineExplosionMod.GetModifiedValue(num);
 			}
 		}
 		if (m_basicAttackAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_basicAttackAbility.GetMod() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_basicAttackAbility.GetMod().m_energyOnMineExplosionMod.GetModifiedValue(num);
 			}
 		}
 		if (m_ultAbility != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_ultAbility.GetMod() != null)
 			{
 				num = m_ultAbility.GetMod().m_energyOnMineExplosionMod.GetModifiedValue(num);

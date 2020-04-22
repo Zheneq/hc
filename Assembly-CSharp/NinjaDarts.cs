@@ -75,19 +75,6 @@ public class NinjaDarts : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "NinjaDarts";
 		}
 		SetupTargeter();
@@ -98,44 +85,13 @@ public class NinjaDarts : Ability
 		SetCachedFields();
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
 		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, GetLaserCount(), GetLaserInfo(), GetAngleInBetween(), ChangeAngleByCursorDistance(), GetTargeterMinAngle(), GetTargeterMaxAngle(), GetTargeterMinInterpDistance(), GetTargeterMaxInterpDistance());
 		if (ChangeAngleByCursorDistance())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
 				abilityUtil_Targeter_ThiefFanLaser.m_customDamageOriginDelegate = GetCustomDamageOriginForTargeter;
 			}
@@ -147,19 +103,6 @@ public class NinjaDarts : Ability
 	{
 		if (IgnoreCoverOnTargets())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ActorIsMarked(potentialActor))
 			{
 				while (true)
@@ -212,19 +155,6 @@ public class NinjaDarts : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -235,15 +165,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemySingleHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemySingleHitEffect = m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(m_enemySingleHitEffect);
 		}
 		else
@@ -254,15 +175,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemyMultiHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultiHitEffect = m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		}
 		else
@@ -273,15 +185,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemyExtraHitEffectForHitCount;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyExtraHitEffectForHitCount = m_abilityMod.m_enemyExtraHitEffectForHitCountMod.GetModifiedValue(m_enemyExtraHitEffectForHitCount);
 		}
 		else
@@ -292,15 +195,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedAllySingleHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllySingleHitEffect = m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(m_allySingleHitEffect);
 		}
 		else
@@ -316,19 +210,6 @@ public class NinjaDarts : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -343,19 +224,6 @@ public class NinjaDarts : Ability
 		int num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_laserCountMod.GetModifiedValue(m_laserCount);
 		}
 		else
@@ -376,19 +244,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(m_changeAngleByCursorDistance);
 		}
 		else
@@ -403,19 +258,6 @@ public class NinjaDarts : Ability
 		float num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_targeterMinAngleMod.GetModifiedValue(m_targeterMinAngle);
 		}
 		else
@@ -437,19 +279,6 @@ public class NinjaDarts : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targeterMinInterpDistanceMod.GetModifiedValue(m_targeterMinInterpDistance);
 		}
 		else
@@ -464,19 +293,6 @@ public class NinjaDarts : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targeterMaxInterpDistanceMod.GetModifiedValue(m_targeterMaxInterpDistance);
 		}
 		else
@@ -491,19 +307,6 @@ public class NinjaDarts : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -518,19 +321,6 @@ public class NinjaDarts : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamagePerSubseqHitMod.GetModifiedValue(m_extraDamagePerSubseqHit);
 		}
 		else
@@ -545,19 +335,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemySingleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemySingleHitEffect;
 		}
 		else
@@ -572,19 +349,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyMultiHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyMultiHitEffect;
 		}
 		else
@@ -599,19 +363,6 @@ public class NinjaDarts : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyExtraEffectHitCountMod.GetModifiedValue(m_enemyExtraEffectHitCount);
 		}
 		else
@@ -631,19 +382,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllySingleHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllySingleHitEffect;
 		}
 		else
@@ -658,19 +396,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyMultiHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyMultiHitEffect;
 		}
 		else
@@ -685,19 +410,6 @@ public class NinjaDarts : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyPerDartHitMod.GetModifiedValue(m_energyPerDartHit);
 		}
 		else
@@ -712,19 +424,6 @@ public class NinjaDarts : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnMissMod.GetModifiedValue(m_cdrOnMiss);
 		}
 		else
@@ -739,19 +438,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
 		}
 		else
@@ -766,19 +452,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignoreCoverOnTargetsMod.GetModifiedValue(m_ignoreCoverOnTargets);
 		}
 		else
@@ -800,22 +473,9 @@ public class NinjaDarts : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = GetDamage();
 					if (GetExtraDamagePerSubseqHit() > 0 && numHits > 1)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraDamagePerSubseqHit() * (numHits - 1);
 					}
 					return num;
@@ -831,19 +491,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
 		}
 		else
@@ -881,10 +528,6 @@ public class NinjaDarts : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 					return tooltipSubjectCountTotalWithDuplicates * GetEnergyPerDartHit();
 				}
@@ -898,30 +541,8 @@ public class NinjaDarts : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp.m_deathmarkOnTriggerDamage > 0 && m_syncComp.ActorHasDeathmark(targetActor))
 				{
 					while (true)
@@ -960,15 +581,6 @@ public class NinjaDarts : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NinjaDarts);
 			SetupTargeter();
 			return;

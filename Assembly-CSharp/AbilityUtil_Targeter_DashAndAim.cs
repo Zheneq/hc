@@ -63,15 +63,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_highlights[0].SetActive(false);
 			m_highlights[1].SetActive(false);
 			return;
@@ -93,19 +84,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		AbilityTarget abilityTarget;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityTarget = currentTarget;
 		}
 		else
@@ -136,15 +114,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float laserRange = m_laserRange;
 			float widthInWorld = m_laserWidth * Board.Get().squareSize;
 			Vector3 vector2 = getClampedLaserDirection(targets[0], currentTarget, vector);
@@ -164,28 +133,10 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					AddActorInRange(current, laserCoords.start, targetingActor);
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			bool flag = false;
 			if (m_highlights.Count < num + 2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f));
 				m_highlights.Add(HighlightUtils.Get().CreateConeCursor(m_aoeRadius * Board.Get().squareSize, 360f));
 				flag = true;
@@ -196,15 +147,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			Vector3 vector3 = end;
 			if (!m_aoePenetratesLoS)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector3 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(laserCoords.start, laserCoords.end);
 			}
 			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, m_aoeRadius, 0f, m_aoePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null, true, vector3);
@@ -216,40 +158,13 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					ActorData current2 = enumerator2.Current;
 					if (!actorsInLaser.Contains(current2))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(current2, end, targetingActor, AbilityTooltipSubject.Secondary, true);
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Vector3 position = end;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				position = TargeterUtils.MoveHighlightTowards(end, gameObject4, ref m_cursorSpeed);
 			}
 			position.y = (float)Board.Get().BaselineHeight + 0.1f;
@@ -260,15 +175,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			gameObject3.transform.position = laserCoords.start + new Vector3(0f, 0.1f - BoardSquare.s_LoSHeightOffset, 0f);
 			if (vector2 != Vector3.zero)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject3.transform.rotation = Quaternion.LookRotation(vector2);
 			}
 			if (GameFlowData.Get().activeOwnedActorData == targetingActor)
@@ -289,28 +195,10 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquarePathInfo boardSquarePathInfo = null;
 			BoardSquare boardSquareSafe2;
 			if (currentTargetIndex == 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			}
 			else
@@ -319,15 +207,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			}
 			if (boardSquareSafe2 != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_teleportPath)
 				{
 					boardSquarePathInfo = new BoardSquarePathInfo();
@@ -351,11 +230,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 			return;
 		}

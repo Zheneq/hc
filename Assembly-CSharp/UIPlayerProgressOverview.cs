@@ -51,19 +51,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			StatBucket = statBucket;
 			if (Season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				DisplayString = StringUtil.TR("CurrentSeason", "Global");
 			}
 			else
@@ -144,15 +131,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 		int i;
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterData == null)
 			{
 				while (true)
@@ -169,15 +147,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			i = 0;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.Matches);
 			}
 			using (IEnumerator<PersistedCharacterData> enumerator = characterData.OrderByDescending(_003C_003Ef__am_0024cache0).Take(m_mostUsedHeroDisplays.Length).GetEnumerator())
@@ -187,27 +156,9 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 					PersistedCharacterData current = enumerator.Current;
 					if (current.ExperienceComponent.Matches > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_mostUsedHeroDisplays[i].Setup(current);
 						i++;
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			for (; i < m_mostUsedHeroDisplays.Length; i++)
@@ -216,11 +167,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				int num = 0;
 				int num2 = 0;
 				int num3 = 0;
@@ -231,15 +177,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						PersistedCharacterData current2 = enumerator2.Current;
 						if (!current2.CharacterType.IsValidForHumanGameplay())
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -252,41 +189,14 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 								}
 								else if (characterResourceLink.m_characterRole == CharacterRole.Tank)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num += current2.ExperienceComponent.Matches;
 								}
 								else if (characterResourceLink.m_characterRole == CharacterRole.Support)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 += current2.ExperienceComponent.Matches;
 								}
 							}
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				int num4 = num2 + num + num3;
@@ -305,54 +215,18 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						PersistedCharacterData current3 = enumerator3.Current;
 						if (!current3.CharacterType.IsValidForHumanGameplay())
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (!flag)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameWideData.Get().GetCharacterResourceLink(current3.CharacterType).m_isHidden)
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							num5 += current3.ExperienceComponent.Level - 1;
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UIManager.SetGameObjectActive(m_rankDisplayContainer, false);
@@ -367,10 +241,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (!m_isDestroyed)
 								{
 									while (true)
@@ -405,15 +275,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				});
 				if (m_freelancerComparisonDropdown.Initialize())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					IEnumerator enumerator4 = Enum.GetValues(typeof(OverviewStat)).GetEnumerator();
 					try
 					{
@@ -421,15 +282,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						{
 							OverviewStat overviewStat = (OverviewStat)enumerator4.Current;
 							m_freelancerComparisonDropdown.AddOption((int)overviewStat, StringUtil.TR("FreelancerOverviewCategory_" + overviewStat, "Global"));
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					finally
@@ -461,41 +313,14 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				}
 				if (m_seasonBucketDropdown.Initialize())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_seasonBuckets = new List<SeasonBucket>();
 					List<SeasonTemplate> list = new List<SeasonTemplate>();
 					for (i = 0; i < SeasonWideData.Get().m_seasons.Count; i++)
 					{
 						if (!SeasonWideData.Get().m_seasons[i].IsTutorial)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(SeasonWideData.Get().m_seasons[i]);
 						}
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					list.Reverse();
 					foreach (SeasonTemplate item in list)
@@ -512,15 +337,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 									m_seasonBucketDropdown.AddOption(m_seasonBuckets.Count, seasonBucket.DisplayString);
 									m_seasonBuckets.Add(seasonBucket);
 								}
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						finally
@@ -557,11 +373,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_freelancerComparisonList = new List<UIFreelancerComparisonItem>();
 					m_freelancerComparisonList.AddRange(m_freelancerComparisonGrid.GetComponentsInChildren<UIFreelancerComparisonItem>(true));
 					m_freelancerComparisonMap = new Dictionary<CharacterType, UIFreelancerComparisonItem>();
@@ -573,26 +384,8 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag && characterResourceLink2.m_isHidden)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						CharacterConfig characterConfig = GameManager.Get().GameplayOverrides.GetCharacterConfig(characterResourceLink2.m_characterType);
@@ -603,15 +396,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						UIFreelancerComparisonItem uIFreelancerComparisonItem;
 						if (i < m_freelancerComparisonList.Count)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uIFreelancerComparisonItem = m_freelancerComparisonList[i];
 						}
 						else
@@ -651,26 +435,8 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentSeasonBucket < 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_seasonBucketDropdownBtn, false);
 			}
 			else
@@ -682,15 +448,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				PersistedStatBucket statBucket = m_seasonBuckets[m_currentSeasonBucket].StatBucket;
 				if (m_overviewStat == OverviewStat.NumBadges)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 					using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator = clientGameManager.GetAllPlayerCharacterData().Values.GetEnumerator())
 					{
@@ -699,30 +456,12 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 							PersistedCharacterData current = enumerator.Current;
 							if (!m_freelancerComparisonMap.ContainsKey(current.CharacterType))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								Dictionary<PersistedStatBucket, Dictionary<int, int>> dictionary;
 								if (flag)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									dictionary = current.ExperienceComponent.BadgesEarned;
 								}
 								else
@@ -735,27 +474,9 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 								}
 								if (dictionary.ContainsKey(statBucket))
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_freelancerComparisonMap[current.CharacterType].Adjust(dictionary[statBucket].Values.Sum());
 								}
 							}
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -769,30 +490,12 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 							PersistedCharacterData current2 = enumerator2.Current;
 							if (!m_freelancerComparisonMap.ContainsKey(current2.CharacterType))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								Dictionary<PersistedStatBucket, PersistedStats> dictionary2;
 								if (flag2)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									dictionary2 = current2.ExperienceComponent.PersistedStatsDictionary;
 								}
 								else
@@ -801,132 +504,42 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 									{
 										continue;
 									}
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									dictionary2 = current2.ExperienceComponent.PersistedStatsDictionaryBySeason[season];
 								}
 								if (dictionary2.ContainsKey(statBucket))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_overviewStat == OverviewStat.DamageEfficiency)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamageEfficiency);
 									}
 									else if (m_overviewStat == OverviewStat.AverageTakedownsPerLife)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										PersistedStatEntry copy = dictionary2[statBucket].TotalPlayerAssists.GetCopy();
 										copy.NumGamesInSum += dictionary2[statBucket].TotalDeaths.Sum;
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(copy);
 									}
 									else if (m_overviewStat == OverviewStat.AverageTakedownsPerMatch)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].TotalPlayerAssists);
 									}
 									else if (m_overviewStat == OverviewStat.AverageDeathsPerMatch)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].TotalDeaths);
 									}
 									else if (m_overviewStat == OverviewStat.AverageDamageDonePerTurn)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamagePerTurn);
 									}
 									else if (m_overviewStat == OverviewStat.AverageSupportDonePerTurn)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].SupportPerTurn);
 									}
 									else if (m_overviewStat == OverviewStat.AverageDamageTakenPerTurn)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].DamageTakenPerTurn);
 									}
 									else if (m_overviewStat == OverviewStat.TimePlayed)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].SecondsPlayed);
 									}
 									else
@@ -937,29 +550,11 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 											{
 												continue;
 											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										m_freelancerComparisonMap[current2.CharacterType].CombineStats(dictionary2[statBucket].MatchesWon);
 									}
 								}
 							}
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -967,34 +562,12 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			List<UIFreelancerComparisonItem> freelancerComparisonList = m_freelancerComparisonList;
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache1 = delegate(UIFreelancerComparisonItem x, UIFreelancerComparisonItem y)
 				{
 					int num = x.GetValue().CompareTo(y.GetValue());
 					int result;
 					if (num == 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						result = y.m_characterName.text.CompareTo(x.m_characterName.text);
 					}
 					else
@@ -1030,40 +603,13 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 					KeyValuePair<PersistedStatBucket, PersistedStats> current = enumerator.Current;
 					if (current.Key != PersistedStatBucket.DoNotPersist && current.Key != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						list.Add(current.Value);
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1114,41 +660,10 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 								int num2 = current4.Value.Values.Sum();
 								if (num2 > 0)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									dictionary[key2 + key3.ToString()] = true;
 								}
 							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1173,15 +688,6 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						Dictionary<PersistedStatBucket, PersistedStats> dictionary2;
 						if (m_seasonBuckets[j].Season == activeSeason)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							dictionary2 = list[num3].ExperienceComponent.PersistedStatsDictionary;
 						}
 						else
@@ -1194,42 +700,15 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						}
 						if (dictionary2.ContainsKey(m_seasonBuckets[j].StatBucket))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							shouldShow[j] = true;
 							break;
 						}
 						goto IL_03a3;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 					IL_03a3:
 					num3++;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_seasonBucketDropdown.CheckOptionDisplayState((int seasonBucketIndex) => shouldShow[seasonBucketIndex]);
@@ -1244,37 +723,14 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_currentSeasonBucket < 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentSeasonBucket = k;
 			}
 			num4++;
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_seasonBucketDropdownBtn.m_button.SetDisabled(num4 < 2);
 			return;
 		}

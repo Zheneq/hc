@@ -14,19 +14,6 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 		m_light = GetComponent<Light>();
 		if (m_light != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_initialIntensity = m_light.intensity;
 		}
 		if (GameEventManager.Get() == null)
@@ -35,11 +22,6 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 			return;
 		}
@@ -58,15 +40,6 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 			return;
 		}
@@ -84,19 +57,6 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 	{
 		if (Options_UI.Get() == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_light == null && m_lightIntensityAtLowQuality >= 0f)
 			{
 				while (true)

@@ -53,15 +53,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, archerBendingArrow.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, archerBendingArrow.m_minRangeBeforeBend);
 			AbilityMod.AddToken(tokens, m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, archerBendingArrow.m_maxRangeBeforeBend);
@@ -92,19 +83,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = archerBendingArrow.m_minRangeBeforeBend;
 		}
 		else
@@ -117,15 +95,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerBendingArrow.m_maxRangeBeforeBend;
 		}
 		else
@@ -138,15 +107,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerBendingArrow.m_maxTotalRange;
 		}
 		else
@@ -159,15 +119,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerBendingArrow.m_maxBendAngle;
 		}
 		else
@@ -180,15 +131,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (archerBendingArrow.m_penetrateLoS ? 1 : 0);
 		}
 		else
@@ -201,15 +143,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = archerBendingArrow.m_maxTargets;
 		}
 		else
@@ -222,15 +155,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = archerBendingArrow.m_laserDamageAmount;
 		}
 		else
@@ -243,15 +167,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = archerBendingArrow.m_laserHitEffect;
 		}
 		else
@@ -268,15 +183,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = archerBendingArrow.m_laserDamageAmount;
 		}
 		else

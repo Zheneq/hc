@@ -62,19 +62,6 @@ public class WebSocket : IDisposable
 			int compression;
 			if (value)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				compression = 1;
 			}
 			else
@@ -227,15 +214,6 @@ public class WebSocket : IDisposable
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -251,15 +229,6 @@ public class WebSocket : IDisposable
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -269,25 +238,12 @@ public class WebSocket : IDisposable
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
 		}
 		this.OnMessage = _003C_003Ef__am_0024cache0;
-		base._002Ector();
+		
 		State = SocketState.Closed;
 		HeartbeatPeriod = TimeSpan.Zero;
 		HeartbeatTimeout = TimeSpan.Zero;
@@ -307,19 +263,6 @@ public class WebSocket : IDisposable
 	{
 		if (address.IndexOf("://") == -1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			address = "ws://" + address;
 		}
 		ConnectionAddress = address;
@@ -340,11 +283,6 @@ public class WebSocket : IDisposable
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_webSocket.SslConfiguration.ServerCertificateValidationCallback = ValidateServerCertificate;
 			m_webSocket.SslConfiguration.ClientCertificateSelectionCallback = null;
 			return;
@@ -395,31 +333,9 @@ public class WebSocket : IDisposable
 	{
 		if (message == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			object obj;
 			if (IsOutbound)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = "Client connection closed";
 			}
 			else
@@ -462,10 +378,6 @@ public class WebSocket : IDisposable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (HeartbeatPeriod != TimeSpan.Zero)
 						{
 							while (true)
@@ -477,26 +389,8 @@ public class WebSocket : IDisposable
 								default:
 									if (HeartbeatTimeout != TimeSpan.Zero)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_webSocket.LastReceiveTime > HeartbeatTimeout && m_heartbeatSendTimer.IsRunning)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_heartbeatSendTimer.Elapsed > HeartbeatPeriod)
 											{
 												WebSocketSharp.ErrorEventArgs args = new WebSocketSharp.ErrorEventArgs("Timed out waiting for a heartbeat response", new TimeoutException("Timed out waiting for a heartbeat response"));
@@ -547,10 +441,6 @@ public class WebSocket : IDisposable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							m_webSocket.CloseAsync(CloseStatusCode.Normal);
 							return;
 						}
@@ -587,10 +477,6 @@ public class WebSocket : IDisposable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							m_heartbeatSendTimer.Reset();
 							goto end_IL_000d;
 						}
@@ -646,10 +532,6 @@ public class WebSocket : IDisposable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (args.Type == Opcode.Pong)
 							{
 								RoundtripTime = m_heartbeatSendTimer.ElapsedMilliseconds;
@@ -672,15 +554,6 @@ public class WebSocket : IDisposable
 			{
 				if (MaxMessagesPerSecond != 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_messagesRateLimiter.TryAdd())
 					{
 						while (true)
@@ -724,15 +597,6 @@ public class WebSocket : IDisposable
 											WebSocketMessage obj;
 											if (IsRaw)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												TextMessageNotification textMessageNotification = new TextMessageNotification();
 												textMessageNotification.Data = args.Data;
 												obj = textMessageNotification;
@@ -770,15 +634,6 @@ public class WebSocket : IDisposable
 													}
 													if (!IsOutbound)
 													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														IsBinary = true;
 													}
 													this.OnMessage(obj2);
@@ -814,10 +669,6 @@ public class WebSocket : IDisposable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ArgumentNullException();
 				}
 			}
@@ -855,10 +706,6 @@ public class WebSocket : IDisposable
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int num = 0;
 						if (IsBinary)
 						{
@@ -924,10 +771,6 @@ public class WebSocket : IDisposable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_webSocket.Send(data);
 						return;
 					}
@@ -963,10 +806,6 @@ public class WebSocket : IDisposable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_webSocket.Send(data);
 						return;
 					}
@@ -986,10 +825,6 @@ public class WebSocket : IDisposable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1006,28 +841,10 @@ public class WebSocket : IDisposable
 				WebSocket current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lock (current.m_lock)
 					{
 						if (current.State == SocketState.Open)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.IsBinary)
 							{
 								while (true)
@@ -1039,15 +856,6 @@ public class WebSocket : IDisposable
 									default:
 										if (memoryStream == null)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											memoryStream = new MemoryStream(current.MessageFactory.SerializeToBytes(message));
 											cache = new Dictionary<CompressionMethod, Stream>();
 										}
@@ -1070,15 +878,6 @@ public class WebSocket : IDisposable
 									{
 										if (memoryStream2 == null)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											memoryStream2 = new MemoryStream(Encoding.UTF8.GetBytes(current.MessageFactory.SerializeToText(message)));
 											cache2 = new Dictionary<CompressionMethod, Stream>();
 										}
@@ -1127,19 +926,6 @@ public class WebSocket : IDisposable
 					WebSocket current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						lock (current.m_lock)
 						{
 							if (current.State == SocketState.Open)
@@ -1210,19 +996,6 @@ public class WebSocket : IDisposable
 				WebSocket current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					lock (current.m_lock)
 					{
 						if (current.State == SocketState.Open)
@@ -1302,10 +1075,6 @@ public class WebSocket : IDisposable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_webSocket.Logger.Output = HandleLogMessage;
 					m_webSocket.Logger.Level = logLevel;
 					return;
@@ -1315,15 +1084,6 @@ public class WebSocket : IDisposable
 		Logger logger = m_webSocket.Logger;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = delegate
 			{
 			};

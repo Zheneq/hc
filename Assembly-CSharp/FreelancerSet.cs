@@ -21,10 +21,6 @@ public class FreelancerSet
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Types.Contains(freelancer);
 				}
 			}
@@ -69,10 +65,6 @@ public class FreelancerSet
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return new HashSet<CharacterType>(Types);
 				}
 			}
@@ -104,19 +96,6 @@ public class FreelancerSet
 		int num3;
 		if (Types.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num3 = 0;
 		}
 		else
@@ -128,15 +107,6 @@ public class FreelancerSet
 		int num5;
 		if (Roles.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = 0;
 		}
 		else
@@ -151,11 +121,6 @@ public class FreelancerSet
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured; each TeamComposition Rule should have only one of Types, Roles, or FactionGroups.");
 		}
 	}

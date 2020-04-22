@@ -47,19 +47,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Bending Arrow";
 		}
 		m_syncComp = GetComponent<Archer_SyncComponent>();
@@ -75,19 +62,6 @@ public class ArcherBendingArrow : Ability
 			m_healArrowAbility = (GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
 			if (m_healArrowAbility != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_healArrowActionType = component.GetActionTypeOfAbility(m_healArrowAbility);
 			}
 		}
@@ -116,19 +90,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (!base.Targeters.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
@@ -203,19 +164,6 @@ public class ArcherBendingArrow : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_laserDamageAmount > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_laserDamageAmount);
 		}
 		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
@@ -230,19 +178,6 @@ public class ArcherBendingArrow : Ability
 		AbilityUtil_Targeter.ActorTarget actorTarget = base.Targeters[currentTargeterIndex].GetActorsInRange().Find((AbilityUtil_Targeter.ActorTarget t) => t.m_actor == targetActor);
 		if (actorTarget == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargeterIndex > 0)
 			{
 				actorTarget = base.Targeters[0].GetActorsInRange().Find((AbilityUtil_Targeter.ActorTarget t) => t.m_actor == targetActor);
@@ -251,42 +186,15 @@ public class ArcherBendingArrow : Ability
 		}
 		if (actorTarget != null && !actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.Near))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = GetDamageAfterPierce();
 		}
 		if (IsReactionHealTarget(targetActor))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += GetExtraDamageToHealingDebuffTarget();
 			num += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += GetExtraDamageAfterBend();
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -312,23 +220,10 @@ public class ArcherBendingArrow : Ability
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								return m_healArrowAbility.GetTechPointsPerHeal();
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -339,19 +234,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
 				while (true)
@@ -368,40 +250,13 @@ public class ArcherBendingArrow : Ability
 		}
 		if (m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_actorTargeting != null)
 			{
 				List<AbilityTarget> abilityTargetsInRequest = m_actorTargeting.GetAbilityTargetsInRequest(m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
@@ -442,10 +297,6 @@ public class ArcherBendingArrow : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					min = GetMinRangeBeforeBend() * Board.Get().squareSize;
 					max = GetMaxRangeBeforeBend() * Board.Get().squareSize;
 					return true;
@@ -482,10 +333,6 @@ public class ArcherBendingArrow : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 aimDirection = targetsSoFar[0].AimDirection;
 					float num = VectorUtils.HorizontalAngle_Deg(aimDirection);
 					min = num - GetMaxBendAngle();
@@ -508,32 +355,10 @@ public class ArcherBendingArrow : Ability
 			float d;
 			if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				d = GetMinRangeBeforeBend() * Board.Get().squareSize;
 			}
 			else if (magnitude > GetMaxRangeBeforeBend() * Board.Get().squareSize)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				d = GetMaxRangeBeforeBend() * Board.Get().squareSize;
 			}
 			else
@@ -554,15 +379,6 @@ public class ArcherBendingArrow : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ArcherBendingArrow);
 			SetupTargeter();
 			return;
@@ -580,19 +396,6 @@ public class ArcherBendingArrow : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -603,15 +406,6 @@ public class ArcherBendingArrow : Ability
 		object cachedEffectToHealingDebuffTarget;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectToHealingDebuffTarget = m_abilityMod.m_effectToHealingDebuffTarget.GetModifiedValue(null);
 		}
 		else
@@ -626,19 +420,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -653,19 +434,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(m_minRangeBeforeBend);
 		}
 		else
@@ -685,19 +453,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTotalRangeMod.GetModifiedValue(m_maxTotalRange);
 		}
 		else
@@ -722,19 +477,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -754,19 +496,6 @@ public class ArcherBendingArrow : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -781,19 +510,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_nextShieldGeneratorExtraAbsorbPerHit.GetModifiedValue(0);
 		}
 		else
@@ -808,19 +524,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_nextShieldGeneratorExtraAbsorbMax.GetModifiedValue(0);
 		}
 		else
@@ -835,19 +538,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageToHealingDebuffTarget.GetModifiedValue(0);
 		}
 		else
@@ -862,19 +552,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageAfterBend.GetModifiedValue(0);
 		}
 		else
@@ -889,19 +566,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAfterPiercingMod.GetModifiedValue(GetLaserDamageAmount());
 		}
 		else
@@ -921,19 +585,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealingFromHealingDebuffTarget.GetModifiedValue(0);
 		}
 		else

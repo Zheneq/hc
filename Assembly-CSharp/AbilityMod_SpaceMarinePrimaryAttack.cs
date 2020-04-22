@@ -34,15 +34,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserTargetInfoMod, "LaserTargetInfo", spaceMarinePrimaryAttack.m_laserTargetInfo);
 			AbilityMod.AddToken_ConeInfo(tokens, m_coneTargetInfoMod, "ConeTargetInfo", spaceMarinePrimaryAttack.m_coneTargetInfo);
 			AbilityMod.AddToken(tokens, m_baseDamageMod, "BaseDamage", string.Empty, spaceMarinePrimaryAttack.m_damageAmount);
@@ -63,19 +54,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseLaserInfo = spaceMarinePrimaryAttack.m_laserTargetInfo;
 		}
 		else
@@ -90,15 +68,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = spaceMarinePrimaryAttack.m_damageAmount;
 		}
 		else
@@ -112,15 +81,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarinePrimaryAttack.m_coneDamageAmount;
 		}
 		else
@@ -133,15 +93,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarinePrimaryAttack.m_coneEnemyHitEffect;
 		}
 		else

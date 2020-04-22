@@ -21,19 +21,6 @@ public class BarrierPoseInfo
 	{
 		if (numSides > 2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (radiusInWorld > 0f)
 			{
 				while (true)
@@ -78,30 +65,8 @@ public class BarrierPoseInfo
 		midSections = new List<BarrierPoseInfo>();
 		if (cornerLength > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (midsectionLength >= 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetSquare != null)
 				{
 					while (true)

@@ -71,19 +71,6 @@ public class ClericRangedHeal : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Cleric Ranged Heal";
 		}
 		SetupTargeter();
@@ -121,19 +108,6 @@ public class ClericRangedHeal : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.OccupantActor.GetTeam() == caster.GetTeam() && !boardSquareSafe.OccupantActor.IgnoreForAbilityHits)
 			{
 				while (true)
@@ -159,15 +133,6 @@ public class ClericRangedHeal : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ClericRangedHeal);
 			SetupTargeter();
 			return;
@@ -185,19 +150,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo cachedTargetHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTargetHitEffect = m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect);
 		}
 		else
@@ -208,15 +160,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -227,15 +170,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo cachedReactionEffectForHealTarget;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReactionEffectForHealTarget = m_abilityMod.m_reactionEffectForHealTargetMod.GetModifiedValue(m_reactionEffectForHealTarget);
 		}
 		else
@@ -246,15 +180,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo cachedReactionEffectForCaster;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReactionEffectForCaster = m_abilityMod.m_reactionEffectForCasterMod.GetModifiedValue(m_reactionEffectForCaster);
 		}
 		else
@@ -265,15 +190,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo cachedEnemyDebuffInRadiusEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyDebuffInRadiusEffect = m_abilityMod.m_enemyDebuffInRadiusEffectMod.GetModifiedValue(m_enemyDebuffInRadiusEffect);
 		}
 		else
@@ -288,19 +204,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healAmountMod.GetModifiedValue(m_healAmount);
 		}
 		else
@@ -315,19 +218,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealIfTargetingAllyMod.GetModifiedValue(m_selfHealIfTargetingAlly);
 		}
 		else
@@ -342,19 +232,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo result;
 		if (m_cachedTargetHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTargetHitEffect;
 		}
 		else
@@ -369,19 +246,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealOnEnemyHitMod.GetModifiedValue(m_extraHealOnEnemyHit);
 		}
 		else
@@ -396,19 +260,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealOnSubseqEnemyHitMod.GetModifiedValue(m_extraHealOnSubseqEnemyHit);
 		}
 		else
@@ -423,19 +274,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealPerTargetDistanceMod.GetModifiedValue(0);
 		}
 		else
@@ -450,19 +288,6 @@ public class ClericRangedHeal : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealAdjustIfTargetingSelfMod.GetModifiedValue(0);
 		}
 		else
@@ -487,19 +312,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo result;
 		if (m_cachedReactionEffectForHealTarget != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReactionEffectForHealTarget;
 		}
 		else
@@ -514,19 +326,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo result;
 		if (m_cachedReactionEffectForCaster != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReactionEffectForCaster;
 		}
 		else
@@ -541,19 +340,6 @@ public class ClericRangedHeal : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyDebuffRadiusAroundTargetMod.GetModifiedValue(m_enemyDebuffRadiusAroundTarget);
 		}
 		else
@@ -568,19 +354,6 @@ public class ClericRangedHeal : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyDebuffRadiusAroundCasterMod.GetModifiedValue(m_enemyDebuffRadiusAroundCaster);
 		}
 		else
@@ -595,19 +368,6 @@ public class ClericRangedHeal : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyDebuffInRadiusEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyDebuffInRadiusEffect;
 		}
 		else
@@ -627,19 +387,6 @@ public class ClericRangedHeal : Ability
 		int result = 0;
 		if (GetHealPerPercentHealthLost() > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (healTarget.HitPoints < healTarget.GetMaxHitPoints())
 			{
 				int num = Mathf.CeilToInt((1f - healTarget.GetHitPointShareOfMax()) * 100f);
@@ -657,19 +404,6 @@ public class ClericRangedHeal : Ability
 		int num3 = m_healAmount;
 		if (forActor == caster)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
 				num2 = GetSelfHealIfTargetingAlly();
@@ -678,52 +412,16 @@ public class ClericRangedHeal : Ability
 		}
 		if (num3 > num2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = num2;
 		}
 		int num4 = 0;
 		if (GetExtraHealPerTargetDistance() != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num5 = actorOnTargetedSquare.GetCurrentBoardSquare().HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
 				if (num5 > 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5 -= 1f;
 				}
 				num4 += Mathf.RoundToInt((float)GetExtraHealPerTargetDistance() * num5);
@@ -732,51 +430,15 @@ public class ClericRangedHeal : Ability
 		num = Mathf.Max(num3, num2 + num4);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.Max(0, num + GetSelfHealAdjustIfTargetingSelf());
 		}
 		num += CalcExtraHealFromMissingHealth(forActor);
 		if (m_buffAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_buffAbility.GetExtraHealForPurifyOnBuffedAllies() != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_buffAbility.IsActorInBuffShape(forActor))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += m_buffAbility.GetExtraHealForPurifyOnBuffedAllies();
 				}
 			}
@@ -811,30 +473,8 @@ public class ClericRangedHeal : Ability
 		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = base.Targeter as AbilityUtil_Targeter_AoE_AroundActor;
 		if (abilityUtil_Targeter_AoE_AroundActor != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityUtil_Targeter_AoE_AroundActor.m_lastCenterActor != null)
 				{
 					while (true)

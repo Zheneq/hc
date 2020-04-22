@@ -49,15 +49,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_lineWidthMod, "LineWidth", string.Empty, soldierCardinalLine.m_lineWidth);
 			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, soldierCardinalLine.m_damageAmount);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", soldierCardinalLine.m_enemyHitEffect);
@@ -81,19 +72,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (soldierCardinalLine.m_useBothCardinalDir ? 1 : 0);
 		}
 		else
@@ -106,15 +84,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (int)soldierCardinalLine.m_positionShape;
 		}
 		else
@@ -127,15 +96,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierCardinalLine.m_lineWidth;
 		}
 		else
@@ -149,15 +109,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierCardinalLine.m_damageAmount;
 		}
 		else
@@ -172,15 +123,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = soldierCardinalLine.m_extraDamageForNearCenterTargets;
 		}
 		else
@@ -193,15 +135,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (int)soldierCardinalLine.m_aoeShape;
 		}
 		else
@@ -214,15 +147,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = soldierCardinalLine.m_aoeDamage;
 		}
 		else
@@ -235,15 +159,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = soldierCardinalLine.m_numSubsequentTurns;
 		}
 		else
@@ -256,15 +171,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = soldierCardinalLine.m_damageOnSubsequentTurns;
 		}
 		else

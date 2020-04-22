@@ -37,15 +37,6 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_absorbMod, "Absorb", string.Empty, battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount);
 			AbilityMod.AddToken(tokens, m_damageReturnMod, "DamagePerHit", string.Empty, battleMonkSelfBuff.m_damagePerHit);
 			AbilityMod.AddToken_EffectMod(tokens, m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", battleMonkSelfBuff.m_returnEffectOnEnemy);
@@ -55,20 +46,10 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_hitNearbyAlliesMod.GetModifiedValue(false))
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						AbilityMod.AddToken_EffectInfo(tokens, m_effectOnAllyHit, "EffectOnAllyHit", null, false);
 						return;
 					}
@@ -88,19 +69,6 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount;
 		}
 		else

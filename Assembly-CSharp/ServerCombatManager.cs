@@ -43,10 +43,6 @@ public class ServerCombatManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ApplicationException("Objective point change requires a target");
 				}
 			}

@@ -70,10 +70,6 @@ public class GrydPlaceOrMoveBomb : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -86,15 +82,6 @@ public class GrydPlaceOrMoveBomb : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (Mathf.Abs(gridPosWithIncrementedHeight.x - target.GridPos.x) > m_placeRange || Mathf.Abs(gridPosWithIncrementedHeight.y - target.GridPos.y) > m_placeRange)
@@ -102,15 +89,6 @@ public class GrydPlaceOrMoveBomb : Ability
 					return false;
 				}
 				return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -134,10 +112,6 @@ public class GrydPlaceOrMoveBomb : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_moveIsFreeAction;
 				}
 			}
@@ -159,19 +133,6 @@ public class GrydPlaceOrMoveBomb : Ability
 		int result;
 		if (!start.CoordsEqual(end))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((start.x == end.x || start.y == end.y) ? 1 : 0);
 		}
 		else
@@ -189,19 +150,6 @@ public class GrydPlaceOrMoveBomb : Ability
 		Vector3 vector2 = targetPos - vector;
 		if (m_lockToCardinalDirsForMove)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector2 = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
 		}
 		hitActor = false;
@@ -211,29 +159,11 @@ public class GrydPlaceOrMoveBomb : Ability
 		BoardSquare boardSquare = null;
 		if (collision)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare = Board.Get().GetBoardSquare(abilityLineEndpoint);
 		}
 		GridPos result = placedBomb;
 		if (vector2.x > 0.1f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = placedBomb.x + 1;
 			while (true)
 			{
@@ -244,78 +174,24 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!boardSquare2.IsBaselineHeight())
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 					if (!boardSquareSafe._0013(num, placedBomb.y))
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare.x < num)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 					}
 					result = boardSquare2.GetGridPos();
 					if (boardSquare2.OccupantActor != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare2.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 						{
 							hitActor = true;
@@ -325,29 +201,11 @@ public class GrydPlaceOrMoveBomb : Ability
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		else if (vector2.x < -0.1f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = placedBomb.x - 1;
 			while (true)
 			{
@@ -358,52 +216,16 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!boardSquare3.IsBaselineHeight())
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 					if (!boardSquareSafe._0013(num2, placedBomb.y))
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare.x > num2)
 						{
 							break;
@@ -412,26 +234,8 @@ public class GrydPlaceOrMoveBomb : Ability
 					result = boardSquare3.GetGridPos();
 					if (boardSquare3.OccupantActor != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare3.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hitActor = true;
 							break;
 						}
@@ -439,29 +243,11 @@ public class GrydPlaceOrMoveBomb : Ability
 					num2--;
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		else if (vector2.z > 0.1f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num3 = placedBomb.y + 1;
 			while (true)
 			{
@@ -472,89 +258,26 @@ public class GrydPlaceOrMoveBomb : Ability
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!boardSquare4.IsBaselineHeight())
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 					if (!boardSquareSafe._0013(placedBomb.x, num3))
 					{
 						break;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare.y < num3)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 					}
 					result = boardSquare4.GetGridPos();
 					if (boardSquare4.OccupantActor != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare4.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hitActor = true;
 							break;
 						}
@@ -562,29 +285,11 @@ public class GrydPlaceOrMoveBomb : Ability
 					num3++;
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		else if (vector2.z < -0.1f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int num4 = placedBomb.y - 1; num4 >= placedBomb.y - m_moveRange; num4--)
 			{
 				BoardSquare boardSquare5 = Board.Get().GetBoardSquare(placedBomb.x, num4);
@@ -594,29 +299,11 @@ public class GrydPlaceOrMoveBomb : Ability
 				}
 				if (boardSquare != null && boardSquare.y > num4)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				result = boardSquare5.GetGridPos();
 				if (boardSquare5.OccupantActor != null && boardSquare5.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hitActor = true;
 					break;
 				}
@@ -635,19 +322,6 @@ public class GrydPlaceOrMoveBomb : Ability
 		GridPos result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_syncComp.m_bombLocation;
 		}
 		else

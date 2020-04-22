@@ -35,15 +35,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_colliderForShield = owner.GetActorModelData().gameObject.AddComponent<BoxCollider>();
 			m_colliderForShield.center = new Vector3(0f, 0.8f, 1f);
 			m_colliderForShield.size = new Vector3(3.1f * Board.Get().squareSize, 3f, 0.3f);
@@ -66,19 +57,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData owner = GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
@@ -88,15 +66,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 					owner.GetModelAnimator().SetInteger(animIdleType, idleType);
 					if (idleType != 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						owner.GetModelAnimator().SetTrigger(animForceIdle);
 					}
 				}
@@ -108,11 +77,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_colliderForShield.enabled = (idleType != 0);
 			return;
 		}
@@ -127,25 +91,11 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData owner = GetOwner();
 			if (owner != null)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					owner.TurnToDirection(facing);
 					return;
 				}
@@ -169,10 +119,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetIdleType called on server.");
 					return;
 				}
@@ -204,10 +150,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetIdleType called on client.");
 					return;
 				}
@@ -233,10 +175,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
 					return;
 				}

@@ -20,19 +20,6 @@ public class UIReplayControls : MonoBehaviour
 		UIManager.SetGameObjectActive(m_playBtn, false);
 		if (ReplayPlayManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				UIManager.SetGameObjectActive(base.gameObject, true);

@@ -44,30 +44,8 @@ namespace TMPro.Examples
 			{
 				if (!_001D.havePropertiesChanged)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num == _0016)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (animationCurve.keys[1].value == _000E.keys[1].value)
 						{
 							break;
@@ -81,15 +59,6 @@ namespace TMPro.Examples
 				int characterCount = textInfo.characterCount;
 				if (characterCount == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				Vector3 min = _001D.bounds.min;
@@ -100,15 +69,6 @@ namespace TMPro.Examples
 				{
 					if (!textInfo.characterInfo[i].isVisible)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -130,15 +90,6 @@ namespace TMPro.Examples
 					float num5;
 					if (vector2.z > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 = num4;
 					}
 					else
@@ -156,25 +107,11 @@ namespace TMPro.Examples
 					vertices[vertexIndex + 2] += vector;
 					vertices[vertexIndex + 3] += vector;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_001D.UpdateVertexData();
 				yield return new WaitForSeconds(0.025f);
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

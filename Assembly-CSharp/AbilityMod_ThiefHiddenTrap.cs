@@ -26,15 +26,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_GroundFieldMod(tokens, m_trapFieldInfoMod, "TrapFieldInfo", thiefHiddenTrap.m_trapFieldInfo);
 			AbilityMod.AddToken(tokens, m_extraDamagePerTurnMod, "ExtraDamagePerTurn", string.Empty, thiefHiddenTrap.m_extraDamagePerTurn);
 			AbilityMod.AddToken(tokens, m_maxExtraDamageMod, "MaxExtraDamage", string.Empty, thiefHiddenTrap.m_maxExtraDamage);
@@ -53,19 +44,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = thiefHiddenTrap.m_extraDamagePerTurn;
 		}
 		else
@@ -78,15 +56,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefHiddenTrap.m_maxExtraDamage;
 		}
 		else

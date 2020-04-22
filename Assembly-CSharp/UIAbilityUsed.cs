@@ -36,32 +36,10 @@ public class UIAbilityUsed : MonoBehaviour
 		m_playerIcon.sprite = theOwner.GetAliveHUDIcon();
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData == theOwner))
 			{
 				if (GameFlowData.Get().activeOwnedActorData.GetTeam() == theOwner.GetTeam())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_teamColorIndicator.sprite = HUD_UIResources.Get().m_teammateBorder;
 				}
 				else
@@ -69,15 +47,6 @@ public class UIAbilityUsed : MonoBehaviour
 					m_teamColorIndicator.sprite = HUD_UIResources.Get().m_enemyBorder;
 				}
 				goto IL_00df;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_teamColorIndicator.sprite = HUD_UIResources.Get().m_selfBorder;

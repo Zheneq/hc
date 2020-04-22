@@ -49,15 +49,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneWidthMinAngleMod, "ConeWidthMinAngle", string.Empty, valkyrieStab.m_coneWidthMinAngle);
 			AbilityMod.AddToken(tokens, m_coneWidthMaxAngleMod, "ConeWidthMaxAngle", string.Empty, valkyrieStab.m_coneWidthMaxAngle);
 			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, valkyrieStab.m_coneBackwardOffset);
@@ -85,19 +76,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = valkyrieStab.m_coneWidthMinAngle;
 		}
 		else
@@ -110,15 +88,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieStab.m_coneWidthMaxAngle;
 		}
 		else
@@ -132,15 +101,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieStab.m_coneMinLength;
 		}
 		else
@@ -153,15 +113,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieStab.m_coneMaxLength;
 		}
 		else
@@ -175,15 +126,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieStab.m_maxTargets;
 		}
 		else
@@ -196,15 +138,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieStab.m_damageAmount;
 		}
 		else
@@ -220,15 +153,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = valkyrieStab.m_targetHitEffect;
 		}
 		else

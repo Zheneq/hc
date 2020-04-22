@@ -35,19 +35,6 @@ public class ConversationManager : MonoBehaviour
 		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!gameplayOverrides.EnableConversations)
 			{
 				while (true)
@@ -68,26 +55,12 @@ public class ConversationManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == null)
 			{
 				return;
 			}
 			if (GameFlowData.Get().activeOwnedActorData.GetTeam() != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData.GetTeam() != Team.TeamB)
 				{
 					while (true)
@@ -124,26 +97,8 @@ public class ConversationManager : MonoBehaviour
 					ActorData current = enumerator.Current;
 					if (current.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(current.m_characterType);
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			List<ConversationTemplate> list = new List<ConversationTemplate>();
@@ -154,36 +109,13 @@ public class ConversationManager : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (hashSet.Contains(conversationTemplate.m_responder))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(conversationTemplate);
 				}
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (list.Count > 0)
 				{
 					ConversationTemplate conversation = list[Random.Range(0, list.Count)];

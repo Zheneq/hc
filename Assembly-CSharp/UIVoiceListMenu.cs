@@ -73,19 +73,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		int num;
 		if (DiscordClientInterface.Get().IsConnected)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((DiscordClientInterface.Get().ChannelInfo != null) ? 1 : 0);
 		}
 		else
@@ -94,15 +81,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		}
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			OnJoined();
 			RefreshPlayersList();
 		}
@@ -113,15 +91,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		_ButtonSwapSprite spriteController = m_connectBtn.spriteController;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 				if (!DiscordClientInterface.CanJoinTeamChat)
@@ -131,19 +100,6 @@ public class UIVoiceListMenu : MonoBehaviour
 						TextConsole.Get().Write("Failed to join Discord chat. You are not in a team or group.");
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.Cancel);
 						return;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
 					}
 				}
 				ClientGameManager.Get().JoinDiscord();
@@ -167,15 +123,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DiscordClientInterface discordClientInterface = DiscordClientInterface.Get();
 			discordClientInterface.OnJoined = (Action)Delegate.Remove(discordClientInterface.OnJoined, new Action(OnJoined));
 			DiscordClientInterface discordClientInterface2 = DiscordClientInterface.Get();
@@ -195,10 +142,6 @@ public class UIVoiceListMenu : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -225,19 +168,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			int value3;
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value3 = 1;
 			}
 			else
@@ -278,19 +208,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			int value2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value2 = 1;
 			}
 			else
@@ -327,10 +244,6 @@ public class UIVoiceListMenu : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -342,15 +255,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		GameObject gameObject = m_voiceSlider.gameObject;
 		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache2 = delegate
 			{
 				if (DiscordClientInterface.Get() != null)
@@ -362,10 +266,6 @@ public class UIVoiceListMenu : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							DiscordClientInterface.Get().RefreshSettings();
 							return;
 						}
@@ -388,10 +288,6 @@ public class UIVoiceListMenu : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -403,15 +299,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		GameObject gameObject2 = m_micSlider.gameObject;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 				if (DiscordClientInterface.Get() != null)
@@ -423,10 +310,6 @@ public class UIVoiceListMenu : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							DiscordClientInterface.Get().RefreshSettings();
 							return;
 						}
@@ -476,19 +359,6 @@ public class UIVoiceListMenu : MonoBehaviour
 				object str;
 				if (mode == SettingsState.VoiceChatMode.Group)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					str = "Left";
 				}
 				else
@@ -507,15 +377,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			object str2;
 			if (mode == SettingsState.VoiceChatMode.Group)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str2 = "Left";
 			}
 			else
@@ -537,34 +398,12 @@ public class UIVoiceListMenu : MonoBehaviour
 		UIManager.SetGameObjectActive(m_container, m_visible);
 		if (m_visible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InitializeOptions();
 			ChangeChatMode(Options_UI.Get().GetGameModeVoiceChat(), false);
 		}
 		int sound;
 		if (m_visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sound = 25;
 		}
 		else
@@ -585,19 +424,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		{
 			if (i < DiscordClientInterface.Get().ChannelUsers.Count)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_playerEntries[i], true);
 				m_playerEntries[i].Setup(DiscordClientInterface.Get().ChannelUsers[i]);
 			}
@@ -639,15 +465,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_playersContainer, false);
 			RefreshPlayersList();
 			return;
@@ -678,15 +495,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -698,93 +506,26 @@ public class UIVoiceListMenu : MonoBehaviour
 		bool flag2;
 		if (Input.GetMouseButtonDown(0))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = true;
 			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UIVoiceListMenu>();
 						flag2 = false;
 						if (componentInParent == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(componentInParent2 == UIFrontEnd.Get().m_frontEndNavPanel.m_microphoneConnectedBtn))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(componentInParent2 == UIFrontEnd.Get().m_frontEndNavPanel.m_microphoneOfflineBtn))
 									{
 										goto IL_014f;
-									}
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								flag2 = true;
@@ -800,30 +541,12 @@ public class UIVoiceListMenu : MonoBehaviour
 		IL_0169:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetVisible(false);
 		}
 		goto IL_017d;
 		IL_014f:
 		if (!(componentInParent != null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				goto IL_0169;
@@ -838,31 +561,16 @@ public class UIVoiceListMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (DiscordClientInterface.CanJoinGroupChat)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						m_canConnect = false;
 						UIManager.SetGameObjectActive(m_connectBtn, false);
 						UIManager.SetGameObjectActive(m_disconnectBtn, false);
@@ -875,38 +583,11 @@ public class UIVoiceListMenu : MonoBehaviour
 		IL_017d:
 		if (!m_canConnect)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!DiscordClientInterface.CanJoinGroupChat)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
 					goto IL_01d8;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_canConnect = true;

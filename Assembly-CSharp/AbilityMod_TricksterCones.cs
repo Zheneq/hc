@@ -64,15 +64,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_ConeInfo(tokens, m_coneInfoMod, "ConeInfo", tricksterCones.m_coneInfo);
 			AbilityMod.AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, tricksterCones.m_damageAmount);
 			AbilityMod.AddToken(tokens, m_subsequentDamageAmountMod, "SubsequentDamageAmount", string.Empty, tricksterCones.m_subsequentDamageAmount);
@@ -101,19 +92,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = tricksterCones.m_damageAmount;
 		}
 		else
@@ -126,15 +104,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterCones.m_subsequentDamageAmount;
 		}
 		else
@@ -147,15 +116,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterCones.m_enemyHitEffect;
 		}
 		else
@@ -170,15 +130,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterCones.m_allyHealAmount;
 		}
 		else
@@ -193,15 +144,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (tricksterCones.m_useAllyMultiHitEffect ? 1 : 0);
 		}
 		else
@@ -214,15 +156,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = tricksterCones.m_allyMultipleHitEffect;
 		}
 		else
@@ -235,15 +168,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = tricksterCones.m_selfHealAmount;
 		}
 		else
@@ -256,15 +180,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = tricksterCones.m_selfHitEffect;
 		}
 		else
@@ -278,15 +193,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = tricksterCones.m_cooldownReductionPerHitByClone;
 		}
 		else
@@ -299,15 +205,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (tricksterCones.m_spawnSpoilForEnemyHit ? 1 : 0);
 		}
 		else
@@ -321,15 +218,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = tricksterCones.m_spoilSpawnInfo;
 		}
 		else
@@ -342,15 +230,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = (tricksterCones.m_onlySpawnSpoilOnMultiHit ? 1 : 0);
 		}
 		else

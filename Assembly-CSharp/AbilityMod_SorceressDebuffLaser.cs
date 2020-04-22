@@ -48,15 +48,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "Width", string.Empty, sorceressDebuffLaser.m_width);
 			AbilityMod.AddToken(tokens, m_laserRangeMod, "Distance", string.Empty, sorceressDebuffLaser.m_distance);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sorceressDebuffLaser.m_enemyHitEffect);
@@ -65,15 +56,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 			AbilityMod.AddToken(tokens, m_cooldownReductionOnNumHit, "CDR_OnNumHit", "cooldown reduction per hit", 1, false);
 			if (m_cooldownFlatReduction > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_IntDiff(tokens, "CDR_FlatAmount", "cooldown reduction", m_cooldownFlatReduction, false, 0);
 			}
 			AbilityMod.AddToken_IntDiff(tokens, "CDR_Max", "max cooldown reduction", m_maxCooldownReduction, false, 0);
@@ -92,19 +74,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sorceressDebuffLaser.m_distance;
 		}
 		else
@@ -117,15 +86,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressDebuffLaser.m_enemyHitEffect.m_effectData.m_duration;
 		}
 		else
@@ -139,15 +99,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressDebuffLaser.m_casterHitEffect.m_effectData.m_duration;
 		}
 		else
@@ -160,15 +111,6 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressDebuffLaser.m_enemyHitEffect;
 		}
 		else
@@ -180,55 +122,19 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		empty += AbilityModHelper.GetModPropertyDesc(m_casterHitEffectOverride, "{ Caster Hit Effect Override }", flag, (!flag) ? null : sorceressDebuffLaser.m_casterHitEffect);
 		if (m_additionalEffectOnSelfIfHit != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_additionalEffectOnSelfIfHit.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty += AbilityModHelper.GetModEffectDataDesc(m_additionalEffectOnSelfIfHit.m_effectData, "{ Additional Effect on Self if Hit (duration = numHit) }", string.Empty);
 			}
 		}
 		empty += AbilityModHelper.GetModPropertyDesc(m_cooldownReductionOnNumHit, "[Cooldown Reduction Op on Num Hit]");
 		if (m_cooldownFlatReduction != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Flat Cooldown Reduction (after applying modValueOnNumHit)] = " + m_cooldownFlatReduction + "\n";
 		}
 		if (m_maxCooldownReduction > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Max Cooldown Reduction] = " + m_maxCooldownReduction + "\n";
 		}

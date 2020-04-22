@@ -103,19 +103,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (page == StatsPage.Mods)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_StatsBtn.SetSelected(false, false, string.Empty, string.Empty);
 			m_ModsBtn.SetSelected(true, false, string.Empty, string.Empty);
 			UIManager.SetGameObjectActive(m_statsLabelHeaders, false);
@@ -123,15 +110,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		else if (page == StatsPage.Numbers)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_StatsBtn.SetSelected(true, false, string.Empty, string.Empty);
 			m_ModsBtn.SetSelected(false, false, string.Empty, string.Empty);
 			UIManager.SetGameObjectActive(m_statsLabelHeaders, true);
@@ -145,11 +123,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			UIGameOverPlayerEntry[] enemyTeam = m_enemyTeam;
 			foreach (UIGameOverPlayerEntry uIGameOverPlayerEntry2 in enemyTeam)
 			{
@@ -194,10 +167,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetStatePage(StatsPage.Numbers);
 					return;
 				}
@@ -209,11 +178,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SetStatePage(StatsPage.Mods);
 			return;
 		}
@@ -230,10 +194,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -261,15 +221,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (stats.EnemyStatlines == null)
 			{
 				while (true)
@@ -294,11 +245,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = 0; k < Math.Min(stats.EnemyStatlines.Length, m_enemyTeam.Length); k++)
 				{
 					UIManager.SetGameObjectActive(m_enemyTeam[k], true);
@@ -313,26 +259,8 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				m_resizePanel.sizeDelta = sizeDelta;
 				if (stats.RedScore == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stats.BlueScore == 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_frontendHeaderRedTeamScore.text = string.Empty;
 						m_frontendHeaderBlueTeamScore.text = string.Empty;
 						goto IL_021c;
@@ -344,26 +272,8 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				IL_021c:
 				if (m_frontendHeaderObjective != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stats.VictoryCondition.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_frontendHeaderObjective.text = string.Empty;
 					}
 					else
@@ -382,15 +292,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				if ((bool)m_debugLabels)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_debugLabels, secretButtonClicked);
 				}
 				if (!secretButtonClicked)
@@ -399,35 +300,16 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_debugStatusString)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						Team teamId = GameManager.Get().PlayerInfo.TeamId;
 						int num;
 						if (teamId == Team.TeamB)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = 1;
 						}
 						else
@@ -440,41 +322,14 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						float num2 = -1f;
 						if (ObjectivePoints.Get() != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = ObjectivePoints.Get().GetTotalMinutesOnMatchEnd() * 60f;
 						}
 						if (num2 > 0f)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = (int)(num2 / 60f);
 							int num4 = (int)num2 % 60;
 							if (num4 < 10)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								arg = $"{num3}:0{num4}";
 							}
 							else
@@ -484,15 +339,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						}
 						else if (UITimerPanel.Get() != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg = UITimerPanel.Get().m_timeLabel.text;
 						}
 						int currentTurn = GameFlowData.Get().CurrentTurn;
@@ -500,15 +346,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						int num6 = 0;
 						if (ObjectivePoints.Get() != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num5 = ObjectivePoints.Get().GetPointsForTeam(team);
 							num6 = ObjectivePoints.Get().GetPointsForTeam(team2);
 						}
@@ -523,15 +360,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								ActorData current = enumerator.Current;
 								ActorBehavior actorBehavior = current.GetActorBehavior();
 								num7 += actorBehavior.totalPlayerContribution;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						foreach (ActorData item in playerAndBotTeamMembers2)
@@ -568,10 +396,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -584,15 +408,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				LobbyPlayerInfo current = enumerator.Current;
 				if (forbiddenDevKnowledge.TryGetValue(current.PlayerId, out ForbiddenDevKnowledge value))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					matchmaking.AddPlayer(current.TeamId, value.UsedMatchmakingElo);
 					account.AddPlayer(current.TeamId, value.AccMatchmakingElo);
 					character.AddPlayer(current.TeamId, value.CharMatchmakingElo);
@@ -621,32 +436,10 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		UIManager.SetGameObjectActive(m_container, visible);
 		if (visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetStatePage(m_currentPage);
 		}
 		if (playSound)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 		}
 		for (int i = 0; i < m_friendlyTeam.Length; i++)
@@ -655,11 +448,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_enemyTeam.Length; j++)
 			{
 				m_enemyTeam[j].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
@@ -714,15 +502,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetToggleStatsVisible(false);
 			return;
 		}

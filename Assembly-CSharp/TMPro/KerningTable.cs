@@ -25,10 +25,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						kerningPairs.Add(new KerningPair(0, 0, 0f));
 						return;
 					}
@@ -47,19 +43,6 @@ namespace TMPro
 				int result;
 				if (item.AscII_Left == left)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = ((item.AscII_Right == right) ? 1 : 0);
 				}
 				else
@@ -77,10 +60,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						kerningPairs.Add(new KerningPair(left, right, offset));
 						return 0;
 					}
@@ -96,19 +75,6 @@ namespace TMPro
 				int result;
 				if (item.AscII_Left == left)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = ((item.AscII_Right == right) ? 1 : 0);
 				}
 				else
@@ -123,15 +89,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				kerningPairs.RemoveAt(num);
 				return;
 			}
@@ -150,41 +107,14 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<KerningPair> source = kerningPairs;
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache0 = ((KerningPair s) => s.AscII_Left);
 				}
 				IOrderedEnumerable<KerningPair> source2 = source.OrderBy(_003C_003Ef__am_0024cache0);
 				if (_003C_003Ef__am_0024cache1 == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache1 = ((KerningPair s) => s.AscII_Right);
 				}
 				kerningPairs = source2.ThenBy(_003C_003Ef__am_0024cache1).ToList();

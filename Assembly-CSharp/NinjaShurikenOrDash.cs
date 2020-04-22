@@ -68,19 +68,6 @@ public class NinjaShurikenOrDash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "NinjaShurikenOrDash";
 		}
 		Setup();
@@ -91,19 +78,6 @@ public class NinjaShurikenOrDash : Ability
 		SetCachedFields();
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
 		ClearTargeters();
@@ -168,19 +142,6 @@ public class NinjaShurikenOrDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_isTeleportMod.GetModifiedValue(m_isTeleport);
 		}
 		else
@@ -195,19 +156,6 @@ public class NinjaShurikenOrDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashRangeDefaultMod.GetModifiedValue(m_dashRangeDefault);
 		}
 		else
@@ -232,19 +180,6 @@ public class NinjaShurikenOrDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashToUnmarkedRangeMod.GetModifiedValue(m_dashToUnmarkedRange);
 		}
 		else
@@ -269,19 +204,6 @@ public class NinjaShurikenOrDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashIgnoreLosMod.GetModifiedValue(m_dashIgnoreLos);
 		}
 		else
@@ -296,19 +218,6 @@ public class NinjaShurikenOrDash : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashDestShapeMod.GetModifiedValue(m_dashDestShape);
 		}
 		else
@@ -323,19 +232,6 @@ public class NinjaShurikenOrDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashDamageMod.GetModifiedValue(m_dashDamage);
 		}
 		else
@@ -350,19 +246,6 @@ public class NinjaShurikenOrDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageOnMarkedMod.GetModifiedValue(m_extraDamageOnMarked);
 		}
 		else
@@ -382,19 +265,6 @@ public class NinjaShurikenOrDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedDashEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDashEnemyHitEffect;
 		}
 		else
@@ -409,19 +279,6 @@ public class NinjaShurikenOrDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedExtraEnemyEffectOnMarked != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExtraEnemyEffectOnMarked;
 		}
 		else
@@ -436,19 +293,6 @@ public class NinjaShurikenOrDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashHealingMod.GetModifiedValue(m_dashHealing);
 		}
 		else
@@ -463,19 +307,6 @@ public class NinjaShurikenOrDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedDashAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDashAllyHitEffect;
 		}
 		else
@@ -495,19 +326,6 @@ public class NinjaShurikenOrDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTriggerDeathmarkMod.GetModifiedValue(m_canTriggerDeathmark);
 		}
 		else
@@ -522,19 +340,6 @@ public class NinjaShurikenOrDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade);
 		}
 		else
@@ -549,47 +354,16 @@ public class NinjaShurikenOrDash : Ability
 		int num = 0;
 		if (target.GetTeam() != caster.GetTeam())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GetDashDamage();
 			if (IsActorMarked(target))
 			{
 				if (GetExtraDamageOnMarked() > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraDamageOnMarked();
 				}
 			}
 			else if (GetExtraDamageIfNotMarked() > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetExtraDamageIfNotMarked();
 			}
 		}
@@ -601,19 +375,6 @@ public class NinjaShurikenOrDash : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
 		}
 		else
@@ -639,19 +400,6 @@ public class NinjaShurikenOrDash : Ability
 		int num;
 		if ((bool)boardSquareSafe)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((boardSquareSafe == targetActor.GetCurrentBoardSquare()) ? 1 : 0);
 		}
 		else
@@ -661,54 +409,18 @@ public class NinjaShurikenOrDash : Ability
 		bool flag = (byte)num != 0;
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int damage = 0;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				damage = CalcDamageOnActor(targetActor, base.ActorData);
 			}
 			results.m_damage = damage;
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int healing;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				healing = GetDashHealing();
 			}
 			else
@@ -724,30 +436,8 @@ public class NinjaShurikenOrDash : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null && m_syncComp.m_deathmarkOnTriggerDamage > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsActorMarked(targetActor))
 				{
 					while (true)
@@ -772,46 +462,15 @@ public class NinjaShurikenOrDash : Ability
 		TargetingParadigm targetingParadigm = GetTargetingParadigm(0);
 		if (targetingParadigm != TargetingParadigm.BoardSquare)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetingParadigm != TargetingParadigm.Position)
 			{
 				goto IL_0200;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		result = false;
 		List<ActorData> actorsVisibleToActor;
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 		}
 		else
@@ -844,15 +503,6 @@ public class NinjaShurikenOrDash : Ability
 							float num2;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = GetDashRangeMarked();
 							}
 							else
@@ -866,28 +516,10 @@ public class NinjaShurikenOrDash : Ability
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							int num4;
 							if (DashRequireDeathmark())
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num4 = (flag ? 1 : 0);
 							}
 							else
@@ -897,41 +529,14 @@ public class NinjaShurikenOrDash : Ability
 							bool flag2 = (byte)num4 != 0;
 							if (!flag2 && num > 0f)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (magnitude <= num)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = true;
 								}
 							}
 							ValidateCheckPath checkPath = (!GetIsTeleport()) ? ValidateCheckPath.CanBuildPath : ValidateCheckPath.Ignore;
 							if (flag2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (CanTargetActorInDecision(caster, current, CanDashToEnemy(), CanDashToAlly(), false, checkPath, DashIgnoreLos(), false))
 								{
 									while (true)
@@ -974,68 +579,19 @@ public class NinjaShurikenOrDash : Ability
 		bool flag2;
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				flag = false;
 				flag2 = false;
 				if (targetIndex == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, CanDashToEnemy(), CanDashToAlly(), caster);
 					if (targetableActorOnSquare != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (targetableActorOnSquare != caster)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (AreaEffectUtils.IsActorTargetable(targetableActorOnSquare))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 vector = targetableActorOnSquare.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 								vector.y = 0f;
 								float magnitude = vector.magnitude;
@@ -1044,15 +600,6 @@ public class NinjaShurikenOrDash : Ability
 								float num;
 								if (flag3)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num = GetDashRangeMarked();
 								}
 								else
@@ -1062,53 +609,17 @@ public class NinjaShurikenOrDash : Ability
 								float num2 = squareSize * num;
 								if (!(magnitude <= num2))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(num2 <= 0f))
 									{
 										goto IL_031e;
-									}
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								float num3 = GetDashToUnmarkedRange() * Board.Get().squareSize;
 								int num4;
 								if (DashRequireDeathmark())
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_syncComp != null)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num4 = (m_syncComp.ActorHasDeathmark(targetableActorOnSquare) ? 1 : 0);
 									}
 									else
@@ -1123,52 +634,16 @@ public class NinjaShurikenOrDash : Ability
 								bool flag4 = (byte)num4 != 0;
 								if (!flag4 && num3 > 0f)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (magnitude <= num3)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag4 = true;
 									}
 								}
 								ValidateCheckPath checkPath = (!GetIsTeleport()) ? ValidateCheckPath.CanBuildPath : ValidateCheckPath.Ignore;
 								if (flag4)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (CanTargetActorInDecision(caster, targetableActorOnSquare, CanDashToEnemy(), CanDashToAlly(), false, checkPath, DashIgnoreLos(), false))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										flag2 = true;
 									}
@@ -1184,60 +659,15 @@ public class NinjaShurikenOrDash : Ability
 					BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 					if (boardSquareSafe3 != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquareSafe3.IsBaselineHeight())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe3 != boardSquareSafe2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									bool flag5 = false;
 									if (targetIndex == 1)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag5 = AreaEffectUtils.IsSquareInShape(boardSquareSafe3, GetDashDestShape(), target.FreePos, boardSquareSafe2, false, caster);
 									}
 									if (flag5)
@@ -1245,15 +675,6 @@ public class NinjaShurikenOrDash : Ability
 										int num5;
 										if (!GetIsTeleport())
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num5 = (KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _) ? 1 : 0);
 										}
 										else
@@ -1269,30 +690,12 @@ public class NinjaShurikenOrDash : Ability
 				}
 				goto IL_031e;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 		IL_031e:
 		int result;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag ? 1 : 0);
 		}
 		else
@@ -1310,15 +713,6 @@ public class NinjaShurikenOrDash : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NinjaShurikenOrDash);
 			Setup();
 			return;

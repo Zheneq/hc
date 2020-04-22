@@ -15,19 +15,6 @@ public class Recall : Ability
 		bool flag = GameplayData.Get().m_recallAllowed;
 		if (flag && GameplayData.Get().m_recallOnlyWhenOutOfCombat)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = caster.OutOfCombat;
 		}
 		return flag;

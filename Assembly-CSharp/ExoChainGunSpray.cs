@@ -48,10 +48,6 @@ public class ExoChainGunSpray : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClearTargeters();
 					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 					{
@@ -90,15 +86,6 @@ public class ExoChainGunSpray : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -145,19 +132,6 @@ public class ExoChainGunSpray : Ability
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (currentTargeterIndex > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
 			int damageForSweepAngle = GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
 			Ability.AddNameplateValueForSingleHit(ref symbolToValue, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle);
@@ -182,30 +156,8 @@ public class ExoChainGunSpray : Ability
 		float minConeAngle = GetMinConeAngle();
 		if (maxConeAngle > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (sweepAngle > maxConeAngle)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - maxConeAngle), 0f);
 				sweepAngle = maxConeAngle;
 				goto IL_00a5;
@@ -213,15 +165,6 @@ public class ExoChainGunSpray : Ability
 		}
 		if (minConeAngle > 0f && sweepAngle < minConeAngle)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - minConeAngle), 0f);
 			sweepAngle = minConeAngle;
 		}
@@ -231,15 +174,6 @@ public class ExoChainGunSpray : Ability
 		Vector3 vector = Vector3.Cross(startAimDirection, endAimDirection);
 		if (vector.y > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			coneCenterDegrees -= sweepAngle * 0.5f;
 		}
 		else

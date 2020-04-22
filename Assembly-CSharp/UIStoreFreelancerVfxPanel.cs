@@ -18,15 +18,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -51,19 +42,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 	{
 		if (m_ownedToggle.isOn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!item.IsOwned())
 			{
 				while (true)
@@ -80,15 +58,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		}
 		if (item is GameBalanceVars.AbilityVfxUnlockData)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.Index1 == (int)m_charType)
 			{
 				bool result = false;
@@ -96,15 +65,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				{
 					if (m_abilityToggles[i].isOn)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i == item.Index2)
 						{
 							return false;
@@ -114,11 +74,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return result;
 				}
 			}
@@ -136,19 +91,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		UIFrontendTauntMouseoverVideo uIFrontendTauntMouseoverVideo = tooltip as UIFrontendTauntMouseoverVideo;
 		if (!(uIFrontendTauntMouseoverVideo == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (item is GameBalanceVars.AbilityVfxUnlockData)
 			{
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1);
@@ -158,30 +100,12 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				{
 					if (availableVfxSwapsForAbilityIndex[i].m_uniqueID == item.ID)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						characterAbilityVfxSwap = availableVfxSwapsForAbilityIndex[i];
 						break;
 					}
 				}
 				if (characterAbilityVfxSwap != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!characterAbilityVfxSwap.m_swapVideoPath.IsNullOrEmpty())
 					{
 						uIFrontendTauntMouseoverVideo.Setup("Video/AbilityPreviews/" + characterAbilityVfxSwap.m_swapVideoPath);
@@ -189,15 +113,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 					}
 				}
 				return false;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

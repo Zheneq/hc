@@ -52,15 +52,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
 			return;
 		}
@@ -72,45 +63,14 @@ public class EmoticonPanel : MonoBehaviour
 		int chatEmojiIndexByName2 = GameBalanceVars.Get().GetChatEmojiIndexByName(second.GetEmoji().m_emojiName);
 		if (!(first == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (chatEmojiIndexByName != -1)
 			{
 				if (!(second == null))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chatEmojiIndexByName2 != -1)
 					{
 						if (first == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (second == null)
 							{
 								while (true)
@@ -155,15 +115,6 @@ public class EmoticonPanel : MonoBehaviour
 						}
 						return 0;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return 1;
 			}
@@ -176,53 +127,13 @@ public class EmoticonPanel : MonoBehaviour
 		bool result = false;
 		if (EventSystem.current != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
 						if (componentInParent != null)
 						{
@@ -244,29 +155,11 @@ public class EmoticonPanel : MonoBehaviour
 			EmoticonSelectBtn emoticonSelectBtn = activeEmoticons[i];
 			if (emoticonSelectBtn.transform.GetSiblingIndex() != i)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				emoticonSelectBtn.transform.SetSiblingIndex(i);
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < inactiveEmoticons.Count; j++)
 			{
 				EmoticonSelectBtn emoticonSelectBtn2 = inactiveEmoticons[j];
@@ -296,15 +189,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ChatEmojiManager.Get() == null)
 			{
 				return;
@@ -313,15 +197,6 @@ public class EmoticonPanel : MonoBehaviour
 			int num;
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 			}
 			else
@@ -335,27 +210,9 @@ public class EmoticonPanel : MonoBehaviour
 				bool flag2 = chatEmoticon.m_isHidden || !GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon);
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
@@ -364,15 +221,6 @@ public class EmoticonPanel : MonoBehaviour
 					{
 						if (!enumerator.MoveNext())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						ChatEmojiManager.ChatEmoji current = enumerator.Current;
@@ -427,15 +275,6 @@ public class EmoticonPanel : MonoBehaviour
 															{
 																if (inactiveEmoticons[j].GetEmoji().m_emojiName == chatEmoticon.Name)
 																{
-																	while (true)
-																	{
-																		switch (6)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	Object.Destroy(inactiveEmoticons[j].gameObject);
 																	inactiveEmoticons.RemoveAt(j);
 																	break;
@@ -445,15 +284,6 @@ public class EmoticonPanel : MonoBehaviour
 															int siblingIndex = 0;
 															if (activeEmoticons.Count > 0)
 															{
-																while (true)
-																{
-																	switch (3)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																siblingIndex = activeEmoticons[activeEmoticons.Count - 1].transform.GetSiblingIndex() + 1;
 															}
 															emoticonSelectBtn.transform.SetSiblingIndex(siblingIndex);
@@ -489,15 +319,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_initialized)
 			{
 				while (true)
@@ -519,15 +340,6 @@ public class EmoticonPanel : MonoBehaviour
 			int num;
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 			}
 			else
@@ -544,15 +356,6 @@ public class EmoticonPanel : MonoBehaviour
 					{
 						if (!enumerator.MoveNext())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						ChatEmojiManager.ChatEmoji current = enumerator.Current;
@@ -568,15 +371,6 @@ public class EmoticonPanel : MonoBehaviour
 									{
 										if (playerAccountData != null)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (playerAccountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
 											{
 												while (true)
@@ -595,15 +389,6 @@ public class EmoticonPanel : MonoBehaviour
 										int num2;
 										if (!chatEmoticon.m_isHidden)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num2 = ((!GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon)) ? 1 : 0);
 										}
 										else
@@ -615,26 +400,8 @@ public class EmoticonPanel : MonoBehaviour
 										{
 											goto IL_0169;
 										}
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag2)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_0169;
 										}
 										goto end_IL_00c4;
@@ -656,15 +423,6 @@ public class EmoticonPanel : MonoBehaviour
 					ChatEmojiManager.ChatEmoji current2 = enumerator2.Current;
 					activeEmoticons.Add(CreateNewEmoticonBtn(current2, m_activePrefab, true));
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator3 = list2.GetEnumerator())
 			{
@@ -672,15 +430,6 @@ public class EmoticonPanel : MonoBehaviour
 				{
 					ChatEmojiManager.ChatEmoji current3 = enumerator3.Current;
 					inactiveEmoticons.Add(CreateNewEmoticonBtn(current3, m_inactivePrefab, false));
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			SortDisplayList();
@@ -716,15 +465,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 			return;
 		}
@@ -743,15 +483,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 			return;
 		}
@@ -770,15 +501,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DoPanelOpen(open);
 			return;
 		}
@@ -798,54 +520,14 @@ public class EmoticonPanel : MonoBehaviour
 		bool flag = true;
 		if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
 					if (componentInParent != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 				}
@@ -857,11 +539,6 @@ public class EmoticonPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			SetPanelOpen(false);
 			return;
 		}

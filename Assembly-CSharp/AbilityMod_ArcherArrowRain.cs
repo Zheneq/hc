@@ -71,19 +71,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = archerArrowRain.m_startRadius;
 		}
 		else
@@ -96,15 +83,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerArrowRain.m_endRadius;
 		}
 		else
@@ -117,15 +95,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerArrowRain.m_lineRadius;
 		}
 		else
@@ -138,15 +107,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerArrowRain.m_minRangeBetween;
 		}
 		else
@@ -161,15 +121,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (archerArrowRain.m_aoePenetrateLoS ? 1 : 0);
 		}
 		else
@@ -184,15 +135,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = archerArrowRain.m_damage;
 		}
 		else
@@ -206,15 +148,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = archerArrowRain.m_enemyHitEffect;
 		}
 		else

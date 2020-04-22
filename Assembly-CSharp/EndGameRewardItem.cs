@@ -30,19 +30,6 @@ public class EndGameRewardItem : MonoBehaviour
 			m_rewardItemName.text = seasonReward.m_itemTemplate.GetDisplayName();
 			if (Data.isRepeating)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rewardSubText.text = string.Format(StringUtil.TR("AwardedEverySeasonLevels", "Global"), Data.repeatLevels);
 			}
 			else
@@ -62,15 +49,6 @@ public class EndGameRewardItem : MonoBehaviour
 			}
 			else if (seasonReward.m_itemTemplate.Type == InventoryItemType.BannerID)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_bannerReward.sprite = sprite;
 				doActive = true;
 			}
@@ -88,11 +66,6 @@ public class EndGameRewardItem : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_tooltipHoverObj.Setup(TooltipType.InventoryItem, SetupTooltip);
 				m_tooltipHoverObj.Refresh();
 				return;
@@ -102,30 +75,12 @@ public class EndGameRewardItem : MonoBehaviour
 		string str = string.Empty;
 		if (Data.isRepeating)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = string.Format(StringUtil.TR("AwardedEveryCharacterLevels", "Global"), Data.repeatLevels, GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName());
 		}
 		else
 		{
 			if (Data.Level > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), Data.Level);
 			}
 			str = str + " " + GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName();
@@ -152,15 +107,6 @@ public class EndGameRewardItem : MonoBehaviour
 		Sprite sprite2 = (Sprite)Resources.Load(Data.SpritePath, typeof(Sprite));
 		if (Data.Type == RewardUtils.RewardType.Banner)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive4 = true;
 			m_bannerReward.sprite = sprite2;
 		}
@@ -185,19 +131,6 @@ public class EndGameRewardItem : MonoBehaviour
 	{
 		if (tooltip is UIInventoryItemTooltip)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_template != null)
 			{
 				while (true)

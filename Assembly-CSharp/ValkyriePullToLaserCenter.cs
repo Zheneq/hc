@@ -37,19 +37,6 @@ public class ValkyriePullToLaserCenter : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Valkyrie Pull Beam";
 		}
 		Setup();
@@ -78,19 +65,6 @@ public class ValkyriePullToLaserCenter : Ability
 		StandardEffectInfo cachedEffectToEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectToEnemies = m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
 		}
 		else
@@ -129,15 +103,6 @@ public class ValkyriePullToLaserCenter : Ability
 				{
 					if (!enumerator.MoveNext())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
@@ -150,10 +115,6 @@ public class ValkyriePullToLaserCenter : Ability
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (current.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
 								{
 									while (true)
@@ -182,15 +143,6 @@ public class ValkyriePullToLaserCenter : Ability
 			AbilityUtil_Targeter_KnockbackLaser abilityUtil_Targeter_KnockbackLaser = base.Targeter as AbilityUtil_Targeter_KnockbackLaser;
 			if (AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetTravelBoardSquareWorldPositionForLos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), GetCenterHitWidth()))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += extraDamageForCenterHits;
 			}
 		}
@@ -203,19 +155,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -235,19 +174,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -262,19 +188,6 @@ public class ValkyriePullToLaserCenter : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lengthIgnoreLosMod.GetModifiedValue(m_lengthIgnoreLos);
 		}
 		else
@@ -289,19 +202,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -321,19 +221,6 @@ public class ValkyriePullToLaserCenter : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectToEnemies != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectToEnemies;
 		}
 		else
@@ -348,19 +235,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForCenterHitsMod.GetModifiedValue(m_extraDamageForCenterHits);
 		}
 		else
@@ -375,19 +249,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_centerHitWidthMod.GetModifiedValue(m_centerHitWidth);
 		}
 		else
@@ -402,19 +263,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist);
 		}
 		else
@@ -434,19 +282,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false) ? 1 : 0);
 		}
 		else
@@ -464,15 +299,6 @@ public class ValkyriePullToLaserCenter : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ValkyriePullToLaserCenter);
 			Setup();
 			return;

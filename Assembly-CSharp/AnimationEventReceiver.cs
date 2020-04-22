@@ -18,32 +18,10 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (m_actorData == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text = string.Empty;
 			GameObject gameObject = base.gameObject;
 			while (m_actorData == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameObject.transform.parent != null)
 				{
 					if (!string.IsNullOrEmpty(text))
@@ -68,28 +46,10 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 					gameObject = gameObject.transform.parent.gameObject;
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (m_actorData == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(base.gameObject.name + " AnimationEventReceiver failed to initialize properly, can't find ActorData in the hierarchy " + text);
 			}
 		}
@@ -100,19 +60,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (m_renderers == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_renderers = GetComponentsInChildren<Renderer>(true);
 		}
 		return m_renderers;
@@ -144,15 +91,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_attachmentsParent = child.gameObject;
 			return;
 		}
@@ -181,15 +119,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetActorData().PostAnimationAudioEvent(eventName);
 			return;
 		}
@@ -207,33 +136,11 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int result;
 					if (NetworkClient.active)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (0 == 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = (GetActorData().IsVisibleToClient() ? 1 : 0);
 						}
 						else
@@ -264,10 +171,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -293,26 +196,8 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		if (ShouldPostAudioEvent())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal");
 				AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], GetActorData().gameObject);
 			}
@@ -320,28 +205,10 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		ActorData actorData = GetActorData();
 		if (TheatricsManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TheatricsManager.Get().OnAnimationEvent(actorData, eventObject, sourceObject);
 		}
 		if (CameraManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().OnAnimationEvent(actorData, eventObject);
 		}
 		actorData.OnAnimEvent(eventObject, sourceObject);
@@ -351,11 +218,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (eventObject.name == "VFX_ShowAttachments")
 			{
 				m_attachmentsParent.SetActive(true);
@@ -386,15 +248,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning($"ShowGeometryEvent: attempted to show object name '{eventName}', no such object found");
 			return;
 		}
@@ -408,19 +261,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		{
 			if (eventName == renderer.name)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				renderer.enabled = false;
 				flag = true;
 			}
@@ -431,11 +271,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			Debug.LogWarning($"HideGeometryEvent: attempted to hide object name '{eventName}', no such object found");
 			return;
 		}

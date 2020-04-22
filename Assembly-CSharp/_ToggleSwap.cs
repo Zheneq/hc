@@ -30,19 +30,6 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		if (m_offButton != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_offButton.callback = ToggleButton;
 		}
 		if (m_onContainer != null)
@@ -55,11 +42,6 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_offContainer.gameObject, !m_isOn);
 			return;
 		}
@@ -81,10 +63,6 @@ public class _ToggleSwap : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -93,15 +71,6 @@ public class _ToggleSwap : MonoBehaviour
 		UIManager.SetGameObjectActive(m_onContainer.gameObject, isOn);
 		if (m_offContainer != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_offContainer.gameObject, !isOn);
 		}
 		if (!doNotify)
@@ -110,20 +79,10 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (changedNotify != null)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					changedNotify(this);
 					return;
 				}
@@ -141,15 +100,6 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_offButton.SetClickable(canBeClicked);
 			return;
 		}

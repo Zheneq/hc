@@ -22,15 +22,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				for (int j = 0; j < _001D.Count; j++)
 				{
 					OnHitIntField onHitIntField = _001D[j];
@@ -38,15 +29,6 @@ namespace AbilityContextNamespace
 					SingleOnHitIntFieldMod singleOnHitIntFieldMod = this._001D(identifier);
 					if (singleOnHitIntFieldMod != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						OnHitIntField item = singleOnHitIntFieldMod._001D(onHitIntField);
 						list.Add(item);
 					}
@@ -70,10 +52,6 @@ namespace AbilityContextNamespace
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -88,11 +66,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return null;
 			}
 		}

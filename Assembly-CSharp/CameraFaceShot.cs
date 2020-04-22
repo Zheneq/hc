@@ -34,19 +34,6 @@ public class CameraFaceShot
 			faceCam.fieldOfView = m_fieldOfView;
 			if (!faceCam.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				faceCam.gameObject.SetActive(true);
 			}
 		}
@@ -66,19 +53,6 @@ public class CameraFaceShot
 			object obj;
 			if (faceActorModelData == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = null;
 			}
 			else
@@ -88,15 +62,6 @@ public class CameraFaceShot
 			Animator animator = (Animator)obj;
 			if (animator != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				animator.SetInteger("Attack", 0);
 			}
 			faceCam.transform.position = m_cameraAnimationObj.transform.position;
@@ -106,15 +71,6 @@ public class CameraFaceShot
 		int result;
 		if (!(m_time < m_duration))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((m_duration <= 0f) ? 1 : 0);
 		}
 		else

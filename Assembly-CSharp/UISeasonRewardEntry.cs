@@ -32,41 +32,10 @@ public class UISeasonRewardEntry : IDataEntry
 		int result;
 		if (isLevelled == uISeasonRewardEntry.isLevelled)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (LevelToGetReward == uISeasonRewardEntry.LevelToGetReward)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (isCurrentLevel == uISeasonRewardEntry.isCurrentLevel && isPreviewingLevel == uISeasonRewardEntry.isPreviewingLevel)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((Rewards.Count == uISeasonRewardEntry.Rewards.Count) ? 1 : 0);
 					goto IL_008d;
 				}
@@ -97,33 +66,11 @@ public class UISeasonRewardEntry : IDataEntry
 		isCurrentLevel = activeLevel;
 		if (rewards != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < rewards.Count; i++)
 			{
 				UISeasonRewardDisplayInfo uISeasonRewardDisplayInfo = new UISeasonRewardDisplayInfo();
 				uISeasonRewardDisplayInfo.Setup(rewards[i]);
 				Rewards.Add(uISeasonRewardDisplayInfo);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (repeatingRewards != null)
@@ -146,10 +93,6 @@ public class UISeasonRewardEntry : IDataEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
@@ -166,26 +109,8 @@ public class UISeasonRewardEntry : IDataEntry
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (isLevelled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.SetAsLevelledup();
 			}
 			else

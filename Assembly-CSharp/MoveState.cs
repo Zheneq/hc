@@ -60,15 +60,6 @@ public class MoveState
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AnimatorStateInfo currentAnimatorStateInfo = m_animator.GetCurrentAnimatorStateInfo(0);
 			m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
 			m_curAnimTag = currentAnimatorStateInfo.tagHash;
@@ -106,15 +97,6 @@ public class MoveState
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_done = true;
 			m_updatePath = true;
 			m_forceAnimReset = true;
@@ -133,15 +115,6 @@ public class MoveState
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_animator.layerCount < 1)
 			{
 				return;
@@ -164,11 +137,6 @@ public class MoveState
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_timeInAnim = 0f;
 				OnAnimChange(curAnimHash, curAnimTag, m_curAnimHash, m_curAnimTag);
 				return;

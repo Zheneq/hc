@@ -10,31 +10,9 @@ public static class GameplayUtils
 	{
 		if (layerBitMask == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (Camera.main == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = -1;
 			}
 			else
@@ -48,26 +26,8 @@ public static class GameplayUtils
 		GameObject result;
 		if (gameObject == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = list[0];
 				goto IL_008d;
 			}
@@ -96,19 +56,6 @@ public static class GameplayUtils
 		int num;
 		if (!ignoreRootJnt)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (flag ? 1 : 0);
 		}
 		else
@@ -169,10 +116,6 @@ public static class GameplayUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -221,19 +164,6 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (actor.GetComponent<BotController>() != null);
 		}
 		return result;
@@ -255,19 +185,6 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (actor.PlayerIndex != PlayerData.s_invalidPlayerIndex);
 		}
 		return result;
@@ -279,19 +196,6 @@ public static class GameplayUtils
 		ActorData component = entity.GetComponent<ActorData>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (component.PlayerIndex != PlayerData.s_invalidPlayerIndex);
 		}
 		return result;
@@ -329,19 +233,6 @@ public static class GameplayUtils
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actor.PlayerIndex != PlayerData.s_invalidPlayerIndex) ? 1 : 0);
 		}
 		else
@@ -356,19 +247,6 @@ public static class GameplayUtils
 		List<Team> list = new List<Team>();
 		if (team != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(Team.TeamA);
 		}
 		if (team != Team.TeamB)
@@ -377,15 +255,6 @@ public static class GameplayUtils
 		}
 		if (team != Team.Objects)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(Team.Objects);
 		}
 		return list;
@@ -402,19 +271,6 @@ public static class GameplayUtils
 				ActorData current = enumerator.Current;
 				if (IsPlayerControlled(current))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorBehavior actorBehavior = current.GetActorBehavior();
 					num += actorBehavior.totalDeaths;
 				}
@@ -443,19 +299,6 @@ public static class GameplayUtils
 				ActorData current = enumerator.Current;
 				if (IsPlayerControlled(current))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ItemData component = current.GetComponent<ItemData>();
 					num += component.GetNetWorth();
 				}
@@ -508,10 +351,6 @@ public static class GameplayUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -525,19 +364,6 @@ public static class GameplayUtils
 		int num;
 		if (perspectiveTeam == Team.TeamB)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 0;
 		}
 		else
@@ -553,15 +379,6 @@ public static class GameplayUtils
 		int redScore;
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			redScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA);
 		}
 		else
@@ -572,15 +389,6 @@ public static class GameplayUtils
 		int blueScore;
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			blueScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
 		}
 		else
@@ -592,15 +400,6 @@ public static class GameplayUtils
 		object victoryCondition;
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			victoryCondition = ObjectivePoints.Get().m_victoryCondition;
 		}
 		else
@@ -611,15 +410,6 @@ public static class GameplayUtils
 		int victoryConditionTurns;
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			victoryConditionTurns = ObjectivePoints.Get().m_timeLimitTurns;
 		}
 		else
@@ -635,33 +425,11 @@ public static class GameplayUtils
 		PlayerDetails playerDetails = null;
 		if (actorData.PlayerData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			playerDetails = GameFlow.Get().playerDetails.TryGetValue(actorData.PlayerData.GetPlayer());
 		}
 		int lobbyPlayerInfoId = -1;
 		if (playerDetails != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lobbyPlayerInfoId = playerDetails.m_lobbyPlayerInfoId;
 		}
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
@@ -678,15 +446,6 @@ public static class GameplayUtils
 		int isHumanControlled;
 		if (playerDetails != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			isHumanControlled = (playerDetails.IsHumanControlled ? 1 : 0);
 		}
 		else
@@ -698,15 +457,6 @@ public static class GameplayUtils
 		int humanReplacedByBot;
 		if (playerDetails != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			humanReplacedByBot = (playerDetails.ReplacedWithBots ? 1 : 0);
 		}
 		else
@@ -718,15 +468,6 @@ public static class GameplayUtils
 		int titleID;
 		if (lobbyPlayerInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			titleID = lobbyPlayerInfo.TitleID;
 		}
 		else
@@ -739,15 +480,6 @@ public static class GameplayUtils
 		int emblemID;
 		if (lobbyPlayerInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			emblemID = lobbyPlayerInfo.EmblemID;
 		}
 		else
@@ -758,15 +490,6 @@ public static class GameplayUtils
 		int ribbonID;
 		if (lobbyPlayerInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ribbonID = lobbyPlayerInfo.RibbonID;
 		}
 		else
@@ -777,56 +500,16 @@ public static class GameplayUtils
 		AbilityData.AbilityEntry[] abilityEntries = abilityData.abilityEntries;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(AbilityData.AbilityEntry entry)
 			{
 				MatchResultsStatline.AbilityEntry result4 = default(MatchResultsStatline.AbilityEntry);
 				int abilityModId;
 				if (entry != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (entry.ability != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (entry.ability.CurrentAbilityMod != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							abilityModId = entry.ability.CurrentAbilityMod.m_abilityScopeId;
 							goto IL_006e;
 						}
@@ -843,33 +526,11 @@ public static class GameplayUtils
 		IEnumerable<Card> activeCards = abilityData.GetActiveCards();
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = delegate(Card card)
 			{
 				int result3;
 				if (card != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result3 = ((card.GetAbilityRunPhase() == AbilityRunPhase.Prep) ? 1 : 0);
 				}
 				else
@@ -885,19 +546,6 @@ public static class GameplayUtils
 			int result2;
 			if (card != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result2 = ((card.GetAbilityRunPhase() == AbilityRunPhase.Dash) ? 1 : 0);
 			}
 			else
@@ -911,19 +559,6 @@ public static class GameplayUtils
 			int result;
 			if (card != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((card.GetAbilityRunPhase() == AbilityRunPhase.Combat) ? 1 : 0);
 			}
 			else

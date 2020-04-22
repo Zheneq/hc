@@ -147,19 +147,6 @@ public class AppState_FrontendLoadingScreen : AppState
 				ChooseNextAction();
 				return;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		Log.Info(Log.Category.Loading, "PKFxManager.DeepReset going to frontend");
 		PKFxManager.DeepReset();
@@ -184,19 +171,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (ClientGameManager.Get().IsServerLocked)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_hasGoneToLandingPage)
 			{
 				StartServerLocked();
@@ -223,46 +197,18 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (ShouldAutomaticallyEnterTutorial())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_nextState = NextState.GoToTutorial;
 				}
 				if (ShouldAutomaticallyEnterGame())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_nextState = NextState.GoToGame;
 				}
 				if (!m_isLoadingStarted)
@@ -281,15 +227,6 @@ public class AppState_FrontendLoadingScreen : AppState
 									{
 										goto IL_0106;
 									}
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								UIManager.Get().SetGameState(UIManager.ClientState.InGame);
 								goto IL_0106;
@@ -306,22 +243,8 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (m_nextState == NextState.GoToTutorial)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_hasGoneToLandingPage)
 						{
 							while (true)
@@ -354,15 +277,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_state = State.WaitingForKey;
 			UIFrontendLoadingScreen.Get().StartDisplayPressKey();
 			return;
@@ -373,19 +287,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (m_state != State.ServerLocked)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_state = State.ServerLocked;
 			UIFrontendLoadingScreen.Get().StartDisplayServerLocked();
 			UIFrontendLoadingScreen.Get().SetServerLockButtonVisible(true);
@@ -403,31 +304,9 @@ public class AppState_FrontendLoadingScreen : AppState
 		string arg;
 		if (connectionQueueInfo.QueueEstimatedSeconds != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TimeSpan timeSpan = TimeSpan.FromSeconds(connectionQueueInfo.QueueEstimatedSeconds);
 			if (timeSpan.Hours >= 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = string.Format(StringUtil.TR("ETAhoursminutes", "Frontend"), timeSpan.Hours, timeSpan.Minutes);
 			}
 			else
@@ -463,46 +342,22 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!UIFrontendLoadingScreen.Get().gameObject.activeSelf)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (UIFrontendLoadingScreen.Get().DisplayState != UIFrontendLoadingScreen.DisplayStates.PressKey)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (Input.anyKeyDown)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							StartFadingOut();
 							return;
 						}
@@ -521,15 +376,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 			if (!UIFrontendLoadingScreen.Get().IsReadyToReveal())
 			{
@@ -537,11 +383,6 @@ public class AppState_FrontendLoadingScreen : AppState
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				TutorialVersion tutorialVersion = TutorialVersion.None;
 				if (m_nextState == NextState.GoToLandingPage)
 				{
@@ -551,30 +392,12 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				else if (m_nextState == NextState.GoToCharacterSelect)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AppState_LandingPage.Get().Enter(m_lastLobbyErrorMessage, true);
 					m_hasGoneToLandingPage = true;
 					m_lastLobbyErrorMessage = null;
 				}
 				else if (m_nextState == NextState.GoToTutorial && !ClientGameManager.Get().IsConnectedToGameServer && !ClientGameManager.Get().IsRegisteredToGameServer)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_hasEnteredMatch = true;
 					UIFrontendLoadingScreen.Get().StartDisplayLoading();
 					UIManager.Get().SetGameState(UIManager.ClientState.InGame);
@@ -583,73 +406,19 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				else if (m_nextState == NextState.GoToGame)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!ClientGameManager.Get().IsConnectedToGameServer)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!ClientGameManager.Get().IsRegisteredToGameServer)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_hasEnteredMatch = true;
 							UIFrontendLoadingScreen.Get().StartDisplayLoading();
 							UIManager.Get().SetGameState(UIManager.ClientState.InGame);
 							if (hydrogenConfig.AutoLaunchGameType == GameType.Custom)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (hydrogenConfig.AutoLaunchCustomGameConfig.GameConfig != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (hydrogenConfig.AutoLaunchCustomGameConfig.TeamInfo != null)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										AppState_GameTypeSelect.Get().Enter(hydrogenConfig.AutoLaunchCustomGameConfig);
 										goto IL_01e4;
 									}
@@ -665,11 +434,6 @@ public class AppState_FrontendLoadingScreen : AppState
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress = tutorialVersion;
 						return;
 					}
@@ -691,22 +455,8 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (ClientQualityComponentEnabler.OptimizeForMemory())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Resources.UnloadUnusedAssets();
 			}
 			m_isLoadingComplete = true;
@@ -729,26 +479,8 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(UIFrontEnd.Get() == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(UIStorePanel.Get() == null))
 				{
 					while (true)
@@ -790,10 +522,6 @@ public class AppState_FrontendLoadingScreen : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					try
 					{
 						clientGameManager.ConnectToLobbyServer();
@@ -820,19 +548,6 @@ public class AppState_FrontendLoadingScreen : AppState
 			}
 			if (response.ErrorMessage.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				response.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
 			StartError(subErrorText: (response.ErrorMessage == "INVALID_PROTOCOL_VERSION") ? StringUtil.TR("NotRecentVersionOfTheGame", "Frontend") : ((response.ErrorMessage == "INVALID_IP_ADDRESS") ? StringUtil.TR("IPAddressChanged", "Frontend") : ((!(response.ErrorMessage == "ACCOUNT_BANNED")) ? string.Format(StringUtil.TR("FailedToConnectToLobbyServerError", "Frontend"), response.ErrorMessage) : StringUtil.TR("AccountBanned", "Frontend"))), mainErrorText: StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"));
@@ -851,15 +566,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StartError(lastLobbyErrorMessage);
 			return;
 		}
@@ -871,19 +577,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			if (notification.ErrorMessage.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				notification.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
 			StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), notification.ErrorMessage);
@@ -908,96 +601,20 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (HydrogenConfig.Get().AutoLaunchTutorial)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_nextState == NextState.GoToLandingPage)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_hasEnteredMatch)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().IsConnectedToLobbyServer)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().IsReady && !ClientGameManager.Get().IsServerLocked)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!ClientGameManager.Get().IsServerQueued)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ClientGameManager.Get().IsPlayerAccountDataAvailable() && ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress < TutorialVersion.CargoShip_Tutorial1)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.Matches < 3)
 										{
 											while (true)

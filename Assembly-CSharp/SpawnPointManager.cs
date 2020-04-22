@@ -78,19 +78,6 @@ public class SpawnPointManager : MonoBehaviour
 			float num3;
 			if (spawnedActors != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num3 = spawnPointManager.m_startMinDistToEnemy * Board.Get().squareSize;
 			}
 			else
@@ -102,15 +89,6 @@ public class SpawnPointManager : MonoBehaviour
 			List<ActorData> list;
 			if (spawnedActors == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = GameFlowData.Get().GetActors();
 			}
 			else
@@ -127,15 +105,6 @@ public class SpawnPointManager : MonoBehaviour
 				int avoidIfPossible;
 				if (squaresToAvoid != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					avoidIfPossible = (squaresToAvoid.Contains(boardSquare) ? 1 : 0);
 				}
 				else
@@ -145,51 +114,15 @@ public class SpawnPointManager : MonoBehaviour
 				scoreInfo.m_avoidIfPossible = ((byte)avoidIfPossible != 0);
 				if (spawnPointManager.CanSpawnOnSquare(m_actorSpawning, boardSquare, allowOccupiedSquares))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (squaresNotAllowed != null && !squaresNotAllowed.Contains(boardSquare))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (avoidLastDeathPosition)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float sqrMagnitude = (actorSpawning.LastDeathPosition - b).sqrMagnitude;
 							float num6 = Mathf.Max(0f, num - Mathf.Sqrt(sqrMagnitude));
 							float num7 = num6 * spawnPointManager.m_chooseWeightDeathProximity;
 							if (num6 < 0f && num7 > 0f)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7 = 0f;
 							}
 							m_scores[boardSquare].m_score = num7;
@@ -211,40 +144,13 @@ public class SpawnPointManager : MonoBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.IsDead())
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.PlayerIndex == PlayerData.s_invalidPlayerIndex)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!(actorData.GetCurrentBoardSquare() != null))
 					{
@@ -255,64 +161,19 @@ public class SpawnPointManager : MonoBehaviour
 					bool flag = actorData.GetTeam() == m_actorSpawning.GetTeam();
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (sqrMagnitude2 < num2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_scores[boardSquare].m_tooCloseToFriendly = true;
 						}
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(sqrMagnitude2 < num4))
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (onlyAvoidVisibleEnemies)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorData.IsVisibleToOpposingTeam())
 							{
 								continue;
@@ -325,15 +186,6 @@ public class SpawnPointManager : MonoBehaviour
 					float num9 = num8 * ((actorData.GetTeam() != m_actorSpawning.GetTeam()) ? chooseWeightEnemyProximity : chooseWeightFriendProximity);
 					if (num8 < 0f && num9 > 0f)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num9 = 0f;
 					}
 					m_scores[boardSquare].m_score += num9;
@@ -342,28 +194,10 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					if (m_scores[boardSquare].m_tooCloseToEnemy)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NumEnemyTooCloseSquares++;
 					}
 					else if (m_scores[boardSquare].m_tooCloseToFriendly)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NumFriendTooCloseSquares++;
 					}
 					else if (!m_scores[boardSquare].m_avoidIfPossible)
@@ -390,15 +224,6 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (y == null)
 					{
 						while (true)
@@ -419,11 +244,6 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					return -1;
 				}
 			}
@@ -431,23 +251,9 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					int result;
 					if (m_scores[x].m_cantSpawn)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = 1;
 					}
 					else
@@ -459,52 +265,16 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (m_preferedSpawnLocation != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(m_preferedSpawnLocation == x))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_preferedSpawnLocation == y))
 					{
 						goto IL_0109;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				int result2;
 				if (m_preferedSpawnLocation == x)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result2 = -1;
 				}
 				else
@@ -528,15 +298,6 @@ public class SpawnPointManager : MonoBehaviour
 						int result3;
 						if (m_scores[x].m_avoidIfPossible)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result3 = 1;
 						}
 						else
@@ -561,15 +322,6 @@ public class SpawnPointManager : MonoBehaviour
 						int result4;
 						if (m_scores[x].m_tooCloseToEnemy)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result4 = 1;
 						}
 						else
@@ -594,15 +346,6 @@ public class SpawnPointManager : MonoBehaviour
 						int result5;
 						if (m_scores[x].m_tooCloseToFriendly)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result5 = 1;
 						}
 						else
@@ -625,26 +368,12 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_scores == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					bool flag = false;
 					for (int i = 0; i < _001D.Count; i++)
 					{
@@ -660,56 +389,20 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						if (m_scores[boardSquare].m_avoidIfPossible)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							Debug.DrawRay(boardSquare.ToVector3(), new Vector3(0.5f, 1.5f, 0f), 0.5f * (Color.yellow + Color.red), _000E);
 							continue;
 						}
 						if (!m_scores[boardSquare].m_tooCloseToEnemy)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_scores[boardSquare].m_tooCloseToFriendly)
 							{
 								Debug.DrawRay(boardSquare.ToVector3(), 1.5f * Vector3.up, Color.white, _000E);
 								if (flag)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Debug.LogWarning("Respawn: square to avoid not sorted toward end of list");
 								}
 								continue;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						Debug.DrawRay(boardSquare.ToVector3(), new Vector3(0f, 1.5f, 0.5f), Color.magenta, _000E);
@@ -834,41 +527,10 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				if (i >= num)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (i <= num2 && j >= num3)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j <= num4)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -878,53 +540,17 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquare.IsBaselineHeight() || boardSquare.IsInBrushRegion() || !((float)(boardSquare.height - board.BaselineHeight) < 0.5f))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (powerUpManager.IsPowerUpSpawnPoint(boardSquare))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int team;
 				if ((i + j) % 2 == 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					team = 0;
 				}
 				else
@@ -954,32 +580,10 @@ public class SpawnPointManager : MonoBehaviour
 		Vector3 result = new Vector3(1f, 0f, 0f);
 		if (m_initialSpawnLookAtPoint != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = m_initialSpawnLookAtPoint.transform.position - spawnPosition;
 			vector.y = 0f;
 			if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((vector.x > 0f) ? new Vector3(1f, 0f, 0f) : new Vector3(-1f, 0f, 0f));
 			}
 			else if (!(vector.z > 0f))
@@ -988,15 +592,6 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			else
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = new Vector3(0f, 0f, 1f);
 			}
 		}
@@ -1020,21 +615,8 @@ public class SpawnPointManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_spawnPointsTeamA == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_spawnPointsTeamA = new SpawnPointCoord[1];
 					}
 					else
@@ -1052,11 +634,6 @@ public class SpawnPointManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_spawnPointsTeamB == null)
 			{
 				m_spawnPointsTeamB = new SpawnPointCoord[1];
@@ -1075,30 +652,8 @@ public class SpawnPointManager : MonoBehaviour
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (respawnMethod == RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = m_initialSpawnPointsTeamA.GetSquaresInRegion();
 			}
 			else
@@ -1110,15 +665,6 @@ public class SpawnPointManager : MonoBehaviour
 		{
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = m_spawnRegionsTeamA.GetSquaresInRegion();
 			}
 			else
@@ -1128,15 +674,6 @@ public class SpawnPointManager : MonoBehaviour
 			List<BoardSquare> list2 = list;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((BoardSquare s) => !s.IsBaselineHeight());
 			}
 			list2.RemoveAll(_003C_003Ef__am_0024cache0);
@@ -1145,15 +682,6 @@ public class SpawnPointManager : MonoBehaviour
 		{
 			if (m_spawnPointsTeamA != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < m_spawnPointsTeamA.Length; i++)
 				{
 					if (m_spawnPointsTeamA[i] != null)
@@ -1162,55 +690,19 @@ public class SpawnPointManager : MonoBehaviour
 						list.Add(boardSquare);
 					}
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else if (m_spawnPointsTeamB != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < m_spawnPointsTeamB.Length; j++)
 			{
 				if (m_spawnPointsTeamB[j] == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(m_spawnPointsTeamB[j].x, m_spawnPointsTeamB[j].y);
 				if ((bool)boardSquare2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare2);
 				}
 			}
@@ -1223,44 +715,13 @@ public class SpawnPointManager : MonoBehaviour
 		bool result = false;
 		if (square != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (MovementUtils.CanStopOnSquare(square))
 			{
 				if (!allowOccupiedSquares)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(square.occupant == null))
 					{
 						goto IL_0053;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = true;
@@ -1276,30 +737,8 @@ public class SpawnPointManager : MonoBehaviour
 		object obj;
 		if (actorSpawning != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_respawnMethod == RespawnMethod.RespawnOnlyAtInitialSpawnPoints)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = actorSpawning.InitialSpawnSquare;
 				goto IL_0038;
 			}
@@ -1315,15 +754,6 @@ public class SpawnPointManager : MonoBehaviour
 		int result;
 		if (spawnSquareComparer.NumFavoredSquares <= minimumFavoredSquares)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((num > minimumFavoredSquares) ? num : num2);
 		}
 		else
@@ -1340,31 +770,9 @@ public class SpawnPointManager : MonoBehaviour
 		int num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, null, squaresToAvoid, false, false, 0);
 		if (num > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num2;
 			if (spawnedActors != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((spawnedActors.Count == 0) ? 1 : 0);
 			}
 			else
@@ -1389,15 +797,6 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Debugging, failed to find respawn square");
 			}
 		}
@@ -1406,15 +805,6 @@ public class SpawnPointManager : MonoBehaviour
 			SpawnPointCoord[] array;
 			if (spawner.GetTeam() == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array = m_spawnPointsTeamA;
 			}
 			else
@@ -1433,55 +823,19 @@ public class SpawnPointManager : MonoBehaviour
 						BoardSquare current = enumerator.Current;
 						if (CanSpawnOnSquare(spawner, current))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							spawnSquaresList.Add(current);
 						}
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = spawnSquaresList[0];
 			}
 		}
 		if (boardSquare == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board board = Board.Get();
 			for (int k = 0; k < board.GetMaxX(); k++)
 			{
@@ -1507,41 +861,14 @@ public class SpawnPointManager : MonoBehaviour
 					break;
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, squaresToAvoid, null, false, false, 0);
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = spawnSquaresList[0];
 			}
 		}
 		if (boardSquare == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Failed to find a spawn square for " + spawner.DisplayName);
 		}
 		else if (boardSquare.occupant != null)
@@ -1557,19 +884,6 @@ public class SpawnPointManager : MonoBehaviour
 		List<BoardSquare> squaresInRegion;
 		if (spawner.GetTeam() == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			squaresInRegion = m_initialSpawnPointsTeamA.GetSquaresInRegion();
 		}
 		else
@@ -1578,15 +892,6 @@ public class SpawnPointManager : MonoBehaviour
 		}
 		if (squaresInRegion != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (squaresInRegion.Count != 0)
 			{
 				using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
@@ -1595,15 +900,6 @@ public class SpawnPointManager : MonoBehaviour
 					{
 						if (!enumerator.MoveNext())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						BoardSquare current = enumerator.Current;
@@ -1656,27 +952,9 @@ public class SpawnPointManager : MonoBehaviour
 				}
 				if (boardSquare == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.");
 					for (int i = 0; i < 128; i++)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare == null)
 						{
 							Board board = Board.Get();
@@ -1685,41 +963,14 @@ public class SpawnPointManager : MonoBehaviour
 							BoardSquare boardSquare2 = board.GetBoardSquare(x, y);
 							if (CanSpawnOnSquare(spawner, boardSquare2))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = boardSquare2;
 							}
 							continue;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
 				}
 				return boardSquare;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return GetSpawnSquare(spawner, false, spawnedActors);
@@ -1734,45 +985,14 @@ public class SpawnPointManager : MonoBehaviour
 		Gizmos.color = ActorData.s_teamAColor;
 		if (m_spawnPointsTeamA != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnPointCoord[] spawnPointsTeamA = m_spawnPointsTeamA;
 			foreach (SpawnPointCoord spawnPointCoord in spawnPointsTeamA)
 			{
 				BoardSquare boardSquare = (!(Board.Get() == null)) ? Board.Get().GetBoardSquare(spawnPointCoord.x, spawnPointCoord.y) : null;
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.DrawWireSphere(boardSquare.ToVector3(), 0.7f);
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Gizmos.color = ActorData.s_teamBColor;
@@ -1784,15 +1004,6 @@ public class SpawnPointManager : MonoBehaviour
 				object obj;
 				if (Board.Get() == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = null;
 				}
 				else
@@ -1802,26 +1013,8 @@ public class SpawnPointManager : MonoBehaviour
 				BoardSquare boardSquare2 = (BoardSquare)obj;
 				if (boardSquare2 != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.DrawWireSphere(boardSquare2.ToVector3(), 0.7f);
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (GameFlowData.Get() == null)
@@ -1830,11 +1023,6 @@ public class SpawnPointManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == null)
 			{
 				while (true)
@@ -1856,15 +1044,6 @@ public class SpawnPointManager : MonoBehaviour
 				BoardSquare boardSquare3 = spawnSquaresList[k];
 				if (k == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.color = Color.green;
 				}
 				else if (k >= num)

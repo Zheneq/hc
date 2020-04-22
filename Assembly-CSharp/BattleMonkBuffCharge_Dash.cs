@@ -26,15 +26,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 			{
@@ -43,15 +34,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 					Ability current = enumerator.Current;
 					if (current is BattleMonkBuffCharge_Prep)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_prepAbility = (current as BattleMonkBuffCharge_Prep);
 					}
 				}
@@ -74,19 +56,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_damage != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damage));
 		}
 		m_enemyDebuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
@@ -108,19 +77,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		AbilityAreaShape result;
 		if (m_prepAbility == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageEnemiesShape;
 		}
 		else

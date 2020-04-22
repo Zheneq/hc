@@ -26,10 +26,6 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return '-';
 				}
 			}
@@ -78,10 +74,6 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 'V';
 				}
 			}
@@ -117,10 +109,6 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return "public";
 				}
 			}
@@ -155,19 +143,6 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 		}
 		else if (flags.Contains(MatchmakingQueueConfig.EloKeyFlags.SOFTENED_INDIVIDUAL))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			phase = 2;
 		}
 		else
@@ -202,33 +177,11 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 			}
 			else if (preMadeGroupRatio < 1f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num *= (double)preMadeGroupRatio;
 			}
 		}
 		else if (m_phase == BinaryModePhaseEnum.TERTIARY)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num2 = (!won) ? (averageElo - currentElo) : (currentElo - averageElo);
 			if (num2 > 0f)
 			{
@@ -248,19 +201,6 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 		}
 		else if (m_phase != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 20f;
 		}
 		else
@@ -275,53 +215,17 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 						{
 							if (!(currentElo > 2300f))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(currentElo < 700f))
 								{
 									goto IL_00af;
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							num = 20f;
 							goto IL_00af;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					num = 10f;
 					goto IL_00af;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num = 5f;
@@ -333,26 +237,8 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
 		float maxDeltaFraction = GetMaxDeltaFraction(eloRange, preMadeGroupRatio, won, currentElo, averageElo);
 		if (maxDeltaFraction >= 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxDeltaFraction <= 1f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num *= maxDeltaFraction;
 				goto IL_010c;
 			}

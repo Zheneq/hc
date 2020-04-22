@@ -56,19 +56,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		m_cameraCreated = true;
 	}
@@ -99,45 +86,14 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		int result;
 		if (SinglePlayerManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!SinglePlayerManager.Get().EnableBrush())
 			{
 				result = 1;
 				goto IL_0066;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (DebugParameters.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (DebugParameters.Get().GetParameterAsBool("DisableBrush") ? 1 : 0);
 		}
 		else
@@ -156,19 +112,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			m_regions[i].Initialize();
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_regionsLastDisruptionTurn.Add(-1);
 			}
 		}
@@ -184,35 +127,16 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Board.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (GameFlowData.Get() != null && m_cameraCreated)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						SetupBrushSquares();
 						FogOfWar.CalculateFogOfWarForTeam(Team.TeamA);
 						FogOfWar.CalculateFogOfWarForTeam(Team.TeamB);
@@ -236,33 +160,11 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			BrushRegion brushRegion = m_regions[i];
 			if (brushRegion == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Debug.LogError("Brush Region at index " + i + " is null");
 				continue;
 			}
 			if (brushRegion.m_disruptedVFX != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (brushRegion.m_disruptedVFX.GetComponent<PKFxFX>() == null)
 				{
 					Debug.LogError("Brush Region at index " + i + " has Disrupted VFX field set but it doesn't have a PKFxFX component");
@@ -270,15 +172,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			}
 			if (brushRegion.m_functioningVFX != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (brushRegion.m_functioningVFX.GetComponent<PKFxFX>() == null)
 				{
 					Debug.LogError("Brush Region at index " + i + " has Functioning VFX field set but it doesn't have a PKFxFX component");
@@ -293,19 +186,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		{
 			if (m_regions[i] == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error($"Null brush region ({i}); fix brush coordinator's data.");
 			}
 			else
@@ -315,15 +195,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				{
 					if (item.BrushRegion == -1)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						item.BrushRegion = i;
 					}
 					else
@@ -353,15 +224,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			FogOfWar.GetClientFog().MarkForRecalculateVisibility();
 			return;
 		}
@@ -376,15 +238,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			FogOfWar.GetClientFog().UpdateVisibilityOfSquares();
 			return;
 		}
@@ -409,41 +262,10 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			{
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!flag3)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().StartEffect();
 							goto IL_0144;
 						}
@@ -458,66 +280,21 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					GameObject gameObject = brushRegion.m_perSquareDisruptedVFX[j];
 					if (flag && !flag3)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							gameObject.GetComponent<PKFxFX>().StartEffect();
 							continue;
 						}
 					}
 					gameObject.GetComponent<PKFxFX>().TerminateEffect();
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			goto IL_0144;
 			IL_0144:
 			if (brushRegion.m_functioningVFX != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						brushRegion.m_functioningVFX.GetComponent<PKFxFX>().StartEffect();
@@ -532,15 +309,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				GameObject gameObject2 = brushRegion.m_perSquareFunctioningVFX[k];
 				if (flag && flag3 && flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject2.GetComponent<PKFxFX>().StartEffect();
 				}
 				else
@@ -573,36 +341,14 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return new List<ActorData>();
 				}
 			}
 		}
 		if (regionIndex >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (regionIndex < m_regions.Length)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BrushRegion brushRegion = m_regions[regionIndex];
 				result = brushRegion.GetOccupantActors();
 			}
@@ -626,10 +372,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = m_regionsLastDisruptionTurn[regionIndex];
 					if (num <= 0)
 					{
@@ -663,81 +405,27 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
 		bool flag;
 		if (!(subjectSquare == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(observerSquare == null))
 			{
 				if (subjectSquare.BrushRegion == observerSquare.BrushRegion)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else if (subjectSquare.IsInBrushRegion())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int brushRegion = subjectSquare.BrushRegion;
 					if (IsRegionFunctioning(brushRegion))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = observerSquare.HorizontalDistanceOnBoardTo(subjectSquare);
 						float distanceCanSeeIntoBrush = GameplayData.Get().m_distanceCanSeeIntoBrush;
 						if (num > distanceCanSeeIntoBrush)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 						else
@@ -756,15 +444,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				}
 				goto IL_00d1;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		flag = false;
 		goto IL_00d1;
@@ -773,15 +452,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		bool flag2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((!flag2) ? 1 : 0);
 		}
 		else
@@ -796,15 +466,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		if (!(subjectSquare == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(subjectSquare.OccupantActor == null))
 			{
 				ActorStatus actorStatus = subjectSquare.OccupantActor.GetActorStatus();
@@ -815,27 +476,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 						flag2 = false;
 						goto IL_0144;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				flag2 = true;
 				goto IL_0144;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag2 = false;
@@ -859,19 +502,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				byte b2 = (byte)(1 << (int)b);
 				if ((b2 & brushExteriorSideFlags) != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (boardSquare.CalcSideBounds((SideFlags)b2).Intersects(bounds))
 					{
 						list.Add(boardSquare.CalcSidePlane((SideFlags)b2));
@@ -881,11 +511,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -908,15 +533,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_regions.Length; i++)
 			{
 				BrushRegion brushRegion = m_regions[i];
@@ -951,10 +567,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_regionsLastDisruptionTurn called on server.");
 					return;
 				}
@@ -974,10 +586,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcUpdateClientFog called on server.");
 					return;
 				}
@@ -997,10 +605,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcUpdateClientFog called on client.");
 					return;
 				}
@@ -1025,10 +629,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_regionsLastDisruptionTurn);
 					return true;
 				}
@@ -1037,15 +637,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1055,15 +646,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1080,10 +662,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
 					return;
 				}
@@ -1096,11 +674,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			SyncListInt.ReadReference(reader, m_regionsLastDisruptionTurn);
 			return;
 		}

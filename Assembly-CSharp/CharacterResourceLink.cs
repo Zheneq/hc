@@ -135,19 +135,6 @@ public class CharacterResourceLink : MonoBehaviour
 			GameObject value = null;
 			if (s_loadedActorDataPrefabCache.TryGetValue(m_actorDataResourcePath, out value))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(value == null))
 				{
 					goto IL_006a;
@@ -156,15 +143,6 @@ public class CharacterResourceLink : MonoBehaviour
 			value = Resources.Load<GameObject>(m_actorDataResourcePath);
 			if (value != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				s_loadedActorDataPrefabCache[m_actorDataResourcePath] = value;
 			}
 			goto IL_006a;
@@ -258,10 +236,6 @@ public class CharacterResourceLink : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000d;
 				}
 			}
@@ -273,15 +247,6 @@ public class CharacterResourceLink : MonoBehaviour
 			while (enumerator2.MoveNext())
 			{
 				UnityEngine.Object.Destroy(enumerator2.Current.Value);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		s_instantiatedFrontEndAudioResources.Clear();
@@ -320,82 +285,28 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (!IsVisualInfoSelectionValid(selection))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning(Log.Category.Loading, "Invalid skin selection used to load CharacterType " + m_characterType.ToString() + ", reverting to default. Input = " + selection.ToString());
 			selection.ResetToDefault();
 		}
 		if (m_loadedCharacterCache.TryGetValue(selection, out LoadedCharacterSelection loadedCharacter2))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (loadedCharacter2.isLoading)
 			{
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (loadedCharacter2 != null)
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				Log.Info(Log.Category.Loading, "Character " + base.name + " " + selection.ToString() + " already loading has finished - falling through");
 				CharacterSkin skin2 = null;
 				if (loadedCharacter2 != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int skinIndex = loadedCharacter2.selectedSkin.skinIndex;
 					if (skinIndex >= 0 && skinIndex < m_skins.Count)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						skin2 = m_skins[skinIndex];
 					}
 					else
@@ -403,15 +314,6 @@ public class CharacterResourceLink : MonoBehaviour
 						Log.Error("Selected skin index is out of bounds, using default. Input value = " + skinIndex);
 						if (m_skins.Count > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							skin2 = m_skins[0];
 						}
 					}
@@ -432,26 +334,8 @@ public class CharacterResourceLink : MonoBehaviour
 						GameObject gameObject = actorDataComp.m_additionalNetworkObjectsToRegister[i];
 						if (gameObject != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ClientScene.RegisterPrefab(gameObject);
 						}
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				onCharacterPrefabLoaded(loadedCharacter2);
@@ -472,15 +356,6 @@ public class CharacterResourceLink : MonoBehaviour
 		loadedCharacter2.heroPrefabLink = GetHeroPrefabLinkFromSelection(selection, out skin);
 		if (loadedCharacter2.heroPrefabLink != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!loadedCharacter2.heroPrefabLink.IsEmpty)
 			{
 				goto IL_040e;
@@ -494,29 +369,11 @@ public class CharacterResourceLink : MonoBehaviour
 		IEnumerator e2;
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HydrogenConfig.Get().SkipCharacterModelSpawnOnServer)
 			{
 				e2 = CharacterLoadAudioAssetsForGameStatus(gameStatusForAssets, skin);
 				yield return e2.Current;
 				/*Error: Unable to find new state assignment for yield return*/;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Info(Log.Category.Loading, "Starting async load for actor model prefab for Character " + base.name + " " + selection.ToString());
@@ -533,36 +390,17 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value == null || !value.isLoading)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_loadedCharacterCache.Remove(selection);
 				if (AsyncManager.Get() != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						AsyncManager.Get().CancelAsyncOperation(asyncTicket);
 						return;
 					}
@@ -582,55 +420,15 @@ public class CharacterResourceLink : MonoBehaviour
 				LoadedCharacterSelection value = enumerator.Current.Value;
 				if (value != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!skins.Contains(value.selectedSkin))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value.heroPrefabLink != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value.heroPrefabLink.UnloadPrefab();
 							list.Add(value.selectedSkin);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = 0; i < list.Count; i++)
@@ -643,19 +441,6 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (GameWideData.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
 			foreach (CharacterResourceLink characterResourceLink in characterResourceLinks)
 			{
@@ -666,38 +451,11 @@ public class CharacterResourceLink : MonoBehaviour
 						LoadedCharacterSelection value = enumerator.Current.Value;
 						if (value != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (value.heroPrefabLink != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								value.heroPrefabLink.UnloadPrefab();
 							}
 						}
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				characterResourceLink.m_loadedCharacterCache.Clear();
@@ -712,51 +470,15 @@ public class CharacterResourceLink : MonoBehaviour
 				ActorData component = value2.GetComponent<ActorData>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int j = 0; j < component.m_additionalNetworkObjectsToRegister.Count; j++)
 					{
 						GameObject gameObject = component.m_additionalNetworkObjectsToRegister[j];
 						if (gameObject != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ClientScene.UnregisterPrefab(gameObject);
 						}
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		s_loadedActorDataPrefabCache.Clear();
@@ -768,30 +490,8 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (selection.skinIndex >= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (selection.patternIndex >= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (selection.colorIndex >= 0)
 				{
 					while (true)
@@ -843,19 +543,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (string.IsNullOrEmpty(skin.m_pkfxDirectory))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (string.IsNullOrEmpty(m_pkfxDirectoryDefault))
 			{
 				Log.Error("Character {1} (skin: {0}) needs pkfx path set to preload VFX. Until then, you may see a hitch when spawning vfx for this character the first time.", skin.m_name, base.name);
@@ -868,24 +555,10 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			ClientVFXLoader clientVFXLoader = ClientVFXLoader.Get();
 			string path;
 			if (string.IsNullOrEmpty(skin.m_pkfxDirectory))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				path = m_pkfxDirectoryDefault;
 			}
 			else
@@ -903,44 +576,13 @@ public class CharacterResourceLink : MonoBehaviour
 		Dictionary<string, GameObject> instantiatedAudioResources2 = null;
 		if (gamestatus >= GameStatus.Launched)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gamestatus.IsActiveStatus())
 			{
 				instantiatedAudioResources2 = s_instantiatedInGameAudioResources;
 				if (skin != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (skin.m_audioAssetsInGamePrefabs != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!skin.m_audioAssetsInGamePrefabs.IsNullOrEmpty())
 						{
 							audioAssetsLinks = skin.m_audioAssetsInGamePrefabs;
@@ -955,27 +597,9 @@ public class CharacterResourceLink : MonoBehaviour
 						audioAssetsLinks = m_audioAssetsInGameDefaultPrefabs;
 						goto IL_0201;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (Application.isEditor)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets in game default, and no override for a skin.", base.name);
 				}
 				goto IL_0201;
@@ -984,37 +608,10 @@ public class CharacterResourceLink : MonoBehaviour
 		instantiatedAudioResources2 = s_instantiatedFrontEndAudioResources;
 		if (skin != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (skin.m_audioAssetsFrontEndPrefabs != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!skin.m_audioAssetsFrontEndPrefabs.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					audioAssetsLinks = skin.m_audioAssetsFrontEndPrefabs;
 					goto IL_0201;
 				}
@@ -1022,15 +619,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (m_audioAssetsFrontEndDefaultPrefabs != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_audioAssetsFrontEndDefaultPrefabs.IsNullOrEmpty())
 			{
 				audioAssetsLinks = m_audioAssetsFrontEndDefaultPrefabs;
@@ -1039,15 +627,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets front end default, and no override for a skin.", base.name);
 		}
 		goto IL_0201;
@@ -1055,15 +634,6 @@ public class CharacterResourceLink : MonoBehaviour
 		int num;
 		if (HydrogenConfig.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (HydrogenConfig.Get().SkipAudioEvents ? 1 : 0);
 		}
 		else
@@ -1072,15 +642,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			audioAssetsLinks = null;
 		}
 		if (audioAssetsLinks == null)
@@ -1106,11 +667,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			instantiatedAudioResources2[audioAssetsLink.GUID] = null;
 			IEnumerator e = audioAssetsLink.PreLoadPrefabAsync();
 			yield return e.Current;
@@ -1133,26 +689,12 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			skinSelector.patternIndex = 0;
 			skinSelector.skinIndex++;
 			if (skinSelector.skinIndex >= m_skins.Count)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					skinSelector.skinIndex = 0;
 					return;
 				}
@@ -1215,81 +757,23 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (selection.skinIndex >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (selection.skinIndex < m_skins.Count)
 			{
 				if (selection.patternIndex >= 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (selection.patternIndex < m_skins[selection.skinIndex].m_patterns.Count)
 					{
 						if (selection.colorIndex >= 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (selection.colorIndex < m_skins[selection.skinIndex].m_patterns[selection.patternIndex].m_colors.Count)
 							{
 								return true;
 							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						return false;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return false;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -1306,10 +790,6 @@ public class CharacterResourceLink : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1356,32 +836,10 @@ public class CharacterResourceLink : MonoBehaviour
 		bool result;
 		if (selectedVfxSwap == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = true;
 		}
 		else if (resourceLinkVfxSwaps == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		else
@@ -1394,29 +852,11 @@ public class CharacterResourceLink : MonoBehaviour
 				{
 					if (resourceLinkVfxSwaps[num].m_uniqueID == selectedVfxSwap)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1434,32 +874,10 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		else if (selectedVfxSwapId == 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else if (resourceLinkVfxSwaps.Count == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Trying to find VFX swaps for an ability with swap ID = " + selectedVfxSwapId + " on resource link " + resourceLinkName + ", but the resource link VFX swaps list is empty.");
 			result = null;
 		}
@@ -1473,29 +891,11 @@ public class CharacterResourceLink : MonoBehaviour
 				{
 					if (resourceLinkVfxSwaps[num].m_uniqueID == selectedVfxSwapId)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = resourceLinkVfxSwaps[num];
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1533,10 +933,6 @@ public class CharacterResourceLink : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -1548,15 +944,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (!IsAbilityVfxSwapSelectionValid(abilityVfxSwapsInfo))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError($"Invalid ability vfx swap info ({abilityVfxSwapsInfo.ToString()}) for character resource link {ToString()}, resetting to default...");
 			abilityVfxSwapsInfo.Reset();
 		}
@@ -1608,31 +995,9 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (swapInfo.VfxSwapForAbility0 != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterAbilityVfxSwap characterAbilityVfxSwap = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility0, m_vfxSwapsForAbility0, base.name);
 			if (characterAbilityVfxSwap != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap.m_replacementSequences);
 				if (gameObject != null)
 				{
@@ -1654,27 +1019,9 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (swapInfo.VfxSwapForAbility2 != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterAbilityVfxSwap characterAbilityVfxSwap3 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility2, m_vfxSwapsForAbility2, base.name);
 			if (characterAbilityVfxSwap3 != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject3 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap3.m_replacementSequences);
 				if (gameObject3 != null)
 				{
@@ -1693,27 +1040,9 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (swapInfo.VfxSwapForAbility3 != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterAbilityVfxSwap characterAbilityVfxSwap4 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility3, m_vfxSwapsForAbility3, base.name);
 			if (characterAbilityVfxSwap4 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject4 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap4.m_replacementSequences);
 				if (gameObject4 != null)
 				{
@@ -1732,15 +1061,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (swapInfo.VfxSwapForAbility4 != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterAbilityVfxSwap characterAbilityVfxSwap5 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility4, m_vfxSwapsForAbility4, base.name);
 			if (characterAbilityVfxSwap5 != null)
 			{
@@ -1758,19 +1078,6 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (replacements != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (PrefabReplacement prefabReplacement in replacements)
 			{
 				if (!(prefabReplacement.OriginalPrefab.GetPrefab(true) == originalSequencePrefab))
@@ -1779,22 +1086,8 @@ public class CharacterResourceLink : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return prefabReplacement.Replacement.GetPrefab(true);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -1811,50 +1104,19 @@ public class CharacterResourceLink : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
 		}
 		if (visualInfo.skinIndex >= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (visualInfo.skinIndex < m_skins.Count)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterSkin characterSkin = m_skins[visualInfo.skinIndex];
 				AudioReplacement[] replacementAudio = characterSkin.m_replacementAudio;
 				foreach (AudioReplacement audioReplacement in replacementAudio)
 				{
 					audioEvent = audioEvent.Replace(audioReplacement.OriginalString, audioReplacement.Replacement);
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1865,19 +1127,6 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (visualInfo.skinIndex >= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (visualInfo.skinIndex < m_skins.Count)
 			{
 				while (true)
@@ -1892,15 +1141,6 @@ public class CharacterResourceLink : MonoBehaviour
 						int result;
 						if (characterSkin.m_replacementAudio != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((characterSkin.m_replacementAudio.Length > 0) ? 1 : 0);
 						}
 						else
@@ -1921,55 +1161,15 @@ public class CharacterResourceLink : MonoBehaviour
 		CharacterSkin characterSkin = null;
 		if (visualInfo.skinIndex >= 0 && visualInfo.skinIndex < m_skins.Count)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			characterSkin = m_skins[visualInfo.skinIndex];
 		}
 		if (characterSkin != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (characterSkin.m_allowedAudioTags != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterSkin.m_allowedAudioTags.Length != 0)
 				{
 					return characterSkin.m_allowedAudioTags.Contains(audioTag);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1987,10 +1187,6 @@ public class CharacterResourceLink : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -2034,19 +1230,6 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (replacements != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (PrefabReplacement prefabReplacement in replacements)
 			{
 				if (!(prefabReplacement.OriginalPrefab.ResourcePath == originalPrefabResourceLink.ResourcePath))
@@ -2055,22 +1238,8 @@ public class CharacterResourceLink : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return prefabReplacement.Replacement;
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -2121,15 +1290,6 @@ public class CharacterResourceLink : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					patternUnlockData.colorUnlockData = list3.ToArray();
 					list2.Add(patternUnlockData);
 					num++;
@@ -2155,11 +1315,6 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			characterUnlockData.skinUnlockData = list.ToArray();
 			List<GameBalanceVars.TauntUnlockData> list4 = new List<GameBalanceVars.TauntUnlockData>();
 			for (int k = 0; k < m_taunts.Count; k++)
@@ -2195,10 +1350,6 @@ public class CharacterResourceLink : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					for (int i = 0; i < input.Count; i++)
 					{
 						GameBalanceVars.AbilityVfxUnlockData abilityVfxUnlockData = input[i].m_vfxSwapUnlockData.Clone();

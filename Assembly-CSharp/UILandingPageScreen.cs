@@ -191,19 +191,6 @@ public class UILandingPageScreen : UIScene
 		{
 			if (m_playerRewards != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_playerRewards.Count != 0)
 				{
 					UIRewardListTooltip uIRewardListTooltip3 = tooltip as UIRewardListTooltip;
@@ -223,19 +210,6 @@ public class UILandingPageScreen : UIScene
 					uIRewardListTooltip2.Setup(m_charRewards, m_charLevel, UIRewardListTooltip.RewardsType.Character);
 					return true;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			return false;
 		});
@@ -243,33 +217,11 @@ public class UILandingPageScreen : UIScene
 		{
 			if (m_playerRewards != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_playerRewards.Count != 0)
 				{
 					UIRewardListTooltip uIRewardListTooltip = tooltip as UIRewardListTooltip;
 					uIRewardListTooltip.Setup(m_playerRewards, m_curLevel - 1, UIRewardListTooltip.RewardsType.Tutorial);
 					return true;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -282,28 +234,10 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_ForumsBtn.SetRecordMetricClick(true, "CLICK: Landing Page Forums Button");
 			m_ForumsBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.GenericSmall;
 			if (m_MoreInfoBtn != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_MoreInfoBtn.spriteController.callback = MoreInfoClicked;
 				m_MoreInfoBtn.SetRecordMetricClick(true, "CLICK: Landing Page MoreInfo Button");
 				m_MoreInfoBtn.spriteController.m_soundToPlay = FrontEndButtonSounds.GenericSmall;
@@ -318,15 +252,6 @@ public class UILandingPageScreen : UIScene
 			m_tutorialLevelSliderBars.AddRange(m_tutorialLevelLayout.GetComponentsInChildren<UITutorialSeasonLevelBar>());
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager clientGameManager = ClientGameManager.Get();
 				clientGameManager.OnAccountDataUpdated += OnAccountDataUpdated;
 				clientGameManager.OnFactionCompetitionNotification += OnFactionCompetitionNotification;
@@ -334,15 +259,6 @@ public class UILandingPageScreen : UIScene
 				clientGameManager.OnCharacterDataUpdated += OnCharacterDataUpdated;
 				if (clientGameManager.IsPlayerAccountDataAvailable())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					OnAccountDataUpdated(clientGameManager.GetPlayerAccountData());
 				}
 			}
@@ -356,15 +272,6 @@ public class UILandingPageScreen : UIScene
 				SetServerIsLocked(ClientGameManager.Get().IsServerLocked);
 				if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIFrontEnd.Get().m_frontEndNavPanel.SetShopVisible(GameManager.Get().GameplayOverrides.EnableShop);
 					UIFrontEnd.Get().m_frontEndNavPanel.CheckSeasonsVisibility();
 				}
@@ -397,26 +304,12 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					while (true)
@@ -448,15 +341,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -487,19 +371,6 @@ public class UILandingPageScreen : UIScene
 		int activeIndex;
 		if (notification == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				while (true)
@@ -526,15 +397,6 @@ public class UILandingPageScreen : UIScene
 		bool canViewSeasons = UISeasonsPanel.CheckSeasonsVisibility(out reason);
 		if (factionCompetiton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (factionCompetiton.Enabled && factionCompetiton.ShouldShowcase && canViewSeasons)
 			{
 				UIManager.SetGameObjectActive(m_factionsContainer, true);
@@ -547,11 +409,6 @@ public class UILandingPageScreen : UIScene
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					for (int i = entries.Count; i < factionCompetiton.Factions.Count; i++)
 					{
 						UISeasonFactionEntry uISeasonFactionEntry = UnityEngine.Object.Instantiate(m_factionPrefab);
@@ -611,10 +468,6 @@ public class UILandingPageScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_SideShowcaseMoreInfoText.text = StringUtil.TR("LandingPageChapterInfoLabel", "NewFrontEndScene");
 					return;
 				}
@@ -632,19 +485,6 @@ public class UILandingPageScreen : UIScene
 		int pageNum;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			pageNum = 0;
 		}
 		else
@@ -695,45 +535,14 @@ public class UILandingPageScreen : UIScene
 		bool flag = true;
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = false;
 		}
 		if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		if (AppState_GroupCharacterSelect.Get().InQueue())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		if (!flag)
@@ -742,11 +551,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			AppState_LandingPage.Get().OnTutorial1Clicked();
 			return;
 		}
@@ -777,10 +581,6 @@ public class UILandingPageScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -792,11 +592,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.Get().SetSceneVisible(GetSceneType(), visible, new SceneVisibilityParameters());
 			if (!visible)
 			{
@@ -807,26 +602,8 @@ public class UILandingPageScreen : UIScene
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.IsConnectedToLobbyServer)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					clientGameManager.SendCheckAccountStatusRequest(AppState_LandingPage.Get().HandleCheckAccountStatusResponse);
 					clientGameManager.SendCheckRAFStatusRequest(false);
 				}
@@ -845,20 +622,10 @@ public class UILandingPageScreen : UIScene
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (seasonTemplate.IsTutorial)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						UITutorialSeasonInterstitial.Get().Setup(seasonTemplate, playerAccountData.QuestComponent.SeasonLevel, false);
 						UITutorialSeasonInterstitial.Get().SetVisible(true);
 						return;
@@ -878,15 +645,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!clientGameManager.IsPlayerAccountDataAvailable())
 			{
 				while (true)
@@ -906,11 +664,6 @@ public class UILandingPageScreen : UIScene
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().RequestUpdateUIState(uiState, 1, null);
 					UIDialogPopupManager.OpenTrustWarEndDialog();
 					return;
@@ -924,30 +677,8 @@ public class UILandingPageScreen : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.EnteredTutorial == 0)
 				{
 					SetBtnVisible(m_TutorialBtns, true);
@@ -981,15 +712,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string language = HydrogenConfig.Get().Language;
 			m_motd.text = clientGameManager.ServerMessageOverrides.GetValueOrDefault(ServerMessageType.MOTDText, language);
 			UIManager.SetGameObjectActive(m_motdBg, !m_motd.text.IsNullOrEmpty());
@@ -1023,29 +745,11 @@ public class UILandingPageScreen : UIScene
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UILandingPageFullScreenMenus uILandingPageFullScreenMenus = UILandingPageFullScreenMenus.Get();
 				string title = StringUtil.TR("ServerIsLocked", "Global");
 				string lockedReason = m_lockedReason;
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache0 = delegate
 					{
 						AppState_Shutdown.Get().Enter();
@@ -1061,11 +765,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UILandingPageFullScreenMenus.Get().SetMessageContainerVisible(false);
 			return;
 		}
@@ -1079,19 +778,6 @@ public class UILandingPageScreen : UIScene
 		int doActive;
 		if (m_currentSeason != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			doActive = ((!m_currentSeason.IsTutorial) ? 1 : 0);
 		}
 		else
@@ -1103,29 +789,11 @@ public class UILandingPageScreen : UIScene
 		CharacterType characterType = accountData.AccountComponent.LastCharacter;
 		if (!characterType.IsValidForHumanGameplay())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			characterType = CharacterType.Scoundrel;
 		}
 		Sprite sprite = (Sprite)Resources.Load("Characters/full_" + characterType, typeof(Sprite));
 		if (sprite != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_characterImage.sprite = sprite;
 		}
 		else
@@ -1135,15 +803,6 @@ public class UILandingPageScreen : UIScene
 		m_characterIcon.sprite = Resources.Load<Sprite>(GameWideData.Get().GetCharacterResourceLink(characterType).m_characterSelectIconResourceString);
 		if (accountData.QuestComponent.SeasonExperience.ContainsKey(accountData.QuestComponent.ActiveSeason))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_endLevel = 0;
 			m_endLevel = accountData.QuestComponent.SeasonExperience[accountData.QuestComponent.ActiveSeason].Level;
 			m_endExp = accountData.QuestComponent.SeasonExperience[accountData.QuestComponent.ActiveSeason].XPProgressThroughLevel;
@@ -1161,15 +820,6 @@ public class UILandingPageScreen : UIScene
 		m_expPerSecond = 0;
 		if (m_currentSeason != null && m_currentSeason.IsTutorial)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_curLevel = m_endLevel;
 			int endLevel = QuestWideData.GetEndLevel(m_currentSeason.Prerequisites, m_currentSeason.Index);
 			m_tutorialLevelText.text = m_curLevel - 1 + "/" + (endLevel - 1);
@@ -1180,15 +830,6 @@ public class UILandingPageScreen : UIScene
 				uITutorialSeasonLevelBar.transform.localScale = Vector3.one;
 				uITutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
 				m_tutorialLevelSliderBars.Add(uITutorialSeasonLevelBar);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards());
 			List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(m_currentSeason);
@@ -1207,29 +848,11 @@ public class UILandingPageScreen : UIScene
 					int num2 = queue.Peek().Level - 1;
 					if (num2 < num)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						queue.Dequeue();
 						continue;
 					}
 					if (num2 > num)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					rewardData = queue.Dequeue();
@@ -1250,15 +873,6 @@ public class UILandingPageScreen : UIScene
 			}
 			if (m_endLevel == m_curLevel)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_expPerSecond = m_endExp - m_curExp;
 			}
 			else
@@ -1268,28 +882,10 @@ public class UILandingPageScreen : UIScene
 			m_expPerSecond = (int)((float)m_expPerSecond / 1f);
 			if (m_expPerSecond < 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_expPerSecond = 1;
 			}
 			if (m_curLevel > m_endLevel)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_curLevel = m_endLevel;
 				m_curExp = m_endExp;
 				m_expPerSecond = 1;
@@ -1308,11 +904,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			CheckForTrustWarEnd();
 			return;
 		}
@@ -1326,15 +917,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1347,15 +929,6 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1366,44 +939,13 @@ public class UILandingPageScreen : UIScene
 		bool flag = false;
 		if (m_visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!UIFrontendLoadingScreen.Get().IsVisible())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		if (m_landingPageIntroAnimator == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_landingPageIntroAnimator = m_LandingPageOpenAnimationContainer.GetComponentInChildren<Animator>(true);
 			UIManager.SetGameObjectActive(m_LandingPageOpenAnimationContainer, true);
 		}
@@ -1412,49 +954,13 @@ public class UILandingPageScreen : UIScene
 		UIManager.SetGameObjectActive(m_SideShowcase, flag);
 		if (m_landingPageIntroAnimator != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_landingPageIntroAnimator, true);
 			if (flag && m_landingPageIntroAnimator.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(empty + "IN"))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(empty + "IDLE"))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIAnimationEventManager.Get().PlayAnimation(m_landingPageIntroAnimator, empty + "IN", null, string.Empty);
 					}
 				}
@@ -1462,37 +968,10 @@ public class UILandingPageScreen : UIScene
 		}
 		if (m_timedMessage != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_timedMessageEndTime.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_timedMessageStartTime.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					DateTime t = Convert.ToDateTime(m_timedMessageStartTime);
 					DateTime t2 = Convert.ToDateTime(m_timedMessageEndTime);
 					ClientGameManager clientGameManager = ClientGameManager.Get();
@@ -1500,15 +979,6 @@ public class UILandingPageScreen : UIScene
 					int doActive;
 					if (clientGameManager != null && clientGameManager.PacificNow() < t2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						doActive = ((clientGameManager.PacificNow() >= t) ? 1 : 0);
 					}
 					else
@@ -1529,33 +999,18 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (m_currentSeason.IsTutorial || m_expPerSecond == 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (UIFrontEnd.Get() == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (UIFrontEnd.Get().m_playerPanel == null)
 					{
 						return;
@@ -1581,40 +1036,13 @@ public class UILandingPageScreen : UIScene
 					int num = (int)((float)m_expPerSecond * Time.deltaTime);
 					if (num < 1)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 1;
 					}
 					m_curExp += num;
 					if (m_curLevel == m_endLevel)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_curExp >= m_endExp)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_curExp = m_endExp;
 							m_expPerSecond = 0;
 							goto IL_0408;
@@ -1622,15 +1050,6 @@ public class UILandingPageScreen : UIScene
 					}
 					if (m_curExp >= m_expToLevel)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_curExp = 0;
 						m_curLevel++;
 						int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
@@ -1662,10 +1081,6 @@ public class UILandingPageScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(m_seasonRewardTooltipObj, false);
 					UIManager.SetGameObjectActive(m_seasonRewardIconImage, false);
 					UIManager.SetGameObjectActive(m_seasonNextRewardLabel, false);
@@ -1683,15 +1098,6 @@ public class UILandingPageScreen : UIScene
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				RewardUtils.RewardData current = enumerator.Current;
@@ -1699,27 +1105,9 @@ public class UILandingPageScreen : UIScene
 				{
 					if (current.InventoryTemplate != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.InventoryTemplate.Index == 515)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					text = current.SpritePath;
@@ -1751,47 +1139,16 @@ public class UILandingPageScreen : UIScene
 					{
 						if (num >= m_playerRewards.Count)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						if (current.Level <= m_playerRewards[num].Level)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							index = num;
 							break;
 						}
 						num++;
 					}
 					m_playerRewards.Insert(index, current);
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1803,23 +1160,9 @@ public class UILandingPageScreen : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			RewardUtils.RewardData rewardData = null;
 			if (availableSeasonEndRewards.Count > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				rewardData = availableSeasonEndRewards[0];
 			}
 			if (rewardData == null)
@@ -1856,15 +1199,6 @@ public class UILandingPageScreen : UIScene
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1893,15 +1227,6 @@ public class UILandingPageScreen : UIScene
 		{
 			if (gameBalanceVars.RepeatingCharacterLevelRewards[i].charType == (int)m_lastCharacterType && gameBalanceVars.RepeatingCharacterLevelRewards[i].repeatingLevel > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
 				rewardData.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[i].reward.Amount;
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[i].reward.ItemTemplateId);
@@ -1918,26 +1243,8 @@ public class UILandingPageScreen : UIScene
 		RewardUtils.RewardData rewardToUseForDisplay = GetRewardToUseForDisplay(m_charRewards, m_charLevel);
 		if (rewardToUseForDisplay != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!string.IsNullOrEmpty(rewardToUseForDisplay.SpritePath))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_charRewardIconImage.sprite = Resources.Load<Sprite>(rewardToUseForDisplay.SpritePath);
 				goto IL_026a;
 			}
@@ -1956,68 +1263,23 @@ public class UILandingPageScreen : UIScene
 		{
 			if (possibleRewards[i].Level <= curLevel)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!possibleRewards[i].isRepeating)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (list.Count == 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(possibleRewards[i]);
 				num = possibleRewards[i].Level;
 			}
 			else if (num == possibleRewards[i].Level)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(possibleRewards[i]);
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < GameBalanceVars.Get().RewardDisplayPriorityOrder.Length; j++)
 			{
 				for (int k = 0; k < list.Count; k++)

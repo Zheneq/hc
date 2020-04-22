@@ -56,43 +56,12 @@ public class UIAutoCameraButton : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(componentsInChildren[i].gameObject != m_clockwiseRotateHitbox))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (componentsInChildren[i].gameObject != m_counterClockwiseRotateHitbox)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				componentsInChildren[i].raycastTarget = false;
 			}
 		}
@@ -117,15 +86,6 @@ public class UIAutoCameraButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			resolutionPhase = !GameFlowData.Get().IsInResolveState();
 			return;
 		}
@@ -150,70 +110,28 @@ public class UIAutoCameraButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!GameFlowData.Get().IsInResolveState())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameManager.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (m_visibleRemainingTime <= 0f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!autoCenterCamera)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_camAnimatorController.Play("CameraIn", 0, 0f);
 							}
 						}
@@ -222,11 +140,6 @@ public class UIAutoCameraButton : MonoBehaviour
 						{
 							while (true)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
 								return;
 							}
@@ -253,63 +166,18 @@ public class UIAutoCameraButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = CameraManager.Get().UseCameraToggleKey;
 			int num;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetMouseButtonUp(1))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get() != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 						{
 							if (!GameFlowData.Get().GetPause())
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = ((GameFlowData.Get().GetTimeInState() >= 1.5f) ? 1 : 0);
 							}
 							else
@@ -331,11 +199,6 @@ public class UIAutoCameraButton : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				bool flag2 = !accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
 				accountPreferences.SetBool(BoolPreference.AutoCameraCenter, flag2);
 				RefreshAutoCameraButton();
@@ -346,20 +209,10 @@ public class UIAutoCameraButton : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (abilitiesCamera != null)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							abilitiesCamera.OnAutoCenterCameraPreferenceSet();
 							return;
 						}
@@ -411,15 +264,6 @@ public class UIAutoCameraButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_visibleRemainingTime = -1f;
 			m_camAnimatorController.Play("CameraOut");
 			return;
@@ -434,15 +278,6 @@ public class UIAutoCameraButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lastToggleTime = Time.time;
 			bool flag = autoCenterCamera != autoCam;
 			autoCenterCamera = autoCam;
@@ -482,11 +317,6 @@ public class UIAutoCameraButton : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_camAnimatorController.Play("CameraWhiteStrip", 1, 0f);
 					return;
 				}
@@ -506,10 +336,6 @@ public class UIAutoCameraButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					resolutionPhase = GameFlowData.Get().IsInResolveState();
 					if (resolutionPhase)
 					{
@@ -537,32 +363,10 @@ public class UIAutoCameraButton : MonoBehaviour
 	{
 		if (!(GameManager.Get() == null) && GameManager.Get().GameConfig != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get() == null))
 			{
 				if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_container, false);
 				}
 				else
@@ -572,15 +376,6 @@ public class UIAutoCameraButton : MonoBehaviour
 				}
 				if (m_visibleRemainingTime > 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_visibleRemainingTime -= Time.deltaTime;
 					if (m_visibleRemainingTime <= 0f)
 					{
@@ -594,11 +389,6 @@ public class UIAutoCameraButton : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					GetComponent<CanvasGroup>().blocksRaycasts = lastIsTargeting;
 					lastIsTargeting = !lastIsTargeting;
 					return;

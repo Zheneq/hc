@@ -26,33 +26,11 @@ public class ScampVfxController : CopyableVfxControllerComponent
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				m_vfxInstances.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType().ToString());
 			}
 		}
@@ -73,19 +51,6 @@ public class ScampVfxController : CopyableVfxControllerComponent
 		object obj;
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actorModelData.m_parentActorData;
 		}
 		else
@@ -99,37 +64,14 @@ public class ScampVfxController : CopyableVfxControllerComponent
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			bool flag = !IsSuitVisuallyShown();
 			int num;
 			if (!(actorData == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData.IsVisibleToClient())
 				{
 					if (!(actorData.GetActorModelData() == null))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (actorData.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 					}
 					else
@@ -153,15 +95,6 @@ public class ScampVfxController : CopyableVfxControllerComponent
 				int actorVisible;
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible = ((!flag) ? 1 : 0);
 				}
 				else

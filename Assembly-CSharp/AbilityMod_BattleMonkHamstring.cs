@@ -52,15 +52,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamageAmount", string.Empty, battleMonkHamstring.m_laserDamageAmount);
 			AbilityMod.AddToken(tokens, m_damageAfterFirstHitMod, "DamageAfterFirstHit", string.Empty, battleMonkHamstring.m_damageAfterFirstHit);
 			AbilityMod.AddToken(tokens, m_widthMod, "LaserInfo_Width", string.Empty, battleMonkHamstring.m_laserInfo.width);
@@ -90,19 +81,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = battleMonkHamstring.m_damageAfterFirstHit;
 		}
 		else
@@ -120,15 +98,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = battleMonkHamstring.m_laserInfo.width;
 		}
 		else
@@ -142,15 +111,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = battleMonkHamstring.m_laserInfo.maxTargets;
 		}
 		else
@@ -163,15 +123,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (battleMonkHamstring.m_explodeOnActorHit ? 1 : 0);
 		}
 		else
@@ -184,15 +135,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = battleMonkHamstring.m_explosionDamageAmount;
 		}
 		else
@@ -209,15 +151,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 			object baseVal6;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = battleMonkHamstring.m_explosionHitEffect;
 			}
 			else
@@ -231,15 +164,6 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (int)battleMonkHamstring.m_explodeShape;
 		}
 		else
@@ -251,40 +175,13 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 		empty += PropDesc(m_distancePerBounce, "[Distance Per Bounce]", flag);
 		if (m_projectileSequencePrefab != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_projectileSequencePrefab.operation == AbilityModPropertySequenceOverride.ModOp.Override)
 			{
 				string text = string.Empty;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (battleMonkHamstring.m_projectileSequencePrefab != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = " (base was " + battleMonkHamstring.m_projectileSequencePrefab.name + ")";
 					}
 				}

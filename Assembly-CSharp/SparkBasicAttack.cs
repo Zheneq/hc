@@ -58,19 +58,6 @@ public class SparkBasicAttack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Spark Damage Beam";
 		}
 		Setup();
@@ -84,19 +71,6 @@ public class SparkBasicAttack : Ability
 			AbilityData component = GetComponent<AbilityData>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 			}
 		}
@@ -108,15 +82,6 @@ public class SparkBasicAttack : Ability
 		int affectsCaster;
 		if (m_healCasterOnIniialAttach)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = ((GetHealOnCasterPerTurn() > 0) ? 1 : 0);
 		}
 		else
@@ -126,15 +91,6 @@ public class SparkBasicAttack : Ability
 		abilityUtil_Targeter_Laser.SetAffectedGroups(true, false, (byte)affectsCaster != 0);
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		}
 		abilityUtil_Targeter_Laser.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
@@ -156,19 +112,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -193,19 +136,6 @@ public class SparkBasicAttack : Ability
 		int num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(m_energyOnCasterPerTurn);
 		}
 		else
@@ -215,15 +145,6 @@ public class SparkBasicAttack : Ability
 		int num2 = num;
 		if (m_energizedAbility != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
 		}
 		return num2;
@@ -234,19 +155,6 @@ public class SparkBasicAttack : Ability
 		int num = (!m_abilityMod) ? m_healOnCasterOnTick : m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(m_healOnCasterOnTick);
 		if (m_energizedAbility != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_energizedAbility.CalcHealOnSelfPerTurn(num);
 		}
 		return num;
@@ -257,19 +165,6 @@ public class SparkBasicAttack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherDistanceMod.GetModifiedValue(m_tetherDistance);
 		}
 		else
@@ -284,19 +179,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_tetherDurationMod.GetModifiedValue(m_tetherDuration);
 		}
 		else
@@ -311,19 +193,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_abilityMod.m_useBonusDamageOverTime ? 1 : 0);
 		}
 		else
@@ -343,19 +212,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxBonusDamageAmountMod.GetModifiedValue(0);
 		}
 		else
@@ -370,45 +226,14 @@ public class SparkBasicAttack : Ability
 		int num = 0;
 		if (UseBonusDamageOverTime())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int maxBonusDamage = GetMaxBonusDamage();
 			int bonusDamageGrowRate = GetBonusDamageGrowRate();
 			if (bonusDamageGrowRate > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = age * bonusDamageGrowRate;
 			}
 			if (maxBonusDamage > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, maxBonusDamage);
 			}
 		}
@@ -420,19 +245,6 @@ public class SparkBasicAttack : Ability
 		int num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_energyGainCyclePeriod.GetModifiedValue(0);
 		}
 		else
@@ -453,19 +265,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxBonusEnergyFromGrowingGainMod.GetModifiedValue(m_maxBonusEnergyFromGrowingGain);
 		}
 		else
@@ -480,19 +279,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_bonusEnergyGrowthRateMod.GetModifiedValue(m_bonusEnergyGrowthRate);
 		}
 		else
@@ -508,19 +294,6 @@ public class SparkBasicAttack : Ability
 		object mod;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			mod = m_abilityMod.m_laserInfoMod;
 		}
 		else
@@ -531,15 +304,6 @@ public class SparkBasicAttack : Ability
 		StandardEffectInfo standardEffectInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo = m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -560,19 +324,6 @@ public class SparkBasicAttack : Ability
 		StandardActorEffectData result;
 		if (m_cachedEffectData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectData;
 		}
 		else
@@ -587,19 +338,6 @@ public class SparkBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -626,44 +364,13 @@ public class SparkBasicAttack : Ability
 		List<AbilityTooltipNumber> number = new List<AbilityTooltipNumber>();
 		if (GetInitialDamage() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref number, AbilityTooltipSubject.Primary, GetInitialDamage());
 		}
 		GetEnemyTetherEffectData().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Primary);
 		if (m_healCasterOnIniialAttach)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetHealOnCasterPerTurn() > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref number, AbilityTooltipSubject.Self, GetHealOnCasterPerTurn());
 			}
 		}
@@ -676,19 +383,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (visibleActorsCountByTooltipSubject > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = GetEnergyOnCasterPerTurn();
 		}
 		else
@@ -713,15 +407,6 @@ public class SparkBasicAttack : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SparkBasicAttack);
 			Setup();
 			return;

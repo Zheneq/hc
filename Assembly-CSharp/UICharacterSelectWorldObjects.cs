@@ -25,15 +25,6 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Info(string.Concat(GetType(), " OnDestroy, clearing singleton reference"));
 			s_instance = null;
 			return;
@@ -53,26 +44,8 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsVisible())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIPlayCategoryMenu.Get().IsVisible() || UIPlayCategoryMenu.Get().GetGameTypeForSelectedButton() != GameType.Ranked)
 				{
 					PlayCameraAnimation("CamIN");

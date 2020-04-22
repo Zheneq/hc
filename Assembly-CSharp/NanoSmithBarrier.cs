@@ -22,19 +22,6 @@ public class NanoSmithBarrier : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Kinetic Barrier";
 		}
 		SetupTargeter();
@@ -53,10 +40,6 @@ public class NanoSmithBarrier : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, m_snapToGrid);
 					return;
 				}
@@ -93,10 +76,6 @@ public class NanoSmithBarrier : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 					bool flag = false;
 					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
@@ -114,19 +93,6 @@ public class NanoSmithBarrier : Ability
 		StandardBarrierData standardBarrierData;
 		if ((bool)abilityMod_NanoSmithBarrier)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardBarrierData = abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(m_barrierData);
 		}
 		else
@@ -145,15 +111,6 @@ public class NanoSmithBarrier : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NanoSmithBarrier);
 			m_cachedBarrierData = m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 			SetupTargeter();
@@ -173,19 +130,6 @@ public class NanoSmithBarrier : Ability
 		StandardBarrierData result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_barrierData;
 		}
 		else

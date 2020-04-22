@@ -42,19 +42,6 @@ public class ValkyrieGuard : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Aim Shield";
 		}
 		Setup();
@@ -75,19 +62,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo cachedCoveredHitReactionEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedCoveredHitReactionEffect = m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(m_coveredHitReactionEffect);
 		}
 		else
@@ -98,15 +72,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo cachedTooCloseForCoverHitReactionEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTooCloseForCoverHitReactionEffect = m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(m_tooCloseForCoverHitReactionEffect);
 		}
 		else
@@ -121,19 +86,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (m_cachedShieldEffectInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedShieldEffectInfo;
 		}
 		else
@@ -148,19 +100,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
 		}
 		else
@@ -175,19 +114,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
 		}
 		else
@@ -202,19 +128,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (m_cachedCoveredHitReactionEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedCoveredHitReactionEffect;
 		}
 		else
@@ -229,19 +142,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (m_cachedTooCloseForCoverHitReactionEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTooCloseForCoverHitReactionEffect;
 		}
 		else
@@ -256,19 +156,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0);
 		}
 		else
@@ -293,19 +180,6 @@ public class ValkyrieGuard : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(m_coverLastsForever);
 		}
 		else
@@ -320,19 +194,6 @@ public class ValkyrieGuard : Ability
 		object result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownReductionNoBlocks;
 		}
 		else
@@ -347,19 +208,6 @@ public class ValkyrieGuard : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
 		}
 		else
@@ -380,10 +228,6 @@ public class ValkyrieGuard : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComponent.m_extraAbsorbForGuard;
 				}
 			}
@@ -445,10 +289,6 @@ public class ValkyrieGuard : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, false, out Vector3 offset);
 					return boardSquareSafe.ToVector3() + offset;
 				}
@@ -463,30 +303,8 @@ public class ValkyrieGuard : Ability
 		int result;
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.GetAbilityData() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((!caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE))) ? 1 : 0);
 				goto IL_0059;
 			}

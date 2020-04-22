@@ -14,19 +14,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
@@ -46,15 +33,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterUpdated;
 			return;
 		}
@@ -94,15 +72,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						num++;
 						goto IL_00c6;
 					}
@@ -122,25 +91,11 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 					break;
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.AddRange(SortItems(list2));
 			list2.Clear();
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			GameBalanceVars.StoreItemForPurchase[] storeItemsForPurchase = GameBalanceVars.Get().StoreItemsForPurchase;
 			foreach (GameBalanceVars.StoreItemForPurchase storeItemForPurchase in storeItemsForPurchase)
 			{
@@ -151,11 +106,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				list.AddRange(SortItems(list2));
 				list2.Clear();
 				return list.ToArray();
@@ -182,30 +132,12 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (item is GameBalanceVars.ColorUnlockData)
 					{
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							CharacterType index = (CharacterType)item.Index1;
 							CharacterComponent characterComponent = ClientGameManager.Get().GetPlayerCharacterData(index).CharacterComponent;
 							return !characterComponent.GetSkin(item.Index2).GetPattern(item.Index3).GetColor(item.ID)
@@ -226,15 +158,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 						}
 					}
 					goto IL_00c3;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;
@@ -257,19 +180,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 	{
 		if (item is GameBalanceVars.ColorUnlockData)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterType index = (CharacterType)item.Index1;
 			string text = StringUtil.TR_CharacterPatternColorDescription(index.ToString(), item.Index2 + 1, item.Index3 + 1, item.ID + 1);
 			if (text.Trim().Length > 0)
@@ -294,15 +204,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = StringUtil.TR_InventoryItemDescription((item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId);
 			if (text2.Trim().Length > 0)
 			{
@@ -341,34 +242,12 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		}
 		else if (item is GameBalanceVars.StoreItemForPurchase)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_newItemToPurchase.m_itemType = PurchaseItemType.InventoryItem;
 			m_newItemToPurchase.m_inventoryTemplateId = (item as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId;
 			m_newItemToPurchase.m_overlayText = (item as GameBalanceVars.StoreItemForPurchase).m_overlayText;
 		}
 		if (type == CurrencyType.NONE)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_newItemToPurchase.m_purchaseForCash = true;
 		}
 		else

@@ -43,15 +43,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_maxDistToRingCenterMod, "MaxDistToRingCenter", string.Empty, clericHammerThrow.m_maxDistToRingCenter);
 			AbilityMod.AddToken(tokens, m_outerRadiusMod, "OuterRadius", string.Empty, clericHammerThrow.m_outerRadius);
 			AbilityMod.AddToken(tokens, m_innerRadiusMod, "InnerRadius", string.Empty, clericHammerThrow.m_innerRadius);
@@ -76,19 +67,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = clericHammerThrow.m_maxDistToRingCenter;
 		}
 		else
@@ -101,15 +79,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericHammerThrow.m_outerRadius;
 		}
 		else
@@ -122,15 +91,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericHammerThrow.m_innerRadius;
 		}
 		else
@@ -143,15 +103,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (clericHammerThrow.m_ignoreLos ? 1 : 0);
 		}
 		else
@@ -164,15 +115,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (clericHammerThrow.m_clampRingToCursorPos ? 1 : 0);
 		}
 		else
@@ -185,15 +127,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericHammerThrow.m_outerHitDamage;
 		}
 		else
@@ -206,15 +139,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = clericHammerThrow.m_outerEnemyHitEffect;
 		}
 		else
@@ -227,15 +151,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = clericHammerThrow.m_innerHitDamage;
 		}
 		else

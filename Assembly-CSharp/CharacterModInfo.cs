@@ -76,15 +76,6 @@ public struct CharacterModInfo
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -92,37 +83,10 @@ public struct CharacterModInfo
 		int result;
 		if (ModForAbility0 == characterModInfo.ModForAbility0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ModForAbility1 == characterModInfo.ModForAbility1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ModForAbility2 == characterModInfo.ModForAbility2 && ModForAbility3 == characterModInfo.ModForAbility3)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((ModForAbility4 == characterModInfo.ModForAbility4) ? 1 : 0);
 					goto IL_0090;
 				}

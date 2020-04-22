@@ -89,34 +89,12 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		StandardActorEffectData effectData;
 		if (m_selfBuffAbility != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int currentTurn = GameFlowData.Get().CurrentTurn;
 			effectData = m_selfBuffAbility.GetSelfBuffEffect().m_effectData;
 			bool flag = effectData.m_perTurnHitDelayTurns <= 0;
 			int num;
 			if (!m_selfBuffAbility.m_selfBuffLastsUntilYouDealDamage)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((m_lastSelfBuffTurn > currentTurn - effectData.m_duration) ? 1 : 0);
 			}
 			else
@@ -126,62 +104,17 @@ public class Samurai_SyncComponent : NetworkBehaviour
 			bool flag2 = (byte)num != 0;
 			if (m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_00ea;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_lastSelfBuffTurn >= 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTurn > m_lastSelfBuffTurn)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_00ea;
 					}
 				}
@@ -196,15 +129,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if (m_selfBuffIncomingHitsThisTurn > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 += (float)m_selfBuffAbility.GetDamageIncreaseFirstHit();
 			num2 += (float)(m_selfBuffAbility.GetDamageIncreaseSubseqHits() * (m_selfBuffIncomingHitsThisTurn - 1));
 		}
@@ -216,30 +140,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 	{
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_selfBuffAbility != null && m_selfBuffAbility.GetExtraDamageIfQueued() > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)))
 				{
 					while (true)
@@ -280,10 +182,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_lastSelfBuffTurn);
 					writer.WritePackedUInt32((uint)m_selfBuffIncomingHitsThisTurn);
 					writer.WritePackedUInt32((uint)m_afterimageX);
@@ -295,26 +193,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -322,15 +202,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -340,26 +211,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -367,26 +220,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -394,15 +229,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -421,45 +247,14 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lastSelfBuffTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_selfBuffIncomingHitsThisTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_afterimageX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) == 0)
@@ -468,11 +263,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_afterimageY = (int)reader.ReadPackedUInt32();
 			return;
 		}

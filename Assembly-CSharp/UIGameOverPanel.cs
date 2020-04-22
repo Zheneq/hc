@@ -219,10 +219,6 @@ public class UIGameOverPanel : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return "A0A0A0";
 						}
 					}
@@ -265,53 +261,13 @@ public class UIGameOverPanel : UIScene
 		{
 			if (!(countUs <= 0f))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(countThem <= 0f))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(totalUs <= 0f))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(totalThem <= 0f))
 						{
 							return $"{prefix}: <color=#{HTMLColor}>{totalUs / countUs:F0} v {totalThem / countThem:F0}</color>";
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -330,10 +286,6 @@ public class UIGameOverPanel : UIScene
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						totalUs += elo;
 						countUs += 1f;
 						return;
@@ -346,11 +298,6 @@ public class UIGameOverPanel : UIScene
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				totalThem += elo;
 				countThem += 1f;
 				return;
@@ -466,30 +413,8 @@ public class UIGameOverPanel : UIScene
 		UIRatingDialogBox uIRatingDialogBox = boxReference as UIRatingDialogBox;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (uIRatingDialogBox.GetRating() > -1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerFeedbackData playerFeedbackData = new PlayerFeedbackData();
 				playerFeedbackData.CharacterType = GameManager.Get().PlayerInfo.CharacterType;
 				playerFeedbackData.Rating = uIRatingDialogBox.GetRating() + 1;
@@ -517,19 +442,6 @@ public class UIGameOverPanel : UIScene
 		{
 			if (possibleRewards[i].Level <= curLevel)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!possibleRewards[i].isRepeating)
 				{
 					continue;
@@ -547,11 +459,6 @@ public class UIGameOverPanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < GameBalanceVars.Get().RewardDisplayPriorityOrder.Length; j++)
 			{
 				for (int k = 0; k < list.Count; k++)
@@ -562,11 +469,6 @@ public class UIGameOverPanel : UIScene
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						return list[k];
 					}
 				}
@@ -605,15 +507,6 @@ public class UIGameOverPanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_accountLevelContainers.Length; j++)
 			{
 				UIManager.SetGameObjectActive(m_accountLevelContainers[j], !m_IsLevellingSeasons);
@@ -648,19 +541,6 @@ public class UIGameOverPanel : UIScene
 		int num;
 		if (team == Team.TeamB)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1;
 		}
 		else
@@ -675,38 +555,11 @@ public class UIGameOverPanel : UIScene
 			{
 				goto IL_007b;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (gameResult == GameResult.TeamBWon)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team2 == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_007b;
 			}
 		}
@@ -726,15 +579,6 @@ public class UIGameOverPanel : UIScene
 		{
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -744,27 +588,9 @@ public class UIGameOverPanel : UIScene
 		}
 		if (!(UINewReward.Get() == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UINewReward.Get().RewardIsBeingAnnounced())
 			{
 				goto IL_0069;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = (Time.unscaledTime >= m_continueBtnFailsafeTime) ? 1 : 0;
@@ -773,26 +599,8 @@ public class UIGameOverPanel : UIScene
 		bool flag = (byte)num != 0;
 		if (m_updateXpStage < UpdateXPStage.Done)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				failsafeTriggered = true;
 			}
 		}
@@ -802,11 +610,6 @@ public class UIGameOverPanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_waitingForXpBonusAnimFinished)
 			{
 				while (true)
@@ -820,26 +623,8 @@ public class UIGameOverPanel : UIScene
 						Animator animator = null;
 						if (m_waitingForXpBonusAnimFinished)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (animator == null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_isXpBonusAnimPlaying = false;
 								m_updateXpStage++;
 								m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
@@ -872,26 +657,8 @@ public class UIGameOverPanel : UIScene
 			bool flag4 = false;
 			if (!flag4)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag3)
 					{
 						while (true)
@@ -917,11 +684,6 @@ public class UIGameOverPanel : UIScene
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				failsafeTriggered = false;
 				object[] obj = new object[8]
 				{
@@ -937,15 +699,6 @@ public class UIGameOverPanel : UIScene
 				object obj2;
 				if (GameManager.Get().GameInfo != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = GameManager.Get().GameInfo.Name;
 				}
 				else
@@ -974,15 +727,6 @@ public class UIGameOverPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_SelectableBtn component = info.m_levelUpAnimController.GetComponent<_SelectableBtn>();
 			if (component != null)
 			{
@@ -1030,30 +774,8 @@ public class UIGameOverPanel : UIScene
 					LobbyPlayerInfo current = enumerator.Current;
 					if (!current.IsNPCBot)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (current.AccountId > 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (playerInfo.AccountId != current.AccountId && friendList.Friends.ContainsKey(current.AccountId))
 							{
 								while (true)

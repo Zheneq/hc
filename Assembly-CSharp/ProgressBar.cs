@@ -248,10 +248,6 @@ public class ProgressBar
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -287,19 +283,6 @@ public class ProgressBar
 			}
 			else
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num3 = (int)(m_rect.width * num / 2f);
 				position = new Rect(m_rect.x + (float)num3, m_rect.y, num2, m_rect.height);
 			}
@@ -323,15 +306,6 @@ public class ProgressBar
 		GUI.Box(style: CreateColorStyle(new Color(1f, 1f, 1f, 0f)), position: m_rect, text: m_progressText);
 		if (m_hasBorder)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Rect position3 = new Rect(m_rect.x - (float)borderSize, m_rect.y - (float)borderSize, m_rect.width + (float)(2 * borderSize), borderSize);
 			GUI.Box(position3, string.Empty, CreateColorStyle(Color.black));
 			position3 = new Rect(m_rect.x - (float)borderSize, m_rect.y - (float)borderSize, borderSize, m_rect.height + (float)(2 * borderSize));
@@ -347,38 +321,15 @@ public class ProgressBar
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			float num6 = 1f;
 			Color styleColor2 = Color.yellow;
 			if (m_currentValue / m_maxValue <= 0.25f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = 0.25f;
 				styleColor2 = Color.red;
 			}
 			else if (m_currentValue / m_maxValue <= 0.5f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = 0.5f;
 				styleColor2 = Color.red;
 			}
@@ -388,11 +339,6 @@ public class ProgressBar
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_horizontal)
 				{
 					while (true)

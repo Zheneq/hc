@@ -138,19 +138,6 @@ public class LobbyGameplayOverrides
 			CharacterConfig characterConfig = GetCharacterConfig(characterResourceLink.m_characterType);
 			if (characterConfig != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				characterResourceLink.m_allowForBots = characterConfig.AllowForBots;
 				characterResourceLink.m_allowForPlayers = characterConfig.AllowForPlayers;
 				characterResourceLink.m_isHidden = characterConfig.IsHidden;
@@ -189,10 +176,6 @@ public class LobbyGameplayOverrides
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -217,10 +200,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -243,19 +222,6 @@ public class LobbyGameplayOverrides
 		CharacterConfigOverrides.TryGetValue(characterType, out value);
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CharacterConfigs.TryGetValue(characterType, out value);
 		}
 		return value;
@@ -279,30 +245,8 @@ public class LobbyGameplayOverrides
 		int result;
 		if (characterType.IsValidForHumanGameplay() && characterConfig != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterConfig.AllowForPlayers)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
 				goto IL_004f;
 			}
@@ -320,56 +264,16 @@ public class LobbyGameplayOverrides
 		{
 			if (!characterConfig.GameTypesProhibitedFrom.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (characterConfig.GameTypesProhibitedFrom.Contains(gameType))
 				{
 					goto IL_006d;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (gameSubType != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!gameSubType.IsCharacterAllowed(characterType, qi))
 				{
 					goto IL_006d;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;
@@ -385,30 +289,8 @@ public class LobbyGameplayOverrides
 		int result;
 		if (characterConfig != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterConfig.AllowForBots)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
 				goto IL_0049;
 			}
@@ -425,30 +307,8 @@ public class LobbyGameplayOverrides
 		int result;
 		if (characterType.IsValidForHumanPreGameSelection())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterConfig != null && characterConfig.AllowForPlayers)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
 				goto IL_0053;
 			}
@@ -465,19 +325,6 @@ public class LobbyGameplayOverrides
 		int result;
 		if (characterConfig != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
 		}
 		else
@@ -498,10 +345,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CardConfigOverrides[cardConfigOverride.CardType] = cardConfigOverride;
 					return;
 				}
@@ -528,10 +371,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -588,10 +427,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -651,10 +486,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -728,10 +559,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -741,30 +568,8 @@ public class LobbyGameplayOverrides
 			int result;
 			if (c.SkinIndex == skinIndex)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (c.PatternIndex == patternIndex)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((c.ColorIndex == colorIndex) ? 1 : 0);
 					goto IL_004a;
 				}
@@ -780,19 +585,6 @@ public class LobbyGameplayOverrides
 	{
 		if (skinIndex == 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (patternIndex == 0 && colorIndex == 0)
 			{
 				while (true)
@@ -826,30 +618,8 @@ public class LobbyGameplayOverrides
 			int result;
 			if (c.SkinIndex == skinIndex)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (c.PatternIndex == patternIndex)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((c.ColorIndex == colorIndex) ? 1 : 0);
 					goto IL_004a;
 				}
@@ -879,10 +649,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -915,10 +681,6 @@ public class LobbyGameplayOverrides
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -947,31 +709,9 @@ public class LobbyGameplayOverrides
 		{
 			if (other.EnableCards != EnableCards)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				object arg;
 				if (other.EnableCards)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg = "enabled";
 				}
 				else
@@ -982,27 +722,9 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableMods != EnableMods)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object arg2;
 				if (other.EnableMods)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg2 = "enabled";
 				}
 				else
@@ -1013,27 +735,9 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableTaunts != EnableTaunts)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object arg3;
 				if (other.EnableTaunts)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg3 = "enabled";
 				}
 				else
@@ -1044,27 +748,9 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableAllMods != EnableAllMods)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object arg4;
 				if (other.EnableAllMods)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg4 = "enabled";
 				}
 				else
@@ -1075,27 +761,9 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableShop != EnableShop)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object arg5;
 				if (other.EnableShop)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg5 = "enabled";
 				}
 				else
@@ -1106,27 +774,9 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableSeasons != EnableSeasons)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object arg6;
 				if (other.EnableSeasons)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg6 = "enabled";
 				}
 				else
@@ -1137,15 +787,6 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EnableQuests != EnableQuests)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(string.Format("Quests have been {0}", (!other.EnableQuests) ? "disabled" : "enabled"));
 			}
 			if (other.EventFreePlayerXPBonusPercent != EventFreePlayerXPBonusPercent)
@@ -1154,67 +795,22 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EventPaidPlayerXPBonusPercent != EventPaidPlayerXPBonusPercent)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add($"XP Bonus (Paid Player) is now {other.EventPaidPlayerXPBonusPercent} %");
 			}
 			if (other.EventISOBonusPercent != EventISOBonusPercent)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add($"ISO Bonus is now {other.EventISOBonusPercent} %");
 			}
 			if (other.EventGGBoostBonusPercent != EventGGBoostBonusPercent)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add($"GG Boost Bonus is now {other.EventGGBoostBonusPercent} %");
 			}
 			if (other.EventTrustInfluenceBonusPercent != EventTrustInfluenceBonusPercent)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add($"Trust Influence Bonus is now {other.EventTrustInfluenceBonusPercent} %");
 			}
 			if (other.EventFreelancerCurrencyPerMatchBonusPercent != EventFreelancerCurrencyPerMatchBonusPercent)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add($"Freelancer Currency Bonus is now {other.EventFreelancerCurrencyPerMatchBonusPercent} %");
 			}
 			foreach (GameType item in other.DisabledGameTypes.Union(DisabledGameTypes).Distinct())
@@ -1222,15 +818,6 @@ public class LobbyGameplayOverrides
 				int num;
 				if (!DisabledGameTypes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (DisabledGameTypes.Contains(item) ? 1 : 0);
 				}
 				else
@@ -1241,15 +828,6 @@ public class LobbyGameplayOverrides
 				int num2;
 				if (!other.DisabledGameTypes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (other.DisabledGameTypes.Contains(item) ? 1 : 0);
 				}
 				else
@@ -1272,15 +850,6 @@ public class LobbyGameplayOverrides
 					int num3;
 					if (!other.DisabledMaps.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = (other.DisabledMaps.Contains(current2) ? 1 : 0);
 					}
 					else
@@ -1290,27 +859,9 @@ public class LobbyGameplayOverrides
 					bool flag4 = (byte)num3 != 0;
 					if (flag3 != flag4)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						object arg7;
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg7 = "Adding admin lock on";
 						}
 						else
@@ -1319,15 +870,6 @@ public class LobbyGameplayOverrides
 						}
 						list.Add($"{arg7} map {current2}");
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -1355,52 +897,16 @@ public class LobbyGameplayOverrides
 					CharacterConfig current3 = enumerator3.Current;
 					if (current3.CharacterRole == CharacterRole.None && current3.CharacterType.IsValidForHumanGameplay())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Error("Why is the console marking {0} as being role NONE?! That's going to mess up Free Rotation!", current3.CharacterType.GetDisplayName());
 					}
 					CharacterConfig characterConfig = CharacterConfigOverrides.TryGetValue(current3.CharacterType);
 					if (characterConfig != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterConfig.AllowForBots == current3.AllowForBots)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (characterConfig.AllowForPlayers == current3.AllowForPlayers)
 							{
 								goto IL_065c;
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						string arg8 = current3.CharacterType.ToString();
@@ -1408,15 +914,6 @@ public class LobbyGameplayOverrides
 						object arg10;
 						if (current3.AllowForBots)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg10 = "allowed";
 						}
 						else
@@ -1431,15 +928,6 @@ public class LobbyGameplayOverrides
 						object arg12;
 						if (current3.AllowForPlayers)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg12 = "allowed";
 						}
 						else
@@ -1449,15 +937,6 @@ public class LobbyGameplayOverrides
 						object arg13;
 						if (current3.AllowForBots)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg13 = "allowed";
 						}
 						else
@@ -1477,15 +956,6 @@ public class LobbyGameplayOverrides
 							int num4;
 							if (characterConfig != null && !characterConfig.GameTypesProhibitedFrom.IsNullOrEmpty())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num4 = (characterConfig.GameTypesProhibitedFrom.Contains(gameType) ? 1 : 0);
 							}
 							else
@@ -1496,26 +966,8 @@ public class LobbyGameplayOverrides
 							bool flag6 = !current3.GameTypesProhibitedFrom.IsNullOrEmpty() && current3.GameTypesProhibitedFrom.Contains(gameType);
 							if (flag5 != flag6)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(string.Format("Overriding character {0} to be {1} in {2} matches", current3.CharacterType, (!flag6) ? "allowed" : "not allowed", gameType));
 							}
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					finally
@@ -1538,15 +990,6 @@ public class LobbyGameplayOverrides
 						end_IL_073a:;
 					}
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (Dictionary<CharacterType, CharacterConfig>.ValueCollection.Enumerator enumerator5 = CharacterConfigOverrides.Values.GetEnumerator())
 			{
@@ -1558,15 +1001,6 @@ public class LobbyGameplayOverrides
 						list.Add($"Removing overrides for character {current4.CharacterType.ToString()}");
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (Dictionary<CardType, CardConfigOverride>.ValueCollection.Enumerator enumerator6 = other.CardConfigOverrides.Values.GetEnumerator())
 			{
@@ -1576,42 +1010,15 @@ public class LobbyGameplayOverrides
 					CardConfigOverride cardConfigOverride = CardConfigOverrides.TryGetValue(current5.CardType);
 					if (cardConfigOverride != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (cardConfigOverride.Allowed == current5.Allowed)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					string arg14 = current5.CardType.ToString();
 					object arg15;
 					if (current5.Allowed)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						arg15 = "allowed";
 					}
 					else
@@ -1619,15 +1026,6 @@ public class LobbyGameplayOverrides
 						arg15 = "not allowed";
 					}
 					list.Add($"Overriding catalyst {arg14} to be {arg15}");
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (Dictionary<CardType, CardConfigOverride>.ValueCollection.Enumerator enumerator7 = CardConfigOverrides.Values.GetEnumerator())
@@ -1637,26 +1035,8 @@ public class LobbyGameplayOverrides
 					CardConfigOverride current6 = enumerator7.Current;
 					if (!other.CardConfigOverrides.ContainsKey(current6.CardType))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add($"Removing overrides for catalyst {current6.CardType.ToString()}");
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (LobbyGameplayData.Get() != null)
@@ -1668,15 +1048,6 @@ public class LobbyGameplayOverrides
 						CharacterAbilityConfigOverride current7 = enumerator8.Current;
 						if (current7 == null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -1687,15 +1058,6 @@ public class LobbyGameplayOverrides
 								AbilityConfigOverride abilityConfigOverride = current7.AbilityConfigs[i];
 								if (abilityConfigOverride == null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -1707,15 +1069,6 @@ public class LobbyGameplayOverrides
 									LobbyAbilityGameplayData abilityData = characterData.GetAbilityData(i);
 									if (abilityConfigOverride.AbilityModConfigs != null)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										using (Dictionary<int, AbilityModConfigOverride>.ValueCollection.Enumerator enumerator9 = abilityConfigOverride.AbilityModConfigs.Values.GetEnumerator())
 										{
 											while (enumerator9.MoveNext())
@@ -1724,15 +1077,6 @@ public class LobbyGameplayOverrides
 												AbilityModConfigOverride abilityModConfigOverride = null;
 												if (abilityConfigOverride2 != null)
 												{
-													while (true)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (abilityConfigOverride2.AbilityModConfigs != null)
 													{
 														abilityModConfigOverride = abilityConfigOverride2.AbilityModConfigs.TryGetValue(current8.AbilityModIndex);
@@ -1741,27 +1085,9 @@ public class LobbyGameplayOverrides
 												LobbyAbilityModGameplayData abilityModData = abilityData.GetAbilityModData(current8.AbilityModIndex);
 												if (abilityModConfigOverride != null)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (abilityModConfigOverride.Allowed == current8.Allowed)
 													{
 														continue;
-													}
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 												object[] obj = new object[4]
@@ -1774,15 +1100,6 @@ public class LobbyGameplayOverrides
 												object obj2;
 												if (current8.Allowed)
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													obj2 = "allowed";
 												}
 												else
@@ -1792,28 +1109,10 @@ public class LobbyGameplayOverrides
 												obj[3] = obj2;
 												list.Add(string.Format("Overriding {0} ability '{1}' mod '{2}' to be {3}", obj));
 											}
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 									}
 									if (abilityConfigOverride.AbilityTauntConfigs != null)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										using (Dictionary<int, AbilityTauntConfigOverride>.ValueCollection.Enumerator enumerator10 = abilityConfigOverride.AbilityTauntConfigs.Values.GetEnumerator())
 										{
 											while (enumerator10.MoveNext())
@@ -1822,15 +1121,6 @@ public class LobbyGameplayOverrides
 												AbilityTauntConfigOverride abilityTauntConfigOverride = null;
 												if (abilityConfigOverride2 != null && abilityConfigOverride2.AbilityTauntConfigs != null)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													abilityTauntConfigOverride = abilityConfigOverride2.AbilityTauntConfigs.TryGetValue(current9.AbilityTauntIndex);
 												}
 												LobbyAbilityTauntData abilityTauntData = abilityData.GetAbilityTauntData(current9.AbilityTauntID);
@@ -1839,15 +1129,6 @@ public class LobbyGameplayOverrides
 													if (abilityTauntConfigOverride.Allowed == current9.Allowed)
 													{
 														continue;
-													}
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 												object[] obj3 = new object[4]
@@ -1860,15 +1141,6 @@ public class LobbyGameplayOverrides
 												object obj4;
 												if (current9.Allowed)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													obj4 = "allowed";
 												}
 												else
@@ -1878,38 +1150,11 @@ public class LobbyGameplayOverrides
 												obj3[3] = obj4;
 												list.Add(string.Format("Overriding {0} ability '{1}' taunt '{2}' to be {3}", obj3));
 											}
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 									}
 								}
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				using (Dictionary<CharacterType, CharacterAbilityConfigOverride>.ValueCollection.Enumerator enumerator11 = CharacterAbilityConfigOverrides.Values.GetEnumerator())
@@ -1920,15 +1165,6 @@ public class LobbyGameplayOverrides
 						CharacterAbilityConfigOverride characterAbilityConfigOverride2 = other.CharacterAbilityConfigOverrides.TryGetValue(current10.CharacterType);
 						if (characterAbilityConfigOverride2 == null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add($"Removing all mod and taunt overrides for {current10.CharacterType}");
 						}
 						else
@@ -1939,15 +1175,6 @@ public class LobbyGameplayOverrides
 								AbilityConfigOverride abilityConfigOverride3 = current10.AbilityConfigs[j];
 								if (abilityConfigOverride3 == null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -1955,15 +1182,6 @@ public class LobbyGameplayOverrides
 									LobbyAbilityGameplayData abilityData2 = characterData2.GetAbilityData(j);
 									if (abilityConfigOverride3.AbilityModConfigs != null)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										using (Dictionary<int, AbilityModConfigOverride>.ValueCollection.Enumerator enumerator12 = abilityConfigOverride3.AbilityModConfigs.Values.GetEnumerator())
 										{
 											while (enumerator12.MoveNext())
@@ -1975,28 +1193,10 @@ public class LobbyGameplayOverrides
 													list.Add($"Removing override for {characterAbilityConfigOverride2.CharacterType.ToString()} ability '{abilityData2.Name}' mod '{abilityModData2.Name}'");
 												}
 											}
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 									}
 									if (abilityConfigOverride3.AbilityTauntConfigs != null)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										using (Dictionary<int, AbilityTauntConfigOverride>.ValueCollection.Enumerator enumerator13 = abilityConfigOverride3.AbilityTauntConfigs.Values.GetEnumerator())
 										{
 											while (enumerator13.MoveNext())
@@ -2004,51 +1204,15 @@ public class LobbyGameplayOverrides
 												AbilityTauntConfigOverride current12 = enumerator13.Current;
 												if (abilityConfigOverride4.AbilityTauntConfigs.TryGetValue(current12.AbilityTauntIndex) == null)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													LobbyAbilityTauntData abilityTauntData2 = abilityData2.GetAbilityTauntData(current12.AbilityTauntID);
 													list.Add($"Removing override for {characterAbilityConfigOverride2.CharacterType.ToString()} ability '{abilityData2.Name}' taunt '{abilityTauntData2.Name}'");
 												}
-											}
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 									}
 								}
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				using (Dictionary<int, FactionCompetitionConfigOverride>.ValueCollection.Enumerator enumerator14 = other.FactionCompetitionConfigOverrides.Values.GetEnumerator())
@@ -2066,19 +1230,6 @@ public class LobbyGameplayOverrides
 									int result;
 									if (o.CompetitionId == otherFactionTierConfigOverride.CompetitionId)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										if (o.FactionId == otherFactionTierConfigOverride.FactionId)
 										{
 											result = ((o.TierId == otherFactionTierConfigOverride.TierId) ? 1 : 0);
@@ -2092,39 +1243,12 @@ public class LobbyGameplayOverrides
 								});
 								if (factionTierConfigOverride != null)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (otherFactionTierConfigOverride.ContributionToComplete == factionTierConfigOverride.ContributionToComplete)
 									{
 										continue;
 									}
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								list.Add($"Overriding faction(competitionId={otherFactionTierConfigOverride.CompetitionId} factionId={otherFactionTierConfigOverride.FactionId} tierId={otherFactionTierConfigOverride.TierId}) ContributionToComplete to be {otherFactionTierConfigOverride.ContributionToComplete}");
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}

@@ -52,19 +52,6 @@ public class NanoSmithVacuumBomb : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Vacuum Bomb";
 		}
 		SetupTargeter();
@@ -82,31 +69,9 @@ public class NanoSmithVacuumBomb : Ability
 			{
 				goto IL_006e;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		if (GetCenterActorEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_006e;
 		}
 		goto IL_0070;
@@ -130,19 +95,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo centerActorEffect = GetCenterActorEffect();
 		if (centerActorEffect.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			centerActorEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 			centerActorEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		}
@@ -153,19 +105,6 @@ public class NanoSmithVacuumBomb : Ability
 	{
 		if (m_syncComp != null && m_syncComp.m_extraAbsorbOnVacuumBomb > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) == 0)
 			{
 				while (true)
@@ -201,19 +140,6 @@ public class NanoSmithVacuumBomb : Ability
 		int val;
 		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_NanoSmithVacuumBomb.m_damageMod.GetModifiedValue(m_bombDamageAmount);
 		}
 		else
@@ -224,15 +150,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_NanoSmithVacuumBomb.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -243,15 +160,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_NanoSmithVacuumBomb)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_NanoSmithVacuumBomb.m_onCenterActorEffectOverride.GetModifiedValue(m_onCenterActorEffect);
 		}
 		else
@@ -281,19 +189,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo cachedOnCenterActorEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedOnCenterActorEffect = m_abilityMod.m_onCenterActorEffectOverride.GetModifiedValue(m_onCenterActorEffect);
 		}
 		else
@@ -304,15 +199,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -327,19 +213,6 @@ public class NanoSmithVacuumBomb : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_bombDamageAmount;
 		}
 		else
@@ -354,19 +227,6 @@ public class NanoSmithVacuumBomb : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -381,19 +241,6 @@ public class NanoSmithVacuumBomb : Ability
 		StandardEffectInfo result;
 		if (m_cachedOnCenterActorEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOnCenterActorEffect;
 		}
 		else
@@ -419,10 +266,6 @@ public class NanoSmithVacuumBomb : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComp.m_extraAbsorbOnVacuumBomb;
 				}
 			}

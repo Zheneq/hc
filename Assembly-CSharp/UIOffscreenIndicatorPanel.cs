@@ -31,19 +31,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		uIOffscreenIndicator.transform.localScale = new Vector3(m_indicatorScale, m_indicatorScale, m_indicatorScale);
 		if (uIOffscreenIndicator.transform as RectTransform != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			(uIOffscreenIndicator.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 		}
 		UILastKnownPosIndicator uILastKnownPosIndicator = Object.Instantiate(m_lastKnownPosIndicatorPrefab);
@@ -58,11 +45,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			(uILastKnownPosIndicator.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 			return;
 		}
@@ -100,10 +82,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -136,42 +114,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.gameObject != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.gameObject);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedRegion() == region);
@@ -187,33 +134,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.gameObject != null)
 					{
 						Object.Destroy(current.gameObject);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedActor() == actorData);
@@ -229,42 +154,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.gameObject != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.gameObject);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedControlPoint() == controlPoint);
@@ -280,42 +174,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.gameObject != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.gameObject);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedFlag() == flag);
@@ -331,42 +194,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.gameObject != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.gameObject);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedPing() == ping);
@@ -381,15 +213,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_uiIndicators.Clear();
 			return;
 		}
@@ -402,19 +225,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 			UIBaseIndicator uIBaseIndicator = m_uiIndicators[i];
 			if (uIBaseIndicator != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				uIBaseIndicator.MarkFrameForUpdate();
 			}
 		}
@@ -430,19 +240,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 			}
 			else if (uiIndicator is UILastKnownPosIndicator)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				uiIndicator.transform.localScale = new Vector3(m_lastKnownPosIndicatorScale, m_lastKnownPosIndicatorScale, m_lastKnownPosIndicatorScale);
 			}
 		}

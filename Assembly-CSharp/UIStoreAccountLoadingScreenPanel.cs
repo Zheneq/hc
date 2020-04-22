@@ -33,15 +33,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnLoadingScreenBackgroundToggled -= OnLoadingScreenBackgroundToggled;
 			return;
 		}
@@ -73,32 +64,10 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (ClientGameManager.Get() != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID) ? 1 : 0);
 								goto IL_0071;
 							}
@@ -120,19 +89,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					if (!ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundUnlocked(item.ID))
@@ -140,15 +96,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 						return true;
 					}
 					goto IL_0073;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;
@@ -180,15 +127,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
 			ClientGameManager.Get().RequestLoadingScreenBackgroundToggle(item.ID, !flag, null);
 			return;

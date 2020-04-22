@@ -84,10 +84,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_customCenterPosDelegate(targetingActor, currentTarget);
 				}
 			}
@@ -121,15 +117,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Highlight = HighlightUtils.Get().CreateAoECursor(radiusInSquares * Board.Get().squareSize, targetingActor == GameFlowData.Get().activeOwnedActorData);
 			base.Highlight.SetActive(true);
 			return;
@@ -145,26 +132,12 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_customCenterPosDelegate == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (base.Highlight != null)
 				{
 					Vector3 vector = m_customCenterPosDelegate(targetingActor, currentTarget);
@@ -191,19 +164,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		m_lastUpdatedCenterPos = refPos;
 		if (m_penetrateEnemyBarriers)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BarrierManager.Get().SuppressAbilityBlocks_Start();
 		}
 		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(refPos, radius, GetPenetrateLoS(), targetingActor, GetAffectedTeams(), null);
@@ -214,15 +174,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		if (m_customShouldIncludeActorDelegate != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int num = actors.Count - 1; num >= 0; num--)
 			{
 				if (!m_customShouldIncludeActorDelegate(actors[num], refPos, targetingActor))
@@ -230,27 +181,9 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 					actors.RemoveAt(num);
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_maxTargets > 0 && actors.Count > m_maxTargets)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TargeterUtils.SortActorsByDistanceToPos(ref actors, refPos);
 			TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 		}
@@ -269,27 +202,9 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		}
 		if (!m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_02a8;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_affectCasterDelegate != null)
@@ -297,15 +212,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 			if (!m_affectCasterDelegate(targetingActor, actors))
 			{
 				goto IL_02a8;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, flag ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Self);
@@ -317,15 +223,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		int num2 = 0;
 		if (m_knockbackDistance > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EnableAllMovementArrows();
 			using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
 			{
@@ -337,15 +234,6 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current2, m_knockbackType, currentTarget.AimDirection, refPos, m_knockbackDistance);
 						num2 = AddMovementArrowWithPrevious(current2, path, TargeterMovementType.Knockback, num2);
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

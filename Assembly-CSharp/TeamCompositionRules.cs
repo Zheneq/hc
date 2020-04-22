@@ -54,19 +54,6 @@ public class TeamCompositionRules
 			int result7;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result7 = ((slot == 1) ? 1 : 0);
 			}
 			else
@@ -80,15 +67,6 @@ public class TeamCompositionRules
 			int result6;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result6 = ((slot == 2) ? 1 : 0);
 			}
 			else
@@ -102,15 +80,6 @@ public class TeamCompositionRules
 			int result2;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result2 = ((slot == 3) ? 1 : 0);
 			}
 			else
@@ -124,15 +93,6 @@ public class TeamCompositionRules
 			int result5;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result5 = ((slot == 4) ? 1 : 0);
 			}
 			else
@@ -146,15 +106,6 @@ public class TeamCompositionRules
 			int result3;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result3 = ((slot == 5) ? 1 : 0);
 			}
 			else
@@ -172,15 +123,6 @@ public class TeamCompositionRules
 			int result4;
 			if (team == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result4 = ((slot == 3) ? 1 : 0);
 			}
 			else
@@ -196,15 +138,6 @@ public class TeamCompositionRules
 			int result;
 			if (team == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((slot == 5) ? 1 : 0);
 			}
 			else
@@ -223,19 +156,6 @@ public class TeamCompositionRules
 		int result;
 		if (Rules != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (Rules.Values.ToList().Exists((FreelancerSet p) => p.IsCharacterAllowed(freelancer, qi)) ? 1 : 0);
 		}
 		else
@@ -261,23 +181,10 @@ public class TeamCompositionRules
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.Value.IsCharacterAllowed(freelancer, qi);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new Exception($"There is no TeamComposition Rule to cover team {team} slot {slot}");
@@ -299,10 +206,6 @@ public class TeamCompositionRules
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0014;
 				}
 			}
@@ -323,10 +226,6 @@ public class TeamCompositionRules
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return LocalizationPayload.Create("XMustHaveAccessToY", "Matchmaking", applicant.LocalizedHandle, LocalizationArg_Freelancer.Create(allowedFreelancers.First()));
 				}
 			}
@@ -350,15 +249,6 @@ public class TeamCompositionRules
 		case FreelancerDuplicationRuleTypes.noneInGame:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (allowedFreelancers.Count() < gameConfig.TotalHumanPlayers)
 				{
 					throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured. DuplicationRule=noneInGame & only {allowedFreelancers.Count()} freelancers in AllowedFreelancers");
@@ -372,11 +262,6 @@ public class TeamCompositionRules
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured. DuplicationRule=noneInTeam & only {allowedFreelancers.Count()} freelancers in AllowedFreelancers");
 			}
 		}

@@ -69,19 +69,6 @@ public class SequenceLookup : MonoBehaviour
 			int key = m_sequenceNameHashList[num];
 			if (!m_sequenceNameHashToIndex.ContainsKey(key))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_sequenceNameHashToIndex.Add(key, num);
 			}
 			else
@@ -126,10 +113,6 @@ public class SequenceLookup : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_sequencesLoaded[sequenceId];
 				}
 			}
@@ -137,15 +120,6 @@ public class SequenceLookup : MonoBehaviour
 		object obj;
 		if (m_sequences[sequenceId] != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = m_sequences[sequenceId].GetPrefab(true);
 		}
 		else
@@ -175,11 +149,6 @@ public class SequenceLookup : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return m_sequencesLoaded[sequenceId];
 		}
 	}
@@ -195,10 +164,6 @@ public class SequenceLookup : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}
@@ -244,32 +209,10 @@ public class SequenceLookup : MonoBehaviour
 		SequenceExtraParamEnum result = SequenceExtraParamEnum.Invalid;
 		if (extraParam is PowerUp.ExtraParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = SequenceExtraParamEnum.Powerup;
 		}
 		else if (extraParam is BouncingShotSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.BouncingShot;
 		}
 		else if (extraParam is ExplosionSequence.ExtraParams)
@@ -282,67 +225,22 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is HealLaserSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.HealLaser;
 		}
 		else if (extraParam is HitOnAnimationEventSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.HitOnAnimationEvent;
 		}
 		else if (extraParam is NanosmithBoltLaserSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.NanosmithBoltLaser;
 		}
 		else if (extraParam is NinjaMultiAttackSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.NinjaMultiAttack;
 		}
 		else if (extraParam is ProximityMineGroundSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ProximityMineGround;
 		}
 		else if (extraParam is SplineProjectileSequence.DelayedProjectileExtraParams)
@@ -355,15 +253,6 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is SimpleAttachedVFXSequence.MultiEventExtraParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.MultiEventAttachedVFX;
 		}
 		else if (extraParam is ExoSweepLaserSequence.ExtraParams)
@@ -376,54 +265,18 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is SimpleVFXAtTargetPosSequence.IgnoreStartEventExtraParam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.SimpleVFXAtTargetPos;
 		}
 		else if (extraParam is ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ThiefPowerupReturnProjectile;
 		}
 		else if (extraParam is ScoundrelBlindFireSequence.ConeExtraParams)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ScoundrelBlindFireCone;
 		}
 		else if (extraParam is SimpleAttachedVFXSequence.ImpactDelayParams)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ImpactDelayAttachedVFX;
 		}
 		else if (extraParam is SoldierProjectilesInLineSequence.HitAreaExtraParams)
@@ -444,15 +297,6 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is Sequence.FxAttributeParam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.SequenceFxAttribute;
 		}
 		else if (extraParam is Sequence.PhaseTimingExtraParams)
@@ -461,41 +305,14 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is ValkyrieDirectionalShieldSequence.ExtraParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ValkyrieDirectionalShield;
 		}
 		else if (extraParam is Sequence.ActorIndexExtraParam)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.ActorIndexParam;
 		}
 		else if (extraParam is HitActorGroupOnAnimEventSequence.ActorParams)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.HitActorGroupActorsParam;
 		}
 		else if (extraParam is GrydCardinalBombSequence.SegmentExtraParams)
@@ -504,41 +321,14 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (extraParam is SimpleVFXAtTargetPosSequence.PositionOverrideParam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.VFXSpawnPosOverride;
 		}
 		else if (extraParam is Sequence.GenericIntParam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.GenericIntParam;
 		}
 		else if (extraParam is Sequence.GenericActorListParam)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = SequenceExtraParamEnum.GenericActorListParam;
 		}
 		return result;
@@ -557,136 +347,42 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (paramEnum == SequenceExtraParamEnum.Explosion)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new ExplosionSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.GroundLine)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new GroundLineSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.HealLaser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new HealLaserSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.HitOnAnimationEvent)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new HitOnAnimationEventSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.NanosmithBoltLaser)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new NanosmithBoltLaserSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.NinjaMultiAttack)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new NinjaMultiAttackSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ProximityMineGround)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new ProximityMineGroundSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.DelayedProjectile)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SplineProjectileSequence.DelayedProjectileExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.MultiEventProjectile)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SplineProjectileSequence.MultiEventExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.MultiEventAttachedVFX)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SimpleAttachedVFXSequence.MultiEventExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ExoSweepLaser)
@@ -695,236 +391,74 @@ public class SequenceLookup : MonoBehaviour
 		}
 		else if (paramEnum == SequenceExtraParamEnum.BlasterStretchingCone)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new BlasterStretchConeSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SimpleVFXAtTargetPos)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SimpleVFXAtTargetPosSequence.IgnoreStartEventExtraParam();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ThiefPowerupReturnProjectile)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ScoundrelBlindFireCone)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new ScoundrelBlindFireSequence.ConeExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ImpactDelayAttachedVFX)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SimpleAttachedVFXSequence.ImpactDelayParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SoldierProjectilesInLineHitArea)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SoldierProjectilesInLineSequence.HitAreaExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SimpleTiming)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SimpleTimingSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SplineProjectileProperty)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SplineProjectileSequence.ProjectilePropertyParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SequenceFxAttribute)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Sequence.FxAttributeParam();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.SequencePhaseTiming)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Sequence.PhaseTimingExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ValkyrieDirectionalShield)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new ValkyrieDirectionalShieldSequence.ExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.ActorIndexParam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Sequence.ActorIndexExtraParam();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.HitActorGroupActorsParam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new HitActorGroupOnAnimEventSequence.ActorParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.GrydCardinalBombParam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new GrydCardinalBombSequence.SegmentExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.VFXSpawnPosOverride)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new SimpleVFXAtTargetPosSequence.PositionOverrideParam();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.DiscReturnProjectile)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.GenericIntParam)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Sequence.GenericIntParam();
 		}
 		else if (paramEnum == SequenceExtraParamEnum.GenericActorListParam)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = new Sequence.GenericActorListParam();
 		}
 		return result;

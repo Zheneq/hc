@@ -87,30 +87,8 @@ public static class StatDisplaySettings
 		int result;
 		if (!GeneralStats.Contains(TypeOfStat))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!FirepowerStats.Contains(TypeOfStat))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!SupportStats.Contains(TypeOfStat))
 				{
 					result = (FrontlinerStats.Contains(TypeOfStat) ? 1 : 0);

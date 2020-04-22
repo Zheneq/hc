@@ -20,19 +20,6 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (m_shieldDownTargetSelect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -50,32 +37,10 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_shieldDownTargetSelect == null))
 			{
 				collection = m_shieldDownTargetSelect.CreateTargeters(this);
 				goto IL_0056;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		collection = m_targetSelectComp.CreateTargeters(this);
@@ -88,19 +53,6 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				while (true)
@@ -122,44 +74,13 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				goto IL_0054;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_shieldDownTargetSelect == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0054;
 		}
 		return m_shieldDownTargetSelect;

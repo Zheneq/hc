@@ -106,19 +106,6 @@ public class NekoFlipDash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Flip Dash";
 		}
 		Setup();
@@ -133,19 +120,6 @@ public class NekoFlipDash : Ability
 		m_landingTargeterIndex = 1;
 		if (m_throwDiscFromStart)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_throwDiscTargeterIndex = 0;
 			m_dashTargeterIndex = 1;
 			m_landingTargeterIndex = 2;
@@ -156,15 +130,6 @@ public class NekoFlipDash : Ability
 		float radiusAroundEnd;
 		if (GetExplosionRadiusAtTargetedDisc() > 0f && m_explodeTargetedDisc)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			radiusAroundEnd = GetExplosionRadiusAtTargetedDisc();
 		}
 		else
@@ -189,19 +154,6 @@ public class NekoFlipDash : Ability
 		int value;
 		if (m_throwDiscFromStart)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = 3;
 		}
 		else
@@ -217,19 +169,6 @@ public class NekoFlipDash : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -249,19 +188,6 @@ public class NekoFlipDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canTargetDiscsMod.GetModifiedValue(m_canTargetDiscs);
 		}
 		else
@@ -281,19 +207,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxDistanceFromTargetMod.GetModifiedValue(m_maxDistanceFromTarget);
 		}
 		else
@@ -313,19 +226,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxAngleChangeMod.GetModifiedValue(m_maxAngleChange);
 		}
 		else
@@ -345,19 +245,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
 		}
 		else
@@ -377,19 +264,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
 		}
 		else
@@ -404,19 +278,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chargeRadiusMod.GetModifiedValue(m_chargeRadius);
 		}
 		else
@@ -441,19 +302,6 @@ public class NekoFlipDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explosionRadiusAtTargetedDiscMod.GetModifiedValue(m_explosionRadiusAtTargetedDisc);
 		}
 		else
@@ -468,19 +316,6 @@ public class NekoFlipDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_continueToEndIfTargetEvadesMod.GetModifiedValue(m_continueToEndIfTargetEvades);
 		}
 		else
@@ -500,19 +335,6 @@ public class NekoFlipDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_throwDiscFromStartMod.GetModifiedValue(m_throwDiscFromStart);
 		}
 		else
@@ -527,19 +349,6 @@ public class NekoFlipDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canMoveAfterEvadeMod.GetModifiedValue(m_canMoveAfterEvade);
 		}
 		else
@@ -554,19 +363,6 @@ public class NekoFlipDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_explodeTargetedDiscMod.GetModifiedValue(m_explodeTargetedDisc);
 		}
 		else
@@ -581,19 +377,6 @@ public class NekoFlipDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discMaxTargetsMod.GetModifiedValue(m_discMaxTargets);
 		}
 		else
@@ -608,19 +391,6 @@ public class NekoFlipDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -635,19 +405,6 @@ public class NekoFlipDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -672,19 +429,6 @@ public class NekoFlipDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discReturnTripSubsequentHitDamageMod.GetModifiedValue(m_discReturnTripSubsequentHitDamage);
 		}
 		else
@@ -704,19 +448,6 @@ public class NekoFlipDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -736,19 +467,6 @@ public class NekoFlipDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_discsReturningThisTurnExtraDamageMod.GetModifiedValue(m_discsReturningThisTurnExtraDamage);
 		}
 		else
@@ -768,19 +486,6 @@ public class NekoFlipDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnEnlargeDiscIfCastSameTurnMod.GetModifiedValue(m_cdrOnEnlargeDiscIfCastSameTurn);
 		}
 		else
@@ -809,19 +514,6 @@ public class NekoFlipDash : Ability
 	{
 		if (CanTargetDiscs() && m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			using (List<BoardSquare>.Enumerator enumerator = activeDiscSquares.GetEnumerator())
 			{
@@ -841,15 +533,6 @@ public class NekoFlipDash : Ability
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (!CanTargetEnemies())
@@ -890,53 +573,13 @@ public class NekoFlipDash : Ability
 		bool flag3;
 		if (targetIndex == m_dashTargeterIndex)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (CanTargetEnemies())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, ValidateCheckPath.CanBuildPath, true, false))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = true;
 						goto IL_033d;
@@ -945,64 +588,19 @@ public class NekoFlipDash : Ability
 			}
 			if (CanTargetDiscs())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 					if (activeDiscSquares.Contains(boardSquareSafe))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						float num = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
 						if (!(num > GetRangeInSquares(m_dashTargeterIndex)))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(num < GetMinRangeInSquares(m_dashTargeterIndex)))
 							{
 								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out int _);
 								goto IL_033d;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						flag2 = false;
@@ -1012,30 +610,12 @@ public class NekoFlipDash : Ability
 			}
 			if (!CanTargetEnemies())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!CanTargetDiscs())
 				{
 					flag = true;
 					flag3 = false;
 					if (GetDashTargetRange() > 0f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquareSafe != null)
 						{
 							float num2 = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
@@ -1054,77 +634,23 @@ public class NekoFlipDash : Ability
 			{
 				return true;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe3 != boardSquareSafe2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num3 = boardSquareSafe3.HorizontalDistanceInSquaresTo(boardSquareSafe2);
 						Vector3 to = boardSquareSafe3.ToVector3() - boardSquareSafe2.ToVector3();
 						Vector3 from = boardSquareSafe2.ToVector3() - caster.GetCurrentBoardSquare().ToVector3();
 						float num4 = Vector3.Angle(from, to);
 						if (num3 >= m_minDistanceFromTarget)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num3 <= m_maxDistanceFromTarget && num4 <= m_maxAngleChange)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _);
 							}
 						}
@@ -1137,15 +663,6 @@ public class NekoFlipDash : Ability
 		int num5;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = (KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out int _) ? 1 : 0);
 		}
 		else
@@ -1190,15 +707,6 @@ public class NekoFlipDash : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NekoFlipDash);
 			Setup();
 			return;

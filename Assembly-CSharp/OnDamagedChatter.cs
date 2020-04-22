@@ -40,15 +40,6 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -56,15 +47,6 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 		bool flag = actorHitHealthChangeArgs.m_target == component.gameObject.GetComponent<ActorData>();
 		if (m_onSelfDamage)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				while (true)
@@ -90,15 +72,6 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 			{
 				if (m_healthThresholdMode == HealthThreshMode.UseDirectValue)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hitPointsAfterResolution < m_healthThresholdDirect)
 					{
 						flag2 = true;
@@ -107,26 +80,8 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 				}
 				if (m_healthThresholdMode == HealthThreshMode.UsePercentage)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (maxHitPoints > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = ((float)hitPointsAfterResolution / (float)maxHitPoints < m_healthThresholdPct);
 					}
 				}
@@ -137,15 +92,6 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 		IL_0109:
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GetCommonData().SetAudioEventOverride(m_closeCallAudioEvent);
 		}
 		goto IL_0128;

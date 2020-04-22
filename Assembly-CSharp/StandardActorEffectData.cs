@@ -110,15 +110,6 @@ public class StandardActorEffectData
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, m_absorbAmount));
 			return;
 		}
@@ -133,19 +124,6 @@ public class StandardActorEffectData
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			otherVal = other.m_duration;
 		}
 		else
@@ -155,15 +133,6 @@ public class StandardActorEffectData
 		AbilityMod.AddToken_IntDiff(entries, name2, desc, duration, flag, otherVal);
 		if (m_duration > 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(entries, name + "_Duration_MinusOne", "duration - 1", m_duration - 1, false, 0);
 		}
 		string name3 = name + "_Shield";
@@ -171,15 +140,6 @@ public class StandardActorEffectData
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_absorbAmount;
 		}
 		else
@@ -193,15 +153,6 @@ public class StandardActorEffectData
 		int otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_healingPerTurn;
 		}
 		else
@@ -214,15 +165,6 @@ public class StandardActorEffectData
 		int otherVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.m_damagePerTurn;
 		}
 		else
@@ -242,30 +184,8 @@ public class StandardActorEffectData
 		object result;
 		if (m_effectName != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_effectName.Length > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_effectName;
 				goto IL_0040;
 			}
@@ -281,19 +201,6 @@ public class StandardActorEffectData
 		int num;
 		if (diff)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -308,26 +215,8 @@ public class StandardActorEffectData
 		string str = initialIndent + "Effect [ " + effectName + " ]";
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectName != other.GetEffectName())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str += DiffColorStr(text3 + "Effect [ " + other.GetEffectName() + " ]");
 			}
 		}
@@ -335,15 +224,6 @@ public class StandardActorEffectData
 		object obj;
 		if (m_duration > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = "Duration: " + InEditorDescHelper.ColoredString(m_duration.ToString()) + " turn(s).";
 		}
 		else
@@ -353,26 +233,8 @@ public class StandardActorEffectData
 		string text4 = (string)obj;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_duration != other.m_duration)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text4 += DiffColorStr(text3 + other.m_duration);
 			}
 		}
@@ -382,15 +244,6 @@ public class StandardActorEffectData
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_maxStackSize;
 		}
 		else
@@ -403,15 +256,6 @@ public class StandardActorEffectData
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_damagePerTurn;
 		}
 		else
@@ -424,15 +268,6 @@ public class StandardActorEffectData
 		int otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_healingPerTurn;
 		}
 		else
@@ -445,15 +280,6 @@ public class StandardActorEffectData
 		int otherVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.m_perTurnHitDelayTurns;
 		}
 		else
@@ -466,15 +292,6 @@ public class StandardActorEffectData
 		int otherVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal5 = other.m_absorbAmount;
 		}
 		else
@@ -487,15 +304,6 @@ public class StandardActorEffectData
 		int otherVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal6 = other.m_nextTurnAbsorbAmount;
 		}
 		else
@@ -508,15 +316,6 @@ public class StandardActorEffectData
 		int otherVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal7 = other.m_techPointChangeOnStart;
 		}
 		else
@@ -529,15 +328,6 @@ public class StandardActorEffectData
 		int otherVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal8 = other.m_techPointGainPerTurn;
 		}
 		else
@@ -551,15 +341,6 @@ public class StandardActorEffectData
 		int otherVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal9 = (other.m_removeInvisibilityOnLastResolveStart ? 1 : 0);
 		}
 		else
@@ -568,15 +349,6 @@ public class StandardActorEffectData
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((bool b) => b);
 		}
 		str = str10 + InEditorDescHelper.AssembleFieldWithDiff("Remove Invisibility On End of Decision of Last Turn = ", text, text3, removeInvisibilityOnLastResolveStart, flag, (byte)otherVal9 != 0, _003C_003Ef__am_0024cache0);
@@ -585,15 +357,6 @@ public class StandardActorEffectData
 		int otherVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal10 = (other.m_removeRevealedOnLastResolveStart ? 1 : 0);
 		}
 		else
@@ -602,15 +365,6 @@ public class StandardActorEffectData
 		}
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = ((bool b) => b);
 		}
 		str = str11 + InEditorDescHelper.AssembleFieldWithDiff("Remove Revealed On End of Decision of Last Turn = ", text, text3, removeRevealedOnLastResolveStart, flag, (byte)otherVal10 != 0, _003C_003Ef__am_0024cache1);
@@ -619,15 +373,6 @@ public class StandardActorEffectData
 		int otherVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal11 = other.m_damagePerMoveSquare;
 		}
 		else
@@ -642,15 +387,6 @@ public class StandardActorEffectData
 		int otherVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal12 = other.m_techPointGainPerMoveSquare;
 		}
 		else
@@ -663,15 +399,6 @@ public class StandardActorEffectData
 		object otherObjList;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList = other.m_statMods;
 		}
 		else
@@ -684,15 +411,6 @@ public class StandardActorEffectData
 		object otherObjList2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList2 = other.m_statusChanges;
 		}
 		else
@@ -702,40 +420,13 @@ public class StandardActorEffectData
 		str = str15 + InEditorDescHelper.GetListDiffString("Status Changes:", text, statusChanges, flag, (StatusType[])otherObjList2);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_statusDelayMode != other.m_statusDelayMode)
 			{
 				goto IL_0572;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_statusDelayMode != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0572;
 		}
 		goto IL_05b4;
@@ -745,15 +436,6 @@ public class StandardActorEffectData
 		StatusDelayMode statusDelayMode;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			statusDelayMode = other.m_statusDelayMode;
 		}
 		else
@@ -768,15 +450,6 @@ public class StandardActorEffectData
 		object otherObjList3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList3 = other.m_endTriggers;
 		}
 		else
@@ -789,15 +462,6 @@ public class StandardActorEffectData
 		object otherObjList4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList4 = other.m_sequencePrefabs;
 		}
 		else
@@ -806,15 +470,6 @@ public class StandardActorEffectData
 		}
 		if (_003C_003Ef__mg_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
 		}
 		str = str18 + InEditorDescHelper.GetListDiffString("Effect Sequence Prefabs:\t", text, sequencePrefabs, flag, (GameObject[])otherObjList4, _003C_003Ef__mg_0024cache0);
@@ -823,15 +478,6 @@ public class StandardActorEffectData
 		object otherVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal13 = other.m_tickSequencePrefab;
 		}
 		else

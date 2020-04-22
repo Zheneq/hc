@@ -32,10 +32,6 @@ namespace TMPro.Examples
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						yield return new WaitForSeconds(0.25f);
 						/*Error: Unable to find new state assignment for yield return*/;
 					}

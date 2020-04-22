@@ -82,15 +82,6 @@ public class MatchComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return CharacterUsed;
 		}
 	}
@@ -106,19 +97,6 @@ public class MatchComponent : ICloneable
 		object obj;
 		if (SubTypeLocTag != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = SubTypeLocTag.Split("@".ToCharArray()).First();
 		}
 		else
@@ -128,15 +106,6 @@ public class MatchComponent : ICloneable
 		string text = (string)obj;
 		if (text == "unknown")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			switch (GameType)
 			{
 			case GameType.Ranked:
@@ -158,15 +127,6 @@ public class MatchComponent : ICloneable
 		}
 		if (text == "unknown")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (MapName.EndsWith("CTF"))
 			{
 				text = "GenericBriefcase";

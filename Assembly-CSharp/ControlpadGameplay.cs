@@ -40,15 +40,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_curFrameInput = value;
 				return;
 			}
@@ -86,15 +77,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_usingControllerInputForTargeting = value;
 				return;
 			}
@@ -115,25 +97,11 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_lastNonzeroLeftStickWorldDir = value;
 				if (m_aimingConfig == null)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						ControllerAimDir = m_lastNonzeroLeftStickWorldDir;
 						return;
 					}
@@ -169,15 +137,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_controllerAimDir = value;
 				return;
 			}
@@ -198,15 +157,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_controllerAimPos = value;
 				return;
 			}
@@ -227,15 +177,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_aimingOriginPos = value;
 				return;
 			}
@@ -291,10 +232,6 @@ public class ControlpadGameplay : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -302,26 +239,8 @@ public class ControlpadGameplay : MonoBehaviour
 		m_lastCacheFrame = Time.frameCount;
 		if (!(GameManager.Get() == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameManager.Get().GameplayOverrides.DisableControlPadInput)
 				{
 					PrevFrameInput.CopySnapshotValuesFrom(CurFrameInput);
@@ -349,10 +268,6 @@ public class ControlpadGameplay : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("ControlpadGameplay-- UpdateTimeStartedHoldingDownInputs is being called, but m_timeStartedHoldingDownInputs is null.  (How did that happen...?)");
 					return;
 				}
@@ -363,40 +278,13 @@ public class ControlpadGameplay : MonoBehaviour
 			ControlpadInputValue input = (ControlpadInputValue)i;
 			if (Mathf.Abs(CurFrameInput.GetValueOfInput(input)) >= 0.9f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_timeStartedHoldingDownInputs[i] == 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeStartedHoldingDownInputs[i] = GameTime.time;
 				}
 			}
 			else if (m_timeStartedHoldingDownInputs[i] != 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_timeStartedHoldingDownInputs[i] = 0f;
 			}
 		}
@@ -423,10 +311,6 @@ public class ControlpadGameplay : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0f;
 				}
 			}
@@ -454,52 +338,12 @@ public class ControlpadGameplay : MonoBehaviour
 		int num;
 		if (CurFrameInput.LeftStickX == 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CurFrameInput.LeftStickY == 0f && CurFrameInput.RightStickX == 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CurFrameInput.RightStickY == 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (CurFrameInput.DpadX == 0f && CurFrameInput.DpadY == 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (CurFrameInput.IsUsingAnyGamepadButton() ? 1 : 0);
 						goto IL_00c7;
 					}
@@ -545,20 +389,10 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (flag2)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UsingControllerInput = true;
 					return;
 				}
@@ -569,26 +403,8 @@ public class ControlpadGameplay : MonoBehaviour
 		flag2 = ((byte)num != 0);
 		if (CurFrameInput.MouseX == PrevFrameInput.MouseX)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CurFrameInput.MouseY == PrevFrameInput.MouseY)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (CurFrameInput.IsUsingAnyMouseButton() ? 1 : 0);
 				goto IL_012a;
 			}
@@ -601,32 +417,10 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (CurFrameInput.LeftStickWorldDir.sqrMagnitude > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LastNonzeroLeftStickWorldDir = CurFrameInput.LeftStickWorldDir;
 		}
 		if (CurFrameInput.RightStickWorldDir.sqrMagnitude > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			LastNonzeroRightStickWorldDir = CurFrameInput.RightStickWorldDir;
 		}
 		if (!(CurFrameInput.DpadWorldDir.sqrMagnitude > 0f))
@@ -635,11 +429,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			LastNonzeroDpadWorldDir = CurFrameInput.DpadWorldDir;
 			return;
 		}
@@ -649,19 +438,6 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (ControllerAimDir.sqrMagnitude == 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Camera main = Camera.main;
 			if (main != null)
 			{
@@ -674,15 +450,6 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData actorData = null;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorData = GameFlowData.Get().activeOwnedActorData;
 		}
 		if (!(actorData != null) || !(Board.Get() != null) || !UsingControllerInput)
@@ -691,11 +458,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			Ability selectedAbility = actorData.GetAbilityData().GetSelectedAbility();
 			int targetSelectionIndex = actorData.GetActorTurnSM().GetTargetSelectionIndex();
 			if (selectedAbility != null && targetSelectionIndex >= 0)
@@ -739,11 +501,6 @@ public class ControlpadGameplay : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					UpdateAiming_PositionTargeter();
 					return;
 				}
@@ -757,19 +514,6 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (activeOwnedActorData.GetActorTurnSM().IsAbilityOrPingSelectorVisible())
 			{
 				while (true)
@@ -799,67 +543,22 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		else if (valueOfInput < 0f && m_aimingConfig.m_translationUpSign == ControlpadInputSign.Negative)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput, Mathf.Abs(valueOfInput));
 		}
 		else
 		{
 			if (valueOfInput2 > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_translationDownSign == ControlpadInputSign.Positive)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0f - m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput2, valueOfInput2);
 					goto IL_01fe;
 				}
 			}
 			if (valueOfInput2 < 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_translationDownSign == ControlpadInputSign.Negative)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0f - m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput2, Mathf.Abs(valueOfInput2));
 					goto IL_01fe;
 				}
@@ -873,27 +572,9 @@ public class ControlpadGameplay : MonoBehaviour
 		float num4 = num * GameTime.deltaTime;
 		if (num3 == 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num4 == 0f)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Camera main = Camera.main;
@@ -903,11 +584,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 forward = main.transform.forward;
 			Vector3 vector = new Vector3(forward.x, 0f, forward.z);
 			vector.Normalize();
@@ -918,30 +594,12 @@ public class ControlpadGameplay : MonoBehaviour
 			GameplayData gameplayData = GameplayData.Get();
 			if (gameplayData != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2.x = Mathf.Clamp(vector2.x, gameplayData.m_minimumPositionX, gameplayData.m_maximumPositionX);
 				vector2.z = Mathf.Clamp(vector2.z, gameplayData.m_minimumPositionZ, gameplayData.m_maximumPositionZ);
 			}
 			ControllerAimPos = vector2;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ControllerAimingOriginPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 				Vector3 controllerAimDir = ControllerAimPos - ControllerAimingOriginPos;
 				controllerAimDir.y = 0f;
@@ -954,26 +612,8 @@ public class ControlpadGameplay : MonoBehaviour
 		IL_01fe:
 		if (valueOfInput3 > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_aimingConfig.m_translationRightSign == ControlpadInputSign.Positive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput3, valueOfInput3);
 				goto IL_0304;
 			}
@@ -986,15 +626,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (valueOfInput4 > 0f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_translationLeftSign == ControlpadInputSign.Positive)
 				{
 					num2 = 0f - m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput4, valueOfInput4);
@@ -1003,26 +634,8 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			if (valueOfInput4 < 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_translationLeftSign == ControlpadInputSign.Negative)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = 0f - m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput4, Mathf.Abs(valueOfInput4));
 					goto IL_0304;
 				}
@@ -1045,73 +658,24 @@ public class ControlpadGameplay : MonoBehaviour
 		float num;
 		if (valueOfInput > 0f && m_aimingConfig.m_rotateClockwiseSign == ControlpadInputSign.Positive)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput, valueOfInput);
 		}
 		else if (valueOfInput < 0f && m_aimingConfig.m_rotateClockwiseSign == ControlpadInputSign.Negative)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput, Mathf.Abs(valueOfInput));
 		}
 		else
 		{
 			if (valueOfInput2 > 0f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_rotateAntiClockwiseSign == ControlpadInputSign.Positive)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0f - m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput2, valueOfInput2);
 					goto IL_01c3;
 				}
 			}
 			if (valueOfInput2 < 0f && m_aimingConfig.m_rotateAntiClockwiseSign == ControlpadInputSign.Negative)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 0f - m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput2, Mathf.Abs(valueOfInput2));
 			}
 			else
@@ -1124,15 +688,6 @@ public class ControlpadGameplay : MonoBehaviour
 		float num2;
 		if (valueOfInput3 > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_aimingConfig.m_depthForwardSign == ControlpadInputSign.Positive)
 			{
 				num2 = m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput3, valueOfInput3);
@@ -1141,56 +696,20 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		if (valueOfInput3 < 0f && m_aimingConfig.m_depthForwardSign == ControlpadInputSign.Negative)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput3, Mathf.Abs(valueOfInput3));
 		}
 		else
 		{
 			if (valueOfInput4 > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_aimingConfig.m_depthBackwardSign == ControlpadInputSign.Positive)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = 0f - m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput4, valueOfInput4);
 					goto IL_02cd;
 				}
 			}
 			if (valueOfInput4 < 0f && m_aimingConfig.m_depthBackwardSign == ControlpadInputSign.Negative)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0f - m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput4, Mathf.Abs(valueOfInput4));
 			}
 			else
@@ -1204,26 +723,8 @@ public class ControlpadGameplay : MonoBehaviour
 		float num4 = num2 * GameTime.deltaTime;
 		if (abilityBeingTargeted != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityBeingTargeted.HasAimingOriginOverride(clientActor, currentIndex, targetsSoFar, out Vector3 overridePos))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ControllerAimingOriginPos = overridePos;
 				goto IL_0330;
 			}
@@ -1242,26 +743,8 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		if (abilityBeingTargeted != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityBeingTargeted.HasRestrictedFreePosDistance(clientActor, currentIndex, targetsSoFar, out float min2, out float max2))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = Mathf.Clamp(value, min2, max2);
 			}
 		}
@@ -1276,19 +759,6 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (cameraActor != activeOwnedActorData)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ControllerAimDir = (cameraActor.GetTravelBoardSquareWorldPosition() - activeOwnedActorData.GetTravelBoardSquareWorldPosition()).normalized;
 		}
 		if (!(cameraActor != null))
@@ -1297,11 +767,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			ControllerAimPos = cameraActor.GetTravelBoardSquareWorldPosition();
 			return;
 		}
@@ -1315,15 +780,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == null)
 			{
 				while (true)
@@ -1344,20 +800,10 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.IsVisibleToClient())
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						ControllerAimPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 						return;
 					}
@@ -1375,15 +821,6 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Rect screenRect = new Rect(60f, 5f, 800f, 500f);
 			GUILayout.Window(632146, screenRect, DrawDebugGUIWindow, "Gamepad Debug Window");
 			return;
@@ -1396,19 +833,6 @@ public class ControlpadGameplay : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		if (GUILayout.Button("Hide Me", GetDebugGUIButtonStyle(), GUILayout.Width(80f)))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ShowDebugGUI = false;
 		}
 		GUILayout.EndHorizontal();

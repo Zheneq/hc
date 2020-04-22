@@ -15,19 +15,6 @@ namespace AbilityContextNamespace
 		{
 			if (m_contextKey == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_contextKey = ContextVars.GetHash(m_contextName);
 			}
 			return m_contextKey;

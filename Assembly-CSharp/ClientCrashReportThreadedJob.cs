@@ -81,19 +81,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			string temporaryCachePath;
 			if (Application.temporaryCachePath == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				temporaryCachePath = string.Empty;
 			}
 			else
@@ -103,15 +90,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			m_temporaryCachePath = temporaryCachePath;
 			if (Path.DirectorySeparatorChar == '\\')
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_temporaryCachePath = m_temporaryCachePath.Replace("/", "\\");
 			}
 			m_outputLogPathCopy = Path.Combine(m_temporaryCachePath, Path.GetFileName(m_outputLogPath));
@@ -123,15 +101,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				string[] commandLineArgs = Environment.GetCommandLineArgs();
 				if (commandLineArgs == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					commandLineArgs = new string[0];
 				}
 				m_userKeyValues["CommandLine"] = $"\"{string.Join(string.Empty, Environment.GetCommandLineArgs())}\"";
@@ -149,15 +118,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				Resolution[] resolutions = Screen.resolutions;
 				if (resolutions != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < resolutions.Length; i++)
 					{
 						m_userKeyValues[$"Resolution{i}"] = resolutions[i].ToString();
@@ -171,15 +131,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				foreach (PropertyInfo propertyInfo in properties)
 				{
 					m_userKeyValues.Add(propertyInfo.Name, propertyInfo.GetValue(null, null).ToString());
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			catch (Exception exception)
@@ -198,19 +149,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnConnectedToLobbyServer -= OnRegisterGameClientResponse;
 		}
 		try
@@ -239,10 +177,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (state != State.MoveArchiveAndReadBytes)
 						{
 							while (true)
@@ -269,15 +203,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 									m_progressValue = 0.95f;
 									if (m_stateSucceeeded)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										try
 										{
 											Directory.Delete(m_crashDumpDirectoryPath, true);
@@ -339,52 +264,16 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			m_stateSucceeeded = true;
 			if (!Directory.Exists(m_crashDumpDirectoryPath))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_bugReportType != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						DirectoryInfo directoryInfo = Directory.CreateDirectory(m_crashDumpDirectoryPath);
 						if (directoryInfo != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (directoryInfo.Exists)
 							{
 								goto IL_00d6;
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						Log.Error("Failed to create temp directory for user bug report at {0}", m_crashDumpDirectoryPath);
@@ -409,26 +298,8 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			}
 			if (m_stateSucceeeded)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(m_userMessage))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						StreamWriter streamWriter2 = new StreamWriter(m_crashDumpDirectoryPath + "\\UserMessage.txt");
@@ -461,15 +332,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 						int stateSucceeeded;
 						if (m_bugReportType != BugReportType.Bug)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							stateSucceeeded = ((m_bugReportType != BugReportType.Exception) ? 1 : 0);
 						}
 						else
@@ -482,26 +344,8 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			}
 			if (m_stateSucceeeded)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_bugReportType != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						StringBuilder stringBuilder = new StringBuilder((m_logMessage != null) ? (m_logMessage + "\n") : string.Empty);
@@ -523,15 +367,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 										{
 											if (streamReader.BaseStream.Length <= 262144)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												streamReader.BaseStream.Seek(-streamReader.BaseStream.Length, SeekOrigin.End);
 											}
 											else
@@ -598,15 +433,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			}
 			if (m_stateSucceeeded)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				try
 				{
 					StringBuilder stringBuilder2 = new StringBuilder();
@@ -647,15 +473,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 														{
 															if (streamReader2.BaseStream.Length <= 262144)
 															{
-																while (true)
-																{
-																	switch (4)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																streamReader2.BaseStream.Seek(-streamReader2.BaseStream.Length, SeekOrigin.End);
 															}
 															else
@@ -729,15 +546,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			}
 			if (m_stateSucceeeded)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_stateSucceeeded = CrashReportArchiver.CreateArchiveFromCrashDumpDirectory(out m_tempArchivePath, out m_tempArchiveFileSize, m_crashDumpDirectoryPath, m_temporaryCachePath, m_userKeyValues, m_bugReportType);
 			}
 			m_progressValue = 0.2f;
@@ -766,10 +574,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!ClientGameManager.Get().IsConnectedToLobbyServer)
 						{
 							ClientGameManager.Get().OnConnectedToLobbyServer += OnRegisterGameClientResponse;
@@ -842,10 +646,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_state = State.WaitingForArchiveNameResponse;
 					return;
 				}
@@ -867,10 +667,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					State state = m_state;
 					if (state != State.Failed)
 					{
@@ -953,10 +749,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Client encountered an error while connecting to lobby server {0}", response.ErrorMessage);
 					Cancel();
 					m_state = State.Failed;
@@ -987,10 +779,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_state = State.CleanUp;
 					StartThread();
 					return;

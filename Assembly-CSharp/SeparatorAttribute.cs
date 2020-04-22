@@ -22,15 +22,6 @@ public class SeparatorAttribute : PropertyAttribute
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_setColor = true;
 			m_colorStr = "cyan";
 			return;

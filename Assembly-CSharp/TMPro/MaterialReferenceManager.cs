@@ -19,19 +19,6 @@ namespace TMPro
 			{
 				if (s_Instance == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					s_Instance = new MaterialReferenceManager();
 				}
 				return s_Instance;
@@ -47,19 +34,6 @@ namespace TMPro
 		{
 			if (!m_FontAssetReferenceLookup.ContainsKey(fontAsset.hashCode))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_FontAssetReferenceLookup.Add(fontAsset.hashCode, fontAsset);
 			}
 			if (m_FontMaterialReferenceLookup.ContainsKey(fontAsset.materialHashCode))
@@ -68,11 +42,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_FontMaterialReferenceLookup.Add(fontAsset.materialHashCode, fontAsset.material);
 				return;
 			}
@@ -94,10 +63,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -122,10 +87,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -138,11 +99,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				spriteAsset.hashCode = hashCode;
 				return;
 			}
@@ -208,10 +164,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}

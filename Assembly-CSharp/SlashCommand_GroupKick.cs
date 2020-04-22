@@ -31,36 +31,14 @@ public class SlashCommand_GroupKick : SlashCommand
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (r.LocalizedFailure != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								r.ErrorMessage = r.LocalizedFailure.ToString();
 							}
 							string format = StringUtil.TR("FailedMessage", "Global");
 							string arg;
 							if (r.ErrorMessage.IsNullOrEmpty())
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								arg = StringUtil.TR("UnknownError", "Global");
 							}
 							else

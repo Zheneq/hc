@@ -26,10 +26,6 @@ public class Card : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return StringUtil.TR_CardDisplayName(m_cardType);
 				}
 			}
@@ -61,10 +57,6 @@ public class Card : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return DisplayName;
 				}
 			}
@@ -96,10 +88,6 @@ public class Card : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_useAbility.sprite = GetIconSprite();
 					return;
 				}
@@ -119,10 +107,6 @@ public class Card : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (Sprite)Resources.Load(m_spriteIconPath, typeof(Sprite));
 				}
 			}
@@ -134,19 +118,6 @@ public class Card : MonoBehaviour
 	{
 		if (m_useAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_useAbility.IsFreeAction())
 			{
 				while (true)
@@ -175,10 +146,6 @@ public class Card : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return AbilityPriorityToRunPhase(m_useAbility.RunPriority);
 				}
 			}
@@ -190,19 +157,6 @@ public class Card : MonoBehaviour
 	{
 		if (priority >= AbilityPriority.Prep_Defense)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (priority <= AbilityPriority.Prep_Offense)
 			{
 				while (true)

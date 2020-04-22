@@ -25,26 +25,12 @@ public class UIControlPointNameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIControlPointNameplateItem uIControlPointNameplateItem = m_controlPointNameplates[controlPoint];
 			m_controlPointNameplates.Remove(controlPoint);
 			if (uIControlPointNameplateItem != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					Object.Destroy(uIControlPointNameplateItem.gameObject);
 					return;
 				}

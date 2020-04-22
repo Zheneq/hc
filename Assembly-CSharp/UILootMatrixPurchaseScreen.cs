@@ -35,15 +35,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIPurchaseableItem uIPurchaseableItem = new UIPurchaseableItem();
 			uIPurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
 			uIPurchaseableItem.m_lootMatrixPack = btn.PackRef;
@@ -67,15 +58,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Setup();
 			return;
 		}
@@ -91,45 +73,14 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 			bool flag = lootMatrixPack.IsInEvent();
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!lootMatrixPack.EventHidden)
 				{
 					goto IL_0086;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (flag || lootMatrixPack.NonEventHidden)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			goto IL_0086;
 			IL_0086:
@@ -140,15 +91,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 		{
 			if (j < list.Count)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(DisplayPacks[j], true);
 				DisplayPacks[j].Setup(list[j]);
 			}

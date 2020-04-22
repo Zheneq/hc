@@ -46,19 +46,6 @@ public class UIRatingDialogBox : UIDialogBox
 		{
 			if (m_ratingButtons[i].m_hitBox.gameObject == data.selectedObject)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_ratingButtons[i].SetSelected(true);
 				selectedButton = i;
 			}
@@ -69,11 +56,6 @@ public class UIRatingDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_submitButton.interactable = true;
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 			return;
@@ -101,26 +83,8 @@ public class UIRatingDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (submitCallback != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				submitCallback(this);
 			}
 			UIDialogPopupManager.Get().CloseDialog(this);
@@ -140,15 +104,6 @@ public class UIRatingDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			selectedButton = -1;
 			return;
 		}
@@ -188,15 +143,6 @@ public class UIRatingDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_submitButton.interactable = false;
 			return;
 		}

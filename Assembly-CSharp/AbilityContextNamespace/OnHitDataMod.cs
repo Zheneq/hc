@@ -36,19 +36,6 @@ namespace AbilityContextNamespace
 			object obj;
 			if (_000E != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = _000E.m_allyHitIntFields;
 			}
 			else
@@ -61,15 +48,6 @@ namespace AbilityContextNamespace
 			object obj2;
 			if (_000E != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj2 = _000E.m_allyHitEffectFields;
 			}
 			else
@@ -79,15 +57,6 @@ namespace AbilityContextNamespace
 			empty = str2 + OnHitDataMod._001D(allyEffectMods, (List<OnHitEffecField>)obj2, "Ally Effect Field Mods");
 			if (empty.Length > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty = InEditorDescHelper.ColoredString(_001D, "yellow") + "\n" + empty + "\n";
 			}
 			return empty;
@@ -98,30 +67,8 @@ namespace AbilityContextNamespace
 			string text = string.Empty;
 			if (_001D.m_prependIntFields != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (_001D.m_prependIntFields.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
 					for (int i = 0; i < _001D.m_prependIntFields.Count; i++)
 					{
@@ -132,15 +79,6 @@ namespace AbilityContextNamespace
 			}
 			if (_001D.m_overrides != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_001D.m_overrides.Count > 0)
 				{
 					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
@@ -157,15 +95,6 @@ namespace AbilityContextNamespace
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag = false;
 						foreach (OnHitIntField item in _000E)
 						{
@@ -178,15 +107,6 @@ namespace AbilityContextNamespace
 						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
 						}
 					}
@@ -200,19 +120,6 @@ namespace AbilityContextNamespace
 			string text = string.Empty;
 			if (_001D.m_prependEffectFields != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (_001D.m_prependEffectFields.Count > 0)
 				{
 					text = text + "<color=cyan>" + _0012 + ": New entries prepended:</color>\n";
@@ -221,39 +128,12 @@ namespace AbilityContextNamespace
 						OnHitEffecField onHitEffecField = _001D.m_prependEffectFields[i];
 						text += onHitEffecField.GetInEditorDesc(false, null);
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if (_001D.m_overrides != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (_001D.m_overrides.Count > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + "<color=cyan>" + _0012 + ": Override to existing entry:</color>\n";
 					for (int j = 0; j < _001D.m_overrides.Count; j++)
 					{
@@ -266,30 +146,12 @@ namespace AbilityContextNamespace
 						OnHitEffecField onHitEffecField2 = null;
 						if (_000E != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							using (List<OnHitEffecField>.Enumerator enumerator = _000E.GetEnumerator())
 							{
 								while (true)
 								{
 									if (!enumerator.MoveNext())
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									OnHitEffecField current = enumerator.Current;
@@ -312,29 +174,11 @@ namespace AbilityContextNamespace
 							}
 							if (onHitEffecField2 == null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = text + "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
 							}
 						}
 						text = text + "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white") + "\n";
 						text += effectFieldOverride.m_effectOverride.GetInEditorDesc(onHitEffecField2 != null, onHitEffecField2);
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -349,15 +193,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				OnHitDataMod._001D(_001D, m_enemyIntFieldMods, _000E.m_enemyHitIntFields);
 				OnHitDataMod._001D(_001D, m_enemyEffectMods, _000E.m_enemyHitEffectFields);
 				OnHitDataMod._001D(_001D, m_allyIntFieldMods, _000E.m_allyHitIntFields);
@@ -376,30 +211,8 @@ namespace AbilityContextNamespace
 					string identifier = onHitIntField.GetIdentifier();
 					if (!string.IsNullOrEmpty(identifier))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						onHitIntField.AddTooltipTokens(_001D);
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (_000E.m_overrides == null)
@@ -408,11 +221,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < _000E.m_overrides.Count; j++)
 				{
 					IntFieldOverride intFieldOverride = _000E.m_overrides[j];
@@ -428,15 +236,6 @@ namespace AbilityContextNamespace
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							OnHitIntField current = enumerator.Current;
@@ -460,15 +259,6 @@ namespace AbilityContextNamespace
 					}
 					if (onHitIntField2 != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						intFieldOverride.m_fieldOverride.AddTokens_zq(_001D, onHitIntField2, text);
 					}
 				}
@@ -489,45 +279,14 @@ namespace AbilityContextNamespace
 		{
 			if (_000E.m_prependEffectFields != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				for (int i = 0; i < _000E.m_prependEffectFields.Count; i++)
 				{
 					OnHitEffecField onHitEffecField = _000E.m_prependEffectFields[i];
 					string identifier = onHitEffecField.GetIdentifier();
 					if (!string.IsNullOrEmpty(identifier))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						onHitEffecField.AddTooltipTokens(_001D, false, null);
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (_000E.m_overrides == null)
@@ -540,15 +299,6 @@ namespace AbilityContextNamespace
 				string text = effectFieldOverride._001D();
 				if (!string.IsNullOrEmpty(text))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					OnHitEffecField onHitEffecField2 = null;
 					using (List<OnHitEffecField>.Enumerator enumerator = _0012.GetEnumerator())
 					{
@@ -556,15 +306,6 @@ namespace AbilityContextNamespace
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							OnHitEffecField current = enumerator.Current;

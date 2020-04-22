@@ -26,10 +26,6 @@ internal class Easing
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return c / 2f * t * t + b;
 				}
 			}
@@ -55,10 +51,6 @@ internal class Easing
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return c / 2f * t * t * t + b;
 				}
 			}
@@ -90,10 +82,6 @@ internal class Easing
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return c / 2f * t * t * t * t + b;
 				}
 			}
@@ -113,10 +101,6 @@ internal class Easing
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return c / 2f * t * t * t * t * t + b;
 				}
 			}
@@ -136,10 +120,6 @@ internal class Easing
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return b;
 				}
 			}

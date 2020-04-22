@@ -12,19 +12,6 @@ public class SlashCommand_Apropos : SlashCommand
 		bool flag = arguments.IsNullOrEmpty() || command.Contains(arguments);
 		if (!flag && !aliases.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (string alias in aliases)
 			{
 				if (alias.Contains(arguments))
@@ -49,22 +36,8 @@ public class SlashCommand_Apropos : SlashCommand
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (!bAvailableBecauseWereInFrontEnd)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!bAvailableBecauseWereInGame)
 				{
 					return;
@@ -75,30 +48,12 @@ public class SlashCommand_Apropos : SlashCommand
 			message.Text = command;
 			if (!aliases.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<string>.Enumerator enumerator2 = aliases.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())
 					{
 						string current2 = enumerator2.Current;
 						message.Text = message.Text + ", " + current2;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -116,15 +71,6 @@ public class SlashCommand_Apropos : SlashCommand
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = GameFlowData.Get() == null;
 			using (List<SlashCommand>.Enumerator enumerator = SlashCommands.Get().m_slashCommands.GetEnumerator())
 			{
@@ -133,15 +79,6 @@ public class SlashCommand_Apropos : SlashCommand
 					SlashCommand current = enumerator.Current;
 					if (!current.PublicFacing)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!clientGameManager.HasDeveloperAccess())
 						{
 							continue;
@@ -151,15 +88,6 @@ public class SlashCommand_Apropos : SlashCommand
 					int num;
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (current.AvailableInGame ? 1 : 0);
 					}
 					else

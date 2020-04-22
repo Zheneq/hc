@@ -67,15 +67,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("PKFX preloading did not finish before starting game");
 			return;
 		}
@@ -89,24 +80,10 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_preloadedPKFXPaths.Count > 0)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_preloadingCoroutine = PreloadOnePKFXPerFrame();
 					StartCoroutine(m_preloadingCoroutine);
 					return;
@@ -127,10 +104,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					try
 					{
 						pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\\\", "/");
@@ -144,42 +117,15 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 							{
 								if (text2.EndsWith(".pkfx", StringComparison.OrdinalIgnoreCase))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int num = text2.IndexOf("packfx", StringComparison.OrdinalIgnoreCase);
 									if (num >= 0)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = text2.Substring(num + "packfx".Length);
 										if (!string.IsNullOrEmpty(text))
 										{
 											while (text[0] == Path.DirectorySeparatorChar || text[0] == Path.AltDirectorySeparatorChar)
 											{
 												text = text.Substring(1);
-											}
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 											text = text.Replace("\\\\", "/");
 											text = text.Replace("\\", "/");
@@ -220,15 +166,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 		object obj;
 		if (pathRelativeToStreamingAssets == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = "NULL";
 		}
 		else
@@ -251,15 +188,6 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_preloadingCoroutine = null;
 			m_preloadedPKFXPaths.Clear();
 			m_nextIndexToPreload = 0;

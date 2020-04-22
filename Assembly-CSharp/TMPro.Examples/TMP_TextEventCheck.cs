@@ -14,15 +14,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_001D.onCharacterSelection.AddListener(_000E);
 				_001D.onWordSelection.AddListener(_000E);
 				_001D.onLineSelection.AddListener(_0012);
@@ -39,15 +30,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_001D.onCharacterSelection.RemoveListener(_000E);
 				_001D.onWordSelection.RemoveListener(_000E);
 				_001D.onLineSelection.RemoveListener(_0012);

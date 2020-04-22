@@ -50,19 +50,6 @@ public class SenseiAmmoLaser : Ability
 		int result;
 		if (m_healOnSelfPerHit > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actorsSoFar.Count > 0) ? 1 : 0);
 		}
 		else
@@ -82,31 +69,9 @@ public class SenseiAmmoLaser : Ability
 		int num = m_laserTargetingInfo.maxTargets;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_syncComp.m_syncCurrentNumOrbs;
 			if (m_maxOrbsPerCast > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num > m_maxOrbsPerCast)
 				{
 					num = m_maxOrbsPerCast;
@@ -134,19 +99,6 @@ public class SenseiAmmoLaser : Ability
 	{
 		if (m_healOnSelfPerHit > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);

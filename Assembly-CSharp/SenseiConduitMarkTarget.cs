@@ -46,19 +46,6 @@ public class SenseiConduitMarkTarget : Ability
 		StandardEffectInfo result;
 		if (m_cachedConduitEffectOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConduitEffectOnEnemy;
 		}
 		else
@@ -73,19 +60,6 @@ public class SenseiConduitMarkTarget : Ability
 		StandardEffectInfo result;
 		if (m_cachedReactionEffectOnAlliesHittingTarget != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReactionEffectOnAlliesHittingTarget;
 		}
 		else

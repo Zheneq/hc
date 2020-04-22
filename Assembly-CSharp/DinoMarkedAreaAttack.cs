@@ -56,24 +56,10 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorHitContext.ContainsKey(targetActor))
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					actorHitContext[targetActor]._0015.SetInt(s_cvarInCenter.GetHash(), 1);
 					return;
 				}
@@ -90,26 +76,12 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetActor.GetTeam() == caster.GetTeam())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				ActorHitContext actorContext = actorHitContext[targetActor];
 				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_delayedOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
 				results.m_damage = m_calculatedValuesForTargeter.m_damage;
@@ -119,11 +91,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					int num = 0;
 					using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 					{
@@ -134,49 +101,17 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 							ActorHitContext value = current.Value;
 							if (value._0012)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (key.GetTeam() != caster.GetTeam())
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num++;
 								}
 							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (num == 1)
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							results.m_damage += GetExtraDamageForSingleMark();
 							return;
 						}
@@ -194,29 +129,11 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		{
 			if (m_delayedOnHitData.m_enemyHitIntFields[i].m_hitType == OnHitIntField.HitType.Damage)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num += m_delayedOnHitData.m_enemyHitIntFields[i].m_baseValue;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return num;
 		}
 	}
@@ -226,19 +143,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_delayTurnsMod.GetModifiedValue(m_delayTurns);
 		}
 		else
@@ -253,19 +157,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		AbilityAreaShape result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
@@ -280,19 +171,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_delayedHitIgnoreLosMod.GetModifiedValue(m_delayedHitIgnoreLos);
 		}
 		else
@@ -307,19 +185,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForSingleMarkMod.GetModifiedValue(m_extraDamageForSingleMark);
 		}
 		else
@@ -334,19 +199,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyToAllyOnDamageHitMod.GetModifiedValue(m_energyToAllyOnDamageHit);
 		}
 		else

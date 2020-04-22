@@ -10,19 +10,6 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
@@ -55,19 +42,6 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 	{
 		if (m_ownedToggle.isOn)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
@@ -86,15 +60,6 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 						}
 					}
 					goto IL_007b;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return true;

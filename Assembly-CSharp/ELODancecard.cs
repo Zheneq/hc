@@ -30,10 +30,6 @@ public class ELODancecard
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return $"account #{m_accountId} {m_turnsAsPlayer} turns";
 					}
 				}
@@ -59,32 +55,10 @@ public class ELODancecard
 	{
 		if (groupSize == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("ELODancecard: Bad group size of zero for accountId {0}, groupId {1}!", accountId, groupId);
 			int num;
 			if (groupId == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1;
 			}
 			else
@@ -120,10 +94,6 @@ public class ELODancecard
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_turnsAsBot++;
 					m_botDifficulty = dif;
 					m_playedLastTurn = false;

@@ -21,71 +21,22 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 				{
 					goto IL_007c;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			if (!flag && !lootMatrixPack.NonEventHidden)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_007c;
 			}
 			goto IL_00c2;
 			IL_00c2:
 			if (lootMatrixPack.NonEventHidden == lootMatrixPack.EventHidden)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			DateTime dateTime;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lootMatrixPack.EventEndPacific.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				dateTime = Convert.ToDateTime(lootMatrixPack.EventEndPacific);
@@ -100,15 +51,6 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 			}
 			if (dateTime > lastPacificTimePriceRequestWithServerTimeOffset)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (dateTime < m_nextExpireDateTime)
 				{
 					m_nextExpireDateTime = dateTime;
@@ -129,22 +71,8 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
 			}
 			list.Sort(_003C_003Ef__am_0024cache0);
@@ -161,15 +89,6 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Reinitialize();
 			return;
 		}

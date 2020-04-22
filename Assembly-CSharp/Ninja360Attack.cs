@@ -68,19 +68,6 @@ public class Ninja360Attack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Ninja Basic Attack";
 		}
 		Setup();
@@ -91,19 +78,6 @@ public class Ninja360Attack : Ability
 		SetCachedFields();
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
 		if (m_targetingMode == TargetingMode.Laser)
@@ -133,15 +107,6 @@ public class Ninja360Attack : Ability
 					AbilityUtil_Targeter_MultipleCones abilityUtil_Targeter_MultipleCones = new AbilityUtil_Targeter_MultipleCones(this, list, coneInfo.m_backwardsOffset, PenetrateLineOfSight(), true, true, false, GetSelfHealOnMarkedHit() > 0);
 					if (GetSelfHealOnMarkedHit() > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityUtil_Targeter_MultipleCones.m_affectCasterDelegate = IncludeCasterForTargeter;
 					}
 					base.Targeter = abilityUtil_Targeter_MultipleCones;
@@ -157,19 +122,6 @@ public class Ninja360Attack : Ability
 	{
 		if (GetSelfHealOnMarkedHit() > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < addedSoFar.Count; i++)
 			{
 				if (!IsActorMarked(addedSoFar[i]))
@@ -178,22 +130,8 @@ public class Ninja360Attack : Ability
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -220,10 +158,6 @@ public class Ninja360Attack : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetLaserInfo().range;
 				}
 			}
@@ -249,19 +183,6 @@ public class Ninja360Attack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -273,15 +194,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -292,15 +204,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo cachedInnerConeEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedInnerConeEnemyHitEffect = m_abilityMod.m_innerConeEnemyHitEffectMod.GetModifiedValue(m_innerConeEnemyHitEffect);
 		}
 		else
@@ -315,19 +218,6 @@ public class Ninja360Attack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
@@ -342,19 +232,6 @@ public class Ninja360Attack : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -379,19 +256,6 @@ public class Ninja360Attack : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targeterShapeMod.GetModifiedValue(m_targeterShape);
 		}
 		else
@@ -406,19 +270,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -433,19 +284,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_innerAreaDamageMod.GetModifiedValue(m_innerAreaDamage);
 		}
 		else
@@ -460,19 +298,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -492,19 +317,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo result;
 		if (m_cachedInnerConeEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedInnerConeEnemyHitEffect;
 		}
 		else
@@ -519,19 +331,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainOnMarkedHitMod.GetModifiedValue(m_energyGainOnMarkedHit);
 		}
 		else
@@ -546,19 +345,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealOnMarkedHitMod.GetModifiedValue(m_selfHealOnMarkedHit);
 		}
 		else
@@ -573,19 +359,6 @@ public class Ninja360Attack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
 		}
 		else
@@ -607,40 +380,13 @@ public class Ninja360Attack : Ability
 	{
 		if (m_targetingMode == TargetingMode.Cone)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					int damage = GetDamageAmount();
 					if (GetInnerAreaDamage() > 0 && GetInnerConeAngle() > 0f)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actorData = base.ActorData;
 						Vector3 lastUpdateAimDir = base.Targeter.LastUpdateAimDir;
 						float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(lastUpdateAimDir);
@@ -704,10 +450,6 @@ public class Ninja360Attack : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = 0;
 					List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 					for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
@@ -715,15 +457,6 @@ public class Ninja360Attack : Ability
 						ActorData targetActor = visibleActorsInRangeByTooltipSubject[i];
 						if (IsActorMarked(targetActor))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += GetEnergyGainOnMarkedHit();
 						}
 					}
@@ -748,41 +481,10 @@ public class Ninja360Attack : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp.m_deathmarkOnTriggerDamage > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsActorMarked(targetActor))
 					{
 						while (true)
@@ -806,19 +508,6 @@ public class Ninja360Attack : Ability
 	{
 		if (m_targetingMode == TargetingMode.Cone)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetInnerConeAngle() > 0f)
 			{
 				while (true)
@@ -844,19 +533,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.ActorHasDeathmark(targetActor) ? 1 : 0);
 		}
 		else

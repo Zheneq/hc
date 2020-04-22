@@ -15,37 +15,18 @@ public class Scamp_ChatterEventOverrider : ChatterEventOverrider
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_syncComp != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (string.IsNullOrEmpty(m_syncComp.m_noSuitChatterEventOverride))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_syncComp.IsSuitModelActive())
 					{
 						while (true)
@@ -67,20 +48,10 @@ public class Scamp_ChatterEventOverrider : ChatterEventOverrider
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						if (audioEventOverride.Equals(m_syncComp.m_noSuitChatterEventOverride))
 						{
 							while (true)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								chatter.GetCommonData().ClearAudioEventOverride();
 								return;
 							}

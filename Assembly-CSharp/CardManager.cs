@@ -16,19 +16,6 @@ public class CardManager : NetworkBehaviour
 			object result;
 			if (m_dataPrefabInstanceComponent == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = null;
 			}
 			else

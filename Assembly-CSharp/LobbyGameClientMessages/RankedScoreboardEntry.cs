@@ -41,22 +41,9 @@ namespace LobbyGameClientMessages
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int result;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = 1;
 						}
 						else
@@ -71,15 +58,6 @@ namespace LobbyGameClientMessages
 			int num;
 			if (Tier != 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((Tier == 2) ? 1 : 0);
 			}
 			else
@@ -101,15 +79,6 @@ namespace LobbyGameClientMessages
 						int result2;
 						if (flag3)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result2 = -1;
 						}
 						else
@@ -123,29 +92,11 @@ namespace LobbyGameClientMessages
 			}
 			if (!flag3)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Tier != other.Tier)
 				{
 					int result3;
 					if (Tier < other.Tier)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result3 = -1;
 					}
 					else
@@ -168,15 +119,6 @@ namespace LobbyGameClientMessages
 						int result4;
 						if (TierPoints > other.TierPoints)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result4 = -1;
 						}
 						else
@@ -201,15 +143,6 @@ namespace LobbyGameClientMessages
 						int result5;
 						if (WinStreak > other.WinStreak)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result5 = -1;
 						}
 						else
@@ -234,15 +167,6 @@ namespace LobbyGameClientMessages
 						int result6;
 						if (WinCount > other.WinCount)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result6 = -1;
 						}
 						else
@@ -267,15 +191,6 @@ namespace LobbyGameClientMessages
 						int result7;
 						if (MatchCount < other.MatchCount)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result7 = -1;
 						}
 						else
@@ -302,10 +217,6 @@ namespace LobbyGameClientMessages
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						RankedScoreboardEntry value = default(RankedScoreboardEntry);
 						value.Handle = _000E.Handle;
 						value.Tier = _000E.GetPlayerFacingTier(_001D);

@@ -22,19 +22,6 @@ public class NinjaRewind : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "NinjaRewind";
 		}
 		Setup();
@@ -44,19 +31,6 @@ public class NinjaRewind : Ability
 	{
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
 		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
@@ -78,19 +52,6 @@ public class NinjaRewind : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_rewindHToHp > 0)
 			{
 				while (true)
@@ -115,19 +76,6 @@ public class NinjaRewind : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare squareForRewind = m_syncComp.GetSquareForRewind();
 			if (squareForRewind != null)
 			{
@@ -161,41 +109,10 @@ public class NinjaRewind : Ability
 		ActorData actorData = base.ActorData;
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self) && m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int rewindHToHp = m_syncComp.m_rewindHToHp;
 					int hitPoints = actorData.HitPoints;
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -207,15 +124,6 @@ public class NinjaRewind : Ability
 					}
 					else if (rewindHToHp > hitPoints)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Healing] = rewindHToHp - hitPoints;
 					}
 				}

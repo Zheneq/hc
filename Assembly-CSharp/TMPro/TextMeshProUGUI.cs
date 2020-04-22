@@ -73,10 +73,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -88,11 +84,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
 					SetLayoutDirty();
 					return;
@@ -108,19 +99,6 @@ namespace TMPro
 			{
 				if (m_canvasRenderer == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_canvasRenderer = GetComponent<CanvasRenderer>();
 				}
 				return m_canvasRenderer;
@@ -150,19 +128,6 @@ namespace TMPro
 			m_rectTransform = base.gameObject.GetComponent<RectTransform>();
 			if (m_rectTransform == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rectTransform = base.gameObject.AddComponent<RectTransform>();
 			}
 			m_canvasRenderer = GetComponent<CanvasRenderer>();
@@ -172,15 +137,6 @@ namespace TMPro
 			}
 			if (m_mesh == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_mesh = new Mesh();
 				m_mesh.hideFlags = HideFlags.HideAndDontSave;
 			}
@@ -189,30 +145,12 @@ namespace TMPro
 			TMP_StyleSheet.LoadDefaultStyleSheet();
 			if (m_char_buffer == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_char_buffer = new int[m_max_characters];
 			}
 			m_cached_TextElement = new TMP_Glyph();
 			m_isFirstAllocation = true;
 			if (m_textInfo == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo = new TMP_TextInfo(this);
 			}
 			if (m_fontAsset == null)
@@ -232,27 +170,9 @@ namespace TMPro
 			TMP_SubMeshUI[] componentsInChildren = GetComponentsInChildren<TMP_SubMeshUI>();
 			if (componentsInChildren.Length > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < componentsInChildren.Length; i++)
 				{
 					m_subTextObjects[i + 1] = componentsInChildren[i];
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_isInputParsingRequired = true;
@@ -283,19 +203,6 @@ namespace TMPro
 		{
 			if (m_MaskMaterial != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				m_MaskMaterial = null;
 			}
@@ -303,15 +210,6 @@ namespace TMPro
 			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 			if (m_canvasRenderer != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_canvasRenderer.Clear();
 			}
 			SetActiveSubMeshes(false);
@@ -324,32 +222,10 @@ namespace TMPro
 			GraphicRegistry.UnregisterGraphicForCanvas(m_canvas, this);
 			if (m_mesh != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.DestroyImmediate(m_mesh);
 			}
 			if (m_MaskMaterial != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				m_MaskMaterial = null;
 			}
@@ -361,19 +237,6 @@ namespace TMPro
 			ShaderUtilities.GetShaderPropertyIDs();
 			if (m_fontAsset == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (TMP_Settings.defaultFontAsset != null)
 				{
 					m_fontAsset = TMP_Settings.defaultFontAsset;
@@ -386,26 +249,12 @@ namespace TMPro
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						Debug.LogWarning("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to " + base.gameObject.name + ".", this);
 						return;
 					}
 				}
 				if (m_fontAsset.characterDictionary == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.Log("Dictionary is Null!");
 				}
 				m_sharedMaterial = m_fontAsset.material;
@@ -418,52 +267,16 @@ namespace TMPro
 				}
 				if (m_sharedMaterial == null && m_baseMaterial != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_sharedMaterial = m_baseMaterial;
 					m_baseMaterial = null;
 				}
 				if (!(m_sharedMaterial == null))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex) == null))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_fontAsset.atlas.GetInstanceID() == m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 						{
 							goto IL_0228;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -497,33 +310,11 @@ namespace TMPro
 					{
 						if (list[num].isActiveAndEnabled)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							result = list[num];
 							break;
 						}
 						num++;
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -564,30 +355,8 @@ namespace TMPro
 		{
 			if (m_fontMaterial != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_stencilID > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_sharedMaterial = m_MaskMaterial;
 				}
 				m_canvasRenderer.SetMaterial(m_sharedMaterial, m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
@@ -604,26 +373,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!ShaderUtilities.isInitialized)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ShaderUtilities.GetShaderPropertyIDs();
 				}
 				m_isScrollRegionSet = true;
@@ -632,15 +383,6 @@ namespace TMPro
 				float num3;
 				if (num > 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = num;
 				}
 				else
@@ -667,31 +409,9 @@ namespace TMPro
 			ShaderUtilities.GetShaderPropertyIDs();
 			if (!(m_fontMaterial == null))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_fontMaterial.GetInstanceID() == mat.GetInstanceID())
 				{
 					goto IL_0054;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_fontMaterial = CreateMaterialInstance(mat);
@@ -710,32 +430,10 @@ namespace TMPro
 			int materialCount = m_textInfo.materialCount;
 			if (m_fontMaterials == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_fontMaterials = new Material[materialCount];
 			}
 			else if (m_fontMaterials.Length != materialCount)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize(ref m_fontMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
@@ -765,47 +463,16 @@ namespace TMPro
 			int materialCount = m_textInfo.materialCount;
 			if (m_fontSharedMaterials == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_fontSharedMaterials = new Material[materialCount];
 			}
 			else if (m_fontSharedMaterials.Length != materialCount)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize(ref m_fontSharedMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
 			{
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fontSharedMaterials[i] = m_sharedMaterial;
 				}
 				else
@@ -815,11 +482,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return m_fontSharedMaterials;
 			}
 		}
@@ -829,71 +491,22 @@ namespace TMPro
 			int materialCount = m_textInfo.materialCount;
 			if (m_fontSharedMaterials == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_fontSharedMaterials = new Material[materialCount];
 			}
 			else if (m_fontSharedMaterials.Length != materialCount)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize(ref m_fontSharedMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
 			{
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (materials[i].GetTexture(ShaderUtilities.ID_MainTex) == null)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (materials[i].GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() != m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -907,38 +520,11 @@ namespace TMPro
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (materials[i].GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() != m_subTextObjects[i].sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (m_subTextObjects[i].isDefaultMaterial)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_subTextObjects[i].sharedMaterial = (m_fontSharedMaterials[i] = materials[i]);
 					}
 				}
@@ -949,30 +535,8 @@ namespace TMPro
 		{
 			if (m_fontMaterial != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_sharedMaterial.GetInstanceID() != m_fontMaterial.GetInstanceID())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_sharedMaterial = m_fontMaterial;
 					m_canvasRenderer.SetMaterial(m_sharedMaterial, m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
 					goto IL_00d3;
@@ -980,15 +544,6 @@ namespace TMPro
 			}
 			if (m_fontMaterial == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fontMaterial = CreateMaterialInstance(m_sharedMaterial);
 				m_sharedMaterial = m_fontMaterial;
 				m_canvasRenderer.SetMaterial(m_sharedMaterial, m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
@@ -1004,19 +559,6 @@ namespace TMPro
 		{
 			if (m_fontMaterial == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_fontMaterial = CreateMaterialInstance(m_sharedMaterial);
 			}
 			m_sharedMaterial = m_fontMaterial;
@@ -1043,15 +585,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_sharedMaterial == null)
 				{
 					while (true)
@@ -1067,28 +600,10 @@ namespace TMPro
 				}
 				if (m_canvas.renderMode != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_isOverlay)
 					{
 						m_sharedMaterial.SetFloat(ShaderUtilities.ShaderTag_ZTestMode, 4f);
 						return;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_sharedMaterial.SetFloat(ShaderUtilities.ShaderTag_ZTestMode, 0f);
@@ -1108,22 +623,9 @@ namespace TMPro
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Material materialForRendering = this.materialForRendering;
 						if (materialForRendering != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							materialForRendering.SetFloat("_CullMode", 2f);
 						}
 						int num = 1;
@@ -1168,25 +670,11 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (m_subTextObjects[num2] != null)
 					{
 						materialForRendering2 = m_subTextObjects[num2].materialForRendering;
 						if (materialForRendering2 != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							materialForRendering2.SetFloat(ShaderUtilities.ShaderTag_CullMode, 0f);
 						}
 						num2++;
@@ -1218,10 +706,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_sharedMaterial.SetFloat(ShaderUtilities.ID_PerspectiveFilter, 0f);
 						return;
 					}
@@ -1265,19 +749,6 @@ namespace TMPro
 			int fontWeightInternal;
 			if ((m_style & FontStyles.Bold) == FontStyles.Bold)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				fontWeightInternal = 700;
 			}
 			else
@@ -1294,15 +765,6 @@ namespace TMPro
 			MaterialReference.AddMaterialReference(m_currentMaterial, m_currentFontAsset, m_materialReferences, m_materialReferenceIndexLookup);
 			if (m_textInfo == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_textInfo = new TMP_TextInfo();
 			}
 			m_textElementType = TMP_TextElementType.Character;
@@ -1315,15 +777,6 @@ namespace TMPro
 			{
 				if (m_textInfo.characterInfo != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_totalCharacterCount < m_textInfo.characterInfo.Length)
 					{
 						goto IL_017a;
@@ -1337,15 +790,6 @@ namespace TMPro
 				bool isUsingAlternateTypeface;
 				if (fontAssetForWeight != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					isUsingAlternateTypeface = true;
 					m_currentFontAsset = fontAssetForWeight;
@@ -1358,28 +802,10 @@ namespace TMPro
 					TMP_SpriteAsset spriteAsset = base.spriteAsset;
 					if (spriteAsset != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int spriteIndex = -1;
 						spriteAsset = TMP_SpriteAsset.SearchFallbackForSprite(spriteAsset, num2, out spriteIndex);
 						if (spriteIndex != -1)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_textElementType = TMP_TextElementType.Sprite;
 							m_textInfo.characterInfo[m_totalCharacterCount].elementType = m_textElementType;
 							m_currentMaterialIndex = MaterialReference.AddMaterialReference(spriteAsset.material, spriteAsset, m_materialReferences, m_materialReferenceIndexLookup);
@@ -1399,63 +825,18 @@ namespace TMPro
 				}
 				if (glyph == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.fallbackFontAssets != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.fallbackFontAssets.Count > 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(TMP_Settings.fallbackFontAssets, num2, out glyph);
 						}
 					}
 				}
 				if (glyph == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.defaultFontAsset != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(TMP_Settings.defaultFontAsset, num2, out glyph);
 					}
 				}
@@ -1464,28 +845,10 @@ namespace TMPro
 					TMP_SpriteAsset defaultSpriteAsset = TMP_Settings.defaultSpriteAsset;
 					if (defaultSpriteAsset != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int spriteIndex2 = -1;
 						defaultSpriteAsset = TMP_SpriteAsset.SearchFallbackForSprite(defaultSpriteAsset, num2, out spriteIndex2);
 						if (spriteIndex2 != -1)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_textElementType = TMP_TextElementType.Sprite;
 							m_textInfo.characterInfo[m_totalCharacterCount].elementType = m_textElementType;
 							m_currentMaterialIndex = MaterialReference.AddMaterialReference(defaultSpriteAsset.material, defaultSpriteAsset, m_materialReferences, m_materialReferenceIndexLookup);
@@ -1505,28 +868,10 @@ namespace TMPro
 				}
 				if (glyph == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (chars[i] = ((TMP_Settings.missingGlyphCharacter != 0) ? TMP_Settings.missingGlyphCharacter : 9633));
 					fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 					if (glyph == null && TMP_Settings.fallbackFontAssets != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.fallbackFontAssets.Count > 0)
 						{
 							fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(TMP_Settings.fallbackFontAssets, num2, out glyph);
@@ -1534,26 +879,8 @@ namespace TMPro
 					}
 					if (glyph == null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.defaultFontAsset != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(TMP_Settings.defaultFontAsset, num2, out glyph);
 						}
 					}
@@ -1563,30 +890,12 @@ namespace TMPro
 						fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 						if (!TMP_Settings.warningsDisabled)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.LogWarning("Character with ASCII value of " + num2 + " was not found in the Font Asset Glyph Table. It was replaced by a space.", this);
 						}
 					}
 				}
 				if (fontAssetForWeight != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (fontAssetForWeight.GetInstanceID() != m_currentFontAsset.GetInstanceID())
 					{
 						flag = true;
@@ -1601,26 +910,8 @@ namespace TMPro
 				m_textInfo.characterInfo[m_totalCharacterCount].fontAsset = m_currentFontAsset;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.matchMaterialPreset)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_currentMaterial = TMP_MaterialManager.GetFallbackMaterial(m_currentMaterial, m_currentFontAsset.material);
 					}
 					else
@@ -1631,37 +922,10 @@ namespace TMPro
 				}
 				if (!char.IsWhiteSpace((char)num2))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 != 8203)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_materialReferences[m_currentMaterialIndex].referenceCount < 16383)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_materialReferences[m_currentMaterialIndex].referenceCount++;
 						}
 						else
@@ -1678,15 +942,6 @@ namespace TMPro
 				TMP_FontAsset currentFontAsset;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_materialReferences[m_currentMaterialIndex].fallbackMaterial = currentMaterial;
 					m_currentFontAsset = currentFontAsset;
 					m_currentMaterial = currentMaterial;
@@ -1698,54 +953,18 @@ namespace TMPro
 				num2 = chars[i];
 				if (m_isRichText)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 == 60)
 					{
 						int currentMaterialIndex2 = m_currentMaterialIndex;
 						if (ValidateHtmlTag(chars, i + 1, out endIndex))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = endIndex;
 							if ((m_style & FontStyles.Bold) == FontStyles.Bold)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_isUsingBold = true;
 							}
 							if (m_textElementType == TMP_TextElementType.Sprite)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_materialReferences[m_currentMaterialIndex].referenceCount++;
 								m_textInfo.characterInfo[m_totalCharacterCount].character = (char)(57344 + m_spriteIndex);
 								m_textInfo.characterInfo[m_totalCharacterCount].spriteIndex = m_spriteIndex;
@@ -1769,62 +988,17 @@ namespace TMPro
 				currentMaterialIndex = m_currentMaterialIndex;
 				if (m_textElementType == TMP_TextElementType.Character)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsLower((char)num2))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = char.ToUpper((char)num2);
 						}
 					}
 					else if ((m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsUpper((char)num2))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = char.ToLower((char)num2);
 						}
 					}
@@ -1832,15 +1006,6 @@ namespace TMPro
 					{
 						if ((m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 							{
 								goto IL_03e8;
@@ -1848,15 +1013,6 @@ namespace TMPro
 						}
 						if (char.IsLower((char)num2))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = char.ToUpper((char)num2);
 						}
 					}
@@ -1886,54 +1042,18 @@ namespace TMPro
 			}
 			if (num3 > m_subTextObjects.Length)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize(ref m_subTextObjects, Mathf.NextPowerOfTwo(num3 + 1));
 			}
 			if (m_textInfo.characterInfo.Length - m_totalCharacterCount > 256)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize(ref m_textInfo.characterInfo, Mathf.Max(m_totalCharacterCount + 1, 256), true);
 			}
 			for (int j = 0; j < num3; j++)
 			{
 				if (j > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_subTextObjects[j] == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_subTextObjects[j] = TMP_SubMeshUI.AddSubTextObject(this, m_materialReferences[j]);
 						m_textInfo.meshInfo[j].vertices = null;
 					}
@@ -1943,42 +1063,15 @@ namespace TMPro
 					}
 					if (!(m_subTextObjects[j].sharedMaterial == null))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_subTextObjects[j].sharedMaterial.GetInstanceID() == m_materialReferences[j].material.GetInstanceID())
 						{
 							goto IL_0e4a;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					bool isDefaultMaterial = m_materialReferences[j].isDefaultMaterial;
 					m_subTextObjects[j].isDefaultMaterial = isDefaultMaterial;
 					if (isDefaultMaterial && !(m_subTextObjects[j].sharedMaterial == null))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_subTextObjects[j].sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() == m_materialReferences[j].material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 						{
 							goto IL_0e4a;
@@ -1994,15 +1087,6 @@ namespace TMPro
 				int referenceCount = m_materialReferences[j].referenceCount;
 				if (m_textInfo.meshInfo[j].vertices != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_textInfo.meshInfo[j].vertices.Length >= referenceCount * 4)
 					{
 						if (m_textInfo.meshInfo[j].vertices.Length - referenceCount * 4 <= 1024)
@@ -2013,15 +1097,6 @@ namespace TMPro
 						int size;
 						if (referenceCount > 1024)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							size = referenceCount + 256;
 						}
 						else
@@ -2031,27 +1106,9 @@ namespace TMPro
 						reference.ResizeMeshInfo(size);
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_textInfo.meshInfo[j].vertices == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (j == 0)
 					{
 						m_textInfo.meshInfo[j] = new TMP_MeshInfo(m_mesh, referenceCount + 1);
@@ -2066,15 +1123,6 @@ namespace TMPro
 				int size2;
 				if (referenceCount > 1024)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					size2 = referenceCount + 256;
 				}
 				else
@@ -2086,15 +1134,6 @@ namespace TMPro
 				IL_0e4a:
 				if (m_materialReferences[j].isFallbackMaterial)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_subTextObjects[j].fallbackMaterial = m_materialReferences[j].material;
 					m_subTextObjects[j].fallbackSourceMaterial = m_materialReferences[j].fallbackMaterial;
 				}
@@ -2102,47 +1141,15 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = num3; k < m_subTextObjects.Length; k++)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_subTextObjects[k] != null)
 					{
 						if (k < m_textInfo.meshInfo.Length)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_subTextObjects[k].canvasRenderer.SetMesh(null);
 						}
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -2158,15 +1165,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_marginWidth = m_rectTransform.rect.width - m_margin.x - m_margin.z;
 				m_marginHeight = m_rectTransform.rect.height - m_margin.y - m_margin.w;
 				m_RectTransformCorners = GetTextContainerLocalCorners();
@@ -2210,54 +1208,14 @@ namespace TMPro
 		{
 			if (m_rectTransform.hasChanged)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 lossyScale = m_rectTransform.lossyScale;
 				float y = lossyScale.y;
 				if (!m_havePropertiesChanged && y != m_previousLossyScaleY)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_text != string.Empty)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_text != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UpdateSDFScale(y);
 							m_previousLossyScaleY = y;
 						}
@@ -2271,11 +1229,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_havePropertiesChanged = true;
 				OnPreRenderCanvas();
 				return;
@@ -2290,30 +1243,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_ignoreActiveState && !IsActive())
 				{
 					return;
 				}
 				if (m_canvas == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_canvas = base.canvas;
 					if (m_canvas == null)
 					{
@@ -2323,53 +1258,17 @@ namespace TMPro
 				loopCountA = 0;
 				if (!m_havePropertiesChanged)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_isLayoutDirty)
 					{
 						return;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (checkPaddingRequired)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UpdateMeshPadding();
 				}
 				if (!m_isInputParsingRequired)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_isTextTruncated)
 					{
 						goto IL_00cb;
@@ -2404,39 +1303,12 @@ namespace TMPro
 				{
 					if (m_textInfo != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_textInfo.Clear();
 					}
 					if (m_char_buffer != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_char_buffer.Length != 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_char_buffer[0] != 0)
 							{
 								m_currentFontAsset = m_fontAsset;
@@ -2461,15 +1333,6 @@ namespace TMPro
 								int fontWeightInternal;
 								if ((m_style & FontStyles.Bold) == FontStyles.Bold)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									fontWeightInternal = 700;
 								}
 								else
@@ -2563,15 +1426,6 @@ namespace TMPro
 								Vector3 vector5 = default(Vector3);
 								for (int i = 0; i < m_char_buffer.Length; i++)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_char_buffer[i] == 0)
 									{
 										break;
@@ -2583,15 +1437,6 @@ namespace TMPro
 									int currentMaterialIndex = m_currentMaterialIndex;
 									if (m_isRichText)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 == 60)
 										{
 											m_isParsingText = true;
@@ -2601,15 +1446,6 @@ namespace TMPro
 												i = endIndex;
 												if (m_textElementType == TMP_TextElementType.Character)
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													continue;
 												}
 											}
@@ -2619,15 +1455,6 @@ namespace TMPro
 									bool isUsingAlternateTypeface = m_textInfo.characterInfo[m_characterCount].isUsingAlternateTypeface;
 									if (m_characterCount < m_firstVisibleCharacter)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_textInfo.characterInfo[m_characterCount].isVisible = false;
 										m_textInfo.characterInfo[m_characterCount].character = '\u200b';
 										m_characterCount++;
@@ -2636,26 +1463,8 @@ namespace TMPro
 									float num17 = 1f;
 									if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsLower((char)num4))
 											{
 												num4 = char.ToUpper((char)num4);
@@ -2663,26 +1472,8 @@ namespace TMPro
 										}
 										else if ((m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsUpper((char)num4))
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num4 = char.ToLower((char)num4);
 											}
 										}
@@ -2690,27 +1481,9 @@ namespace TMPro
 										{
 											if ((m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 												{
 													goto IL_076d;
-												}
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (char.IsLower((char)num4))
@@ -2724,26 +1497,8 @@ namespace TMPro
 									IL_340d:
 									if (!m_enableWordWrapping)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_overflowMode != TextOverflowModes.Truncate)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_overflowMode != TextOverflowModes.Ellipsis)
 											{
 												goto IL_36d7;
@@ -2752,49 +1507,13 @@ namespace TMPro
 									}
 									if (!char.IsWhiteSpace((char)num4))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 != 8203)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 45)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num4 != 173)
 												{
 													goto IL_3506;
-												}
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 										}
@@ -2805,49 +1524,13 @@ namespace TMPro
 										{
 											goto IL_3506;
 										}
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num4 != 160)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 != 8209)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8239 && num4 != 8288)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												SaveWordWrappingState(ref m_SavedWordWrapState, i, m_characterCount);
 												m_isCharacterWrappingEnabled = false;
 												flag6 = false;
@@ -2864,15 +1547,6 @@ namespace TMPro
 									}
 									if (num4 != 10)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount != totalCharacterCount - 1)
 										{
 											goto IL_30e2;
@@ -2881,37 +1555,10 @@ namespace TMPro
 									float num19;
 									if (m_lineNumber > 0)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender) && m_lineHeight == -32767f)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!m_isNewPage)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num18 = m_maxLineAscender - m_startOfLineAscender;
 												AdjustLineOffset(m_firstCharacterOfLine, m_characterCount, num18);
 												num19 -= num18;
@@ -2925,15 +1572,6 @@ namespace TMPro
 									float maxDescender;
 									if (m_maxDescender < num21)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxDescender = m_maxDescender;
 									}
 									else
@@ -2943,28 +1581,10 @@ namespace TMPro
 									m_maxDescender = maxDescender;
 									if (!flag5)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num15 = m_maxDescender;
 									}
 									if (m_useMaxVisibleDescender)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount >= m_maxVisibleCharacters || m_lineNumber >= m_maxVisibleLines)
 										{
 											flag5 = true;
@@ -2975,15 +1595,6 @@ namespace TMPro
 									int num22;
 									if (m_firstCharacterOfLine > m_firstVisibleCharacterOfLine)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num22 = m_firstCharacterOfLine;
 									}
 									else
@@ -2998,15 +1609,6 @@ namespace TMPro
 									int num23;
 									if (m_lastVisibleCharacterOfLine < m_firstVisibleCharacterOfLine)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num23 = m_firstVisibleCharacterOfLine;
 									}
 									else
@@ -3024,28 +1626,10 @@ namespace TMPro
 									m_textInfo.lineInfo[m_lineNumber].width = num13;
 									if (m_textInfo.lineInfo[m_lineNumber].characterCount == 1)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_textInfo.lineInfo[m_lineNumber].alignment = m_lineJustification;
 									}
 									if (m_textInfo.characterInfo[m_lastVisibleCharacterOfLine].isVisible)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_textInfo.lineInfo[m_lineNumber].maxAdvance = m_textInfo.characterInfo[m_lastVisibleCharacterOfLine].xAdvance - (m_characterSpacing + m_currentFontAsset.normalSpacingOffset) * num2 - m_cSpacing;
 									}
 									else
@@ -3061,43 +1645,16 @@ namespace TMPro
 									float num24;
 									if (num4 == 10)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										SaveWordWrappingState(ref m_SavedLineState, i, m_characterCount);
 										SaveWordWrappingState(ref m_SavedWordWrapState, i, m_characterCount);
 										m_lineNumber++;
 										flag4 = true;
 										if (m_lineNumber >= m_textInfo.lineInfo.Length)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											ResizeLineExtents(m_lineNumber);
 										}
 										if (m_lineHeight == -32767f)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num9 = 0f - m_maxLineDescender + num24 + (num8 + m_lineSpacing + m_paragraphSpacing + m_lineSpacingDelta) * num;
 											m_lineOffset += num9;
 										}
@@ -3120,15 +1677,6 @@ namespace TMPro
 									int num25;
 									if (m_firstCharacterOfLine > m_firstVisibleCharacterOfLine)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num25 = m_firstCharacterOfLine;
 									}
 									else
@@ -3160,28 +1708,10 @@ namespace TMPro
 									flag4 = true;
 									if (m_lineNumber >= m_textInfo.lineInfo.Length)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ResizeLineExtents(m_lineNumber);
 									}
 									if (m_lineHeight == -32767f)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float num28 = m_textInfo.characterInfo[m_characterCount].ascender - m_textInfo.characterInfo[m_characterCount].baseLine;
 										num9 = 0f - m_maxLineDescender + num28 + (num8 + m_lineSpacing + m_lineSpacingDelta) * num;
 										m_lineOffset += num9;
@@ -3201,42 +1731,15 @@ namespace TMPro
 									IL_076d:
 									if (m_textElementType == TMP_TextElementType.Sprite)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_currentSpriteAsset = m_textInfo.characterInfo[m_characterCount].spriteAsset;
 										m_spriteIndex = m_textInfo.characterInfo[m_characterCount].spriteIndex;
 										TMP_Sprite tMP_Sprite = m_currentSpriteAsset.spriteInfoList[m_spriteIndex];
 										if (tMP_Sprite == null)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											continue;
 										}
 										if (num4 == 60)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num4 = 57344 + m_spriteIndex;
 										}
 										else
@@ -3257,27 +1760,9 @@ namespace TMPro
 									}
 									else if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_cached_TextElement = m_textInfo.characterInfo[m_characterCount].textElement;
 										if (m_cached_TextElement == null)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											continue;
 										}
 										m_currentFontAsset = m_textInfo.characterInfo[m_characterCount].fontAsset;
@@ -3290,15 +1775,6 @@ namespace TMPro
 										float padding;
 										if (m_currentMaterialIndex == 0)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											padding = m_padding;
 										}
 										else
@@ -3310,52 +1786,16 @@ namespace TMPro
 									float num30 = num2;
 									if (num4 == 173)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = 0f;
 									}
 									if (m_isRightToLeft)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_xAdvance -= ((m_cached_TextElement.xAdvance * num7 + m_characterSpacing + m_wordSpacing + m_currentFontAsset.normalSpacingOffset) * num2 + m_cSpacing) * (1f - m_charWidthAdjDelta);
 										if (!char.IsWhiteSpace((char)num4))
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8203)
 											{
 												goto IL_0b52;
-											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										m_xAdvance -= m_wordSpacing * num2;
@@ -3364,26 +1804,8 @@ namespace TMPro
 									IL_23ee:
 									if (m_maxAscender - num19 > marginHeight + 0.0001f)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_enableAutoSizing && m_lineSpacingDelta > m_lineSpacingMax)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_lineNumber > 0)
 											{
 												loopCountA = 0;
@@ -3394,15 +1816,6 @@ namespace TMPro
 										}
 										if (m_enableAutoSizing)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_fontSize > m_fontSizeMin)
 											{
 												while (true)
@@ -3426,15 +1839,6 @@ namespace TMPro
 										}
 										if (m_firstOverflowCharacterIndex == -1)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_firstOverflowCharacterIndex = m_characterCount;
 										}
 										switch (m_overflowMode)
@@ -3442,30 +1846,12 @@ namespace TMPro
 										case TextOverflowModes.Overflow:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											break;
 										case TextOverflowModes.Ellipsis:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											if (m_lineNumber > 0)
@@ -3509,30 +1895,12 @@ namespace TMPro
 										case TextOverflowModes.ScrollRect:
 											if (!m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												EnableMasking();
 											}
 											break;
 										case TextOverflowModes.Truncate:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											if (m_lineNumber > 0)
@@ -3557,41 +1925,14 @@ namespace TMPro
 										case TextOverflowModes.Page:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											if (num4 == 13)
 											{
 												break;
 											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 == 10)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												break;
 											}
 											if (i == 0)
@@ -3610,15 +1951,6 @@ namespace TMPro
 											}
 											if (num11 == i)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												m_char_buffer[i] = 0;
 												m_isTextTruncated = true;
 											}
@@ -3635,15 +1967,6 @@ namespace TMPro
 										case TextOverflowModes.Linked:
 											if (m_linkedTextComponent != null)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												m_linkedTextComponent.text = base.text;
 												m_linkedTextComponent.firstVisibleCharacter = m_characterCount;
 												m_linkedTextComponent.ForceMeshUpdate();
@@ -3672,29 +1995,11 @@ namespace TMPro
 									float num33;
 									if (num4 == 9)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float num31 = m_currentFontAsset.fontInfo.TabWidth * num2;
 										float num32 = Mathf.Ceil(m_xAdvance / num31) * num31;
 										float xAdvance;
 										if (num32 > m_xAdvance)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											xAdvance = num32;
 										}
 										else
@@ -3708,15 +2013,6 @@ namespace TMPro
 										m_xAdvance += (m_monoSpacing - num33 + (m_characterSpacing + m_currentFontAsset.normalSpacingOffset) * num2 + m_cSpacing) * (1f - m_charWidthAdjDelta);
 										if (!char.IsWhiteSpace((char)num4))
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8203)
 											{
 												goto IL_2a3e;
@@ -3729,27 +2025,9 @@ namespace TMPro
 										m_xAdvance += ((m_cached_TextElement.xAdvance * num7 + m_characterSpacing + m_currentFontAsset.normalSpacingOffset) * num2 + m_cSpacing) * (1f - m_charWidthAdjDelta);
 										if (!char.IsWhiteSpace((char)num4))
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8203)
 											{
 												goto IL_2a3e;
-											}
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										m_xAdvance += m_wordSpacing * num2;
@@ -3763,29 +2041,11 @@ namespace TMPro
 									IL_369f:
 									if (!flag6)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!m_isCharacterWrappingEnabled)
 										{
 											if (!flag8)
 											{
 												goto IL_36d7;
-											}
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 									}
@@ -3803,37 +2063,10 @@ namespace TMPro
 									}
 									if (m_lineNumber > 0 && !TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_lineHeight == -32767f)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!m_isNewPage)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num34 = m_maxLineAscender - m_startOfLineAscender;
 												AdjustLineOffset(m_firstCharacterOfLine, m_characterCount, num34);
 												m_lineOffset += num34;
@@ -3848,15 +2081,6 @@ namespace TMPro
 									float maxDescender2;
 									if (m_maxDescender < num26)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxDescender2 = m_maxDescender;
 									}
 									else
@@ -3866,30 +2090,12 @@ namespace TMPro
 									m_maxDescender = maxDescender2;
 									if (!flag5)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num15 = m_maxDescender;
 									}
 									if (m_useMaxVisibleDescender)
 									{
 										if (m_characterCount < m_maxVisibleCharacters)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_lineNumber < m_maxVisibleLines)
 											{
 												goto IL_1967;
@@ -3904,15 +2110,6 @@ namespace TMPro
 									IL_1474:
 									if (m_lineNumber != 0)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!m_isNewPage)
 										{
 											goto IL_14d5;
@@ -3921,15 +2118,6 @@ namespace TMPro
 									float maxAscender;
 									if (m_maxAscender > num24)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxAscender = m_maxAscender;
 									}
 									else
@@ -3942,15 +2130,6 @@ namespace TMPro
 									IL_0e33:
 									if (m_currentMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float @float = m_currentMaterial.GetFloat(ShaderUtilities.ID_GradientScale);
 										num6 = m_currentFontAsset.normalStyle / 4f * @float * m_currentMaterial.GetFloat(ShaderUtilities.ID_ScaleRatio_A);
 										if (num6 + num5 > @float)
@@ -3967,15 +2146,6 @@ namespace TMPro
 									IL_10d3:
 									if (m_isFXMatrixSet)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Vector3 b = (vector2 + vector3) / 2f;
 										vector4 = m_FXMatrix.MultiplyPoint3x4(vector4 - b) + b;
 										vector3 = m_FXMatrix.MultiplyPoint3x4(vector3 - b) + b;
@@ -3993,15 +2163,6 @@ namespace TMPro
 									float num35;
 									if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num35 = num2;
 									}
 									else
@@ -4013,15 +2174,6 @@ namespace TMPro
 									float maxLineAscender;
 									if (num24 > m_maxLineAscender)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender = num24;
 									}
 									else
@@ -4033,15 +2185,6 @@ namespace TMPro
 									float num36;
 									if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num36 = num2;
 									}
 									else
@@ -4053,15 +2196,6 @@ namespace TMPro
 									float maxLineDescender;
 									if (num37 < m_maxLineDescender)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineDescender = num37;
 									}
 									else
@@ -4071,15 +2205,6 @@ namespace TMPro
 									m_maxLineDescender = maxLineDescender;
 									if ((m_style & FontStyles.Subscript) != FontStyles.Subscript)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((m_style & FontStyles.Superscript) != FontStyles.Superscript)
 										{
 											goto IL_1474;
@@ -4090,15 +2215,6 @@ namespace TMPro
 									float maxLineAscender2;
 									if (num38 > m_maxLineAscender)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender2 = num38;
 									}
 									else
@@ -4111,15 +2227,6 @@ namespace TMPro
 									float maxLineDescender2;
 									if (num39 < m_maxLineDescender)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineDescender2 = num39;
 									}
 									else
@@ -4139,40 +2246,13 @@ namespace TMPro
 									m_textInfo.characterInfo[m_characterCount].index = (short)i;
 									if (m_enableKerning)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount >= 1)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int character = m_textInfo.characterInfo[m_characterCount - 1].character;
 											KerningPairKey kerningPairKey = new KerningPairKey(character, num4);
 											m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out KerningPair value);
 											if (value != null)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												m_xAdvance += value.XadvanceOffset * num2;
 											}
 										}
@@ -4180,63 +2260,18 @@ namespace TMPro
 									num33 = 0f;
 									if (m_monoSpacing != 0f)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num33 = (m_monoSpacing / 2f - (m_cached_TextElement.width / 2f + m_cached_TextElement.xOffset) * num2) * (1f - m_charWidthAdjDelta);
 										m_xAdvance += num33;
 									}
 									if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!isUsingAlternateTypeface)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if ((m_style & FontStyles.Bold) != FontStyles.Bold)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 												{
 													goto IL_0e33;
-												}
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (m_currentMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
@@ -4245,15 +2280,6 @@ namespace TMPro
 												num6 = m_currentFontAsset.boldStyle / 4f * float2 * m_currentMaterial.GetFloat(ShaderUtilities.ID_ScaleRatio_A);
 												if (num6 + num5 > float2)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													num5 = float2 - num6;
 												}
 											}
@@ -4269,52 +2295,16 @@ namespace TMPro
 									IL_3506:
 									if (num4 > 4352)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 < 4607)
 										{
 											goto IL_35f7;
 										}
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num4 > 11904)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 < 40959)
 										{
 											goto IL_35f7;
-										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									if (num4 > 43360)
@@ -4323,15 +2313,6 @@ namespace TMPro
 										{
 											goto IL_35f7;
 										}
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num4 > 44032)
 									{
@@ -4339,52 +2320,16 @@ namespace TMPro
 										{
 											goto IL_35f7;
 										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num4 > 63744)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 < 64255)
 										{
 											goto IL_35f7;
 										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num4 > 65072)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 < 65103)
 										{
 											goto IL_35f7;
@@ -4392,15 +2337,6 @@ namespace TMPro
 									}
 									if (num4 > 65280 && num4 < 65519)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_35f7;
 									}
 									goto IL_369f;
@@ -4414,37 +2350,10 @@ namespace TMPro
 									}
 									if (m_overflowMode == TextOverflowModes.Page)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 != 13)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 10)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (m_pageNumber + 1 > m_textInfo.pageInfo.Length)
 												{
 													TMP_TextInfo.Resize(ref m_textInfo.pageInfo, m_pageNumber + 1, true);
@@ -4454,15 +2363,6 @@ namespace TMPro
 												float descender2;
 												if (num37 < m_textInfo.pageInfo[m_pageNumber].descender)
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													descender2 = num37;
 												}
 												else
@@ -4472,41 +2372,14 @@ namespace TMPro
 												reference4.descender = descender2;
 												if (m_pageNumber == 0 && m_characterCount == 0)
 												{
-													while (true)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													m_textInfo.pageInfo[m_pageNumber].firstCharacterIndex = m_characterCount;
 												}
 												else
 												{
 													if (m_characterCount > 0)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (m_pageNumber != m_textInfo.characterInfo[m_characterCount - 1].pageNumber)
 														{
-															while (true)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															m_textInfo.pageInfo[m_pageNumber - 1].lastCharacterIndex = m_characterCount - 1;
 															m_textInfo.pageInfo[m_pageNumber].firstCharacterIndex = m_characterCount;
 															goto IL_340d;
@@ -4514,15 +2387,6 @@ namespace TMPro
 													}
 													if (m_characterCount == totalCharacterCount - 1)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														m_textInfo.pageInfo[m_pageNumber].lastCharacterIndex = m_characterCount;
 													}
 												}
@@ -4533,37 +2397,10 @@ namespace TMPro
 									IL_226a:
 									if (m_lineNumber > 0)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Math.Approximately(m_maxLineAscender, m_startOfLineAscender) && m_lineHeight == -32767f)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!m_isNewPage)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num40 = m_maxLineAscender - m_startOfLineAscender;
 												AdjustLineOffset(m_firstCharacterOfLine, m_characterCount, num40);
 												num19 -= num40;
@@ -4578,52 +2415,16 @@ namespace TMPro
 									m_textInfo.characterInfo[m_characterCount].pageNumber = (short)m_pageNumber;
 									if (num4 != 10)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 != 13)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8230)
 											{
 												goto IL_23cd;
-											}
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 									}
 									if (m_textInfo.lineInfo[m_lineNumber].characterCount == 1)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_23cd;
 									}
 									goto IL_23ee;
@@ -4634,15 +2435,6 @@ namespace TMPro
 									int num41;
 									if ((m_lineJustification & (TextAlignmentOptions)16) != (TextAlignmentOptions)16)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num41 = (((m_lineJustification & (TextAlignmentOptions)8) == (TextAlignmentOptions)8) ? 1 : 0);
 									}
 									else
@@ -4655,15 +2447,6 @@ namespace TMPro
 									float num44;
 									if (num4 != 173)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num44 = num2;
 									}
 									else
@@ -4672,74 +2455,20 @@ namespace TMPro
 									}
 									if (num42 + num43 * num44 > num13 * ((!flag9) ? 1f : 1.05f))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num12 = m_characterCount - 1;
 										if (base.enableWordWrapping)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_characterCount != m_firstCharacterOfLine)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num16 != m_SavedWordWrapState.previous_WordBreak)
 												{
-													while (true)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!flag6)
 													{
 														goto IL_17f1;
 													}
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												if (m_enableAutoSizing)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (m_fontSize > m_fontSizeMin)
 													{
 														while (true)
@@ -4789,15 +2518,6 @@ namespace TMPro
 												}
 												if (!m_isCharacterWrappingEnabled)
 												{
-													while (true)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!flag7)
 													{
 														flag7 = true;
@@ -4816,15 +2536,6 @@ namespace TMPro
 										}
 										if (m_enableAutoSizing)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_fontSize > m_fontSizeMin)
 											{
 												while (true)
@@ -4877,44 +2588,17 @@ namespace TMPro
 										case TextOverflowModes.Overflow:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											break;
 										case TextOverflowModes.Ellipsis:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											m_isTextTruncated = true;
 											if (m_characterCount < 1)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												m_textInfo.characterInfo[m_characterCount].isVisible = false;
 												break;
 											}
@@ -4922,15 +2606,6 @@ namespace TMPro
 											m_char_buffer[i] = 0;
 											if (m_cached_Ellipsis_GlyphInfo != null)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												m_textInfo.characterInfo[num12].character = '…';
 												m_textInfo.characterInfo[num12].textElement = m_cached_Ellipsis_GlyphInfo;
 												m_textInfo.characterInfo[num12].fontAsset = m_materialReferences[0].fontAsset;
@@ -4947,15 +2622,6 @@ namespace TMPro
 										case TextOverflowModes.Masking:
 											if (!m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												EnableMasking();
 											}
 											break;
@@ -4968,15 +2634,6 @@ namespace TMPro
 										case TextOverflowModes.Truncate:
 											if (m_isMaskingEnabled)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												DisableMasking();
 											}
 											m_textInfo.characterInfo[m_characterCount].isVisible = false;
@@ -4988,15 +2645,6 @@ namespace TMPro
 										Color32 vertexColor;
 										if (m_overrideHtmlColors)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											vertexColor = m_fontColor32;
 										}
 										else
@@ -5021,37 +2669,10 @@ namespace TMPro
 									}
 									if (m_textInfo.characterInfo[m_characterCount].isVisible)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num4 != 173)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (flag4)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag4 = false;
 												m_firstVisibleCharacterOfLine = m_characterCount;
 											}
@@ -5076,49 +2697,13 @@ namespace TMPro
 									vector5.z = 0f;
 									if (m_textElementType == TMP_TextElementType.Character)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!isUsingAlternateTypeface)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if ((m_style & FontStyles.Italic) != FontStyles.Italic)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((m_fontStyle & FontStyles.Italic) != FontStyles.Italic)
 												{
 													goto IL_10d3;
-												}
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											float num45 = (float)(int)m_currentFontAsset.italicStyle * 0.01f;
@@ -5136,39 +2721,12 @@ namespace TMPro
 									{
 										if (!flag6)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!flag8)
 											{
 												if (!TMP_Settings.linebreakingRules.leadingCharacters.ContainsKey(num4))
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (m_characterCount < totalCharacterCount - 1 && !TMP_Settings.linebreakingRules.followingCharacters.ContainsKey(m_textInfo.characterInfo[m_characterCount + 1].character))
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														goto IL_367f;
 													}
 												}
@@ -5181,40 +2739,13 @@ namespace TMPro
 									IL_14d5:
 									if (m_lineOffset == 0f)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num14 = ((!(num14 > num24)) ? num24 : num14);
 									}
 									m_textInfo.characterInfo[m_characterCount].isVisible = false;
 									if (num4 != 9)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!char.IsWhiteSpace((char)num4))
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num4 != 8203)
 											{
 												goto IL_155b;
@@ -5224,15 +2755,6 @@ namespace TMPro
 										{
 											if (num4 != 10)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!char.IsSeparator((char)num4))
 												{
 													goto IL_226a;
@@ -5240,37 +2762,10 @@ namespace TMPro
 											}
 											if (num4 != 173)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num4 != 8203)
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (num4 != 8288)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														m_textInfo.lineInfo[m_lineNumber].spaceCount++;
 														m_textInfo.spaceCount++;
 													}
@@ -5278,41 +2773,14 @@ namespace TMPro
 											}
 											goto IL_226a;
 										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									goto IL_155b;
 								}
 								num3 = m_maxFontSize - m_minFontSize;
 								if (!m_isCharacterWrappingEnabled)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_enableAutoSizing)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num3 > 0.051f && m_fontSize < m_fontSizeMax)
 										{
 											while (true)
@@ -5369,15 +2837,6 @@ namespace TMPro
 								switch (textAlignment)
 								{
 								default:
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (textAlignment == TextAlignmentOptions.TopGeoAligned)
 									{
 										goto case TextAlignmentOptions.TopLeft;
@@ -5386,92 +2845,20 @@ namespace TMPro
 									{
 										goto case TextAlignmentOptions.Left;
 									}
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (textAlignment != TextAlignmentOptions.BottomFlush)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (textAlignment != TextAlignmentOptions.BottomGeoAligned)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (textAlignment != TextAlignmentOptions.BaselineFlush)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (textAlignment != TextAlignmentOptions.BaselineGeoAligned)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (textAlignment != TextAlignmentOptions.MidlineFlush)
 													{
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment != TextAlignmentOptions.MidlineGeoAligned)
 														{
-															while (true)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (textAlignment != TextAlignmentOptions.CaplineFlush && textAlignment != TextAlignmentOptions.CaplineGeoAligned)
 															{
-																while (true)
-																{
-																	switch (5)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																break;
 															}
 															goto case TextAlignmentOptions.CaplineLeft;
@@ -5491,15 +2878,6 @@ namespace TMPro
 								case TextAlignmentOptions.TopFlush:
 									if (m_overflowMode != TextOverflowModes.Page)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										a = rectTransformCorners[1] + new Vector3(margin.x, 0f - m_maxAscender - margin.y, 0f);
 									}
 									else
@@ -5513,15 +2891,6 @@ namespace TMPro
 								case TextAlignmentOptions.Justified:
 									if (m_overflowMode != TextOverflowModes.Page)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										a = (rectTransformCorners[0] + rectTransformCorners[1]) / 2f + new Vector3(margin.x, 0f - (m_maxAscender + margin.y + num15 - margin.w) / 2f, 0f);
 									}
 									else
@@ -5535,15 +2904,6 @@ namespace TMPro
 								case TextAlignmentOptions.BottomJustified:
 									if (m_overflowMode != TextOverflowModes.Page)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										a = rectTransformCorners[0] + new Vector3(margin.x, 0f - num15 + margin.w, 0f);
 									}
 									else
@@ -5584,15 +2944,6 @@ namespace TMPro
 								int num51;
 								if (m_canvas.worldCamera == null)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num51 = 0;
 								}
 								else
@@ -5629,125 +2980,35 @@ namespace TMPro
 									switch (alignment)
 									{
 									default:
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (alignment != TextAlignmentOptions.TopGeoAligned)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (alignment == TextAlignmentOptions.Flush)
 											{
 												goto case TextAlignmentOptions.TopJustified;
 											}
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (alignment != TextAlignmentOptions.CenterGeoAligned)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (alignment == TextAlignmentOptions.BottomFlush)
 												{
 													goto case TextAlignmentOptions.TopJustified;
 												}
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (alignment != TextAlignmentOptions.BottomGeoAligned)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (alignment == TextAlignmentOptions.BaselineFlush)
 													{
 														goto case TextAlignmentOptions.TopJustified;
 													}
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (alignment != TextAlignmentOptions.BaselineGeoAligned)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (alignment == TextAlignmentOptions.MidlineFlush)
 														{
 															goto case TextAlignmentOptions.TopJustified;
-														}
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 														if (alignment != TextAlignmentOptions.MidlineGeoAligned)
 														{
 															if (alignment == TextAlignmentOptions.CaplineFlush)
 															{
 																goto case TextAlignmentOptions.TopJustified;
-															}
-															while (true)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 															if (alignment != TextAlignmentOptions.CaplineGeoAligned)
 															{
@@ -5768,15 +3029,6 @@ namespace TMPro
 									case TextAlignmentOptions.CaplineLeft:
 										if (!m_isRightToLeft)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											b2 = new Vector3(tMP_LineInfo.marginLeft, 0f, 0f);
 										}
 										else
@@ -5800,15 +3052,6 @@ namespace TMPro
 									case TextAlignmentOptions.CaplineRight:
 										if (!m_isRightToLeft)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											b2 = new Vector3(tMP_LineInfo.marginLeft + tMP_LineInfo.width - tMP_LineInfo.maxAdvance, 0f, 0f);
 										}
 										else
@@ -5828,26 +3071,8 @@ namespace TMPro
 											{
 												break;
 											}
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (character2 == '\u200b')
 											{
-												break;
-											}
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
 												break;
 											}
 											if (character2 == '\u2060')
@@ -5862,54 +3087,18 @@ namespace TMPro
 												{
 													goto IL_4337;
 												}
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 											if (!flag13)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!(tMP_LineInfo.maxAdvance > tMP_LineInfo.width))
 												{
 													if (!m_isRightToLeft)
 													{
-														while (true)
-														{
-															switch (3)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														b2 = new Vector3(tMP_LineInfo.marginLeft, 0f, 0f);
 													}
 													else
 													{
 														b2 = new Vector3(tMP_LineInfo.marginLeft + tMP_LineInfo.width, 0f, 0f);
-													}
-													break;
-												}
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
 													}
 													break;
 												}
@@ -5919,40 +3108,13 @@ namespace TMPro
 										IL_4337:
 										if (lineNumber == num48)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j != 0)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j != m_firstVisibleCharacter)
 												{
 													float num61;
 													if (!m_isRightToLeft)
 													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num61 = tMP_LineInfo.width - tMP_LineInfo.maxAdvance;
 													}
 													else
@@ -5964,15 +3126,6 @@ namespace TMPro
 													int num64;
 													if (characterInfo[tMP_LineInfo.lastCharacterIndex].isVisible)
 													{
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num64 = tMP_LineInfo.spaceCount;
 													}
 													else
@@ -5982,30 +3135,12 @@ namespace TMPro
 													int num65 = num64;
 													if (flag10)
 													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num65--;
 														num63++;
 													}
 													float num66 = (num65 <= 0) ? 1f : m_wordWrappingRatios;
 													if (num65 < 1)
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num65 = 1;
 													}
 													if (character2 != '\t')
@@ -6022,41 +3157,14 @@ namespace TMPro
 															}
 															break;
 														}
-														while (true)
-														{
-															switch (3)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 													}
 													if (!m_isRightToLeft)
 													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														b2 += new Vector3(num62 * (1f - num66) / (float)num65, 0f, 0f);
 													}
 													else
 													{
 														b2 -= new Vector3(num62 * (1f - num66) / (float)num65, 0f, 0f);
-													}
-													break;
-												}
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
 													}
 													break;
 												}
@@ -6068,28 +3176,10 @@ namespace TMPro
 										}
 										else
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											b2 = new Vector3(tMP_LineInfo.marginLeft, 0f, 0f);
 										}
 										if (char.IsSeparator(character2))
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag10 = true;
 										}
 										else
@@ -6103,15 +3193,6 @@ namespace TMPro
 									TMP_TextElementType elementType;
 									if (isVisible)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										elementType = characterInfo[j].elementType;
 										switch (elementType)
 										{
@@ -6130,15 +3211,6 @@ namespace TMPro
 											case TextureMappingOptions.Line:
 												if (m_textAlignment != TextAlignmentOptions.Justified)
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													characterInfo[j].vertex_BL.uv2.x = (characterInfo[j].vertex_BL.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num67;
 													characterInfo[j].vertex_TL.uv2.x = (characterInfo[j].vertex_TL.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num67;
 													characterInfo[j].vertex_TR.uv2.x = (characterInfo[j].vertex_TR.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num67;
@@ -6225,51 +3297,15 @@ namespace TMPro
 											num53 = characterInfo[j].scale * (1f - m_charWidthAdjDelta);
 											if (!characterInfo[j].isUsingAlternateTypeface)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((characterInfo[j].style & FontStyles.Bold) == FontStyles.Bold)
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													num53 *= -1f;
 												}
 											}
 											if (renderMode != 0)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (renderMode != RenderMode.ScreenSpaceCamera)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (renderMode == RenderMode.WorldSpace)
 													{
 														num53 *= num52;
@@ -6281,15 +3317,6 @@ namespace TMPro
 													float num71;
 													if (flag12)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num71 = num52;
 													}
 													else
@@ -6326,48 +3353,12 @@ namespace TMPro
 										}
 										if (j < m_maxVisibleCharacters)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num46 < m_maxVisibleWords)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (lineNumber < m_maxVisibleLines)
 												{
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (m_overflowMode != TextOverflowModes.Page)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														characterInfo[j].vertex_BL.position += zero3;
 														characterInfo[j].vertex_TL.position += zero3;
 														characterInfo[j].vertex_TR.position += zero3;
@@ -6379,59 +3370,14 @@ namespace TMPro
 										}
 										if (j < m_maxVisibleCharacters)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num46 < m_maxVisibleWords)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (lineNumber < m_maxVisibleLines)
 												{
-													while (true)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (m_overflowMode == TextOverflowModes.Page)
 													{
-														while (true)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (characterInfo[j].pageNumber == num10)
 														{
-															while (true)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															characterInfo[j].vertex_BL.position += zero3;
 															characterInfo[j].vertex_TL.position += zero3;
 															characterInfo[j].vertex_TR.position += zero3;
@@ -6454,15 +3400,6 @@ namespace TMPro
 									int num74;
 									if (j == m_characterCount - 1)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (char.IsLetterOrDigit(character2))
 										{
 											num74 = j;
@@ -6475,26 +3412,8 @@ namespace TMPro
 									bool flag14;
 									if (flag)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag14)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 											zero = new Vector3(m_textInfo.characterInfo[j - 1].topRight.x, num57, 0f);
 											num55 = m_textInfo.characterInfo[j - 1].scale;
@@ -6506,15 +3425,6 @@ namespace TMPro
 									}
 									if (flag && j < m_characterCount - 1 && !color.Compare(m_textInfo.characterInfo[j + 1].underlineColor))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										zero = new Vector3(m_textInfo.characterInfo[j].topRight.x, num57, 0f);
 										num55 = m_textInfo.characterInfo[j].scale;
@@ -6535,30 +3445,12 @@ namespace TMPro
 											{
 												goto IL_6c7d;
 											}
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										flag15 = false;
 										goto IL_6c7d;
 									}
 									if (flag3)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag3 = false;
 										DrawTextHighlight(start3, vector, ref index, color2);
 									}
@@ -6569,51 +3461,15 @@ namespace TMPro
 									bool flag17;
 									if (flag16)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag17 = true;
 										if (j > m_maxVisibleCharacters || lineNumber > m_maxVisibleLines)
 										{
 											goto IL_6696;
 										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_overflowMode == TextOverflowModes.Page)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_textInfo.characterInfo[j].pageNumber + 1 != m_pageToDisplay)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												goto IL_6696;
 											}
 										}
@@ -6621,15 +3477,6 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = false;
 										zero2 = new Vector3(m_textInfo.characterInfo[j - 1].topRight.x, m_textInfo.characterInfo[j - 1].baseLine + strikethrough * num60, 0f);
 										DrawUnderlineMesh(start2, zero2, ref index, num60, num60, num60, num53, underlineColor);
@@ -6645,52 +3492,16 @@ namespace TMPro
 									}
 									else if (elementType == TMP_TextElementType.Sprite)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										FillSpriteVertexBuffers(j, index_X2);
 									}
 									goto IL_5895;
 									IL_6c7d:
 									if (!flag3)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag15)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j <= tMP_LineInfo.lastVisibleCharacterIndex)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '\n' && character2 != '\r' && (j != tMP_LineInfo.lastVisibleCharacterIndex || !char.IsSeparator(character2)))
 												{
 													flag3 = true;
@@ -6719,15 +3530,6 @@ namespace TMPro
 										}
 										if (!flag18)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											start3.x = Mathf.Min(start3.x, m_textInfo.characterInfo[j].bottomLeft.x);
 											start3.y = Mathf.Min(start3.y, m_textInfo.characterInfo[j].descender);
 											vector.x = Mathf.Max(vector.x, m_textInfo.characterInfo[j].topRight.x);
@@ -6736,26 +3538,8 @@ namespace TMPro
 									}
 									if (flag3)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount == 1)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag3 = false;
 											DrawTextHighlight(start3, vector, ref index, color2);
 											continue;
@@ -6763,15 +3547,6 @@ namespace TMPro
 									}
 									if (flag3)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j == tMP_LineInfo.lastCharacterIndex || j >= tMP_LineInfo.lastVisibleCharacterIndex)
 										{
 											flag3 = false;
@@ -6783,26 +3558,8 @@ namespace TMPro
 									{
 										continue;
 									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag15)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag3 = false;
 										DrawTextHighlight(start3, vector, ref index, color2);
 									}
@@ -6810,15 +3567,6 @@ namespace TMPro
 									IL_6298:
 									if (flag)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount == 1)
 										{
 											flag = false;
@@ -6832,38 +3580,11 @@ namespace TMPro
 									}
 									if (flag)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j != tMP_LineInfo.lastCharacterIndex)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j < tMP_LineInfo.lastVisibleCharacterIndex)
 											{
 												goto IL_643a;
-											}
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										if (!char.IsWhiteSpace(character2))
@@ -6873,15 +3594,6 @@ namespace TMPro
 												zero = new Vector3(m_textInfo.characterInfo[j].topRight.x, num57, 0f);
 												num55 = m_textInfo.characterInfo[j].scale;
 												goto IL_640e;
-											}
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										int lastVisibleCharacterIndex = tMP_LineInfo.lastVisibleCharacterIndex;
@@ -6894,26 +3606,8 @@ namespace TMPro
 									int pageNumber2;
 									if (!char.IsWhiteSpace(character2))
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (character2 != '\u200b')
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num56 = Mathf.Max(num56, m_textInfo.characterInfo[j].scale);
 											num57 = Mathf.Min((pageNumber2 != num58) ? TMP_Text.k_LargePositiveFloat : num57, m_textInfo.characterInfo[j].baseLine + base.font.fontInfo.Underline * num56);
 											num58 = pageNumber2;
@@ -6921,70 +3615,16 @@ namespace TMPro
 									}
 									if (!flag)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag14)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j <= tMP_LineInfo.lastVisibleCharacterIndex)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '\n' && character2 != '\r')
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (j == tMP_LineInfo.lastVisibleCharacterIndex)
 													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (char.IsSeparator(character2))
 														{
-															while (true)
-															{
-																switch (3)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															goto IL_6298;
 														}
 													}
@@ -6992,15 +3632,6 @@ namespace TMPro
 													num54 = m_textInfo.characterInfo[j].scale;
 													if (num56 == 0f)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num56 = num54;
 													}
 													start = new Vector3(m_textInfo.characterInfo[j].bottomLeft.x, num57, 0f);
@@ -7013,37 +3644,10 @@ namespace TMPro
 									IL_6699:
 									if (!flag2)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag17 && j <= tMP_LineInfo.lastVisibleCharacterIndex && character2 != '\n')
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (character2 != '\r')
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j != tMP_LineInfo.lastVisibleCharacterIndex || !char.IsSeparator(character2))
 												{
 													flag2 = true;
@@ -7058,26 +3662,8 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_characterCount == 1)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag2 = false;
 											zero2 = new Vector3(m_textInfo.characterInfo[j].topRight.x, m_textInfo.characterInfo[j].baseLine + strikethrough * num60, 0f);
 											DrawUnderlineMesh(start2, zero2, ref index, num60, num60, num60, num53, underlineColor);
@@ -7086,37 +3672,10 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j == tMP_LineInfo.lastCharacterIndex)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!char.IsWhiteSpace(character2))
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '\u200b')
 												{
 													zero2 = new Vector3(m_textInfo.characterInfo[j].topRight.x, m_textInfo.characterInfo[j].baseLine + strikethrough * num60, 0f);
@@ -7130,26 +3689,8 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j < m_characterCount)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (m_textInfo.characterInfo[j + 1].pointSize != num59 || !TMP_Math.Approximately(m_textInfo.characterInfo[j + 1].baseLine + zero3.y, b3))
 											{
 												flag2 = false;
@@ -7160,15 +3701,6 @@ namespace TMPro
 												}
 												else
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													zero2 = new Vector3(m_textInfo.characterInfo[lastVisibleCharacterIndex3].topRight.x, m_textInfo.characterInfo[lastVisibleCharacterIndex3].baseLine + strikethrough * num60, 0f);
 												}
 												DrawUnderlineMesh(start2, zero2, ref index, num60, num60, num60, num53, underlineColor);
@@ -7178,37 +3710,10 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j < m_characterCount)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (fontAsset.GetInstanceID() != characterInfo[j + 1].fontAsset.GetInstanceID())
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag2 = false;
 												zero2 = new Vector3(m_textInfo.characterInfo[j].topRight.x, m_textInfo.characterInfo[j].baseLine + strikethrough * num60, 0f);
 												DrawUnderlineMesh(start2, zero2, ref index, num60, num60, num60, num53, underlineColor);
@@ -7218,15 +3723,6 @@ namespace TMPro
 									}
 									if (flag2 && !flag17)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = false;
 										zero2 = new Vector3(m_textInfo.characterInfo[j - 1].topRight.x, m_textInfo.characterInfo[j - 1].baseLine + strikethrough * num60, 0f);
 										DrawUnderlineMesh(start2, zero2, ref index, num60, num60, num60, num53, underlineColor);
@@ -7244,52 +3740,16 @@ namespace TMPro
 									m_textInfo.characterInfo[j].baseLine += zero3.y;
 									if (isVisible)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (lineNumber == num48)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j != m_characterCount - 1)
 										{
 											goto IL_5cc7;
 										}
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (lineNumber != num48)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_textInfo.lineInfo[num48].baseline += zero3.y;
 										m_textInfo.lineInfo[num48].ascender += zero3.y;
 										m_textInfo.lineInfo[num48].descender += zero3.y;
@@ -7298,15 +3758,6 @@ namespace TMPro
 									}
 									if (j == m_characterCount - 1)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_textInfo.lineInfo[lineNumber].baseline += zero3.y;
 										m_textInfo.lineInfo[lineNumber].ascender += zero3.y;
 										m_textInfo.lineInfo[lineNumber].descender += zero3.y;
@@ -7321,15 +3772,6 @@ namespace TMPro
 									int wordCount = m_textInfo.wordCount;
 									if (m_textInfo.wordCount + 1 > num75)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										TMP_TextInfo.Resize(ref m_textInfo.wordInfo, num75 + 1);
 									}
 									m_textInfo.wordInfo[wordCount].firstCharacterIndex = num49;
@@ -7343,98 +3785,26 @@ namespace TMPro
 									IL_5cc7:
 									if (!char.IsLetterOrDigit(character2))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (character2 != '-')
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (character2 != '­')
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '‐')
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (character2 != '‑')
 													{
 														if (!flag11)
 														{
-															while (true)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (j != 0)
 															{
 																goto IL_6077;
 															}
 															if (char.IsPunctuation(character2))
 															{
-																while (true)
-																{
-																	switch (1)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (!char.IsWhiteSpace(character2))
 																{
-																	while (true)
-																	{
-																		switch (6)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (character2 != '\u200b')
 																	{
-																		while (true)
-																		{
-																			switch (1)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (j != m_characterCount - 1)
 																		{
 																			goto IL_6077;
@@ -7445,73 +3815,19 @@ namespace TMPro
 														}
 														if (j > 0 && j < characterInfo.Length - 1)
 														{
-															while (true)
-															{
-																switch (2)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (j < m_characterCount)
 															{
-																while (true)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (character2 != '\'')
 																{
-																	while (true)
-																	{
-																		switch (1)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (character2 != '’')
 																	{
 																		goto IL_5f5e;
 																	}
-																	while (true)
-																	{
-																		switch (6)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																}
 																if (char.IsLetterOrDigit(characterInfo[j - 1].character))
 																{
-																	while (true)
-																	{
-																		switch (7)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (char.IsLetterOrDigit(characterInfo[j + 1].character))
 																	{
-																		while (true)
-																		{
-																			switch (5)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		goto IL_6077;
 																	}
 																}
@@ -7519,68 +3835,23 @@ namespace TMPro
 														}
 														goto IL_5f5e;
 													}
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 											}
 										}
 									}
 									if (!flag11)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag11 = true;
 										num49 = j;
 									}
 									if (flag11)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j == m_characterCount - 1)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int num76 = m_textInfo.wordInfo.Length;
 											int wordCount2 = m_textInfo.wordCount;
 											if (m_textInfo.wordCount + 1 > num76)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												TMP_TextInfo.Resize(ref m_textInfo.wordInfo, num76 + 1);
 											}
 											num50 = j;
@@ -7603,50 +3874,14 @@ namespace TMPro
 									IL_6077:
 									if ((m_textInfo.characterInfo[j].style & FontStyles.Underline) == FontStyles.Underline)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag14 = true;
 										pageNumber2 = m_textInfo.characterInfo[j].pageNumber;
 										if (j <= m_maxVisibleCharacters)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (lineNumber <= m_maxVisibleLines)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (m_overflowMode == TextOverflowModes.Page)
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (pageNumber2 + 1 != m_pageToDisplay)
 													{
 														goto IL_6109;
@@ -7659,15 +3894,6 @@ namespace TMPro
 									}
 									if (flag)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										zero = new Vector3(m_textInfo.characterInfo[j - 1].topRight.x, num57, 0f);
 										num55 = m_textInfo.characterInfo[j - 1].scale;
@@ -7686,11 +3912,6 @@ namespace TMPro
 								}
 								while (true)
 								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
 									m_textInfo.characterCount = (short)m_characterCount;
 									m_textInfo.spriteCount = m_spriteCount;
 									m_textInfo.lineCount = (short)num47;
@@ -7698,15 +3919,6 @@ namespace TMPro
 									int wordCount3;
 									if (num46 != 0 && m_characterCount > 0)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										wordCount3 = (short)num46;
 									}
 									else
@@ -7717,39 +3929,12 @@ namespace TMPro
 									m_textInfo.pageCount = m_pageNumber + 1;
 									if (m_renderMode == TextRenderFlags.Render)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_canvas.additionalShaderChannels != (AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent))
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_canvas.additionalShaderChannels |= (AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent);
 										}
 										if (m_geometrySortingOrder != 0)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											m_textInfo.meshInfo[0].SortGeometry(VertexSortingOrder.Reverse);
 										}
 										m_mesh.MarkDynamic();
@@ -7765,15 +3950,6 @@ namespace TMPro
 											m_textInfo.meshInfo[k].ClearUnusedVertices();
 											if (m_subTextObjects[k] == null)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												continue;
 											}
 											if (m_geometrySortingOrder != 0)
@@ -7793,15 +3969,6 @@ namespace TMPro
 									return;
 								}
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					ClearMesh();
@@ -7809,19 +3976,6 @@ namespace TMPro
 					m_preferredHeight = 0f;
 					TMPro_EventManager.ON_TEXT_CHANGED(this);
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			Debug.LogWarning("Can't Generate Mesh! No Font Asset has been assigned to Object ID: " + GetInstanceID());
@@ -7831,19 +3985,6 @@ namespace TMPro
 		{
 			if (m_rectTransform == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rectTransform = base.rectTransform;
 			}
 			m_rectTransform.GetLocalCorners(m_RectTransformCorners);
@@ -7856,19 +3997,6 @@ namespace TMPro
 			{
 				if (m_subTextObjects[i].enabled != state)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_subTextObjects[i].enabled = state;
 				}
 			}
@@ -7881,15 +4009,6 @@ namespace TMPro
 			Vector3 max = bounds.max;
 			for (int i = 1; i < m_subTextObjects.Length; i++)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_subTextObjects[i] != null)
 				{
 					Bounds bounds2 = m_subTextObjects[i].mesh.bounds;
@@ -7898,19 +4017,6 @@ namespace TMPro
 					float x2;
 					if (x < min2.x)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						x2 = min.x;
 					}
 					else
@@ -7924,15 +4030,6 @@ namespace TMPro
 					float y2;
 					if (y < min4.y)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						y2 = min.y;
 					}
 					else
@@ -7946,15 +4043,6 @@ namespace TMPro
 					float x4;
 					if (x3 > max2.x)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						x4 = max.x;
 					}
 					else
@@ -7968,15 +4056,6 @@ namespace TMPro
 					float y4;
 					if (y3 > max4.y)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						y4 = max.y;
 					}
 					else
@@ -7986,15 +4065,6 @@ namespace TMPro
 					}
 					max.y = y4;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -8007,19 +4077,6 @@ namespace TMPro
 		{
 			if (m_canvas == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_canvas = GetCanvas();
 				if (m_canvas == null)
 				{
@@ -8031,40 +4088,13 @@ namespace TMPro
 			float scaleFactor = m_canvas.scaleFactor;
 			if (m_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = lossyScale / scaleFactor;
 			}
 			else if (m_canvas.renderMode == RenderMode.ScreenSpaceCamera)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num2;
 				if (m_canvas.worldCamera != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = lossyScale;
 				}
 				else
@@ -8083,15 +4113,6 @@ namespace TMPro
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_textInfo.characterInfo[i].elementType != 0)
 				{
 					continue;
@@ -8099,26 +4120,8 @@ namespace TMPro
 				float num3 = num * m_textInfo.characterInfo[i].scale * (1f - m_charWidthAdjDelta);
 				if (!m_textInfo.characterInfo[i].isUsingAlternateTypeface)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((m_textInfo.characterInfo[i].style & FontStyles.Bold) == FontStyles.Bold)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 *= -1f;
 					}
 				}
@@ -8131,24 +4134,10 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < m_textInfo.materialCount; j++)
 				{
 					if (j == 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_mesh.uv2 = m_textInfo.meshInfo[0].uvs2;
 						m_canvasRenderer.SetMesh(m_mesh);
 					}
@@ -8204,37 +4193,15 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
 			}
 			if (!m_isCalculateSizeRequired)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_rectTransform.hasChanged)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_preferredWidth = GetPreferredWidth();
@@ -8248,15 +4215,6 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -8265,15 +4223,6 @@ namespace TMPro
 				if (!m_rectTransform.hasChanged)
 				{
 					goto IL_005d;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_preferredHeight = GetPreferredHeight();
@@ -8292,26 +4241,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsActive())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (CanvasUpdateRegistry.IsRebuildingGraphics())
 					{
 						while (true)
@@ -8342,26 +4277,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (this == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!IsActive())
 					{
 						while (true)
@@ -8391,15 +4312,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsActive() || CanvasUpdateRegistry.IsRebuildingGraphics())
 				{
 					return;
@@ -8412,11 +4324,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_OnDirtyMaterialCallback();
 					return;
 				}
@@ -8441,10 +4348,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -8454,20 +4357,10 @@ namespace TMPro
 			case CanvasUpdate.Prelayout:
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (m_autoSizeTextContainer)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							m_rectTransform.sizeDelta = GetPreferredValues(float.PositiveInfinity, float.PositiveInfinity);
 							return;
 						}
@@ -8508,10 +4401,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -8521,11 +4410,6 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (m_subTextObjects[num] != null)
 					{
 						m_subTextObjects[num].SetPivotDirty();
@@ -8552,45 +4436,14 @@ namespace TMPro
 			Material material = baseMaterial;
 			if (m_ShouldRecalculateStencil)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_stencilID = TMP_MaterialManager.GetStencilID(base.gameObject);
 				m_ShouldRecalculateStencil = false;
 			}
 			if (m_stencilID > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, m_stencilID);
 				if (m_MaskMaterial != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				}
 				m_MaskMaterial = material;
@@ -8609,25 +4462,12 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
 			}
 			if (m_canvasRenderer == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_canvasRenderer = canvasRenderer;
 			}
 			m_canvasRenderer.materialCount = 1;
@@ -8656,10 +4496,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -8682,10 +4518,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -8745,19 +4577,6 @@ namespace TMPro
 			ComputeMarginSize();
 			if (m_canvas == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_canvas = base.canvas;
 			}
 			GenerateTextMesh();
@@ -8773,15 +4592,6 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_subTextObjects[num] != null)
 					{
 						m_subTextObjects[num].canvasRenderer.SetMesh(null);
@@ -8815,10 +4625,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_canvasRenderer.SetMesh(mesh);
 						return;
 					}
@@ -8835,19 +4641,6 @@ namespace TMPro
 				Mesh mesh;
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					mesh = m_mesh;
 				}
 				else
@@ -8856,28 +4649,10 @@ namespace TMPro
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Vertices) == TMP_VertexDataUpdateFlags.Vertices)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mesh.vertices = m_textInfo.meshInfo[i].vertices;
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Uv0) == TMP_VertexDataUpdateFlags.Uv0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mesh.uv = m_textInfo.meshInfo[i].uvs0;
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Uv2) == TMP_VertexDataUpdateFlags.Uv2)
@@ -8908,19 +4683,6 @@ namespace TMPro
 				Mesh mesh;
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					mesh = m_mesh;
 				}
 				else
@@ -8935,15 +4697,6 @@ namespace TMPro
 				mesh.RecalculateBounds();
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_canvasRenderer.SetMesh(mesh);
 				}
 				else

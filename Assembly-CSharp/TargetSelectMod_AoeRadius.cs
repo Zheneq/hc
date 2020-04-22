@@ -16,19 +16,6 @@ public class TargetSelectMod_AoeRadius : TargetSelectModBase
 		TargetSelect_AoeRadius targetSelect_AoeRadius = targetSelectBase as TargetSelect_AoeRadius;
 		if (targetSelect_AoeRadius != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_radiusMod, "[Radius]", true, targetSelect_AoeRadius.m_radius);
 			text += AbilityModHelper.GetModPropertyDesc(m_useSquareCenterPosMod, "[UseSquareCenterPos]", true, targetSelect_AoeRadius.m_useSquareCenterPos);
 		}

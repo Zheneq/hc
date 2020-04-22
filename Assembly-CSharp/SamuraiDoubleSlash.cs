@@ -52,19 +52,6 @@ public class SamuraiDoubleSlash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Double Slash";
 		}
 		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
@@ -82,42 +69,11 @@ public class SamuraiDoubleSlash : Ability
 				{
 					goto IL_004b;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			if (i == 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_coneSecondSlash)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_004b;
 				}
 			}
@@ -170,19 +126,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo cachedExtraEnemyHitEffectIfSelfBuffed;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedExtraEnemyHitEffectIfSelfBuffed = m_abilityMod.m_extraEnemyHitEffectIfSelfBuffedMod.GetModifiedValue(m_extraEnemyHitEffectIfSelfBuffed);
 		}
 		else
@@ -197,19 +140,6 @@ public class SamuraiDoubleSlash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
@@ -224,19 +154,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxAngleBetweenMod.GetModifiedValue(m_maxAngleBetween);
 		}
 		else
@@ -256,19 +173,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
@@ -288,19 +192,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -315,19 +206,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
 		}
 		else
@@ -342,19 +220,6 @@ public class SamuraiDoubleSlash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -369,19 +234,6 @@ public class SamuraiDoubleSlash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_overlapExtraDamageMod.GetModifiedValue(m_overlapExtraDamage);
 		}
 		else
@@ -396,19 +248,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo result;
 		if (m_cachedTargetHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTargetHitEffect;
 		}
 		else
@@ -423,19 +262,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo result;
 		if (m_cachedExtraEnemyHitEffectIfSelfBuffed != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExtraEnemyHitEffectIfSelfBuffed;
 		}
 		else
@@ -471,19 +297,6 @@ public class SamuraiDoubleSlash : Ability
 		}
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (symbolToValue.ContainsKey(AbilityTooltipSymbol.Damage))
 			{
 				symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
@@ -499,19 +312,6 @@ public class SamuraiDoubleSlash : Ability
 		float maxAngleBetween = GetMaxAngleBetween();
 		if (maxAngleBetween > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (maxAngleBetween < 360f)
 			{
 				aimDir = Vector3.RotateTowards(prevAimDir, aimDir, (float)Math.PI / 180f * maxAngleBetween, 0f);
@@ -528,15 +328,6 @@ public class SamuraiDoubleSlash : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SamuraiDoubleSlash);
 			SetupTargeter();
 			return;

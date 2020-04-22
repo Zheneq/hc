@@ -22,19 +22,6 @@ public class LobbyMatchmakingQueueInfo
 			int result;
 			if (GameConfig == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = -1;
 			}
 			else
@@ -112,19 +99,6 @@ public class LobbyMatchmakingQueueInfo
 		int result;
 		if (GameConfig == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else

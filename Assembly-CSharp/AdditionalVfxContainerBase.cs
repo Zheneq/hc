@@ -20,25 +20,11 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx = Object.Instantiate(m_fxPrefab, position, orientation, parentSequence.transform);
 			if (m_fx != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_fofSelector = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					return;
 				}
@@ -55,15 +41,6 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.SetActive(false);
 			return;
 		}
@@ -77,15 +54,6 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 			return;
@@ -112,15 +80,6 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster != null)
 			{
 				m_fofSelector.Setup(caster.GetTeam());

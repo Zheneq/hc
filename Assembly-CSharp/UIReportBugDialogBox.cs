@@ -35,19 +35,6 @@ public class UIReportBugDialogBox : UIDialogBox
 	{
 		if (firstButtonCallback != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -66,32 +53,10 @@ public class UIReportBugDialogBox : UIDialogBox
 	{
 		if (m_secondButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_secondButton.spriteController.callback = SecondButtonClicked;
 		}
 		if (m_firstButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_firstButton.spriteController.callback = FirstButtonClicked;
 		}
 		m_descriptionBoxInputField.Select();
@@ -113,15 +78,6 @@ public class UIReportBugDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

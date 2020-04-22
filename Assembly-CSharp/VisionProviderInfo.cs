@@ -85,10 +85,6 @@ public struct VisionProviderInfo
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_actorIndex);
 					if (actorData == null)
 					{
@@ -97,26 +93,8 @@ public struct VisionProviderInfo
 					BoardSquare result = null;
 					if (m_satelliteIndex == -1)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorData.IsDead())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = actorData.GetCurrentBoardSquare();
 						}
 					}
@@ -126,15 +104,6 @@ public struct VisionProviderInfo
 						object obj;
 						if (component == null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = null;
 						}
 						else
@@ -165,19 +134,6 @@ public struct VisionProviderInfo
 		int result;
 		if (m_actorIndex == ActorData.s_invalidActorIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boardX == gridPos.x && m_boardY == gridPos.y)
 			{
 				result = (HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind) ? 1 : 0);
@@ -195,30 +151,8 @@ public struct VisionProviderInfo
 		int result;
 		if (m_actorIndex == actorIdx)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_satelliteIndex == -1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind) ? 1 : 0);
 				goto IL_0044;
 			}
@@ -234,30 +168,8 @@ public struct VisionProviderInfo
 		int result;
 		if (m_actorIndex == actorIdx)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_satelliteIndex == satelliteIdx)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind) ? 1 : 0);
 				goto IL_0045;
 			}
@@ -273,52 +185,12 @@ public struct VisionProviderInfo
 		int result;
 		if (m_flag == f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_brushRevealType == brushRevealType)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_ignoreLos == ignoreLos)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_canFunctionInGlobalBlind == canFunctionInGlobalBlind && m_radiusAsStraightLineDist == useSraightLineDist)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((Mathf.Abs(m_radius - r) < 0.05f) ? 1 : 0);
 						goto IL_007d;
 					}

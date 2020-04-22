@@ -37,15 +37,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageMod, "LaserDamageAmount", string.Empty, sniperBasicAttack.m_laserDamageAmount);
 			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamageAmount", string.Empty, sniperBasicAttack.m_minDamageAmount);
 			AbilityMod.AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sniperBasicAttack.m_damageChangePerHit);
@@ -71,19 +62,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sniperBasicAttack.m_laserInfo.width;
 		}
 		else
@@ -99,15 +77,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sniperBasicAttack.m_minDamageAmount;
 		}
 		else
@@ -120,15 +89,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperBasicAttack.m_damageChangePerHit;
 		}
 		else
@@ -138,15 +98,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		empty = str3 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, "[Damage Change Per Hit]", flag, baseVal3);
 		if (m_farDistanceThreshold > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Far Distance Threshold] = " + m_farDistanceThreshold + "\n";
 			empty += AbilityModHelper.GetModPropertyDesc(m_farEnemyDamageMod, "[Far Enemy Damage]", flag, flag ? sniperBasicAttack.m_laserDamageAmount : 0);
@@ -163,26 +114,12 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int modifiedValue = m_damageMod.GetModifiedValue(sniperBasicAttack.m_laserDamageAmount);
 			int modifiedValue2 = m_damageChangePerHitMod.GetModifiedValue(sniperBasicAttack.m_damageChangePerHit);
 			if (modifiedValue2 != 0)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					numbers.Add(modifiedValue + modifiedValue2);
 					return;
 				}

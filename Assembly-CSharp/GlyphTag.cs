@@ -5,19 +5,6 @@ public static class GlyphTag
 		int result;
 		if (!handle.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((handle.LastIndexOf("#") == -1) ? 1 : 0);
 		}
 		else

@@ -47,19 +47,6 @@ public class UIActorModelData : MonoBehaviour
 		m_shroudInstances = GetComponentsInChildren<ShroudInstance>();
 		if (m_shroudInstances.Length > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_dirtyRenderersCache = true;
 		}
 		else
@@ -75,15 +62,6 @@ public class UIActorModelData : MonoBehaviour
 		{
 			if (componentsInChildren[i].enabled)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				componentsInChildren[i].updateWhenOffscreen = true;
 			}
 		}
@@ -110,15 +88,6 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -131,54 +100,18 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_renderers.Length; i++)
 			{
 				if (!(m_renderers[i] != null) || m_renderers[i].materials == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < m_renderers[i].materials.Length; j++)
 				{
 					if (m_renderers[i].materials[j] != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(m_renderers[i].materials[j]);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			while (true)
@@ -200,34 +133,12 @@ public class UIActorModelData : MonoBehaviour
 		m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 		if (m_renderers != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_renderers.Length; i++)
 			{
 				Material[] materials = m_renderers[i].materials;
 				if (materials == null)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				for (int j = 0; j < materials.Length; j++)
 				{
@@ -237,15 +148,6 @@ public class UIActorModelData : MonoBehaviour
 						mainTexture.mipMapBias = -1f;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SetChildMaterialProperty[] componentsInChildren = base.gameObject.GetComponentsInChildren<SetChildMaterialProperty>();
@@ -271,19 +173,6 @@ public class UIActorModelData : MonoBehaviour
 		bool flag = false;
 		if (m_shroudInstancesToEnable != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_shroudInstancesToEnable.Length; i++)
 			{
 				m_shroudInstances[i].enabled = m_shroudInstancesToEnable[i];
@@ -293,41 +182,14 @@ public class UIActorModelData : MonoBehaviour
 		}
 		if (m_dirtyRenderersCache)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CacheRenderers();
 			}
 		}
 		UpdateSelectionOutline();
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_001D();
 		}
 		SetParentLocalPositionOffset();
@@ -341,46 +203,22 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_offsetDistanceTowardsCamera == 0f)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(Camera.main != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (base.transform.parent != null)
 					{
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							Vector3 direction = Camera.main.transform.position - base.transform.parent.parent.transform.position;
 							direction.y = 0f;
 							direction.Normalize();
@@ -404,26 +242,12 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_modelAnimator.isInitialized)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (ready)
 				{
 					while (true)
@@ -454,25 +278,11 @@ public class UIActorModelData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -485,39 +295,12 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ParamExists(m_modelAnimator, "SkinIndex"))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_modelAnimator.SetInteger("SkinIndex", visualInfo.skinIndex);
 			}
 			if (ParamExists(m_modelAnimator, "PatternIndex"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_modelAnimator.SetInteger("PatternIndex", visualInfo.patternIndex);
 			}
 			if (ParamExists(m_modelAnimator, "ColorIndex"))
@@ -532,19 +315,6 @@ public class UIActorModelData : MonoBehaviour
 	{
 		if (!m_mouseOver)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (viewCam != null)
 			{
 				UICharacterSelectRing componentInParent = base.gameObject.GetComponentInParent<UICharacterSelectRing>();
@@ -552,15 +322,6 @@ public class UIActorModelData : MonoBehaviour
 				RaycastHit hitInfo = default(RaycastHit);
 				if (Physics.Raycast(ray.origin, ray.direction * 20f, out hitInfo, viewCam.cullingMask))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterSelectRing componentInParent2 = hitInfo.collider.gameObject.GetComponentInParent<UICharacterSelectRing>();
 					if (componentInParent2 != null && componentInParent2 == componentInParent)
 					{
@@ -582,76 +343,18 @@ public class UIActorModelData : MonoBehaviour
 		bool flag = m_mouseOver;
 		if (UICharacterSelectWorldObjects.Get().IsVisible())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>().HasFocus())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_renderers != null)
 				{
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UICharacterSelectScreenController.Get() != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (UIFrontEnd.Get() != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UICharacterSelectRing componentInParent = base.gameObject.GetComponentInParent<UICharacterSelectRing>();
 									if (componentInParent == UICharacterSelectWorldObjects.Get().m_ringAnimations[0])
 									{
@@ -663,15 +366,6 @@ public class UIActorModelData : MonoBehaviour
 					}
 					goto IL_0113;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		flag = false;
@@ -679,53 +373,17 @@ public class UIActorModelData : MonoBehaviour
 		IL_0113:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_RollOverEffect == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_RollOverEffect = Object.Instantiate(UIFrontEndUIResources.Get().m_RollOverPrefab);
 				m_RollOverEffect.transform.SetParent(base.gameObject.transform);
 				m_RollOverEffect.transform.localPosition = Vector3.zero;
 			}
 			if (Camera.main != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerSelectionEffect component = Camera.main.GetComponent<PlayerSelectionEffect>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.m_drawSelection = true;
 				}
 			}
@@ -740,24 +398,10 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			int num = LayerMask.NameToLayer("ActorSelected");
 			int layer = LayerMask.NameToLayer("UIInWorld");
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < m_renderers.Length; i++)
 				{
 					m_renderers[i].gameObject.layer = num;
@@ -765,15 +409,6 @@ public class UIActorModelData : MonoBehaviour
 					{
 						if (m_renderers[i].materials[j].HasProperty("_Team"))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float value = 1f;
 							m_renderers[i].materials[j].SetFloat("_Team", value);
 						}
@@ -799,26 +434,8 @@ public class UIActorModelData : MonoBehaviour
 				{
 					if (m_renderers[k].gameObject.layer == num)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_renderers[k].gameObject.layer = layer;
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_showingOutline = flag;
@@ -834,26 +451,8 @@ public class UIActorModelData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (setTransitionParam)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				animator.SetBool("CharSelectToNewChar", transitionToNewCharacter);
 			}
 			animator.SetTrigger("CharSelect");
@@ -873,10 +472,6 @@ public class UIActorModelData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -889,15 +484,6 @@ public class UIActorModelData : MonoBehaviour
 				int num;
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (currentAnimatorStateInfo.IsName(s_charSelStateNames[i]) ? 1 : 0);
 				}
 				else
@@ -906,15 +492,6 @@ public class UIActorModelData : MonoBehaviour
 				}
 				flag = ((byte)num != 0);
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

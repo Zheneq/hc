@@ -114,19 +114,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdate;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnAccountDataUpdate(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
@@ -175,10 +162,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -217,15 +200,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -243,19 +217,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		int num;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
@@ -265,15 +226,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		bool flag = (byte)num != 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_visibleTitles = new List<GameBalanceVars.PlayerTitle>(GameBalanceVars.Get().PlayerTitles);
 		}
 		else
@@ -284,15 +236,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			{
 				if (!accountComponent.IsTitleUnlocked(playerTitle))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterType unlockCharacterType = playerTitle.GetUnlockCharacterType();
 					if (playerTitle.m_isHidden)
 					{
@@ -300,26 +243,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					if (unlockCharacterType != 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType).m_isHidden)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -338,79 +263,25 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (!flag && !accountComponent.IsBannerUnlocked(playerBanner))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType unlockCharacterType2 = playerBanner.GetUnlockCharacterType();
 				if (playerBanner.m_isHidden)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCharacterType2 != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType2).m_isHidden)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(playerBanner))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_visibleBackgroundBanners.Add(playerBanner);
 			}
 			else
@@ -420,26 +291,12 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_visibleRibbons = new List<GameBalanceVars.PlayerRibbon>();
 			GameBalanceVars.PlayerRibbon[] playerRibbons = GameBalanceVars.Get().PlayerRibbons;
 			foreach (GameBalanceVars.PlayerRibbon playerRibbon in playerRibbons)
 			{
 				if (!accountComponent.IsRibbonUnlocked(playerRibbon))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						CharacterType unlockCharacterType3 = playerRibbon.GetUnlockCharacterType();
@@ -447,39 +304,12 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (unlockCharacterType3 != 0 && GameWideData.Get().GetCharacterResourceLink(unlockCharacterType3).m_isHidden)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(playerRibbon))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -491,11 +321,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				List<int> list = new List<int>();
 				for (int l = 0; l < m_visibleTitles.Count; l++)
 				{
@@ -509,11 +334,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_visibleBackgroundBanners = SortList(m_visibleBackgroundBanners, list);
 					list.Clear();
 					for (int n = 0; n < m_visibleForegroundBanners.Count; n++)
@@ -522,11 +342,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_visibleForegroundBanners = SortList(m_visibleForegroundBanners, list);
 						list.Clear();
 						for (int num2 = 0; num2 < m_visibleRibbons.Count; num2++)
@@ -535,11 +350,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							m_visibleRibbons = SortList(m_visibleRibbons, list);
 							m_visibleTitles.Insert(0, null);
 							m_visibleRibbons.Insert(0, null);
@@ -548,15 +358,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 							{
 								if (visibleTitle != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!ClientGameManager.Get().IsTitleUnlocked(visibleTitle))
 									{
 										continue;
@@ -570,27 +371,9 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 							{
 								if (visibleBackgroundBanner != null)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!ClientGameManager.Get().IsBannerUnlocked(visibleBackgroundBanner, out unlockConditionValues))
 									{
 										continue;
-									}
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								m_unlockedBackgroundBanners.Add(visibleBackgroundBanner);
@@ -607,26 +390,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 										{
 											continue;
 										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									m_unlockedForegroundBanners.Add(current3);
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							m_unlockedRibbons = new List<GameBalanceVars.PlayerRibbon>();
@@ -637,27 +402,9 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 									GameBalanceVars.PlayerRibbon current4 = enumerator4.Current;
 									if (current4 != null)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!ClientGameManager.Get().IsRibbonUnlocked(current4, out unlockConditionValues))
 										{
 											continue;
-										}
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									m_unlockedRibbons.Add(current4);
@@ -702,15 +449,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdateVisibleItems(ClientGameManager.Get().GetPlayerAccountData().AccountComponent);
 			return;
 		}
@@ -749,15 +487,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClickedOnNextPage(data);
 			return;
 		}
@@ -774,19 +503,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (btnClicked == currentButtonsList[i])
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				currentButtonsList[i].SetSelected(true);
 			}
 			else
@@ -830,40 +546,13 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_pageIndicators.Count > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClickedOnPageIndicator(m_pageIndicators[0]);
 				for (int i = 0; i < m_pageIndicators.Count; i++)
 				{
 					m_pageIndicators[i].SetPageNumber(i + 1);
 					m_pageIndicators[i].SetClickCallback(UIPlayerProgressPanel.Get().ClickedOnPage);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -946,28 +635,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentPage--;
 			object pageIndicator;
 			if (m_pageIndicators.Count > m_currentPage)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				pageIndicator = m_pageIndicators[m_currentPage];
 			}
 			else
@@ -987,28 +658,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentPage++;
 			object pageIndicator;
 			if (m_pageIndicators.Count > m_currentPage)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				pageIndicator = m_pageIndicators[m_currentPage];
 			}
 			else
@@ -1031,10 +684,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_showLocked)
 					{
 						while (true)
@@ -1057,11 +706,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		case CurrentList.Background:
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_showLocked)
 				{
 					while (true)
@@ -1113,19 +757,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		object pageIndicator;
 		if (m_pageIndicators.Count > m_currentPage)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			pageIndicator = m_pageIndicators[m_currentPage];
 		}
 		else
@@ -1141,19 +772,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (m_pageIndicators[i] == pageIndicator)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_pageIndicators[i].SetSelected(true);
 				m_currentPage = i;
 			}
@@ -1168,28 +786,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			int num = m_currentPage * numBannersPerPage + j;
 			if (num < m_numItems)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_currentList == CurrentList.Title)
 				{
 					if (m_showLocked)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupTitle(m_visibleTitles[num]);
 					}
 					else
@@ -1200,26 +800,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				if (m_currentList == CurrentList.Background)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_showLocked)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupBanner(m_visibleBackgroundBanners[num]);
 					}
 					else
@@ -1230,26 +812,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				if (m_currentList == CurrentList.Foreground)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_showLocked)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupBanner(m_visibleForegroundBanners[num]);
 					}
 					else
@@ -1262,26 +826,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				{
 					throw new Exception(string.Concat(m_currentList, " not supported"));
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_showLocked)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentButtonsList[j].SetupRibbon(m_visibleRibbons[num]);
 				}
 				else
@@ -1319,10 +865,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

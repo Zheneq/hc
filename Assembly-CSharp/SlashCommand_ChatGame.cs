@@ -13,15 +13,6 @@ public class SlashCommand_ChatGame : SlashCommand
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				while (true)

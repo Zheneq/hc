@@ -145,10 +145,6 @@ public class GameWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("GameWideData failed to load (no character resource links)");
 				}
 			}
@@ -211,25 +207,11 @@ public class GameWideData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return characterResourceLink;
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			throw new Exception("Character resource link not found for: " + characterType.ToString() + " in GameWideData.");
 		}
 	}
@@ -255,10 +237,6 @@ public class GameWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -274,11 +252,6 @@ public class GameWideData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return mapData2;
 			}
 		}
@@ -293,33 +266,11 @@ public class GameWideData : MonoBehaviour
 		}
 		if (m_mapDataDictionary == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_mapDataDictionary = new Dictionary<string, MapData>(StringComparer.OrdinalIgnoreCase);
 			MapData[] mapData = m_mapData;
 			foreach (MapData mapData2 in mapData)
 			{
 				m_mapDataDictionary.Add(mapData2.Name, mapData2);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_mapDataDictionary.TryGetValue(mapName, out MapData value))
@@ -364,39 +315,17 @@ public class GameWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
 		}
 		if (m_keyBindingDataDictionary == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_keyBindingDataDictionary = new Dictionary<string, KeyBindingCommand>();
 			KeyBindingCommand[] keyBindingData = m_keyBindingData;
 			foreach (KeyBindingCommand keyBindingCommand in keyBindingData)
 			{
 				m_keyBindingDataDictionary.Add(keyBindingCommand.Name, keyBindingCommand);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_keyBindingDataDictionary.TryGetValue(keyBindName, out KeyBindingCommand value))
@@ -436,10 +365,6 @@ public class GameWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -458,15 +383,6 @@ public class GameWideData : MonoBehaviour
 				int typeSpecificData2 = unlockCondition.typeSpecificData2;
 				if (typeSpecificData != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += $"{GetCharacterResourceLink(typeSpecificData).m_displayName} Level {typeSpecificData2}";
 				}
 			}
@@ -477,26 +393,12 @@ public class GameWideData : MonoBehaviour
 			}
 			else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.ELO)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int typeSpecificData4 = unlockCondition.typeSpecificData;
 				text += $"ELO of {typeSpecificData4}";
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return text;
 		}
 	}

@@ -35,10 +35,6 @@ public class UITutorialInterstitial : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance;
 				}
 			}
@@ -83,15 +79,6 @@ public class UITutorialInterstitial : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_welcomeContainer.GetComponent<Animator>().Play("TutorialFadeDefaultOUT");
 			UIManager.SetGameObjectActive(m_choiceContainer, true);
 			ClientGameManager.Get().SendUIActionNotification("TutorialInterstitialWelcomeClick");

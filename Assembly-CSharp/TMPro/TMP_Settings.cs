@@ -163,19 +163,6 @@ namespace TMPro
 			{
 				if (s_Instance == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					s_Instance = (Resources.Load("TMP Settings") as TMP_Settings);
 				}
 				return s_Instance;
@@ -186,31 +173,9 @@ namespace TMPro
 		{
 			if (s_Instance == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_Settings x = Resources.Load("TMP Settings") as TMP_Settings;
 				if (x != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					s_Instance = x;
 				}
 			}
@@ -228,10 +193,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -250,10 +211,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -272,10 +229,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -294,10 +247,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -313,19 +262,6 @@ namespace TMPro
 			}
 			if (s_Instance.m_linebreakingRules == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				s_Instance.m_linebreakingRules = new LineBreakingTable();
 			}
 			s_Instance.m_linebreakingRules.leadingCharacters = GetCharacters(s_Instance.m_leadingCharacters);

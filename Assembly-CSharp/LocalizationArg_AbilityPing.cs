@@ -38,19 +38,6 @@ public class LocalizationArg_AbilityPing : LocalizationArg
 		string arg;
 		if (m_isSelectable)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			arg = StringUtil.TR("Ready!", "Global");
 		}
 		else if (m_remainingCooldown <= 0)
@@ -59,26 +46,8 @@ public class LocalizationArg_AbilityPing : LocalizationArg
 		}
 		else
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_remainingCooldown == 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = StringUtil.TR("TurnLeft", "GameModes");
 			}
 			else

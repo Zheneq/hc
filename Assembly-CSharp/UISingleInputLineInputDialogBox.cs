@@ -35,19 +35,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (firstButtonCallback != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -57,19 +44,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (secondButtonCallback != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			secondButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -79,19 +53,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (m_secondButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_secondButton.spriteController.callback = SecondButtonClicked;
 		}
 		if (m_firstButton != null)
@@ -109,15 +70,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -130,15 +82,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

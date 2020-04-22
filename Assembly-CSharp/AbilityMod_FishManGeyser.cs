@@ -80,15 +80,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageToEnemiesOnCastMod, "DamageToEnemiesOnCast", string.Empty, fishManGeyser.m_damageToEnemiesOnCast);
 			AbilityMod.AddToken(tokens, m_healingToAlliesOnCastMod, "HealingToAlliesOnCast", string.Empty, fishManGeyser.m_healingToAlliesOnCast);
 			AbilityMod.AddToken(tokens, m_healOnCasterPerEnemyHitMod, "HealOnCasterPerEnemyHit", string.Empty, fishManGeyser.m_healOnCasterPerEnemyHit);
@@ -112,22 +103,12 @@ public class AbilityMod_FishManGeyser : AbilityMod
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_additionalShapeToDamageOverride == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 					{
 						AbilityMod.AddToken_IntDiff(tokens, "Damage_AdditionalLayer" + i, string.Empty, m_additionalShapeToDamageOverride[i].m_damage, true, fishManGeyser.m_damageToEnemiesOnCast);
@@ -154,19 +135,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		string text = string.Empty;
 		if (m_useAdditionalShapeOverride)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_additionalShapeToDamageOverride != null)
 			{
 				text += "Using Layered Shape Override, entries:\n";
@@ -174,15 +142,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 				{
 					string text2 = text;
 					text = string.Concat(text2, "Shape: ", m_additionalShapeToDamageOverride[i].m_shape, " Damage: ", m_additionalShapeToDamageOverride[i].m_damage, "\n");
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -192,15 +151,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (fishManGeyser.m_castPenetratesLoS ? 1 : 0);
 		}
 		else
@@ -213,15 +163,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManGeyser.m_damageToEnemiesOnCast;
 		}
 		else
@@ -235,15 +176,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManGeyser.m_healOnCasterPerEnemyHit;
 		}
 		else
@@ -257,15 +189,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManGeyser.m_knockbackDistOnCast;
 		}
 		else
@@ -278,15 +201,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (int)fishManGeyser.m_knockbackTypeOnCast;
 		}
 		else
@@ -299,15 +213,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = fishManGeyser.m_enemyEffectOnNextTurn;
 		}
 		else
@@ -320,15 +225,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (fishManGeyser.m_applyEelEffectOnEnemies ? 1 : 0);
 		}
 		else
@@ -341,15 +237,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManGeyser.m_eelDamage;
 		}
 		else
@@ -362,15 +249,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManGeyser.m_eelEffectOnEnemies;
 		}
 		else
@@ -384,15 +262,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManGeyser.m_effectToEnemiesOnCast;
 		}
 		else
@@ -405,15 +274,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = fishManGeyser.m_effectToAlliesOnCast;
 		}
 		else
@@ -427,15 +287,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = fishManGeyser.m_numExplosionsBeforeEnding;
 		}
 		else
@@ -448,15 +299,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = (int)fishManGeyser.m_explodeShape;
 		}
 		else
@@ -469,15 +311,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = (fishManGeyser.m_explodePenetratesLoS ? 1 : 0);
 		}
 		else
@@ -490,15 +323,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = fishManGeyser.m_damageToEnemiesOnExplode;
 		}
 		else
@@ -512,15 +336,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		int baseVal16;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = (fishManGeyser.m_applyKnockbackOnExplode ? 1 : 0);
 		}
 		else
@@ -533,15 +348,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		float baseVal17;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = fishManGeyser.m_knockbackDistOnExplode;
 		}
 		else
@@ -554,15 +360,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal18;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal18 = fishManGeyser.m_effectToEnemiesOnExplode;
 		}
 		else
@@ -575,15 +372,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		object baseVal19;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal19 = fishManGeyser.m_effectToAlliesOnExplode;
 		}
 		else

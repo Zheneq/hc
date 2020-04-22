@@ -49,15 +49,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyOnCastOverride, "OnCastEnemyHitEffect", bazookaGirlDelayedMissile.m_onCastEnemyHitEffect);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, bazookaGirlDelayedMissile.m_damage);
 			AbilityMod.AddToken_EffectMod(tokens, m_onExplosionEffectMod, "EffectOnHit", bazookaGirlDelayedMissile.m_effectOnHit);
@@ -65,11 +56,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "OnMiss");
 					return;
 				}
@@ -88,19 +74,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = bazookaGirlDelayedMissile.m_damage;
 		}
 		else
@@ -114,15 +87,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlDelayedMissile.m_onCastEnemyHitEffect;
 		}
 		else
@@ -140,15 +104,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				int num;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = bazookaGirlDelayedMissile.m_damage;
 				}
 				else
@@ -158,26 +113,8 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				int baseVal3 = num;
 				if (bazookaGirlDelayedMissile != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (bazookaGirlDelayedMissile.m_additionalShapeToHitInfo.Count > i)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						baseVal3 = bazookaGirlDelayedMissile.m_additionalShapeToHitInfo[i].m_damage;
 					}
 				}
@@ -188,15 +125,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		}
 		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty = empty + "Cooldown Reduction on Miss\n" + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
 		return empty + PropDesc(m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", flag, flag ? bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart : 0);

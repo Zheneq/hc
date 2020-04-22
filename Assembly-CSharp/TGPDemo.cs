@@ -76,45 +76,14 @@ public class TGPDemo : MonoBehaviour
 			{
 				if (material.shader.name.Contains("Outline"))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list2.Add(material);
 				}
 				else if (material.shader.name.Contains("Toony"))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(material);
 				}
 				if (material.shader.name.Contains("Toony"))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list3.Add(material);
 				}
 			}
@@ -134,11 +103,6 @@ public class TGPDemo : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			matsSimple = list.ToArray();
 			matsOutline = list2.ToArray();
 			matsAll = list3.ToArray();
@@ -163,19 +127,6 @@ public class TGPDemo : MonoBehaviour
 	{
 		if (rotate)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rotateGroup.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
 			Vector3 eulerAngles = rotateGroup.transform.eulerAngles;
 			rotY = eulerAngles.y;
@@ -183,15 +134,6 @@ public class TGPDemo : MonoBehaviour
 		float axis = Input.GetAxis("Mouse ScrollWheel");
 		if (axis != 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			zoom -= axis;
 			zoom = Mathf.Clamp(zoom, 1f, 3f);
 			Transform transform = Camera.main.transform;
@@ -203,38 +145,11 @@ public class TGPDemo : MonoBehaviour
 		Vector3 mousePosition = Input.mousePosition;
 		if (mousePosition.x < (float)Screen.width * 0.8f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 mousePosition2 = Input.mousePosition;
 			if (mousePosition2.x > (float)Screen.width * 0.2f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetMouseButton(0))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 a = lastMousePos - Input.mousePosition;
 					Camera.main.transform.Translate(a * Time.deltaTime * 0.2f);
 				}
@@ -260,19 +175,6 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed && !rotate)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rotateGroup.transform.eulerAngles = new Vector3(0f, rotY, 0f);
 			GUI.changed = false;
 		}
@@ -280,15 +182,6 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Transform transform2 = sceneLight.transform;
 			Vector3 eulerAngles = sceneLight.transform.eulerAngles;
 			transform2.eulerAngles = new Vector3(eulerAngles.x, lightRotY, 0f);
@@ -298,15 +191,6 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Transform transform3 = sceneLight.transform;
 			float x2 = lightRotX;
 			Vector3 eulerAngles2 = sceneLight.transform.eulerAngles;
@@ -315,28 +199,10 @@ public class TGPDemo : MonoBehaviour
 		}
 		if (rim)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			rim_pow = GUI.HorizontalSlider(new Rect(Screen.width - 150, 320f, 128f, 10f), rim_pow, -1f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < matsAll.Length; i++)
 				{
 					matsAll[i].SetFloat("_RimPower", rim_pow);
@@ -350,36 +216,13 @@ public class TGPDemo : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			rimo_min = GUI.HorizontalSlider(new Rect(Screen.width - 150, 320f, 128f, 10f), rimo_min, 0f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < matsOutline.Length; j++)
 				{
 					matsOutline[j].SetFloat("_RimMin", rimo_min);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				GUI.changed = false;
 			}
@@ -393,11 +236,6 @@ public class TGPDemo : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					GUI.changed = false;
 					return;
 				}
@@ -411,59 +249,19 @@ public class TGPDemo : MonoBehaviour
 		string str = "Normal";
 		if (outline)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = ((!outline_cst) ? "Outline" : "OutlineConst");
 		}
 		string text = "Basic";
 		if (bump)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (spec)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Bumped Specular";
 				goto IL_0090;
 			}
 		}
 		if (spec)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "Specular";
 		}
 		else if (bump)
@@ -474,28 +272,10 @@ public class TGPDemo : MonoBehaviour
 		IL_0090:
 		if (rim)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += " Rim";
 		}
 		else if (rimOutline)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = "Rim Outline";
 		}
 		string text2 = "Toony Colors Pro/" + str + "/OneDirLight/" + text;
@@ -539,28 +319,10 @@ public class TGPDemo : MonoBehaviour
 			string text3 = "Basic";
 			if (spec)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = "Specular";
 			}
 			if (rim)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 += " Rim";
 			}
 			Shader shader2 = FindShader("Toony Colors Pro/Normal/OneDirLight/" + text3);
@@ -590,15 +352,6 @@ public class TGPDemo : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject[] array2 = actRimOutline;
 			foreach (GameObject gameObject2 in array2)
 			{
@@ -606,11 +359,6 @@ public class TGPDemo : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				UpdateGUITButtons();
 				return;
 			}
@@ -628,43 +376,12 @@ public class TGPDemo : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(callback == "SwitchOutline"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(callback == "SwitchRim"))
 				{
 					if (!(callback == "SwitchRimOutline"))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -694,15 +411,6 @@ public class TGPDemo : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return shader;
 			}
 		}
@@ -715,30 +423,8 @@ public class TGPDemo : MonoBehaviour
 		outline = !outline;
 		if (outline)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (rimOutline)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				rimOutline = false;
 			}
 		}
@@ -769,19 +455,6 @@ public class TGPDemo : MonoBehaviour
 		rim = !rim;
 		if (rim)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (rimOutline)
 			{
 				rimOutline = false;
@@ -796,43 +469,12 @@ public class TGPDemo : MonoBehaviour
 		rimOutline = !rimOutline;
 		if (rimOutline && rim)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rim = false;
 		}
 		if (rimOutline)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (outline)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				outline = false;
 			}
 		}
@@ -845,19 +487,6 @@ public class TGPDemo : MonoBehaviour
 		rampIndex++;
 		if (rampIndex >= rampTextures.Length)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rampIndex = 0;
 		}
 		UpdateRamp();
@@ -868,19 +497,6 @@ public class TGPDemo : MonoBehaviour
 		rampIndex--;
 		if (rampIndex < 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rampIndex = rampTextures.Length - 1;
 		}
 		UpdateRamp();

@@ -26,19 +26,6 @@ public class GameplayResponseForActor
 	{
 		if (m_damage != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, subject, m_damage));
 		}
 		if (m_healing != 0)
@@ -58,19 +45,6 @@ public class GameplayResponseForActor
 		int num;
 		if (addCompare)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -84,15 +58,6 @@ public class GameplayResponseForActor
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_healing;
 		}
 		else
@@ -105,15 +70,6 @@ public class GameplayResponseForActor
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
@@ -134,19 +90,6 @@ public class GameplayResponseForActor
 		int num;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = other.m_credits;
 		}
 		else
@@ -156,15 +99,6 @@ public class GameplayResponseForActor
 		float otherVal = num;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((float f) => f != 0f);
 		}
 		text2 = str + InEditorDescHelper.AssembleFieldWithDiff("[ Credits ] = ", indent, otherSep, myVal, flag, otherVal, _003C_003Ef__am_0024cache0);
@@ -173,15 +107,6 @@ public class GameplayResponseForActor
 		int num2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = other.m_healing;
 		}
 		else
@@ -194,15 +119,6 @@ public class GameplayResponseForActor
 		int num3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = other.m_damage;
 		}
 		else
@@ -215,15 +131,6 @@ public class GameplayResponseForActor
 		int num4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = other.m_techPoints;
 		}
 		else
@@ -233,15 +140,6 @@ public class GameplayResponseForActor
 		float otherVal2 = num4;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = ((float f) => f != 0f);
 		}
 		text2 = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ TechPoints ] = ", indent, otherSep, myVal4, flag, otherVal2, _003C_003Ef__am_0024cache1);
@@ -250,15 +148,6 @@ public class GameplayResponseForActor
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
@@ -271,15 +160,6 @@ public class GameplayResponseForActor
 		object otherObjList;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList = other.m_permanentStatMods;
 		}
 		else
@@ -292,15 +172,6 @@ public class GameplayResponseForActor
 		object otherObjList2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList2 = other.m_permanentStatusChanges;
 		}
 		else
@@ -313,15 +184,6 @@ public class GameplayResponseForActor
 		object otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_sequenceToPlay;
 		}
 		else
@@ -345,19 +207,6 @@ public class GameplayResponseForActor
 		int num2;
 		if (m_permanentStatusChanges != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = ((m_permanentStatusChanges.Length > 0) ? 1 : 0);
 		}
 		else

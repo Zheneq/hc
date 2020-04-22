@@ -41,15 +41,6 @@ public class NPCCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LoadingState = LoadingStateEnum.WaitingToLoad;
 			LoadNPCs();
 			return;
@@ -70,15 +61,6 @@ public class NPCCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -94,10 +76,6 @@ public class NPCCoordinator : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -105,15 +83,6 @@ public class NPCCoordinator : MonoBehaviour
 		bool result = false;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			NPCSpawner[] spawners = s_instance.m_spawners;
 			int num = 0;
 			while (true)
@@ -123,29 +92,11 @@ public class NPCCoordinator : MonoBehaviour
 					NPCSpawner nPCSpawner = spawners[num];
 					if (nPCSpawner.m_id == actor.SpawnerId)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -167,19 +118,6 @@ public class NPCCoordinator : MonoBehaviour
 		{
 			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				nPCSpawner.OnActorDeath(actor);
 			}
 		}
@@ -202,19 +140,6 @@ public class NPCCoordinator : MonoBehaviour
 		{
 			if (nPCSpawner.m_id == actor.SpawnerId)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				nPCSpawner.OnActorSpawn(actor);
 			}
 		}
@@ -238,19 +163,6 @@ public class NPCCoordinator : MonoBehaviour
 		{
 			if (nPCSpawner != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
 				{
 					list.Add(nPCSpawner.m_characterResourceLink);
@@ -259,11 +171,6 @@ public class NPCCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -277,31 +184,9 @@ public class NPCCoordinator : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (nPCSpawner.m_id != spawnerId)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!(nPCSpawner.m_characterResourceLink != null))
 			{
@@ -309,11 +194,6 @@ public class NPCCoordinator : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return nPCSpawner.m_characterResourceLink;
 			}
 		}
@@ -330,30 +210,8 @@ public class NPCCoordinator : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (nPCSpawner.m_actorPrefab != null && nPCSpawner.m_characterResourceLink != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 				CharacterResourceLink characterResourceLink = nPCSpawner.m_characterResourceLink;
 				CharacterVisualInfo linkVisualInfo = new CharacterVisualInfo(nPCSpawner.m_skinIndex, nPCSpawner.m_patternIndex, nPCSpawner.m_colorIndex);
@@ -365,11 +223,6 @@ public class NPCCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (num > 0)
 			{
 				LoadingState = LoadingStateEnum.Loading;
@@ -390,50 +243,14 @@ public class NPCCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = true;
 			bool flag2 = true;
 			if (!NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().NumCharacterResourcesCurrentlyLoading == 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 					else
@@ -448,20 +265,10 @@ public class NPCCoordinator : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (flag2)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						LoadingState = LoadingStateEnum.Done;
 						return;
 					}

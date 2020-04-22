@@ -50,19 +50,6 @@ public class UIVfxSwapSelectButton : MonoBehaviour
 	{
 		if (m_SelectedContainer != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_SelectedContainer, selected);
 		}
 		if (!(m_selectBtn != null))
@@ -71,11 +58,6 @@ public class UIVfxSwapSelectButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
 			return;
 		}

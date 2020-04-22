@@ -25,15 +25,6 @@ internal abstract class Eased<T>
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startValue = CalcValue();
 			m_endValue = endValue;
 			m_startTime = Time.time;

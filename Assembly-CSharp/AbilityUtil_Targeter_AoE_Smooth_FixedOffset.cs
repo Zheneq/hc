@@ -19,30 +19,8 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 			bool flag = base.IsSquareInside(square, out inLos);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_targeter.m_delegateIsSquareInLos != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					inLos = m_targeter.m_delegateIsSquareInLos(square, m_coneStart, m_caster);
 				}
 			}
@@ -86,15 +64,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_squarePosCheckerList.Add(m_laserChecker);
 			return;
 		}
@@ -118,10 +87,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return travelBoardSquareWorldPositionForLos + vector.normalized * num;
 				}
 			}
@@ -161,24 +126,10 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count < 2)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_highlights.Add(m_laserPart.CreateHighlightObject(this));
 					return;
 				}
@@ -193,19 +144,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
 		if (m_knockbackDist > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			EnableAllMovementArrows();
 			Vector3 refPos = GetRefPos(currentTarget, targetingActor, 0f);
@@ -217,15 +155,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, refPos, m_knockbackDist);
 					num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			SetMovementArrowEnabledFromIndex(num, false);
 		}
@@ -233,15 +162,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		Vector3 laserEnd = refPos2;
 		if (m_connectLaserWidth > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			Vector3 laserEndPos = refPos2;
 			laserEndPos.y = travelBoardSquareWorldPositionForLos.y;
@@ -251,15 +171,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 			laserEnd = travelBoardSquareWorldPositionForLos + Board.SquareSizeStatic * num3 * dir.normalized;
 			if (num3 > 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, dir, num3, m_connectLaserWidth, targetingActor, GetAffectedTeams(), false, -1, true, false, out laserEndPos, null);
 				using (List<ActorData>.Enumerator enumerator2 = actorsInLaser.GetEnumerator())
 				{
@@ -268,26 +179,8 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 						ActorData current2 = enumerator2.Current;
 						if (!visibleActorsInRange.Contains(current2))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AddActorInRange(current2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary);
 						}
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_laserPart.AdjustHighlight(m_highlights[1], travelBoardSquareWorldPositionForLos, laserEndPos, false);
@@ -313,15 +206,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_laserChecker.UpdateBoxProperties(laserStart, laserEnd, targetingActor);
 			m_coneChecker.UpdateConeProperties(centerPos, 360f, m_radius, 0f, 0f, targetingActor);
 			ResetSquareIndicatorIndexToUse();

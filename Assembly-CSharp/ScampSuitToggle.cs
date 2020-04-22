@@ -53,19 +53,6 @@ public class ScampSuitToggle : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ScampSuitToggle";
 		}
 		Setup();
@@ -95,19 +82,6 @@ public class ScampSuitToggle : Ability
 		StandardEffectInfo cachedEffectForSuitGained;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectForSuitGained = m_abilityMod.m_effectForSuitGainedMod.GetModifiedValue(m_effectForSuitGained);
 		}
 		else
@@ -118,15 +92,6 @@ public class ScampSuitToggle : Ability
 		StandardEffectInfo cachedEffectForSuitLost;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectForSuitLost = m_abilityMod.m_effectForSuitLostMod.GetModifiedValue(m_effectForSuitLost);
 		}
 		else
@@ -141,19 +106,6 @@ public class ScampSuitToggle : Ability
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDownModeFreeActionMod.GetModifiedValue(m_shieldDownModeFreeAction);
 		}
 		else
@@ -168,19 +120,6 @@ public class ScampSuitToggle : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownCreateSuitMod.GetModifiedValue(m_cooldownCreateSuit);
 		}
 		else
@@ -195,19 +134,6 @@ public class ScampSuitToggle : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownRefillShieldMod.GetModifiedValue(m_cooldownRefillShield);
 		}
 		else
@@ -227,19 +153,6 @@ public class ScampSuitToggle : Ability
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyToShieldMultMod.GetModifiedValue(m_energyToShieldMult);
 		}
 		else
@@ -254,19 +167,6 @@ public class ScampSuitToggle : Ability
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_clearEnergyOrbsOnCastMod.GetModifiedValue(m_clearEnergyOrbsOnCast);
 		}
 		else
@@ -286,19 +186,6 @@ public class ScampSuitToggle : Ability
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_passiveEnergyRegenMod.GetModifiedValue(m_passiveEnergyRegen);
 		}
 		else
@@ -313,19 +200,6 @@ public class ScampSuitToggle : Ability
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_considerRespawnForSuitGainEffectMod.GetModifiedValue(m_considerRespawnForSuitGainEffect);
 		}
 		else
@@ -340,19 +214,6 @@ public class ScampSuitToggle : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectForSuitGained != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectForSuitGained;
 		}
 		else
@@ -367,19 +228,6 @@ public class ScampSuitToggle : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectForSuitLost != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectForSuitLost;
 		}
 		else
@@ -409,19 +257,6 @@ public class ScampSuitToggle : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_suitWasActiveOnTurnStart)
 			{
 				return base.IsFreeAction();
@@ -435,19 +270,6 @@ public class ScampSuitToggle : Ability
 		int b = 0;
 		if (base.ActorData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			b = base.ActorData.TechPoints + base.ActorData.ReservedTechPoints;
 		}
 		return Mathf.Max(1, b);
@@ -459,19 +281,6 @@ public class ScampSuitToggle : Ability
 		int result;
 		if (passiveEnergyRegen > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = passiveEnergyRegen;
 		}
 		else
@@ -498,15 +307,6 @@ public class ScampSuitToggle : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ScampSuitToggle);
 			Setup();
 			return;

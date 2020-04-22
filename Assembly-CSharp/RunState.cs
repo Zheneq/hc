@@ -23,19 +23,6 @@ public class RunState : MoveState
 		base.stateName = "Run";
 		if (m_animHashRunRun == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_animHashRunRun = Animator.StringToHash("Base Layer.Run.Run");
 			m_animHashMovementRun = Animator.StringToHash("Base Layer.Movement.Run");
 			m_animHashRunStopping = Animator.StringToHash("Base Layer.Run.Stopping");
@@ -44,15 +31,6 @@ public class RunState : MoveState
 		}
 		if (m_animator != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_animator.layerCount > 0)
 			{
 				while (true)
@@ -87,11 +65,6 @@ public class RunState : MoveState
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_startedRunAnim = true;
 			m_startedExitAnim = true;
 			return;
@@ -103,19 +76,6 @@ public class RunState : MoveState
 		int result;
 		if (hash != m_animHashRunRun)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((hash == m_animHashMovementRun) ? 1 : 0);
 		}
 		else
@@ -130,19 +90,6 @@ public class RunState : MoveState
 		int result;
 		if (hash != m_animHashRunStopping)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((hash == m_animHashMovementRunEnd) ? 1 : 0);
 		}
 		else
@@ -156,32 +103,10 @@ public class RunState : MoveState
 	{
 		if (IsRunStartHash(nextAnimHash))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startedRunAnim = true;
 		}
 		if (IsRunStopHash(nextAnimHash))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_startedExitAnim = true;
 		}
 		if (nextAnimTag == m_animTagHashIdle)
@@ -201,41 +126,10 @@ public class RunState : MoveState
 		float num = Time.deltaTime;
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num > 0.04f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 0.08f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0.04f;
 				}
 			}
@@ -243,15 +137,6 @@ public class RunState : MoveState
 		float num2;
 		if (m_pathSquareInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = m_ownerActorData.m_vaultSpeed * num;
 		}
 		else

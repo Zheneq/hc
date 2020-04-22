@@ -20,15 +20,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			normalColor = containerImage.color;
 			return;
 		}
@@ -46,10 +37,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -61,11 +48,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			receivingImage.overrideSprite = dropSprite;
 			return;
 		}
@@ -82,10 +64,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -108,10 +86,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -131,10 +105,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}

@@ -37,47 +37,16 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return font;
 					}
 				}
 			}
 			if (font.fallbackFontAssets != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (font.fallbackFontAssets.Count > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < font.fallbackFontAssets.Count; i++)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (glyph != null)
 						{
 							break;
@@ -85,29 +54,11 @@ namespace TMPro
 						TMP_FontAsset tMP_FontAsset = font.fallbackFontAssets[i];
 						if (tMP_FontAsset == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						int instanceID = tMP_FontAsset.GetInstanceID();
 						if (k_searchedFontAssets.Contains(instanceID))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						k_searchedFontAssets.Add(instanceID);
@@ -118,11 +69,6 @@ namespace TMPro
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							return tMP_FontAsset;
 						}
 					}
@@ -136,30 +82,8 @@ namespace TMPro
 			glyph = null;
 			if (fonts != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (fonts.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < fonts.Count; i++)
 					{
 						TMP_FontAsset tMP_FontAsset = SearchForGlyphInternal(fonts[i], character, out glyph);
@@ -169,11 +93,6 @@ namespace TMPro
 						}
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							return tMP_FontAsset;
 						}
 					}

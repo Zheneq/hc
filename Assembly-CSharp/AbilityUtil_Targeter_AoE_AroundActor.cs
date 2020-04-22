@@ -29,19 +29,6 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 		Vector3 result = base.GetRefPos(currentTarget, targetingActor, range);
 		if (m_lockToGridPos && Board.Get() != null && currentTarget != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
@@ -63,26 +50,8 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (occupantActor == targetingActor)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_canTargetOnSelf)
 				{
 					while (true)
@@ -101,15 +70,6 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 			}
 			if (occupantActor.GetTeam() == targetingActor.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_canTargetOnAlly)
 				{
 					while (true)
@@ -130,11 +90,6 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, m_enemyOccupantSubject);
 					m_lastCenterActor = occupantActor;
 					return;

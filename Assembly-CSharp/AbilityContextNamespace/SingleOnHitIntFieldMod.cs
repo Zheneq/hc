@@ -34,19 +34,6 @@ namespace AbilityContextNamespace
 			OnHitIntField copy = _001D.GetCopy();
 			if (m_useConditionOverride)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				copy.m_conditions = m_conditionOverride._001D();
 			}
 			copy.m_baseValue = m_baseValueMod.GetModifiedValue(_001D.m_baseValue);
@@ -56,15 +43,6 @@ namespace AbilityContextNamespace
 			copy.m_baseAddTotalMaxValue = m_baseAddTotalMaxValueMod.GetModifiedValue(_001D.m_baseAddTotalMaxValue);
 			if (m_useBaseAddModifierOverrides)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				copy.m_baseAddModifiers = new List<NumericContextOperand>();
 				for (int i = 0; i < m_baseAddModifierOverrides.Count; i++)
 				{
@@ -79,30 +57,8 @@ namespace AbilityContextNamespace
 			string text = string.Empty;
 			if (_001D != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_useConditionOverride)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "* Using Condition override *\n";
 					text += m_conditionOverride._001D("    ");
 				}
@@ -149,15 +105,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AbilityMod.AddToken(_001D, m_baseValueMod, _0012 + "_Base", string.Empty, _000E.m_baseValue);
 				AbilityMod.AddToken(_001D, m_minValueMod, _0012 + "_Min", string.Empty, _000E.m_minValue);
 				AbilityMod.AddToken(_001D, m_maxValueMod, _0012 + "_Max", string.Empty, _000E.m_maxValue);
@@ -169,22 +116,12 @@ namespace AbilityContextNamespace
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (m_baseAddModifierOverrides == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						for (int i = 0; i < m_baseAddModifierOverrides.Count; i++)
 						{
 							NumericContextOperand numericContextOperand = m_baseAddModifierOverrides[i];
@@ -195,15 +132,6 @@ namespace AbilityContextNamespace
 							int num = Mathf.RoundToInt(numericContextOperand.m_modifier.value);
 							if (num > 0)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								_001D.Add(new TooltipTokenInt(_0012 + "_Add_" + i + "_Main", string.Empty, num));
 							}
 							if (numericContextOperand.m_additionalModifiers == null)
@@ -217,15 +145,6 @@ namespace AbilityContextNamespace
 								{
 									_001D.Add(new TooltipTokenInt(_0012 + "_Add_" + i + "_Extra_" + j, string.Empty, num2));
 								}
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						while (true)

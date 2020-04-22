@@ -32,19 +32,6 @@ public class ScoundrelTrapWire : Ability
 		}
 		else
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Targeter = new AbilityUtil_Targeter_Barrier(this, ModdedBarrierData().m_width * ModdedBarrierScale());
 		}
 		base.Targeter.ShowArcToShape = true;
@@ -73,10 +60,6 @@ public class ScoundrelTrapWire : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
 					SetupTargeter();
 					return;
@@ -103,10 +86,6 @@ public class ScoundrelTrapWire : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 				}
 			}
@@ -119,19 +98,6 @@ public class ScoundrelTrapWire : Ability
 		float num = m_barrierSizeScale;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_barrierScaleMod.GetModifiedValue(num);
 		}
 		return num;
@@ -142,41 +108,10 @@ public class ScoundrelTrapWire : Ability
 		List<GameObject> result = ModdedBarrierData().m_barrierSequencePrefabs;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_barrierSequence != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_barrierSequence.Count > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_abilityMod.m_barrierSequence;
 				}
 			}

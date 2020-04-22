@@ -57,10 +57,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					float num = thresholdDamage - currentDamage;
 					if (num < 0f)
 					{
@@ -94,15 +90,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(newHolder, newHolder != null);
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(oldHolder, false);
 			return;
@@ -117,15 +104,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -135,19 +113,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		int result;
 		if (selfTeam != targetTeam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((selfTeam == Team.Invalid && targetTeam == Team.TeamA) ? 1 : 0);
 		}
 		else
@@ -163,44 +128,13 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		bool flag2;
 		if (flagCarrier != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetFlagCarrierSprite(flagCarrier);
 			if (!(GameFlowData.Get() == null))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameFlowData.Get().LocalPlayerData == null))
 				{
 					if (TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetTeam()))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = false;
 					}
@@ -215,15 +149,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 						flag2 = false;
 					}
 					goto IL_00d5;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = false;
@@ -286,10 +211,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -309,24 +230,10 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mainFlagCarrier_Client != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					CameraManager.Get().SetTargetObject(mainFlagCarrier_Client.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 					return;
 				}

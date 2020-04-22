@@ -26,19 +26,6 @@ public class AssetBundleManager : MonoBehaviour
 				int result;
 				if (request != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = (request.isDone ? 1 : 0);
 				}
 				else
@@ -75,19 +62,6 @@ public class AssetBundleManager : MonoBehaviour
 				int result;
 				if (sceneOperation != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = (sceneOperation.isDone ? 1 : 0);
 				}
 				else
@@ -105,32 +79,10 @@ public class AssetBundleManager : MonoBehaviour
 				float num = 0f;
 				if (assetBundleOperation != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num += assetBundleOperation.request.progress / 2f;
 				}
 				if (sceneOperation != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += sceneOperation.progress / 2f;
 				}
 				return num;
@@ -160,19 +112,6 @@ public class AssetBundleManager : MonoBehaviour
 		string dataPath = Application.dataPath;
 		if (!Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dataPath = dataPath + "/Bundles/scenes/" + bundleName + ".json";
 		}
 		else
@@ -202,19 +141,6 @@ public class AssetBundleManager : MonoBehaviour
 		List<string> scenesInBundle = GetScenesInBundle(bundleName);
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((string s) => s.ToLower());
 		}
 		return scenesInBundle.Select(_003C_003Ef__am_0024cache0).Contains(sceneName.ToLower());
@@ -236,10 +162,6 @@ public class AssetBundleManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Application.dataPath + "/Bundles/scenes/" + bundleName + ".bundle";
 				}
 			}
@@ -280,25 +202,12 @@ public class AssetBundleManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					yield break;
 				}
 			}
 		}
 		if (operation.bundleName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			operation.bundleName = operation.sceneName;
 		}
 		string bundlePath = GetSceneAssetBundlePath(operation.bundleName);
@@ -312,15 +221,6 @@ public class AssetBundleManager : MonoBehaviour
 			{
 				yield return new WaitWhile(() => !operation.assetBundleOperation.request.isDone);
 				/*Error: Unable to find new state assignment for yield return*/;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -338,15 +238,6 @@ public class AssetBundleManager : MonoBehaviour
 			Log.Info(Log.Category.Loading, "AssetBundle | <- Canceled loading scene asset bundle {0} ({1}%, isDone {2})", operation.name, operation.assetBundleOperation.request.progress * 100f, operation.assetBundleOperation.request.isDone);
 			if (operation.assetBundleOperation.request.assetBundle != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				operation.assetBundleOperation.request.assetBundle.Unload(false);
 			}
 			m_postedLoadAssetBundleAsyncOperations.Remove(operation.bundleName);
@@ -364,15 +255,6 @@ public class AssetBundleManager : MonoBehaviour
 				{
 					if (FileSystemUtils.TryRead(bundlePath, out string errorMessage))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						errorMessage = "AsyncOperation error";
 					}
 					throw new Exception($"AssetBundle | <- Failed to load scene asset bundle {operation.name} ({errorMessage})");
@@ -388,19 +270,6 @@ public class AssetBundleManager : MonoBehaviour
 		LoadSceneAsyncOperation operation2 = operation;
 		if (HitchDetector.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch("Loading scene " + operation2.name);
 		}
 		LoadSceneAsyncOperation postedLoadSceneAsyncOperation = m_postedLoadSceneAsyncOperations.TryGetValue(operation2.sceneName);
@@ -410,15 +279,6 @@ public class AssetBundleManager : MonoBehaviour
 			operation2.isCanceled = false;
 			if (operation2.sceneOperation.isDone)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -450,11 +310,6 @@ public class AssetBundleManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch("Loaded scene " + operation2.name);
 			yield break;
 		}
@@ -464,19 +319,6 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (bundleName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bundleName = sceneName;
 		}
 		UnloadAssetBundleInternal(bundleName);
@@ -494,10 +336,6 @@ public class AssetBundleManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -509,22 +347,12 @@ public class AssetBundleManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (--loadAssetBundleAsyncOperation.referenceCount != 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!loadAssetBundleAsyncOperation.request.isDone)
 				{
 					while (true)
@@ -542,15 +370,6 @@ public class AssetBundleManager : MonoBehaviour
 				}
 				if (loadAssetBundleAsyncOperation.request.assetBundle != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					loadAssetBundleAsyncOperation.request.assetBundle.Unload(false);
 				}
 				m_postedLoadAssetBundleAsyncOperations.Remove(bundleName);
@@ -564,19 +383,6 @@ public class AssetBundleManager : MonoBehaviour
 		LoadSceneAsyncOperation loadSceneAsyncOperation = m_postedLoadSceneAsyncOperations.TryGetValue(sceneName);
 		if (loadSceneAsyncOperation != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!loadSceneAsyncOperation.isDone)
 			{
 				while (true)

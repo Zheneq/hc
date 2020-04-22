@@ -68,19 +68,6 @@ public class ValkyrieDashAoE : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Valkyrie Dash AoE";
 		}
 		SetupTargeter();
@@ -100,10 +87,6 @@ public class ValkyrieDashAoE : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(this, GetAoeShape(), AoePenetratesLoS(), GetAoeShape(), AoePenetratesLoS(), true);
 					bool affectsEnemies = IncludeEnemies();
 					bool affectsAllies = IncludeAllies();
@@ -128,19 +111,6 @@ public class ValkyrieDashAoE : Ability
 		StandardEffectInfo cachedShieldEffectInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedShieldEffectInfo = m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo);
 		}
 		else
@@ -151,15 +121,6 @@ public class ValkyrieDashAoE : Ability
 		StandardEffectInfo cachedEnemyDebuff;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyDebuff = m_abilityMod.m_enemyDebuffMod.GetModifiedValue(m_enemyDebuff);
 		}
 		else
@@ -170,15 +131,6 @@ public class ValkyrieDashAoE : Ability
 		StandardEffectInfo cachedAllyBuff;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyBuff = m_abilityMod.m_allyBuffMod.GetModifiedValue(m_allyBuff);
 		}
 		else
@@ -189,15 +141,6 @@ public class ValkyrieDashAoE : Ability
 		StandardEffectInfo cachedSelfBuff;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfBuff = m_abilityMod.m_selfBuffMod.GetModifiedValue(m_selfBuff);
 		}
 		else
@@ -228,10 +171,6 @@ public class ValkyrieDashAoE : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 1;
 				}
 			}
@@ -244,19 +183,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if (GetDamage() <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_enemyDebuff.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -281,32 +207,10 @@ public class ValkyrieDashAoE : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_damage != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damage));
 		}
 		if (m_absorb != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally, m_absorb));
 		}
 		m_enemyDebuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
@@ -324,19 +228,6 @@ public class ValkyrieDashAoE : Ability
 		}
 		else
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num2 = dictionary[AbilityTooltipSymbol.Absorb] = GetAbsorb();
 		}
 		return dictionary;
@@ -354,30 +245,8 @@ public class ValkyrieDashAoE : Ability
 		{
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (boardSquareSafe.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe != caster.GetCurrentBoardSquare())
 					{
 						while (true)
@@ -403,19 +272,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if (caster != null && caster.GetAbilityData() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard))) ? 1 : 0);
 		}
 		else
@@ -440,19 +296,6 @@ public class ValkyrieDashAoE : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoePenetratesLoSMod.GetModifiedValue(m_aoePenetratesLoS);
 		}
 		else
@@ -467,19 +310,6 @@ public class ValkyrieDashAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
 		}
 		else
@@ -494,19 +324,6 @@ public class ValkyrieDashAoE : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneRadiusMod.GetModifiedValue(m_coneRadius);
 		}
 		else
@@ -526,19 +343,6 @@ public class ValkyrieDashAoE : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
 		}
 		else
@@ -553,19 +357,6 @@ public class ValkyrieDashAoE : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_triggerCooldownOnGuardAbiityMod.GetModifiedValue(m_triggerCooldownOnGuardAbiity);
 		}
 		else
@@ -580,19 +371,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
 		}
 		else
@@ -607,19 +385,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
 		}
 		else
@@ -634,19 +399,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -666,19 +418,6 @@ public class ValkyrieDashAoE : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_absorbMod.GetModifiedValue(m_absorb);
 		}
 		else
@@ -693,19 +432,6 @@ public class ValkyrieDashAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyBuff != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyBuff;
 		}
 		else
@@ -725,19 +451,6 @@ public class ValkyrieDashAoE : Ability
 		int num = m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_cooldownReductionIfDamagedThisTurnMod.GetModifiedValue(num);
 		}
 		return num;
@@ -751,15 +464,6 @@ public class ValkyrieDashAoE : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ValkyrieDashAoE);
 			SetupTargeter();
 			return;
@@ -783,10 +487,6 @@ public class ValkyrieDashAoE : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					min = 1f;
 					max = 1f;
 					return true;
@@ -808,10 +508,6 @@ public class ValkyrieDashAoE : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
 					overridePos = boardSquareSafe.ToVector3();
 					return true;

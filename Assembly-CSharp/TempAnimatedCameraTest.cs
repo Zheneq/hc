@@ -31,15 +31,6 @@ public class TempAnimatedCameraTest : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_animator.SetTrigger(m_animStartTrigger);
 			m_updatingWithAnim = true;
 			return;
@@ -54,24 +45,10 @@ public class TempAnimatedCameraTest : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_updatingWithAnim)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					Camera.main.transform.position = m_cameraJoint.transform.position;
 					Camera.main.transform.rotation = m_cameraJoint.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
 					Camera.main.fieldOfView = GetFieldOfView();
@@ -87,31 +64,9 @@ public class TempAnimatedCameraTest : MonoBehaviour
 		float result = Camera.main.fieldOfView;
 		if (m_cameraJoint != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 localScale = m_cameraJoint.transform.localScale;
 			if (localScale.z > 1f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 localScale2 = m_cameraJoint.transform.localScale;
 				result = localScale2.z;
 			}

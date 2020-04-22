@@ -61,10 +61,6 @@ public class UIOverconData : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_commandName;
 					}
 				}
@@ -77,19 +73,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconDisplayName(m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = $"#overcon{m_overconId}";
 			}
 			return text;
@@ -100,19 +83,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconCommandName(m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = m_commandName;
 			}
 			return text;
@@ -123,19 +93,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconObtainedDesc(m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = m_obtainedDescription;
 			}
 			return text;
@@ -189,45 +146,14 @@ public class UIOverconData : MonoBehaviour
 			m_cachedIdToOverconMap.Add(nameToOverconEntry.m_overconId, nameToOverconEntry);
 			if (!m_cachedNameToId.ContainsKey(nameToOverconEntry.m_commandName))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_cachedNameToId.Add(nameToOverconEntry.m_commandName.ToLower(), nameToOverconEntry.m_overconId);
 				string commandName = nameToOverconEntry.GetCommandName();
 				if (commandName.IsNullOrEmpty())
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_cachedNameToId.ContainsKey(commandName.ToLower()))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_cachedNameToId.Add(commandName.ToLower(), nameToOverconEntry.m_overconId);
 				}
 			}
@@ -238,20 +164,10 @@ public class UIOverconData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().OnUseOverconNotification += HandleUseOverconNotification;
 					return;
 				}
@@ -268,15 +184,6 @@ public class UIOverconData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				ClientGameManager.Get().OnUseOverconNotification -= HandleUseOverconNotification;
@@ -298,10 +205,6 @@ public class UIOverconData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_cachedNameToId[key];
 				}
 			}
@@ -331,15 +234,6 @@ public class UIOverconData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData != null))
 			{
 				return;
@@ -347,15 +241,6 @@ public class UIOverconData : MonoBehaviour
 			object obj;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = GameFlowData.Get().activeOwnedActorData;
 			}
 			else
@@ -370,65 +255,35 @@ public class UIOverconData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(x != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (!actorData.IsVisibleToClient())
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (!(HUD_UI.Get() != null))
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							if (!(Get() != null))
 							{
 								return;
 							}
 							while (true)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								NameToOverconEntry overconEntryById = Get().GetOverconEntryById(overconId);
 								if (overconEntryById != null)
 								{
 									while (true)
 									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
 										HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SpawnOverconForActor(actorData, overconEntryById, skipValidation);
 										return;
 									}

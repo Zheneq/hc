@@ -12,19 +12,6 @@ public static class UIEventTriggerUtils
 		EventTrigger eventTrigger = go.GetComponent<EventTrigger>();
 		if (eventTrigger == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			eventTrigger = go.AddComponent<EventTrigger>();
 			eventTrigger.triggers = new List<EventTrigger.Entry>();
 		}
@@ -50,33 +37,11 @@ public static class UIEventTriggerUtils
 					EventTrigger.Entry entry = component.triggers[num];
 					if (entry.eventID == triggerType)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

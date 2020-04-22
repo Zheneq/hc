@@ -30,27 +30,9 @@ public class UISearchQueueTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TimeSpan timeSpan;
 			if (ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				timeSpan = TimeSpan.FromMinutes(0.0);
 			}
 			else
@@ -61,15 +43,6 @@ public class UISearchQueueTooltip : UITooltipBase
 			m_searchQueueTimeInQueueTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)matchDuration.TotalSeconds);
 			if (queueInfo.ShowQueueSize && queueInfo.QueuedPlayers > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipText, true);
 				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipTextLabel, true);
 				m_searchQueueSizeRankTooltipText.text = $"{queueInfo.QueuedPlayers}";
@@ -87,39 +60,16 @@ public class UISearchQueueTooltip : UITooltipBase
 			{
 				if ((num2 & soloSubGameMask) != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameBalanceVars.GameRewardBucketType rewardBucket = queueInfo.GameConfig.GetSubType(num2).RewardBucket;
 					int xPBonusForQueueTime = GameBalanceVars.Get().GetXPBonusForQueueTime(rewardBucket, matchDuration);
 					if (num < xPBonusForQueueTime)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = xPBonusForQueueTime;
 					}
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_searchQueueXpGainedText.text = string.Format(StringUtil.TR("XpGained", "Global"), num);
 				return;
 			}

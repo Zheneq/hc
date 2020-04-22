@@ -15,33 +15,11 @@ public class StatusEffectTooltip : MonoBehaviour
 		List<HUD_UIResources.StatusTypeIcon> list2 = new List<HUD_UIResources.StatusTypeIcon>();
 		if (HUD_UIResources.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 58; i++)
 			{
 				HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType((StatusType)i);
 				if (iconForStatusType.displayInStatusList)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (iconForStatusType.isDebuff)
 					{
 						list2.Add(iconForStatusType);
@@ -51,15 +29,6 @@ public class StatusEffectTooltip : MonoBehaviour
 						list.Add(iconForStatusType);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = 0; j < list.Count; j++)
@@ -78,26 +47,12 @@ public class StatusEffectTooltip : MonoBehaviour
 			num += statusEffectTooltipEntry.m_layoutElement.preferredHeight + 4f;
 			if (j + 1 == list.Count)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				statusEffectTooltipEntry.m_layoutElement.preferredHeight += 20f;
 				num += 20f;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int k = 0; k < list2.Count; k++)
 			{
 				HUD_UIResources.StatusTypeIcon statusTypeIcon2 = list2[k];
@@ -115,11 +70,6 @@ public class StatusEffectTooltip : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				num += 4f;
 				RectTransform obj = base.gameObject.transform as RectTransform;
 				Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;

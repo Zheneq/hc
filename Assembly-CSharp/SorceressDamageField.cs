@@ -43,19 +43,6 @@ public class SorceressDamageField : Ability
 		int num;
 		if (GetDamage() <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -66,15 +53,6 @@ public class SorceressDamageField : Ability
 		int num2;
 		if (GetHealing() <= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -116,19 +94,6 @@ public class SorceressDamageField : Ability
 		int val;
 		if ((bool)abilityMod_SorceressDamageField)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SorceressDamageField.m_durationMod.GetModifiedValue(m_duration);
 		}
 		else
@@ -141,15 +106,6 @@ public class SorceressDamageField : Ability
 		int val2;
 		if ((bool)abilityMod_SorceressDamageField)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressDamageField.m_healingMod.GetModifiedValue(m_healing);
 		}
 		else
@@ -160,15 +116,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SorceressDamageField)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SorceressDamageField.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -190,10 +137,6 @@ public class SorceressDamageField : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SorceressDamageField);
 					SetupTargeter();
 					return;
@@ -218,31 +161,9 @@ public class SorceressDamageField : Ability
 	{
 		if (!(m_abilityMod == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_abilityMod.m_persistentSequencePrefabOverride == null))
 			{
 				return m_abilityMod.m_persistentSequencePrefabOverride;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return m_persistentGroundPrefab;
@@ -258,19 +179,6 @@ public class SorceressDamageField : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damage;
 		}
 		else
@@ -285,19 +193,6 @@ public class SorceressDamageField : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healing;
 		}
 		else
@@ -312,19 +207,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnEnemies = m_abilityMod.m_onEnemyEffectOverride.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -335,15 +217,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo cachedEffectOnAllies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnAllies = m_abilityMod.m_onAllyEffectOverride.GetModifiedValue(m_effectOnAllies);
 		}
 		else
@@ -358,19 +231,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnAllies != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnAllies;
 		}
 		else
@@ -385,19 +245,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemies != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemies;
 		}
 		else

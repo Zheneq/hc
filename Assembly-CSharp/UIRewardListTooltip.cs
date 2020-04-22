@@ -20,19 +20,6 @@ public class UIRewardListTooltip : UITooltipBase
 		int num;
 		if (flipped)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = -1;
 		}
 		else
@@ -48,15 +35,6 @@ public class UIRewardListTooltip : UITooltipBase
 			UIPlayerProgressRewardListEntry uIPlayerProgressRewardListEntry;
 			if (i < list.Count)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list[i].Setup(rewards[i], currentLevel);
 				UIManager.SetGameObjectActive(list[i], true);
 				uIPlayerProgressRewardListEntry = list[i];
@@ -90,34 +68,15 @@ public class UIRewardListTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			for (int k = rewards.Count; k < list.Count; k++)
 			{
 				UIManager.SetGameObjectActive(list[k], false);
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.SetGameObjectActive(m_levelLabel, rewardType != RewardsType.Seasons);
 				if (rewardType == RewardsType.Tutorial)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_levelLabel.alignment = TextAlignmentOptions.Midline;
 					m_levelLabel.text = StringUtil.TR("MatchesPlayed", "OverlayScreensScene");
 				}
@@ -136,11 +95,6 @@ public class UIRewardListTooltip : UITooltipBase
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						rectTransform.SetAsLastSibling();
 						return;
 					}

@@ -20,31 +20,9 @@ public class OperationOnSquare_RecordSquares : IOperationOnSquare
 	{
 		if (!IgnoreLos)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!squareHasLos)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_squares.Add(square);

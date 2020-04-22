@@ -12,15 +12,6 @@ public class TeleportPathStart : PathStart
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_arrowPointTo.SetActive(false);
 			return;
 		}
@@ -35,15 +26,6 @@ public class TeleportPathStart : PathStart
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MeshRenderer component = m_arrowPointTo.GetComponent<MeshRenderer>();
 			if (!(component != null))
 			{
@@ -51,31 +33,16 @@ public class TeleportPathStart : PathStart
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (component.materials.Length <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (component.materials[0] != null)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							component.materials[0].SetColor("_TintColor", newColor);
 							return;
 						}
@@ -94,15 +61,6 @@ public class TeleportPathStart : PathStart
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_arrowPointTo.SetActive(true);
 			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(startPosition).GetWorldPosition();
 			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(endPosition).GetWorldPosition();

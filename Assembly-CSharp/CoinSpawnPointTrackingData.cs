@@ -38,19 +38,6 @@ public class CoinSpawnPointTrackingData
 		bool flag = false;
 		if (m_spawnRules.m_maxLifetimeSpawns > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NumSpawnedSoFar > m_spawnRules.m_maxLifetimeSpawns)
 			{
 				while (true)

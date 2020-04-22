@@ -251,10 +251,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0f;
 					}
 				}
@@ -288,10 +284,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_actor.m_characterType;
 					}
 				}
@@ -317,10 +309,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return characterResourceLink.m_characterRole;
 						}
 					}
@@ -347,10 +335,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -801,10 +785,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return NetDamageDodgedPerLife;
 				}
 			}
@@ -1011,11 +991,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		case StatDisplaySettings.StatType.AvgLifeSpan:
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return AvgLifeSpan;
 			}
 		default:
@@ -1035,10 +1010,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return component.GetValueOfStat(FreelancerStatIndex);
 				}
 			}
@@ -1110,47 +1081,23 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.ActorIndex < 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_clientEffectSourceActors.Contains(caster.ActorIndex))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_clientEffectSourceActors.Add(caster.ActorIndex);
 					if (_001D)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording EFFECT from " + caster.GetColoredDebugName("yellow"));
 							return;
 						}
@@ -1169,58 +1116,29 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.ActorIndex < 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (caster.GetTeam() == m_actor.GetTeam())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (m_clientDamageSourceActors.Contains(caster.ActorIndex))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_clientDamageSourceActors.Add(caster.ActorIndex);
 						if (_001D)
 						{
 							while (true)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.GetColoredDebugName("white") + " recording DAMAGE from " + caster.GetColoredDebugName("yellow"));
 								return;
 							}
@@ -1240,26 +1158,12 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.ActorIndex < 0 || caster.GetTeam() != m_actor.GetTeam() || m_clientHealSourceActors.Contains(caster.ActorIndex))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_clientHealSourceActors.Add(caster.ActorIndex);
 				if (_001D)
 				{
@@ -1274,19 +1178,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (caster != null && caster.ActorIndex >= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.GetTeam() != m_actor.GetTeam())
 			{
 				while (true)
@@ -1308,30 +1199,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.ActorIndex >= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster.GetTeam() == m_actor.GetTeam())
 				{
 					while (true)
@@ -1345,15 +1214,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 							int result;
 							if (!m_clientEffectSourceActors.Contains(caster.ActorIndex) && !m_clientHealSourceActors.Contains(caster.ActorIndex))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = (m_syncAllySourcesForHealAndBuff.Contains((uint)caster.ActorIndex) ? 1 : 0);
 							}
 							else
@@ -1385,10 +1245,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_syncEnemySourcesForDamageOrDebuff called on server.");
 					return;
 				}
@@ -1408,10 +1264,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_syncAllySourcesForHealAndBuff called on server.");
 					return;
 				}
@@ -1431,10 +1283,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListUInt.WriteInstance(writer, m_syncEnemySourcesForDamageOrDebuff);
 					SyncListUInt.WriteInstance(writer, m_syncAllySourcesForHealAndBuff);
 					writer.WritePackedUInt32((uint)m_totalDeaths);
@@ -1472,26 +1320,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1499,26 +1329,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1526,26 +1338,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1553,26 +1347,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1598,26 +1374,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1627,15 +1385,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1643,26 +1392,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x100) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1672,15 +1403,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1688,15 +1410,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x400) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1706,26 +1419,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x800) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1735,15 +1430,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1751,15 +1437,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x2000) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1769,15 +1446,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x4000) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1787,26 +1455,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x8000) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1814,26 +1464,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x10000) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1841,15 +1473,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x20000) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1879,15 +1502,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1897,15 +1511,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1913,26 +1518,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x400000) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1940,26 +1527,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x800000) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1969,15 +1538,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1985,26 +1545,8 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x2000000) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2014,15 +1556,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2032,15 +1565,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2057,15 +1581,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((base.syncVarDirtyBits & 0x20000000) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2075,15 +1590,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -2100,10 +1606,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListUInt.ReadReference(reader, m_syncEnemySourcesForDamageOrDebuff);
 					SyncListUInt.ReadReference(reader, m_syncAllySourcesForHealAndBuff);
 					m_totalDeaths = (short)reader.ReadPackedUInt32();
@@ -2141,15 +1643,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, m_syncEnemySourcesForDamageOrDebuff);
 		}
 		if ((num & 2) != 0)
@@ -2158,93 +1651,30 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalDeaths = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerKills = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerAssists = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerDamage = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerHealing = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x80) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerHealingFromAbility = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x100) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerOverheal = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x200) != 0)
@@ -2253,28 +1683,10 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x400) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerPotentialAbsorb = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x800) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalEnergyGained = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x1000) != 0)
@@ -2287,28 +1699,10 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x4000) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerAbsorbReceived = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x8000) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_totalPlayerLockInTime = reader.ReadSingle();
 		}
 		if ((num & 0x10000) != 0)
@@ -2321,15 +1715,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x40000) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_damageInterceptedByEvades = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x80000) != 0)
@@ -2338,54 +1723,18 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x100000) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_myOutgoingDamageReducedByCover = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x200000) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_myIncomingOverkillDamageTaken = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x400000) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_myOutgoingOverkillDamageDealt = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x800000) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_myOutgoingExtraDamageFromEmpowered = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x1000000) != 0)
@@ -2394,15 +1743,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x2000000) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_teamOutgoingDamageIncreasedByEmpoweredFromMe = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x4000000) != 0)
@@ -2411,28 +1751,10 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		if ((num & 0x8000000) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_teamExtraEnergyGainFromMe = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10000000) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_movementDeniedByMe = reader.ReadSingle();
 		}
 		if ((num & 0x20000000) == 0)
@@ -2441,11 +1763,6 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_totalEnemySighted = (int)reader.ReadPackedUInt32();
 			return;
 		}

@@ -48,19 +48,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 		}
 		m_impactDuration = Sequence.GetFXDuration(m_fxImpactPrefab);
@@ -82,15 +69,6 @@ public class TripleTwistProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
 				AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
@@ -103,19 +81,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if ((bool)m_fxImpactPrefab)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxImpact = InstantiateFX(m_fxImpactPrefab, base.TargetPos, Quaternion.identity);
 			m_impactDurationLeft = m_impactDuration;
 		}
@@ -134,15 +99,6 @@ public class TripleTwistProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_projectileFXs.Length; i++)
 			{
 				m_projectileFXs[i].SetActive(false);
@@ -165,19 +121,6 @@ public class TripleTwistProjectileSequence : Sequence
 		bool result = false;
 		if (m_projectileFXs != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -185,29 +128,11 @@ public class TripleTwistProjectileSequence : Sequence
 				{
 					if (m_projectileFXs[num].activeSelf)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -223,39 +148,12 @@ public class TripleTwistProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ProjectilesActive())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_projectileTravelTime += GameTime.deltaTime;
 				Vector3 a = m_startPos + m_projectileDir * m_projectileTravelTime * m_projectileSpeed;
 				if (!(Vector3.Dot(a - m_startPos, a - base.TargetPos) > 0f))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < m_numProjectiles; i++)
 					{
 						float angle = (float)i * 360f / (float)m_numProjectiles + m_projectileTravelTime * m_rotationSpeed;
@@ -269,15 +167,6 @@ public class TripleTwistProjectileSequence : Sequence
 					DeactivateProjectiles();
 					if (m_fxImpactPrefab != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnImpactFX();
 					}
 					else
@@ -292,22 +181,12 @@ public class TripleTwistProjectileSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_fxImpact.activeSelf)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (m_impactDurationLeft > 0f)
 					{
 						while (true)
@@ -337,15 +216,6 @@ public class TripleTwistProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -355,19 +225,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (m_projectileFXs != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_projectileFXs.Length; i++)
 			{
 				if (m_projectileFXs[i] != null)
@@ -375,28 +232,10 @@ public class TripleTwistProjectileSequence : Sequence
 					Object.Destroy(m_projectileFXs[i].gameObject);
 				}
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_projectileFXs = null;
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxImpact);
 			m_fxImpact = null;
 		}

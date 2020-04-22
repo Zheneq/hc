@@ -27,19 +27,6 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 		{
 			if (item.GetTeam() != targetingActor.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(item, m_knockbackType, currentTarget.AimDirection, centerOfShape, m_knockbackDistance);
 				num = AddMovementArrowWithPrevious(item, path, TargeterMovementType.Knockback, num);
 			}
@@ -52,19 +39,6 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.occupant != null)
 			{
 				while (true)
@@ -78,15 +52,6 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 							bool flag = potentialTarget.GetTeam() == targetingActor.GetTeam();
 							if (flag)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquareSafe.occupant == potentialTarget.gameObject)
 								{
 									AddActorInRange(potentialTarget, damageOrigin, targetingActor);

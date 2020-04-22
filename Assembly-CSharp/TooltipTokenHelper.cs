@@ -22,31 +22,9 @@ public class TooltipTokenHelper
 	{
 		if (value <= 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!addIfNonPositive)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		tokens.Add(new TooltipTokenInt(name, desc, value));
@@ -59,19 +37,6 @@ public class TooltipTokenHelper
 			if (!addIfNonPositive)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, value));

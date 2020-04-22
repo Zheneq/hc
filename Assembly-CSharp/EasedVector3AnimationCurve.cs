@@ -21,10 +21,6 @@ internal class EasedVector3AnimationCurve : Eased<Vector3>
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ApplicationException("CalcValue called without curve being set.  Please use the version of EaseTo that takes a curve and not the base.");
 				}
 			}

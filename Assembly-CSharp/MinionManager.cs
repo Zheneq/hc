@@ -85,10 +85,6 @@ public class MinionManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("MinionManager trying to add a null actor.");
 					return;
 				}
@@ -96,15 +92,6 @@ public class MinionManager : MonoBehaviour
 		}
 		if (!m_allMinions.Contains(minionActor))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_allMinions.Add(minionActor);
 		}
 		else
@@ -130,11 +117,6 @@ public class MinionManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_teamBMinions.Contains(minionActor))
 				{
 					m_teamBMinions.Add(minionActor);
@@ -159,10 +141,6 @@ public class MinionManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("MinionManager trying to remove a null actor.");
 					return;
 				}
@@ -170,15 +148,6 @@ public class MinionManager : MonoBehaviour
 		}
 		if (m_allMinions.Contains(minionActor))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_allMinions.Remove(minionActor);
 		}
 		else
@@ -211,11 +180,6 @@ public class MinionManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_teamBMinions.Contains(minionActor))
 				{
 					while (true)

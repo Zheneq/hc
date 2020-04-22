@@ -69,19 +69,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		int result;
 		if (m_droneActive)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((boardSquare != null) ? 1 : 0);
 		}
 		else
@@ -131,10 +118,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::UpdateDroneBoardPos(System.Int32,System.Int32)' called on client");
 					return;
 				}
@@ -156,10 +139,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::AddTrackedActorByIndex(System.Int32)' called on client");
 					return;
 				}
@@ -171,11 +150,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_trackedActorIndex.Add(actorIndex);
 			return;
 		}
@@ -202,15 +176,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SanityCheckTrackerDroneState();
 			return;
 		}
@@ -233,10 +198,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -253,52 +214,16 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				{
 					if (!satellite.IsVisible())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						satellite.OverrideVisibility(true);
 					}
 					BoardSquare boardSquare = Board.Get().GetBoardSquare(satellite.transform);
 					if (!(boardSquare == null))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare.x == BoardX())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare.y == BoardY())
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -350,10 +275,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.Write(m_droneActive);
 					writer.WritePackedUInt32((uint)m_boardX);
 					writer.WritePackedUInt32((uint)m_boardY);
@@ -365,26 +286,8 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -394,15 +297,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -421,15 +315,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -437,15 +322,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -464,45 +340,14 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_droneActive = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_boardX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_boardY = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)

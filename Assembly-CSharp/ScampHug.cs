@@ -51,19 +51,6 @@ public class ScampHug : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ScampHug";
 		}
 		Setup();
@@ -92,19 +79,6 @@ public class ScampHug : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
 		}
 		else
@@ -118,19 +92,6 @@ public class ScampHug : Ability
 	{
 		if (IsInSuit())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_targetingMode == TargetingMode.Laser)
 			{
 				while (true)
@@ -148,15 +109,6 @@ public class ScampHug : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe != caster.GetCurrentBoardSquare() && boardSquareSafe.IsBaselineHeight())
 			{
 				while (true)
@@ -188,10 +140,6 @@ public class ScampHug : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return AbilityPriority.Combat_Knockback;
 				}
 			}
@@ -210,10 +158,6 @@ public class ScampHug : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetTargetData();
 				}
 			}
@@ -232,10 +176,6 @@ public class ScampHug : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ActorData.MovementType.None;
 				}
 			}
@@ -254,10 +194,6 @@ public class ScampHug : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetActionAnimType();
 				}
 			}
@@ -276,10 +212,6 @@ public class ScampHug : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_evadeCooldown;
 				}
 			}
@@ -302,10 +234,6 @@ public class ScampHug : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 					Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, knockbackRange * Board.Get().squareSize, false, caster);
 					BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, laserEndPoint);
@@ -323,40 +251,13 @@ public class ScampHug : Ability
 					List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, magnitude / Board.Get().squareSize, knockbackWidth, caster, caster.GetOpposingTeams(), true, 1, true, includeInvisibles, out laserEndPos, null);
 					if (actorsInLaser.Count > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						firstHitActor = actorsInLaser[0];
 						BoardSquare currentBoardSquare = firstHitActor.GetCurrentBoardSquare();
 						if (currentBoardSquare != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, currentBoardSquare.ToVector3(), currentBoardSquare, false, caster, caster.GetOpposingTeam(), null);
 							if (!includeInvisibles)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
 							}
 							aoeHitActors.Remove(firstHitActor);
@@ -367,26 +268,8 @@ public class ScampHug : Ability
 						float num = Vector3.Dot(lhs2, currentTarget.AimDirection);
 						while (boardSquarePathInfo2 != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquarePathInfo2.prev == null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							Vector3 vector2 = boardSquarePathInfo2.square.ToVector3() - travelBoardSquareWorldPositionForLos;
@@ -421,27 +304,9 @@ public class ScampHug : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			aoeHitActors = AreaEffectUtils.GetActorsInShape(aoeShape, boardSquareSafe.ToVector3(), boardSquareSafe, false, caster, caster.GetOpposingTeam(), null);
 			if (!includeInvisibles)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
 			}
 		}

@@ -12,15 +12,6 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Process();
 			return;
 		}
@@ -46,15 +37,6 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PointerEventData lastPointerEventData = GetLastPointerEventData(-1);
 			if (lastPointerEventData == null)
 			{
@@ -62,22 +44,12 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!(lastPointerEventData.pointerEnter != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					EventTrigger component = lastPointerEventData.pointerEnter.GetComponent<EventTrigger>();
 					if (!(component != null))
 					{
@@ -85,11 +57,6 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						for (int i = 0; i < component.triggers.Count; i++)
 						{
 							EventTrigger.Entry entry = component.triggers[i];
@@ -99,11 +66,6 @@ public class StandaloneInputModuleWithEventDataAccess : StandaloneInputModule
 							}
 							while (true)
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
 								lastPointerEventData.pointerPress = lastPointerEventData.pointerEnter;
 								entry.callback.Invoke(lastPointerEventData);
 								return;

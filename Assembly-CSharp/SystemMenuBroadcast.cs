@@ -49,19 +49,6 @@ public class SystemMenuBroadcast : UIScene
 		string text;
 		if (notification.LocalizedText != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = notification.LocalizedText.ToString();
 		}
 		else
@@ -81,30 +68,12 @@ public class SystemMenuBroadcast : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Time.time - m_startDisplaySystemMessage >= 5f))
 			{
 				return;
 			}
 			if (m_SystemMessageContainer.GetComponent<Animator>() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_SystemMessageContainer.GetComponent<Animator>().Play("PanelDefaultOUT");
 			}
 			m_startDisplaySystemMessage = -1f;

@@ -38,15 +38,6 @@ public class _MaskChildFreezer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -55,19 +46,6 @@ public class _MaskChildFreezer : MonoBehaviour
 	{
 		if (m_previousAnchorPosition != maskRectTransform.anchoredPosition)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_previousAnchorPosition = maskRectTransform.anchoredPosition;
 			for (int i = 0; i < m_frozenPosition.Length; i++)
 			{
@@ -82,11 +60,6 @@ public class _MaskChildFreezer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_previousScalePosition = maskRectTransform.localScale;
 			for (int j = 0; j < m_frozenScale.Length; j++)
 			{

@@ -30,19 +30,6 @@ public class ClientGameManager : MonoBehaviour
 			HashSet<CharacterType> retVal = new HashSet<CharacterType>();
 			if (!roles.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gwd.m_characterResourceLinks.Where((CharacterResourceLink p) => roles.Contains(p.m_characterRole)).ToList().ForEach(delegate(CharacterResourceLink p)
 				{
 					retVal.Add(p.m_characterType);
@@ -75,10 +62,6 @@ public class ClientGameManager : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -91,19 +74,6 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (!groupIds.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (m_fwd.m_factionGroups.Exists((FactionGroup p) => p.Characters.Contains(freelancer) && groupIds.Contains(p.FactionGroupID)) ? 1 : 0);
 			}
 			else
@@ -164,10 +134,6 @@ public class ClientGameManager : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return value.GameLeavingPenalty;
 					}
 				}
@@ -183,24 +149,10 @@ public class ClientGameManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!gta.Requirements.IsNullOrEmpty())
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						IEnumerator<QueueRequirement> enumerator = gta.Requirements.GetEnumerator();
 						try
 						{
@@ -303,10 +255,6 @@ public class ClientGameManager : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									yield return ct;
 									/*Error: Unable to find new state assignment for yield return*/;
 								}
@@ -400,19 +348,6 @@ public class ClientGameManager : MonoBehaviour
 				int result;
 				if (m_member.HasFullAccess)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 22;
 				}
 				else
@@ -598,30 +533,8 @@ public class ClientGameManager : MonoBehaviour
 			long result;
 			if (m_lobbyGameClientInterface != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_lobbyGameClientInterface.SessionInfo != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_lobbyGameClientInterface.SessionInfo.AccountId;
 					goto IL_004a;
 				}
@@ -640,19 +553,6 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (m_lobbyGameClientInterface != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (m_lobbyGameClientInterface.IsConnected ? 1 : 0);
 			}
 			else
@@ -688,19 +588,6 @@ public class ClientGameManager : MonoBehaviour
 			object result;
 			if (NetworkManager.singleton == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = null;
 			}
 			else
@@ -718,19 +605,6 @@ public class ClientGameManager : MonoBehaviour
 			object result;
 			if (Client == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = null;
 			}
 			else
@@ -750,32 +624,10 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (MyConnection != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (MyConnection.isConnected ? 1 : 0);
 			}
 			else if (Connection != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (Connection.isConnected ? 1 : 0);
 			}
 			else
@@ -855,30 +707,8 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (!m_withinReconnectReplay)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((bool)ReplayPlayManager.Get())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (ReplayPlayManager.Get().IsFastForward() ? 1 : 0);
 				}
 				else
@@ -911,19 +741,6 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (PlayerInfo != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
 			}
 			else
@@ -1103,19 +920,6 @@ public class ClientGameManager : MonoBehaviour
 			object result;
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = GameManager.Get().GameInfo;
 			}
 			else
@@ -1133,19 +937,6 @@ public class ClientGameManager : MonoBehaviour
 			object result;
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = GameManager.Get().PlayerInfo;
 			}
 			else
@@ -1163,19 +954,6 @@ public class ClientGameManager : MonoBehaviour
 			object result;
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = GameManager.Get().TeamInfo;
 			}
 			else
@@ -1193,19 +971,6 @@ public class ClientGameManager : MonoBehaviour
 			int result;
 			if (ClientAccessLevel == ClientAccessLevel.Queued)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((ConnectionQueueInfo != null) ? 1 : 0);
 			}
 			else
@@ -1243,10 +1008,6 @@ public class ClientGameManager : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -1261,19 +1022,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (m_queueRequirementSystemInfo == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_queueRequirementSystemInfo = new ClientGameManagerRequirementSystemInfo
 				{
 					m_gtas = GameTypeAvailabilies,
@@ -1300,19 +1048,6 @@ public class ClientGameManager : MonoBehaviour
 			{
 				if (m_ourQueueApplicant == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_ourQueueApplicant = new OurQueueApplicant
 					{
 						m_pad = playerAccountData,
@@ -1336,19 +1071,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (m_scratchGroupQueueApplicant == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_scratchGroupQueueApplicant = new GroupQueueApplicant();
 			}
 			return m_scratchGroupQueueApplicant;
@@ -1365,15 +1087,6 @@ public class ClientGameManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				using (List<UpdateGroupMemberData>.Enumerator enumerator = GroupInfo.Members.GetEnumerator())
 				{
 					if (enumerator.MoveNext())
@@ -1407,15 +1120,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1446,15 +1150,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1470,15 +1165,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1498,15 +1184,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1522,15 +1199,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1550,15 +1218,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1589,15 +1248,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1613,15 +1263,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1643,15 +1284,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1667,15 +1299,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1706,15 +1329,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1734,15 +1348,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1758,15 +1363,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1786,15 +1382,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1810,15 +1397,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1838,15 +1416,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1862,15 +1431,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1890,15 +1450,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1914,15 +1465,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1953,15 +1495,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1981,15 +1514,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2005,15 +1529,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2033,15 +1548,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2085,15 +1591,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2113,15 +1610,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2137,15 +1625,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2165,15 +1644,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2189,15 +1659,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2228,15 +1689,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2256,15 +1708,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2280,15 +1723,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2308,15 +1742,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2347,15 +1772,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2371,15 +1787,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2399,15 +1806,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2423,15 +1821,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2451,15 +1840,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2490,15 +1870,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2529,15 +1900,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2568,15 +1930,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2592,15 +1945,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2620,15 +1964,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2644,15 +1979,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2683,15 +2009,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2711,15 +2028,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2735,15 +2043,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2763,15 +2062,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2787,15 +2077,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2826,15 +2107,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2854,15 +2126,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2878,15 +2141,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2908,15 +2162,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2932,15 +2177,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -2960,15 +2196,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3010,15 +2237,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3038,15 +2256,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3077,15 +2286,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3101,15 +2301,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3129,15 +2320,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3153,15 +2335,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3192,15 +2365,6 @@ public class ClientGameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -3210,19 +2374,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (_003C_003Ef__am_0024cache9 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache9 = delegate
 			{
 			};
@@ -3230,15 +2381,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnConnectedToLobbyServer = _003C_003Ef__am_0024cache9;
 		if (_003C_003Ef__am_0024cacheA == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheA = delegate
 			{
 			};
@@ -3246,15 +2388,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnDisconnectedFromLobbyServer = _003C_003Ef__am_0024cacheA;
 		if (_003C_003Ef__am_0024cacheB == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheB = delegate
 			{
 			};
@@ -3262,15 +2395,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnLobbyServerReadyNotification = _003C_003Ef__am_0024cacheB;
 		if (_003C_003Ef__am_0024cacheC == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheC = delegate
 			{
 			};
@@ -3278,15 +2402,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnLobbyStatusNotification = _003C_003Ef__am_0024cacheC;
 		if (_003C_003Ef__am_0024cacheD == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheD = delegate
 			{
 			};
@@ -3300,15 +2415,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache10 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache10 = delegate
 			{
 			};
@@ -3316,15 +2422,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnQueueEntered = _003C_003Ef__am_0024cache10;
 		if (_003C_003Ef__am_0024cache11 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache11 = delegate
 			{
 			};
@@ -3332,15 +2429,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnQueueLeft = _003C_003Ef__am_0024cache11;
 		if (_003C_003Ef__am_0024cache12 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache12 = delegate
 			{
 			};
@@ -3348,15 +2436,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnGameAssignmentNotification = _003C_003Ef__am_0024cache12;
 		if (_003C_003Ef__am_0024cache13 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache13 = delegate
 			{
 			};
@@ -3364,15 +2443,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnGameInfoNotification = _003C_003Ef__am_0024cache13;
 		if (_003C_003Ef__am_0024cache14 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache14 = delegate
 			{
 			};
@@ -3380,15 +2450,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnLobbyServerLockStateChange = _003C_003Ef__am_0024cache14;
 		if (_003C_003Ef__am_0024cache15 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache15 = delegate
 			{
 			};
@@ -3399,15 +2460,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache17 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache17 = delegate
 			{
 			};
@@ -3415,15 +2467,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnBankBalanceChange = _003C_003Ef__am_0024cache17;
 		if (_003C_003Ef__am_0024cache18 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache18 = delegate
 			{
 			};
@@ -3431,15 +2474,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnModUnlocked = _003C_003Ef__am_0024cache18;
 		if (_003C_003Ef__am_0024cache19 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache19 = delegate
 			{
 			};
@@ -3447,15 +2481,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnAccountDataUpdated = _003C_003Ef__am_0024cache19;
 		if (_003C_003Ef__am_0024cache1A == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1A = delegate
 			{
 			};
@@ -3463,15 +2488,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnCharacterDataUpdated = _003C_003Ef__am_0024cache1A;
 		if (_003C_003Ef__am_0024cache1B == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1B = delegate
 			{
 			};
@@ -3479,15 +2495,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnInventoryComponentUpdated = _003C_003Ef__am_0024cache1B;
 		if (_003C_003Ef__am_0024cache1C == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1C = delegate
 			{
 			};
@@ -3495,15 +2502,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnChatNotification = _003C_003Ef__am_0024cache1C;
 		if (_003C_003Ef__am_0024cache1D == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1D = delegate
 			{
 			};
@@ -3514,15 +2512,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache1F == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1F = delegate
 			{
 			};
@@ -3530,15 +2519,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnUseGGPackNotification = _003C_003Ef__am_0024cache1F;
 		if (_003C_003Ef__am_0024cache20 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache20 = delegate
 			{
 			};
@@ -3546,15 +2526,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnGroupUpdateNotification = _003C_003Ef__am_0024cache20;
 		if (_003C_003Ef__am_0024cache21 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache21 = delegate
 			{
 			};
@@ -3562,15 +2533,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnFriendStatusNotification = _003C_003Ef__am_0024cache21;
 		if (_003C_003Ef__am_0024cache22 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache22 = delegate
 			{
 			};
@@ -3578,15 +2540,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnPlayerTitleChange = _003C_003Ef__am_0024cache22;
 		if (_003C_003Ef__am_0024cache23 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache23 = delegate
 			{
 			};
@@ -3597,15 +2550,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache25 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache25 = delegate
 			{
 			};
@@ -3616,15 +2560,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache27 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache27 = delegate
 			{
 			};
@@ -3632,15 +2567,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnMatchResultsNotification = _003C_003Ef__am_0024cache27;
 		if (_003C_003Ef__am_0024cache28 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache28 = delegate
 			{
 			};
@@ -3648,15 +2574,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnChapterUnlockNotification = _003C_003Ef__am_0024cache28;
 		if (_003C_003Ef__am_0024cache29 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache29 = delegate
 			{
 			};
@@ -3664,15 +2581,6 @@ public class ClientGameManager : MonoBehaviour
 		this.OnServerQueueConfigurationUpdateNotification = _003C_003Ef__am_0024cache29;
 		if (_003C_003Ef__am_0024cache2A == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache2A = delegate
 			{
 			};
@@ -3689,15 +2597,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache2E == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache2E = delegate
 			{
 			};
@@ -3708,15 +2607,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache30 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache30 = delegate
 			{
 			};
@@ -3731,7 +2621,7 @@ public class ClientGameManager : MonoBehaviour
 		OurQueueEntryTime = DateTime.MinValue;
 		SoloSubTypeMask = new Dictionary<GameType, ushort>();
 		m_loadingProgressUpdateFrequency = 0.5f;
-		base._002Ector();
+		
 	}
 
 	public static ClientGameManager Get()
@@ -3744,19 +2634,6 @@ public class ClientGameManager : MonoBehaviour
 		int result;
 		if (ClientAccessLevel < ClientAccessLevel.Full)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_loadedPlayerAccountData.AccountComponent.IsCharacterInFreeRotation(characterType) || IsFreelancerInFreeRotationExtension(characterType, gameType)) ? 1 : 0);
 		}
 		else
@@ -3771,19 +2648,6 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
@@ -3799,29 +2663,11 @@ public class ClientGameManager : MonoBehaviour
 			{
 				if (GameWideData.Get().m_characterResourceLinks[num2].m_characterType == characterType)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					characterResourceLink = GameWideData.Get().m_characterResourceLinks[num2];
 					break;
 				}
 				num2++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -3831,26 +2677,8 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (characterResourceLink.m_isHidden)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_00b7;
 			}
 		}
@@ -3860,26 +2688,8 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (characterResourceLink.m_characterType.IsWillFill())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameType != GameType.PvP)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.NewPlayerPvP)
 				{
 					while (true)
@@ -3899,49 +2709,13 @@ public class ClientGameManager : MonoBehaviour
 		int result;
 		if (ClientAccessLevel < ClientAccessLevel.Full && !characterType.IsWillFill())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameType != GameType.Practice)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerCharacterData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerCharacterData.CharacterComponent.Unlocked)
 					{
 						goto IL_016a;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = (IsCharacterInFreeRotation(characterType, gameType) ? 1 : 0);
@@ -3984,32 +2758,10 @@ public class ClientGameManager : MonoBehaviour
 		int result;
 		if (AuthTicket != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AuthTicket.HasEntitlement("DEVELOPER_ACCESS"))
 			{
 				result = 1;
 				goto IL_004d;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		result = ((ClientAccessLevel >= ClientAccessLevel.Admin) ? 1 : 0);
@@ -4068,19 +2820,6 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (MyConnection != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((PlayerInfo != null) ? 1 : 0);
 		}
 		else
@@ -4089,76 +2828,22 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MyConnection.Update();
 		}
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lobbyGameClientInterface.Update();
 		}
 		CheckLoaded();
 		GroupJoinManager.Get().Update();
 		if (!DisplayedMOTDPopup)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HydrogenConfig.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ServerMessageOverrides != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ServerMessageOverrides.MOTDPopUpText != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIDialogPopupManager.Get() != null)
 						{
 							string value = ServerMessageOverrides.MOTDPopUpText.GetValue(HydrogenConfig.Get().Language);
@@ -4175,74 +2860,20 @@ public class ClientGameManager : MonoBehaviour
 		bool flag = true;
 		if (!(GameManager.Get() == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Tutorial)
 				{
 					goto IL_01f3;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!(UINewReward.Get() == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIDialogPopupManager.Get().IsDialogBoxOpen())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UIFrontendLoadingScreen.Get().IsVisible())
 					{
 						goto IL_01f5;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -4255,22 +2886,8 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (LoginRewardNotification != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UINewReward.Get().NotifyNewTrustReward(LoginRewardNotification.LogInRewardsGiven, -1, string.Empty, true);
 				LoginRewardNotification = null;
 			}
@@ -4329,58 +2946,18 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (!SoloSubTypeMask.ContainsKey(gameType))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Dictionary<ushort, GameSubType> gameTypeSubTypes = GetGameTypeSubTypes(gameType);
 			if (gameTypeSubTypes != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ushort num = HydrogenConfig.Get().GetSavedSubTypes(gameType, gameTypeSubTypes);
 				if (num == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
 					{
 						while (true)
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							KeyValuePair<ushort, GameSubType> current = enumerator.Current;
@@ -4400,15 +2977,6 @@ public class ClientGameManager : MonoBehaviour
 							}
 							if (!current.Value.HasMod(GameSubType.SubTypeMods.NotCheckedByDefault))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = (ushort)(num | current.Key);
 							}
 						}
@@ -4437,10 +3005,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -4448,28 +3012,10 @@ public class ClientGameManager : MonoBehaviour
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 		if (hydrogenConfig.Ticket == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			try
 			{
 				if (!hydrogenConfig.TicketFile.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hydrogenConfig.Ticket = AuthTicket.Load(hydrogenConfig.TicketFile);
 					File.Delete(hydrogenConfig.TicketFile);
 					hydrogenConfig.TicketFile = null;
@@ -4485,15 +3031,6 @@ public class ClientGameManager : MonoBehaviour
 						default:
 							if (hydrogenConfig.PlatformConfig.AllowRequestTickets)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!hydrogenConfig.PlatformUserName.IsNullOrEmpty() && !hydrogenConfig.PlatformPassword.IsNullOrEmpty())
 								{
 									while (true)
@@ -4606,15 +3143,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.Disconnect();
 			m_lobbyGameClientInterface = null;
 			return;
@@ -4639,19 +3167,6 @@ public class ClientGameManager : MonoBehaviour
 		DisconnectFromLobbyServer();
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameManager.Get().OnGameStopped -= HandleGameStopped;
 			GameManager.Get().OnGameLaunched -= HandleGameLaunched;
 			GameManager.Get().OnGameStatusChanged -= HandleGameStatusChanged;
@@ -4659,30 +3174,12 @@ public class ClientGameManager : MonoBehaviour
 		MyNetworkManager myNetworkManager = MyNetworkManager.Get();
 		if (myNetworkManager != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			myNetworkManager.m_OnClientConnect -= HandleNetworkConnect;
 			myNetworkManager.m_OnClientDisconnect -= HandleNetworkDisconnect;
 			myNetworkManager.m_OnClientError -= HandleNetworkError;
 		}
 		if (Client != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Client.UnregisterHandler(52);
 		}
 		SinglePlayerManager.UnregisterSpawnHandler();
@@ -4705,24 +3202,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_lobbyGameClientInterface.UnsubscribeFromCustomGames();
 					return;
 				}
@@ -4738,19 +3221,6 @@ public class ClientGameManager : MonoBehaviour
 			int num;
 			if (allyDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (int)allyDifficulty.Value;
 			}
 			else
@@ -4761,15 +3231,6 @@ public class ClientGameManager : MonoBehaviour
 			int num2;
 			if (enemyDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (int)enemyDifficulty.Value;
 			}
 			else
@@ -4797,15 +3258,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.LeaveQueue(onResponseCallback);
 			return;
 		}
@@ -4819,15 +3271,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string processCode = null;
 			if (gameConfig.InstanceSubTypeBit == 0)
 			{
@@ -4902,15 +3345,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.JoinGame(gameInfo, asSpectator, onResponseCallback);
 			return;
 		}
@@ -4928,10 +3362,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -4957,46 +3387,22 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (gameManager.GameInfo.GameServerProcessCode.IsNullOrEmpty())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_gameResult != 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					object[] array = new object[2];
 					object obj;
 					if (isPermanent)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = "permanently";
 					}
 					else
@@ -5021,10 +3427,6 @@ public class ClientGameManager : MonoBehaviour
 										break;
 									default:
 									{
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										string text = (gameManager.GameInfo == null) ? string.Empty : gameManager.GameInfo.Name;
 										string text2 = $"Failed to leave game: {response.ErrorMessage}";
 										TextConsole.Get().Write(text2);
@@ -5042,44 +3444,24 @@ public class ClientGameManager : MonoBehaviour
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (Client == null)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							if (!Client.isConnected)
 							{
 								return;
 							}
 							while (true)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								if (NetworkServer.active)
 								{
 									return;
 								}
 								while (true)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
 									GameManager.LeaveGameNotification leaveGameNotification = new GameManager.LeaveGameNotification();
 									leaveGameNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
 									leaveGameNotification.IsPermanent = isPermanent;
@@ -5087,15 +3469,6 @@ public class ClientGameManager : MonoBehaviour
 									Client.SetMaxDelay(0f);
 									if (!Client.Send(67, leaveGameNotification))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Log.Error("Failed to send LeaveGameNotification");
 									}
 									Client.Disconnect();
@@ -5125,15 +3498,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, stats, null, onResponseCallback);
 			return;
 		}
@@ -5147,15 +3511,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, null, null, onResponseCallback);
 			return;
 		}
@@ -5170,80 +3525,22 @@ public class ClientGameManager : MonoBehaviour
 				GameOptionFlag gameOptionFlag = GameOptionFlag.None;
 				if (DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("ReplaceHumansWithBots"))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.ReplaceHumansWithBots);
 					}
 				}
 				if (DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("SkipEndOfGameCheck"))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.SkipEndOfGameCheck);
 					}
 				}
 				if (DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("EnableTeamAIOutput"))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.EnableTeamAIOutput);
 					}
 				}
@@ -5257,15 +3554,6 @@ public class ClientGameManager : MonoBehaviour
 					if (playerGameOptionFlag == PlayerGameOptionFlag.None)
 					{
 						goto IL_013a;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_lobbyGameClientInterface.UpdateGameCheats(gameOptionFlag, playerGameOptionFlag);
@@ -5281,11 +3569,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (GameManager.Get().PlayerInfo != null)
 			{
 				GameManager.Get().PlayerInfo.ReadyState = readyState;
@@ -5298,15 +3581,6 @@ public class ClientGameManager : MonoBehaviour
 		ReadyState currentReadyState = ReadyState.Ready;
 		if (playerInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			shouldResetOnFalure = true;
 			currentReadyState = playerInfo.ReadyState;
 		}
@@ -5318,15 +3592,6 @@ public class ClientGameManager : MonoBehaviour
 		};
 		if (allyDifficulty.HasValue)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lobbyPlayerInfoUpdate.AllyDifficulty = allyDifficulty.Value;
 		}
 		if (enemyDifficulty.HasValue)
@@ -5337,30 +3602,8 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (!response.Success)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (shouldResetOnFalure && currentReadyState != readyState && AppState_CharacterSelect.Get() == AppState.GetCurrent())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerInfo != null)
 					{
 						playerInfo.ReadyState = currentReadyState;
@@ -5399,15 +3642,6 @@ public class ClientGameManager : MonoBehaviour
 						}
 						else
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = response.LocalizedFailure.ToString();
 						}
 						string text = (string)obj;
@@ -5433,15 +3667,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.UpdateGroupGameType(gametype, delegate(PlayerGroupInfoUpdateResponse response)
 			{
 				UICharacterScreen.Get().ReceivedGameTypeChangeResponse();
@@ -5455,35 +3680,13 @@ public class ClientGameManager : MonoBehaviour
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							string description;
 							if (response.LocalizedFailure != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								description = response.LocalizedFailure.ToString();
 							}
 							else if (!response.ErrorMessage.IsNullOrEmpty())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								description = $"{response.ErrorMessage}#NeedsLocalization";
 							}
 							else
@@ -5509,15 +3712,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = playerId;
 			lobbyPlayerInfoUpdate.CharacterType = character;
@@ -5537,10 +3731,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					TextConsole.Get().Write(new TextConsole.Message
 					{
 						Text = string.Format(StringUtil.TR("FailedMessage", "Global"), response.LocalizedFailure.ToString()),
@@ -5563,43 +3753,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (UICharacterScreen.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UICharacterScreen.Get().CharacterSelectionResponseHandler(response);
 		}
 		if (Get().GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (response.CharacterInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
 			}
 		}
@@ -5609,11 +3768,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectScreenController.Get().NotifyGroupUpdate();
 			return;
 		}
@@ -5648,15 +3802,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = 0;
 			lobbyPlayerInfoUpdate.RankedLoadoutMods = ranked;
@@ -5676,10 +3821,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RecordFailureInCharacterSelectUpdateResponse(response, "HandleLoadoutUpdateResponse");
 					return;
 				}
@@ -5687,15 +3828,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (response.CharacterInfo.CharacterLoadouts.Count > 0 && response.CharacterInfo.CharacterLoadouts[0].Strictness == ModStrictness.Ranked)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter).CharacterComponent.CharacterLoadoutsRanked = response.CharacterInfo.CharacterLoadouts;
 		}
 		else
@@ -5709,11 +3841,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UIRankedCharacterSelectSettingsPanel.Get().NotifyLoadoutUpdate(response);
 			return;
 		}
@@ -5727,15 +3854,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = playerId;
 			lobbyPlayerInfoUpdate.CharacterSkin = selectedCharacterSkin;
@@ -5756,10 +3874,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RecordFailureInCharacterSelectUpdateResponse(response, "HandleSkinSelectUpdateResponse");
 					return;
 				}
@@ -5773,15 +3887,6 @@ public class ClientGameManager : MonoBehaviour
 		Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
 		if (WaitingForSkinSelectResponse.Count > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (WaitingForSkinSelectResponse[0].Equals(response.CharacterInfo.CharacterSkin))
 			{
 				while (true)
@@ -5822,15 +3927,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = playerId;
 			lobbyPlayerInfoUpdate.CharacterCards = cards;
@@ -5848,79 +3944,25 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (WaitingForCardSelectResponse == response.ResponseId)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClearWaitingForCardResponse();
 		}
 		if (!response.Success)
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				RecordFailureInCharacterSelectUpdateResponse(response, "HandleCardSelectUpdateResponse");
 				return;
 			}
 		}
 		if (Get().GroupInfo != null && response.CharacterInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.IsCustomGame)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 					{
 						goto IL_011d;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -5930,15 +3972,6 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIRankedCharacterSelectSettingsPanel.Get().Refresh();
 			}
 		}
@@ -5950,22 +3983,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
 			PersistedCharacterData playerCharacterData = GetPlayerCharacterData(response.CharacterInfo.CharacterType);
 			if (playerCharacterData != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					playerCharacterData.CharacterComponent.LastCards = response.CharacterInfo.CharacterCards;
 					return;
 				}
@@ -5987,15 +4010,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = playerId;
 			lobbyPlayerInfoUpdate.CharacterMods = mods;
@@ -6031,10 +4045,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RecordFailureInCharacterSelectUpdateResponse(response, "HandleModSelectUpdateResponse");
 					return;
 				}
@@ -6046,24 +4056,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			PersistedCharacterData playerCharacterData = Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType);
 			bool rankedLoadoutMods = response.OriginalPlayerInfoUpdate.RankedLoadoutMods;
 			if (rankedLoadoutMods)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerCharacterData.CharacterComponent.LastRankedMods = response.CharacterInfo.CharacterMods;
 			}
 			else
@@ -6073,26 +4069,8 @@ public class ClientGameManager : MonoBehaviour
 			int? lastSelectedLoadout = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
 			if (lastSelectedLoadout.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rankedLoadoutMods)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterComponent characterComponent = playerCharacterData.CharacterComponent;
 					int? lastSelectedLoadout2 = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
 					characterComponent.LastSelectedRankedLoadout = lastSelectedLoadout2.Value;
@@ -6106,15 +4084,6 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (Get().GroupInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
 			}
 			UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
@@ -6137,10 +4106,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RecordFailureInCharacterSelectUpdateResponse(response, "HandleAbilityVfxSwapSelectUpdateResponse");
 					return;
 				}
@@ -6152,11 +4117,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType).CharacterComponent.LastAbilityVfxSwaps = response.CharacterInfo.CharacterAbilityVfxSwaps;
 			if (Get().GroupInfo != null)
 			{
@@ -6179,15 +4139,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
 			lobbyPlayerInfoUpdate.PlayerId = playerId;
 			lobbyPlayerInfoUpdate.AllyDifficulty = allyDifficulty;
@@ -6205,15 +4156,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendSetRegionRequest(region);
 			return;
 		}
@@ -6235,15 +4177,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
 			return;
 		}
@@ -6257,15 +4190,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
 			return;
 		}
@@ -6279,15 +4203,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendRankedBanRequest(type);
 			return;
 		}
@@ -6301,15 +4216,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendRankedSelectionRequest(type);
 			return;
 		}
@@ -6323,15 +4229,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendRankedHoverClickRequest(type);
 			return;
 		}
@@ -6360,15 +4257,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.InvitePlayerToGame(playerHandle, onResponseCallback);
 			return;
 		}
@@ -6382,15 +4270,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SpectateGame(playerHandle, onResponseCallback);
 			return;
 		}
@@ -6407,10 +4286,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.RequestCrashReportArchiveName(numArchiveBytes, onResponseCallback);
 				}
 			}
@@ -6429,10 +4304,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.SendStatusReport(report);
 				}
 			}
@@ -6451,10 +4322,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.SendErrorReport(report);
 				}
 			}
@@ -6473,10 +4340,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.SendErrorSummary(summary);
 				}
 			}
@@ -6495,10 +4358,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.SendFeedbackReport(report);
 				}
 			}
@@ -6518,10 +4377,6 @@ public class ClientGameManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClientPerformanceReport clientPerformanceReport = new ClientPerformanceReport();
 					clientPerformanceReport.PerformanceInfo = ClientPerformanceCollector.Get().Collect();
 					return m_lobbyGameClientInterface.SendPerformanceReport(clientPerformanceReport);
@@ -6549,15 +4404,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendUseOverconRequest(id, overconName, actorId, turn);
 			return;
 		}
@@ -6582,10 +4428,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_lobbyGameClientInterface.SendUIActionNotification(context);
 				}
 			}
@@ -6608,19 +4450,6 @@ public class ClientGameManager : MonoBehaviour
 			GroupInfo.InAGroup = flag2;
 			if (UIFrontEnd.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIFrontEnd.Get().m_frontEndChatConsole.ChangeChatRoom();
 			}
 		}
@@ -6631,28 +4460,10 @@ public class ClientGameManager : MonoBehaviour
 		UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters;
 		if (!GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GroupInfo.IsLeader = false;
 		}
 		else if (GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -6660,29 +4471,11 @@ public class ClientGameManager : MonoBehaviour
 				{
 					if (notification.Members[num].IsLeader)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (notification.Members[num].AccountID == GetPlayerAccountData().AccountId);
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -6691,40 +4484,13 @@ public class ClientGameManager : MonoBehaviour
 			{
 				if (notification.GameType == GameType.Coop)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = false;
 					characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
 					if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 						{
 							goto IL_0274;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					characterSelectSceneStateParameters.AllyBotTeammatesClickable = !flag;
@@ -6732,26 +4498,8 @@ public class ClientGameManager : MonoBehaviour
 					IEnumerable<ushort> enumerable = gameTypeSubTypes.Keys.Where((ushort p) => (p & notification.SubTypeMask) != 0);
 					if (!enumerable.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameTypeSubTypes.TryGetValue(enumerable.First(), out GameSubType value2) && value2.HasMod(GameSubType.SubTypeMods.AntiSocial))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = true;
 						}
 					}
@@ -6764,40 +4512,13 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 				{
 					goto IL_034e;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (GroupInfo.SelectedQueueType == GameType.Coop)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
 					AllyBotTeammatesSelected = false
@@ -6814,79 +4535,25 @@ public class ClientGameManager : MonoBehaviour
 		IL_03d5:
 		if (DiscordClientInterface.IsEnabled)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!DiscordClientInterface.IsSdkEnabled)
 			{
 				if (!DiscordClientInterface.IsInstalled)
 				{
 					goto IL_04ad;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (GroupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Options_UI.Get().GetEnableAutoJoinDiscord())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					JoinDiscord();
 				}
 				else if (!m_discordJoinSuggested)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_discordJoinSuggested = true;
 					string text = string.Format(StringUtil.TR("ClickToJoinDiscordGroupChat", "Global"));
 					if (!DiscordClientInterface.IsSdkEnabled)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TextConsole.Get().Write(text);
 					}
 				}
@@ -6909,28 +4576,10 @@ public class ClientGameManager : MonoBehaviour
 		IL_034e:
 		if (UICharacterScreen.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterScreen.Get().DoRefreshFunctions(128);
 		}
 		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 			{
 				goto IL_03d5;
@@ -6938,15 +4587,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (UICharacterScreen.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterScreen.Get().DoRefreshFunctions(64);
 		}
 		goto IL_03d5;
@@ -6977,19 +4617,6 @@ public class ClientGameManager : MonoBehaviour
 		IsFriendListInitialized = true;
 		if (notification.FriendList.IsDelta)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (Dictionary<long, FriendInfo>.Enumerator enumerator = notification.FriendList.Friends.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -7007,15 +4634,6 @@ public class ClientGameManager : MonoBehaviour
 					{
 						if (current.Value.FriendStatus != FriendStatus.Friend)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.Value.FriendStatus != FriendStatus.RequestReceived)
 							{
 								continue;
@@ -7023,15 +4641,6 @@ public class ClientGameManager : MonoBehaviour
 						}
 						FriendList.Friends.Add(current.Key, current.Value);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -7084,10 +4693,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SendGroupSuggestion(false, false, request);
 					return;
 				}
@@ -7122,19 +4727,6 @@ public class ClientGameManager : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		if (gameManager != null && gameManager.GameInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameManager.GameInfo.GameStatus.IsActiveStatus())
 			{
 				while (true)
@@ -7198,44 +4790,13 @@ public class ClientGameManager : MonoBehaviour
 				};
 				if (!r.Success)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string text;
 					if (r.LocalizedFailure != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = r.LocalizedFailure.ToString();
 					}
 					else if (!r.ErrorMessage.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = $"Failed: {r.ErrorMessage}#NeedsLocalization";
 					}
 					else
@@ -7267,43 +4828,12 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (SequenceManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SequenceManager.Get().HandleOnGameStopped();
 		}
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!IsServer())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				NetworkManager.singleton.StopClient();
 			}
 		}
@@ -7357,15 +4887,6 @@ public class ClientGameManager : MonoBehaviour
 		LobbyGameInfo previousGameInfo;
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TextConsole.Get().Write("Reconnected to lobby server");
 			previousGameInfo = GameManager.Get().GameInfo;
 			RejoinGame(true, delegate(RejoinGameResponse res)
@@ -7390,30 +4911,8 @@ public class ClientGameManager : MonoBehaviour
 		EnvironmentType = notification.EnvironmentType;
 		if (GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GroupInfo.ChararacterInfo != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
 					ClientSelectedVisualInfo = GroupInfo.ChararacterInfo.CharacterSkin
@@ -7431,53 +4930,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (notification.SeasonChapterQuests != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandleLobbySeasonQuestDataNotification(notification.SeasonChapterQuests);
 		}
 		if (notification.Status != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandleLobbyStatusNotification(notification.Status);
 		}
 		if (notification.AccountData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandleAccountDataUpdated(notification.AccountData);
 			if (notification.AccountData.InventoryComponent != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnInventoryComponentUpdated(notification.AccountData.InventoryComponent);
 			}
 			else
@@ -7487,28 +4950,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (notification.CharacterDataList != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandlePlayerCharacterDataUpdated(notification.CharacterDataList);
 		}
 		if (notification.FactionCompetitionStatus != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HandleFactionCompetitionNotification(notification.FactionCompetitionStatus);
 		}
 		this.OnLobbyServerReadyNotification(notification);
@@ -7520,19 +4965,6 @@ public class ClientGameManager : MonoBehaviour
 		object arg2;
 		if (HasPurchasedGame)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			arg2 = "purchased";
 		}
 		else
@@ -7552,19 +4984,6 @@ public class ClientGameManager : MonoBehaviour
 		bool flag = false;
 		if (IsConnectedToGameServer)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lastLobbyErrorMessage = StringUtil.TR("DisconnectedFromServer", "Disconnected");
 			flag = true;
 		}
@@ -7590,15 +5009,6 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (code == CloseStatusCode.PingTimeout)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 15;
 		}
 		else
@@ -7618,71 +5028,22 @@ public class ClientGameManager : MonoBehaviour
 		gameManager.SetQueueInfo(matchmakingQueueInfo);
 		if (matchmakingQueueInfo == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (queueInfo.GameConfig.GameType == GameType.Ranked)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
 			}
 		}
 		if (queueInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Info("Unassigned from queue {0}", queueInfo.GameType);
 			this.OnQueueLeft();
 			if (matchmakingQueueInfo == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
 			}
 		}
 		if (matchmakingQueueInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Info("Assigned to queue {0}", matchmakingQueueInfo.GameType);
 			this.OnQueueEntered();
 		}
@@ -7695,47 +5056,16 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (notification.GameplayOverrides != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetGameplayOverrides(notification.GameplayOverrides);
 		}
 		if (notification.ErrorReportRate.HasValue)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num = (float)notification.ErrorReportRate.Value.TotalSeconds;
 			ClientExceptionDetector clientExceptionDetector = ClientExceptionDetector.Get();
 			if (clientExceptionDetector != null)
 			{
 				if (num > 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Info("Will send client errors to the server every {0}.", LocalizationArg_TimeSpan.Create(notification.ErrorReportRate.Value).TR());
 					clientExceptionDetector.SecondsBetweenSendingErrorPackets = num;
 				}
@@ -7753,15 +5083,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (notification.ServerMessageOverrides != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ServerMessageOverrides = notification.ServerMessageOverrides;
 		}
 		if (notification.ClientAccessLevel != 0)
@@ -7774,29 +5095,11 @@ public class ClientGameManager : MonoBehaviour
 			HighestPurchasedGamePack = notification.HighestPurchasedGamePack;
 			if (clientAccessLevel == ClientAccessLevel)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (hasPurchasedGame == HasPurchasedGame)
 				{
 					if (highestPurchasedGamePack == HighestPurchasedGamePack)
 					{
 						goto IL_019a;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -7818,15 +5121,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (TimeOffset != notification.TimeOffset)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TextConsole.Get().Write($"Global Time Offset Is Now: {notification.TimeOffset.ToString()}");
 			}
 			ServerUtcTime = notification.UtcNow;
@@ -7847,30 +5141,8 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((GameManager.Get().GameplayOverrides.EnableCards != gameplayOverrides.EnableCards) ? 1 : 0);
 				goto IL_005d;
 			}
@@ -7884,37 +5156,10 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UICharacterSelectCharacterSettingsPanel.Get() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!gameplayOverrides.EnableCards)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UICharacterSelectCharacterSettingsPanel.Get().GetTabPanel() == UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts)
 						{
 							UICharacterSelectCharacterSettingsPanel.Get().OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Skins);
@@ -7925,26 +5170,8 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIRankedCharacterSelectSettingsPanel.Get().GetTabPanel() == UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIRankedCharacterSelectSettingsPanel.Get().OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Skins);
 				}
 				UIRankedCharacterSelectSettingsPanel.Get().Refresh();
@@ -7953,15 +5180,6 @@ public class ClientGameManager : MonoBehaviour
 		ClientPerformanceCollector clientPerformanceCollector = ClientPerformanceCollector.Get();
 		if (gameplayOverrides.EnableClientPerformanceCollecting)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_taskScheduler.AddTask(m_clientPerformanceCollectTask, gameplayOverrides.ClientPerformanceCollectingFrequency, false);
 			clientPerformanceCollector.ObserveRTT(m_lobbyGameClientInterface.WebSocket);
 			clientPerformanceCollector.StartCollecting();
@@ -7998,48 +5216,17 @@ public class ClientGameManager : MonoBehaviour
 				GameManager.Get().SetQueueInfo(notification.MatchmakingQueueInfo);
 				if (GameManager.Get().QueueInfo != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterSelectScreenController.Get().NotifiedEnteredQueue();
 				}
 				NavigationBar.Get().UpdateStatusMessage();
 				this.OnQueueStatusNotification(notification);
 				return;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		object[] array = new object[1];
 		object obj;
 		if (matchmakingQueueInfo == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = "(null)";
 		}
 		else
@@ -8062,19 +5249,6 @@ public class ClientGameManager : MonoBehaviour
 		string text;
 		if (gameInfo2 != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = gameInfo2.Name;
 		}
 		else
@@ -8085,15 +5259,6 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (gameInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((!gameInfo.GameServerProcessCode.IsNullOrEmpty()) ? 1 : 0);
 		}
 		else
@@ -8105,26 +5270,8 @@ public class ClientGameManager : MonoBehaviour
 		int num2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((gameInfo2.GameServerProcessCode != gameInfo.GameServerProcessCode) ? 1 : 0);
 				goto IL_00d2;
 			}
@@ -8158,15 +5305,6 @@ public class ClientGameManager : MonoBehaviour
 		object obj2;
 		if (notification.Reconnection)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj2 = " (reconnected)";
 		}
 		else
@@ -8179,27 +5317,9 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag3)
 				{
 					goto IL_016f;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Info("Unassigned from game {0}", gameManager.GameInfo.Name);
@@ -8209,49 +5329,13 @@ public class ClientGameManager : MonoBehaviour
 		IL_03e7:
 		if (gameInfo2 != null && gameInfo2.GameConfig != null && gameInfo2.GameConfig.GameType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameInfo2.GameConfig.GameType != GameType.Tutorial)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameInfo2.GameConfig.GameType != GameType.NewPlayerSolo)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num4;
 					if (Options_UI.Get() != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = (Options_UI.Get().GetEnableAutoJoinDiscord() ? 1 : 0);
 					}
 					else
@@ -8260,15 +5344,6 @@ public class ClientGameManager : MonoBehaviour
 					}
 					if (num4 != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						JoinDiscord();
 					}
 					else if (!DiscordClientInterface.IsSdkEnabled)
@@ -8286,26 +5361,8 @@ public class ClientGameManager : MonoBehaviour
 		IL_01b9:
 		if (!IsServer())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification.PlayerInfo != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameManager.SetPlayerInfo(notification.PlayerInfo);
 			}
 			if (gameInfo2 != null)
@@ -8314,15 +5371,6 @@ public class ClientGameManager : MonoBehaviour
 				gameManager.SetGameInfo(gameInfo2);
 				if (gameInfo2.GameStatus.IsActiveStatus())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					IEnumerator<GameStatus> enumerator = gameInfo2.GameStatus.GetValues().GetEnumerator();
 					try
 					{
@@ -8331,38 +5379,11 @@ public class ClientGameManager : MonoBehaviour
 							GameStatus current = enumerator.Current;
 							if (current.IsActiveStatus() && gameInfo2.GameStatus > current)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameStatus.IsActiveStatus())
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gameInfo2.GameStatus <= gameStatus)
 									{
 										continue;
-									}
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								SetGameStatus(current);
@@ -8400,15 +5421,6 @@ public class ClientGameManager : MonoBehaviour
 				gameManager.ForbiddenDevKnowledge = null;
 				if (gameManager.TeamPlayerInfo != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameManager.TeamPlayerInfo.Clear();
 				}
 				gameManager.GameInfo.GameConfig = new LobbyGameConfig();
@@ -8420,42 +5432,15 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (NavigationBar.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			NavigationBar.Get().UpdateStatusMessage();
 		}
 		if (m_gameResult == GameResult.Requeued)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (DiscordClientInterface.IsEnabled)
 		{
 			if (!DiscordClientInterface.IsSdkEnabled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!DiscordClientInterface.IsInstalled)
 				{
 					goto IL_053d;
@@ -8463,105 +5448,33 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					goto IL_03e7;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (flag3)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_03e7;
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					if (!flag3)
 					{
 						goto IL_053d;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!GroupInfo.InAGroup)
 				{
 					goto IL_0530;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_discordConnecting)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_discordConnected)
 					{
 						goto IL_0530;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				num3 = ((GetDiscordJoinType() == DiscordJoinType._000E) ? 1 : 0);
@@ -8572,40 +5485,13 @@ public class ClientGameManager : MonoBehaviour
 		IL_016f:
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_0199;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0199;
 		}
 		goto IL_01b9;
@@ -8623,15 +5509,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Warning("Ignoring info({0}) update for game {1}, expected game {2}", notification.GameInfo.GameStatus, gameInfo.GameServerProcessCode, gameManager.GameInfo.GameServerProcessCode);
 				return;
 			}
@@ -8640,27 +5517,9 @@ public class ClientGameManager : MonoBehaviour
 		int num2;
 		if (!IsServer() && DiscordClientInterface.Get().ChannelInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num;
 			if (gameInfo != null && gameInfo.GameStatus != GameStatus.Stopped)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (gameInfo.IsCustomGame ? 1 : 0);
 			}
 			else
@@ -8670,26 +5529,8 @@ public class ClientGameManager : MonoBehaviour
 			flag = ((byte)num != 0);
 			if (teamInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerInfo != null && gameManager.PlayerInfo != null && playerInfo.TeamId != Team.Invalid)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((playerInfo.TeamId != gameManager.PlayerInfo.TeamId) ? 1 : 0);
 					goto IL_0158;
 				}
@@ -8702,26 +5543,8 @@ public class ClientGameManager : MonoBehaviour
 		bool flag2 = (byte)num2 != 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DiscordUserInfo userInfo = DiscordClientInterface.Get().UserInfo;
 				JoinDiscordChannel(userInfo);
 			}
@@ -8730,15 +5553,6 @@ public class ClientGameManager : MonoBehaviour
 		IL_01d7:
 		if (!IsServer())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameInfo.GameConfig == null)
 			{
 				gameInfo.GameConfig = new LobbyGameConfig();
@@ -8754,39 +5568,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (gameManager.GameInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.GameInfo.GameConfig != null)
 			{
 				if (notification.TierCurrent != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (notification.TierCurrent.Tier != 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TierCurrent = notification.TierCurrent;
 						string tierName = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierCurrent.Tier);
 						Log.Info("We are currently at tier {0} (points {1})", tierName, notification.TierCurrent.Points);
@@ -8794,26 +5581,8 @@ public class ClientGameManager : MonoBehaviour
 				}
 				if (notification.TierChangeMin != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (notification.TierChangeMin.Tier != 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TierChangeMin = notification.TierChangeMin;
 						string tierName2 = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMin.Tier);
 						Log.Info("If we lose this game we could fall to tier {0} (points {1})", tierName2, notification.TierChangeMin.Points);
@@ -8821,26 +5590,8 @@ public class ClientGameManager : MonoBehaviour
 				}
 				if (notification.TierChangeMax != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (notification.TierChangeMax.Tier != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TierChangeMax = notification.TierChangeMax;
 						string tierName3 = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMax.Tier);
 						Log.Info("If we win this game we could rise to tier {0} (points {1})", tierName3, notification.TierChangeMax.Points);
@@ -8850,50 +5601,14 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (NavigationBar.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			NavigationBar.Get().UpdateStatusMessage();
 		}
 		if (AppState.GetCurrent() == AppState_GameLoading.Get())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameType != GameType.Tutorial)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UILoadingScreenPanel.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UILoadingScreenPanel.Get().ShowTeams();
 				}
 			}
@@ -8904,26 +5619,8 @@ public class ClientGameManager : MonoBehaviour
 		gameManager.SetPlayerInfo(playerInfo);
 		if (playerInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (teamInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (teamInfo.TeamPlayerInfo != null)
 				{
 					gameManager.SetTeamPlayerInfo(teamInfo.TeamInfo(playerInfo.TeamId).ToList());
@@ -8948,10 +5645,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("Ignoring status({0}) update for game {1}, we believe we're in game {2}", notification.GameStatus, notification.GameServerProcessCode, gameManager.GameInfo.GameServerProcessCode);
 					return;
 				}
@@ -8959,41 +5652,14 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (!IsServer())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameManager.GameInfo.GameStatus = notification.GameStatus;
 			if (notification.GameStatus != gameManager.GameStatus)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetGameStatus(notification.GameStatus);
 			}
 		}
 		if (NavigationBar.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			NavigationBar.Get().UpdateStatusMessage();
 		}
 		GameInfoNotification gameInfoNotification = new GameInfoNotification();
@@ -9021,15 +5687,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			WaitingForSkinSelectResponse.Clear();
 			return;
 		}
@@ -9051,10 +5708,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9062,26 +5715,8 @@ public class ClientGameManager : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		if ((bool)ReplayPlayManager.Get())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ResetLoadAssetsState();
 				Log.Info("Stub-connecting to replay system");
 				MyNetworkManager.Get().MyStartClientStub();
@@ -9090,15 +5725,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (gameManager.GameInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
 			{
 				if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
@@ -9111,30 +5737,12 @@ public class ClientGameManager : MonoBehaviour
 				MyNetworkManager.Get().MyStartClient(gameManager.GameInfo.GameServerAddress, Handle);
 				goto IL_014a;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Log.Error("Game server address is empty");
 		return;
 		IL_014a:
 		if (!m_registeredHandlers)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MyNetworkManager myNetworkManager = MyNetworkManager.Get();
 			myNetworkManager.m_OnClientConnect += HandleNetworkConnect;
 			myNetworkManager.m_OnClientDisconnect += HandleNetworkDisconnect;
@@ -9150,15 +5758,6 @@ public class ClientGameManager : MonoBehaviour
 		ClientObserverManager component = GetComponent<ClientObserverManager>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.ConnectingToGameServer();
 		}
 		SinglePlayerManager.UnregisterSpawnHandler();
@@ -9192,15 +5791,6 @@ public class ClientGameManager : MonoBehaviour
 				GameManager gameManager = GameManager.Get();
 				if (gameManager.GameInfo != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
 					{
 						if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
@@ -9239,31 +5829,9 @@ public class ClientGameManager : MonoBehaviour
 						m_lastSentMsgSeqNum = disconnectedConnection.lastMessageOutgoingSeqNum;
 						return true;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				Log.Error("Game server address is empty");
 				return false;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;
@@ -9281,15 +5849,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameManager.LoginRequest loginRequest = new GameManager.LoginRequest();
 			loginRequest.AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId);
 			loginRequest.SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken);
@@ -9314,32 +5873,10 @@ public class ClientGameManager : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		if ((bool)ReplayPlayManager.Get())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				Log.Info("Stub-connected to replay system", gameManager.GameInfo.GameServerAddress);
 				goto IL_008c;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Info("Connected to {0}", gameManager.GameInfo.GameServerAddress);
@@ -9365,10 +5902,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Network connect error");
 					return;
 				}
@@ -9386,31 +5919,9 @@ public class ClientGameManager : MonoBehaviour
 		GameResult gameResult = m_gameResult;
 		if (gameResult == GameResult.NoResult && MyConnection != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (MyConnection.CloseStatusCode == CloseStatusCode.PingTimeout)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 16;
 			}
 			else
@@ -9441,10 +5952,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9464,10 +5971,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9516,25 +6019,12 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (replayManagerFile.Restart)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Info("Starting replay save for {0}", GameManager.Get().GameInfo.GameServerProcessCode);
 			m_replayManagerAccumulated = string.Empty;
 		}
@@ -9576,10 +6066,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9588,15 +6074,6 @@ public class ClientGameManager : MonoBehaviour
 		object obj;
 		if (reconnectReplayStatus.WithinReconnectReplay)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = "Entering";
 		}
 		else
@@ -9607,15 +6084,6 @@ public class ClientGameManager : MonoBehaviour
 		Debug.LogFormat("{0} reconnection replay phase", array);
 		if (m_withinReconnectReplay != reconnectReplayStatus.WithinReconnectReplay)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_withinReconnectReplay = reconnectReplayStatus.WithinReconnectReplay;
 			if (!m_withinReconnectReplay)
 			{
@@ -9639,10 +6107,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9663,10 +6127,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9761,15 +6221,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.Get().Disable();
 			return;
 		}
@@ -9791,10 +6242,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -9851,10 +6298,6 @@ public class ClientGameManager : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							m_loadingCharacterResources.Add(characterResourceLink2);
 							characterResourceLink2.LoadAsync(teamPlayerInfo2.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
 							yield return new WaitForSeconds(delaySeconds);
@@ -9862,15 +6305,6 @@ public class ClientGameManager : MonoBehaviour
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IEnumerator<LobbyPlayerInfo> enumerator2 = gameManager.TeamInfo.TeamBPlayerInfo.GetEnumerator();
@@ -9896,15 +6330,6 @@ public class ClientGameManager : MonoBehaviour
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -9966,52 +6391,20 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (TeamInfo == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				AssetsLoadingState assetsLoadingState = m_assetsLoadingState;
 				float levelLoadProgress;
 				if (m_loadLevelOperationDone)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					levelLoadProgress = 1f;
 				}
 				else if (m_loadLevelOperation != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					levelLoadProgress = m_loadLevelOperation.progress;
 				}
 				else
@@ -10024,15 +6417,6 @@ public class ClientGameManager : MonoBehaviour
 				float vfxPreloadProgress;
 				if (ClientVFXLoader.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vfxPreloadProgress = ClientVFXLoader.Get().Progress;
 				}
 				else
@@ -10044,15 +6428,6 @@ public class ClientGameManager : MonoBehaviour
 				float spawningProgress;
 				if (m_spawnableObjectCount > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					spawningProgress = Mathf.Clamp((float)ClientScene.objects.Count / (float)m_spawnableObjectCount, 0f, 1f);
 				}
 				else
@@ -10070,15 +6445,6 @@ public class ClientGameManager : MonoBehaviour
 				}
 				if (!(Time.unscaledTime > m_lastLoadProgressUpdateSent + m_loadingProgressUpdateFrequency))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!force)
 					{
 						return;
@@ -10090,31 +6456,16 @@ public class ClientGameManager : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!Client.isConnected)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (IsRegisteredToGameServer)
 						{
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								GameManager.AssetsLoadingProgress assetsLoadingProgress = new GameManager.AssetsLoadingProgress();
 								assetsLoadingProgress.AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId;
 								assetsLoadingProgress.PlayerId = PlayerInfo.PlayerId;
@@ -10141,15 +6492,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -10157,15 +6499,6 @@ public class ClientGameManager : MonoBehaviour
 		int num;
 		if (m_loadLevelOperationDone)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((GameFlowData.Get() == null || GameFlowData.Get().gameState < GameState.Deployment) ? 1 : 0);
 		}
 		else
@@ -10175,27 +6508,9 @@ public class ClientGameManager : MonoBehaviour
 		bool flag = (byte)num != 0;
 		if (!m_loading)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_0085;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UpdateLoadProgress();
@@ -10207,66 +6522,21 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (m_loadLevelOperation != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_loadLevelOperation.isDone)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_loadLevelOperation = null;
 				m_loadLevelOperationDone = true;
 			}
 		}
 		if (m_loadLevelOperation == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_loadingCharacterResources.Count == 0 && !m_loadingCharacterAssets)
 			{
 				if (!(VisualsLoader.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!VisualsLoader.Get().LevelLoaded())
 					{
 						goto IL_0240;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (!(ClientVFXLoader.Get() == null))
@@ -10275,15 +6545,6 @@ public class ClientGameManager : MonoBehaviour
 					{
 						goto IL_0240;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (1 == 0)
 				{
@@ -10291,55 +6552,30 @@ public class ClientGameManager : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (ClientScene.localPlayers == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (ClientScene.localPlayers.Count <= 0)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							if (Client == null)
 							{
 								return;
 							}
 							while (true)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
 								if (!Client.isConnected)
 								{
 									return;
 								}
 								while (true)
 								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
 									ResetLoadAssetsState();
 									UpdateLoadProgress(true);
 									GameManager.AssetsLoadedNotification assetsLoadedNotification = new GameManager.AssetsLoadedNotification();
@@ -10366,22 +6602,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!(ClientVFXLoader.Get() != null) || ClientVFXLoader.Get().IsPreloadQueueEmpty())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!ClientVFXLoader.Get().IsPreloadInProgress())
 				{
 					Log.Info(Log.Category.Loading, "Starting VFX Preload");
@@ -10397,19 +6623,6 @@ public class ClientGameManager : MonoBehaviour
 		bool result = true;
 		if (GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -10417,29 +6630,11 @@ public class ClientGameManager : MonoBehaviour
 				{
 					if (!GroupInfo.Members[num].IsReady)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -10463,10 +6658,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -10483,57 +6674,17 @@ public class ClientGameManager : MonoBehaviour
 		int result = -1;
 		if (IsPlayerAccountDataAvailable())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SeasonWideData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(GetPlayerAccountData().QuestComponent.ActiveSeason);
 				for (int i = 0; i < seasonTemplate.Chapters.Count; i++)
 				{
 					SeasonChapter seasonChapter = seasonTemplate.Chapters[i];
 					if (seasonChapter.Prerequisites.Conditions.Count != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (seasonChapter.Prerequisites.Conditions.Count != 1)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (seasonChapter.Prerequisites.Conditions[0].ConditionType != QuestConditionType.HasDateTimePassed)
 						{
@@ -10542,26 +6693,8 @@ public class ClientGameManager : MonoBehaviour
 					}
 					if (QuestWideData.AreConditionsMet(seasonChapter.Prerequisites.Conditions, seasonChapter.Prerequisites.LogicStatement))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = i;
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -10579,10 +6712,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Player account data not loaded yet");
 					return null;
 				}
@@ -10604,70 +6733,21 @@ public class ClientGameManager : MonoBehaviour
 				List<GameMapConfig> gameMapConfigs = subType.GameMapConfigs;
 				if (_003C_003Ef__am_0024cache1 == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					_003C_003Ef__am_0024cache1 = ((GameMapConfig p) => p.IsActive);
 				}
 				if (!gameMapConfigs.Exists(_003C_003Ef__am_0024cache1))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (subType.Requirements == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						subType.Requirements = RequirementCollection.Create();
 					}
 					RequirementCollection requirements = subType.Requirements;
 					if (_003C_003Ef__am_0024cache2 == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache2 = ((QueueRequirement p) => p is QueueRequirement_Never);
 					}
 					if (!requirements.Exists(_003C_003Ef__am_0024cache2))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						subType.Requirements.Add(QueueRequirement_Never.Create(QueueRequirement.RequirementType.AdminDisabled, null));
 					}
 				}
@@ -10677,15 +6757,6 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 				{
 					goto IL_01ec;
@@ -10710,10 +6781,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"We do not yet handle RankedOverviewChangeNotification for game type {notification.GameType}");
 				}
 			}
@@ -10725,11 +6792,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			uIRankedModeSelectScreen.ProcessTierInfoPerGroupSize(notification.TierInfoPerGroupSize);
 			return;
 		}
@@ -10751,10 +6813,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					this.OnQuestCompleteNotification(notification);
 					return;
 				}
@@ -10779,19 +6837,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (LoginRewardNotification != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("received a second login notification! - should not");
 		}
 		LoginRewardNotification = notification;
@@ -10802,19 +6847,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				if (!IsPlayerAccountDataAvailable())
@@ -10834,15 +6866,6 @@ public class ClientGameManager : MonoBehaviour
 				GetPlayerAccountData().AccountComponent.GetPlayerCompetitionFactionData(notification.CompetitionId, notification.FactionId).TotalXP = notification.TotalXP;
 				this.OnPlayerFactionContributionChangeNotification(notification);
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Error("Not connected to lobby server for Faction Contribution Change");
@@ -10873,10 +6896,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.GetPlayerMatchData(onResponseCallback);
 					return;
 				}
@@ -10900,10 +6919,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Player character data not loaded yet");
 					return -1;
 				}
@@ -10936,10 +6951,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Player character data not loaded yet");
 					return null;
 				}
@@ -10972,10 +6983,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Player character data not loaded yet");
 					return null;
 				}
@@ -10995,10 +7002,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value;
 				}
 			}
@@ -11010,19 +7013,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11047,30 +7037,8 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (response.Success)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_loadedPlayerCharacterData.TryGetValue(response.Character, out PersistedCharacterData value))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value.CharacterComponent.Mods.Add(response.UnlockData);
 			}
 			this.OnModUnlocked(response.Character, response.UnlockData);
@@ -11112,10 +7080,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RecordFailureInCharacterSelectUpdateResponse(response, "HandleSelectLoadoutUpdateResponse");
 					return;
 				}
@@ -11128,11 +7092,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			UIRankedCharacterSelectSettingsPanel.Get().NotifyLoadoutUpdate(response);
 			return;
 		}
@@ -11142,19 +7101,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11184,19 +7130,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.PurchaseModToken(numToPurchase, HandlePurchaseModTokenResponse);
@@ -11214,15 +7147,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Failed to purchase Mod Token");
 			return;
 		}
@@ -11232,19 +7156,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (response.Success)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NotifyGGPackUsed(response);
 		}
 		else
@@ -11256,15 +7167,6 @@ public class ClientGameManager : MonoBehaviour
 			}
 			else if (!response.ErrorMessage.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = $"{response.ErrorMessage}#NeedsLocalization";
 			}
 			else
@@ -11303,35 +7205,16 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!VisualSceneLoaded)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (DesignSceneStarted)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						SendClientPreparedForGameStartNotification();
 						PlayerObjectStartedOnClient = false;
 						InGameUIActivated = false;
@@ -11354,19 +7237,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (GameplayData.Get() == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("SendClientPreparedForGameStartNotification, but GameplayData is null");
 		}
 		if (GameFlowData.Get() == null)
@@ -11394,19 +7264,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11442,15 +7299,6 @@ public class ClientGameManager : MonoBehaviour
 										}
 										if (m_loadedPlayerAccountData != null)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											bool flag = false;
 											List<CharacterType> lastRemoteCharacters = m_loadedPlayerAccountData.AccountComponent.LastRemoteCharacters;
 											int num = 0;
@@ -11465,29 +7313,11 @@ public class ClientGameManager : MonoBehaviour
 															num++;
 															continue;
 														}
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 													}
 													flag = true;
 												}
 												else
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												break;
 											}
@@ -11523,19 +7353,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11547,15 +7364,6 @@ public class ClientGameManager : MonoBehaviour
 					default:
 						if (m_loadedPlayerAccountData != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_loadedPlayerAccountData.AccountComponent.SelectedTitleID == newTitleID)
 							{
 								while (true)
@@ -11574,32 +7382,10 @@ public class ClientGameManager : MonoBehaviour
 						{
 							if (m_loadedPlayerAccountData != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								m_loadedPlayerAccountData.AccountComponent.SelectedTitleID = response.CurrentTitleID;
 							}
 							if (onResponse != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								onResponse(response);
 							}
 							GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -11630,19 +7416,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11657,15 +7430,6 @@ public class ClientGameManager : MonoBehaviour
 							if (m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID == newBannerID)
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							if (m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID == newBannerID)
 							{
@@ -11686,30 +7450,8 @@ public class ClientGameManager : MonoBehaviour
 							GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 							if (m_loadedPlayerAccountData != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (gameBalanceVars != null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID = response.ForegroundBannerID;
 									m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID = response.BackgroundBannerID;
 									this.OnPlayerBannerChange(gameBalanceVars.GetBanner(response.ForegroundBannerID), gameBalanceVars.GetBanner(response.BackgroundBannerID));
@@ -11732,19 +7474,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11764,19 +7493,6 @@ public class ClientGameManager : MonoBehaviour
 								}
 								if (onResponse != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									onResponse(response);
 								}
 								GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -11808,19 +7524,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -11832,15 +7535,6 @@ public class ClientGameManager : MonoBehaviour
 					default:
 						if (m_loadedPlayerAccountData != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_loadedPlayerAccountData.AccountComponent.IsLoadingScreenBackgroundUnlocked(loadingScreenId))
 							{
 								while (true)
@@ -11880,10 +7574,6 @@ public class ClientGameManager : MonoBehaviour
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										return;
 									}
 								}
@@ -11933,10 +7623,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.SendRankedLeaderboardOverviewRequest(gameType, groupSize, specification, onResponse);
 					return;
 				}
@@ -11953,19 +7639,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.RequestUpdateUIState(uiState, stateValue, delegate(UpdateUIStateResponse response)
@@ -11983,10 +7656,6 @@ public class ClientGameManager : MonoBehaviour
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								onResponse(response);
 								return;
 							}
@@ -12003,34 +7672,12 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_loadedPlayerAccountData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_loadedPlayerAccountData.AccountComponent.PushToTalkKeyType = keyType;
 			m_loadedPlayerAccountData.AccountComponent.PushToTalkKeyCode = keyCode;
 			m_loadedPlayerAccountData.AccountComponent.PushToTalkKeyName = keyName;
 		}
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.SetPushToTalkKey(keyType, keyCode, keyName);
@@ -12048,15 +7695,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface._001D(_001D, _000E);
@@ -12073,38 +7711,15 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_lobbyGameClientInterface.IsConnected)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
 				if (_003C_003Ef__am_0024cache3 == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache3 = delegate(DEBUG_ForceMatchmakingResponse response)
 					{
 						string text = (!response.Success) ? $"Failed to force queue: {response.ErrorMessage}" : $"Forced queue {response.GameType}";
@@ -12118,10 +7733,6 @@ public class ClientGameManager : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									Log.Info(text);
 									return;
 								}
@@ -12144,15 +7755,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_lobbyGameClientInterface.IsConnected)
 			{
 				return;
@@ -12160,33 +7762,11 @@ public class ClientGameManager : MonoBehaviour
 			LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
 			if (_003C_003Ef__am_0024cache4 == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache4 = delegate(DEBUG_TakeSnapshotResponse response)
 				{
 					string text;
 					if (response.Success)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						text = $"Snapshot taken {response.SnapshotId}";
 					}
 					else
@@ -12229,19 +7809,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.SendRejoinGameRequest(GameInfo, accept, onResponseCallback);
@@ -12257,83 +7824,25 @@ public class ClientGameManager : MonoBehaviour
 		DiscordJoinType result = DiscordJoinType._001D;
 		if (DiscordClientInterface.IsSdkEnabled)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SettingsState.VoiceChatMode voiceChatMode = SettingsState.VoiceChatMode.None;
 			if (DiscordClientInterface.CanJoinTeamChat)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				voiceChatMode = Options_UI.Get().GetGameModeVoiceChat();
 				if (voiceChatMode != SettingsState.VoiceChatMode.Team && !DiscordClientInterface.CanJoinGroupChat)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					voiceChatMode = SettingsState.VoiceChatMode.Team;
 				}
 			}
 			if (voiceChatMode == SettingsState.VoiceChatMode.None && DiscordClientInterface.CanJoinGroupChat)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				voiceChatMode = SettingsState.VoiceChatMode.Group;
 			}
 			if (voiceChatMode == SettingsState.VoiceChatMode.Team)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = DiscordJoinType._0012;
 			}
 			else if (voiceChatMode == SettingsState.VoiceChatMode.Group)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = DiscordJoinType._000E;
 			}
 		}
@@ -12350,28 +7859,10 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (voiceChatMode2 == SettingsState.VoiceChatMode.Group)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = DiscordJoinType._000E;
 			}
 			else if (voiceChatMode2 == SettingsState.VoiceChatMode.Team)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = DiscordJoinType._0012;
 			}
 		}
@@ -12396,15 +7887,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_discordConnected)
 			{
 				while (true)
@@ -12424,25 +7906,11 @@ public class ClientGameManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_discordConnecting = true;
 				m_discordJoinType = discordJoinType;
 				LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
 				if (_003C_003Ef__am_0024cache5 == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache5 = delegate(DiscordGetRpcTokenResponse response)
 					{
 						if (response.Success)
@@ -12455,10 +7923,6 @@ public class ClientGameManager : MonoBehaviour
 									break;
 								default:
 								{
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									DiscordAuthInfo authInfo = new DiscordAuthInfo
 									{
 										ClientId = response.DiscordClientId,
@@ -12487,15 +7951,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.SendDiscordJoinServerRequest(userInfo.UserId, userInfo.AccessToken, m_discordJoinType, delegate(DiscordJoinServerResponse response)
@@ -12509,10 +7964,6 @@ public class ClientGameManager : MonoBehaviour
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (m_discordJoinType != 0)
 								{
 									while (true)
@@ -12562,19 +8013,6 @@ public class ClientGameManager : MonoBehaviour
 		string text = string.Format(StringUtil.TR("ClickToJoinDiscordTeamChat", "Global"));
 		if (!DiscordClientInterface.IsSdkEnabled)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TextConsole.Get().Write(text);
 		}
 		DiscordClientInterface.Get().Disconnect();
@@ -12593,27 +8031,9 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
 			if (_003C_003Ef__am_0024cache6 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache6 = delegate(DiscordGetAccessTokenResponse response)
 				{
 					if (response.Success)
@@ -12626,10 +8046,6 @@ public class ClientGameManager : MonoBehaviour
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								DiscordUserInfo userInfo = new DiscordUserInfo
 								{
 									AccessToken = response.DiscordAccessToken
@@ -12666,30 +8082,8 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lobbyGameClientInterface.SendDiscordLeaveServerRequest(m_discordJoinType, delegate(DiscordLeaveServerResponse response)
 				{
 					Log.Info("Remove user from Discord server {0} (result {1})", m_discordJoinType, response.Success);
@@ -12707,19 +8101,6 @@ public class ClientGameManager : MonoBehaviour
 		int value;
 		if (autoJoin)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = 1;
 		}
 		else
@@ -12731,15 +8112,6 @@ public class ClientGameManager : MonoBehaviour
 		string arg;
 		if (autoJoin)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg = StringUtil.TR("Enabled", "Global");
 		}
 		else
@@ -12749,15 +8121,6 @@ public class ClientGameManager : MonoBehaviour
 		string text = string.Format(format, arg);
 		if (DiscordClientInterface.s_debugOutput)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += ((!DiscordClientInterface.IsSdkEnabled) ? " (DesktopApp)" : " (SDK)");
 		}
 		TextConsole.Get().Write(text);
@@ -12771,15 +8134,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lobbyGameClientInterface.SendFacebookGetUserTokenRequest(delegate(FacebookGetUserTokenResponse response)
 			{
 				if (response.Success)
@@ -12787,19 +8141,6 @@ public class ClientGameManager : MonoBehaviour
 					string language = HydrogenConfig.Get().Language;
 					if (message.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						message = "Atlas Reactor at " + DateTime.Now;
 					}
 					FacebookClientInterface.Get().Connect(response.OAuthInfo, language, message);
@@ -12825,47 +8166,16 @@ public class ClientGameManager : MonoBehaviour
 					QuestProgress questProgress2 = progress[questProgress.Id];
 					if (questProgress2.ObjectiveProgress.Count != questProgress.ObjectiveProgress.Count)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						flag = true;
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (Dictionary<int, int>.Enumerator enumerator = questProgress2.ObjectiveProgress.GetEnumerator())
 						{
 							while (true)
 							{
 								if (!enumerator.MoveNext())
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								KeyValuePair<int, int> current = enumerator.Current;
@@ -12911,15 +8221,6 @@ public class ClientGameManager : MonoBehaviour
 					list.Add(questProgress);
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_loadedPlayerAccountData = accountData;
 		this.OnAccountDataUpdated(accountData);
@@ -12931,15 +8232,6 @@ public class ClientGameManager : MonoBehaviour
 			{
 				CurrencyData current2 = enumerator2.Current;
 				this.OnBankBalanceChange(current2);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -12989,10 +8281,6 @@ public class ClientGameManager : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_008b;
 					}
 				}
@@ -13013,10 +8301,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GroupInfo.SetCharacterInfo(notification.ChararacterInfo);
 					Log.Info("Server forcing us to switch to {0}", notification.ChararacterInfo.CharacterType.GetDisplayName());
 					return;
@@ -13046,24 +8330,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (PlayerWallet != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					PlayerWallet.SetValue(notification.NewBalance);
 					this.OnBankBalanceChange(notification.NewBalance);
 					return;
@@ -13077,19 +8347,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_loadedPlayerAccountData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_loadedPlayerAccountData.QuestComponent.ActiveSeason = notification.SeasonStartedIndex;
 		}
 		this.OnSeasonCompleteNotification(notification);
@@ -13115,10 +8372,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -13143,11 +8396,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			this.OnChapterUnlockNotification(notification.SeasonIndex, notification.ChapterIndex + 1);
 			return;
 		}
@@ -13161,24 +8409,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_lobbyGameClientInterface.SendPlayerCharacterFeedback(feedbackData);
 					return;
 				}
@@ -13191,19 +8425,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13236,10 +8457,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.RequestToJoinGroup(friendHandle, onResponseCallback);
 					return;
 				}
@@ -13255,19 +8472,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13300,10 +8504,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.ChatToGroup(text, onResponseCallback);
 					return;
 				}
@@ -13319,19 +8519,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13357,19 +8544,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.KickFromGroup(memberName, onResponseCallback);
@@ -13393,10 +8567,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.UpdateFriend(friendHandle, friendAccountId, operation, strData, onResponseCallback);
 					return;
 				}
@@ -13408,11 +8578,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			FriendUpdateResponse friendUpdateResponse = new FriendUpdateResponse();
 			friendUpdateResponse.Success = false;
 			friendUpdateResponse.ErrorMessage = StringUtil.TR("NotConnectedToLobbyServer", "Global");
@@ -13434,21 +8599,8 @@ public class ClientGameManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (_003C_003Ef__am_0024cache7 == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache7 = delegate(PlayerUpdateStatusResponse resonse)
 						{
 							if (!resonse.Success)
@@ -13471,19 +8623,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13518,19 +8657,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13553,19 +8679,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13588,19 +8701,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13623,19 +8723,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13658,19 +8745,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13700,10 +8774,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.PurchaseTint(currencyType, characterType, skinId, textureId, tintId, onResponseCallback);
 					return;
 				}
@@ -13716,19 +8786,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13758,10 +8815,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.PurchaseStoreItemForCash(inventoryTemplateId, paymentMethodId, onResponseCallback);
 					return;
 				}
@@ -13774,19 +8827,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13821,19 +8861,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.PurchaseInventoryItem(inventoryItemID, currencyType, onResponseCallback);
@@ -13854,10 +8881,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.PurchaseTitle(currencyType, titleId, onResponseCallback);
 					return;
 				}
@@ -13870,19 +8893,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13905,19 +8915,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.PurchaseBannerForeground(currencyType, emblemId, onResponseCallback);
@@ -13931,19 +8928,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -13966,19 +8950,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14001,19 +8972,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14036,19 +8994,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14081,19 +9026,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14116,19 +9048,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14140,26 +9059,8 @@ public class ClientGameManager : MonoBehaviour
 					default:
 						if (onResponseCallback == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (_003C_003Ef__am_0024cache8 == null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								_003C_003Ef__am_0024cache8 = delegate
 								{
 								};
@@ -14179,19 +9080,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14214,19 +9102,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14256,10 +9131,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.AbandonDailyQuest(questId, onResponseCallback);
 					return;
 				}
@@ -14272,19 +9143,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14314,10 +9172,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.BeginQuest(questId, onResponseCallback);
 					return;
 				}
@@ -14342,19 +9196,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14376,10 +9217,6 @@ public class ClientGameManager : MonoBehaviour
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										onResponseCallback(response);
 										return;
 									}
@@ -14398,19 +9235,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14425,30 +9249,8 @@ public class ClientGameManager : MonoBehaviour
 						{
 							if (response.Success)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (m_loadedPlayerAccountData != null)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_loadedPlayerAccountData.InventoryComponent.Items = response.Items;
 								}
 							}
@@ -14481,19 +9283,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14533,19 +9322,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.ConsumeInventoryItem(itemId, itemCount, toISO, onResponseCallback);
@@ -14566,10 +9342,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.ConsumeInventoryItems(itemIds, toISO, onResponseCallback);
 					return;
 				}
@@ -14582,19 +9354,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14617,19 +9376,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14652,19 +9398,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -14687,19 +9420,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				m_lobbyGameClientInterface.NotifyCustomKeyBinds(CustomKeyBinds);
@@ -14720,10 +9440,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.NotifyOptions(notification);
 					return;
 				}
@@ -14743,21 +9459,8 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_lobbyGameClientInterface != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_lobbyGameClientInterface.IsConnected)
 						{
 							m_lobbyGameClientInterface.RequestPaymentMethods(onResponseCallback);
@@ -14796,10 +9499,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lobbyGameClientInterface.RequestRefreshBankData(onResponseCallback);
 					return;
 				}
@@ -14837,10 +9536,6 @@ public class ClientGameManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int maxTitleLevel = GameWideData.Get().m_gameBalanceVars.GetMaxTitleLevel(title.ID);
 					int currentTitleLevel = GetCurrentTitleLevel(title.ID);
 					return currentTitleLevel >= maxTitleLevel;
@@ -14905,19 +9600,6 @@ public class ClientGameManager : MonoBehaviour
 		unlockConditionValues = new List<GameBalanceVars.UnlockConditionValue>();
 		if (unlockData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!unlockData.UnlockConditions.IsNullOrEmpty())
 			{
 				for (int i = 0; i < unlockData.UnlockConditions.Length; i++)
@@ -14929,11 +9611,6 @@ public class ClientGameManager : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					for (int j = 0; j < unlockData.UnlockConditions.Length; j++)
 					{
 						GameBalanceVars.UnlockCondition unlockCondition = unlockData.UnlockConditions[j];
@@ -14945,15 +9622,6 @@ public class ClientGameManager : MonoBehaviour
 							PersistedCharacterData persistedCharacterData = m_loadedPlayerCharacterData.TryGetValue((CharacterType)unlockCondition.typeSpecificData);
 							if (persistedCharacterData != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								unlockConditionValue.typeSpecificData = unlockCondition.typeSpecificData;
 								unlockConditionValue.typeSpecificData2 = persistedCharacterData.ExperienceComponent.Level;
 							}
@@ -14977,26 +9645,8 @@ public class ClientGameManager : MonoBehaviour
 							{
 								break;
 							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out long value))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								unlockConditionValue.typeSpecificData3 = FactionWideData.Get().GetCompetitionFactionTierReached(unlockCondition.typeSpecificData, unlockCondition.typeSpecificData2, value);
 							}
 							break;
@@ -15017,11 +9667,6 @@ public class ClientGameManager : MonoBehaviour
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						return unlockData.AreUnlockConditionsMet(unlockConditionValues, ignorePurchaseCondition);
 					}
 				}
@@ -15052,10 +9697,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_loadedPlayerAccountData.AccountComponent.SelectedTitleID;
 				}
 			}
@@ -15074,10 +9715,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GameWideData.Get().m_gameBalanceVars.GetBanner(m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID);
 				}
 			}
@@ -15089,41 +9726,10 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_loadedPlayerAccountData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID != -1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameWideData.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameWideData.Get().m_gameBalanceVars != null)
 					{
 						while (true)
@@ -15147,41 +9753,10 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_loadedPlayerAccountData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_loadedPlayerAccountData.AccountComponent.SelectedRibbonID != -1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameWideData.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameWideData.Get().m_gameBalanceVars != null)
 					{
 						return GameWideData.Get().m_gameBalanceVars.GetRibbon(m_loadedPlayerAccountData.AccountComponent.SelectedRibbonID);
@@ -15208,10 +9783,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -15223,15 +9794,6 @@ public class ClientGameManager : MonoBehaviour
 			{
 				ExperienceComponent current = enumerator.Current;
 				num += current.Level;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return GetDisplayedStatString(data.ExperienceComponent.Level, num, data.ExperienceComponent.Wins);
@@ -15270,27 +9832,9 @@ public class ClientGameManager : MonoBehaviour
 		case GameStatus.FreelancerSelecting:
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num2;
 				if (GameManager.Get().GameConfig != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (int)GameManager.Get().GameConfig.GameType;
 				}
 				else
@@ -15300,64 +9844,19 @@ public class ClientGameManager : MonoBehaviour
 				GameType gameType = (GameType)num2;
 				if (gameType != GameType.Practice)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameType != GameType.Solo)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameType != GameType.Duel)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameType != 0)
 							{
 								return StringUtil.TR("DuplicateFreelancers", "Global");
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 				}
 				if (gameType != GameType.Practice)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameType != GameType.Solo)
 					{
 						return StringUtil.TR("LockedIn", "Global");
@@ -15368,41 +9867,14 @@ public class ClientGameManager : MonoBehaviour
 		default:
 			if (GroupInfo != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GroupInfo.InAGroup)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = 0;
 					bool flag = false;
 					for (int i = 0; i < GroupInfo.Members.Count; i++)
 					{
 						if (GroupInfo.Members[i].AccountID == Get().GetPlayerAccountData().AccountId)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent() && AppState_GroupCharacterSelect.Get().IsReady())
 							{
 								flag = true;
@@ -15414,26 +9886,8 @@ public class ClientGameManager : MonoBehaviour
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (AppState_CharacterSelect.IsReady())
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = true;
 									num++;
 								}
@@ -15441,26 +9895,8 @@ public class ClientGameManager : MonoBehaviour
 						}
 						else if (GroupInfo.Members[i].IsReady)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num++;
 						}
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (flag)
 					{
@@ -15496,44 +9932,13 @@ public class ClientGameManager : MonoBehaviour
 						break;
 					default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							int num = client.error.IndexOf(": ");
 							if (client.error.StartsWith("Failed to connect to"))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num > 0)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num + 2 < client.error.Length)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										arg = client.error.Substring(num + 2, client.error.Length - num - 2);
 										goto IL_0165;
 									}
@@ -15571,30 +9976,8 @@ public class ClientGameManager : MonoBehaviour
 		int result;
 		if (AlertMissionsData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AlertMissionsData.CurrentAlert != null && AlertMissionsData.CurrentAlert.Type == AlertMissionType.Quest)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((AlertMissionsData.CurrentAlert.QuestId == questId) ? 1 : 0);
 				goto IL_0061;
 			}
@@ -15648,10 +10031,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -15850,10 +10229,6 @@ public class ClientGameManager : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return StringUtil.TR("Placement", "RankMode");
 						}
 					}
@@ -15891,10 +10266,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value.GameLeavingPenalty.PointsGainedForLeaving > 0f;
 				}
 			}
@@ -15913,19 +10284,6 @@ public class ClientGameManager : MonoBehaviour
 		Details = new QueueBlockOutReasonDetails();
 		if (GameTypeAvailabilies != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IQueueRequirementApplicant queueRequirementApplicant = QueueRequirementApplicant;
 			if (queueRequirementApplicant == null)
 			{
@@ -15935,15 +10293,6 @@ public class ClientGameManager : MonoBehaviour
 			int num;
 			if (GroupInfo != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (GroupInfo.InAGroup ? 1 : 0);
 			}
 			else
@@ -15953,35 +10302,12 @@ public class ClientGameManager : MonoBehaviour
 			RequirementMessageContext context = (num == 0) ? RequirementMessageContext.SoloQueueing : RequirementMessageContext.GroupQueueing;
 			if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!value.Requirements.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!value.IsActive)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							return LocalizationPayload.Create((gameType != GameType.Ranked) ? "GameModeUnavailable@Global" : "RankedNotYetAvailable@RankMode");
 						}
 					}
@@ -16011,15 +10337,6 @@ public class ClientGameManager : MonoBehaviour
 									IQueueRequirementApplicant current2 = enumerator2.Current;
 									if (!current.DoesApplicantPass(queueRequirementSystemInfo, current2, gameType, null))
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!current.AnyGroupMember)
 										{
 											while (true)
@@ -16083,15 +10400,6 @@ public class ClientGameManager : MonoBehaviour
 								}
 							}
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					finally
 					{
@@ -16122,65 +10430,16 @@ public class ClientGameManager : MonoBehaviour
 		bool result = false;
 		if (GameTypeAvailabilies != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IQueueRequirementApplicant queueRequirementApplicant = QueueRequirementApplicant;
 			if (queueRequirementApplicant != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 				if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (value.Requirements != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!value.IsActive)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 						}
 						else
@@ -16226,15 +10485,6 @@ public class ClientGameManager : MonoBehaviour
 													UpdateGroupMemberData updateGroupMemberData = scratchGroupQueueApplicant.m_member = member;
 													if (!current.DoesApplicantPass(queueRequirementSystemInfo, scratchGroupQueueApplicant, gameType, null))
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (!current.AnyGroupMember)
 														{
 															while (true)
@@ -16267,15 +10517,6 @@ public class ClientGameManager : MonoBehaviour
 												}
 												if (flag)
 												{
-													while (true)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													result = false;
 												}
 											}
@@ -16307,41 +10548,10 @@ public class ClientGameManager : MonoBehaviour
 		bool result = true;
 		if (!GameTypeAvailabilies.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value) && !value.QueueableGroupSizes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value.QueueableGroupSizes.TryGetValue(groupSize, out RequirementCollection value2))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!value2.IsNullOrEmpty())
 					{
 						IQueueRequirementSystemInfo queueRequirementSystemInfo = QueueRequirementSystemInfo;
@@ -16353,27 +10563,9 @@ public class ClientGameManager : MonoBehaviour
 								QueueRequirement current = enumerator.Current;
 								if (!current.DoesApplicantPass(queueRequirementSystemInfo, queueRequirementApplicant, gameType, null))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									bool flag = false;
 									if (current.AnyGroupMember)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										IEnumerator<IQueueRequirementApplicant> enumerator2 = GroupMembersAsQueueApplicants.GetEnumerator();
 										try
 										{
@@ -16445,10 +10637,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("No valid GameTypeAvailabilites loaded yet for {0}", gameType);
 					return null;
 				}
@@ -16460,26 +10648,8 @@ public class ClientGameManager : MonoBehaviour
 			{
 				return LocalizationPayload.Create("BadGroupSizeForQueue", "Matchmaking", LocalizationArg_Int32.Create(groupSize));
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!value2.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				IQueueRequirementSystemInfo queueRequirementSystemInfo = QueueRequirementSystemInfo;
 				IQueueRequirementApplicant queueRequirementApplicant = QueueRequirementApplicant;
 				IEnumerator<QueueRequirement> enumerator = value2.GetEnumerator();
@@ -16490,15 +10660,6 @@ public class ClientGameManager : MonoBehaviour
 						QueueRequirement current = enumerator.Current;
 						if (!current.DoesApplicantPass(queueRequirementSystemInfo, queueRequirementApplicant, gameType, null))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag = false;
 							if (current.AnyGroupMember)
 							{
@@ -16557,15 +10718,6 @@ public class ClientGameManager : MonoBehaviour
 										int num;
 										if (groupSize > 1)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num = 2;
 										}
 										else
@@ -16587,15 +10739,6 @@ public class ClientGameManager : MonoBehaviour
 								}
 							}
 						}
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				finally
@@ -16632,10 +10775,6 @@ public class ClientGameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GameSubType.CalculatePivotSubTypes(currentMask, GameSubType.SubTypeMods.AntiSocial, value.SubTypes);
 				}
 			}
@@ -16657,10 +10796,6 @@ public class ClientGameManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					using (List<GameSubType>.Enumerator enumerator = value.SubTypes.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -16699,19 +10834,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!value.SubTypes.IsNullOrEmpty())
 			{
 				while (true)
@@ -16755,19 +10877,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
@@ -16789,11 +10898,6 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			onResponseCallback(new SetGameSubTypeResponse
 			{
 				Success = false,
@@ -16811,24 +10915,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lobbyGameClientInterface.IsConnected)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_lobbyGameClientInterface.SetNewSessionLanguage(languageCode);
 					return;
 				}
@@ -16841,19 +10931,6 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (!FreeRotationAdditions.IsNullOrEmpty() && FreeRotationAdditions.TryGetValue(characterType, out RequirementCollection value))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IQueueRequirementApplicant queueRequirementApplicant = QueueRequirementApplicant;
 			IQueueRequirementSystemInfo queueRequirementSystemInfo = QueueRequirementSystemInfo;
 			if (value.DoesApplicantPass(queueRequirementSystemInfo, queueRequirementApplicant, gameType, gameSubType))

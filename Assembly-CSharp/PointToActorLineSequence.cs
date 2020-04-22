@@ -27,15 +27,6 @@ public class PointToActorLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -57,45 +48,14 @@ public class PointToActorLineSequence : Sequence
 	{
 		if (!m_fxJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Target, m_fxJointReferenceType);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxJoint.Initialize(referenceModel);
 			}
 		}
 		if (m_fxPrefab != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 targetPos = base.TargetPos;
 			m_fx = InstantiateFX(m_fxPrefab, targetPos, default(Quaternion));
 		}
@@ -103,15 +63,6 @@ public class PointToActorLineSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -126,11 +77,6 @@ public class PointToActorLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			return;
 		}

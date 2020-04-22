@@ -36,19 +36,6 @@ public class PointCondition
 	{
 		if (whenRelationship == WhenRelationship.OnlyAfterTurnLimit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!timeLimitExpired)
 			{
 				while (true)
@@ -65,15 +52,6 @@ public class PointCondition
 		}
 		if (whenRelationship == WhenRelationship.OnlyBeforeTurnLimit)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (timeLimitExpired)
 			{
 				while (true)
@@ -90,15 +68,6 @@ public class PointCondition
 		}
 		if (subtractEnemyPoints)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			allyPoints -= enemyPoints;
 		}
 		bool flag;
@@ -133,15 +102,6 @@ public class PointCondition
 			{
 				if (CaptureTheFlag.AreCtfVictoryConditionsMetForTeam(m_CTF_conditions, team))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 				else
@@ -150,15 +110,6 @@ public class PointCondition
 				}
 				goto IL_0118;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		flag2 = true;
 		goto IL_0118;
@@ -166,28 +117,10 @@ public class PointCondition
 		bool flag3;
 		if (m_CTC_conditions != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_CTC_conditions.Length != 0)
 			{
 				if (CollectTheCoins.AreCtcVictoryConditionsMetForTeam(m_CTC_conditions, team))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 				}
 				else
@@ -196,15 +129,6 @@ public class PointCondition
 				}
 				goto IL_0163;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		flag3 = true;
 		goto IL_0163;
@@ -212,15 +136,6 @@ public class PointCondition
 		int result;
 		if (flag && flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag3 ? 1 : 0);
 		}
 		else
@@ -236,32 +151,10 @@ public class PointCondition
 		WhenRelationship whenRelationship = this.whenRelationship;
 		if (whenRelationship != WhenRelationship.OnlyAfterTurnLimit)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (whenRelationship == WhenRelationship.OnlyBeforeTurnLimit)
 			{
 				if (bTimeLimitExpired)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = "ERROR(too late)";
 				}
 				else
@@ -272,15 +165,6 @@ public class PointCondition
 		}
 		else if (!bTimeLimitExpired)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "ERROR(too soon)";
 		}
 		else
@@ -317,23 +201,9 @@ public class PointCondition
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			string result;
 			if (text.Length > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = text + " and " + text2;
 			}
 			else

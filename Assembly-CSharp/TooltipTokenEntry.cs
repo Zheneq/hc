@@ -112,10 +112,6 @@ public abstract class TooltipTokenEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -124,15 +120,6 @@ public abstract class TooltipTokenEntry
 		object substitute;
 		if (boldCaretToken)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			substitute = "<b><color=#FFC000>";
 		}
 		else
@@ -144,15 +131,6 @@ public abstract class TooltipTokenEntry
 		object substitute2;
 		if (boldCaretToken)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			substitute2 = "</color></b>";
 		}
 		else
@@ -174,28 +152,10 @@ public abstract class TooltipTokenEntry
 						tooltipNow = GetStringWithReplacements(tooltipNow, stringToReplace, replacementString);
 					}
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (tooltipNow.IndexOf("%") >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tooltipNow = GetStringWithReplacements(tooltipNow, "%</color><color=#FFC000>%</color>", "%</color>");
 			tooltipNow = GetStringWithReplacements(tooltipNow, "%</color>%", "%</color>");
 		}
@@ -207,19 +167,6 @@ public abstract class TooltipTokenEntry
 		int length = toReplace.Length;
 		if (length != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipNow != null)
 			{
 				int num = 0;
@@ -230,15 +177,6 @@ public abstract class TooltipTokenEntry
 					num++;
 				}
 				return tooltipNow;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return tooltipNow;
@@ -264,33 +202,11 @@ public abstract class TooltipTokenEntry
 				int startIndex = num2 + length;
 				if (num3 > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					startIndex = num3 + 1;
 				}
 				tooltipNow = tooltipNow.Substring(0, num2) + "[^" + tooltipNow.Substring(startIndex);
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -310,19 +226,6 @@ public abstract class TooltipTokenEntry
 		List<StatusType> list = new List<StatusType>();
 		if (s_statusTypeToKeywords != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!string.IsNullOrEmpty(input) && input.IndexOf("[^", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
 				while (true)
@@ -340,15 +243,6 @@ public abstract class TooltipTokenEntry
 							{
 								if (input.IndexOf(value[i], StringComparison.OrdinalIgnoreCase) >= 0)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(s_statusTypeToKeyword.Key);
 									break;
 								}

@@ -77,15 +77,6 @@ namespace I2.Loc
 				while ((object)action != action2);
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -101,15 +92,6 @@ namespace I2.Loc
 				while ((object)action != action2);
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -132,30 +114,8 @@ namespace I2.Loc
 				{
 					goto IL_00f0;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (Category == EmptyCategory)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mTerm.Term.IndexOfAny(CategorySeparators) < 0)
 					{
 						goto IL_00f0;
@@ -185,19 +145,6 @@ namespace I2.Loc
 			AppendString(Builder, Term, Separator);
 			if (!string.IsNullOrEmpty(prefix))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Builder.Append(prefix);
 			}
 			Builder.Append(Separator);
@@ -213,26 +160,8 @@ namespace I2.Loc
 				bool flag = (termData.Flags[i] & FlagBitMask) > 0;
 				if (string.IsNullOrEmpty(text))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (aSecLanguages != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = aSecLanguages[i];
 						flag = ((termData.Flags[i] & SecFlagBitMask) > 0);
 					}
@@ -258,10 +187,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -308,19 +233,6 @@ namespace I2.Loc
 					string current = enumerator.Current;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						flag = false;
 					}
 					else
@@ -331,15 +243,6 @@ namespace I2.Loc
 					stringBuilder.Append(current);
 					stringBuilder.Append("<I2Loc>");
 					stringBuilder.Append(value);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return stringBuilder.ToString();
@@ -371,19 +274,6 @@ namespace I2.Loc
 			};
 			if (array.Length > 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ArrayContains(array[0], texts))
 				{
 					while (true)
@@ -396,39 +286,12 @@ namespace I2.Loc
 						{
 							if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ClearAllData();
 							}
 							if (array.Length > 2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ArrayContains(array[1], texts2))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = 1;
 									num = 2;
 								}
@@ -439,26 +302,8 @@ namespace I2.Loc
 							}
 							if (array.Length > 3)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ArrayContains(array[2], texts2))
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = 2;
 									num = 3;
 								}
@@ -469,26 +314,8 @@ namespace I2.Loc
 							}
 							if (array.Length > 4)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ArrayContains(array[3], texts4))
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 = 3;
 									num = 4;
 								}
@@ -501,15 +328,6 @@ namespace I2.Loc
 								int num5 = -1;
 								if (!string.IsNullOrEmpty(code))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num5 = GetLanguageIndexFromCode(code);
 								}
 								else
@@ -518,15 +336,6 @@ namespace I2.Loc
 								}
 								if (num5 < 0)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									LanguageData languageData = new LanguageData();
 									languageData.Name = Language;
 									languageData.Code = code;
@@ -550,15 +359,6 @@ namespace I2.Loc
 										TermData termData = mTerms[j];
 										if (termData.Languages.Length < num4)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											Array.Resize(ref termData.Languages, num4);
 											Array.Resize(ref termData.Languages_Touch, num4);
 											Array.Resize(ref termData.Flags, num4);
@@ -571,15 +371,6 @@ namespace I2.Loc
 										object obj;
 										if (string.IsNullOrEmpty(Category))
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											obj = array[0];
 										}
 										else
@@ -599,26 +390,8 @@ namespace I2.Loc
 											TermData termData2 = GetTermData(Term);
 											if (termData2 == null)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (UpdateMode == eSpreadsheetUpdateMode.Merge)
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													continue;
 												}
 												termData2 = new TermData();
@@ -630,42 +403,15 @@ namespace I2.Loc
 												{
 													termData2.Languages[l] = (termData2.Languages_Touch[l] = string.Empty);
 												}
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												mTerms.Add(termData2);
 												mDictionary.Add(Term, termData2);
 											}
 											else if (UpdateMode == eSpreadsheetUpdateMode.AddNewTerms)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												continue;
 											}
 											if (num2 > 0)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												termData2.TermType = GetTermType(array[num2]);
 											}
 											if (num3 > 0)
@@ -675,15 +421,6 @@ namespace I2.Loc
 											int num6 = 0;
 											if (UpdateMode == eSpreadsheetUpdateMode.Merge)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num6 = 1;
 												if (termData2.TermType == eTermType.Texture)
 												{
@@ -694,53 +431,17 @@ namespace I2.Loc
 											{
 												if (m >= array.Length - num)
 												{
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													break;
 												}
 												if (!string.IsNullOrEmpty(array[m + num]))
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													string text = array[m + num];
 													bool flag2 = text.StartsWith("[i2auto]");
 													if (flag2)
 													{
-														while (true)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														text = text.Substring("[isauto]".Length);
 														if (text.StartsWith("\""))
 														{
-															while (true)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (text.EndsWith("\""))
 															{
 																text = text.Substring(1, text.Length - 2);
@@ -750,27 +451,9 @@ namespace I2.Loc
 													int num7 = array2[m];
 													if (flag)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														termData2.Languages_Touch[num7] = text;
 														if (flag2)
 														{
-															while (true)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															termData2.Flags[num7] |= 2;
 														}
 														else
@@ -783,15 +466,6 @@ namespace I2.Loc
 														termData2.Languages[num7] = text;
 														if (flag2)
 														{
-															while (true)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															termData2.Flags[num7] |= 1;
 														}
 														else
@@ -835,25 +509,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return false;
 			}
 		}
@@ -870,25 +530,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (eTermType)i;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				return eTermType.Text;
 			}
 		}
@@ -904,10 +550,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -933,26 +575,8 @@ namespace I2.Loc
 			string sourcePlayerPrefName = GetSourcePlayerPrefName();
 			if (!ForceUpdate)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GoogleUpdateFrequency != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string string2 = PlayerPrefs.GetString("LastGoogleUpdate_" + sourcePlayerPrefName, string.Empty);
 					if (DateTime.TryParse(string2, out DateTime result))
 					{
@@ -960,37 +584,10 @@ namespace I2.Loc
 						eGoogleUpdateFrequency googleUpdateFrequency = GoogleUpdateFrequency;
 						if (googleUpdateFrequency != eGoogleUpdateFrequency.Daily)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (googleUpdateFrequency != eGoogleUpdateFrequency.Weekly)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (googleUpdateFrequency != eGoogleUpdateFrequency.Monthly)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else if (totalDays < 31.0)
 								{
@@ -1052,10 +649,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						yield break;
 					}
 				}
@@ -1067,22 +660,8 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (string.IsNullOrEmpty(www.error))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (www.text != "\"\"")
 					{
 						while (true)
@@ -1097,15 +676,6 @@ namespace I2.Loc
 								Import_Google_Result(www.text, eSpreadsheetUpdateMode.Replace);
 								if (this.Event_OnSourceUpdateFromGoogle != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.Event_OnSourceUpdateFromGoogle(this);
 								}
 								LocalizationManager.LocalizeAll();
@@ -1135,19 +705,6 @@ namespace I2.Loc
 			int result;
 			if (!string.IsNullOrEmpty(Google_WebServiceURL))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((!string.IsNullOrEmpty(Google_SpreadsheetKey)) ? 1 : 0);
 			}
 			else
@@ -1166,15 +723,6 @@ namespace I2.Loc
 				{
 					if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClearAllData();
 					}
 					int num = JsonString.IndexOf("version=");
@@ -1204,52 +752,16 @@ namespace I2.Loc
 								Import_CSV(category, cSVstring, UpdateMode);
 								if (UpdateMode == eSpreadsheetUpdateMode.Replace)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UpdateMode = eSpreadsheetUpdateMode.Merge;
 								}
 							}
 							while (true)
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
 								return empty;
 							}
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					return "Invalid Response from Google, Most likely the WebService needs to be updated";
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			Debug.Log("Language Source was up to date");
@@ -1260,19 +772,6 @@ namespace I2.Loc
 		{
 			if (Categories == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Categories = new List<string>();
 			}
 			using (List<TermData>.Enumerator enumerator = mTerms.GetEnumerator())
@@ -1283,26 +782,8 @@ namespace I2.Loc
 					string categoryFromFullTerm = GetCategoryFromFullTerm(current.Term, OnlyMainCategory);
 					if (!Categories.Contains(categoryFromFullTerm))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Categories.Add(categoryFromFullTerm);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Categories.Sort();
@@ -1315,19 +796,6 @@ namespace I2.Loc
 			string result;
 			if (num < 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = FullTerm;
 			}
 			else
@@ -1342,19 +810,6 @@ namespace I2.Loc
 			int num;
 			if (OnlyMainCategory)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = FullTerm.IndexOfAny(CategorySeparators);
 			}
 			else
@@ -1365,15 +820,6 @@ namespace I2.Loc
 			string result;
 			if (num2 < 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = EmptyCategory;
 			}
 			else
@@ -1395,10 +841,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Category = EmptyCategory;
 						Key = FullTerm;
 						return;
@@ -1418,19 +860,6 @@ namespace I2.Loc
 		{
 			if (NeverDestroy)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ManagerHasASimilarSource())
 				{
 					UnityEngine.Object.Destroy(this);
@@ -1438,15 +867,6 @@ namespace I2.Loc
 				}
 				if (Application.isPlaying)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 				}
 			}
@@ -1458,19 +878,6 @@ namespace I2.Loc
 		{
 			if (!force)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (mDictionary != null && mDictionary.Count == mTerms.Count)
 				{
 					while (true)
@@ -1488,15 +895,6 @@ namespace I2.Loc
 			StringComparer stringComparer;
 			if (CaseInsensitiveTerms)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringComparer = StringComparer.OrdinalIgnoreCase;
 			}
 			else
@@ -1506,15 +904,6 @@ namespace I2.Loc
 			StringComparer stringComparer2 = stringComparer;
 			if (mDictionary.Comparer != stringComparer2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mDictionary = new Dictionary<string, TermData>(stringComparer2);
 			}
 			else
@@ -1527,27 +916,9 @@ namespace I2.Loc
 				ValidateFullTerm(ref mTerms[i].Term);
 				if (mTerms[i].Languages_Touch != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mTerms[i].Languages_Touch.Length == mTerms[i].Languages.Length)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				mTerms[i].Languages_Touch = new string[mTerms[i].Languages.Length];
@@ -1575,15 +946,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return text;
 			}
 		}
@@ -1599,36 +961,13 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return i;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (AllowDiscartingRegion)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = -1;
 					int num2 = 0;
 					int j = 0;
@@ -1637,15 +976,6 @@ namespace I2.Loc
 						int commonWordInLanguageNames = GetCommonWordInLanguageNames(mLanguages[j].Name, language);
 						if (commonWordInLanguageNames > num2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = commonWordInLanguageNames;
 							num = j;
 						}
@@ -1679,25 +1009,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return i;
 				}
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return -1;
 			}
 		}
@@ -1706,19 +1022,6 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(Language1))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!string.IsNullOrEmpty(Language2))
 				{
 					string[] array = (from x in Language1.Split("( )-/\\".ToCharArray())
@@ -1727,15 +1030,6 @@ namespace I2.Loc
 					string[] source = Language2.Split("( )-/\\".ToCharArray());
 					if (_003C_003Ef__am_0024cache1 == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache1 = ((string x) => !string.IsNullOrEmpty(x));
 					}
 					string[] array2 = source.Where(_003C_003Ef__am_0024cache1).ToArray();
@@ -1745,25 +1039,11 @@ namespace I2.Loc
 					{
 						if (array2.Contains(value))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num++;
 						}
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						string[] array4 = array2;
 						foreach (string value2 in array4)
 						{
@@ -1774,23 +1054,9 @@ namespace I2.Loc
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							return num;
 						}
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return 0;
@@ -1815,10 +1081,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return Language;
 					}
 				}
@@ -1846,15 +1108,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -1879,15 +1132,6 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Array.Resize(ref mTerms[num].Languages, count - 1);
 					Array.Resize(ref mTerms[num].Languages_Touch, count - 1);
 					Array.Resize(ref mTerms[num].Flags, count - 1);
@@ -1909,15 +1153,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return list;
 			}
 		}
@@ -1934,10 +1169,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}
@@ -1955,19 +1186,6 @@ namespace I2.Loc
 			int languageIndex = GetLanguageIndex(LocalizationManager.CurrentLanguage);
 			if (languageIndex >= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TermData termData = GetTermData(term);
 				if (termData != null)
 				{
@@ -1981,15 +1199,6 @@ namespace I2.Loc
 							Translation = termData.GetTranslation(languageIndex);
 							if (Translation.IsNullOrEmpty())
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Translation = termData.GetTranslation(0);
 							}
 							return true;
@@ -2017,25 +1226,12 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
 			}
 			if (mDictionary.Count == 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UpdateDictionary();
 			}
 			if (mDictionary.TryGetValue(term, out TermData value))
@@ -2059,27 +1255,9 @@ namespace I2.Loc
 							{
 								if (item.Value.IsTerm(keyFromFullTerm, true))
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (termData != null)
 									{
 										return null;
-									}
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									termData = item.Value;
 								}
@@ -2102,19 +1280,6 @@ namespace I2.Loc
 		{
 			if (mDictionary.Count != mTerms.Count)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UpdateDictionary();
 			}
 			return new List<string>(mDictionary.Keys);
@@ -2154,15 +1319,6 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					mTerms.RemoveAt(i);
 					mDictionary.Remove(term);
 					return;
@@ -2190,15 +1346,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Term = Term.Substring(EmptyCategory.Length + 1);
 				return;
 			}
@@ -2215,10 +1362,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -2232,21 +1375,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (Source.mTerms.Count != mTerms.Count)
 				{
 					return false;
@@ -2259,21 +1392,11 @@ namespace I2.Loc
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						return false;
 					}
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
@@ -2289,31 +1412,9 @@ namespace I2.Loc
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!languageSource.IsEqualTo(this))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!(languageSource != this))
 				{
@@ -2321,21 +1422,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return false;
 			}
 		}
@@ -2351,33 +1442,11 @@ namespace I2.Loc
 		{
 			if (Assets != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int i = 0;
 				for (int num = Assets.Length; i < num; i++)
 				{
 					if (Assets[i] != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Assets[i].name == Name)
 						{
 							return Assets[i];

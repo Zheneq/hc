@@ -62,81 +62,23 @@ public class UIQueueListPanel : MonoBehaviour
 		UIPhase result = UIPhase.None;
 		if (priority != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (priority != AbilityPriority.Prep_Offense)
 			{
 				if (priority == AbilityPriority.Evasion)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = UIPhase.Evasion;
 				}
 				else
 				{
 					if (priority != AbilityPriority.Combat_Damage)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (priority != AbilityPriority.DEPRICATED_Combat_Charge)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (priority != AbilityPriority.Combat_Knockback)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (priority != AbilityPriority.Combat_Final)
 								{
 									goto IL_006c;
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -174,34 +116,12 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		if (m_CancelAllButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerClick, OnCancelAllClick);
 			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerEnter, OnCancelAllMouseEnter);
 			UIEventTriggerUtils.AddListener(m_CancelAllButton.gameObject, EventTriggerType.PointerExit, OnCancelAllMouseExit);
 		}
 		if (m_CancelAllHover != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_CancelAllHover, false);
 		}
 		DoneQueueFadeAnim();
@@ -221,26 +141,8 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 				ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 				for (int i = 0; i < 14; i++)
@@ -251,15 +153,6 @@ public class UIQueueListPanel : MonoBehaviour
 						HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.RemovedAbility(actionType);
 						component2.RequestCancelAction(actionType, false);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				component2.RequestCancelMovement();
 			}
@@ -288,15 +181,6 @@ public class UIQueueListPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_queuedActions[i].SetUpMovement(m_clickCancelled);
 				m_movementQueueIndex = i;
 				m_movementQueueIndexToChangeTo = i;
@@ -334,27 +218,9 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num2;
 			if (num != 5)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((!m_queuedActions[num + 1].IsActiveQueued()) ? 1 : 0);
 			}
 			else
@@ -382,15 +248,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (activeOwnedActorData.HasQueuedMovement())
 			{
 				while (true)
@@ -402,15 +259,6 @@ public class UIQueueListPanel : MonoBehaviour
 					default:
 						if (!m_isMovementQueued)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AddMovementToQueue();
 						}
 						m_isMovementQueued = true;
@@ -420,15 +268,6 @@ public class UIQueueListPanel : MonoBehaviour
 			}
 			if (m_isMovementQueued)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RemoveMovementFromQueue();
 			}
 			m_isMovementQueued = false;
@@ -453,30 +292,8 @@ public class UIQueueListPanel : MonoBehaviour
 				{
 					break;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (i < m_movementQueueIndex)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_movementQueueIndexToChangeTo = m_movementQueueIndex - 1;
 				}
 				break;
@@ -509,19 +326,6 @@ public class UIQueueListPanel : MonoBehaviour
 		{
 			if (m_queuedActions[i].IsActiveQueued())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_queuedActions[i].GetActionType() == entry)
 				{
 					m_queuedActions[i].EnabledCancelTauntButton(true);
@@ -549,19 +353,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		if (m_isMovementQueued)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_queuedActions[m_movementQueueIndex].SetUpMovement(m_clickCancelled);
 		}
 		m_clickCancelled = false;
@@ -578,15 +369,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
 			int num = 0;
@@ -595,26 +377,12 @@ public class UIQueueListPanel : MonoBehaviour
 			{
 				if (abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]) != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]));
 				}
 				num++;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 				for (int j = 0; j < requestStackForUndo.Count; j++)
 				{
@@ -625,60 +393,19 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					int num2 = 0;
 					for (int k = 0; k < 6; k++)
 					{
 						if (m_queuedActions[k].IsMovement())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						if (num2 < list.Count)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_queuedActions[k].GetQueuedAbility() != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_queuedActions[k].GetQueuedAbility().ability == list[num2].ability)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2++;
 									continue;
 								}
@@ -688,41 +415,14 @@ public class UIQueueListPanel : MonoBehaviour
 						{
 							if (m_queuedActions[k].GetQueuedAbility() != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability))
 								{
 									if (m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_queuedActions[k].ClearAction(true, m_abilityListRefreshed);
 										m_changedDisplay = true;
 									}
 									continue;
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							m_queuedActions[k].SetupAbility(list[num2], abilityData.GetActionTypeOfAbility(list[num2].ability), abilityData, m_abilityListRefreshed);
@@ -732,15 +432,6 @@ public class UIQueueListPanel : MonoBehaviour
 						}
 						else if (m_queuedActions[k].IsActiveQueued())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_changedDisplay = true;
 							m_queuedActions[k].ClearAction(true, m_abilityListRefreshed);
 						}
@@ -785,19 +476,6 @@ public class UIQueueListPanel : MonoBehaviour
 		bool flag;
 		if (m_movementQueueIndexToChangeTo != m_movementQueueIndex)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_queuedActions[m_movementQueueIndex].ClearAction(false, true);
 			m_queuedActions[m_movementQueueIndex].SetCardTransformVisible(false);
 			m_queuedActions[m_movementQueueIndex].SetAbilityTransformVisible(false);
@@ -805,27 +483,9 @@ public class UIQueueListPanel : MonoBehaviour
 			flag = false;
 			if (m_movementQueueIndexToChangeTo != m_queuedActions.Length - 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_queuedActions[m_movementQueueIndexToChangeTo + 1].IsActiveQueued())
 				{
 					goto IL_00c1;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = true;
@@ -835,15 +495,6 @@ public class UIQueueListPanel : MonoBehaviour
 		IL_00c1:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_queuedActions[m_movementQueueIndexToChangeTo].SetGlow(true);
 		}
 		m_movementQueueIndex = m_movementQueueIndexToChangeTo;
@@ -871,41 +522,14 @@ public class UIQueueListPanel : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_queuedActions[i].GetActionType() == actionType)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_queuedActions[i].m_animationController.Play("QueueItem_LeaveQueue");
 				SetCancelAnimPlaying(true);
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			RemovedAbility(actionType);
 			m_abilityCancelRequested = true;
 			return;
@@ -916,30 +540,8 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null && GameFlowData.Get().IsInDecisionState())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_changedDisplay)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_changedDisplay = false;
 				bool flag = false;
 				int num = 0;
@@ -950,64 +552,19 @@ public class UIQueueListPanel : MonoBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i != num + 1)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i != 0)
 						{
 							if (!m_cancelAnimationPlaying)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_queuedActions[i].ClearAction();
 							}
 							continue;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					flag = true;
 					num = i;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				m_queuedActions[num].SetGlow(true);
 				if (!flag)
@@ -1019,15 +576,6 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				else if (!m_queueLabel.gameObject.activeSelf)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_queueLabel, true);
 					queueLabelOpacity = 0f;
 					m_labelVisible = true;
@@ -1039,15 +587,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		if (m_labelVisible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetQueueLineOpacity(queueLabelOpacity + Time.deltaTime);
 		}
 		else
@@ -1084,11 +623,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 a2 = new Vector3(queueLabelColor.r, queueLabelColor.g, queueLabelColor.b);
 			float num3 = Time.time - m_colorchangeStartTime;
 			float t2 = num3 / m_colorDistance;

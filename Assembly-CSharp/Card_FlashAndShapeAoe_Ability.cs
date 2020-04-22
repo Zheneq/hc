@@ -37,19 +37,6 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		int num;
 		if (m_casterHitEffect.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 2;
 		}
 		else
@@ -65,20 +52,10 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_tags.Add(AbilityTags.UseTeleportUIEffect);
 					return;
 				}
@@ -97,19 +74,6 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				while (true)

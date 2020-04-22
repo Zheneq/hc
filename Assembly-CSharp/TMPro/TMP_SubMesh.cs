@@ -118,25 +118,12 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
 				}
 				if (m_fallbackMaterial != null && m_fallbackMaterial != value)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				}
 				m_fallbackMaterial = value;
@@ -187,19 +174,6 @@ namespace TMPro
 			{
 				if (m_renderer == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_renderer = GetComponent<Renderer>();
 				}
 				return m_renderer;
@@ -242,19 +216,6 @@ namespace TMPro
 			{
 				if (m_boxCollider == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_boxCollider = GetComponent<BoxCollider>();
 					if (m_boxCollider == null)
 					{
@@ -270,19 +231,6 @@ namespace TMPro
 		{
 			if (!m_isRegisteredForEvents)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_isRegisteredForEvents = true;
 			}
 			meshFilter.sharedMesh = mesh;
@@ -292,11 +240,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_sharedMaterial.SetVector(ShaderUtilities.ID_ClipRect, new Vector4(-32767f, -32767f, 32767f, 32767f));
 				return;
 			}
@@ -311,15 +254,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				m_fallbackMaterial = null;
 				return;
@@ -330,32 +264,10 @@ namespace TMPro
 		{
 			if (m_mesh != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.DestroyImmediate(m_mesh);
 			}
 			if (m_fallbackMaterial != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				m_fallbackMaterial = null;
 			}
@@ -395,31 +307,9 @@ namespace TMPro
 			}
 			if (!(m_material == null))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_material.GetInstanceID() == mat.GetInstanceID())
 				{
 					goto IL_006b;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_material = CreateMaterialInstance(mat);
@@ -474,15 +364,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_TextComponent.havePropertiesChanged = true;
 				m_TextComponent.SetVerticesDirty();
 				return;
@@ -498,19 +379,6 @@ namespace TMPro
 		{
 			if (m_renderer == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_renderer = renderer;
 			}
 			m_renderer.sharedMaterial = m_sharedMaterial;
@@ -527,10 +395,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -546,11 +410,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 center = (mAX_16BIT + mIN_16BIT) / 2f;
 				Vector3 size = mIN_16BIT - mAX_16BIT;
 				size.z = 0.1f;

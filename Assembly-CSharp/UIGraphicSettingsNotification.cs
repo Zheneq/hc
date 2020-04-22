@@ -26,19 +26,6 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 	{
 		if (m_callback != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_callback();
 		}
 		SetVisible(false, null);
@@ -54,15 +41,6 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (s_instance == null)
 			{
 				Log.Warning("Called to display Graphic Settings Notification Visible while HUD has not been loaded in yet");
@@ -79,24 +57,10 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_graphicSettingsContainer.gameObject.activeSelf != s_isVisible)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_graphicSettingsContainer, s_isVisible);
 					return;
 				}

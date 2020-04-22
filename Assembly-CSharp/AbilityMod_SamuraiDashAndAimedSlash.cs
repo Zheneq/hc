@@ -36,15 +36,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_maxAngleForLaserMod, "MaxAngleForLaser", string.Empty, samuraiDashAndAimedSlash.m_maxAngleForLaser);
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, samuraiDashAndAimedSlash.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, samuraiDashAndAimedSlash.m_laserRange);
@@ -67,19 +58,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = samuraiDashAndAimedSlash.m_maxAngleForLaser;
 		}
 		else
@@ -92,15 +70,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiDashAndAimedSlash.m_laserWidth;
 		}
 		else
@@ -113,15 +82,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiDashAndAimedSlash.m_laserRange;
 		}
 		else
@@ -136,15 +96,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = samuraiDashAndAimedSlash.m_extraDamageIfSingleTarget;
 		}
 		else
@@ -157,15 +108,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = samuraiDashAndAimedSlash.m_targetEffect;
 		}
 		else
@@ -178,15 +120,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = samuraiDashAndAimedSlash.m_effectOnSelf;
 		}
 		else

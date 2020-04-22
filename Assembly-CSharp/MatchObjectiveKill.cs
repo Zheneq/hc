@@ -24,19 +24,6 @@ public class MatchObjectiveKill : MatchObjective
 					}
 					return true;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			return false;
 		}
@@ -99,15 +86,6 @@ public class MatchObjectiveKill : MatchObjective
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				pointsForDyingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForDyingTeam;
 				pointsForKillingTeam = m_characterTypeOverrides[i].m_pointAdjustOverrideForKillingTeam;
 				return;
@@ -135,24 +113,10 @@ public class MatchObjectiveKill : MatchObjective
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsActorRelevant(actor))
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
 					Team team = actor.GetTeam();
 					objectivePoints.AdjustPoints(pointsForDyingTeam, team);
@@ -173,15 +137,6 @@ public class MatchObjectiveKill : MatchObjective
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
 			Team team = actor.GetTeam();
 			objectivePoints.AdjustUnresolvedPoints(pointsForDyingTeam, team);
@@ -189,15 +144,6 @@ public class MatchObjectiveKill : MatchObjective
 			int teamToAdjust;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamToAdjust = 1;
 			}
 			else

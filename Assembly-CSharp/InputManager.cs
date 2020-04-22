@@ -57,15 +57,6 @@ public class InputManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
 			return;
 		}
@@ -112,19 +103,6 @@ public class InputManager : MonoBehaviour
 		}
 		if (primary)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value.m_primary = 0;
 			value.m_modifierKey1 = 0;
 			value.m_additionalModifierKey1 = 0;
@@ -151,10 +129,6 @@ public class InputManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -171,15 +145,6 @@ public class InputManager : MonoBehaviour
 				{
 					if (primary)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value.m_primary = (int)keyCode;
 						value.m_modifierKey1 = (int)modifierKey;
 						value.m_additionalModifierKey1 = (int)additionalModifierKey;
@@ -199,103 +164,31 @@ public class InputManager : MonoBehaviour
 							KeyBindingCommand keyBindingCommand2 = GameWideData.Get().GetKeyBindingCommand(key.ToString());
 							if (keyBindingCommand2 == null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Could not find KeyBindingCommand for {0} in GameWideData", key.ToString());
 								continue;
 							}
 							if (!keyBindingCommand2.Settable)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 							if (keyBindingCommand.Category != 0 && keyBindingCommand2.Category != 0)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (keyBindingCommand2.Category != keyBindingCommand.Category)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									continue;
 								}
 							}
 							if (key == preference)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (primary)
 								{
 									goto IL_01ed;
 								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (current.Value.m_primary == (int)keyCode)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.Value.m_modifierKey1 == (int)modifierKey)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (current.Value.m_additionalModifierKey1 == (int)additionalModifierKey)
 									{
 										current.Value.m_primary = 0;
@@ -308,65 +201,20 @@ public class InputManager : MonoBehaviour
 							IL_01ed:
 							if (key == preference)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!primary)
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (current.Value.m_secondary == (int)keyCode)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.Value.m_modifierKey2 == (int)modifierKey && current.Value.m_additionalModifierKey2 == (int)additionalModifierKey)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									current.Value.m_secondary = 0;
 									current.Value.m_modifierKey2 = 0;
 									current.Value.m_additionalModifierKey2 = 0;
 								}
 							}
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					m_heaviliyModifiedCommandCache.Clear();
@@ -391,15 +239,6 @@ public class InputManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_keyCodeMapping.Clear();
 			m_heaviliyModifiedCommandCache.Clear();
 			bool flag = false;
@@ -438,41 +277,10 @@ public class InputManager : MonoBehaviour
 		int result;
 		if (key != KeyCode.RightControl)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (key != KeyCode.LeftControl)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key != KeyCode.RightShift && key != KeyCode.LeftShift && key != KeyCode.RightAlt)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((key == KeyCode.LeftAlt) ? 1 : 0);
 					goto IL_005a;
 				}
@@ -510,19 +318,6 @@ public class InputManager : MonoBehaviour
 		int result;
 		if (!Input.GetKey(KeyCode.LeftControl))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (Input.GetKey(KeyCode.RightControl) ? 1 : 0);
 		}
 		else
@@ -542,19 +337,6 @@ public class InputManager : MonoBehaviour
 		int result;
 		if (!Input.GetKey(KeyCode.LeftShift))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (Input.GetKey(KeyCode.RightShift) ? 1 : 0);
 		}
 		else
@@ -570,45 +352,14 @@ public class InputManager : MonoBehaviour
 		additionalModifier = KeyCode.None;
 		if (IsControlDown())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			modifier = KeyCode.LeftControl;
 		}
 		else if (IsAltDown())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modifier = KeyCode.LeftAlt;
 		}
 		else if (IsShiftDown())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modifier = KeyCode.LeftShift;
 		}
 		if (modifier == KeyCode.LeftControl)
@@ -648,20 +399,10 @@ public class InputManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (IsShiftDown())
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					additionalModifier = KeyCode.LeftShift;
 					return;
 				}
@@ -675,30 +416,8 @@ public class InputManager : MonoBehaviour
 		int result;
 		if (key != KeyCode.Pause)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (key != KeyCode.ScrollLock && key != KeyCode.Break && key != KeyCode.Mouse0 && key != KeyCode.Mouse1 && key != KeyCode.Menu)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key != KeyCode.Slash && key != KeyCode.Return)
 				{
 					result = ((key == KeyCode.KeypadEnter) ? 1 : 0);
@@ -738,19 +457,6 @@ public class InputManager : MonoBehaviour
 		bool flag = true;
 		if (modifierKey != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = CheckModifierDown(modifierKey);
 		}
 		if (flag && additionalModifierKey != 0)
@@ -778,55 +484,15 @@ public class InputManager : MonoBehaviour
 					KeyCodeData value = enumerator.Current.Value;
 					if (value.m_primary == (int)key)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (modifierKey == KeyCode.None)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (value.m_modifierKey1 != 0)
 							{
 								goto IL_00af;
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (additionalModifierKey == KeyCode.None && value.m_additionalModifierKey1 != 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_00af;
 						}
 					}
@@ -854,52 +520,16 @@ public class InputManager : MonoBehaviour
 						{
 							goto IL_0121;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (additionalModifierKey != 0)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (value.m_additionalModifierKey2 == 0)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0121;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_heaviliyModifiedCommandCache[key2] = list;
@@ -928,43 +558,12 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (key != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (keyDownType != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (keyDownType != KeyActionType.KeyDown)
 				{
 					if (keyDownType != KeyActionType.KeyUp)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -983,27 +582,9 @@ public class InputManager : MonoBehaviour
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num;
 			if (IsModifierDown(modifierKey, additionalModifierKey))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!IsMoreHeavilyModifiedKeyCommandDown(key, modifierKey, additionalModifierKey)) ? 1 : 0);
 			}
 			else
@@ -1020,68 +601,19 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (actionName != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!UIUtils.InputFieldHasFocus())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIUtils.SettingKeybindCommand())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AccountPreferences.DoesApplicationHaveFocus())
 					{
 						KeyCodeData value = null;
 						m_keyCodeMapping.TryGetValue((int)actionName, out value);
 						if (value != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num;
 							if (!CheckKeyAction((KeyCode)value.m_primary, (KeyCode)value.m_modifierKey1, (KeyCode)value.m_additionalModifierKey1, KeyActionType.KeyHeld))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = (CheckKeyAction((KeyCode)value.m_secondary, (KeyCode)value.m_modifierKey2, (KeyCode)value.m_additionalModifierKey2, KeyActionType.KeyHeld) ? 1 : 0);
 							}
 							else
@@ -1092,26 +624,8 @@ public class InputManager : MonoBehaviour
 						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_controlPadMapping.ContainsKey((int)actionName))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ControlpadInputValue controlpadInputValue = m_controlPadMapping[(int)actionName];
 								if (controlpadInputValue != ControlpadInputValue.INVALID)
 								{
@@ -1120,15 +634,6 @@ public class InputManager : MonoBehaviour
 							}
 						}
 						goto IL_0105;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1144,30 +649,8 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (actionName != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!UIUtils.InputFieldHasFocus() && !UIUtils.SettingKeybindCommand())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AccountPreferences.DoesApplicationHaveFocus())
 				{
 					KeyCodeData value = null;
@@ -1177,15 +660,6 @@ public class InputManager : MonoBehaviour
 						int num;
 						if (!CheckKeyAction((KeyCode)value.m_primary, (KeyCode)value.m_modifierKey1, (KeyCode)value.m_additionalModifierKey1, KeyActionType.KeyDown))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (CheckKeyAction((KeyCode)value.m_secondary, (KeyCode)value.m_modifierKey2, (KeyCode)value.m_additionalModifierKey2, KeyActionType.KeyDown) ? 1 : 0);
 						}
 						else
@@ -1196,41 +670,14 @@ public class InputManager : MonoBehaviour
 					}
 					if (!flag && m_controlPadMapping.ContainsKey((int)actionName))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ControlpadInputValue value2 = ControlpadInputValue.INVALID;
 						m_controlPadMapping.TryGetValue((int)actionName, out value2);
 						if (value2 != ControlpadInputValue.INVALID)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = ControlpadGameplay.Get().GetButtonDown(value2);
 						}
 					}
 					goto IL_00f5;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = false;
@@ -1253,27 +700,9 @@ public class InputManager : MonoBehaviour
 					m_keyCodeMapping.TryGetValue((int)actionName, out value);
 					if (value != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num;
 						if (!CheckKeyAction((KeyCode)value.m_primary, (KeyCode)value.m_modifierKey1, (KeyCode)value.m_additionalModifierKey1, KeyActionType.KeyUp))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (CheckKeyAction((KeyCode)value.m_secondary, (KeyCode)value.m_modifierKey2, (KeyCode)value.m_additionalModifierKey2, KeyActionType.KeyUp) ? 1 : 0);
 						}
 						else
@@ -1284,48 +713,17 @@ public class InputManager : MonoBehaviour
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_controlPadMapping.ContainsKey((int)actionName))
 						{
 							ControlpadInputValue value2 = ControlpadInputValue.INVALID;
 							m_controlPadMapping.TryGetValue((int)actionName, out value2);
 							if (value2 != ControlpadInputValue.INVALID)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = ControlpadGameplay.Get().GetButtonUp(value2);
 							}
 						}
 					}
 					goto IL_00e9;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			flag = false;
@@ -1356,19 +754,6 @@ public class InputManager : MonoBehaviour
 				int num;
 				if (value.m_primary != (int)code)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = ((value.m_secondary == (int)code) ? 1 : 0);
 				}
 				else
@@ -1387,30 +772,8 @@ public class InputManager : MonoBehaviour
 		KeyCodeData value = null;
 		if (m_keyCodeMapping.TryGetValue((int)actionName, out value))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (primaryKey)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = GetFullKeyString((KeyCode)value.m_primary, (KeyCode)value.m_modifierKey1, (KeyCode)value.m_additionalModifierKey1, shortStr);
 			}
 			else
@@ -1430,82 +793,24 @@ public class InputManager : MonoBehaviour
 		string modifierKeyString2 = GetModifierKeyString(additionalModifierKey, shortStr);
 		if (!keyString.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modifierKeyString.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modifierKeyString2.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = keyString;
 					goto IL_00de;
 				}
 			}
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = $"{modifierKeyString}{modifierKeyString2}-{keyString}";
 			}
 			else
 			{
 				if (!modifierKeyString.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (modifierKeyString2.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = $"{modifierKeyString} {keyString}";
 						goto IL_00de;
 					}
@@ -1527,19 +832,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftControl:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = StringUtil.TR("CtrlShort", "Keyboard");
 			}
 			else
@@ -1551,15 +843,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftShift:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("ShiftShort", "Keyboard");
 			}
 			else
@@ -1571,15 +854,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftAlt:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("AltShort", "Keyboard");
 			}
 			else
@@ -1597,43 +871,12 @@ public class InputManager : MonoBehaviour
 		switch (key)
 		{
 		default:
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (key != KeyCode.Space)
 			{
 				if (key != KeyCode.Quote)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (key != KeyCode.Delete)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = key.ToString();
 					}
 					else
@@ -1666,15 +909,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightControl:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightCtrlShort", "Keyboard");
 			}
 			else
@@ -1685,15 +919,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftControl:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftCtrlShort", "Keyboard");
 			}
 			else
@@ -1704,15 +929,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightShift:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightShiftShort", "Keyboard");
 			}
 			else
@@ -1723,15 +939,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftShift:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftShiftShort", "Keyboard");
 			}
 			else
@@ -1742,15 +949,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightAlt:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightAltShort", "Keyboard");
 			}
 			else
@@ -1761,15 +959,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftAlt:
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftAltShort", "Keyboard");
 			}
 			else
@@ -1897,15 +1086,6 @@ public class InputManager : MonoBehaviour
 			int num = (int)(key - 323 + 1);
 			if (shortStr)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = string.Format(StringUtil.TR("MouseButtonShort", "Keyboard"), num);
 			}
 			else
@@ -1999,15 +1179,6 @@ public class InputManager : MonoBehaviour
 						IL_0357:
 						if (!enumerator2.MoveNext())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						Key value = (Key)enumerator2.Current;
@@ -2020,22 +1191,9 @@ public class InputManager : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									if (!(key.ToString() == value.ToString().Replace("Oem", string.Empty)))
 									{
 										goto IL_0357;
-									}
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									goto IL_0348;
 								}
@@ -2092,19 +1250,6 @@ public class InputManager : MonoBehaviour
 	{
 		if (m_razerKeyMapping.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BuildRazorKeyLookupMap();
 		}
 		razerKey = Key.Invalid;
@@ -2115,15 +1260,6 @@ public class InputManager : MonoBehaviour
 			KeyCode keyCode = KeyCode.None;
 			if (value.m_primary != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				keyCode = (KeyCode)value.m_primary;
 			}
 			else
@@ -2131,15 +1267,6 @@ public class InputManager : MonoBehaviour
 				if (value.m_secondary == 0)
 				{
 					return false;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				keyCode = (KeyCode)value.m_secondary;
 			}

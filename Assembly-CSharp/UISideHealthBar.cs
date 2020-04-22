@@ -60,15 +60,6 @@ public class UISideHealthBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_usingCurrentActiveActorColor = activeNow;
 			if (!(m_healthImage != null))
 			{
@@ -76,11 +67,6 @@ public class UISideHealthBar : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (activeNow)
 				{
 					m_healthImage.color = m_activeActorColor;
@@ -105,25 +91,12 @@ public class UISideHealthBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_healthPercent > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_pendingHPImage.fillAmount = m_pendingHPPercent;
 			m_pendingHPImage.gameObject.SetActive(true);
 		}
@@ -138,55 +111,15 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (!m_usingCurrentActiveActorColor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TurnStateEnum currentState = m_actor.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.CONFIRMED)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentState != TurnStateEnum.WAITING)
 					{
 						m_healthImage.color = Color.white;
 						goto IL_008c;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_healthImage.color = m_confirmedActorColor;
@@ -230,25 +163,12 @@ public class UISideHealthBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_shieldPercent > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_shieldBarImage.fillAmount = m_shieldPercent;
 			m_shieldBarImage.gameObject.SetActive(true);
 		}
@@ -270,10 +190,6 @@ public class UISideHealthBar : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -294,19 +210,6 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData actor = m_actor;
 			if (actor != null)
 			{
@@ -326,15 +229,6 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_shieldText.text = "+" + num;
 				}
 				else

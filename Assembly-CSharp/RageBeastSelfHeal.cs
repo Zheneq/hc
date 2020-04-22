@@ -66,19 +66,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData standardActorEffectData;
 		if ((bool)abilityMod_RageBeastSelfHeal)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardActorEffectData = abilityMod_RageBeastSelfHeal.m_standardActorEffectDataMod.GetModifiedValue(m_standardActorEffectData);
 		}
 		else
@@ -91,15 +78,6 @@ public class RageBeastSelfHeal : Ability
 		int val;
 		if ((bool)abilityMod_RageBeastSelfHeal)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RageBeastSelfHeal.m_lowHealthHealOnCastMod.GetModifiedValue(m_healingOnCastIfUnder);
 		}
 		else
@@ -112,15 +90,6 @@ public class RageBeastSelfHeal : Ability
 		int val2;
 		if ((bool)abilityMod_RageBeastSelfHeal)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastSelfHeal.m_highHealthOnCastMod.GetModifiedValue(m_healingOnCastIfOver);
 		}
 		else
@@ -133,15 +102,6 @@ public class RageBeastSelfHeal : Ability
 		int val3;
 		if ((bool)abilityMod_RageBeastSelfHeal)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RageBeastSelfHeal.m_healthThresholdMod.GetModifiedValue(m_healthThreshold);
 		}
 		else
@@ -159,15 +119,6 @@ public class RageBeastSelfHeal : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RageBeastSelfHeal);
 			Setup();
 			return;
@@ -185,19 +136,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData cachedStandardActorEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedStandardActorEffectData = m_abilityMod.m_standardActorEffectDataMod.GetModifiedValue(m_standardActorEffectData);
 		}
 		else
@@ -212,19 +150,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData result;
 		if (m_cachedStandardActorEffectData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedStandardActorEffectData;
 		}
 		else
@@ -239,19 +164,6 @@ public class RageBeastSelfHeal : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healOverTime;
 		}
 		else
@@ -266,19 +178,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healthThreshold;
 		}
 		else
@@ -293,19 +192,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healingOnCastIfUnder;
 		}
 		else
@@ -320,19 +206,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healingOnTickIfUnder;
 		}
 		else
@@ -347,19 +220,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healingOnCastIfOver;
 		}
 		else
@@ -374,19 +234,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healingOnTickIfOver;
 		}
 		else
@@ -400,31 +247,9 @@ public class RageBeastSelfHeal : Ability
 	{
 		if (subjectType != AbilityTooltipSubject.HighHP)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (subjectType != AbilityTooltipSubject.LowHP)
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool flag = targetActor.HitPoints <= ModdedHealthThreshold();
@@ -455,10 +280,6 @@ public class RageBeastSelfHeal : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GetStandardActorEffectData().m_healingPerTurn = ModdedHealOnTickIfUnder();
 					return ModdedHealOnCastIfUnder();
 				}

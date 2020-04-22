@@ -9,19 +9,6 @@ public class AbilityCommon_DualMeetingLasers
 		vector.y = 0f;
 		if (vector.magnitude > 1E-05f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector.Normalize();
 		}
 		else
@@ -52,19 +39,6 @@ public class AbilityCommon_DualMeetingLasers
 		Vector3 result = freePos;
 		if (num3 < num)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 normalized = vector.normalized;
 			result = casterPos + num * normalized;
 		}
@@ -91,43 +65,12 @@ public class AbilityCommon_DualMeetingLasers
 		float num2 = baseRadius + changePerDistFromMin * num;
 		if (num2 < minRadius)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = minRadius;
 		}
 		else if (num2 > maxRadius)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxRadius > 0f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = maxRadius;
 			}
 		}
@@ -163,19 +106,6 @@ public class AbilityCommon_DualMeetingLasers
 				int num4;
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num4 = ((num3 < num2 - 0.1f) ? 1 : 0);
 				}
 				else
@@ -184,15 +114,6 @@ public class AbilityCommon_DualMeetingLasers
 				}
 				if (num4 == 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					aoeEndPosIndex = i;
 					num++;
 				}
@@ -208,11 +129,6 @@ public class AbilityCommon_DualMeetingLasers
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (aoeEndPosIndex >= 0)
 			{
 				while (true)
@@ -225,15 +141,6 @@ public class AbilityCommon_DualMeetingLasers
 						finalRadius = aoeRadius;
 						if (num < laserStartPosList.Count && radiusMultIfPartialBlock >= 0f)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							finalRadius *= radiusMultIfPartialBlock;
 						}
 						aoeHitActors = AreaEffectUtils.GetActorsInRadius(centerPos, finalRadius, false, caster, relevantTeams, nonActorTargetInfo);

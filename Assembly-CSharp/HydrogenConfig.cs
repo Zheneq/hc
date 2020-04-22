@@ -204,30 +204,8 @@ public class HydrogenConfig : JsonConfig
 		int result;
 		if (fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!fileName.StartsWith("AtlasReactorConfig", StringComparison.OrdinalIgnoreCase))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!fileName.StartsWith("AtlasReactorDevConfig", StringComparison.OrdinalIgnoreCase))
 				{
 					result = (fileName.StartsWith("AtlasReactorServerConfig", StringComparison.OrdinalIgnoreCase) ? 1 : 0);
@@ -254,19 +232,6 @@ public class HydrogenConfig : JsonConfig
 	{
 		if (AutoLaunchGameType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AutoLaunchGameType != GameType.Tutorial)
 			{
 				if (AutoLaunchGameType == GameType.Custom)
@@ -282,37 +247,10 @@ public class HydrogenConfig : JsonConfig
 							{
 								if (AutoLaunchCustomGameConfig != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (AutoLaunchCustomGameConfig.GameConfig != null)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (AutoLaunchCustomGameConfig.GameConfig.GameType.IsAutoLaunchable())
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											result = ((!AutoLaunchCustomGameConfig.GameConfig.Map.IsNullOrEmpty()) ? 1 : 0);
 											goto IL_00aa;
 										}
@@ -327,15 +265,6 @@ public class HydrogenConfig : JsonConfig
 					}
 				}
 				return false;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -354,10 +283,6 @@ public class HydrogenConfig : JsonConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					try
 					{
 						string value = File.ReadAllText(fullPath);
@@ -376,15 +301,6 @@ public class HydrogenConfig : JsonConfig
 									KeyValuePair<ushort, GameSubType> current = enumerator.Current;
 									if (list.Contains(current.Value.LocalizedName))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num = (ushort)(num | current.Key);
 									}
 								}
@@ -420,44 +336,13 @@ public class HydrogenConfig : JsonConfig
 		List<string> list = new List<string>();
 		if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!value.SubTypes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ushort num = 1;
 				foreach (GameSubType subType in value.SubTypes)
 				{
 					if ((num & mask) != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(subType.LocalizedName);
 					}
 					num = (ushort)(num << 1);

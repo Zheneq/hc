@@ -23,19 +23,6 @@ public class StylizedFogOverride : MonoBehaviour, IGameEventListener
 		StylizedFog stylizedFog = Camera.main.gameObject.GetComponent<StylizedFog>();
 		if (!stylizedFog)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			stylizedFog = Camera.main.gameObject.AddComponent<StylizedFog>();
 		}
 		stylizedFog.enabled = true;

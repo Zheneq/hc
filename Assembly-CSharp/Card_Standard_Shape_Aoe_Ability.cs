@@ -70,30 +70,8 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 		int result;
 		if (m_includeAllies)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_healAmount <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_techPointGain <= 0)
 				{
 					result = (m_allyHitEffect.m_applyEffect ? 1 : 0);
@@ -118,30 +96,8 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 		{
 			if (m_damageAmount <= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_techPointLoss <= 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (m_enemyHitEffect.m_applyEffect ? 1 : 0);
 					goto IL_0048;
 				}
@@ -183,10 +139,6 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool result = false;
 					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
 					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targeterValidationShape, target, m_penetrateLos, caster, relevantTeams, null);

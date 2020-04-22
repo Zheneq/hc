@@ -58,19 +58,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rampartGrab.m_damageAmount;
 		}
 		else
@@ -83,15 +70,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartGrab.m_damageAfterFirstHit;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartGrab.m_enemyHitEffect;
 		}
 		else
@@ -127,15 +96,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartGrab.m_laserRange;
 		}
 		else
@@ -149,15 +109,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (rampartGrab.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -170,15 +121,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rampartGrab.m_destinationSelectRange;
 		}
 		else
@@ -191,15 +133,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = rampartGrab.m_destinationAngleDegWithBack;
 		}
 		else

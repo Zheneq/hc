@@ -35,10 +35,6 @@ public class AbilityRequest : IComparable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_targets[0];
 					}
 				}
@@ -91,21 +87,8 @@ public class AbilityRequest : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_ability != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityRequest.m_ability != null)
 						{
 							if (m_ability.RunPriority == abilityRequest.m_ability.RunPriority)
@@ -119,27 +102,9 @@ public class AbilityRequest : IComparable
 									default:
 										if (!m_ability.IsFreeAction())
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!abilityRequest.m_ability.IsFreeAction())
 											{
 												return 0;
-											}
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										return m_ability.IsFreeAction().CompareTo(abilityRequest.m_ability.IsFreeAction());
@@ -168,19 +133,6 @@ public class AbilityRequest : IComparable
 			int num;
 			if (m_caster == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ActorData.s_invalidActorIndex;
 			}
 			else
@@ -194,28 +146,10 @@ public class AbilityRequest : IComparable
 			stream.Serialize(ref value2);
 			if (stream.isWriting)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget.SerializeAbilityTargetList(m_targets, stream);
 			}
 			if (stream.isReading)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_targets = AbilityTarget.DeSerializeAbilityTargetList(stream);
 			}
 			stream.Serialize(ref value4);

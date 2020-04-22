@@ -31,15 +31,6 @@ public class UIBuffIndicator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tooltipObject.Setup(TooltipType.StatusEffect, PopulateTooltip);
 			return;
 		}
@@ -70,10 +61,6 @@ public class UIBuffIndicator : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_buffGainedIcon.sprite = iconForStatusType.icon;
 					m_debuffGainedIcon.sprite = iconForStatusType.icon;
 					UIManager.SetGameObjectActive(m_buffContainer, !iconForStatusType.isDebuff);

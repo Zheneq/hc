@@ -82,10 +82,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex);
 						}
 					}
@@ -104,19 +100,6 @@ namespace TMPro
 			{
 				if (m_sharedMaterial != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
 					{
 						return;
@@ -158,36 +141,14 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
 				}
 				if (m_fallbackMaterial != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_fallbackMaterial != value)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 					}
 				}
@@ -241,19 +202,6 @@ namespace TMPro
 			{
 				if (m_canvasRenderer == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_canvasRenderer = GetComponent<CanvasRenderer>();
 				}
 				return m_canvasRenderer;
@@ -302,19 +250,6 @@ namespace TMPro
 		{
 			if (!m_isRegisteredForEvents)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_isRegisteredForEvents = true;
 			}
 			m_ShouldRecalculateStencil = true;
@@ -327,33 +262,11 @@ namespace TMPro
 			TMP_UpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 			if (m_MaskMaterial != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				m_MaskMaterial = null;
 			}
 			if (m_fallbackMaterial != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				m_fallbackMaterial = null;
 			}
@@ -364,45 +277,14 @@ namespace TMPro
 		{
 			if (m_mesh != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.DestroyImmediate(m_mesh);
 			}
 			if (m_MaskMaterial != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 			}
 			if (m_fallbackMaterial != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(m_fallbackMaterial);
 				m_fallbackMaterial = null;
 			}
@@ -421,10 +303,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -439,45 +317,14 @@ namespace TMPro
 			Material material = baseMaterial;
 			if (m_ShouldRecalculateStencil)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_StencilValue = TMP_MaterialManager.GetStencilID(base.gameObject);
 				m_ShouldRecalculateStencil = false;
 			}
 			if (m_StencilValue > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, m_StencilValue);
 				if (m_MaskMaterial != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_MaterialManager.ReleaseStencilMaterial(m_MaskMaterial);
 				}
 				m_MaskMaterial = material;
@@ -515,10 +362,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -529,11 +372,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_TextComponent.havePropertiesChanged = true;
 				m_TextComponent.SetVerticesDirty();
 				return;
@@ -554,15 +392,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_OnDirtyMaterialCallback();
 				return;
 			}
@@ -579,10 +408,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -611,15 +436,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_materialDirty)
 				{
 					while (true)
@@ -648,19 +464,6 @@ namespace TMPro
 		{
 			if (m_canvasRenderer == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_canvasRenderer = canvasRenderer;
 			}
 			m_canvasRenderer.materialCount = 1;
@@ -688,31 +491,9 @@ namespace TMPro
 		{
 			if (!(m_material == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_material.GetInstanceID() == mat.GetInstanceID())
 				{
 					goto IL_0053;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_material = CreateMaterialInstance(mat);
@@ -737,19 +518,6 @@ namespace TMPro
 		{
 			if (m_canvasRenderer == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_canvasRenderer = GetComponent<CanvasRenderer>();
 			}
 			return m_canvasRenderer.GetMaterial();

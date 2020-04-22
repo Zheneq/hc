@@ -50,10 +50,6 @@ public class LobbySessionInfo
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return $"[{AccountId} {SessionToken:x}]";
 					}
 				}
@@ -90,24 +86,11 @@ public class LobbySessionInfo
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						string handle = Handle;
 						int num = handle.LastIndexOf('#');
 						string result;
 						if (num == -1)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = handle;
 						}
 						else

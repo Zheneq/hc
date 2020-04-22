@@ -16,32 +16,10 @@ public class ActorMultiHitContext
 		int num3 = 0;
 		if (numHits == numFromCover)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num3 = Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(num + (numHits - 1) * num2));
 		}
 		else if (numFromCover == 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = num + (numHits - 1) * num2;
 		}
 		else

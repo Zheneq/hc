@@ -46,19 +46,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 			ref int damageCrystals = ref DamageCrystals;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -118,10 +105,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return DamageCrystals;
 				}
 			}
@@ -137,15 +120,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncAoeOnReactActors.Add((uint)actor.ActorIndex);
 			return;
 		}
@@ -159,24 +133,10 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor.ActorIndex >= 0)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_syncAoeOnReactActors.Remove((uint)actor.ActorIndex);
 					return;
 				}
@@ -190,30 +150,8 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		bool result = false;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor.ActorIndex >= 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_syncAoeOnReactActors.Contains((uint)actor.ActorIndex);
 			}
 		}
@@ -235,10 +173,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_syncAoeOnReactActors called on server.");
 					return;
 				}
@@ -267,19 +201,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -287,26 +208,8 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -314,15 +217,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -334,15 +228,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -366,10 +251,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListUInt.ReadReference(reader, m_syncAoeOnReactActors);
 					CrystalsSpentThisTurn = reader.ReadBoolean();
 					DamageCrystals = (int)reader.ReadPackedUInt32();
@@ -381,41 +262,14 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, m_syncAoeOnReactActors);
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CrystalsSpentThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetDamageCrystal((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 8) == 0)
@@ -424,11 +278,6 @@ public class Martyr_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_syncNumTurnsAtFullEnergy = (int)reader.ReadPackedUInt32();
 			return;
 		}

@@ -12,19 +12,6 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
@@ -62,19 +49,6 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 	{
 		if (m_ownedToggle.isOn)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null || !ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
 				return true;
@@ -117,19 +91,6 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		if (nameToOverconEntry == null)
@@ -149,15 +110,6 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 		string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
 		if (!text2.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + Environment.NewLine + text2;
 		}
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;

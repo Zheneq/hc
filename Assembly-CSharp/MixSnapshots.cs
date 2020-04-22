@@ -79,19 +79,6 @@ public class MixSnapshots : MonoBehaviour
 	{
 		if (previousMixState == snapshot_match_intro)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			snapshot_game.TransitionToOnRealMixer(transitionTime_match_intro_to_match_start);
 		}
 		else if (previousMixState == snapshot_taunt)
@@ -106,27 +93,9 @@ public class MixSnapshots : MonoBehaviour
 			}
 			if (!(previousMixState != snapshot_taunt))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(previousMixState != snapshot_resolve))
 				{
 					goto IL_00d7;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			snapshot_game.TransitionToOnRealMixer(transitionTime_game);
@@ -146,19 +115,6 @@ public class MixSnapshots : MonoBehaviour
 	{
 		if (previousMixState == snapshot_taunt)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			snapshot_resolve.TransitionToOnRealMixer(transitionTime_resolve_from_taunt);
 		}
 		else

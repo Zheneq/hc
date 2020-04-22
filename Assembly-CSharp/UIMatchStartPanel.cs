@@ -83,30 +83,8 @@ public class UIMatchStartPanel : UIScene
 		int result;
 		if (m_duplicateFreelancerResolving)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentDisplay != MatchStartCountdown.ChooseNewFreelancer)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_currentDisplay == MatchStartCountdown.ResolvingDuplicateFreelancer) ? 1 : 0);
 			}
 			else
@@ -141,34 +119,12 @@ public class UIMatchStartPanel : UIScene
 		{
 			if (HitchDetector.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				HitchDetector.Get().RecordFrameTimeForHitch("Setting Match Start Panel Visible: " + visible);
 			}
 			RectTransform matchFoundContainer = m_MatchFoundContainer;
 			int doActive;
 			if (containerDisplayType != MatchStartCountdown.MatchFound)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = ((containerDisplayType == MatchStartCountdown.LoadingMatch) ? 1 : 0);
 			}
 			else
@@ -178,39 +134,12 @@ public class UIMatchStartPanel : UIScene
 			UIManager.SetGameObjectActive(matchFoundContainer, (byte)doActive != 0);
 			if (m_canDisplayMatchFound)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_matchFoundAnimator.gameObject.activeSelf)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_canDisplayMatchFound = false;
 					matchFoundAnimator = m_matchFoundAnimator;
 					if (containerDisplayType != MatchStartCountdown.MatchFound)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (containerDisplayType != MatchStartCountdown.ResolvingDuplicateFreelancer)
 						{
 							doActive2 = ((containerDisplayType == MatchStartCountdown.ChooseNewFreelancer) ? 1 : 0);
@@ -234,15 +163,6 @@ public class UIMatchStartPanel : UIScene
 		UIManager.SetGameObjectActive(m_resolvingFreelancerContainer, containerDisplayType == MatchStartCountdown.ResolvingDuplicateFreelancer);
 		if (containerDisplayType == MatchStartCountdown.ChooseNewFreelancer)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons.gameObject, false);
 		}
 		goto IL_014a;
@@ -253,21 +173,11 @@ public class UIMatchStartPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectScreenController.Get().NotifyGroupUpdate();
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					UIFrontEnd.Get().m_frontEndNavPanel.ToggleUiForGameStarting(true);
 					return;
 				}
@@ -293,35 +203,16 @@ public class UIMatchStartPanel : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!uICharacterSelectWorldObjects.m_ringAnimations[0].m_readyAnimation.gameObject.activeSelf)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						uICharacterSelectWorldObjects.m_ringAnimations[0].PlayAnimation("ReadyIn");
 						return;
 					}
@@ -337,41 +228,10 @@ public class UIMatchStartPanel : UIScene
 		GameManager gameManager = GameManager.Get();
 		if (gameManager != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameManager.GameInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.GameInfo.GameConfig != null && gameManager.GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameManager.GameInfo.GameStatus != GameStatus.LoadoutSelecting)
 					{
 						if (gameManager.GameInfo.GameStatus == GameStatus.FreelancerSelecting)
@@ -380,26 +240,8 @@ public class UIMatchStartPanel : UIScene
 							{
 								goto IL_00ee;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Get() != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (Get().m_duplicateFreelancerResolving)
 								{
 									goto IL_00ee;
@@ -407,15 +249,6 @@ public class UIMatchStartPanel : UIScene
 							}
 						}
 						goto IL_0168;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					result = true;
 				}
@@ -425,52 +258,16 @@ public class UIMatchStartPanel : UIScene
 		IL_0168:
 		if (gameManager.GameInfo.GameStatus >= GameStatus.Launching)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		goto IL_0184;
 		IL_00ee:
 		if (gameManager.GameInfo.GameConfig.GameType != 0 && gameManager.GameInfo.GameConfig.GameType != GameType.Practice)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.GameInfo.GameConfig.GameType != GameType.Solo)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_0184;
 				}
@@ -492,10 +289,6 @@ public class UIMatchStartPanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -504,52 +297,16 @@ public class UIMatchStartPanel : UIScene
 		MatchStartCountdown matchStartCountdown = MatchStartCountdown.None;
 		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 			{
 				goto IL_02f1;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameManager gameManager = GameManager.Get();
 		if (gameManager != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.GameInfo != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.GameInfo.GameConfig != null && gameManager.GameInfo.GameStatus != GameStatus.Stopped)
 				{
 					MapData mapData = GameWideData.Get().GetMapData(gameManager.GameInfo.GameConfig.Map);
@@ -557,15 +314,6 @@ public class UIMatchStartPanel : UIScene
 					Sprite sprite = null;
 					if (mapData != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						sprite = (Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite);
 					}
 					else
@@ -575,15 +323,6 @@ public class UIMatchStartPanel : UIScene
 					m_introMapImage.sprite = sprite;
 					if (gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_introGameTypeText.text = string.Format(StringUtil.TR("SubtypeFound", "Global"), StringUtil.TR(gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName));
 					}
 					else
@@ -592,15 +331,6 @@ public class UIMatchStartPanel : UIScene
 					}
 					if (gameManager.GameInfo.GameStatus == GameStatus.LoadoutSelecting)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						matchStartCountdown = MatchStartCountdown.MatchFound;
 						SetSelfRingReady();
@@ -609,48 +339,12 @@ public class UIMatchStartPanel : UIScene
 					{
 						if (gameManager.GameInfo.GameStatus == GameStatus.FreelancerSelecting)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_duplicateFreelancerResolving && gameManager.GameInfo.GameConfig.GameType != 0 && gameManager.GameInfo.GameConfig.GameType != GameType.Practice)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameManager.GameInfo.GameConfig.GameType != GameType.Solo)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										if (UICharacterSelectScreenController.Get().RepickingCharacter())
 										{
@@ -682,26 +376,8 @@ public class UIMatchStartPanel : UIScene
 		m_currentDisplay = matchStartCountdown;
 		if (m_matchFoundAnimator.gameObject.activeInHierarchy)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIAnimationEventManager.IsAnimationDone(m_matchFoundAnimator, "MatchFoundIntro", 0))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_matchFoundAnimator, false);
 			}
 		}
@@ -717,15 +393,6 @@ public class UIMatchStartPanel : UIScene
 					SetVisible(flag, matchStartCountdown);
 					if (matchStartCountdown == MatchStartCountdown.MatchFound)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
 						float num = Time.realtimeSinceStartup - m_loadoutSelectStartTime;
 						float num2 = Mathf.Max(0f, (float)gameInfo.LoadoutSelectTimeout.TotalSeconds - num);
@@ -740,15 +407,6 @@ public class UIMatchStartPanel : UIScene
 						bool? characterSelectButtonsVisible = UICharacterScreen.GetCurrentSpecificState().CharacterSelectButtonsVisible;
 						if (characterSelectButtonsVisible.Value)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
 							UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, false);
 						}
@@ -764,15 +422,6 @@ public class UIMatchStartPanel : UIScene
 					}
 					else if (matchStartCountdown == MatchStartCountdown.LoadingMatch)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UICharacterSelectScreenController.Get().NotifyGameIsLoading();
 						m_matchFoundText.text = "\n" + StringUtil.TR("LoadingMatch", "Global");
 						m_countdownTimerText.text = string.Empty;
@@ -781,15 +430,6 @@ public class UIMatchStartPanel : UIScene
 					}
 					if (UIMainMenu.Get().IsOpen())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIMainMenu.Get().SetMenuVisible(false);
 					}
 					UIStorePanel.Get().ClosePurchaseDialog();
@@ -819,11 +459,6 @@ public class UIMatchStartPanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(FrontEndNavPanel.Get(), true);
 			return;
 		}
@@ -837,33 +472,11 @@ public class UIMatchStartPanel : UIScene
 		LobbyTeamInfo teamInfo = gameManager.TeamInfo;
 		if (gameInfo != null && playerInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (teamInfo != null)
 			{
 				MapData mapData = GameWideData.Get().GetMapData(gameInfo.GameConfig.Map);
 				if (mapData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_mapImage.sprite = (Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite);
 				}
 				else
@@ -887,15 +500,6 @@ public class UIMatchStartPanel : UIScene
 								m_enemyCharacterImages[i].sprite = characterResourceLink.GetCharacterSelectIcon();
 								i++;
 							}
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					finally
@@ -936,15 +540,6 @@ public class UIMatchStartPanel : UIScene
 				}
 				return;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int j = 0; j < m_enemyCharacterImages.Length; j++)
 		{
@@ -968,33 +563,11 @@ public class UIMatchStartPanel : UIScene
 		{
 			if (m_lastGameStatus != notification.GameInfo.GameStatus)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_loadoutSelectStartTime = Time.realtimeSinceStartup;
 			}
 		}
 		else if (notification.GameInfo.GameStatus == GameStatus.FreelancerSelecting)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lastGameStatus != notification.GameInfo.GameStatus)
 			{
 				m_selectStartTime = Time.realtimeSinceStartup;

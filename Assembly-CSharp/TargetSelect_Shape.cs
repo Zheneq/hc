@@ -77,30 +77,8 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		List<AbilityAreaShape> collection = m_additionalShapes;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_useTargetDataOverride)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				collection = m_targetSelMod.m_additionalShapesOverrides;
 			}
 		}
@@ -113,19 +91,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_requireTargetingOnActorMod.GetModifiedValue(m_requireTargetingOnActor);
 		}
 		else
@@ -145,19 +110,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_canTargetOnAlliesMod.GetModifiedValue(m_canTargetOnAllies);
 		}
 		else
@@ -172,19 +124,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_canTargetOnSelfMod.GetModifiedValue(m_canTargetOnSelf);
 		}
 		else
@@ -199,19 +138,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_ignoreLosToTargetActorMod.GetModifiedValue(m_ignoreLosToTargetActor);
 		}
 		else
@@ -226,19 +152,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_moveLineWidthMod.GetModifiedValue(m_moveLineWidth);
 		}
 		else
@@ -261,10 +174,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<AbilityTooltipSubject> list = new List<AbilityTooltipSubject>();
 					list.Add(AbilityTooltipSubject.Primary);
 					List<AbilityTooltipSubject> subjects = list;
@@ -283,26 +192,8 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		abilityUtil_Targeter_MovingShape.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeCaster());
 		if (!IncludeAllies())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!IncludeCaster())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityUtil_Targeter_MovingShape.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 			}
 		}
@@ -330,19 +221,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 			object obj;
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = boardSquareSafe.OccupantActor;
 			}
 			else
@@ -352,26 +230,8 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 			ActorData actorData = (ActorData)obj;
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.CanTargetActorInDecision(caster, actorData, CanTargetOnEnemies(), CanTargetOnAllies(), CanTargetOnSelf(), Ability.ValidateCheckPath.Ignore, !IgnoreLosToTargetActor(), false, true))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -406,10 +266,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_centerSquareDelegate(target, caster);
 				}
 			}
@@ -428,10 +284,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_isMovingShapeDelegate(caster);
 				}
 			}
@@ -450,10 +302,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_moveStartSquareDelegate(target, caster);
 				}
 			}
@@ -472,10 +320,6 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_moveStartFreePosDelegate(target, caster);
 				}
 			}

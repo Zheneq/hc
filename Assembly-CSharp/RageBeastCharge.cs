@@ -26,19 +26,6 @@ public class RageBeastCharge : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Pain Train";
 		}
 		SetupTargeter();
@@ -62,19 +49,6 @@ public class RageBeastCharge : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far) && ModdedDamageNearChargeEnd() > 0)
 			{
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedDamageNearChargeEnd();
@@ -90,19 +64,6 @@ public class RageBeastCharge : Ability
 		int val;
 		if ((bool)abilityMod_RageBeastCharge)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RageBeastCharge.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -114,15 +75,6 @@ public class RageBeastCharge : Ability
 		int val2;
 		if ((bool)abilityMod_RageBeastCharge)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastCharge.m_damageNearChargeEndMod.GetModifiedValue(m_damageNearChargeEnd);
 		}
 		else
@@ -143,19 +95,6 @@ public class RageBeastCharge : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				while (true)
@@ -197,19 +136,6 @@ public class RageBeastCharge : Ability
 		StandardEffectInfo cachedEnemyHitEffectNearChargeEnd;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffectNearChargeEnd = m_abilityMod.m_enemyHitEffectNearChargeEndMod.GetModifiedValue(m_enemyHitEffectNearChargeEnd);
 		}
 		else
@@ -224,19 +150,6 @@ public class RageBeastCharge : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -256,19 +169,6 @@ public class RageBeastCharge : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageRadius;
 		}
 		else

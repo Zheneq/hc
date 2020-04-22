@@ -51,19 +51,6 @@ public class ThiefOnTheRun : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "On the Run";
 		}
 		Setup();
@@ -75,19 +62,6 @@ public class ThiefOnTheRun : Ability
 		int numChargePiviots;
 		if (m_targeterMultiStep)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numChargePiviots = Mathf.Max(GetNumTargets(), 1);
 		}
 		else
@@ -108,15 +82,6 @@ public class ThiefOnTheRun : Ability
 			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, dashRadius, dashRadius, dashRadius, -1, false, DashPenetrateLineOfSight());
 			if (i < expectedNumberOfTargeters - 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityUtil_Targeter_ChargeAoE.UseEndPosAsDamageOriginIfOverlap = true;
 			}
 			base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
@@ -159,19 +124,6 @@ public class ThiefOnTheRun : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -193,19 +145,6 @@ public class ThiefOnTheRun : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minDistanceBetweenAnyStepsMod.GetModifiedValue(m_minDistanceBetweenAnySteps);
 		}
 		else
@@ -225,19 +164,6 @@ public class ThiefOnTheRun : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashRadiusMod.GetModifiedValue(m_dashRadius);
 		}
 		else
@@ -252,19 +178,6 @@ public class ThiefOnTheRun : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(m_dashPenetrateLineOfSight);
 		}
 		else
@@ -279,19 +192,6 @@ public class ThiefOnTheRun : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -306,19 +206,6 @@ public class ThiefOnTheRun : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_subsequentDamageMod.GetModifiedValue(m_subsequentDamage);
 		}
 		else
@@ -333,19 +220,6 @@ public class ThiefOnTheRun : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -360,19 +234,6 @@ public class ThiefOnTheRun : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelfThroughSmokeField != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelfThroughSmokeField;
 		}
 		else
@@ -392,19 +253,6 @@ public class ThiefOnTheRun : Ability
 		SpoilsSpawnData result;
 		if (m_cachedSpoilSpawnInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSpoilSpawnInfo;
 		}
 		else
@@ -428,41 +276,10 @@ public class ThiefOnTheRun : Ability
 		ActorData actorData = base.ActorData;
 		if (actorData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorData.GetCurrentBoardSquare() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i <= currentTargeterIndex; i++)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i >= base.Targeters.Count)
 					{
 						break;
@@ -488,19 +305,6 @@ public class ThiefOnTheRun : Ability
 		int val;
 		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ThiefOnTheRun.m_subsequentDamageMod.GetModifiedValue(m_subsequentDamage);
 		}
 		else
@@ -511,15 +315,6 @@ public class ThiefOnTheRun : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ThiefOnTheRun.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -532,15 +327,6 @@ public class ThiefOnTheRun : Ability
 		int val2;
 		if ((bool)abilityMod_ThiefOnTheRun)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefOnTheRun.m_cooldownReductionIfNoEnemyMod.GetModifiedValue(m_cooldownReductionIfNoEnemy);
 		}
 		else
@@ -567,10 +353,6 @@ public class ThiefOnTheRun : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 				}
 			}
@@ -578,15 +360,6 @@ public class ThiefOnTheRun : Ability
 		BoardSquare boardSquare;
 		if (targetIndex == 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare = caster.GetCurrentBoardSquare();
 		}
 		else
@@ -599,15 +372,6 @@ public class ThiefOnTheRun : Ability
 		int num2;
 		if (num >= GetMinDistanceBetweenSteps() * squareSize)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = ((num <= GetMaxDistanceBetweenSteps() * squareSize) ? 1 : 0);
 		}
 		else
@@ -617,54 +381,18 @@ public class ThiefOnTheRun : Ability
 		bool flag3 = (byte)num2 != 0;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3 && GetMinDistanceBetweenAnySteps() > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < targetIndex; i++)
 				{
 					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
 					flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= GetMinDistanceBetweenAnySteps() * squareSize);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		int result;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag3 ? 1 : 0);
 		}
 		else
@@ -682,15 +410,6 @@ public class ThiefOnTheRun : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ThiefOnTheRun);
 			Setup();
 			return;

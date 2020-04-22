@@ -65,30 +65,8 @@ public class AppState_JoinGame : AppState
 					CharacterResourceLink characterResourceLink = characterResourceLinks[num];
 					if (characterResourceLink.m_characterType != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (characterResourceLink.m_isHidden)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameInfo.GameConfig.GameType))
 						{
@@ -99,15 +77,6 @@ public class AppState_JoinGame : AppState
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
@@ -115,15 +84,6 @@ public class AppState_JoinGame : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(JoinGameResponse response)
 			{
 				s_joinPending = false;
@@ -136,10 +96,6 @@ public class AppState_JoinGame : AppState
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							AppState_CharacterSelect.Get().Enter();
 							return;
 						}

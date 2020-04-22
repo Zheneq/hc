@@ -78,52 +78,12 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		AbilityMod.AddToken_EffectMod(tokens, m_shieldFrontEnemyEffectMod, "ShieldFrontEnemyEffect", rampartDashAndAimShield.m_shieldFrontEnemyEffect);
 		if (m_useTargetDataOverrides)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_targetDataOverrides != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_targetDataOverrides.Length > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rampartDashAndAimShield.m_targetData.Length > 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityMod.AddToken_IntDiff(tokens, "TargeterRange", string.Empty, Mathf.RoundToInt(m_targetDataOverrides[0].m_range), true, Mathf.RoundToInt(rampartDashAndAimShield.m_targetData[0].m_range));
 					}
 				}
@@ -135,22 +95,12 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_statModsWhileEquipped.Length <= 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < m_statModsWhileEquipped.Length; i++)
 				{
 					AbilityStatMod abilityStatMod = m_statModsWhileEquipped[i];
@@ -181,19 +131,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rampartDashAndAimShield.m_radiusAroundStart;
 		}
 		else
@@ -206,15 +143,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartDashAndAimShield.m_radiusAroundEnd;
 		}
 		else
@@ -227,15 +155,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (rampartDashAndAimShield.m_chargePenetrateLos ? 1 : 0);
 		}
 		else
@@ -248,15 +167,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartDashAndAimShield.m_damageAmount;
 		}
 		else
@@ -269,15 +179,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rampartDashAndAimShield.m_enemyHitEffect;
 		}
 		else
@@ -290,15 +191,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rampartDashAndAimShield.m_allyHealAmount;
 		}
 		else
@@ -311,15 +203,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = rampartDashAndAimShield.m_allyHitEffect;
 		}
 		else
@@ -332,15 +215,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (rampartDashAndAimShield.m_allowAimAtDiagonals ? 1 : 0);
 		}
 		else
@@ -353,15 +227,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = (rampartDashAndAimShield.m_setCooldownByDistance ? 1 : 0);
 		}
 		else
@@ -374,15 +239,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = rampartDashAndAimShield.m_minCooldown;
 		}
 		else
@@ -396,15 +252,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = (rampartDashAndAimShield.m_useEnergyForMoveDistance ? 1 : 0);
 		}
 		else
@@ -417,15 +264,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = rampartDashAndAimShield.m_minEnergyToCast;
 		}
 		else
@@ -439,15 +277,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = (rampartDashAndAimShield.m_useAllEnergyIfUsedForDistance ? 1 : 0);
 		}
 		else
@@ -460,15 +289,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = (rampartDashAndAimShield.m_hitInFrontOfShield ? 1 : 0);
 		}
 		else
@@ -479,28 +299,10 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 		int num;
 		if (m_hitInFrontOfShieldMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityModPropertyBool hitInFrontOfShieldMod2 = m_hitInFrontOfShieldMod;
 			int input;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				input = (rampartDashAndAimShield.m_hitInFrontOfShield ? 1 : 0);
 			}
 			else
@@ -520,15 +322,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			float baseVal15;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal15 = rampartDashAndAimShield.m_shieldFrontHitLength;
 			}
 			else
@@ -541,15 +334,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			int baseVal16;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal16 = rampartDashAndAimShield.m_damageForShieldFront;
 			}
 			else
@@ -562,15 +346,6 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			object baseVal17;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal17 = rampartDashAndAimShield.m_shieldFrontEnemyEffect;
 			}
 			else

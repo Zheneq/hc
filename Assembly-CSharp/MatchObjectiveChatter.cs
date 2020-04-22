@@ -32,15 +32,6 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -53,26 +44,8 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 		ActorData component2 = component.gameObject.GetComponent<ActorData>();
 		if (m_matchObjective == MatchObjectiveType.SelfPickedUpCoin)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CoinCollected)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
 					goto IL_013c;
@@ -82,38 +55,11 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 		}
 		if (m_matchObjective == MatchObjectiveType.SelfPickedUpFlag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.FlagPickedUp_Client)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
 					goto IL_013c;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -122,53 +68,17 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 		{
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (matchObjectiveEventArgs.team == component2.GetTeam())
 				{
 					goto IL_013c;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
 		}
 		if (m_matchObjective == MatchObjectiveType.SelfPickedUpCase)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (matchObjectiveEventArgs.objective == GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CasePickedUp_Client)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(matchObjectiveEventArgs.activatingActor != component2))
 				{
 					goto IL_013c;

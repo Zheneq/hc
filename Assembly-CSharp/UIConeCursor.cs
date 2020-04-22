@@ -24,10 +24,6 @@ public class UIConeCursor : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("ConeCursor with invalid radius (" + m_worldRadius + ").  Disabling...");
 					UIManager.SetGameObjectActive(base.gameObject, false);
 					return;
@@ -45,19 +41,6 @@ public class UIConeCursor : MonoBehaviour
 	{
 		if (m_innerArc != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_innerArc.transform.localPosition = new Vector3(0f, m_heightOffset, 0f);
 		}
 		if (m_outerArc != null)

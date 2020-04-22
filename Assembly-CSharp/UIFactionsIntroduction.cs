@@ -31,19 +31,6 @@ public class UIFactionsIntroduction : MonoBehaviour
 	{
 		if (UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.IsSelected())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		QuestListPanel.Get().SetVisible(false);
@@ -60,19 +47,6 @@ public class UIFactionsIntroduction : MonoBehaviour
 		int result;
 		if (!m_unlockNoticeContainer.activeInHierarchy)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_factionsDescriptionContainer.activeInHierarchy ? 1 : 0);
 		}
 		else

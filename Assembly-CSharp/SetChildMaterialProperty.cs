@@ -55,32 +55,10 @@ public class SetChildMaterialProperty : MonoBehaviour
 		m_propBlock = new MaterialPropertyBlock();
 		if (m_positionObject == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_positionObject = base.gameObject.FindInChildren(m_positionObjectName);
 		}
 		if (m_positionObject == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError(base.gameObject.name + " SetChildMaterialProperty component did not find position object: " + m_positionObjectName);
 		}
 		if (!m_targetRendererName.IsNullOrEmpty())
@@ -88,15 +66,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 			GameObject gameObject = base.gameObject.FindInChildren(m_targetRendererName);
 			if ((bool)gameObject)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_targetRenderer = gameObject.GetComponent<Renderer>();
 			}
 			else
@@ -120,27 +89,9 @@ public class SetChildMaterialProperty : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 value = Vector3.zero;
 			if (m_objectType == ObjectType.LocalPosition)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = m_positionObject.transform.localPosition + m_positionOffset;
 			}
 			else if (m_objectType == ObjectType.WorldPosition)
@@ -182,11 +133,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < m_renderers.Length; i++)
 				{
 					Process(m_renderers[i], value);
@@ -202,19 +148,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 		target.GetPropertyBlock(m_propBlock);
 		if (m_propertyType == PropertyType.Vector)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_propBlock.SetVector(m_propertyID, value);
 		}
 		else if (m_propertyType == PropertyType.FloatFromXAxis)
@@ -223,93 +156,30 @@ public class SetChildMaterialProperty : MonoBehaviour
 		}
 		else if (m_propertyType == PropertyType.FloatFromYAxis)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_propBlock.SetFloat(m_propertyID, value.y);
 		}
 		else if (m_propertyType == PropertyType.FloatFromZAxis)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_propBlock.SetFloat(m_propertyID, value.z);
 		}
 		else if (m_propertyType == PropertyType.ColorRGB)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_propBlock.SetColor(m_propertyID, new Color(value.x, value.y, value.z));
 		}
 		else if (m_propertyType == PropertyType.VisibilityFromXAxis)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			target.gameObject.SetActive((double)value.x >= 0.1);
 		}
 		else if (m_propertyType == PropertyType.VisibilityFromYAxis)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			target.gameObject.SetActive((double)value.y >= 0.1);
 		}
 		else if (m_propertyType == PropertyType.VisibilityFromZAxis)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			target.gameObject.SetActive((double)value.z >= 0.1);
 		}
 		else if (m_propertyType == PropertyType.HideIfInRagdoll)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_animator != null)
 			{
 				target.gameObject.SetActiveIfNeeded(m_animator.enabled);
@@ -327,19 +197,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 		int result;
 		if (m_propertyType != PropertyType.VisibilityFromXAxis && m_propertyType != PropertyType.VisibilityFromYAxis)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_propertyType != PropertyType.VisibilityFromZAxis) ? 1 : 0);
 		}
 		else
@@ -372,19 +229,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 			}
 			if (!m_targetRendererName.Equals(other.m_targetRendererName))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				diffDescriptions.Add(str + "Target Renderer Name different");
 				result = false;
 			}
@@ -395,15 +239,6 @@ public class SetChildMaterialProperty : MonoBehaviour
 			}
 			if (!m_materialPropertyName.Equals(other.m_materialPropertyName))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				diffDescriptions.Add(str + "Material Property Name different");
 				result = false;
 			}

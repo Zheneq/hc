@@ -43,30 +43,8 @@ public class Targeting : MonoBehaviour
 	{
 		if (material == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (isChasing)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = HighlightUtils.Get().m_ArrowChaseLineMaterial;
 			}
 			else
@@ -77,15 +55,6 @@ public class Targeting : MonoBehaviour
 		GameObject gameObject;
 		if (previousGameObject == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = new GameObject("ArrowLine");
 		}
 		else
@@ -95,15 +64,6 @@ public class Targeting : MonoBehaviour
 		MeshFilter meshFilter;
 		if (previousGameObject == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			meshFilter = gameObject.AddComponent<MeshFilter>();
 			gameObject.AddComponent<MeshRenderer>();
 		}
@@ -124,15 +84,6 @@ public class Targeting : MonoBehaviour
 			Vector3 direction = Camera.main.WorldToRay(points[i]).direction;
 			if (i == 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = points[i + 1] - points[i];
 				Vector3 normalized;
 				if (faceTowardCamera)
@@ -154,28 +105,10 @@ public class Targeting : MonoBehaviour
 			}
 			if (i == points.Count - 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 normalized2 = (points[i] - points[i - 1]).normalized;
 				Vector3 normalized3;
 				if (faceTowardCamera)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					normalized3 = Vector3.Cross(normalized2, direction).normalized;
 				}
 				else
@@ -222,39 +155,12 @@ public class Targeting : MonoBehaviour
 			float num = Vector3.Dot(vector5, vector4);
 			if (num == 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1f;
 			}
 			if (faceTowardCamera)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((double)num < 0.9)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -263,15 +169,6 @@ public class Targeting : MonoBehaviour
 			Vector3 vector6 = tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3];
 			if (!faceTowardCamera)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector6.y = 0f;
 			}
 			float magnitude2 = vector6.magnitude;
@@ -282,15 +179,6 @@ public class Targeting : MonoBehaviour
 			vector6 = tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3];
 			if (!faceTowardCamera)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector6.y = 0f;
 			}
 			magnitude2 = vector6.magnitude;
@@ -300,26 +188,8 @@ public class Targeting : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3]).sqrMagnitude > (tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 4]).sqrMagnitude)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 value = tempVerticesList[tempVerticesList.Count - 1];
 				tempVerticesList[tempVerticesList.Count - 1] = tempVerticesList[tempVerticesList.Count - 2];
 				tempVerticesList[tempVerticesList.Count - 2] = value;
@@ -327,11 +197,6 @@ public class Targeting : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_tempTrianglesList.Clear();
 			List<int> tempTrianglesList = m_tempTrianglesList;
 			for (int j = 0; j < tempVerticesList.Count - 2; j += 2)
@@ -345,11 +210,6 @@ public class Targeting : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				mesh.vertices = tempVerticesList.ToArray();
 				mesh.normals = tempNormalsList.ToArray();
 				mesh.uv = tempUvsList.ToArray();
@@ -370,19 +230,6 @@ public class Targeting : MonoBehaviour
 		GameObject gameObject;
 		if (previousLine != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameObject = previousLine.gameObject.transform.parent.gameObject;
 		}
 		else
@@ -394,26 +241,8 @@ public class Targeting : MonoBehaviour
 		Vector3 vector2 = points[points.Count - 1] - points[points.Count - 2];
 		if (vector.sqrMagnitude > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector2.sqrMagnitude > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector.y = 0f;
 				vector2.y = 0f;
 				vector.Normalize();
@@ -425,15 +254,6 @@ public class Targeting : MonoBehaviour
 					previousLine.Setup(theActor, isChasing, movementType);
 					if (!glowOn)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						previousLine.SetGlow(glowOn);
 					}
 					gameObject2.transform.position = points[0];
@@ -460,15 +280,6 @@ public class Targeting : MonoBehaviour
 					movementPathStart.Setup(theActor, isChasing, movementType);
 					if (!glowOn)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movementPathStart.SetGlow(glowOn);
 					}
 					gameObject5.transform.position = points[0];
@@ -510,15 +321,6 @@ public class Targeting : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int[] array4 = new int[(perimeterPts.Length - 2) * 3];
 			for (int j = 1; j < perimeterPts.Length - 1; j++)
 			{
@@ -528,11 +330,6 @@ public class Targeting : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				mesh2.vertices = array;
 				mesh2.normals = array2;
 				mesh2.uv = array3;
@@ -565,15 +362,6 @@ public class Targeting : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject result = CreateMesh(perimeterPts, objectName, meshMaterial);
 			outlineMeshObject = new GameObject(objectName + "_outline");
 			MeshFilter meshFilter = outlineMeshObject.AddComponent<MeshFilter>();
@@ -593,11 +381,6 @@ public class Targeting : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				int[] array5 = new int[perimeterPts.Length * 2 * 3];
 				for (int l = 0; l < perimeterPts.Length; l++)
 				{
@@ -613,11 +396,6 @@ public class Targeting : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					mesh2.vertices = array2;
 					mesh2.normals = array3;
 					mesh2.uv = array4;

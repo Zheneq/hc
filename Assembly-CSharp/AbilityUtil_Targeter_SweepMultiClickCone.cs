@@ -80,30 +80,8 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		int num;
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (previousTargets != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((previousTargets.Count > 0) ? 1 : 0);
 				goto IL_0042;
 			}
@@ -114,15 +92,6 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		bool flag = (byte)num != 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sweepStartAimDirection = previousTargets[0].AimDirection;
 		}
 		List<ActorData> actors = UpdateHighlightLine(targetingActor, currentTarget.AimDirection, flag, sweepStartAimDirection);
@@ -161,31 +130,9 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		float y = 0.1f;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 1)
 			{
 				goto IL_00ae;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -197,27 +144,9 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		if (useAngleRestrictions)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = GetSweepHitActorsAndAngles(sweepStartAimDirection, ref endAimDirection, targetingActor, out m_sweepAngle, out Vector3 coneCenterAngle);
 			if (m_highlights.Count < 2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(m_rangeInSquares, m_sweepAngle, true));
 				m_highlights[1].SetActive(true);
 				m_highlights[1].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, y, 0f);
@@ -246,46 +175,15 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
 		if (m_maxAngle > 0f && sweepAngle > m_maxAngle)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - m_maxAngle), 0f);
 			sweepAngle = m_maxAngle;
 		}
 		else if (m_minAngle > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (sweepAngle < m_minAngle)
 			{
 				if (sweepAngle == 0f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = endAimDirection = new Vector3(0f - endAimDirection.z, endAimDirection.y, endAimDirection.x);
 					sweepAngle = 90f;
 				}
@@ -296,15 +194,6 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		Vector3 vector2 = Vector3.Cross(startAimDirection, endAimDirection);
 		if (vector2.y > 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 -= sweepAngle * 0.5f;
 		}
 		else
@@ -325,15 +214,6 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(coneCenterAngle);
@@ -351,15 +231,6 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, startPos, endPos, widthInSquares, targetingActor, ignoreLos);
 			HideUnusedSquareIndicators();

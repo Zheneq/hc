@@ -28,30 +28,8 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (camType == CameraType.Animated)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_animatedCameraComp != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_animatedCameraComp.enabled = true;
 			}
 		}
@@ -61,11 +39,6 @@ public class TauntBackgroundCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_fixedCasterAndTargetCam != null)
 			{
 				m_fixedCasterAndTargetCam.enabled = true;
@@ -78,19 +51,6 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (m_animatedCameraComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_animatedCameraComp.SetAnimator(null);
 			m_animatedCameraComp.enabled = false;
 		}
@@ -100,11 +60,6 @@ public class TauntBackgroundCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_fixedCasterAndTargetCam.SetAnimator(null);
 			m_fixedCasterAndTargetCam.enabled = false;
 			return;
@@ -119,15 +74,6 @@ public class TauntBackgroundCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fixedCasterAndTargetCam.SetAnimator(obj);
 			return;
 		}
@@ -141,35 +87,16 @@ public class TauntBackgroundCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Camera.main != null) || !(CameraManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (CameraManager.Get().ShotSequence != null)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						m_camera.fieldOfView = Camera.main.fieldOfView;
 						return;
 					}

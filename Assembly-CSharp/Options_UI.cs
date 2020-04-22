@@ -235,82 +235,24 @@ public class Options_UI : UIScene, IGameEventListener
 		UIManager.SetGameObjectActive(m_restartWarning, false);
 		if (m_ResolutionScrollView != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_resolutionBackgroundHitBox != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_MouseEventPasser mouseEventPasser = m_resolutionBackgroundHitBox.gameObject.AddComponent<_MouseEventPasser>();
 				mouseEventPasser.AddNewHandler(m_ResolutionScrollView);
 			}
 		}
 		if (m_gameResolutionScrollView != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_gameResolutionBackgroundHitBox != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_MouseEventPasser mouseEventPasser2 = m_gameResolutionBackgroundHitBox.gameObject.AddComponent<_MouseEventPasser>();
 				mouseEventPasser2.AddNewHandler(m_gameResolutionScrollView);
 			}
 		}
 		if (m_LanguageScrollView != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_languageBackgroundHitBox != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_MouseEventPasser mouseEventPasser3 = m_languageBackgroundHitBox.gameObject.AddComponent<_MouseEventPasser>();
 				mouseEventPasser3.AddNewHandler(m_LanguageScrollView);
 			}
@@ -364,45 +306,14 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_secretButtonText != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_secretButtonText.gameObject, EventTriggerType.PointerClick, OnSecretButton);
 		}
 		if (m_okButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_okButton.spriteController.callback = OnOkButton;
 		}
 		if (m_applyButton != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_applyButton.spriteController.callback = OnApplyButton;
 		}
 		if (m_revertDefaultsButton != null)
@@ -411,72 +322,27 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_graphicsLowButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_graphicsLowButton.spriteController.callback = OnGraphicsQualityLow;
 			m_graphicsLowButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_graphicsMediumButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_graphicsMediumButton.spriteController.callback = OnGraphicsQualityMedium;
 			m_graphicsMediumButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_graphicsHighButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_graphicsHighButton.spriteController.callback = OnGraphicsQualityHigh;
 			m_graphicsHighButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_windowModeButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_windowModeButton.spriteController.callback = OnWindowMode;
 			m_windowModeButton.spriteController.RegisterScrollListener(OnScroll);
 			UIEventTriggerUtils.AddListener(m_windowModeButton.spriteController.gameObject, EventTriggerType.Deselect, OnResolutionDeselect);
 		}
 		if (m_gameWindowModeButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_gameWindowModeButton.spriteController.callback = OnGameWindowMode;
 			m_gameWindowModeButton.spriteController.RegisterScrollListener(OnScroll);
 			UIEventTriggerUtils.AddListener(m_gameWindowModeButton.spriteController.gameObject, EventTriggerType.Deselect, OnGameResolutionDeselect);
@@ -487,15 +353,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_windowModeWindowedButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_windowModeWindowedButton.spriteController.callback = OnWindowModeWindowed;
 			m_windowModeWindowedButton.spriteController.RegisterScrollListener(OnScroll);
 		}
@@ -506,57 +363,21 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_gameWindowModeInheritButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_gameWindowModeInheritButton.spriteController.callback = OnGameWindowModeInherit;
 			m_gameWindowModeInheritButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_gameWindowModeWindowedButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_gameWindowModeWindowedButton.spriteController.callback = OnGameWindowModeWindowed;
 			m_gameWindowModeWindowedButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_gameWindowModeFullscreenButton != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_gameWindowModeFullscreenButton.spriteController.callback = OnGameWindowModeFullscreen;
 			m_gameWindowModeFullscreenButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_resolutionButton != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_resolutionButton.spriteController.callback = OnResolution;
 			m_resolutionButton.spriteController.RegisterScrollListener(OnScroll);
 			UIEventTriggerUtils.AddListener(m_resolutionButton.spriteController.gameObject, EventTriggerType.Deselect, OnResolutionDeselect);
@@ -569,58 +390,22 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_regionButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_regionButton.spriteController.callback = OnRegion;
 			m_regionButton.spriteController.RegisterScrollListener(OnScroll);
 			UIEventTriggerUtils.AddListener(m_regionButton.spriteController.gameObject, EventTriggerType.Deselect, OnRegionDeselect);
 		}
 		if (m_languageButton != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_languageButton.spriteController.callback = OnLanguage;
 			m_languageButton.spriteController.RegisterScrollListener(OnScroll);
 			UIEventTriggerUtils.AddListener(m_languageButton.spriteController.gameObject, EventTriggerType.Deselect, OnLanguageDeselect);
 		}
 		if (m_regionNorthAmericaButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_regionNorthAmericaButton.spriteController.callback = OnRegionNorthAmerica;
 		}
 		if (m_regionEuropeButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_regionEuropeButton.spriteController.callback = OnRegionEurope;
 		}
 		if (m_masterVolumeSlider != null)
@@ -629,196 +414,70 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_musicVolumeSlider != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeSliderChange);
 		}
 		if (m_lockCursorButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lockCursorButton.spriteController.callback = OnLockCursor;
 			m_lockCursorButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_unlockCursorButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_unlockCursorButton.spriteController.callback = OnUnlockCursor;
 			m_unlockCursorButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_smartLockCursorButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_smartLockCursorButton.spriteController.callback = OnSmartLockCursor;
 			m_smartLockCursorButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_enableChatterButton != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_enableChatterButton.spriteController.callback = OnEnableChatter;
 			m_enableChatterButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_disableChatterButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_disableChatterButton.spriteController.callback = OnDisableChatter;
 			m_disableChatterButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_rightClickTargetingConfirm != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rightClickTargetingConfirm.spriteController.callback = OnRightClickConfirm;
 			m_rightClickTargetingConfirm.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_rightClickTargetingCancel != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rightClickTargetingCancel.spriteController.callback = OnRightClickCancel;
 			m_rightClickTargetingCancel.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_shiftClickForWaypoints != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_shiftClickForWaypoints.spriteController.callback = OnShiftClickWaypointsConfirm;
 			m_shiftClickForWaypoints.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_shiftClickForNewPath != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_shiftClickForNewPath.spriteController.callback = OnShiftClickWaypointsCancel;
 			m_shiftClickForNewPath.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_showGlobalChatButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_showGlobalChatButton.spriteController.callback = OnShowGlobalChat;
 			m_showGlobalChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_hideGlobalChatButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hideGlobalChatButton.spriteController.callback = OnHideGlobalChat;
 			m_hideGlobalChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_showAllChatButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_showAllChatButton.spriteController.callback = OnShowAllChat;
 			m_showAllChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_hideAllChatButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hideAllChatButton.spriteController.callback = OnHideAllChat;
 			m_hideAllChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
@@ -834,15 +493,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_enableAutoJoinDiscordButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_enableAutoJoinDiscordButton.spriteController.callback = OnEnableAutoJoinDiscord;
 			m_enableAutoJoinDiscordButton.spriteController.RegisterScrollListener(OnScroll);
 		}
@@ -853,57 +503,21 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_groupGameModeVoiceChatButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_groupGameModeVoiceChatButton.spriteController.callback = OnGroupGameModeVoiceChat;
 			m_groupGameModeVoiceChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_teamGameModeVoiceChatButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_teamGameModeVoiceChatButton.spriteController.callback = OnTeamGameModeVoiceChat;
 			m_teamGameModeVoiceChatButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_hideTutorialVideosButton != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hideTutorialVideosButton.spriteController.callback = OnHideTutorialVideos;
 			m_hideTutorialVideosButton.spriteController.RegisterScrollListener(OnScroll);
 		}
 		if (m_showTutorialVideosButton != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_showTutorialVideosButton.spriteController.callback = OnShowTutorialVideos;
 			m_showTutorialVideosButton.spriteController.RegisterScrollListener(OnScroll);
 		}
@@ -914,15 +528,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		if (m_disallowCancelActionWhileConfirmedButton != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_disallowCancelActionWhileConfirmedButton.spriteController.callback = OnDisallowCancelActionWhileConfirmed;
 			m_disallowCancelActionWhileConfirmedButton.spriteController.RegisterScrollListener(OnScroll);
 		}
@@ -931,15 +536,6 @@ public class Options_UI : UIScene, IGameEventListener
 		TrySetupHwnd();
 		if (!PlayerPrefs.HasKey("OptionsInitialized"))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PlayerPrefs.SetInt("OptionsInitialized", 1);
 			m_activeState.InitToDefaults();
 			m_activeState.ApplyPendingValues(null);
@@ -978,43 +574,12 @@ public class Options_UI : UIScene, IGameEventListener
 		IntPtr value = WinUtils.User32.GetActiveWindow();
 		if (value == (IntPtr)0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_firstSetupTry)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_firstSetupTry = false;
 				List<IntPtr> list = (List<IntPtr>)FindWindowsWithExactText("Atlas Reactor");
 				if (list.Count() == 1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = list[0];
 				}
 			}
@@ -1025,11 +590,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			s_hwnd = value;
 			Get().m_pauseUpdate = false;
 			if (!WinUtils.User32.GetWindowRect(s_hwnd, out WinUtils.User32.RECT rect))
@@ -1094,19 +654,6 @@ public class Options_UI : UIScene, IGameEventListener
 		{
 			if (GetWindowText(wnd) == titleText)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				windows.Add(wnd);
 			}
 			return true;
@@ -1122,15 +669,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_activeState.UpdateResolutionFromScreen();
 			if (m_activeState.lockCursorMode == SettingsState.LockCursorMode.On)
 			{
@@ -1138,26 +676,8 @@ public class Options_UI : UIScene, IGameEventListener
 			}
 			if (m_activeState.lockCursorMode == SettingsState.LockCursorMode.Smart)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0074;
 				}
 			}
@@ -1169,38 +689,15 @@ public class Options_UI : UIScene, IGameEventListener
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameFlowData.Get() == null))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (Cursor.lockState != 0)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					Cursor.lockState = CursorLockMode.None;
 					return;
 				}
@@ -1268,45 +765,14 @@ public class Options_UI : UIScene, IGameEventListener
 	{
 		if (Screen.fullScreen)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_activeState.windowMode = SettingsState.WindowMode.Fullscreen;
 		}
 		else if (m_activeState.windowMode == SettingsState.WindowMode.Fullscreen)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_activeState.windowMode = SettingsState.WindowMode.Windowed;
 		}
 		if (m_activeState.windowMode == SettingsState.WindowMode.Fullscreen)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_activeState.resolutionWidth = Screen.currentResolution.width;
 			m_activeState.resolutionHeight = Screen.currentResolution.height;
 		}
@@ -1318,15 +784,6 @@ public class Options_UI : UIScene, IGameEventListener
 		m_optionsLabelText.text = StringUtil.TR("OptionLabelsDiscord", "Options");
 		if (DiscordClientInterface.IsEnabled)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled)
 			{
 				SetDisabled(m_enableAutoJoinDiscordButton, false);
@@ -1363,15 +820,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_container, false);
 			UIManager.SetGameObjectActive(m_restartWarning, false);
 			SendNotifyOptions(true);
@@ -1387,24 +835,10 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					OptionsNotification optionsNotification = new OptionsNotification();
 					optionsNotification.UserDialog = userDialog;
 					optionsNotification.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
@@ -1478,50 +912,22 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num < 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (num > 100)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_pendingState.masterVolume = num;
 					m_masterVolumeLabel.text = text;
 					if (m_masterVolumeSlider.value != (float)num / 100f && !m_dontUpdateSliders)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_masterVolumeSlider.value = (float)num / 100f;
 					}
 					AudioMixer audioMixer = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
@@ -1541,48 +947,24 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(AudioManager.mixSnapshotManager != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!(AudioManager.mixSnapshotManager.snapshot_game != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (!(AudioManager.mixSnapshotManager.snapshot_game.audioMixer != null))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						AudioMixer audioMixer = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
 						float value = m_activeState.ConvertPercentToDb(m_activeState.musicVolume);
 						int percent = 100 - m_activeState.musicVolume;
@@ -1639,15 +1021,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text = Convert.ToString(num);
 			if (!(text == value))
 			{
@@ -1655,57 +1028,24 @@ public class Options_UI : UIScene, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (num < 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (num > 100)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						m_pendingState.musicVolume = num;
 						m_musicVolumeLabel.text = text;
 						if (m_musicVolumeSlider.value != (float)num / 100f)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_dontUpdateSliders)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_musicVolumeSlider.value = (float)num / 100f;
 							}
 						}
@@ -1768,15 +1108,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_windowModeDropdown, false);
 			return;
 		}
@@ -1790,15 +1121,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1811,15 +1133,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1838,40 +1151,13 @@ public class Options_UI : UIScene, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (resolution.height == m_pendingState.resolutionHeight)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
 				while (true)
@@ -1905,19 +1191,6 @@ public class Options_UI : UIScene, IGameEventListener
 	{
 		if (!m_resolutionDropdown.activeSelf)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PopulateResolutionDropdown();
 		}
 		UIManager.SetGameObjectActive(m_resolutionDropdown, !m_resolutionDropdown.activeSelf);
@@ -1932,35 +1205,16 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (RectTransformUtility.RectangleContainsScreenPoint(m_resolutionButton.transform as RectTransform, pointerEventData.position, pointerEventData.pressEventCamera))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!RectTransformUtility.RectangleContainsScreenPoint(m_ResolutionScrollView.verticalScrollbar.transform as RectTransform, pointerEventData.position, pointerEventData.pressEventCamera))
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						UIManager.SetGameObjectActive(m_resolutionDropdown, false);
 						return;
 					}
@@ -1984,24 +1238,10 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!RectTransformUtility.RectangleContainsScreenPoint(m_gameWindowModeButton.transform as RectTransform, pointerEventData.position, pointerEventData.pressEventCamera))
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_gameWindowModeDropdown, false);
 					return;
 				}
@@ -2018,15 +1258,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -2061,19 +1292,6 @@ public class Options_UI : UIScene, IGameEventListener
 			Resolution resolution = resolutions[i];
 			if (resolution.width == m_pendingState.gameResolutionWidth)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (resolution.height == m_pendingState.gameResolutionHeight)
 				{
 					flag = true;
@@ -2082,11 +1300,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
 				while (true)
@@ -2134,15 +1347,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_gameResolutionDropdown, false);
 			return;
 		}
@@ -2162,24 +1366,10 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!RectTransformUtility.RectangleContainsScreenPoint(m_regionButton.transform as RectTransform, pointerEventData.position, pointerEventData.pressEventCamera))
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_regionDropdown, false);
 					return;
 				}
@@ -2196,15 +1386,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -2213,19 +1394,6 @@ public class Options_UI : UIScene, IGameEventListener
 	{
 		if (!m_languageDropdown.activeSelf)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PopulateLanguageDropdown();
 		}
 		UIManager.SetGameObjectActive(m_languageDropdown, !m_languageDropdown.activeSelf);
@@ -2240,15 +1408,6 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_languageDropdown, false);
 			return;
 		}
@@ -2468,33 +1627,11 @@ public class Options_UI : UIScene, IGameEventListener
 		Resolution[] resolutions = Screen.resolutions;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((Resolution r) => r.width);
 		}
 		IOrderedEnumerable<Resolution> source = resolutions.OrderByDescending(_003C_003Ef__am_0024cache0);
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = ((Resolution r) => r.height);
 		}
 		Resolution[] array = source.ThenByDescending(_003C_003Ef__am_0024cache1).ToArray();
@@ -2518,11 +1655,6 @@ public class Options_UI : UIScene, IGameEventListener
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_resolutionButtons.Add(gameObject);
 				UIManager.SetGameObjectActive(gameObject, true);
 				ResolutionSetting setting = default(ResolutionSetting);
@@ -2534,15 +1666,6 @@ public class Options_UI : UIScene, IGameEventListener
 				component.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
 				if (scrollView != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_MouseEventPasser mouseEventPasser = component.spriteController.gameObject.AddComponent<_MouseEventPasser>();
 					mouseEventPasser.AddNewHandler(scrollView);
 				}
@@ -2558,33 +1681,10 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (pendingWindowMode == SettingsState.WindowMode.Windowed && !flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentWidth > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentHeight > 0)
 					{
 						GameObject gameObject2 = UnityEngine.Object.Instantiate(Get().m_resolutionButtonPrefab);
@@ -2599,15 +1699,6 @@ public class Options_UI : UIScene, IGameEventListener
 						{
 							componentsInChildren2[j].text = StringUtil.TR("Custom", "Options");
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_resolutionButtons.Add(gameObject2);
 						UIManager.SetGameObjectActive(gameObject2, true);
 						ResolutionSetting setting2 = default(ResolutionSetting);
@@ -2620,15 +1711,6 @@ public class Options_UI : UIScene, IGameEventListener
 						component2.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
 						if (scrollView != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_MouseEventPasser mouseEventPasser2 = component2.spriteController.gameObject.AddComponent<_MouseEventPasser>();
 							mouseEventPasser2.AddNewHandler(scrollView);
 						}
@@ -2661,10 +1743,6 @@ public class Options_UI : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -2688,11 +1766,6 @@ public class Options_UI : UIScene, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_languageButtons.Add(gameObject);
 				UIManager.SetGameObjectActive(gameObject, true);
 				_SelectableBtn component = gameObject.GetComponent<_SelectableBtn>();
@@ -2700,15 +1773,6 @@ public class Options_UI : UIScene, IGameEventListener
 				component.spriteController.m_soundToPlay = FrontEndButtonSounds.OptionsChoice;
 				if (m_LanguageScrollView != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_MouseEventPasser mouseEventPasser = component.spriteController.gameObject.AddComponent<_MouseEventPasser>();
 					mouseEventPasser.AddNewHandler(m_LanguageScrollView);
 				}
@@ -2741,10 +1805,6 @@ public class Options_UI : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2781,10 +1841,6 @@ public class Options_UI : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2813,31 +1869,9 @@ public class Options_UI : UIScene, IGameEventListener
 				GameObject current = enumerator.Current;
 				if (current.GetComponent<_SelectableBtn>().spriteController.gameObject == data.selectedObject)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					LanguageOptions languageOptions = (LanguageOptions)num;
 					if (languageOptions == LanguageOptions.GlyphSettings)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_pendingState.overrideGlyphLanguage = false;
 						m_pendingState.overrideGlyphLanguageCode = string.Empty;
 					}
@@ -2850,15 +1884,6 @@ public class Options_UI : UIScene, IGameEventListener
 					SetLanguageText(StringUtil.TR(languageOptions2.ToString(), "LanguageSelection"));
 				}
 				num++;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(m_restartWarning, true);
@@ -2993,10 +2018,6 @@ public class Options_UI : UIScene, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance.m_activeState.region;
 				}
 			}
@@ -3013,19 +2034,6 @@ public class Options_UI : UIScene, IGameEventListener
 		double num2 = 7.5;
 		if (totalHours > num)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (totalHours < num2)
 			{
 				while (true)
@@ -3053,19 +2061,6 @@ public class Options_UI : UIScene, IGameEventListener
 		m_activeState.gameModeVoiceChat = setting;
 		if (setting != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (setting != SettingsState.VoiceChatMode.Group)
 			{
 				while (true)

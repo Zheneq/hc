@@ -40,15 +40,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
 			return;
 		}
@@ -66,10 +57,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 					return;
 				}
@@ -91,10 +78,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnGridPos(GridPos,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 					return;
 				}
@@ -114,15 +97,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				num2++;
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		if (num < 0)
@@ -131,11 +105,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_visionProviders.RemoveAt(num);
 			return;
 		}
@@ -153,10 +122,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::AddVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 					return;
 				}
@@ -178,10 +143,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 					return;
 				}
@@ -195,29 +156,11 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			{
 				if (m_visionProviders[num2].IsEqual(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = num2;
 					break;
 				}
 				num2++;
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -227,11 +170,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_visionProviders.RemoveAt(num);
 			return;
 		}
@@ -249,10 +187,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnActor(System.Int32)' called on client");
 					return;
 				}
@@ -263,27 +197,9 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			VisionProviderInfo visionProviderInfo = m_visionProviders[num];
 			if (visionProviderInfo.m_actorIndex == actorIndex)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				VisionProviderInfo visionProviderInfo2 = m_visionProviders[num];
 				if (visionProviderInfo2.m_satelliteIndex == -1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_visionProviders.RemoveAt(num);
 				}
 			}
@@ -324,10 +240,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32,System.Single,System.Boolean,VisionProviderInfo/BrushRevealType,System.Boolean,System.Boolean,BoardSquare/VisibilityFlags)' called on client");
 					return;
 				}
@@ -338,15 +250,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		{
 			if (m_visionProviders[i].IsEqual(actorIndex, satelliteIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = i;
 				break;
 			}
@@ -369,10 +272,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::RemoveVisionProviderOnSatellite(System.Int32,System.Int32)' called on client");
 					return;
 				}
@@ -386,15 +285,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				VisionProviderInfo visionProviderInfo2 = m_visionProviders[num];
 				if (visionProviderInfo2.m_satelliteIndex == satelliteIndex)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_visionProviders.RemoveAt(num);
 				}
 			}
@@ -410,19 +300,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			VisionProviderInfo visionProviderInfo2 = m_visionProviders[i];
 			if (visionProviderInfo2.m_satelliteIndex != satelliteIndex)
 			{
@@ -430,11 +307,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -458,15 +330,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			visionProviderInfo = default(VisionProviderInfo);
 			return false;
 		}
@@ -484,10 +347,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ActorAdditionalVisionProviders::ClearVisionProviders()' called on client");
 					return;
 				}
@@ -511,10 +370,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_visionProviders called on server.");
 					return;
 				}
@@ -539,10 +394,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GeneratedNetworkCode._WriteStructSyncListVisionProviderInfo_None(writer, m_visionProviders);
 					return true;
 				}
@@ -553,15 +404,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -569,15 +411,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -594,10 +427,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
 					return;
 				}
@@ -610,11 +439,6 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(reader, m_visionProviders);
 			return;
 		}

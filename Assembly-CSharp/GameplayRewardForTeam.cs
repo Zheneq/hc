@@ -27,25 +27,11 @@ public class GameplayRewardForTeam
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ObjectivePoints objectivePoints = ObjectivePoints.Get();
 			if (objectivePoints != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					objectivePoints.AdjustUnresolvedPoints(m_objectivePointAdjust, team);
 					return;
 				}

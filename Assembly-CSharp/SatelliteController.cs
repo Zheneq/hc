@@ -23,30 +23,8 @@ public class SatelliteController : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_overrideSatelliteResourceLinks[i] != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_satelliteModelDataPrefabs[i] = m_overrideSatelliteResourceLinks[i].GetPrefab();
 			}
 		}
@@ -70,30 +48,12 @@ public class SatelliteController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_satelliteInstances = new PersistentSatellite[m_satelliteModelDataPrefabs.Length];
 			for (int i = 0; i < m_satelliteModelDataPrefabs.Length; i++)
 			{
 				GameObject gameObject = Object.Instantiate(m_satelliteModelDataPrefabs[i]);
 				if ((bool)gameObject)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_satelliteInstances[i] = gameObject.GetComponent<PersistentSatellite>();
 					if (m_satelliteInstances[i] != null)
 					{
@@ -103,38 +63,15 @@ public class SatelliteController : NetworkBehaviour
 						{
 							transform.gameObject.layer = layer;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				if (m_satelliteInstances[i] != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_satelliteInstances[i].Setup(this);
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_createdSatellites = true;
 				return;
 			}
@@ -146,30 +83,8 @@ public class SatelliteController : NetworkBehaviour
 		PersistentSatellite result = null;
 		if (m_satelliteInstances != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (index < m_satelliteInstances.Length)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_satelliteInstances[index];
 			}
 		}
@@ -188,10 +103,6 @@ public class SatelliteController : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					for (int i = 0; i < m_satelliteInstances.Length; i++)
 					{
 						if (m_satelliteInstances[i] != null)
@@ -224,28 +135,10 @@ public class SatelliteController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_satelliteInstances.Length; i++)
 			{
 				if (m_satelliteInstances[i] != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_satelliteInstances[i].OnRespawn();
 				}
 			}
@@ -272,19 +165,6 @@ public class SatelliteController : NetworkBehaviour
 		{
 			if (m_satelliteInstances[i] != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_satelliteInstances[i].OnActorDeath();
 			}
 		}
@@ -298,15 +178,6 @@ public class SatelliteController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_delayedOnAssignedToBoardSquare = false;
 			OnAssignedToInitialBoardSquare();
 			return;
@@ -323,19 +194,6 @@ public class SatelliteController : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num == 0)
@@ -344,11 +202,6 @@ public class SatelliteController : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			OnSerializeHelper(new NetworkReaderAdapter(reader), initialState);
 			return;
 		}
@@ -358,19 +211,6 @@ public class SatelliteController : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_serializeHelper.ShouldReturnImmediately(ref stream))
 			{
 				return false;
@@ -385,27 +225,9 @@ public class SatelliteController : NetworkBehaviour
 			{
 				PrefabResourceLink.Stream(stream, ref m_overrideSatelliteResourceLinks[i]);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (stream.isReading)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref value);
 			m_overrideSatelliteResourceLinks = new PrefabResourceLink[value];
 			for (int j = 0; j < value; j++)

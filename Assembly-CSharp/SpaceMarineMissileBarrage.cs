@@ -40,19 +40,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int affectsCaster;
 		if (GetModdedEffectForSelf() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = (GetModdedEffectForSelf().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -88,19 +75,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int val;
 		if ((bool)abilityMod_SpaceMarineMissileBarrage)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(m_damage);
 		}
 		else
@@ -116,19 +90,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int result;
 		if (animIndex != m_missileLaunchAnimIndex)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
 		}
 		else
@@ -146,15 +107,6 @@ public class SpaceMarineMissileBarrage : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SpaceMarineMissileBarrage);
 			Setup();
 			return;
@@ -177,19 +129,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 1;
 		}
 		else
@@ -203,19 +142,6 @@ public class SpaceMarineMissileBarrage : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_missileHitEffectOverride.m_applyEffect)
 			{
 				while (true)
@@ -238,19 +164,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else

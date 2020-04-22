@@ -39,15 +39,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 			return;
 		}
@@ -62,15 +53,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GGPack[] ggPacks = GameWideData.Get().m_ggPackData.m_ggPacks;
 			foreach (GGPack pack in ggPacks)
 			{
@@ -102,15 +84,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIRAFProgramScreen.Get().SetVisible(false);
 			UIPlayerProgressPanel.Get().SetVisible(false);
 			return;

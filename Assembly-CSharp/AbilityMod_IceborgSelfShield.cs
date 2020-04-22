@@ -35,15 +35,6 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_lowHealthThreshMod, "LowHealthThresh", string.Empty, iceborgSelfShield.m_lowHealthThresh);
 			AbilityMod.AddToken(tokens, m_shieldOnNextTurnIfDepletedMod, "ShieldOnNextTurnIfDepleted", string.Empty, iceborgSelfShield.m_shieldOnNextTurnIfDepleted);
@@ -58,34 +49,12 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgSelfShield != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgSelfShield.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgSelfShield.m_lowHealthThresh;
 			}
 			else
@@ -95,41 +64,14 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 			text = str + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal);
 			if (m_lowHealthUseStatusOverride)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lowHealthStatusWhenRequested != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "Status to apply when ability is requested, if low health:\n";
 					using (List<StatusType>.Enumerator enumerator = m_lowHealthStatusWhenRequested.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
 							text = text + "\t" + enumerator.Current.ToString() + "\n";
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -139,15 +81,6 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgSelfShield.m_shieldOnNextTurnIfDepleted;
 			}
 			else

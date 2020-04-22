@@ -23,15 +23,6 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_count; j++)
 			{
 				m_squarePosCheckerList.Add(new SquareInsideChecker_Cone());
@@ -54,24 +45,10 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 3 * m_count + 1)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_highlights[3 * m_count].SetActive(false);
 					return;
 				}
@@ -90,19 +67,6 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 		{
 			if (m_highlights.Count <= m_count + 2 * num)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 				m_highlights.Add(HighlightUtils.Get().CreateAoECursor(m_aoeRadiusAtEnd * Board.SquareSizeStatic, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
@@ -127,11 +91,6 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				BoardSquare boardSquare = discSquaresFromEndPositions[num];
 				Vector3 baselineHeight = boardSquare.GetBaselineHeight();
 				baselineHeight.y = HighlightUtils.GetHighlightHeight();
@@ -139,15 +98,6 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 				gameObject2.transform.position = vector3;
 				if (gameObject.activeSelf != m_showEndSquareHighlights)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.SetActive(m_showEndSquareHighlights);
 				}
 				num++;
@@ -157,33 +107,14 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_interpStep > 0f))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_highlights.Count < 3 * m_count + 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float z = (m_interpStep + m_interpMinDistanceInSquares) * Board.SquareSizeStatic;
 					float num2 = 1.2f;
 					GameObject gameObject3 = HighlightUtils.Get().CreateDynamicLineSegmentMesh(num2, 0.5f, false, Color.cyan);
@@ -218,15 +149,6 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

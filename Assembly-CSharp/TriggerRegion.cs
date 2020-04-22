@@ -28,69 +28,20 @@ public class TriggerRegion : BoardRegion
 				ActorData current = enumerator.Current;
 				if (m_triggerLimit == TriggerAmount.OnceEverPerActor)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_actorsTriggeredOnThisGame.Contains(current))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (m_triggerLimit == TriggerAmount.OnceEverTotal)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_actorsTriggeredOnThisGame.Count > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (!ActorCanTrigger(current, m_triggerActor))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (m_triggerLimit == TriggerAmount.OncePerTurnTotal)
 				{
@@ -121,19 +72,6 @@ public class TriggerRegion : BoardRegion
 			int result;
 			if (GameplayUtils.IsPlayerControlled(actor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (GameplayUtils.IsHumanControlled(actor) ? 1 : 0);
 			}
 			else

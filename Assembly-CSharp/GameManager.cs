@@ -304,19 +304,6 @@ public class GameManager : MonoBehaviour
 			LobbyGameplayOverrides result;
 			if (m_gameplayOverridesForCurrentGame != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = m_gameplayOverridesForCurrentGame;
 			}
 			else
@@ -385,15 +372,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -409,15 +387,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -448,15 +417,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -476,15 +436,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -500,15 +451,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -528,15 +470,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -552,15 +485,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -580,15 +504,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -630,15 +545,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -658,15 +564,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -682,15 +579,6 @@ public class GameManager : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -702,19 +590,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
@@ -734,15 +609,6 @@ public class GameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache5 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache5 = delegate
 			{
 			};
@@ -753,21 +619,12 @@ public class GameManager : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache7 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache7 = delegate
 			{
 			};
 		}
 		this.OnGameStatusChanged = _003C_003Ef__am_0024cache7;
-		base._002Ector();
+		
 	}
 
 	public static GameManager Get()
@@ -805,15 +662,6 @@ public class GameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 			return;
 		}
@@ -843,50 +691,18 @@ public class GameManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!notify)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!GameInfo.GameServerProcessCode.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameInfo.GameConfig != null)
 					{
 						if (gameResult == GameResult.NoResult)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Info("Game {0} is {1}", GameInfo.Name, gameStatus.ToString().ToLower());
 						}
 						else
@@ -989,10 +805,6 @@ public class GameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1004,19 +816,6 @@ public class GameManager : MonoBehaviour
 		LobbyGameplayOverrides gameplayOverrides2 = GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
 		}
@@ -1071,52 +870,12 @@ public class GameManager : MonoBehaviour
 		bool result = false;
 		if (GameInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameInfo.GameConfig != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameInfo.GameConfig.GameType != 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameInfo.GameStatus >= GameStatus.Assembling)
 						{
 							result = true;
@@ -1124,15 +883,6 @@ public class GameManager : MonoBehaviour
 					}
 					else if (GameInfo.GameStatus.IsPostLaunchStatus())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -1146,19 +896,6 @@ public class GameManager : MonoBehaviour
 		int result;
 		if (gameType != GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameType != GameType.Practice)
 			{
 				result = ((gameType != GameType.Custom) ? 1 : 0);
@@ -1184,21 +921,8 @@ public class GameManager : MonoBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (GameConfig.GameType == GameType.Custom)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowPausing))
 							{
 								goto IL_00cb;
@@ -1208,38 +932,11 @@ public class GameManager : MonoBehaviour
 						{
 							goto IL_00cb;
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameConfig.GameType == GameType.Coop)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 							{
 								goto IL_00cb;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						result = ((GameConfig.GameType == GameType.NewPlayerSolo) ? 1 : 0);
@@ -1263,19 +960,6 @@ public class GameManager : MonoBehaviour
 			int result;
 			if (p.PlayerId == playerId)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (p.BotsMasqueradeAsHumans ? 1 : 0);
 			}
 			else
@@ -1297,10 +981,6 @@ public class GameManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("GameConfig not set");
 				}
 			}
@@ -1313,15 +993,6 @@ public class GameManager : MonoBehaviour
 		FreelancerDuplicationRuleTypes freelancerDuplicationRuleTypes = FreelancerDuplicationRuleTypes.byGameType;
 		if (GameConfig.HasSelectedSubType)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection);
 			freelancerDuplicationRuleTypes = GameConfig.InstanceSubType.DuplicationRule;
 		}

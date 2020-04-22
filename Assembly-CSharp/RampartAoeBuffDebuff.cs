@@ -45,19 +45,6 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Robotic Roar";
 		}
 		SetupTargeter();
@@ -69,19 +56,6 @@ public class RampartAoeBuffDebuff : Ability
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		if (!IncludeCaster())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		}
 		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetShape(), PenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
@@ -92,19 +66,6 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartAoeBuffDebuff))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RampartAoeBuffDebuff);
 		}
 		SetupTargeter();
@@ -121,19 +82,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedSelfHitEffect = m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -145,15 +93,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -171,19 +110,6 @@ public class RampartAoeBuffDebuff : Ability
 		int val;
 		if ((bool)abilityMod_RampartAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RampartAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
@@ -195,15 +121,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RampartAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RampartAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -214,15 +131,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_RampartAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RampartAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -233,15 +141,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_RampartAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_RampartAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -253,15 +152,6 @@ public class RampartAoeBuffDebuff : Ability
 		int val2;
 		if ((bool)abilityMod_RampartAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RampartAoeBuffDebuff.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
 		}
 		else
@@ -294,10 +184,6 @@ public class RampartAoeBuffDebuff : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -306,26 +192,8 @@ public class RampartAoeBuffDebuff : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int num = 0;
 				int num2 = 0;
@@ -333,30 +201,12 @@ public class RampartAoeBuffDebuff : Ability
 				{
 					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
 					{
 						num2++;
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
 			}
@@ -369,58 +219,18 @@ public class RampartAoeBuffDebuff : Ability
 		int result = 0;
 		if (GetSelfHealAmountPerHit() <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetBaseSelfHeal() <= 0)
 			{
 				goto IL_0075;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
 		if (SelfHealCountAllyHit())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += allyHits;
 		}
 		if (SelfHealCountEnemyHit())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += enemyHits;
 		}
 		result = GetBaseSelfHeal() + num * GetSelfHealAmountPerHit();
@@ -434,30 +244,8 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if (!ModdedIncludeCaster())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetSelfHealAmountPerHit() <= 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((GetBaseSelfHeal() > 0) ? 1 : 0);
 				goto IL_003e;
 			}
@@ -473,19 +261,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if (!GetAllyHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetHealingToAllies() > 0) ? 1 : 0);
 		}
 		else
@@ -505,19 +280,6 @@ public class RampartAoeBuffDebuff : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
 		}
 		else
@@ -532,19 +294,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -559,19 +308,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
@@ -591,19 +327,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(m_selfHealCountEnemyHit);
 		}
 		else
@@ -618,19 +341,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(m_selfHealCountAllyHit);
 		}
 		else
@@ -645,19 +355,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_includeCasterMod.GetModifiedValue(m_includeCaster);
 		}
 		else
@@ -672,19 +369,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -699,19 +383,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -731,19 +402,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
 		}
 		else
@@ -758,19 +416,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
 		}
 		else

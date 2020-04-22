@@ -45,24 +45,10 @@ public class AppState_RankModeDraft : AppState
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameStatus != GameStatus.Stopped)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
 					return;
 				}

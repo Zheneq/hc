@@ -31,19 +31,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 			{
 				goto IL_00a3;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		bool isForLocalPlayer = targetingActor == GameFlowData.Get().activeOwnedActorData;
 		m_highlights = new List<GameObject>();
@@ -63,15 +50,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 			gameObject2.transform.position = position;
 			if (!gameObject2.activeSelf)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject2.SetActive(true);
 			}
 		}
@@ -88,15 +66,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 		int num = 0;
 		if (m_knockbackDistance != 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetMovementArrowEnabledFromIndex(0, true);
 		}
 		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor.GetCurrentBoardSquare(), m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
@@ -110,15 +79,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				int subjectType;
 				if (current.GetTeam() == targetingActor.GetTeam())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					subjectType = 6;
 				}
 				else
@@ -128,40 +88,13 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				AddActorInRange(current, travelBoardSquareWorldPosition2, targetingActor, (AbilityTooltipSubject)subjectType);
 				if (m_knockbackDistance != 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), m_knockbackDistance);
 					num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		SetMovementArrowEnabledFromIndex(num, false);

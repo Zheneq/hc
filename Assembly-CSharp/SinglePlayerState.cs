@@ -177,10 +177,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -199,10 +195,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -221,10 +213,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -252,10 +240,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -274,10 +258,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -296,10 +276,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -327,10 +303,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -349,10 +321,6 @@ public class SinglePlayerState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -392,52 +360,16 @@ public class SinglePlayerState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_audioEventOnPreEnter != string.Empty)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_audioEventOnPreEnter);
 			}
 			if (m_audioEventOnEnter != string.Empty)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(m_audioEventOnEnter);
 			}
 			if (m_chatTextOnEnter != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_chatTextOnEnter.Length > 0)
 				{
 					SinglePlayerScriptedChat[] chatTextOnEnter = m_chatTextOnEnter;
@@ -445,42 +377,15 @@ public class SinglePlayerState
 					{
 						UITutorialPanel.Get().QueueDialogue(singlePlayerScriptedChat.m_text, singlePlayerScriptedChat.m_audioEvent, singlePlayerScriptedChat.m_displaySeconds, singlePlayerScriptedChat.m_sender);
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if (m_tutorialVideoPreviewOnEnter != string.Empty)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UITutorialDropdownlist.Get().DisplayPreviewVideo(m_tutorialVideoPreviewOnEnter);
 			}
 			string bannerText = GetBannerText();
 			if (bannerText != string.Empty)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar, true);
 				UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText, true);
 				HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.text = bannerText;
@@ -497,15 +402,6 @@ public class SinglePlayerState
 			}
 			else if (GetHasTag(SinglePlayerTag.ForceOnCinematicCam))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.Get().m_abilityCinematicState = CameraManager.AbilityCinematicState.Always;
 			}
 			else
@@ -516,11 +412,6 @@ public class SinglePlayerState
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					GameFlowData.Get().ClearCooldowns();
 					GameFlowData.Get().RefillStocks();
 					return;
@@ -538,19 +429,6 @@ public class SinglePlayerState
 		{
 			if (activatableObject == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null activation-object in 'Activations On Exit' for state " + m_stateIndex + ".  Tell Colin.");
 			}
 			else if (activatableObject.m_sceneObject == null)
@@ -564,11 +442,6 @@ public class SinglePlayerState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			ActivatableUI[] uiActivationsOnExit = m_uiActivationsOnExit;
 			foreach (ActivatableUI activatableUI in uiActivationsOnExit)
 			{
@@ -576,22 +449,8 @@ public class SinglePlayerState
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_audioEventOnExit != string.Empty)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(m_audioEventOnExit);
 				}
 				if ((bool)CameraManager.Get())
@@ -604,11 +463,6 @@ public class SinglePlayerState
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					GameManager.Get().StopGame();
 					GameFlowData.Get().gameState = GameState.EndingGame;
 					if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
@@ -619,11 +473,6 @@ public class SinglePlayerState
 					{
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							AppState_GameTeardown.Get().Enter();
 							return;
 						}
@@ -654,10 +503,6 @@ public class SinglePlayerState
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_003d;
 					}
 				}
@@ -676,19 +521,6 @@ public class SinglePlayerState
 		int num = SinglePlayerCoordinator.Get().m_script.Length - 1;
 		if (m_stateTitle != string.Empty)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			empty = "state '" + m_stateTitle + "' (state " + m_stateIndex + " of " + num + ")";
 		}
 		else
@@ -725,19 +557,6 @@ public class SinglePlayerState
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		return result;
@@ -748,47 +567,16 @@ public class SinglePlayerState
 		Vector3 result = new Vector3(1f, 0f, 0f);
 		if (m_cameraRotationTarget != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = m_cameraRotationTarget.transform.position - spawnPosition;
 			vector.y = 0f;
 			if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(vector.x > 0f))
 				{
 					result = new Vector3(-1f, 0f, 0f);
 				}
 				else
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = new Vector3(1f, 0f, 0f);
 				}
 			}
@@ -798,15 +586,6 @@ public class SinglePlayerState
 			}
 			else
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = new Vector3(0f, 0f, 1f);
 			}
 		}

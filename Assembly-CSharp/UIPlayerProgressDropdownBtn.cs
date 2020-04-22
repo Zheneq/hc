@@ -47,26 +47,8 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_allFreelancerImage != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_allFreelancerImage, charType == CharacterType.None);
 			}
 			if (!(m_freelancerImage != null))
@@ -75,21 +57,11 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.SetGameObjectActive(m_freelancerImage, charType != CharacterType.None);
 				if (charType != 0)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
 						m_freelancerImage.sprite = Resources.Load<Sprite>(characterResourceLink.m_characterSelectIconResourceString);
 						return;
@@ -108,19 +80,6 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 		}
 		if (m_allFreelancerImage != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_allFreelancerImage, false);
 		}
 		if (m_freelancerImage != null)

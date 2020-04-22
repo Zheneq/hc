@@ -30,19 +30,6 @@ public class UIStarsPanel : MonoBehaviour
 			int result;
 			if (m_currentValue >= 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((m_currentValue <= 5) ? 1 : 0);
 			}
 			else
@@ -66,10 +53,6 @@ public class UIStarsPanel : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return BotDifficulty.Stupid;
 					}
 				}
@@ -100,15 +83,6 @@ public class UIStarsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_clickable = true;
 			return;
 		}
@@ -119,30 +93,8 @@ public class UIStarsPanel : MonoBehaviour
 		int num;
 		if (ClientGameManager.Get().GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!ClientGameManager.Get().GroupInfo.IsLeader) ? 1 : 0);
 				goto IL_0059;
 			}
@@ -179,15 +131,6 @@ public class UIStarsPanel : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -196,26 +139,8 @@ public class UIStarsPanel : MonoBehaviour
 		int num;
 		if (ClientGameManager.Get().GroupInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!ClientGameManager.Get().GroupInfo.IsLeader) ? 1 : 0);
 				goto IL_00a0;
 			}
@@ -225,52 +150,16 @@ public class UIStarsPanel : MonoBehaviour
 		IL_00a0:
 		if (num != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		else if (flag2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !AppState_GroupCharacterSelect.Get().IsReady();
 			}
 			else if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !AppState_CharacterSelect.IsReady();
 			}
 		}
@@ -282,15 +171,6 @@ public class UIStarsPanel : MonoBehaviour
 		{
 			if (m_activeButtons[i].gameObject == data.selectedObject)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetCurrentValue(i + 1);
 			}
 			if (m_inactiveButtons[i].gameObject == data.selectedObject)
@@ -335,11 +215,6 @@ public class UIStarsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
 				ClientRequestedAllyBotDifficulty = m_currentValue - 1
@@ -355,19 +230,6 @@ public class UIStarsPanel : MonoBehaviour
 		{
 			if (i < newValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_activeButtons[i], true);
 				UIManager.SetGameObjectActive(m_inactiveButtons[i], false);
 			}

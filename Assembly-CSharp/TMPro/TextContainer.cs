@@ -64,15 +64,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_pivot = value;
 					m_anchorPosition = GetAnchorPosition(m_pivot);
 					m_hasChanged = true;
@@ -96,15 +87,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_anchorPosition = value;
 					m_pivot = GetPivot(m_anchorPosition);
 					m_hasChanged = true;
@@ -128,15 +110,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_rect = value;
 					m_hasChanged = true;
 					OnContainerChanged();
@@ -159,15 +132,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetRect(value);
 					m_hasChanged = true;
 					m_isDefaultWidth = false;
@@ -242,15 +206,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_margins = value;
 					m_hasChanged = true;
 					OnContainerChanged();
@@ -265,19 +220,6 @@ namespace TMPro
 			{
 				if (m_rectTransform == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_rectTransform = GetComponent<RectTransform>();
 				}
 				return m_rectTransform;
@@ -290,19 +232,6 @@ namespace TMPro
 			{
 				if (m_textMeshPro == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_textMeshPro = GetComponent<TextMeshPro>();
 				}
 				return m_textMeshPro;
@@ -328,19 +257,6 @@ namespace TMPro
 			UpdateCorners();
 			if (m_rectTransform != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rectTransform.sizeDelta = size;
 				m_rectTransform.hasChanged = true;
 			}
@@ -350,11 +266,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_textMeshPro.SetVerticesDirty();
 				m_textMeshPro.margin = m_margins;
 				return;
@@ -365,19 +276,6 @@ namespace TMPro
 		{
 			if (rectTransform == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rectTransform = base.gameObject.AddComponent<RectTransform>();
 			}
 			if (m_rectTransform.sizeDelta != k_defaultSize)
@@ -406,15 +304,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_rectTransform.pivot = m_pivot;
 				return;
 			}
@@ -467,10 +356,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return TextContainerAnchors.TopLeft;
 					}
 				}

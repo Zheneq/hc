@@ -50,19 +50,6 @@ public class ClericMeleeKnockback : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Sphere of Might";
 		}
 		m_syncComp = GetComponent<Cleric_SyncComponent>();
@@ -86,15 +73,6 @@ public class ClericMeleeKnockback : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ClericMeleeKnockback);
 			SetupTargeter();
 			return;
@@ -112,19 +90,6 @@ public class ClericMeleeKnockback : Ability
 		StandardEffectInfo cachedTargetHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTargetHitEffect = m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect);
 		}
 		else
@@ -135,15 +100,6 @@ public class ClericMeleeKnockback : Ability
 		StandardEffectInfo cachedConnectLaserEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedConnectLaserEnemyHitEffect = m_abilityMod.m_connectLaserEnemyHitEffectMod.GetModifiedValue(m_connectLaserEnemyHitEffect);
 		}
 		else
@@ -159,19 +115,6 @@ public class ClericMeleeKnockback : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
@@ -191,19 +134,6 @@ public class ClericMeleeKnockback : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxSeparationBetweenAoeAndCasterMod.GetModifiedValue(m_maxSeparationBetweenAoeAndCaster);
 		}
 		else
@@ -218,19 +148,6 @@ public class ClericMeleeKnockback : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
 		}
 		else
@@ -245,19 +162,6 @@ public class ClericMeleeKnockback : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -272,19 +176,6 @@ public class ClericMeleeKnockback : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -299,19 +190,6 @@ public class ClericMeleeKnockback : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
@@ -326,19 +204,6 @@ public class ClericMeleeKnockback : Ability
 		KnockbackType result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
 		}
 		else
@@ -353,19 +218,6 @@ public class ClericMeleeKnockback : Ability
 		StandardEffectInfo result;
 		if (m_cachedTargetHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTargetHitEffect;
 		}
 		else
@@ -380,19 +232,6 @@ public class ClericMeleeKnockback : Ability
 		object result;
 		if (m_cachedSingleTargetHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSingleTargetHitEffect;
 		}
 		else
@@ -422,19 +261,6 @@ public class ClericMeleeKnockback : Ability
 		StandardEffectInfo result;
 		if (m_cachedConnectLaserEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConnectLaserEnemyHitEffect;
 		}
 		else
@@ -475,21 +301,8 @@ public class ClericMeleeKnockback : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage = GetDamageAmount();
 					}
 					else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
@@ -509,19 +322,6 @@ public class ClericMeleeKnockback : Ability
 		AbilityData abilityData = caster.GetAbilityData();
 		if (abilityData != null && abilityData.HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += base.Targeters[currentTargeterIndex].GetNumActorsInRange() * GetExtraTechPointsPerHitWithAreaBuff();
 		}
 		return num;
@@ -538,10 +338,6 @@ public class ClericMeleeKnockback : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}

@@ -86,32 +86,10 @@ public class PlatformConfig
 		int num;
 		if (hex < ':')
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 48;
 		}
 		else if (hex < 'a')
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 55;
 		}
 		else
@@ -132,10 +110,6 @@ public class PlatformConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("The binary key cannot have an odd number of digits");
 				}
 			}
@@ -147,11 +121,6 @@ public class PlatformConfig
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return array;
 		}
 	}
@@ -197,10 +166,6 @@ public class PlatformConfig
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									((IDisposable)binaryWriter).Dispose();
 									goto end_IL_007d;
 								}

@@ -43,31 +43,9 @@ public class RectangleHighlightWithLines
 	{
 		if (m_currentHeightInSquares == heightInSquares)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentWidthInSquares == widthInSquares)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_currentHeightInSquares = heightInSquares;
@@ -81,29 +59,11 @@ public class RectangleHighlightWithLines
 		}
 		if (m_right != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_right, heightInSquares);
 			m_right.transform.localPosition = new Vector3(num2, 0f, 0f - num);
 		}
 		if (m_top != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicLineSegmentLength(m_top, widthInSquares);
 			m_top.transform.localPosition = new Vector3(num2, 0f, num);
 		}

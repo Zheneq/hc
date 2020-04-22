@@ -25,32 +25,10 @@ public class UIBannerPreviewTooltip : UITooltipBase
 		}
 		if (emblem != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			path2 = emblem.m_resourceString;
 		}
 		if (titleString.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			titleString = string.Empty;
 		}
 		m_bannerImage.sprite = Resources.Load<Sprite>(path);
@@ -63,11 +41,6 @@ public class UIBannerPreviewTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 			return;
 		}

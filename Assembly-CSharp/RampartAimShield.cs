@@ -19,19 +19,6 @@ public class RampartAimShield : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Aim Shield";
 		}
 		Setup();
@@ -42,19 +29,6 @@ public class RampartAimShield : Ability
 	{
 		if (m_passive == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_passive = (GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
 		}
 		float width = (!(m_passive != null)) ? 3f : m_passive.GetShieldBarrierData().m_width;
@@ -66,19 +40,6 @@ public class RampartAimShield : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_passive != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref numbers);
 		}
 		return numbers;

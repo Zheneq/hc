@@ -137,15 +137,6 @@ public class LightShafts : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -154,27 +145,9 @@ public class LightShafts : MonoBehaviour
 		m_AttenuationCurveTex.hideFlags = HideFlags.HideAndDontSave;
 		if (m_AttenuationCurve != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_AttenuationCurve.length != 0)
 			{
 				goto IL_00c2;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_AttenuationCurve = new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 1f));
@@ -186,11 +159,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			UpdateLUTs();
 			return;
 		}
@@ -208,10 +176,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -223,11 +187,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_AttenuationCurveTex.Apply();
 			return;
 		}
@@ -244,10 +203,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					rt = RenderTexture.GetTemporary(width, height, depth, format);
 					return;
 				}
@@ -255,48 +210,12 @@ public class LightShafts : MonoBehaviour
 		}
 		if (rt != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (rt.width == width)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rt.height == height)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rt.depth == depth)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (rt.format == format)
 						{
 							return;
@@ -316,43 +235,12 @@ public class LightShafts : MonoBehaviour
 		bool flag = m_ShadowmapMode == LightShaftsShadowmapMode.Dynamic;
 		if (flag && m_ShadowmapMode != m_ShadowmapModeOld)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)m_Shadowmap)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_Shadowmap.Release();
 			}
 			if ((bool)m_ColorFilter)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ColorFilter.Release();
 			}
 		}
@@ -361,15 +249,6 @@ public class LightShafts : MonoBehaviour
 		m_Shadowmap.wrapMode = TextureWrapMode.Clamp;
 		if (m_Colored)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InitRenderTexture(ref m_ColorFilter, m_ShadowmapRes, m_ShadowmapRes, 0, RenderTextureFormat.ARGB32, flag);
 		}
 		m_ShadowmapModeOld = m_ShadowmapMode;
@@ -386,10 +265,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -412,19 +287,6 @@ public class LightShafts : MonoBehaviour
 		int format;
 		if (m_DX11Support)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			format = 18;
 		}
 		else
@@ -447,15 +309,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)shader)
 			{
 				material = new Material(shader);
@@ -479,46 +332,15 @@ public class LightShafts : MonoBehaviour
 	{
 		if (!m_SpotMesh)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_SpotMesh = new Mesh();
 			m_SpotMesh.hideFlags = HideFlags.HideAndDontSave;
 		}
 		Light light = m_Light;
 		if (m_SpotMeshNear == m_SpotNear && m_SpotMeshFar == m_SpotFar && m_SpotMeshAngle == light.spotAngle)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_SpotMeshRange == light.range)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num = light.range * m_SpotFar;
@@ -529,15 +351,6 @@ public class LightShafts : MonoBehaviour
 		Vector3[] array;
 		if (m_SpotMesh.vertices != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_SpotMesh.vertices.Length == 8)
 			{
 				array = m_SpotMesh.vertices;
@@ -568,15 +381,6 @@ public class LightShafts : MonoBehaviour
 			if (m_SpotMesh.triangles.Length == 36)
 			{
 				goto IL_023a;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int[] triangles = new int[36]
@@ -626,19 +430,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (m_Light == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_Light = GetComponent<Light>();
 		}
 		m_LightType = m_Light.type;
@@ -662,66 +453,17 @@ public class LightShafts : MonoBehaviour
 		m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RFloat);
 		if (!m_MinRequirements)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("LightShafts require Shader Model 3.0 and render textures (including the RGFloat and RFloat) formats. Disabling.");
 		}
 		int num;
 		if (ShaderCompiles(m_DepthShader))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ShaderCompiles(m_ColorFilterShader))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ShaderCompiles(m_CoordShader) && ShaderCompiles(m_DepthBreaksShader))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ShaderCompiles(m_RaymarchShader) && ShaderCompiles(m_InterpolateAlongRaysShader))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (ShaderCompiles(m_FinalInterpolationShader) ? 1 : 0);
 						goto IL_010b;
 					}
@@ -734,15 +476,6 @@ public class LightShafts : MonoBehaviour
 		bool flag = (byte)num != 0;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("LightShafts require above shaders. Disabling.");
 		}
 		m_MinRequirements &= flag;
@@ -780,10 +513,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return new Bounds(new Vector3(0f, 0f, m_Size.z * 0.5f), m_Size);
 				}
 			}
@@ -823,10 +552,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Gizmos.matrix = GetBoundsMatrix();
 					Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
 					return;
@@ -839,11 +564,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Transform transform = base.transform;
 			Light light = m_Light;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
@@ -862,92 +582,25 @@ public class LightShafts : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			if (i == 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.x > 1f)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (i == 2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.y < -1f)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (i == 3)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.x < -1f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -996,19 +649,6 @@ public class LightShafts : MonoBehaviour
 		Vector3 position = base.transform.position;
 		if (directional)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			position = m_CurrentCamera.transform.position + base.transform.forward;
 		}
 		Vector3 vector = m_CurrentCamera.WorldToViewportPoint(position);
@@ -1036,25 +676,11 @@ public class LightShafts : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -1065,19 +691,6 @@ public class LightShafts : MonoBehaviour
 		string keyword;
 		if (firstOn)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			keyword = secondKeyword;
 		}
 		else
@@ -1113,15 +726,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cameraPosLocal = inverse.MultiplyPoint3x4(position);
 			return;
 		}
@@ -1151,10 +755,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1168,21 +768,11 @@ public class LightShafts : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -1198,10 +788,6 @@ public class LightShafts : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1231,31 +817,9 @@ public class LightShafts : MonoBehaviour
 		CheckMinRequirements();
 		if (m_Cameras != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_Cameras.Length != 0)
 			{
 				goto IL_004e;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_Cameras = new Camera[1]
@@ -1271,19 +835,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (m_ShadowmapMode == LightShaftsShadowmapMode.Static)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_ShadowmapDirty)
 			{
 				return;
@@ -1325,15 +876,6 @@ public class LightShafts : MonoBehaviour
 		m_ShadowmapCamera.RenderWithShader(m_DepthShader, "RenderType");
 		if (m_Colored)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_ShadowmapCamera.targetTexture = m_ColorFilter;
 			m_ShadowmapCamera.cullingMask = m_ColorFilterMask;
 			m_ShadowmapCamera.backgroundColor = new Color(m_ColorBalance, m_ColorBalance, m_ColorBalance);
@@ -1365,42 +907,11 @@ public class LightShafts : MonoBehaviour
 		{
 			goto IL_0075;
 		}
-		while (true)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (1 == 0)
-		{
-			/*OpCode not supported: LdMemberToken*/;
-		}
 		if (Application.platform != RuntimePlatform.WindowsEditor)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Application.platform != RuntimePlatform.WindowsPlayer)
 			{
 				goto IL_0075;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_DepthBreaksMaterial.SetPass(1);
@@ -1462,19 +973,6 @@ public class LightShafts : MonoBehaviour
 		int num;
 		if (m_ShowSamples && m_DX11Support)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (m_SamplePositionsShaderCompiles ? 1 : 0);
 		}
 		else
@@ -1485,15 +983,6 @@ public class LightShafts : MonoBehaviour
 		SetKeyword(flag, "SHOW_SAMPLES_ON", "SHOW_SAMPLES_OFF");
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			RenderSamplePositions(width, height, lightPos);
 		}
 		m_FinalInterpolationMaterial.SetFloat("_ShowSamplesBackgroundFade", m_ShowSamplesBackgroundFade);
@@ -1540,15 +1029,6 @@ public class LightShafts : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!CheckCamera())
 			{
 				return;
@@ -1573,26 +1053,8 @@ public class LightShafts : MonoBehaviour
 			int num;
 			if (lightViewportPos.x >= -1f && lightViewportPos.x <= 1f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightViewportPos.y >= -1f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((lightViewportPos.y <= 1f) ? 1 : 0);
 					goto IL_00b8;
 				}
@@ -1625,15 +1087,6 @@ public class LightShafts : MonoBehaviour
 			int num2;
 			if (!directional)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (IntersectsNearPlane() ? 1 : 0);
 			}
 			else
@@ -1645,15 +1098,6 @@ public class LightShafts : MonoBehaviour
 			int num3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = 8;
 			}
 			else
@@ -1666,15 +1110,6 @@ public class LightShafts : MonoBehaviour
 			m_FinalInterpolationMaterial.SetPass(0);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RenderQuad();
 			}
 			else

@@ -54,10 +54,6 @@ public class WebSocketMessageFactory
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0007;
 				}
 			}
@@ -96,10 +92,6 @@ public class WebSocketMessageFactory
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_md5Sum;
 				}
 			}
@@ -115,15 +107,6 @@ public class WebSocketMessageFactory
 				{
 					Type current = enumerator.Current;
 					AddMD5Sum(mD, current, hashedTypes);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -197,19 +180,6 @@ public class WebSocketMessageFactory
 		AddMD5Sum(md5, type.Name);
 		if (type.IsGenericType)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Type[] genericArguments = type.GetGenericArguments();
 			foreach (Type type2 in genericArguments)
 			{
@@ -222,21 +192,11 @@ public class WebSocketMessageFactory
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			hashedTypes.Add(type);
 			if (!IsCustomSerialized(type))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					IEnumerator<FieldInfo> enumerator = GetFieldInfos(type).GetEnumerator();
 					try
 					{
@@ -287,40 +247,13 @@ public class WebSocketMessageFactory
 		{
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		if (type.IsGenericType)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (type.GetGenericTypeDefinition() != typeof(Dictionary<, >) && type.GetGenericTypeDefinition() != typeof(List<>))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type.GetGenericTypeDefinition() != typeof(HashSet<>) && type.GetGenericTypeDefinition() != typeof(Nullable<>))
 				{
 					goto IL_0096;
@@ -338,33 +271,11 @@ public class WebSocketMessageFactory
 		FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache1 = ((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == 0);
 		}
 		IEnumerable<FieldInfo> source = fields.Where(_003C_003Ef__am_0024cache1);
 		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache2 = ((FieldInfo f) => f.Name);
 		}
 		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(_003C_003Ef__am_0024cache2, StringComparer.Ordinal);
@@ -419,21 +330,8 @@ public class WebSocketMessageFactory
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!text2.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (text2.IndexOfAny(new char[3]
 						{
 							'{',
@@ -477,10 +375,6 @@ public class WebSocketMessageFactory
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"Message type {messageTypeName} not found");
 				}
 			}

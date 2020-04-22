@@ -24,19 +24,6 @@ public class UIDynamicButton : MonoBehaviour
 				TextMeshProUGUI componentInChildren = transform.GetComponentInChildren<TextMeshProUGUI>();
 				if (componentInChildren == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 				}
 				else
 				{
@@ -46,15 +33,6 @@ public class UIDynamicButton : MonoBehaviour
 					{
 						if (image.gameObject.GetInstanceID() != transform.gameObject.GetInstanceID())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_icons.Add(image);
 						}
 					}
@@ -85,19 +63,6 @@ public class UIDynamicButton : MonoBehaviour
 	{
 		if (m_labels == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Initialize();
 		}
 		using (List<TextMeshProUGUI>.Enumerator enumerator = m_labels.GetEnumerator())

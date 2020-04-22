@@ -26,19 +26,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		m_spawnedCrystalVfxList = new List<AttachedActorVFXInfo>();
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorModelData.m_parentActorData != null)
 			{
 				m_syncComp = m_actorModelData.m_parentActorData.GetComponent<Sensei_SyncComponent>();
@@ -51,29 +38,11 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType().ToString());
 			}
 		}
@@ -94,19 +63,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		object obj;
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actorModelData.m_parentActorData;
 		}
 		else
@@ -119,26 +75,8 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		{
 			if (actorData.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(actorData.GetActorModelData() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (actorData.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 				}
 				else
@@ -159,15 +97,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num2;
 		if (actorData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
 		}
 		else
@@ -178,26 +107,8 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num3;
 		if (!(actorData == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
 					num3 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData.GetTeam()) ? 1 : 0);
@@ -216,27 +127,9 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num4 = 0;
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num5;
 			if (m_showOrbsInFrontEnd)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num5 = m_spawnedCrystalVfxList.Count;
 			}
 			else
@@ -256,15 +149,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 			attachedActorVFXInfo = m_spawnedCrystalVfxList[i];
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
 					actorVisible = ((i < num4) ? 1 : 0);
@@ -287,15 +171,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_spawnedCrystalVfxList.Clear();
 			return;
 		}
@@ -312,10 +187,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Mathf.Max(0, m_syncComp.m_syncCurrentNumOrbs + m_syncComp.m_clientOrbNumAdjust);
 				}
 			}
@@ -327,19 +198,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_spawnedCrystalVfxList.Count > 0)
 			{
 				while (true)

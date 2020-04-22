@@ -72,44 +72,13 @@ public class MasterSkinVfxData : MonoBehaviour
 					CharacterType current = enumerator.Current;
 					if (!m_charToSizeOverrides.ContainsKey(current))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_charToSizeOverrides[current] = VfxSize.Small;
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (m_largeCharacters != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<CharacterType>.Enumerator enumerator2 = m_largeCharacters.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -117,26 +86,8 @@ public class MasterSkinVfxData : MonoBehaviour
 					CharacterType current2 = enumerator2.Current;
 					if (!m_charToSizeOverrides.ContainsKey(current2))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_charToSizeOverrides[current2] = VfxSize.Large;
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -146,35 +97,12 @@ public class MasterSkinVfxData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			foreach (CharacterToJoint fxJointOverride in m_fxJointOverrides)
 			{
 				if (fxJointOverride.m_characterType.IsValidForHumanGameplay())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_charToJointOverrides.ContainsKey(fxJointOverride.m_characterType))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_charToJointOverrides[fxJointOverride.m_characterType] = fxJointOverride.m_joint;
 					}
 					else
@@ -195,15 +123,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 			return;
 		}
@@ -221,15 +140,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		case VfxSize.Small:
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return m_vfxScaleSmall;
 			}
 		case VfxSize.Medium:
@@ -244,31 +154,9 @@ public class MasterSkinVfxData : MonoBehaviour
 		GameObject result = m_masterVfxPrefabMedium;
 		if (m_charToSizeOverrides.ContainsKey(charType))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			VfxSize vfxSize = m_charToSizeOverrides[charType];
 			if (vfxSize == VfxSize.Small)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_masterVfxPrefabSmall;
 			}
 			else if (vfxSize == VfxSize.Large)
@@ -284,19 +172,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		JointPopupProperty result = m_fxJoint;
 		if (m_charToJointOverrides.ContainsKey(charType))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_charToJointOverrides[charType];
 		}
 		return result;
@@ -308,19 +183,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		GameObject vfXPrefabForCharacter = GetVfXPrefabForCharacter(charType);
 		if (vfXPrefabForCharacter != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			JointPopupProperty jointForCharacter = GetJointForCharacter(charType);
 			jointForCharacter.Initialize(characterObj);
 			gameObject = UnityEngine.Object.Instantiate(vfXPrefabForCharacter);

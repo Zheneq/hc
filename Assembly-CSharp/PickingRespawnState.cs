@@ -19,27 +19,9 @@ public class PickingRespawnState : TurnState
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject gameObject = null;
 			if (component.RespawnPickedPositionSquare != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = component.RespawnPickedPositionSquare.gameObject;
 			}
 			else if (!component.respawnSquares.IsNullOrEmpty())
@@ -51,11 +33,6 @@ public class PickingRespawnState : TurnState
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
 					focusedCameraYet = true;
 					InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
@@ -86,15 +63,6 @@ public class PickingRespawnState : TurnState
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the PickingRespawn state, which is unexpected.");
 			}
 			else
@@ -112,11 +80,6 @@ public class PickingRespawnState : TurnState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				component.RespawnPickedPositionSquare = component.respawnSquares[0];
 				return;
 			}
@@ -141,11 +104,6 @@ public class PickingRespawnState : TurnState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PickRespawnLocation", "Global"));
 				return;
 			}
@@ -155,15 +113,6 @@ public class PickingRespawnState : TurnState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -173,30 +122,8 @@ public class PickingRespawnState : TurnState
 		ActorData component = m_SM.GetComponent<ActorData>();
 		if (!focusedCameraYet)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject = null;
 				if (component.RespawnPickedPositionSquare != null)
 				{

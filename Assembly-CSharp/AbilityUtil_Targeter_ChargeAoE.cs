@@ -54,19 +54,6 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		int shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
 		}
 		else
@@ -107,19 +94,6 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		float num;
 		if (UseRadiusAroundEnd(currentTarget))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_radiusAroundEnd;
 		}
 		else
@@ -133,29 +107,11 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		{
 			goto IL_00c4;
 		}
-		while (true)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (currentTargetIndex != 0 && targets != null)
 		{
 			if (IsUsingMultiTargetUpdate())
 			{
 				goto IL_00c4;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		boardSquare2 = targetingActor.GetCurrentBoardSquare();
@@ -164,51 +120,15 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		List<Team> affectedTeams = GetAffectedTeams();
 		if (boardSquare2 != null && boardSquare != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (TrimPathOnTargetHit)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 > 0f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool collision;
 					Vector3 collisionNormal;
 					Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, boardSquare2.ToVector3(), boardSquare.ToVector3(), out collision, out collisionNormal);
 					if (collision)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(boardSquare2.ToVector3(), abilityLineEndpoint);
 					}
 				}
@@ -217,48 +137,12 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		}
 		if (boardSquarePathInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquarePathInfo.next != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (TrimPathOnTargetHit)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TargetSelect_ChargeAoE.TrimChargePathOnActorHit(boardSquarePathInfo, boardSquare2, num2, targetingActor, affectedTeams, false, out BoardSquare _);
 					}
 				}
@@ -266,26 +150,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		}
 		if (!SkipEvadeMovementLines)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ShowTeleportLines)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InstantiateTeleportPathUIEffect();
 				UpdateEffectOnCaster(currentTarget, targetingActor);
 				UpdateTargetAreaEffect(currentTarget, targetingActor);
@@ -302,40 +168,13 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		List<ActorData> list = null;
 		if (m_shouldAddCasterDelegate != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = new List<ActorData>();
 		}
 		if (boardSquarePathInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<Vector3> list2 = KnockbackUtils.BuildDrawablePath(boardSquarePathInfo, true);
 			if (list2.Count >= 2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = list2[0];
 				Vector3 vector2 = list2[list2.Count - 1];
 				bool flag = UseRadiusAroundLine(currentTarget);
@@ -344,15 +183,6 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				float widthInSquares = m_rangeFromLine * 2f;
 				if (m_highlights.Count == 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject item = TargeterUtils.CreateLaserBoxHighlight(vector, vector2, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
 					m_highlights.Add(item);
 					GameObject item2 = TargeterUtils.CreateCircleHighlight(vector, m_radiusAroundStart, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
@@ -364,26 +194,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				{
 					if (vector == vector2)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_highlights.Count > 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_highlights[0] != null)
 							{
 								m_highlights[0].SetActive(false);
@@ -394,26 +206,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 					{
 						if (m_highlights.Count > 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_highlights[0] != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_highlights[0].SetActive(true);
 							}
 						}
@@ -422,81 +216,27 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				}
 				else if (m_highlights.Count > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_highlights[0] != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_highlights[0].SetActive(false);
 					}
 				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_highlights[1].SetActive(true);
 					TargeterUtils.RefreshCircleHighlight(m_highlights[1], vector, TargeterUtils.HeightAdjustType.FromPathArrow);
 				}
 				else if (m_highlights.Count > 1 && m_highlights[1] != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_highlights[1].SetActive(false);
 				}
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_highlights[2].SetActive(true);
 					TargeterUtils.RefreshCircleHighlight(m_highlights[2], vector2, TargeterUtils.HeightAdjustType.FromPathArrow);
 				}
 				else if (m_highlights.Count > 2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_highlights[2] != null)
 					{
 						m_highlights[2].SetActive(false);
@@ -513,65 +253,20 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 						ActorData current = enumerator.Current;
 						if (GetAffectsTarget(current, targetingActor))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_shouldAddTargetDelegate != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_shouldAddTargetDelegate(current, currentTarget, actors, targetingActor, m_ability))
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									continue;
 								}
 							}
 							Vector3 damageOrigin = vector;
 							if (UseEndPosAsDamageOriginIfOverlap)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 travelBoardSquareWorldPosition = current.GetTravelBoardSquareWorldPosition();
 								travelBoardSquareWorldPosition.y = vector2.y;
 								if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									damageOrigin = vector2;
 								}
 							}
@@ -583,54 +278,18 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							}
 							if (UseRadiusAroundStart(currentTarget))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								BoardSquare currentBoardSquare = current.GetCurrentBoardSquare();
 								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, vector, 0f, 360f, m_radiusAroundStart, 0f, m_penetrateLoS, targetingActor))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
 								}
 							}
 							bool flag4 = false;
 							if (UseRadiusAroundEnd(currentTarget))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
 								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare2, vector2, 0f, 360f, m_radiusAroundEnd, 0f, m_penetrateLoS, targetingActor))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									AddActorInRange(current, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
 									flag4 = true;
 								}
@@ -641,15 +300,6 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							int value;
 							if (flag4)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								value = 1;
 							}
 							else
@@ -659,27 +309,9 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							contextVars.SetInt(hash, value);
 						}
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ResetSquareIndicatorIndexToUse();
 					AreaEffectUtils.OperateOnSquaresInRadiusOfLine(m_indicatorHandler, vector, vector2, startRadiusInSquares, endRadiusInSquares, num2, m_penetrateLoS, targetingActor);
 					HideUnusedSquareIndicators();
@@ -688,27 +320,9 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		}
 		if (!ForceAddTargetingActor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_shouldAddCasterDelegate == null)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!m_shouldAddCasterDelegate(targetingActor, list))
 			{
@@ -720,15 +334,6 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		IL_00c4:
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 		}
 		goto IL_00fa;

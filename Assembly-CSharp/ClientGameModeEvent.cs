@@ -33,10 +33,6 @@ public class ClientGameModeEvent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (CaptureTheFlag.Get() != null)
 					{
 						while (true)
@@ -61,20 +57,10 @@ public class ClientGameModeEvent
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (CollectTheCoins.Get() != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					CollectTheCoins.Get().ExecuteClientGameModeEvent(this);
 					return;
 				}

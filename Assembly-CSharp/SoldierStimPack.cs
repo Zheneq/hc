@@ -40,19 +40,6 @@ public class SoldierStimPack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Stim Pack";
 		}
 		Setup();
@@ -62,32 +49,10 @@ public class SoldierStimPack : Ability
 	{
 		if (m_abilityData == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityData = GetComponent<AbilityData>();
 		}
 		if (m_abilityData != null && m_grenadeAbility == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_grenadeAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade);
 		}
 		SetCachedFields();
@@ -101,19 +66,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo cachedDashShootExtraEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedDashShootExtraEffect = m_abilityMod.m_dashShootExtraEffectMod.GetModifiedValue(m_dashShootExtraEffect);
 		}
 		else
@@ -128,19 +80,6 @@ public class SoldierStimPack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
@@ -155,19 +94,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -182,19 +108,6 @@ public class SoldierStimPack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_basicAttackIgnoreCoverMod.GetModifiedValue(m_basicAttackIgnoreCover);
 		}
 		else
@@ -224,19 +137,6 @@ public class SoldierStimPack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(m_cooldownResetHealthThreshold);
 		}
 		else
@@ -266,19 +166,6 @@ public class SoldierStimPack : Ability
 		int val;
 		if ((bool)abilityMod_SoldierStimPack)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SoldierStimPack.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
 		}
 		else
@@ -289,15 +176,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SoldierStimPack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SoldierStimPack.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
 		}
 		else
@@ -317,15 +195,6 @@ public class SoldierStimPack : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SoldierStimPack);
 			Setup();
 			return;

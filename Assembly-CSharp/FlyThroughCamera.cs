@@ -18,19 +18,6 @@ public class FlyThroughCamera : MonoBehaviour
 		int fadeObjectsToRevealCharacters;
 		if (!(GameManager.Get() == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
 				fadeObjectsToRevealCharacters = ((GameManager.Get().GameConfig.GameType != GameType.Tutorial) ? 1 : 0);
@@ -63,15 +50,6 @@ public class FlyThroughCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.enabled = true;
 			return;
 		}
@@ -94,19 +72,6 @@ public class FlyThroughCamera : MonoBehaviour
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		return result;
@@ -117,31 +82,9 @@ public class FlyThroughCamera : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (m_cameraBonePrefab != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cameraBoneInstance = Object.Instantiate(m_cameraBonePrefab);
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cameraBoneInstance.transform.position = activeOwnedActorData.transform.position;
 				Quaternion camRotation = Quaternion.Euler(new Vector3(0f, CameraManager.Get().GetIsometricCamera().GetInitialYAngle()));
 				Vector3 vector = CameraManager.Get().GetIsometricCamera().CalcZoomOffsetForActiveAnimatedActor(camRotation);
@@ -154,26 +97,8 @@ public class FlyThroughCamera : MonoBehaviour
 			Animator componentInChildren = m_cameraBoneInstance.GetComponentInChildren<Animator>();
 			if (HasAnimatorControllerParamater(componentInChildren, SceneManager.GetActiveScene().name.ToLower()))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					componentInChildren.SetInteger("team", (int)activeOwnedActorData.GetTeam());
 				}
 				componentInChildren.SetTrigger(SceneManager.GetActiveScene().name.ToLower());
@@ -188,11 +113,6 @@ public class FlyThroughCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			FadeObjectsCameraComponent component = GetComponent<FadeObjectsCameraComponent>();
 			if (component != null)
 			{
@@ -206,19 +126,6 @@ public class FlyThroughCamera : MonoBehaviour
 	{
 		if ((bool)m_cameraBoneTransform)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.transform.position = m_cameraBoneTransform.position;
 			base.transform.rotation = m_cameraBoneTransform.rotation * Quaternion.Euler(0f, 180f, 0f);
 			Camera main = Camera.main;
@@ -231,40 +138,13 @@ public class FlyThroughCamera : MonoBehaviour
 		}
 		if (!(m_cameraBoneTransform != null))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(m_cameraBonePrefab == null))
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (UILoadingScreenPanel.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UILoadingScreenPanel.Get().SetVisible(false);
 		}
 		m_needToHideLoadingScreen = false;

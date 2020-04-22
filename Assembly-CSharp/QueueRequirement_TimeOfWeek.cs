@@ -35,22 +35,9 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					DateTime dateTime = date + End;
 					if (dateTime < t)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dateTime = dateTime.AddDays(7.0);
 					}
 					return currentUTCTime < dateTime;
@@ -75,19 +62,6 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 		DateTime dateTime = date + Start;
 		if (dateTime < currentUTCTime)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dateTime = dateTime.AddDays(7.0);
 		}
 		LocalizationArg_TimeSpan localizationArg_TimeSpan = LocalizationArg_TimeSpan.Create(dateTime - currentUTCTime);

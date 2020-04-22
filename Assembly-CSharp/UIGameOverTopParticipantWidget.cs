@@ -47,25 +47,12 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								UIManager.SetGameObjectActive(m_AllyTeamIndicator, current.TeamId == playerInfo.TeamId);
 								UIManager.SetGameObjectActive(m_EnemyTeamIndicator, current.TeamId != playerInfo.TeamId);
 								GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(current.BannerID);
 								string path;
 								if (banner != null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									path = banner.m_resourceString;
 								}
 								else
@@ -78,15 +65,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 								string path2;
 								if (banner2 != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									path2 = banner2.m_resourceString;
 								}
 								else
@@ -106,19 +84,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 									{
 										if (x == null)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (1 == 0)
-											{
-												/*OpCode not supported: LdMemberToken*/;
-											}
 											if (y == null)
 											{
 												while (true)
@@ -154,15 +119,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 										GameBalanceVars.GameResultBadge badgeInfo3 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
 										if (badgeInfo2 == null)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (badgeInfo3 == null)
 											{
 												return 0;
@@ -232,93 +188,30 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 										GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(topPlayerInfo.BadgesEarned[i].BadgeId);
 										if (badgeInfo == null)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
 											bool flag = true;
 											if (slotType == TopParticipantSlot.Deadliest)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Firepower)
 												{
-													while (true)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													flag = false;
 												}
 											}
 											if (slotType == TopParticipantSlot.Supportiest && badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Support)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = false;
 											}
 											if (slotType == TopParticipantSlot.Tankiest)
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Frontliner)
 												{
-													while (true)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													flag = false;
 												}
 											}
 											if (flag)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIGameOverBadgeWidget uIGameOverBadgeWidget = Object.Instantiate(m_BadgePrefab);
 												uIGameOverBadgeWidget.Setup(topPlayerInfo.BadgesEarned[i], current.CharacterType, topPlayerInfo.GlobalPercentiles);
 												UIManager.ReparentTransform(uIGameOverBadgeWidget.transform, m_BadgesContainer.transform);

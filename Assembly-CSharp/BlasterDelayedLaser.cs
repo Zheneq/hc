@@ -79,19 +79,6 @@ public class BlasterDelayedLaser : Ability
 		int result;
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!m_syncComponent.m_canActivateDelayedLaser) ? 1 : 0);
 		}
 		else
@@ -111,19 +98,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo cachedEffectOnHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnHit = m_abilityMod.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
@@ -149,19 +123,6 @@ public class BlasterDelayedLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
 		}
 		else
@@ -181,19 +142,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnHit != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnHit;
 		}
 		else
@@ -208,19 +156,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedOnCastEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedOnCastEnemyHitEffect;
 		}
 		else
@@ -235,19 +170,6 @@ public class BlasterDelayedLaser : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_triggerAimAtBlasterMod.GetModifiedValue(m_triggerAimAtBlaster);
 		}
 		else
@@ -262,19 +184,6 @@ public class BlasterDelayedLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageToNearEnemyMod.GetModifiedValue(m_extraDamageToNearEnemy);
 		}
 		else
@@ -289,19 +198,6 @@ public class BlasterDelayedLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_nearDistanceMod.GetModifiedValue(m_nearDistance);
 		}
 		else
@@ -325,80 +221,22 @@ public class BlasterDelayedLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num = GetDamageAmount();
 					if (m_syncComponent != null && m_syncComponent.m_overchargeBuffs > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_overchargeAbility != null && m_overchargeAbility.GetExtraDamageForDelayedLaser() > 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += m_overchargeAbility.GetExtraDamageForDelayedLaser();
 						}
 					}
 					Vector3 vector;
 					if (m_syncComponent.m_canActivateDelayedLaser)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = m_syncComponent.m_delayedLaserStartPos;
 					}
 					else
@@ -408,29 +246,11 @@ public class BlasterDelayedLaser : Ability
 					Vector3 b = vector;
 					if (GetExtraDamageToNearEnemy() > 0 && GetNearDistance() > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num2 = GetNearDistance() * Board.Get().squareSize;
 						Vector3 vector2 = targetActor.GetTravelBoardSquareWorldPosition() - b;
 						vector2.y = 0f;
 						if (vector2.magnitude <= num2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += GetExtraDamageToNearEnemy();
 						}
 					}
@@ -448,19 +268,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_BlasterDelayedLaser.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
@@ -471,15 +278,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BlasterDelayedLaser.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect);
 		}
 		else
@@ -491,15 +289,6 @@ public class BlasterDelayedLaser : Ability
 		int val;
 		if ((bool)abilityMod_BlasterDelayedLaser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_BlasterDelayedLaser.m_extraDamageToNearEnemyMod.GetModifiedValue(m_extraDamageToNearEnemy);
 		}
 		else
@@ -529,19 +318,6 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (m_remoteTriggerMode)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent != null)
 			{
 				while (true)
@@ -576,30 +352,8 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (m_remoteTriggerMode && m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().CurrentTurn > m_syncComponent.m_lastPlacementTurn)
 				{
 					while (true)
@@ -622,19 +376,6 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (m_remoteTriggerMode)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent != null)
 			{
 				while (true)
@@ -669,19 +410,6 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
 				while (true)
@@ -703,30 +431,8 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_canActivateDelayedLaser)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animIndex == (int)base.GetActionAnimType())
 				{
 					while (true)

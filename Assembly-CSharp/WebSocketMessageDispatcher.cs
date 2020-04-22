@@ -121,10 +121,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ArgumentNullException("MessageDelegate");
 				}
 			}
@@ -158,25 +154,12 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ArgumentNullException("MessageDelegate");
 				}
 			}
 		}
 		if (responseId == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!AllowNewMessageDelegates)
 			{
 				while (true)
@@ -216,15 +199,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 					default:
 						if (messageTypeHandler.ResponseMessageHandlers == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							messageTypeHandler.ResponseMessageHandlers = new Dictionary<int, MessageHandler>();
 						}
 						messageTypeHandler.ResponseMessageHandlers.Add(responseId, messageHandler2);
@@ -234,15 +208,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			}
 			if (messageTypeHandler.MessageHandlers == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				messageTypeHandler.MessageHandlers = new List<MessageHandler>();
 			}
 			messageTypeHandler.MessageHandlers.Add(messageHandler2);
@@ -263,28 +228,11 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						messageTypeHandler.MessageHandlers.RemoveAll(delegate(MessageHandler m)
 						{
 							int result;
 							if (m.MethodInfo == method)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								if (m.Target == target)
 								{
 									result = ((m.Session == session) ? 1 : 0);
@@ -317,10 +265,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						messageTypeHandler.ResponseMessageHandlers.Remove(responseId);
 						return;
 					}
@@ -336,19 +280,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			Type typeFromHandle = typeof(TMessage);
 			if (!m_messageTypeHandlers.TryGetValue(typeFromHandle, out MessageTypeHandler value))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value = new MessageTypeHandler();
 				value.MessageType = typeof(TMessage);
 				m_messageTypeHandlers.Add(typeFromHandle, value);
@@ -368,10 +299,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SynchronizationContext.Post(InvokeAsync, envelope, envelope.Handler.MethodInfo);
 					return;
 				}
@@ -400,10 +327,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Log.Warning("Received a message of type '{0}', but no registered type handler found", message.GetType());
 						return;
 					}
@@ -436,26 +359,8 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 											MessageHandler current = enumerator.Current;
 											if (current.Session != null)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (current.Session != session)
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													continue;
 												}
 											}

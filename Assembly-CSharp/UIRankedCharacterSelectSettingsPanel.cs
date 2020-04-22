@@ -22,24 +22,10 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIRankedModeDraftScreen.Get().SelectedCharacter != 0)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(UIRankedModeDraftScreen.Get().SelectedCharacter);
 					Refresh(characterResourceLink);
 					return;
@@ -69,19 +55,6 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 		float alpha = 0f;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OpenTab(tab, true);
 			alpha = 1f;
 		}

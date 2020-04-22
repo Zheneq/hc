@@ -51,37 +51,18 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_damageChangePerHitMod == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				int modifiedValue = m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
 				int modifiedValue2 = m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
 				if (modifiedValue2 != 0)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						AbilityMod.AddToken_IntDiff(tokens, "FirstDamageAfterChange", string.Empty, modifiedValue + modifiedValue2, false, 0);
 						return;
 					}
@@ -102,19 +83,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelBouncingLaser.m_maxBounces;
 		}
 		else
@@ -127,15 +95,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scoundrelBouncingLaser.m_width;
 		}
 		else
@@ -148,15 +107,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scoundrelBouncingLaser.m_maxDistancePerBounce;
 		}
 		else
@@ -169,15 +119,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = scoundrelBouncingLaser.m_maxTotalDistance;
 		}
 		else
@@ -190,15 +131,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = scoundrelBouncingLaser.m_damageAmount;
 		}
 		else
@@ -212,15 +144,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = scoundrelBouncingLaser.m_damageChangePerHit;
 		}
 		else

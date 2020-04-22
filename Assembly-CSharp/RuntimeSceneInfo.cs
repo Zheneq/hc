@@ -20,32 +20,10 @@ public class RuntimeSceneInfo
 	{
 		if (RuntimeStaticSceneContainer != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(RuntimeStaticSceneContainer, visible);
 		}
 		if (RuntimeSemiStaticSceneContainer != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(RuntimeSemiStaticSceneContainer, visible);
 		}
 		if (RuntimeCameraMovementSceneContainer != null)
@@ -58,11 +36,6 @@ public class RuntimeSceneInfo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(RuntimePerFrameSceneContainer, visible);
 			return;
 		}

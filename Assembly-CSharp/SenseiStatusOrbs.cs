@@ -54,19 +54,6 @@ public class SenseiStatusOrbs : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "SenseiStatusOrbs";
 		}
 		Setup();
@@ -85,43 +72,12 @@ public class SenseiStatusOrbs : Ability
 	{
 		if (potentialActor != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(centerPos);
 			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetableActorOnSquare.IsVisibleToClient())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (potentialActor != targetableActorOnSquare)
 					{
 						while (true)
@@ -159,19 +115,6 @@ public class SenseiStatusOrbs : Ability
 		{
 			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int num = results.m_healing = Mathf.Max(0, m_fromAllySelfHealPerHit * visibleActorsCountByTooltipSubject);
 			}
@@ -184,15 +127,6 @@ public class SenseiStatusOrbs : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = m_fromAllyDamageOnHit;
 		}
 		else

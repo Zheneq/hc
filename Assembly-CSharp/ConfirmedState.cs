@@ -12,30 +12,8 @@ public class ConfirmedState : TurnState
 	{
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.LockedIn);
 			}
 		}
@@ -57,10 +35,6 @@ public class ConfirmedState : TurnState
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorData component = m_SM.GetComponent<ActorData>();
 					if (component != null && !component.IsDead())
 					{
@@ -109,29 +83,11 @@ public class ConfirmedState : TurnState
 				{
 					if ((bool)m_SM)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_SM.OnActionsUnconfirmed();
 					}
 					ActorData component2 = m_SM.GetComponent<ActorData>();
 					if (component2.RespawnPickedPositionSquare != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!component2.ShouldPickRespawn_zq())
 						{
 							while (true)
@@ -215,22 +171,8 @@ public class ConfirmedState : TurnState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.");
 			}
 			else
@@ -255,19 +197,6 @@ public class ConfirmedState : TurnState
 		}
 		if (Input.GetMouseButtonUp(1))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (InterfaceManager.Get().ShouldHandleMouseClick() && !m_SM.HandledMouseInput)
 			{
 				while (true)
@@ -294,20 +223,10 @@ public class ConfirmedState : TurnState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_SM.HandledSpaceInput)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_SM.HandledSpaceInput = true;
 					m_SM.RequestCancel(true);
 					return;

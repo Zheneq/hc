@@ -89,19 +89,6 @@ public class UIAbilityButton : MonoBehaviour
 		UIManager.SetGameObjectActive(m_background, true);
 		if (m_ultimateBorder != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_ultimateBorder, false);
 		}
 		if (!(m_persistentAuraBorder != null))
@@ -110,11 +97,6 @@ public class UIAbilityButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_persistentAuraBorder, false);
 			return;
 		}
@@ -129,19 +111,6 @@ public class UIAbilityButton : MonoBehaviour
 		object actorData;
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actorData = m_abilityData.GetComponent<ActorData>();
 		}
 		else
@@ -152,15 +121,6 @@ public class UIAbilityButton : MonoBehaviour
 		m_turnSM = m_abilityData.GetComponent<ActorTurnSM>();
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_abilityEntry.ability != null)
 			{
 				UIManager.SetGameObjectActive(m_charIcon, true);
@@ -174,15 +134,6 @@ public class UIAbilityButton : MonoBehaviour
 					int doActive2;
 					if (i == num)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						doActive2 = ((num != -1) ? 1 : 0);
 					}
 					else
@@ -190,15 +141,6 @@ public class UIAbilityButton : MonoBehaviour
 						doActive2 = 0;
 					}
 					UIManager.SetGameObjectActive(component, (byte)doActive2 != 0);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				goto IL_01b5;
 			}
@@ -242,10 +184,6 @@ public class UIAbilityButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityEntry.keyPreference;
 				}
 			}
@@ -258,19 +196,6 @@ public class UIAbilityButton : MonoBehaviour
 		UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityEntry.ability != null)
 			{
 				while (true)
@@ -332,19 +257,6 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (!m_disabled.gameObject.activeSelf)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_mouseOver = true;
 		}
 		m_mouseOverForRangePreview = true;
@@ -371,25 +283,12 @@ public class UIAbilityButton : MonoBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						turnSM = m_turnSM;
 						actorData = m_actorData;
 						flag = m_abilityData.HasQueuedAction(m_actionType);
 						int num;
 						if (m_abilityEntry.ability.GetModdedCost() > actorData.TechPoints)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (flag ? 1 : 0);
 						}
 						else
@@ -400,26 +299,8 @@ public class UIAbilityButton : MonoBehaviour
 						flag3 = (m_abilityEntry.ability == m_abilityData.GetSelectedAbility());
 						if (m_abilityEntry.ability.GetModdedCost() > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_abilityEntry.ability.GetModdedCost() <= actorData.TechPoints)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = ((m_abilityData.GetCooldownRemaining(m_actionType) <= 0) ? 1 : 0);
 								goto IL_0103;
 							}
@@ -432,28 +313,10 @@ public class UIAbilityButton : MonoBehaviour
 					doActive2 = m_abilityEntry.ability.ShouldShowPersistentAuraUI();
 					if (m_ultimateBorder != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_ultimateBorder, doActive);
 					}
 					if (m_persistentAuraBorder != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_persistentAuraBorder, doActive2);
 					}
 					num3 = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilityEntry.ability.RunPriority));
@@ -483,54 +346,18 @@ public class UIAbilityButton : MonoBehaviour
 								text = string.Empty;
 								if (!m_mouseOver)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_mouseDown = false;
 								}
 								flag4 = (flag3 || m_mouseDown);
 								flag5 = true;
 								if (m_mouseOver)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag4)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag)
 										{
 											if (!m_hover.gameObject.activeSelf)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												PlayAnimation("AbilityButtonHover");
 											}
 											flag5 = false;
@@ -545,40 +372,13 @@ public class UIAbilityButton : MonoBehaviour
 							IL_08b8:
 							if (m_cooldownLabel.text != text)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_cooldownLabel.text = text;
 							}
 							flag6 = m_abilityEntry.ability.IsFreeAction();
 							if (m_freeactionIcon != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_freeactionIcon.gameObject.activeSelf != flag6)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(m_freeactionIcon, flag6);
 								}
 							}
@@ -589,27 +389,9 @@ public class UIAbilityButton : MonoBehaviour
 							{
 								if (!m_pressed.gameObject.activeSelf)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									PlayAnimation("AbilityButtonSelected");
 									if (m_mouseOver)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										PlayAnimation("AbilityButtonSelectedNonLoop", 1);
 									}
 								}
@@ -627,26 +409,8 @@ public class UIAbilityButton : MonoBehaviour
 							flag7 = false;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_selected.gameObject.activeSelf)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									PlayAnimation("AbilityButtonBarQueued");
 								}
 								flag5 = false;
@@ -659,51 +423,15 @@ public class UIAbilityButton : MonoBehaviour
 							}
 							if (flag5)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag7)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!m_AbilityButtonAnimator.GetCurrentAnimatorStateInfo(0).IsName("AbilityButtonBarQueuedExit"))
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 								}
 							}
 							if (m_abilityEntry.ability.IsSimpleAction())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag8 = turnSM.CanQueueSimpleAction();
 							}
 							else
@@ -712,15 +440,6 @@ public class UIAbilityButton : MonoBehaviour
 							}
 							if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num4 = (m_abilityData.ValidateActionIsRequestable(m_actionType) ? 1 : 0);
 							}
 							else
@@ -730,15 +449,6 @@ public class UIAbilityButton : MonoBehaviour
 							flag9 = ((byte)num4 != 0);
 							if (turnSM.CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag9)
 								{
 									num5 = 1;
@@ -747,37 +457,10 @@ public class UIAbilityButton : MonoBehaviour
 							}
 							if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (turnSM.CurrentState != TurnStateEnum.CONFIRMED)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (turnSM.CurrentState != TurnStateEnum.WAITING)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num5 = ((turnSM.CurrentState == TurnStateEnum.RESOLVING && GameFlowData.Get().gameState == GameState.BothTeams_Decision) ? 1 : 0);
 										goto IL_048e;
 									}
@@ -789,29 +472,11 @@ public class UIAbilityButton : MonoBehaviour
 							flag10 = ((byte)num5 != 0);
 							if (flag8)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num6;
 								if (!flag10)
 								{
 									if (!flag9)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num6 = ((!flag) ? 1 : 0);
 									}
 									else
@@ -827,15 +492,6 @@ public class UIAbilityButton : MonoBehaviour
 							}
 							if (flag)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag10 = false;
 							}
 							else
@@ -844,15 +500,6 @@ public class UIAbilityButton : MonoBehaviour
 							}
 							if (flag10)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_charIcon.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
 								m_hotkeyLabel.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
 								UIManager.SetGameObjectActive(m_disabled, true);
@@ -862,15 +509,6 @@ public class UIAbilityButton : MonoBehaviour
 							{
 								if (m_abilityEntry.ability.UseCustomAbilityIconColor())
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_charIcon.color = m_abilityEntry.ability.GetCustomAbilityIconColor(actorData);
 								}
 								else
@@ -884,40 +522,13 @@ public class UIAbilityButton : MonoBehaviour
 							flag11 = true;
 							if (!actorData.IsDead())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag11 = m_abilityEntry.ability.CustomCanCastValidation(actorData);
 							}
 							if (m_abilityEntry.ability.GetModdedMaxStocks() <= 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(m_chargeCounterContainer, false);
 								if (m_abilityEntry.GetCooldownRemaining() == 0 && flag2)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag11)
 									{
 										goto IL_08b8;
@@ -925,40 +536,13 @@ public class UIAbilityButton : MonoBehaviour
 								}
 								if (m_abilityEntry.GetCooldownRemaining() > 0)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetActualMaxTechPoints() || !AbilityUtils.AbilityHasTag(m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = m_abilityEntry.GetCooldownRemaining().ToString();
 									}
 								}
 								else if (m_abilityEntry.GetCooldownRemaining() == -1)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									text = "~";
 								}
 								else if (!flag11)
@@ -974,15 +558,6 @@ public class UIAbilityButton : MonoBehaviour
 								{
 									if (j < moddedMaxStocks)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(chargeCounters[j], true);
 									}
 									else
@@ -990,27 +565,9 @@ public class UIAbilityButton : MonoBehaviour
 										UIManager.SetGameObjectActive(chargeCounters[j], false);
 									}
 								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								AbilityData.ActionType actionTypeOfAbility = m_abilityData.GetActionTypeOfAbility(m_abilityEntry.ability);
 								if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int consumedStocksCount = m_abilityData.GetConsumedStocksCount(actionTypeOfAbility);
 									int stockRefreshCountdown = m_abilityData.GetStockRefreshCountdown(actionTypeOfAbility);
 									int moddedStockRefreshDuration = m_abilityEntry.ability.GetModdedStockRefreshDuration();
@@ -1022,28 +579,10 @@ public class UIAbilityButton : MonoBehaviour
 									}
 									if (k < chargeCounters.Length)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIAbilityChargeCounter obj = chargeCounters[k];
 										int tick;
 										if (moddedStockRefreshDuration >= 0)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											tick = 3 - stockRefreshCountdown;
 										}
 										else
@@ -1057,26 +596,8 @@ public class UIAbilityButton : MonoBehaviour
 									{
 										chargeCounters[k].SetTick(0);
 									}
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!m_abilityData.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = m_abilityData.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
 									}
 									else if (stockRefreshCountdown > 0)
@@ -1086,15 +607,6 @@ public class UIAbilityButton : MonoBehaviour
 											if (!m_abilityEntry.ability.RefillAllStockOnRefresh())
 											{
 												goto IL_08b8;
-											}
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										text = stockRefreshCountdown.ToString();
@@ -1113,11 +625,6 @@ public class UIAbilityButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_ultimateBorder, false);
 			return;
 		}
@@ -1139,10 +646,6 @@ public class UIAbilityButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1163,15 +666,6 @@ public class UIAbilityButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_turnSM == null)
 			{
 				while (true)

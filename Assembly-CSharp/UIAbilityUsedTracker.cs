@@ -20,15 +20,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!theOwner.IsVisibleToClient())
 			{
 				return;
@@ -40,15 +31,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 			uIAbilityUsed.Setup(newAbility, theOwner);
 			if (m_abilities == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_abilities = new List<UIAbilityUsed>();
 			}
 			m_abilities.Add(uIAbilityUsed);
@@ -81,10 +63,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -97,26 +75,8 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].GetAbilityRef().RunPriority))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject gameObject = m_abilities[i].gameObject;
 					m_abilities.RemoveAt(i);
 					Object.Destroy(gameObject);
@@ -132,15 +92,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				{
 					UIAbilityUsed current = enumerator.Current;
 					Object.Destroy(current.gameObject);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_abilities.Clear();

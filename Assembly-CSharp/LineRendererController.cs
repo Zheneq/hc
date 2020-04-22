@@ -28,19 +28,6 @@ public class LineRendererController : MonoBehaviour
 		float num = 0f;
 		if (m_scaleEntries != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_scaleEntries.Length > 0)
 			{
 				num = m_scaleEntries[m_scaleEntries.Length - 1].m_time;
@@ -48,26 +35,8 @@ public class LineRendererController : MonoBehaviour
 		}
 		if (m_alphaEntries != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_alphaEntries.Length > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Max(num, m_alphaEntries[m_alphaEntries.Length - 1].m_time);
 			}
 		}
@@ -82,19 +51,6 @@ public class LineRendererController : MonoBehaviour
 	{
 		if ((bool)m_parentParticleSystem)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)m_lineRenderer)
 			{
 				while (true)
@@ -133,11 +89,6 @@ public class LineRendererController : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_parentParticleSystem = base.transform.parent.GetComponent<ParticleSystem>();
 			return;
 		}
@@ -148,19 +99,6 @@ public class LineRendererController : MonoBehaviour
 		float result = 1f;
 		if (entries != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (entries.Length > 0)
 			{
 				int num = entries.Length;
@@ -177,15 +115,6 @@ public class LineRendererController : MonoBehaviour
 						num2++;
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				if (num == 0)
@@ -194,15 +123,6 @@ public class LineRendererController : MonoBehaviour
 				}
 				else if (num == entries.Length)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = entries[entries.Length - 1].m_value;
 				}
 				else

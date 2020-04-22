@@ -94,19 +94,6 @@ public class BestSolutions
 				int result;
 				if (m_hasRoleTank)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_hasRoleSupport)
 					{
 						result = ((!m_hasRoleAssassin) ? 1 : 0);
@@ -133,19 +120,6 @@ public class BestSolutions
 				int num;
 				if (m_hasRoleAssassin)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num = 1;
 				}
 				else
@@ -155,15 +129,6 @@ public class BestSolutions
 				int num2;
 				if (m_hasRoleTank)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = 1;
 				}
 				else
@@ -174,15 +139,6 @@ public class BestSolutions
 				int num4;
 				if (m_hasRoleSupport)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = 1;
 				}
 				else
@@ -212,19 +168,6 @@ public class BestSolutions
 				int result;
 				if (m_balanceFailureImbalance == 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else if (m_balanceFailureImbalance != 1)
@@ -233,15 +176,6 @@ public class BestSolutions
 				}
 				else
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = 1;
 				}
 				return (BalanceResults.BalanceFailureLevel)result;
@@ -255,32 +189,10 @@ public class BestSolutions
 				int result;
 				if (m_useFineOtherSortingCriteria)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else if (m_useOtherSortingCriteria)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = 1;
 				}
 				else
@@ -314,32 +226,10 @@ public class BestSolutions
 			int num2 = 0;
 			if (maxGroupSizeImbalance != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num3 = num2;
 				int num4;
 				if (maxGroupSizeImbalance > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = 1;
 				}
 				else
@@ -358,15 +248,6 @@ public class BestSolutions
 				int num6;
 				if (roleImbalance > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num6 = 1;
 				}
 				else
@@ -381,28 +262,10 @@ public class BestSolutions
 			}
 			if (botImbalance != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num7 = num2;
 				int num8;
 				if (botImbalance > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = 1;
 				}
 				else
@@ -413,40 +276,13 @@ public class BestSolutions
 			}
 			if (!m_useFineOtherSortingCriteria)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 += ((aVbEloDifference > 0f) ? 1 : (-1));
 				if (!m_useOtherSortingCriteria)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num9 = num2;
 					int num10;
 					if (aVbEloDifference > 0f)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num10 = 1;
 					}
 					else
@@ -483,19 +319,6 @@ public class BestSolutions
 			empty = func(m_expertCollision, empty, "expert");
 			if (empty.Count() > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				empty = $", {empty} collision";
 			}
 			string empty2 = string.Empty;
@@ -506,15 +329,6 @@ public class BestSolutions
 			object arg3;
 			if (m_loserImbalance > 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg3 = $"loser({m_loserImbalance})";
 			}
 			else
@@ -528,42 +342,15 @@ public class BestSolutions
 			empty2 = func(m_balanceFailureImbalance != 0, empty2, $"unfair{m_balanceFailureImbalance}");
 			if (empty2.Count() > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty2 = $", {empty2} imbalance";
 			}
 			string text;
 			if (!m_useFineOtherSortingCriteria)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = $"eloDiff={AbsEloDifference}";
 			}
 			else if (m_largestEloWidth > AbsEloDifference)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = $"width={m_largestEloWidth}, eloDiff={AbsEloDifference}";
 			}
 			else
@@ -585,15 +372,6 @@ public class BestSolutions
 			string text2;
 			if (m_groupBreakage == GroupBreakage.NONE)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = string.Empty;
 			}
 			else
@@ -606,15 +384,6 @@ public class BestSolutions
 			object obj2;
 			if (m_hasRoleAssassin)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj2 = string.Empty;
 			}
 			else
@@ -625,15 +394,6 @@ public class BestSolutions
 			object obj3;
 			if (m_hasRoleTank)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj3 = string.Empty;
 			}
 			else
@@ -644,15 +404,6 @@ public class BestSolutions
 			object obj4;
 			if (m_hasRoleSupport)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj4 = string.Empty;
 			}
 			else
@@ -677,19 +428,6 @@ public class BestSolutions
 				int result;
 				if (m_isLegal)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = -1;
 				}
 				else
@@ -713,15 +451,6 @@ public class BestSolutions
 						int result2;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result2 = 1;
 						}
 						else
@@ -748,15 +477,6 @@ public class BestSolutions
 						int result3;
 						if (flag3)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result3 = 1;
 						}
 						else
@@ -781,15 +501,6 @@ public class BestSolutions
 						int result4;
 						if (m_useOtherSortingCriteria)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result4 = -1;
 						}
 						else
@@ -807,11 +518,6 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						return (m_balanceFailureImbalance > other.m_balanceFailureImbalance) ? 1 : (-1);
 					}
 				}
@@ -820,15 +526,6 @@ public class BestSolutions
 					int result5;
 					if (m_botImbalance > other.m_botImbalance)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result5 = 1;
 					}
 					else
@@ -841,23 +538,9 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						int result6;
 						if (m_maxGroupSizeImbalance > other.m_maxGroupSizeImbalance)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result6 = 1;
 						}
 						else
@@ -871,23 +554,9 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						int result7;
 						if (m_noobCollision)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result7 = 1;
 						}
 						else
@@ -902,15 +571,6 @@ public class BestSolutions
 					int result8;
 					if (m_willFillImbalance > other.m_willFillImbalance)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result8 = 1;
 					}
 					else
@@ -923,23 +583,9 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						int result9;
 						if (m_roleImbalance > other.m_roleImbalance)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result9 = 1;
 						}
 						else
@@ -955,23 +601,9 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						int result10;
 						if (roleCount > roleCount2)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result10 = -1;
 						}
 						else
@@ -986,15 +618,6 @@ public class BestSolutions
 					int result11;
 					if (m_expertCollision)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result11 = 1;
 					}
 					else
@@ -1007,23 +630,9 @@ public class BestSolutions
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						int result12;
 						if (m_languageCommonality > other.m_languageCommonality)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result12 = -1;
 						}
 						else
@@ -1046,15 +655,6 @@ public class BestSolutions
 							int result13;
 							if (m_languageImbalance)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result13 = 1;
 							}
 							else
@@ -1082,25 +682,12 @@ public class BestSolutions
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return num;
 					}
 				}
 			}
 			if (m_useOtherSortingCriteria)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_loserImbalance != other.m_loserImbalance)
 				{
 					while (true)
@@ -1114,15 +701,6 @@ public class BestSolutions
 							int result;
 							if (m_loserImbalance > other.m_loserImbalance)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = 1;
 							}
 							else
@@ -1148,15 +726,6 @@ public class BestSolutions
 						int result2;
 						if (m_useFineOtherSortingCriteria)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result2 = -1;
 						}
 						else
@@ -1185,15 +754,6 @@ public class BestSolutions
 							int result3;
 							if (num2 < num3)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result3 = -1;
 							}
 							else
@@ -1213,15 +773,6 @@ public class BestSolutions
 				int result4;
 				if (absEloDifference < absEloDifference2)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result4 = -1;
 				}
 				else
@@ -1251,10 +802,6 @@ public class BestSolutions
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_id = groupId;
 						m_isGroup = true;
 						return;
@@ -1270,19 +817,6 @@ public class BestSolutions
 			int result;
 			if (x.m_id == y.m_id)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((x.m_isGroup == y.m_isGroup) ? 1 : 0);
 			}
 			else
@@ -1308,30 +842,8 @@ public class BestSolutions
 				roles.Sort();
 				for (int num3 = num; num3 > 0; num3--)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!RolesHaveDups(roles))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					RemoveOneDup(ref roles);
@@ -1346,26 +858,8 @@ public class BestSolutions
 					{
 						if (i > 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (roles[i - 1] == roles[i])
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2++;
 								continue;
 							}
@@ -1387,15 +881,6 @@ public class BestSolutions
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -1412,26 +897,12 @@ public class BestSolutions
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					roles.RemoveAt(i - 1);
 					return;
 				}
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				throw new Exception("No dup in list that should have dup");
 			}
 		}
@@ -1460,19 +931,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1492,19 +950,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1522,19 +967,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1552,19 +984,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1582,19 +1001,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1612,19 +1018,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1642,19 +1035,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1672,19 +1052,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1702,19 +1069,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1734,19 +1088,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 1;
 				}
 				else
@@ -1766,19 +1107,6 @@ public class BestSolutions
 				int result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0;
 				}
 				else
@@ -1796,19 +1124,6 @@ public class BestSolutions
 				float result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0f;
 				}
 				else
@@ -1826,19 +1141,6 @@ public class BestSolutions
 				float result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = 0f;
 				}
 				else
@@ -1880,19 +1182,6 @@ public class BestSolutions
 				object result;
 				if (m_solution == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = "<null>";
 				}
 				else
@@ -1919,10 +1208,6 @@ public class BestSolutions
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								retVal = string.Format("{0}{1}{2}", retVal, (retVal.Count() <= 0) ? string.Empty : "+", appendText);
 								return;
 							}
@@ -1945,19 +1230,6 @@ public class BestSolutions
 				object result;
 				if (retVal == string.Empty)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = "none";
 				}
 				else
@@ -2002,22 +1274,9 @@ public class BestSolutions
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int result;
 						if (Success)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = -1;
 						}
 						else
@@ -2034,15 +1293,6 @@ public class BestSolutions
 				int result2;
 				if (m_solution != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result2 = -1;
 				}
 				else
@@ -2066,22 +1316,9 @@ public class BestSolutions
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int result;
 						if (Success)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = -1;
 						}
 						else
@@ -2108,15 +1345,6 @@ public class BestSolutions
 			}
 			if (m_solution != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = m_solution.CoarseCompareTo(other.m_solution);
 				if (num != 0)
 				{
@@ -2157,10 +1385,6 @@ public class BestSolutions
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						throw new Exception("Must have resolved duplication rule before using BestSolutions.Resolve");
 					}
 				}
@@ -2168,15 +1392,6 @@ public class BestSolutions
 			int result;
 			if (m_duplicationRule != FreelancerDuplicationRuleTypes.noneInGame)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_duplicationRule == FreelancerDuplicationRuleTypes.noneInTeam) ? 1 : 0);
 			}
 			else
@@ -2222,19 +1437,6 @@ public class BestSolutions
 			int num6;
 			if (num5 != players.Count() - 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num6 = ((potentialTeam[num5] == 1) ? 1 : 0);
 			}
 			else
@@ -2244,43 +1446,16 @@ public class BestSolutions
 			bool flag8 = (byte)num6 != 0;
 			if (players[num5].IsNPCBot)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += ((!flag8) ? 1 : (-1));
 			}
 			else if (region.HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool num7 = flag;
 				Region value = region.Value;
 				Region? region2 = players[num5].Region;
 				int num8;
 				if (value == region2.GetValueOrDefault())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = (region2.HasValue ? 1 : 0);
 				}
 				else
@@ -2297,26 +1472,8 @@ public class BestSolutions
 			List<CharacterRole> value3;
 			if (flag8)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (dictionary6.TryGetValue(players[num5].LanguageCode, out int value2))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary6[players[num5].LanguageCode] = value2 + 1;
 				}
 				else
@@ -2327,54 +1484,18 @@ public class BestSolutions
 				num2 += players[num5].LossStreak;
 				if (!dictionary8.TryGetValue(key, out value3))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value3 = (dictionary8[key] = new List<CharacterRole>());
 				}
 				if (players[num5].SelectedRole == CharacterRole.Assassin)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 				else if (players[num5].SelectedRole == CharacterRole.Tank)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 				}
 				else if (players[num5].SelectedRole == CharacterRole.Support)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = true;
 				}
 			}
@@ -2382,15 +1503,6 @@ public class BestSolutions
 			{
 				if (dictionary7.TryGetValue(players[num5].LanguageCode, out int value4))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary7[players[num5].LanguageCode] = value4 + 1;
 				}
 				else
@@ -2401,54 +1513,18 @@ public class BestSolutions
 				num2 -= players[num5].LossStreak;
 				if (!dictionary9.TryGetValue(key, out value3))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value3 = (dictionary9[key] = new List<CharacterRole>());
 				}
 				if (players[num5].SelectedRole == CharacterRole.Assassin)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = true;
 				}
 				else if (players[num5].SelectedRole == CharacterRole.Tank)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag6 = true;
 				}
 				else if (players[num5].SelectedRole == CharacterRole.Support)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = true;
 				}
 			}
@@ -2456,39 +1532,12 @@ public class BestSolutions
 			Dictionary<CharacterType, bool> dictionary10;
 			if (NoDupInTeam)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag8)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!NoDupInGame)
 					{
 						dictionary10 = dictionary5;
 						goto IL_040e;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				dictionary10 = dictionary4;
@@ -2499,26 +1548,8 @@ public class BestSolutions
 			Dictionary<CharacterType, bool> dictionary11 = dictionary10;
 			if (dictionary11.TryGetValue(selectedCharacter, out bool value5))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!value5)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hasExpertCollision = true;
 					if (isCollisionNoob)
 					{
@@ -2527,15 +1558,6 @@ public class BestSolutions
 				}
 				else if (isCollisionNoob)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hasNoobCollision = true;
 				}
 				else
@@ -2545,15 +1567,6 @@ public class BestSolutions
 			}
 			else if (selectedCharacter.IsValidForHumanGameplay())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary11.Add(selectedCharacter, isCollisionNoob);
 			}
 			goto IL_047f;
@@ -2562,15 +1575,6 @@ public class BestSolutions
 			{
 				if (dictionary3.ContainsKey(groupId))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Dictionary<long, ushort> dictionary12;
 					Dictionary<long, ushort> dictionary13 = dictionary12 = dictionary3;
 					long key2;
@@ -2579,15 +1583,6 @@ public class BestSolutions
 					int num10;
 					if (flag8)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num10 = 1;
 					}
 					else
@@ -2601,15 +1596,6 @@ public class BestSolutions
 					int value6;
 					if (flag8)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value6 = 1;
 					}
 					else
@@ -2621,15 +1607,6 @@ public class BestSolutions
 				Dictionary<long, int> dictionary14 = (!flag8) ? dictionary2 : dictionary;
 				if (dictionary14.ContainsKey(groupId))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary14[groupId]++;
 				}
 				else
@@ -2648,23 +1625,9 @@ public class BestSolutions
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			int num11;
 			if (dictionary.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num11 = 1;
 			}
 			else
@@ -2675,30 +1638,12 @@ public class BestSolutions
 			int num13;
 			if (dictionary2.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num13 = 1;
 			}
 			else
 			{
 				if (_003C_003Ef__am_0024cache1 == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache1 = ((KeyValuePair<long, int> p) => p.Value);
 				}
 				num13 = dictionary2.Select(_003C_003Ef__am_0024cache1).Max();
@@ -2714,15 +1659,6 @@ public class BestSolutions
 			{
 				if (_003C_003Ef__am_0024cache2 == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache2 = ((KeyValuePair<long, int> p) => p.Value);
 				}
 				num15 = dictionary.Select(_003C_003Ef__am_0024cache2).Sum();
@@ -2740,40 +1676,13 @@ public class BestSolutions
 					float num20 = enumerator.Current;
 					if (num19 != float.MinValue)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num21 = num20 - num19;
 						if (num21 > num18)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num18 = num21;
 						}
 					}
 					num19 = num20;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num19 = float.MinValue;
@@ -2785,95 +1694,32 @@ public class BestSolutions
 					float num22 = enumerator2.Current;
 					if (num19 != float.MinValue)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num23 = num22 - num19;
 						if (num23 > num18)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num18 = num23;
 						}
 					}
 					num19 = num22;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			GroupBreakage groupBreakage = GroupBreakage.NONE;
 			if (_003C_003Ef__am_0024cache4 == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache4 = ((KeyValuePair<long, ushort> p) => p.Value == 17);
 			}
 			IEnumerable<KeyValuePair<long, ushort>> source = dictionary3.Where(_003C_003Ef__am_0024cache4);
 			if (_003C_003Ef__am_0024cache5 == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache5 = ((KeyValuePair<long, ushort> p) => p.Key);
 			}
 			IEnumerable<long> source2 = source.Select(_003C_003Ef__am_0024cache5);
 			if (source2.Count() > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				groupBreakage = GroupBreakage.MULTIPLE_GROUPS;
 			}
 			else if (source2.Count() == 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				long num24 = source2.First();
 				float val = float.MaxValue;
 				float val2 = float.MinValue;
@@ -2891,44 +1737,17 @@ public class BestSolutions
 							val2 = Math.Max(val2, current.ELO);
 						}
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				groupBreakage = GroupBreakage.ONE_GROUP;
 			}
 			if (_003C_003Ef__am_0024cache6 == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache6 = ((int p) => p == 1);
 			}
 			int playersOnTeam = 1 + potentialTeam.Count(_003C_003Ef__am_0024cache6);
 			int num25 = ExcuseBucket.ComputeRolesPresent(playersOnTeam, dictionary8);
 			if (_003C_003Ef__am_0024cache7 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache7 = ((int p) => p != 1);
 			}
 			int playersOnTeam2 = potentialTeam.Count(_003C_003Ef__am_0024cache7);
@@ -2938,156 +1757,48 @@ public class BestSolutions
 			int num28 = num4;
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num27 > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 					num27--;
 				}
 			}
 			if (!flag3)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num27 > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 					num27--;
 				}
 			}
 			if (!flag4)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num27 > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = true;
 					num27--;
 				}
 			}
 			if (!flag5)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num28 > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = true;
 					num28--;
 				}
 			}
 			if (!flag6)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num28 > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag6 = true;
 					num28--;
 				}
 			}
 			if (!flag7)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num28 > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = true;
 					num28--;
 				}
@@ -3095,15 +1806,6 @@ public class BestSolutions
 			int num29;
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num29 = (flag5 ? 1 : 0);
 			}
 			else
@@ -3114,15 +1816,6 @@ public class BestSolutions
 			int num30;
 			if (flag3)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num30 = (flag6 ? 1 : 0);
 			}
 			else
@@ -3133,15 +1826,6 @@ public class BestSolutions
 			int num31;
 			if (flag4)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num31 = (flag7 ? 1 : 0);
 			}
 			else
@@ -3160,15 +1844,6 @@ public class BestSolutions
 				Dictionary<string, int>.ValueCollection values = dictionary6.Values;
 				if (_003C_003Ef__am_0024cache8 == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache8 = ((int p) => p > 1);
 				}
 				num32 = values.Where(_003C_003Ef__am_0024cache8).Sum();
@@ -3177,15 +1852,6 @@ public class BestSolutions
 			int num34;
 			if (dictionary7.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num34 = 0;
 			}
 			else
@@ -3193,15 +1859,6 @@ public class BestSolutions
 				Dictionary<string, int>.ValueCollection values2 = dictionary7.Values;
 				if (_003C_003Ef__am_0024cache9 == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache9 = ((int p) => p > 1);
 				}
 				num34 = values2.Where(_003C_003Ef__am_0024cache9).Sum();
@@ -3218,19 +1875,6 @@ public class BestSolutions
 	{
 		if (false)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_solutions.Sort();
 			for (int i = 0; i < m_solutions.Count; i++)
 			{
@@ -3238,15 +1882,6 @@ public class BestSolutions
 				object obj;
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "best";
 				}
 				else
@@ -3256,15 +1891,6 @@ public class BestSolutions
 				array[0] = obj;
 				array[1] = m_solutions[i].GetLogString();
 				Log.Warning("{0}: {1}", array);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -3279,15 +1905,6 @@ public class BestSolutions
 					index = j;
 				}
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_solutions[index] = m_solutions[0];
 			m_solutions[0] = solution;
 		}
@@ -3299,19 +1916,6 @@ public class BestSolutions
 		int result;
 		if (playerIndex < m_solutions[0].m_sides.Count())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_solutions[0].m_sides[playerIndex] == 1) ? 1 : 0);
 		}
 		else

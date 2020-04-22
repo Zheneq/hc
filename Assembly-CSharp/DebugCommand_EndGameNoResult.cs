@@ -32,10 +32,6 @@ public class DebugCommand_EndGameNoResult : DebugCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OnIncreaseClick();
 					return true;
 				}

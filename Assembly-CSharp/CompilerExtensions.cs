@@ -21,19 +21,6 @@ public static class CompilerExtensions
 		int result;
 		if (t != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((t.Length == 0) ? 1 : 0);
 		}
 		else
@@ -48,19 +35,6 @@ public static class CompilerExtensions
 		int result;
 		if (t != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!t.Any()) ? 1 : 0);
 		}
 		else
@@ -75,19 +49,6 @@ public static class CompilerExtensions
 		object result;
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -107,19 +68,6 @@ public static class CompilerExtensions
 		int result;
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -134,19 +82,6 @@ public static class CompilerExtensions
 		string result;
 		if (value.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = value;
 		}
 		else
@@ -162,34 +97,12 @@ public static class CompilerExtensions
 		int num = 0;
 		for (int num2 = value.Length - 1; num2 >= 0; num2--)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num >= occurence)
 			{
 				break;
 			}
 			if (value[num2] == charToSearch)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = num2;
 				num++;
 			}
@@ -208,10 +121,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value.ToString("yyyy-MM-dd HH:mm:sszzz");
 				}
 			}
@@ -234,19 +143,6 @@ public static class CompilerExtensions
 		object result;
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -272,10 +168,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -313,10 +205,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return defaultValue;
 				}
 			}
@@ -335,10 +223,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -371,10 +255,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -422,10 +302,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (defaultValue.HasValue)
 					{
 						return defaultValue.Value;
@@ -451,10 +327,6 @@ public static class CompilerExtensions
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return defaultValue.Value;
 					}
 				}
@@ -533,55 +405,15 @@ public static class CompilerExtensions
 	{
 		if (onDiskFileInfo == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			onDiskFileInfo = new FileInfo(fileInfo.FullName);
 		}
 		if (onDiskFileInfo.Exists == fileInfo.Exists)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(onDiskFileInfo.CreationTimeUtc > fileInfo.CreationTimeUtc))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(onDiskFileInfo.LastWriteTimeUtc > fileInfo.LastWriteTimeUtc))
 				{
 					return false;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -604,10 +436,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Activator.CreateInstance(t);
 				}
 			}
@@ -621,71 +449,22 @@ public static class CompilerExtensions
 		StringBuilder stringBuilder = new StringBuilder();
 		if (method.IsPublic)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			stringBuilder.Append("public ");
 		}
 		else if (method.IsPrivate)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("private ");
 		}
 		else if (method.IsAssembly)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("internal ");
 		}
 		if (method.IsFamily)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("protected ");
 		}
 		if (method.IsStatic)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("static ");
 		}
 		stringBuilder.Append(method.ReflectedType.FullName);
@@ -693,15 +472,6 @@ public static class CompilerExtensions
 		stringBuilder.Append(method.Name);
 		if (method.IsGenericMethod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("<");
 			Type[] genericArguments = method.GetGenericArguments();
 			foreach (Type type in genericArguments)
@@ -716,15 +486,6 @@ public static class CompilerExtensions
 				}
 				stringBuilder.Append(type.ToTypeString());
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append(">");
 		}
 		stringBuilder.Append("(");
@@ -735,41 +496,14 @@ public static class CompilerExtensions
 		{
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 				if (method.IsDefined(typeof(ExtensionAttribute), false))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringBuilder.Append("this ");
 				}
 			}
 			else if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = false;
 			}
 			else
@@ -782,15 +516,6 @@ public static class CompilerExtensions
 			}
 			else if (parameterInfo.IsOut)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("out ");
 			}
 			stringBuilder.Append(parameterInfo.ParameterType.ToTypeString());
@@ -799,11 +524,6 @@ public static class CompilerExtensions
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			stringBuilder.Append(")");
 			return stringBuilder.ToString();
 		}
@@ -821,10 +541,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return underlyingType.Name + "?";
 				}
 			}
@@ -842,27 +558,9 @@ public static class CompilerExtensions
 					string name = type.Name;
 					if (name != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (name == "String")
 						{
 							return "string";
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						switch (name)
 						{
@@ -873,15 +571,6 @@ public static class CompilerExtensions
 						case "Object":
 							return "object";
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (name == "Void")
 						{
 							return "void";
@@ -890,15 +579,6 @@ public static class CompilerExtensions
 					string result;
 					if (string.IsNullOrEmpty(type.FullName))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = type.Name;
 					}
 					else
@@ -918,15 +598,6 @@ public static class CompilerExtensions
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append(',');
 			}
 			stringBuilder.Append(type2.ToTypeString());
@@ -934,11 +605,6 @@ public static class CompilerExtensions
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			stringBuilder.Append('>');
 			return stringBuilder.ToString();
 		}
@@ -952,42 +618,11 @@ public static class CompilerExtensions
 			{
 				goto IL_0067;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!namespaceName.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!type.Namespace.EqualsIgnoreCase(namespaceName))
 				{
 					goto IL_0067;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			int result = baseClass.IsAssignableFrom(type) ? 1 : 0;
@@ -1017,22 +652,9 @@ public static class CompilerExtensions
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int num = (int)Math.Floor(count);
 						if (num <= 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (bigPrecision == null)
 							{
 								return;
@@ -1079,10 +701,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return bigPrecision;
 				}
 			}
@@ -1100,19 +718,6 @@ public static class CompilerExtensions
 			object arg2;
 			if (timespan.Days == 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				arg2 = string.Empty;
 			}
 			else
@@ -1130,28 +735,10 @@ public static class CompilerExtensions
 		string text2;
 		if (timespan.Duration().Minutes > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			object arg3 = timespan.Minutes;
 			object arg4;
 			if (timespan.Minutes == 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg4 = string.Empty;
 			}
 			else
@@ -1169,28 +756,10 @@ public static class CompilerExtensions
 		string text3 = string.Format("{0}{1}{2}{3}", array);
 		if (text3.EndsWith(", "))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text3 = text3.Substring(0, text3.Length - 2);
 		}
 		if (string.IsNullOrEmpty(text3))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text3 = "0 seconds";
 		}
 		return text3;
@@ -1208,56 +777,16 @@ public static class CompilerExtensions
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (text2.Contains("Newtonsoft.Json.Serialization.") || text2.Contains("Newtonsoft.Json.JsonSerializer."))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (text2.Contains("Newtonsoft.Json.JsonConvert."))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (text2.Contains("--- End of inner exception stack trace ---"))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1280,43 +809,12 @@ public static class CompilerExtensions
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (text2.Contains("System.Runtime.ExceptionServices.ExceptionDispatchInfo"))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (text2.Contains("--- End of stack trace"))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			int num2 = text2.IndexOf(".<");
@@ -1324,15 +822,6 @@ public static class CompilerExtensions
 			int num4 = text2.IndexOf("MoveNext()");
 			if (num2 > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num3 > 0 && num4 > 0)
 				{
 					StringBuilder stringBuilder = new StringBuilder();
@@ -1360,10 +849,6 @@ public static class CompilerExtensions
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"{obj.GetType().FullName} is not serializable");
 				}
 			}
@@ -1463,15 +948,6 @@ public static class CompilerExtensions
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return stringBuilder.ToString();
 		}
 	}
@@ -1486,19 +962,6 @@ public static class CompilerExtensions
 		IEnumerable<int> source = Enumerable.Range(0, s.Length);
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((int x) => x % 2 == 0);
 		}
 		return (from x in source.Where(_003C_003Ef__am_0024cache0)
@@ -1511,41 +974,10 @@ public static class CompilerExtensions
 		int result4;
 		if (array.Length == 3)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (int.TryParse(array[0], out int _))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (int.TryParse(array[1], out int _))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result4 = (int.TryParse(array[2], out int _) ? 1 : 0);
 					goto IL_006a;
 				}

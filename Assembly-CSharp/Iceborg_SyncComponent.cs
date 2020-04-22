@@ -184,45 +184,14 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		m_delayedAoeOnHitData.AddTooltipTokens(tokens);
 		if (m_delayedAoeShieldPerEnemyHit > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerHit", string.Empty, m_delayedAoeShieldPerEnemyHit, false, 0);
 		}
 		if (m_delayedAoeShieldPerExplosion > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerExplosion", string.Empty, m_delayedAoeShieldPerExplosion, false, 0);
 		}
 		if (m_delayedAoeEnergyPerEnemyHit > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerHit", string.Empty, m_delayedAoeEnergyPerEnemyHit, false, 0);
 		}
 		if (m_delayedAoeEnergyPerExplosion <= 0)
@@ -231,11 +200,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerExplosion", string.Empty, m_delayedAoeEnergyPerExplosion, false, 0);
 			return;
 		}
@@ -254,30 +218,12 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = HasNovaCore(targetActor);
 			ContextVars contextVars = actorHitContext[targetActor]._0015;
 			int hash = s_cvarHasNova.GetHash();
 			int value;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1;
 			}
 			else
@@ -294,19 +240,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		int result = 0;
 		if (m_damageFieldLastCastTurn > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = Mathf.Max(0, GameFlowData.Get().CurrentTurn - m_damageFieldLastCastTurn);
 		}
 		return result;
@@ -354,10 +287,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListUInt.WriteInstance(writer, m_actorsWithNovaCore);
 					writer.WritePackedUInt32((uint)m_damageFieldLastCastTurn);
 					writer.Write(m_damageAreaCanMoveThisTurn);
@@ -375,15 +304,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -391,15 +311,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -409,15 +320,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -427,26 +329,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -456,15 +340,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -472,26 +347,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -499,26 +356,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -535,15 +374,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -566,45 +396,14 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SyncListUInt.ReadReference(reader, m_actorsWithNovaCore);
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
@@ -617,28 +416,10 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_damageAreaFreePos = reader.ReadVector3();
 		}
 		if ((num & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x80) == 0)
@@ -647,11 +428,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
 			return;
 		}

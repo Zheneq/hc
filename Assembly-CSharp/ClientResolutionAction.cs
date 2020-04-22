@@ -36,10 +36,6 @@ public class ClientResolutionAction : IComparable
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (ReactsToMovement() != clientResolutionAction.ReactsToMovement())
 					{
 						while (true)
@@ -55,15 +51,6 @@ public class ClientResolutionAction : IComparable
 					}
 					if (!ReactsToMovement())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!clientResolutionAction.ReactsToMovement())
 						{
 							return 0;
@@ -79,15 +66,6 @@ public class ClientResolutionAction : IComparable
 					bool flag2 = clientResolutionAction.m_moveResults.HasBarrierHitResults();
 					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							while (true)
@@ -104,15 +82,6 @@ public class ClientResolutionAction : IComparable
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
 							while (true)
@@ -131,15 +100,6 @@ public class ClientResolutionAction : IComparable
 					bool flag4 = clientResolutionAction.m_moveResults.HasGameModeHitResults();
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag4)
 						{
 							while (true)
@@ -156,15 +116,6 @@ public class ClientResolutionAction : IComparable
 					}
 					if (!flag3)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag4)
 						{
 							return 1;
@@ -187,19 +138,6 @@ public class ClientResolutionAction : IComparable
 		clientResolutionAction.m_type = (ResolutionActionType)value;
 		if (resolutionActionType == ResolutionActionType.AbilityCast)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			clientResolutionAction.m_abilityResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
 		else
@@ -210,52 +148,16 @@ public class ClientResolutionAction : IComparable
 				{
 					if (resolutionActionType != ResolutionActionType.EffectOnMove && resolutionActionType != ResolutionActionType.BarrierOnMove)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (resolutionActionType != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (resolutionActionType != ResolutionActionType.GameModeOnMove)
 							{
 								goto IL_009e;
-							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 					clientResolutionAction.m_moveResults = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
 					goto IL_009e;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			clientResolutionAction.m_effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
@@ -276,10 +178,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityResults.GetCaster();
 				}
 			}
@@ -315,10 +213,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_effectResults.GetSourceActionType();
 				}
 			}
@@ -342,10 +236,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityResults.HasReactionByCaster(caster);
 				}
 			}
@@ -379,10 +269,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					actorHitResList = m_abilityResults.GetActorHitResults();
 					posHitResList = m_abilityResults.GetPosHitResults();
 					return;
@@ -395,11 +281,6 @@ public class ClientResolutionAction : IComparable
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			actorHitResList = m_effectResults.GetActorHitResults();
 			posHitResList = m_effectResults.GetPosHitResults();
 			return;
@@ -419,10 +300,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
 					return;
 				}
@@ -434,11 +311,6 @@ public class ClientResolutionAction : IComparable
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_effectResults.GetReactionHitResultsByCaster(caster, out actorHitResList, out posHitResList);
 			return;
 		}
@@ -448,19 +320,6 @@ public class ClientResolutionAction : IComparable
 	{
 		if (m_abilityResults != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityResults.StartSequences();
 		}
 		if (m_effectResults == null)
@@ -469,11 +328,6 @@ public class ClientResolutionAction : IComparable
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_effectResults.StartSequences();
 			return;
 		}
@@ -483,32 +337,10 @@ public class ClientResolutionAction : IComparable
 	{
 		if (m_abilityResults != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityResults.StartSequences();
 		}
 		if (m_effectResults != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_effectResults.StartSequences();
 		}
 		if (m_moveResults == null)
@@ -517,11 +349,6 @@ public class ClientResolutionAction : IComparable
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_moveResults.ReactToMovement();
 			return;
 		}
@@ -538,87 +365,29 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityResults.DoneHitting();
 				}
 			}
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_type != ResolutionActionType.BarrierOnMove)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
 								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it's complete...");
 								return true;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
 				return m_moveResults.DoneHitting();
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return m_effectResults.DoneHitting();
@@ -635,10 +404,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityResults.ExecuteUnexecutedClientHits();
 					return;
 				}
@@ -646,65 +411,20 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.GameModeOnMove)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				m_moveResults.ExecuteUnexecutedClientHits();
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_effectResults.ExecuteUnexecutedClientHits();
@@ -721,55 +441,15 @@ public class ClientResolutionAction : IComparable
 		{
 			if (m_type != ResolutionActionType.EffectAnimation)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_type != ResolutionActionType.EffectPulse)
 				{
 					if (m_type != ResolutionActionType.EffectOnMove)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
 								goto IL_00a3;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -793,81 +473,23 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_type != ResolutionActionType.BarrierOnMove)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 				}
 				m_moveResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 				return;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_effectResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
@@ -888,10 +510,6 @@ public class ClientResolutionAction : IComparable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!value.HasUnexecutedReactionHits())
 						{
 							goto IL_004b;
@@ -912,15 +530,6 @@ public class ClientResolutionAction : IComparable
 			{
 				if (!enumerator2.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				ClientPositionHitResults current2 = enumerator2.Current;
@@ -955,45 +564,14 @@ public class ClientResolutionAction : IComparable
 				ClientActorHitResults value = current.Value;
 				if (!value.ExecutedHit)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.Key.ActorIndex == targetActor.ActorIndex)
 					{
 						goto IL_006f;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (!value.HasUnexecutedReactionOnActor(targetActor))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				goto IL_006f;
 				IL_006f:
@@ -1021,44 +599,13 @@ public class ClientResolutionAction : IComparable
 				KeyValuePair<ActorData, ClientActorHitResults> current = enumerator.Current;
 				if (!current.Value.ExecutedHit)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorData key = current.Key;
 					if (ClientAbilityResults.LogMissingSequences)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + key.GetDebugName() + " from " + caster.GetDebugName());
 					}
 					current.Value.ExecuteActorHit(current.Key, caster);
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = positionHitResults.GetEnumerator())
@@ -1068,26 +615,8 @@ public class ClientResolutionAction : IComparable
 				KeyValuePair<Vector3, ClientPositionHitResults> current2 = enumerator2.Current;
 				if (!current2.Value.ExecutedHit)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientAbilityResults.LogMissingSequences)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + current2.Key.ToString() + " from " + caster.GetDebugName());
 					}
 					current2.Value.ExecutePositionHit();
@@ -1114,30 +643,8 @@ public class ClientResolutionAction : IComparable
 			ClientActorHitResults value = actorToHitResult.Value;
 			if (!value.ExecutedHit)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (key == targetActor)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 				}
 			}
@@ -1157,10 +664,6 @@ public class ClientResolutionAction : IComparable
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -1187,10 +690,6 @@ public class ClientResolutionAction : IComparable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							current.Value.GetReactionHitResultsByCaster(caster, out reactionActorHits, out reactionPosHits);
 							return;
 						}
@@ -1226,87 +725,29 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityResults.ContainsSequenceSourceID(id);
 				}
 			}
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_type != ResolutionActionType.BarrierOnMove)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
 								Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it does not have a given SequenceSource...");
 								return false;
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
 				return m_moveResults.ContainsSequenceSourceID(id);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return m_effectResults.ContainsSequenceSourceID(id);
@@ -1317,30 +758,8 @@ public class ClientResolutionAction : IComparable
 		int result;
 		if (m_type != ResolutionActionType.EffectOnMove && m_type != ResolutionActionType.BarrierOnMove)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_type != ResolutionActionType.PowerupOnMove)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_type == ResolutionActionType.GameModeOnMove) ? 1 : 0);
 				goto IL_0044;
 			}
@@ -1362,10 +781,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -1381,15 +796,6 @@ public class ClientResolutionAction : IComparable
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_moveResults.ReactToMovement();
 			return;
 		}
@@ -1406,10 +812,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityResults.AdjustKnockbackCounts_ClientAbilityResults(ref outgoingKnockbacks, ref incomingKnockbacks);
 					return;
 				}
@@ -1417,15 +819,6 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				return;
@@ -1443,54 +836,14 @@ public class ClientResolutionAction : IComparable
 		}
 		if (m_type != ResolutionActionType.EffectAnimation)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_type != ResolutionActionType.EffectPulse)
 			{
 				if (m_type != ResolutionActionType.EffectOnMove)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_type != ResolutionActionType.BarrierOnMove)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_type != ResolutionActionType.PowerupOnMove)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_type != ResolutionActionType.GameModeOnMove)
 							{
 								return str + "??? (invalid results)";
@@ -1509,19 +862,6 @@ public class ClientResolutionAction : IComparable
 		string text;
 		if (m_type == ResolutionActionType.AbilityCast)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = m_abilityResults.UnexecutedHitsDebugStr();
 			if (logSequenceDataActors)
 			{
@@ -1536,30 +876,12 @@ public class ClientResolutionAction : IComparable
 		{
 			if (m_type != ResolutionActionType.EffectOnMove)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_type != ResolutionActionType.BarrierOnMove && m_type != ResolutionActionType.PowerupOnMove)
 				{
 					if (m_type != ResolutionActionType.GameModeOnMove)
 					{
 						text = string.Empty;
 						goto IL_00bf;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1603,10 +925,6 @@ public class ClientResolutionAction : IComparable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_001a;
 				}
 			}
@@ -1621,15 +939,6 @@ public class ClientResolutionAction : IComparable
 				ClientPositionHitResults value2 = current2.Value;
 				if (!value2.ExecutedHit)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 					string text3 = text;
 					text = text3 + "\n\t\t" + num + ". PositionHit on " + key2.ToString();
@@ -1641,28 +950,10 @@ public class ClientResolutionAction : IComparable
 					text2 = text3 + "\n\t\t" + num2 + ". PositionHit on " + key2.ToString();
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		string str = "\n\tUnexecuted hits: " + num + text;
 		if (num2 > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = str + "\n\tExecuted hits: " + num2 + text2;
 		}
 		return str + "\n";

@@ -36,19 +36,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		if (!m_disableInitialSelectPanel)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SelectPanel(m_defaultPanelBtn);
 		}
 		ClientGameManager.Get().OnPlayerBannerChange += UpdateBanner;
@@ -58,11 +45,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(accountComponent.SelectedForegroundBannerID);
 			GameBalanceVars.PlayerBanner banner2 = GameBalanceVars.Get().GetBanner(accountComponent.SelectedBackgroundBannerID);
@@ -80,24 +62,10 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().OnPlayerBannerChange -= UpdateBanner;
 					return;
 				}
@@ -114,15 +82,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -133,32 +92,10 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		string path2 = "Banners/Background/02_blue";
 		if (emblem != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			path = emblem.m_resourceString;
 		}
 		if (banner != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			path2 = banner.m_resourceString;
 		}
 		m_emblem.sprite = Resources.Load<Sprite>(path);
@@ -176,10 +113,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -198,19 +131,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
 		}
@@ -247,15 +167,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_totalOwnedText.text = num2.ToString();
 			m_totalTotalText.text = "/" + num;
 			if (num == 0)

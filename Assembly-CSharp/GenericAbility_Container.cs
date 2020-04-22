@@ -24,10 +24,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_targetSelectComp.GetUsageForEditor();
 				}
 			}
@@ -59,19 +55,6 @@ public class GenericAbility_Container : Ability
 		List<GenericAbility_TargetSelectBase> list = new List<GenericAbility_TargetSelectBase>();
 		if (m_targetSelectComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(m_targetSelectComp);
 		}
 		return list;
@@ -87,19 +70,6 @@ public class GenericAbility_Container : Ability
 		ClearTargeters();
 		if (GetTargetSelectComp() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetTargetSelectComp().Initialize();
 			List<AbilityUtil_Targeter> list = GetTargetSelectComp().CreateTargeters(this);
 			using (List<AbilityUtil_Targeter>.Enumerator enumerator = list.GetEnumerator())
@@ -108,15 +78,6 @@ public class GenericAbility_Container : Ability
 				{
 					AbilityUtil_Targeter current = enumerator.Current;
 					base.Targeters.Add(current);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -152,30 +113,8 @@ public class GenericAbility_Container : Ability
 		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 		if (targetSelectComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetSelectComp.m_useTargetDataOverride)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetSelectComp.GetTargetDataOverride() != null)
 				{
 					while (true)
@@ -210,10 +149,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetTargetSelectComp().CanShowTargeterRangePreview(GetTargetData());
 				}
 			}
@@ -232,10 +167,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetTargetSelectComp().GetTargeterRangePreviewRadius(this, caster);
 				}
 			}
@@ -268,10 +199,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.CurrentAbilityMod.GenModImpl_SetTargetSelectMod(m_targetSelectComp);
 					return;
 				}
@@ -305,10 +232,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetTargetSelectComp().HandleCanCastValidation(this, caster);
 				}
 			}
@@ -340,23 +263,10 @@ public class GenericAbility_Container : Ability
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						PreProcessTargetingNumbers(targetActor, currentTargeterIndex, actorHitContext, abilityContext);
 						m_calculatedValuesForTargeter.Reset();
 						if (actorData.GetTeam() == targetActor.GetTeam())
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							CalcIntFieldValues(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitIntFields, m_calculatedValuesForTargeter);
 							results.m_absorb = CalcAbsorbFromEffectFields(targetActor, actorData, actorHitContext[targetActor], abilityContext, GetOnHitAuthoredData().m_allyHitEffectFields);
 						}
@@ -402,10 +312,6 @@ public class GenericAbility_Container : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetTargetSelectComp().GetMovementType();
 				}
 			}
@@ -423,31 +329,9 @@ public class GenericAbility_Container : Ability
 				OnHitIntField current = enumerator.Current;
 				if (TargetFilterHelper._001D(current.m_conditions, targetActor, caster, actorContext, abilityContext))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = current.CalcValue(actorContext, abilityContext);
 					if (current.m_hitType == OnHitIntField.HitType.Damage)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (result.m_damage == 0)
 						{
 							result.m_damage = num;
@@ -455,15 +339,6 @@ public class GenericAbility_Container : Ability
 					}
 					else if (current.m_hitType == OnHitIntField.HitType.Healing)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (result.m_healing == 0)
 						{
 							result.m_healing = num;
@@ -471,15 +346,6 @@ public class GenericAbility_Container : Ability
 					}
 					else if (current.m_hitType == OnHitIntField.HitType.EnergyChange)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num > 0)
 						{
 							if (result.m_energyGain == 0)
@@ -489,15 +355,6 @@ public class GenericAbility_Container : Ability
 						}
 						else if (num < 0 && result.m_energyLoss == 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result.m_energyLoss = -1 * num;
 						}
 					}
@@ -523,41 +380,10 @@ public class GenericAbility_Container : Ability
 		{
 			if (TargetFilterHelper._001D(effectField.m_conditions, targetActor, caster, actorContext, abilityContext))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (effectField.m_effect.m_applyEffect)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (effectField.m_effect.m_effectData.m_absorbAmount > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += effectField.m_effect.m_effectData.m_absorbAmount;
 					}
 				}

@@ -46,26 +46,8 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_radiusToLayerList.Count == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(string.Concat(GetType(), " has empty aoe radius list"));
 				m_radiusToLayerList.Add(new RadiusToLayerIndex(1f));
 			}
@@ -83,19 +65,6 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 		abilityUtil_Targeter_LaserWithLayeredRings.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeCaster());
 		if (m_laserWidth <= 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityUtil_Targeter_LaserWithLayeredRings.SetShowArcToShape(true);
 		}
 		list.Add(abilityUtil_Targeter_LaserWithLayeredRings);

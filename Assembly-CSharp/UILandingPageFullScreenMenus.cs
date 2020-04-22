@@ -257,44 +257,13 @@ public class UILandingPageFullScreenMenus : UIScene
 		_ButtonSwapSprite[] componentsInChildren = base.gameObject.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		if (componentsInChildren != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].m_ignoreDialogboxes = true;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_textScrollRect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_textScrollRect.verticalScrollbar.value = 1f;
 		}
 		m_textScrollRect.scrollSensitivity = 100f;
@@ -320,63 +289,14 @@ public class UILandingPageFullScreenMenus : UIScene
 		int result;
 		if (!m_messageVisible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_feedbackVisible)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_reportVisible)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_facebookVisible)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_textVisible && !m_videoVisible)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = (Options_UI.Get().IsVisible() ? 1 : 0);
 							goto IL_007f;
 						}
@@ -410,10 +330,6 @@ public class UILandingPageFullScreenMenus : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_animator.Play("PanelDefaultIN", 0, 0f);
 					return;
 				}
@@ -433,10 +349,6 @@ public class UILandingPageFullScreenMenus : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -455,10 +367,6 @@ public class UILandingPageFullScreenMenus : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CloseMessage(null);
 					return;
 				}
@@ -537,11 +445,6 @@ public class UILandingPageFullScreenMenus : UIScene
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				SetKeyBindingContainerVisible(false);
 				return;
 			}
@@ -557,15 +460,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_onClose();
 			m_onClose = null;
 			return;
@@ -627,19 +521,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIVideoOverlayPanel component = m_videoContainer.GetComponent<UIVideoOverlayPanel>();
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetVideoContainerVisible(true);
 			component.PlayVideo(movieAssetName);
 		}
@@ -660,34 +541,12 @@ public class UILandingPageFullScreenMenus : UIScene
 			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(i + 1);
 			if (seasonTemplate.IsTutorial)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			else
 			{
 				if (seasonTemplate.Index >= activeSeason)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int num2 = 0;
 				while (num2 < seasonTemplate.Chapters.Count)
@@ -702,15 +561,6 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					if (num >= TextListItemBtns.Count)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_SelectableBtn selectableBtn = UnityEngine.Object.Instantiate(m_TextListItem);
 						UIManager.ReparentTransform(selectableBtn.transform, m_TextListItemParent.transform);
 						selectableBtn.spriteController.callback = TextItemClicked;
@@ -724,11 +574,6 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						string label = string.Empty;
 						if (num2 == 0)
 						{
@@ -747,15 +592,6 @@ public class UILandingPageFullScreenMenus : UIScene
 						goto IL_0229;
 					}
 					IL_0229:;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -779,41 +615,10 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			if (i < SeasonLoreDisplayInfos.Count)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!SeasonLoreDisplayInfos[i].Label.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num >= TextListItemLabels.Count)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate(m_TextListLabel);
 						UIManager.ReparentTransform(textMeshProUGUI.transform, m_TextListItemParent.transform);
 						TextListItemLabels.Add(textMeshProUGUI);
@@ -854,19 +659,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (SeasonLoreDisplayInfos.Count == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetupDisplayInfo();
 		}
 		SetupSeasonLoreButtons();
@@ -882,15 +674,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SeasonLoreDisplayInfos.Count > 0)
 			{
 				for (int j = 0; j < SeasonLoreDisplayInfos.Count - 1; j++)
@@ -899,11 +682,6 @@ public class UILandingPageFullScreenMenus : UIScene
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					SeasonLoreDisplayInfos[SeasonLoreDisplayInfos.Count - 1].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
 					DisplaySeasonLore(SeasonLoreDisplayInfos.Count - 1);
 					return;
@@ -924,19 +702,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (stagger)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StartCoroutine(SetupText(index));
 		}
 		else
@@ -947,15 +712,6 @@ public class UILandingPageFullScreenMenus : UIScene
 			for (int i = 0; i < SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
 			{
 				text += SeasonLoreDisplayInfos[index].ContentTextString[i];
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_textContent.text = text;
 		}
@@ -980,15 +736,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1056,19 +803,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (!m_botMasqueradingAsHuman)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientFeedbackReport clientFeedbackReport = new ClientFeedbackReport();
 			clientFeedbackReport.Reason = m_reportReason;
 			clientFeedbackReport.ReportedPlayerHandle = m_reportPlayerHandle;
@@ -1122,19 +856,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(m_feedbackContainer, visible);
 		if (visible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_feedbackInput.text = string.Empty;
 			float preferredHeight = m_feedbackInput.textComponent.preferredHeight;
 			float a = preferredHeight;
@@ -1160,19 +881,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(m_reportContainer, visible);
 		if (visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_reportPlayerHandle = playerHandle;
 			m_reportPlayerAccountId = playerAccountId;
 			m_botMasqueradingAsHuman = masqueradeBot;
@@ -1203,19 +911,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(m_facebookContainer, visible);
 		if (visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_facebookInput.text = string.Empty;
 			m_facebookScreenshotPreview.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.one * 0.5f);
 			m_facebookScreenshotPreview.enabled = true;
@@ -1241,19 +936,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		StaggerComponent.SetStaggerComponent(m_TextItemListContainer.gameObject, setTextListVisible);
 		if (m_textVisible != visible)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_textVisible = visible;
 			StaggerComponent.SetStaggerComponent(m_TextContainerContainer.gameObject, visible);
 			UIManager.SetGameObjectActive(m_textContainer, visible);
@@ -1265,11 +947,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_setScrollBar = 2;
 			m_textScrollRect.verticalNormalizedPosition = 1f;
 			return;
@@ -1280,52 +957,12 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (m_videoVisible != visible && GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().IsAllowingPlayerRequestedPause())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 						activeOwnedActorData.GetActorController().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
 					}
@@ -1354,19 +991,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (visible)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			KeyBinding_UI.Get().ShowKeybinds();
 		}
 		else
@@ -1385,30 +1009,8 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (m_shouldSelectFeedbackInput)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (EventSystem.current.currentSelectedGameObject != m_feedbackInput.gameObject)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CleanCurrentlySelectedTextConsole();
 				EventSystem.current.SetSelectedGameObject(m_feedbackInput.gameObject);
 				goto IL_011b;
@@ -1416,40 +1018,13 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		if (m_shouldSelectReportInput && EventSystem.current.currentSelectedGameObject != m_reportInput.gameObject)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CleanCurrentlySelectedTextConsole();
 			EventSystem.current.SetSelectedGameObject(m_reportInput.gameObject);
 		}
 		else if (m_shouldSelectFacebookInput)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (EventSystem.current.currentSelectedGameObject != m_facebookInput.gameObject)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CleanCurrentlySelectedTextConsole();
 				EventSystem.current.SetSelectedGameObject(m_facebookInput.gameObject);
 			}
@@ -1462,21 +1037,11 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_setScrollBar--;
 			if (m_setScrollBar == 0)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_textScrollRect.verticalScrollbar.value = 1f;
 					return;
 				}
@@ -1493,15 +1058,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITextConsole componentInParent = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsole>();
 			if (componentInParent != null)
 			{
@@ -1519,15 +1075,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

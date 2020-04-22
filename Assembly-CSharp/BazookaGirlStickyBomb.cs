@@ -45,19 +45,6 @@ public class BazookaGirlStickyBomb : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Sticky Bomb";
 		}
 		SetupTargeter();
@@ -74,10 +61,6 @@ public class BazookaGirlStickyBomb : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_Laser(this, m_laserWidth, m_laserRange, m_targeterPenetrateLos, m_maxTargets);
 					return;
 				}
@@ -108,19 +91,6 @@ public class BazookaGirlStickyBomb : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(m_energyGainOnCastPerEnemyHit);
 		}
 		else
@@ -144,19 +114,6 @@ public class BazookaGirlStickyBomb : Ability
 		}
 		else if (m_abilityMod.m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_abilityMod.m_cooldownAddAmount != 0) ? 1 : 0);
 		}
 		else
@@ -181,19 +138,6 @@ public class BazookaGirlStickyBomb : Ability
 		int val;
 		if ((bool)abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod.m_energyGainOnCastPerEnemyHitMod.GetModifiedValue(m_energyGainOnCastPerEnemyHit);
 		}
 		else
@@ -204,15 +148,6 @@ public class BazookaGirlStickyBomb : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod.m_enemyOnCastHitEffectOverride.GetModifiedValue(m_enemyOnCastHitEffect);
 		}
 		else
@@ -226,19 +161,6 @@ public class BazookaGirlStickyBomb : Ability
 	{
 		if (base.Targeter != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetEnergyGainOnCastPerEnemyHit() > 0)
 			{
 				while (true)
@@ -267,15 +189,6 @@ public class BazookaGirlStickyBomb : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_BazookaGirlStickyBomb);
 			return;
 		}

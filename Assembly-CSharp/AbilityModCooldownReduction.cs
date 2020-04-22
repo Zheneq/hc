@@ -65,10 +65,6 @@ public class AbilityModCooldownReduction
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -82,63 +78,14 @@ public class AbilityModCooldownReduction
 		int result;
 		if (actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_baseValue == 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_finalAdd == 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stockBaseValue == 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_stockFinalAdd == 0 && m_refreshProgressBaseValue == 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((m_refreshProgressFinalAdd != 0) ? 1 : 0);
 							goto IL_0086;
 						}
@@ -161,54 +108,14 @@ public class AbilityModCooldownReduction
 		int b = 0;
 		if (m_modAmountType != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_modAmountType != ModAmountType.FlatOnAnyNonSelfHit)
 			{
 				goto IL_0055;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numAlliesHit <= 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (numEnemiesHit <= 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0055;
 				}
 			}
@@ -218,15 +125,6 @@ public class AbilityModCooldownReduction
 		int num = Mathf.Max(m_minReduction, b);
 		if (m_maxReduction > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.Min(m_maxReduction, num);
 		}
 		return num;
@@ -240,77 +138,23 @@ public class AbilityModCooldownReduction
 			{
 				goto IL_00f6;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_modAmountType == ModAmountType.FlatOnAnyEnemyHit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemiesHit > 0)
 			{
 				goto IL_00f6;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_modAmountType == ModAmountType.FlatOnNoEnemyHit)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemiesHit == 0)
 			{
 				goto IL_00f6;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_modAmountType == ModAmountType.FlatOnNoAllyHit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numAlliesHit == 0)
 			{
 				goto IL_00f6;
@@ -318,65 +162,20 @@ public class AbilityModCooldownReduction
 		}
 		if (m_modAmountType == ModAmountType.FlatOnNoNonCasterHit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemiesHit == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (numAlliesHit == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_00f6;
 				}
 			}
 		}
 		if (m_modAmountType == ModAmountType.MultPerAllyHit)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b = Mathf.RoundToInt(m_baseValue * (float)numAlliesHit + m_finalAdd);
 		}
 		else if (m_modAmountType == ModAmountType.MultPerEnemyHit)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b = Mathf.RoundToInt(m_baseValue * (float)numEnemiesHit + m_finalAdd);
 		}
 		goto IL_0165;
@@ -390,119 +189,34 @@ public class AbilityModCooldownReduction
 		{
 			goto IL_008b;
 		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (1 == 0)
-		{
-			/*OpCode not supported: LdMemberToken*/;
-		}
 		if (m_modAmountType == ModAmountType.FlatOnAnyNonSelfHit)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numAlliesHit > 0 || numEnemiesHit > 0)
 			{
 				goto IL_008b;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_modAmountType == ModAmountType.FlatOnAnyAllyHit)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numAlliesHit > 0)
 			{
 				goto IL_008b;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_modAmountType == ModAmountType.FlatOnAnyEnemyHit)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numEnemiesHit > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_008b;
 			}
 		}
 		if (m_modAmountType == ModAmountType.MultPerAllyHit)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = Mathf.RoundToInt(m_stockBaseValue * numAlliesHit + m_stockFinalAdd);
 			refreshProgress = Mathf.RoundToInt(m_refreshProgressBaseValue * numAlliesHit + m_refreshProgressFinalAdd);
 		}
 		else if (m_modAmountType == ModAmountType.MultPerEnemyHit)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = Mathf.RoundToInt(m_stockBaseValue * numEnemiesHit + m_stockFinalAdd);
 			refreshProgress = Mathf.RoundToInt(m_refreshProgressBaseValue * numEnemiesHit + m_refreshProgressFinalAdd);
 		}
@@ -523,15 +237,6 @@ public class AbilityModCooldownReduction
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int val = CalcFinalCooldownReduction(true, 1, 1);
 			if (m_onAbility != AbilityData.ActionType.INVALID_ACTION)
 			{
@@ -544,15 +249,6 @@ public class AbilityModCooldownReduction
 					AbilityData.ActionType current = enumerator.Current;
 					if (current != AbilityData.ActionType.INVALID_ACTION)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						entries.Add(new TooltipTokenInt(name + "CRD_" + current, "cooldown reduction", val));
 					}
 				}
@@ -583,19 +279,6 @@ public class AbilityModCooldownReduction
 		object str;
 		if (m_finalAdd >= 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = " +";
 		}
 		else
@@ -612,15 +295,6 @@ public class AbilityModCooldownReduction
 				AbilityData.ActionType current = enumerator.Current;
 				text = text + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(current, abilityData) + "</color>\n";
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		str2 = str2 + "\nCooldown Reduction On Abilities:\n" + text;
 		text = string.Empty;
@@ -631,39 +305,12 @@ public class AbilityModCooldownReduction
 				AbilityData.ActionType current2 = enumerator2.Current;
 				text = text + "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(current2, abilityData) + "</color>\n";
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_stockBaseValue == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_stockFinalAdd == 0)
 			{
 				goto IL_028b;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string text2 = str2;
@@ -680,15 +327,6 @@ public class AbilityModCooldownReduction
 		object str3;
 		if (m_stockFinalAdd >= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str3 = " +";
 		}
 		else
@@ -704,42 +342,15 @@ public class AbilityModCooldownReduction
 		IL_028b:
 		if (m_resetRefreshProgress)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = str2 + "\nReset Stock Refresh Progress On Abilities:\n" + text;
 		}
 		else
 		{
 			if (m_refreshProgressBaseValue == 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_refreshProgressFinalAdd == 0)
 				{
 					goto IL_039a;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			text2 = str2;
@@ -756,15 +367,6 @@ public class AbilityModCooldownReduction
 			object str4;
 			if (m_refreshProgressFinalAdd >= 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str4 = " +";
 			}
 			else

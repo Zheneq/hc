@@ -30,10 +30,6 @@ public static class CrashReportArchiver
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Log.Error("Failed to create " + text);
 						return false;
 					}
@@ -46,26 +42,8 @@ public static class CrashReportArchiver
 				string path = fileName.ToLower();
 				if (Path.GetFileNameWithoutExtension(path) != "system_info")
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Path.GetExtension(path) != ".dmp")
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string destFileName = Path.Combine(text, fileName);
 						File.Move(text2, destFileName);
 					}
@@ -85,37 +63,10 @@ public static class CrashReportArchiver
 					{
 						if (bugReportType != 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (bugReportType != BugReportType.Exception)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (bugReportType != BugReportType.Error)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									continue;
 								}
 							}
@@ -169,15 +120,6 @@ public static class CrashReportArchiver
 						}
 						else if (text4.EndsWith("output_log.txt"))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text3 = string.Empty;
 							StreamReader streamReader2 = new StreamReader(text4);
 							try
@@ -192,37 +134,10 @@ public static class CrashReportArchiver
 										string[] array = text3.Split(',', ' ');
 										if (array != null)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (array.Length > 0)
 											{
-												while (true)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!string.IsNullOrEmpty(array[0]))
 												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													text3 = array[0];
 												}
 											}
@@ -230,15 +145,6 @@ public static class CrashReportArchiver
 									}
 									if (text6.StartsWith("========== OUTPUTING STACK TRACE"))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 								}
@@ -246,54 +152,18 @@ public static class CrashReportArchiver
 								{
 									if ((text6 = streamReader2.ReadLine()) == null)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									string text7 = text6.Trim();
 									if (text7.Length > 0)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!text6.StartsWith(" "))
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											stringBuilder2.Append(text7);
 										}
 									}
 									else if (stringBuilder2.Length > 0)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 								}
@@ -332,15 +202,6 @@ public static class CrashReportArchiver
 							CompressResult compressResult = CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, true);
 							if (compressResult == CompressResult.FailureExceedsMaxArchiveSize)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								compressResult = CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, false);
 							}
 							if (compressResult == CompressResult.Success)
@@ -387,10 +248,6 @@ public static class CrashReportArchiver
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -406,19 +263,6 @@ public static class CrashReportArchiver
 		string text = Process.GetCurrentProcess().ProcessName;
 		if (text == "Unity")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = "AtlasReactor_UnityEditor";
 		}
 		return text;
@@ -442,10 +286,6 @@ public static class CrashReportArchiver
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("Cannot find directory '{0}'", destinationDirectoryPath);
 					return CompressResult.Failure;
 				}
@@ -480,15 +320,6 @@ public static class CrashReportArchiver
 						default:
 							if (includeLogFiles)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								foreach (string path2 in directories)
 								{
 									string fileName = Path.GetFileName(path2);
@@ -501,26 +332,8 @@ public static class CrashReportArchiver
 										text4 = null;
 										if (text3.LastIndexOf(".txt") < 0)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (text3.LastIndexOf(".htm") < 0)
 											{
-												while (true)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												text4 = Path.Combine(fileName, Path.GetFileName(text3) + ".txt");
 												continue;
 											}
@@ -540,15 +353,6 @@ public static class CrashReportArchiver
 										end_IL_01c1:
 										break;
 									}
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							zipOutputStream.Finish();
@@ -637,10 +441,6 @@ public static class CrashReportArchiver
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -696,10 +496,6 @@ public static class CrashReportArchiver
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							((IDisposable)streamWriter).Dispose();
 							goto end_IL_007b;
 						}
@@ -727,19 +523,6 @@ public static class CrashReportArchiver
 		object input;
 		if (userKeyValues.TryGetValue(key, out string value))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!string.IsNullOrEmpty(value))
 			{
 				input = value;
@@ -779,55 +562,15 @@ public static class CrashReportArchiver
 		string input = string.Empty;
 		if (fullVersionString == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			fullVersionString = BuildVersion.FullVersionString;
 		}
 		string[] array = fullVersionString.Split('-');
 		if (array != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (array.Length > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(array[1]))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					input = array[1];
 				}
 			}
@@ -843,15 +586,6 @@ public static class CrashReportArchiver
 		text.WriteLine("    <Application>" + SanitizeXml(GetProcessName()) + "</Application>");
 		if (bugReportType == BugReportType.Crash)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text.WriteLine("    <ProcessName>" + SanitizeXml(GetProcessName()) + "</ProcessName>");
 		}
 		else
@@ -862,15 +596,6 @@ public static class CrashReportArchiver
 		object input3;
 		if (HydrogenConfig.Get().Ticket == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			input3 = "NULL";
 		}
 		else
@@ -932,10 +657,6 @@ public static class CrashReportArchiver
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0014;
 				}
 			}
@@ -963,10 +684,6 @@ public static class CrashReportArchiver
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						text = $"{text.Substring(0, 2044)}...";
 						return text;
 					}

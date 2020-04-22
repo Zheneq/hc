@@ -35,30 +35,8 @@ public class SpoilsSpawnData
 		int result;
 		if (m_numToSpawn > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_powerupPrefabs != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_powerupPrefabs.Count > 0) ? 1 : 0);
 				goto IL_003f;
 			}
@@ -74,19 +52,6 @@ public class SpoilsSpawnData
 		int num;
 		if (diff)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -112,15 +77,6 @@ public class SpoilsSpawnData
 					int num2;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = other.m_numToSpawn;
 					}
 					else
@@ -133,15 +89,6 @@ public class SpoilsSpawnData
 					int otherVal;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						otherVal = (other.m_canSpawnOnEnemyOccupiedSquare ? 1 : 0);
 					}
 					else
@@ -154,15 +101,6 @@ public class SpoilsSpawnData
 					int otherVal2;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						otherVal2 = (other.m_canSpawnOnAllyOccupiedSquare ? 1 : 0);
 					}
 					else
@@ -175,15 +113,6 @@ public class SpoilsSpawnData
 					int num3;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = other.m_duration;
 					}
 					else
@@ -196,15 +125,6 @@ public class SpoilsSpawnData
 					object otherObjList;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						otherObjList = other.m_powerupPrefabs.ToArray();
 					}
 					else
@@ -213,15 +133,6 @@ public class SpoilsSpawnData
 					}
 					if (_003C_003Ef__mg_0024cache0 == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
 					}
 					return str6 + InEditorDescHelper.GetListDiffString("PowerupPrefabs:\t", indent, myObjList, flag, (GameObject[])otherObjList, _003C_003Ef__mg_0024cache0);

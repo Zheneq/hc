@@ -24,10 +24,6 @@ public class AbilityUtil_Targeter_BlasterDelayedLaser : AbilityUtil_Targeter_Las
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComp.m_delayedLaserStartPos;
 				}
 			}
@@ -47,36 +43,14 @@ public class AbilityUtil_Targeter_BlasterDelayedLaser : AbilityUtil_Targeter_Las
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 result = m_syncComp.m_delayedLaserAimDir;
 					if (m_aimAtCasterOnDetonate && targetingActor.GetCurrentBoardSquare() != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector = targetingActor.GetCurrentBoardSquare().ToVector3() - m_syncComp.m_delayedLaserStartPos;
 						vector.y = 0f;
 						vector.Normalize();
 						if (vector.magnitude > 0f)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = vector;
 						}
 					}

@@ -58,48 +58,17 @@ public class CameraShot
 		m_time = 0f;
 		if (m_type != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CameraManager.Get().OnSpecialCameraShotBehaviorEnable(m_transitionInType);
 		}
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.ClearDesiredVisibleObjects();
 			component.AddDesiredVisibleObject(actor.gameObject);
 		}
 		SetAnimParamsForActor(actor, m_animParamToSetOnBegin);
 		if (m_animParamToSetOnEndOfTurn.Count > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterToAnimParamSetActions animParamSetActions = new CharacterToAnimParamSetActions(actor, m_animParamToSetOnEndOfTurn);
 			CameraManager.Get().AddAnimParamSetActions(animParamSetActions);
 		}
@@ -112,15 +81,6 @@ public class CameraShot
 			AnimatedCamera component3 = Camera.main.GetComponent<AnimatedCamera>();
 			if (component3 == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Camera.main.gameObject.AddComponent<AnimatedCamera>();
 				component3 = Camera.main.GetComponent<AnimatedCamera>();
 				Log.Warning("Missing AnimatedCamera component on main camera. Generating dynamically for now.");
@@ -131,15 +91,6 @@ public class CameraShot
 			AudioManager.PostEvent("Set_state_action_cam");
 			if (mixerSnapshotManager != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mixerSnapshotManager.SetMix_TauntCam();
 			}
 			actor.m_hideNameplate = true;
@@ -150,11 +101,6 @@ public class CameraShot
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
 				CameraManager.Get().TauntBackgroundCamera.SetAnimatedCameraTargetObj(m_cameraPoseObject);
 				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(m_type);
@@ -166,15 +112,6 @@ public class CameraShot
 			Fixed_CasterAndTargetsCamera component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
 			if (component2 == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Camera.main.gameObject.AddComponent<Fixed_CasterAndTargetsCamera>();
 				component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
 				Log.Warning("Missing Fixed_CasterAndTargetsCamera component on main camera. Generating dynamically for now.");
@@ -183,15 +120,6 @@ public class CameraShot
 			component2.SetAnimator(m_cameraPoseObject);
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> list = SequenceManager.Get().FindSequenceTargets(actor);
 				using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
 				{
@@ -200,41 +128,14 @@ public class CameraShot
 						ActorData current = enumerator.Current;
 						if (current != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component.AddDesiredVisibleObject(current.gameObject);
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam");
 			if (mixerSnapshotManager != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mixerSnapshotManager.SetMix_TauntCam();
 			}
 			component2.enabled = true;
@@ -245,11 +146,6 @@ public class CameraShot
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
 				CameraManager.Get().TauntBackgroundCamera.SetFixedCasterAndTargetObj(m_cameraPoseObject);
 				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(m_type);
@@ -259,11 +155,6 @@ public class CameraShot
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (type != 0)
 			{
 				while (true)
@@ -286,19 +177,6 @@ public class CameraShot
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.ResetDesiredVisibleObjects();
 		}
 		actor.m_hideNameplate = false;
@@ -307,26 +185,8 @@ public class CameraShot
 		{
 			if (type != CameraType.Fixed_CasterAndTargets)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type != 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
@@ -334,15 +194,6 @@ public class CameraShot
 				Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>().enabled = false;
 				if (CameraManager.Get().TauntBackgroundCamera != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().TauntBackgroundCamera.OnCamShotStop();
 					CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(false);
 				}
@@ -370,41 +221,10 @@ public class CameraShot
 		float result = m_fieldOfView;
 		if (m_type == CameraType.Animated)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_useAnimatedFov)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_cameraPoseObject != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 localScale = m_cameraPoseObject.transform.localScale;
 					if (localScale.z > 1f)
 					{
@@ -432,52 +252,16 @@ public class CameraShot
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (paramSetActions != null)
 			{
 				foreach (AnimParamSetAction paramSetAction in paramSetActions)
 				{
 					if (paramSetAction.m_paramName.Length > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (paramSetAction.m_isTrigger)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (paramSetAction.m_paramValue != 0)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actor.GetModelAnimator().SetTrigger(paramSetAction.m_paramName);
 							}
 							else
@@ -503,19 +287,6 @@ public class CameraShot
 		int result;
 		if (!(m_time < m_duration))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_duration <= 0f) ? 1 : 0);
 		}
 		else

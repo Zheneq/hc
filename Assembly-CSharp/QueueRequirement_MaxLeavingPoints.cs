@@ -44,19 +44,6 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 					GameLeavingPenalty gameLeavingPenaltyForGameType = systemInfo.GetGameLeavingPenaltyForGameType(current);
 					if (gameLeavingPenaltyForGameType != null && gameLeavingPenaltyForGameType.PointsForgivenPerCompleteGameFinished > num)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						bool flag = true;
 						using (IEnumerator<QueueRequirement> enumerator2 = systemInfo.GetQueueRequirements(current).GetEnumerator())
 						{
@@ -64,29 +51,11 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 							{
 								if (!enumerator2.MoveNext())
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								QueueRequirement current2 = enumerator2.Current;
 								if (flag)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!current2.DoesApplicantPass(systemInfo, applicant, current, null))
 									{
 										while (true)
@@ -188,30 +157,8 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reader.Value != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reader.Value.ToString() == "AnyGroupMember")
 				{
 					reader.Read();

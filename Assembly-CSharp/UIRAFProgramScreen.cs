@@ -77,19 +77,6 @@ public class UIRAFProgramScreen : UIScene
 	{
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HandleAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		ClientGameManager.Get().OnAccountDataUpdated += HandleAccountDataUpdated;
@@ -130,19 +117,6 @@ public class UIRAFProgramScreen : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
 		}
 		s_instance = null;
@@ -155,42 +129,11 @@ public class UIRAFProgramScreen : UIScene
 		{
 			if (m_friendKey.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CheckPersistedKey();
 				if (m_friendKey.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_requestedKey)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClientGameManager.Get().SendCheckRAFStatusRequest(true, HandleCheckRAFStatusResponse);
 						m_requestedKey = true;
 					}
@@ -198,28 +141,10 @@ public class UIRAFProgramScreen : UIScene
 			}
 			if (UIPlayerProgressPanel.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIPlayerProgressPanel.Get().SetVisible(false);
 			}
 			if (UIGGBoostPurchaseScreen.Get() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIGGBoostPurchaseScreen.Get().SetVisible(false);
 			}
 		}
@@ -230,11 +155,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			FriendListPanel.Get().m_recruitButton.SetSelected(IsVisible, false, string.Empty, string.Empty);
 			return;
 		}
@@ -248,15 +168,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GUIUtility.systemCopyBuffer = m_friendKey;
 			return;
 		}
@@ -272,15 +183,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<string> list = new List<string>();
 			string[] array = text.Split(' ', ',', ';');
 			foreach (string text2 in array)
@@ -289,26 +191,8 @@ public class UIRAFProgramScreen : UIScene
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list.Count < 5)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(text2);
 				}
 				else
@@ -318,11 +202,6 @@ public class UIRAFProgramScreen : UIScene
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					TextConsole.Get().Write(StringUtil.TR("TooManyEmailsEntered", "ReferAFriend"));
@@ -345,15 +224,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_inputfield.text = m_inputfield.text.Substring(0, 255);
 			return;
 		}
@@ -367,15 +237,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				string rAFReferralCode = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.RAFReferralCode;
@@ -404,25 +265,11 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_friendKey = response.ReferralCode;
 			if (IsVisible)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_playerRAFkey.text = m_friendKey;
 					return;
 				}
@@ -444,19 +291,6 @@ public class UIRAFProgramScreen : UIScene
 			int num;
 			if (m_RAFPoints > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((m_RAFPoints >= m_barPoints[i]) ? 1 : 0);
 			}
 			else
@@ -480,25 +314,11 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_onRewardNumbers.Length; j++)
 			{
 				int num2;
 				if (m_RAFPoints > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((m_RAFPoints >= m_barPoints[j + 1]) ? 1 : 0);
 				}
 				else
@@ -532,25 +352,11 @@ public class UIRAFProgramScreen : UIScene
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return i - 1;
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return -1;
 		}
 	}
@@ -567,10 +373,6 @@ public class UIRAFProgramScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -582,11 +384,6 @@ public class UIRAFProgramScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			GameBalanceVars.RAFReward[] rAFRewards = gameBalanceVars.RAFRewards;
 			for (int j = 0; j < rAFRewards.Length; j++)
 			{
@@ -595,67 +392,22 @@ public class UIRAFProgramScreen : UIScene
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rAFReward.isRepeating)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (rAFReward.questId > QuestWideData.Get().m_quests.Count)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Refer a friend reward quest id {0} that is missing data in QuestWideData.", rAFReward.questId);
 					continue;
 				}
 				if (j < m_rewardIconImages.Length)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (j < m_rewardIconImages2.Length)
 					{
 						QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(rAFReward.questId);
 						int num = FindRewardIndexFromPoints(rAFReward.pointsRequired);
 						if (num == -1)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Warning("Refer a friend reward quest id {0} point value doesn't match up to a UI icon", rAFReward.questId);
 							continue;
 						}
@@ -672,43 +424,16 @@ public class UIRAFProgramScreen : UIScene
 							{
 								if (!enumerator.MoveNext())
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								QuestItemReward current = enumerator.Current;
 								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current.ItemTemplateId);
 								if (!itemTemplate.IconPath.IsNullOrEmpty())
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag)
 									{
 										text2 = itemTemplate.IconPath;
 										m_tooltipTestDesc2[num] = StringUtil.TR_InventoryItemName(current.ItemTemplateId);
-										break;
-									}
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
 										break;
 									}
 									text = itemTemplate.IconPath;
@@ -723,28 +448,10 @@ public class UIRAFProgramScreen : UIScene
 						UIManager.SetGameObjectActive(m_rewardListBtns[num], true);
 						if (!text2.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_rewardIconImages2[num].sprite = (Sprite)Resources.Load(text2, typeof(Sprite));
 							UIManager.SetGameObjectActive(m_rewardListBtns2[num], true);
 						}
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Log.Warning("Refer a friend reward quest id {0} cannot display reward icon", rAFReward.questId);
@@ -770,19 +477,6 @@ public class UIRAFProgramScreen : UIScene
 			{
 				return false;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		(tooltip as UIRecruitAFriendRewardTooltip).Setup(m_tooltipTestDesc[index], m_tooltipTestLongDesc[index], m_tooltipIconPath[index]);
 		return true;
@@ -792,31 +486,9 @@ public class UIRAFProgramScreen : UIScene
 	{
 		if (m_tooltipTestDesc2[index].IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_tooltipTestLongDesc[index].IsNullOrEmpty())
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		(tooltip as UIRecruitAFriendRewardTooltip).Setup(m_tooltipTestDesc2[index], m_tooltipTestLongDesc[index], m_tooltipIconPath2[index]);

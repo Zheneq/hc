@@ -145,25 +145,12 @@ public class SettingsState : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (version < 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			musicVolume = 100;
 			ambianceVolume = 100;
 			windowMode = WindowMode.Fullscreen;
@@ -173,15 +160,6 @@ public class SettingsState : ICloneable
 		}
 		if (version < 3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			windowMode = WindowMode.WindowedFullscreen;
 			resolutionWidth = Screen.currentResolution.width;
 			resolutionHeight = Screen.currentResolution.height;
@@ -189,56 +167,20 @@ public class SettingsState : ICloneable
 		}
 		if (version < 4)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lockCursorMode = LockCursorMode.Smart;
 		}
 		if (version < 5 && windowMode == WindowMode.WindowedFullscreen)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			windowMode = WindowMode.Fullscreen;
 			resolutionWidth = Screen.currentResolution.width;
 			resolutionHeight = Screen.currentResolution.height;
 		}
 		if (version < 6)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			showAllChat = false;
 		}
 		if (version < 7)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			shiftClickForMovementWaypoints = false;
 		}
 		if (version < 8)
@@ -247,28 +189,10 @@ public class SettingsState : ICloneable
 		}
 		if (version < 9)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameModeVoiceChat = VoiceChatMode.Group;
 		}
 		if (version < 10)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			hideTutorialVideos = false;
 		}
 		if (version < 11)
@@ -281,29 +205,11 @@ public class SettingsState : ICloneable
 		}
 		if (version < 13)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			overrideGlyphLanguage = false;
 			overrideGlyphLanguageCode = string.Empty;
 		}
 		if (version < 14)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			voicePushToTalk = false;
 			voiceMute = false;
 			voiceVolume = 100f;
@@ -320,19 +226,6 @@ public class SettingsState : ICloneable
 		switch (PlayerPrefs.GetInt("OptionsGraphicsQuality", (int)graphicsQuality))
 		{
 		default:
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			graphicsQuality = GraphicsQuality.High;
 			break;
 		case -10:
@@ -387,15 +280,6 @@ public class SettingsState : ICloneable
 		gameResolutionHeight = PlayerPrefs.GetInt("OptionsGameResolutionHeight", gameResolutionHeight);
 		if (gameWindowMode == WindowMode.Inherit)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameResolutionWidth = -1;
 			gameResolutionHeight = -1;
 		}
@@ -419,15 +303,6 @@ public class SettingsState : ICloneable
 		int num;
 		if (PlayerPrefs.GetInt("OptionsEnableChatter", 1) == 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 0;
 		}
 		else
@@ -438,15 +313,6 @@ public class SettingsState : ICloneable
 		int num2;
 		if (PlayerPrefs.GetInt("OptionsRightClickingConfirmsAbilityTargets", 1) == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = 0;
 		}
 		else
@@ -458,15 +324,6 @@ public class SettingsState : ICloneable
 		int num3;
 		if (PlayerPrefs.GetInt("OptionsShowGlobalChat", 1) == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 0;
 		}
 		else
@@ -477,15 +334,6 @@ public class SettingsState : ICloneable
 		int num4;
 		if (PlayerPrefs.GetInt("OptionsShowAllChat", 1) == 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = 0;
 		}
 		else
@@ -496,15 +344,6 @@ public class SettingsState : ICloneable
 		int num5;
 		if (PlayerPrefs.GetInt("OptionsEnableProfanityFilter", 1) == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = 0;
 		}
 		else
@@ -515,15 +354,6 @@ public class SettingsState : ICloneable
 		int num6;
 		if (PlayerPrefs.GetInt("AutoJoinDiscord", 0) == 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num6 = 0;
 		}
 		else
@@ -534,15 +364,6 @@ public class SettingsState : ICloneable
 		int num7;
 		if (PlayerPrefs.GetInt("VoicePushToTalk", 0) == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = 0;
 		}
 		else
@@ -553,15 +374,6 @@ public class SettingsState : ICloneable
 		int num8;
 		if (PlayerPrefs.GetInt("VoiceMute", 0) == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num8 = 0;
 		}
 		else
@@ -587,15 +399,6 @@ public class SettingsState : ICloneable
 		int num9;
 		if (PlayerPrefs.GetInt("HideTutorialVideos", 0) == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num9 = 0;
 		}
 		else
@@ -606,15 +409,6 @@ public class SettingsState : ICloneable
 		int num10;
 		if (PlayerPrefs.GetInt("AllowCancelActionWhileConfirmed", 0) == 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num10 = 0;
 		}
 		else
@@ -625,15 +419,6 @@ public class SettingsState : ICloneable
 		int num11;
 		if (PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num11 = 0;
 		}
 		else
@@ -674,19 +459,6 @@ public class SettingsState : ICloneable
 		WindowMode num;
 		if (AppState.IsInGame() && gameWindowMode != WindowMode.Inherit)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = gameWindowMode;
 		}
 		else
@@ -696,15 +468,6 @@ public class SettingsState : ICloneable
 		int num2;
 		if (num == WindowMode.Windowed)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = 0;
 		}
 		else
@@ -715,15 +478,6 @@ public class SettingsState : ICloneable
 		int num3;
 		if (AppState.IsInGame())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameResolutionWidth != -1)
 			{
 				num3 = gameResolutionWidth;
@@ -750,15 +504,6 @@ public class SettingsState : ICloneable
 		}
 		if (!m_isResolutionInitialized)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_isResolutionInitialized = true;
 			if (!UIFrontendLoadingScreen.Get().IsSameAsInitialResolution())
 			{
@@ -778,26 +523,8 @@ public class SettingsState : ICloneable
 		int num6;
 		if (flag == Screen.fullScreen)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num6 == Screen.width)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num5 == Screen.height)
 				{
 					return;
@@ -810,26 +537,8 @@ public class SettingsState : ICloneable
 		num6 = num3;
 		if (AppState.IsInGame())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameResolutionHeight != -1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = gameResolutionHeight;
 				goto IL_00a1;
 			}
@@ -851,35 +560,13 @@ public class SettingsState : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (Screen.width == resolutionWidth)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Screen.height == resolutionHeight)
 						{
 							if (windowMode == this.windowMode)
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -894,29 +581,11 @@ public class SettingsState : ICloneable
 		}
 		if (Screen.width == gameResolutionWidth)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Screen.height == gameResolutionHeight)
 			{
 				if (windowMode == gameWindowMode)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -933,19 +602,6 @@ public class SettingsState : ICloneable
 		object obj;
 		if (AudioManager.mixSnapshotManager != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = AudioManager.mixSnapshotManager.snapshot_game.audioMixer;
 		}
 		else
@@ -955,38 +611,11 @@ public class SettingsState : ICloneable
 		AudioMixer mixer = (AudioMixer)obj;
 		if (mixer != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newState != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (masterVolume == newState.masterVolume)
 				{
 					goto IL_0156;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (newState != null)
@@ -1001,40 +630,13 @@ public class SettingsState : ICloneable
 		IL_0156:
 		if (newState != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (musicVolume == newState.musicVolume)
 			{
 				goto IL_0219;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (newState != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			musicVolume = newState.musicVolume;
 		}
 		float value2 = ConvertPercentToDb(musicVolume);
@@ -1052,36 +654,13 @@ public class SettingsState : ICloneable
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			yield return null;
 			if (newState != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (graphicsQuality == newState.graphicsQuality)
 				{
 					if (newState != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						resolutionWidth = newState.resolutionWidth;
 						resolutionHeight = newState.resolutionHeight;
 						windowMode = newState.windowMode;
@@ -1093,42 +672,15 @@ public class SettingsState : ICloneable
 					yield return null;
 					/*Error: Unable to find new state assignment for yield return*/;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (newState != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				graphicsQuality = newState.graphicsQuality;
 			}
 			string qualityName;
 			switch (graphicsQuality)
 			{
 			default:
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				qualityName = "Fantastic";
 				break;
 			case GraphicsQuality.VeryLow:
@@ -1152,29 +704,11 @@ public class SettingsState : ICloneable
 				{
 					if (names[num] == qualityName)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						QualitySettings.SetQualityLevel(num, true);
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1192,19 +726,6 @@ public class SettingsState : ICloneable
 		switch (graphicsQuality)
 		{
 		default:
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		case GraphicsQuality.VeryLow:
 		case GraphicsQuality.Low:
@@ -1232,15 +753,6 @@ public class SettingsState : ICloneable
 		};
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = delegate(string resolutionText)
 			{
 				Options_UI.Get().SetResolutionText(resolutionText);
@@ -1256,15 +768,6 @@ public class SettingsState : ICloneable
 		};
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate(string resolutionText)
 			{
 				Options_UI.Get().SetGameResolutionText(resolutionText);
@@ -1274,26 +777,8 @@ public class SettingsState : ICloneable
 		Region region = this.region;
 		if (region != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (region != Region.EU)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1310,30 +795,12 @@ public class SettingsState : ICloneable
 		Options_UI.Get().m_musicVolumeSlider.value = (float)musicVolume / 100f;
 		if (lockCursorMode == LockCursorMode.On)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_lockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_unlockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_smartLockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		else if (lockCursorMode == LockCursorMode.Off)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_lockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_unlockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_smartLockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
@@ -1346,15 +813,6 @@ public class SettingsState : ICloneable
 		}
 		if (enableChatter)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_enableChatterButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disableChatterButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1365,15 +823,6 @@ public class SettingsState : ICloneable
 		}
 		if (rightClickingConfirmsAbilityTargets)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_rightClickTargetingCancel.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1394,15 +843,6 @@ public class SettingsState : ICloneable
 		}
 		if (showGlobalChat)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_showGlobalChatButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_hideGlobalChatButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1413,15 +853,6 @@ public class SettingsState : ICloneable
 		}
 		if (showAllChat)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_showAllChatButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_hideAllChatButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1432,15 +863,6 @@ public class SettingsState : ICloneable
 		}
 		if (enableProfanityFilter)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_enableProfanityFilterButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disableProfanityFilterButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1453,38 +875,11 @@ public class SettingsState : ICloneable
 		{
 			goto IL_0855;
 		}
-		while (true)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!DiscordClientInterface.IsSdkEnabled)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!DiscordClientInterface.IsInstalled)
 			{
 				goto IL_0855;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (autoJoinDiscord)
@@ -1499,15 +894,6 @@ public class SettingsState : ICloneable
 		}
 		if (gameModeVoiceChat == VoiceChatMode.Team)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
 			Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
 		}
@@ -1526,15 +912,6 @@ public class SettingsState : ICloneable
 		IL_08c3:
 		if (hideTutorialVideos)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_hideTutorialVideosButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_showTutorialVideosButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1545,15 +922,6 @@ public class SettingsState : ICloneable
 		}
 		if (allowCancelActionWhileConfirmed)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(true, false, string.Empty, string.Empty);
 			Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(false, false, string.Empty, string.Empty);
 		}
@@ -1595,19 +963,6 @@ public class SettingsState : ICloneable
 				Resolution resolution = resolutions[i];
 				if (resolution.width == thisResolutionWidth)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (resolution.height == thisResolutionHeight)
 					{
 						flag = true;
@@ -1647,19 +1002,6 @@ public class SettingsState : ICloneable
 		PlayerPrefs.SetInt("OptionsGraphicsQuality", (int)graphicsQuality);
 		if (graphicsQuality != GraphicsQuality.Medium)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PlayerPrefs.SetInt("OptionsGraphicsQualityEverSetManually", 1);
 		}
 		PlayerPrefs.SetInt("OptionsWindowMode", (int)windowMode);
@@ -1674,15 +1016,6 @@ public class SettingsState : ICloneable
 		int value;
 		if (enableChatter)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value = 1;
 		}
 		else
@@ -1693,15 +1026,6 @@ public class SettingsState : ICloneable
 		int value2;
 		if (rightClickingConfirmsAbilityTargets)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value2 = 1;
 		}
 		else
@@ -1712,15 +1036,6 @@ public class SettingsState : ICloneable
 		int value3;
 		if (shiftClickForMovementWaypoints)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value3 = 1;
 		}
 		else
@@ -1731,15 +1046,6 @@ public class SettingsState : ICloneable
 		int value4;
 		if (showGlobalChat)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value4 = 1;
 		}
 		else
@@ -1751,15 +1057,6 @@ public class SettingsState : ICloneable
 		int value5;
 		if (enableProfanityFilter)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value5 = 1;
 		}
 		else
@@ -1770,15 +1067,6 @@ public class SettingsState : ICloneable
 		int value6;
 		if (autoJoinDiscord)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value6 = 1;
 		}
 		else
@@ -1789,15 +1077,6 @@ public class SettingsState : ICloneable
 		int value7;
 		if (voicePushToTalk)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value7 = 1;
 		}
 		else
@@ -1808,15 +1087,6 @@ public class SettingsState : ICloneable
 		int value8;
 		if (voiceMute)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value8 = 1;
 		}
 		else
@@ -1831,15 +1101,6 @@ public class SettingsState : ICloneable
 		int value9;
 		if (hideTutorialVideos)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value9 = 1;
 		}
 		else
@@ -1850,15 +1111,6 @@ public class SettingsState : ICloneable
 		int value10;
 		if (allowCancelActionWhileConfirmed)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value10 = 1;
 		}
 		else
@@ -1870,15 +1122,6 @@ public class SettingsState : ICloneable
 		PlayerPrefs.SetString("OverrideGlyphLanguageCode", overrideGlyphLanguageCode);
 		if (windowMode == WindowMode.Windowed)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PlayerPrefs.SetInt("Screenmanager Is Fullscreen mode", 0);
 			PlayerPrefs.SetInt("Screenmanager Resolution Width", resolutionWidth);
 			PlayerPrefs.SetInt("Screenmanager Resolution Height", resolutionHeight);
@@ -1903,10 +1146,6 @@ public class SettingsState : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -80f;
 				}
 			}
@@ -1926,10 +1165,6 @@ public class SettingsState : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}

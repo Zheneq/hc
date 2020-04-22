@@ -95,19 +95,6 @@ public class FishManRoamingDebuff : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -118,15 +105,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo cachedEffectWhileOnEnemy;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectWhileOnEnemy = m_abilityMod.m_effectWhileOnEnemyMod.GetModifiedValue(m_effectWhileOnEnemy);
 		}
 		else
@@ -137,15 +115,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo cachedEffectWhileOnAlly;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectWhileOnAlly = m_abilityMod.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly);
 		}
 		else
@@ -160,19 +129,6 @@ public class FishManRoamingDebuff : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -187,19 +143,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectWhileOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectWhileOnEnemy;
 		}
 		else
@@ -224,19 +167,6 @@ public class FishManRoamingDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_jumpIgnoresLineOfSightMod.GetModifiedValue(m_jumpIgnoresLineOfSight);
 		}
 		else
@@ -251,19 +181,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_numJumpsMod.GetModifiedValue(m_numJumps);
 		}
 		else
@@ -283,19 +200,6 @@ public class FishManRoamingDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canJumpToAlliesMod.GetModifiedValue(m_canJumpToAllies);
 		}
 		else
@@ -320,19 +224,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump);
 		}
 		else
@@ -347,19 +238,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageIncreasePerJumpMod.GetModifiedValue(m_damageIncreasePerJump);
 		}
 		else
@@ -395,10 +273,6 @@ public class FishManRoamingDebuff : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_FishManRoamingDebuff);
 					Setup();
 					return;
@@ -421,19 +295,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_FishManRoamingDebuff)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_FishManRoamingDebuff.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly);
 		}
 		else
@@ -446,15 +307,6 @@ public class FishManRoamingDebuff : Ability
 		int val;
 		if ((bool)abilityMod_FishManRoamingDebuff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_FishManRoamingDebuff.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump);
 		}
 		else
@@ -466,15 +318,6 @@ public class FishManRoamingDebuff : Ability
 		int val2;
 		if ((bool)abilityMod_FishManRoamingDebuff)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManRoamingDebuff.m_damageToEnemyOnInitialHitMod.GetModifiedValue(m_damageToEnemyOnInitialHit);
 		}
 		else
@@ -486,15 +329,6 @@ public class FishManRoamingDebuff : Ability
 		int val3;
 		if ((bool)abilityMod_FishManRoamingDebuff)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManRoamingDebuff.m_healingToAllyOnInitialHitMod.GetModifiedValue(m_healingToAllyOnInitialHit);
 		}
 		else
@@ -506,15 +340,6 @@ public class FishManRoamingDebuff : Ability
 		float val4;
 		if ((bool)abilityMod_FishManRoamingDebuff)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManRoamingDebuff.m_jumpRadiusMod.GetModifiedValue(m_jumpRadius);
 		}
 		else
@@ -529,19 +354,6 @@ public class FishManRoamingDebuff : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (GetDamageToEnemyOnInitialHit() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamageToEnemyOnInitialHit());
 		}
 		if (GetHealingToAllyOnInitialHit() > 0)

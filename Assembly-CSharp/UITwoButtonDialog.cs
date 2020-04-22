@@ -33,30 +33,8 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (m_callLeftOnClose)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (firstButtonCallback != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				firstButtonCallback(this);
 			}
 		}
@@ -66,20 +44,10 @@ public class UITwoButtonDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (secondButtonCallback != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					secondButtonCallback(this);
 					return;
 				}
@@ -92,19 +60,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (firstButtonCallback != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -114,19 +69,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (secondButtonCallback != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			secondButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -136,19 +78,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (m_secondButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_secondButton.spriteController.callback = SecondButtonClicked;
 		}
 		if (m_firstButton != null)
@@ -165,15 +94,6 @@ public class UITwoButtonDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -186,15 +106,6 @@ public class UITwoButtonDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

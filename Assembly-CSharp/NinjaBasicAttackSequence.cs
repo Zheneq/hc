@@ -58,15 +58,6 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnTempSatellite();
 			return;
 		}
@@ -80,41 +71,10 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		if (m_lastTempSatelliteSpawnTime > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameTime.time > m_lastTempSatelliteSpawnTime + m_spawnDelay)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_numTempSatellitesSpawned < base.Targets.Length)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnTempSatellite();
 				}
 			}
@@ -127,50 +87,14 @@ public class NinjaBasicAttackSequence : Sequence
 				HitInfo value = current.Value;
 				if (value.m_didSpawnSatellite)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (value.m_spawnedTempSatellite == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!value.m_hitReceived)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SpawnHitFX(current.Key);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!AllTempSatellitesDespawned())
@@ -179,20 +103,10 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_setFinishTrigger)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_setFinishTrigger = true;
 					base.Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
 					return;
@@ -214,10 +128,6 @@ public class NinjaBasicAttackSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -226,40 +136,13 @@ public class NinjaBasicAttackSequence : Sequence
 		{
 			if (item.Value.m_didSpawnSatellite)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(item.Value.m_spawnedTempSatellite != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.Value.m_spawnedTempSatellite.GetComponent<NinjaCloneSatellite>().IsDespawning())
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = false;
@@ -277,19 +160,6 @@ public class NinjaBasicAttackSequence : Sequence
 				HitInfo value = enumerator.Current.Value;
 				if (value.m_spawnSquare == square && value.m_spawnedTempSatellite != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = true;
 				}
 			}
@@ -319,33 +189,11 @@ public class NinjaBasicAttackSequence : Sequence
 					BoardSquare boardSquare2 = Board.Get().GetBoardSquare(center.x + num, center.y);
 					if (boardSquare2.occupant == null && !SquareInUseByTempSatellite(boardSquare2))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						boardSquare = boardSquare2;
 						break;
 					}
 					num += i * 2;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -354,15 +202,6 @@ public class NinjaBasicAttackSequence : Sequence
 				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + j);
 				if (boardSquare3.occupant == null && !SquareInUseByTempSatellite(boardSquare3))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = boardSquare3;
 					break;
 				}
@@ -399,43 +238,16 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare closestUnoccupiedSquare = GetClosestUnoccupiedSquare(nextTarget.GetCurrentBoardSquare());
 			Vector3 forward = Vector3.forward;
 			if (closestUnoccupiedSquare != nextTarget.GetCurrentBoardSquare())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				forward = nextTarget.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
 			}
 			GameObject gameObject = InstantiateFX(m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward));
 			gameObject.GetComponent<NinjaCloneSatellite>().Setup(this);
 			if (base.Targets.Length == 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject.GetComponent<NinjaCloneSatellite>().TriggerMultiAttack(nextTarget.gameObject, m_numAttacksForSingleTarget, m_attackDelay);
 			}
 			else
@@ -467,10 +279,6 @@ public class NinjaBasicAttackSequence : Sequence
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return item.Key;
 					}
 				}
@@ -488,15 +296,6 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value.m_hitReceived = true;
 			m_hitFxJoint.Initialize(target.gameObject);
 			GameObject item = InstantiateFX(m_fxHitPrefab, m_hitFxJoint.m_jointObject.transform.position, Quaternion.identity);
@@ -519,15 +318,6 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnHitFX(targetFromTempSatellite);
 			return;
 		}
@@ -547,15 +337,6 @@ public class NinjaBasicAttackSequence : Sequence
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SpawnHitFX(sourceObject);
 				return;
 			}
@@ -566,31 +347,9 @@ public class NinjaBasicAttackSequence : Sequence
 	{
 		if (m_hitFXInstances != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_hitFXInstances.Count; i++)
 			{
 				Object.Destroy(m_hitFXInstances[i]);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_hitFXInstances = null;
 		}

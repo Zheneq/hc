@@ -31,30 +31,8 @@ public class CountryPrice
 		CurrencyCode result = CurrencyCode.USD;
 		if (!currencyCodeString.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Enum.IsDefined(typeof(CurrencyCode), currencyCodeString))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (CurrencyCode)Enum.Parse(typeof(CurrencyCode), currencyCodeString);
 			}
 		}

@@ -25,19 +25,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			object obj;
 			if (m_span.Days == 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = "Day";
 			}
 			else
@@ -50,15 +37,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 				object obj2;
 				if (m_span.Hours == 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = "Hour";
 				}
 				else
@@ -70,29 +48,11 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 		}
 		else if (m_span.Hours > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_span.Hours;
 			num2 = m_span.Minutes;
 			object obj3;
 			if (m_span.Hours == 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj3 = "Hour";
 			}
 			else
@@ -102,27 +62,9 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			text = (string)obj3;
 			if (m_span.Minutes > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object obj4;
 				if (m_span.Minutes == 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj4 = "Minute";
 				}
 				else
@@ -134,29 +76,11 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 		}
 		else if (m_span.Minutes > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_span.Minutes;
 			num2 = m_span.Seconds;
 			object obj5;
 			if (m_span.Minutes == 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj5 = "Minute";
 			}
 			else
@@ -166,27 +90,9 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			text = (string)obj5;
 			if (m_span.Seconds > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				object obj6;
 				if (m_span.Seconds == 1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj6 = "Second";
 				}
 				else
@@ -206,15 +112,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			object obj7;
 			if (m_span.Seconds == 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj7 = "Second";
 			}
 			else

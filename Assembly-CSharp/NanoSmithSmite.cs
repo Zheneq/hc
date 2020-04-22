@@ -41,19 +41,6 @@ public class NanoSmithSmite : Ability
 		NanoSmithBoltInfoComponent component = GetComponent<NanoSmithBoltInfoComponent>();
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_smiteRangeOverride > 0f)
 			{
@@ -75,30 +62,8 @@ public class NanoSmithSmite : Ability
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_coneDamageAmount);
 		if (m_boltCount > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boltInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 			}
 		}

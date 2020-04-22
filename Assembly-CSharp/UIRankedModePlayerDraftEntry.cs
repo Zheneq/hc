@@ -65,33 +65,11 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 	{
 		if (m_requestSwap != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_requestSwap.spriteController.callback = RequestSwapClicked;
 			m_requestSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 		}
 		if (m_acceptSwap != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_acceptSwap.spriteController.callback = AcceptSwapClicked;
 			m_acceptSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 		}
@@ -101,11 +79,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_rejectSwap.spriteController.callback = RejectSwapClicked;
 			m_rejectSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 			return;
@@ -139,19 +112,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		PlayerID = info.PlayerId;
 		if (isEnemy)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_playerName.text = string.Empty;
 			m_playerTitle.text = string.Empty;
 			m_playerLevel.text = string.Empty;
@@ -173,41 +133,14 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		if (m_requestSwap != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_requestSwap, true);
 		}
 		if (m_acceptSwap != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_acceptSwap, true);
 		}
 		if (m_rejectSwap != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_rejectSwap, true);
 		}
 		CanBeTraded = true;
@@ -221,15 +154,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_TradeButtonContainer, tradePhaseActive);
 			return;
 		}
@@ -249,42 +173,11 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		int doActive;
 		if (m_tradeSent != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			tradeSent = m_tradeSent;
 			if (status == TradeStatus.TradeRequestSent)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = ((!selfLockedIn) ? 1 : 0);
 					goto IL_0049;
 				}
@@ -298,38 +191,11 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		int doActive2;
 		if (m_noTrade != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			noTrade = m_noTrade;
 			if (status == TradeStatus.NoTrade)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive2 = ((!selfLockedIn) ? 1 : 0);
 					goto IL_00cc;
 				}
@@ -352,27 +218,9 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		int doActive3;
 		if (m_tradeReceived != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tradeReceived = m_tradeReceived;
 			if (status == TradeStatus.TradeRequestReceived)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
 					doActive3 = ((!selfLockedIn) ? 1 : 0);
@@ -399,19 +247,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			if (sprite == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Warning(Log.Category.UI, $"Could not load banner resource from [{banner.m_resourceString}] as sprite.");
 			}
 		}
@@ -420,15 +255,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 			sprite = (Sprite)Resources.Load("Banners/Background/rankedRedDefault", typeof(Sprite));
 			if (sprite == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load banner resource from [{0}] as sprite.", "Banners/Background/rankedRedDefault"));
 			}
 		}
@@ -438,11 +264,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (bannerType == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
 				m_bannerImage.sprite = sprite;
@@ -467,22 +288,9 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 					if (sprite == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Warning(Log.Category.UI, $"Could not load ribbon resource from [{ribbon.m_resourceString}] as sprite.");
 					}
 					m_ribbonImage.sprite = sprite;

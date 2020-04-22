@@ -32,19 +32,6 @@ public class OnHitAuthoredData
 		int result = 0;
 		if (m_enemyHitIntFields != null && m_enemyHitIntFields.Count > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_enemyHitIntFields[0].m_baseValue;
 		}
 		return result;
@@ -58,15 +45,6 @@ public class OnHitAuthoredData
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -79,15 +57,6 @@ public class OnHitAuthoredData
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -100,15 +69,6 @@ public class OnHitAuthoredData
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -134,10 +94,6 @@ public class OnHitAuthoredData
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0042;
 					}
 				}
@@ -157,15 +113,6 @@ public class OnHitAuthoredData
 		}
 		if (m_allyHitIntFields.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += InEditorDescHelper.ColoredString("==== Ally Hit Numberic Fields ====\n", "yellow");
 			using (List<OnHitIntField>.Enumerator enumerator3 = m_allyHitIntFields.GetEnumerator())
 			{
@@ -175,29 +122,11 @@ public class OnHitAuthoredData
 					text += current3.GetInEditorDesc();
 					text += "\n";
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			text += "\n";
 		}
 		if (m_allyHitEffectFields.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += InEditorDescHelper.ColoredString("==== Ally Effects ====\n", "yellow");
 			using (List<OnHitEffecField>.Enumerator enumerator4 = m_allyHitEffectFields.GetEnumerator())
 			{
@@ -207,29 +136,11 @@ public class OnHitAuthoredData
 					text += current4.GetInEditorDesc(false, null);
 					text += "\n";
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			text += "\n";
 		}
 		if (m_barrierSpawnFields.Count > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += InEditorDescHelper.ColoredString("==== Barrier Fields ====\n", "yellow");
 			using (List<OnHitBarrierField>.Enumerator enumerator5 = m_barrierSpawnFields.GetEnumerator())
 			{
@@ -238,15 +149,6 @@ public class OnHitAuthoredData
 					OnHitBarrierField current5 = enumerator5.Current;
 					text += current5.GetInEditorDesc();
 					text += "\n";
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			text += "\n";

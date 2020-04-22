@@ -77,19 +77,6 @@ public class LeakyBucket
 			TimeSpan result;
 			if (now > m_lastUpdate)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = Now - m_lastUpdate;
 			}
 			else
@@ -164,10 +151,6 @@ public class LeakyBucket
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return TimeSpan.Zero;
 				}
 			}

@@ -66,30 +66,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 			ref sbyte syncCurrentNumOrbs = ref m_syncCurrentNumOrbs;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetNumOrbs(value);
 					base.syncVarHookGuard = false;
@@ -187,19 +165,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		object parameter;
 		if (isOn)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			parameter = "defend_on";
 		}
 		else
@@ -215,19 +180,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		object parameter;
 		if (isOn)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			parameter = "attack_on";
 		}
 		else
@@ -245,19 +197,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(prefabs[i], m_owner, joint, false, "SenseiDashIndicator_" + i, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(localOffset);
 			}
 			listToAddTo.Add(attachedActorVFXInfo);
@@ -288,64 +227,23 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_yingYangDashAbility != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				bool flag = m_owner.IsVisibleToClient();
 				if (flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_owner.GetActorModelData() != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = m_owner.GetActorModelData().IsVisibleToClient();
 					}
 				}
 				int num;
 				if (!m_owner.IsDead())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (m_owner.IsModelAnimatorDisabled() ? 1 : 0);
 				}
 				else
@@ -357,15 +255,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				int num2;
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (flag3 ? 1 : 0);
 				}
 				else
@@ -376,15 +265,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				int num3;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = (flag4 ? 1 : 0);
 				}
 				else
@@ -395,15 +275,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				int num4;
 				if (flag4)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = (m_yingYangDashAbility.CanTargetAlly() ? 1 : 0);
 				}
 				else
@@ -414,15 +285,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				int num5;
 				if (flag4)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5 = (m_yingYangDashAbility.CanTargetEnemy() ? 1 : 0);
 				}
 				else
@@ -432,55 +294,19 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag7 = (byte)num5 != 0;
 				if (m_lastAllyDashAudioSwitchState != flag6)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetAllyAudioSwitch(flag6);
 				}
 				if (m_lastEnemyDashAudioSwitchState != flag7)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetEnemyAudioSwitch(flag7);
 				}
 				if (flag5)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag6)
 					{
 						if (!flag7)
 						{
 							goto IL_020d;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (flag6 && flag7)
@@ -541,10 +367,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_syncCurrentNumOrbs);
 					writer.WritePackedUInt32((uint)m_syncTurnsForSecondYingYangDash);
 					writer.Write(m_syncLastYingYangDashedToAlly);
@@ -557,26 +379,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -584,15 +388,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -602,26 +397,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -629,26 +406,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -658,15 +417,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -690,10 +440,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_syncCurrentNumOrbs = (sbyte)reader.ReadPackedUInt32();
 					m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
 					m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
@@ -706,54 +452,18 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetNumOrbs((sbyte)reader.ReadPackedUInt32());
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_syncBideExtraDamagePct = reader.ReadSingle();
 		}
 		if ((num & 0x10) == 0)
@@ -762,11 +472,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
 			return;
 		}

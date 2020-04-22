@@ -40,10 +40,6 @@ public struct Rate
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0.0;
 					}
 				}
@@ -73,10 +69,6 @@ public struct Rate
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("Failed to parse rate");
 				}
 			}

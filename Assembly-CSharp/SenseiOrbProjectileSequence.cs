@@ -6,19 +6,6 @@ public class SenseiOrbProjectileSequence : ArcingProjectileSequence
 	{
 		if (base.Caster.GetActorModelData() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SenseiOrbVfxController component = base.Caster.GetActorModelData().gameObject.GetComponent<SenseiOrbVfxController>();
 			if (component != null)
 			{

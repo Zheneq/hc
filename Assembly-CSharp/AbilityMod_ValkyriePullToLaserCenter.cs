@@ -47,15 +47,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, valkyriePullToLaserCenter.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_laserRangeInSquaresMod, "LaserRangeInSquares", string.Empty, valkyriePullToLaserCenter.m_laserRangeInSquares);
 			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, valkyriePullToLaserCenter.m_maxTargets);
@@ -79,19 +70,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = valkyriePullToLaserCenter.m_laserWidth;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyriePullToLaserCenter.m_laserRangeInSquares;
 		}
 		else
@@ -125,15 +94,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyriePullToLaserCenter.m_maxTargets;
 		}
 		else
@@ -147,15 +107,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyriePullToLaserCenter.m_damage;
 		}
 		else
@@ -169,15 +120,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyriePullToLaserCenter.m_effectToEnemies;
 		}
 		else
@@ -191,15 +133,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyriePullToLaserCenter.m_centerHitWidth;
 		}
 		else
@@ -213,15 +146,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (int)valkyriePullToLaserCenter.m_knockbackType;
 		}
 		else

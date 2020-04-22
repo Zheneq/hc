@@ -99,10 +99,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_fx.transform.position;
 				}
 			}
@@ -119,32 +115,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			IgnoreStartEventExtraParam ignoreStartEventExtraParam = extraSequenceParams as IgnoreStartEventExtraParam;
 			if (ignoreStartEventExtraParam != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_ignoreStartEvent = ignoreStartEventExtraParam.ignoreStartEvent;
 			}
 			if (extraSequenceParams is PositionOverrideParam)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PositionOverrideParam positionOverrideParam = extraSequenceParams as PositionOverrideParam;
 				m_fxSpawnPosition = positionOverrideParam.m_positionOverride;
 			}
@@ -152,41 +126,14 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
 			if (fxAttributeParam == null)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			string attributeName = fxAttributeParam.GetAttributeName();
 			float paramValue = fxAttributeParam.m_paramValue;
@@ -194,26 +141,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_fxAttributes.ContainsKey(attributeName))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxAttributes.Add(attributeName, paramValue);
 			}
 		}
@@ -223,11 +152,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_additionalFxAtTargetPos.Initialize(this);
 			return;
 		}
@@ -237,30 +161,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (!(m_startEvent == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_ignoreStartEvent)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().IsFastForward)
 				{
 					return;
@@ -273,11 +175,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_startDelayTime <= 0f)
 			{
 				while (true)
@@ -318,10 +215,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (value != m_timeControllerValueNow)
 					{
 						while (true)
@@ -405,31 +298,9 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if ((bool)m_fxPrefab)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 fxSpawnPosition = m_fxSpawnPosition;
 			if (m_useGroundHeight)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fxSpawnPosition.y = Board.Get().BaselineHeight;
 			}
 			fxSpawnPosition.y += m_yOffset;
@@ -439,79 +310,25 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			m_fxFoFSelectComp = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 			if (m_fxFoFSelectComp != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 				}
 			}
 			if (!m_sequenceHitCalled && m_callOnHitForGameplay)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_hitDelayTime > 0f && m_timeToHit < 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeToHit = GameTime.time + m_hitDelayTime;
 				}
 				else if (m_hitDelayTime <= 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CallHitSequenceOnTargets(base.TargetPos);
 					m_sequenceHitCalled = true;
 				}
 			}
 			if (m_fx != null && m_fxAttributes != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<string, float>.Enumerator enumerator = m_fxAttributes.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -519,28 +336,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 						KeyValuePair<string, float> current = enumerator.Current;
 						Sequence.SetAttribute(m_fx, current.Key, current.Value);
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if (m_fx != null && m_additionalFxAtTargetPos != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_additionalFxAtTargetPos.SpawnFX(m_fx.transform.position, m_fx.transform.rotation, this);
 			}
 		}
@@ -551,28 +350,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		GameObject gameObject = null;
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = m_fx;
 		}
 		else if (base.Caster != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = base.Caster.gameObject;
 		}
 		if (gameObject != null)
@@ -593,15 +374,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_additionalFxAtTargetPos.SetAsInactive();
 			return;
 		}
@@ -620,15 +392,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
 				while (true)
@@ -641,15 +404,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 						{
 							if (m_timeToSpawnVfx > 0f)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameTime.time >= m_timeToSpawnVfx)
 								{
 									m_timeToSpawnVfx = -1f;
@@ -658,72 +412,18 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 							}
 							if (m_callOnHitForGameplay)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_sequenceHitCalled)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_initialized)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_fxPrefab == null)
 										{
 											goto IL_00f7;
 										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_timeToHit > 0f)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (GameTime.time >= m_timeToHit)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												goto IL_00f7;
 											}
 										}
@@ -739,37 +439,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 						IL_0113:
 						if (m_fx != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_fxFoFSelectComp != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (base.Caster != null)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 								}
 							}
@@ -806,15 +479,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_startEvent == parameter)
 			{
 				while (true)
@@ -850,15 +514,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_additionalFxAtTargetPos.DestroyFX();
 			return;
 		}
@@ -881,19 +536,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			str += "<color=cyan>Can do Gameplay Hits</color>\n";
 			if (m_hitDelayTime > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				string text = str;
 				str = text + "Gameplay Hit happens " + m_hitDelayTime + " second(s) after VFX start.\n\n";
 			}
@@ -904,40 +546,13 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (m_startEvent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_startDelayTime > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str += "<color=yellow>WARNING: </color>Start Delay Time is ignored, will use StartEvent.\n\n";
 			}
 		}
 		else if (m_startDelayTime > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = str;
 			str = text + "Starts " + m_startDelayTime + " second(s) after sequence spawn.";
 		}

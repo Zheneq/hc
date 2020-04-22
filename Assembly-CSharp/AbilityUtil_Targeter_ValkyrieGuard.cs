@@ -38,19 +38,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num;
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 2;
 		}
 		else
@@ -61,15 +48,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num3;
 		if (m_useCone)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 1;
 		}
 		else
@@ -79,28 +57,10 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num4 = num3;
 		if (m_highlights.Count <= num2 + 1 + num4)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(m_coverAngleLineLength, false, true));
 			m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(m_coverAngleLineLength, false, false));
 			if (m_useCone)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateConeCursor(m_coneRadiusInSquares * Board.Get().squareSize, m_coneWidthAngle));
 			}
 		}
@@ -115,15 +75,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		m_highlights[num2 + 1].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 - num5));
 		if (m_useCone)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_highlights[num2].SetActive(false);
 			m_highlights[num2 + 1].SetActive(false);
 			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
@@ -132,15 +83,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 				if (boardSquareSafe != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = boardSquareSafe.ToVector3();
 				}
 			}
@@ -151,15 +93,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 			for (int i = 0; i < actors.Count; i++)
 			{
 				AddActorInRange(actors[i], vector, targetingActor);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (m_affectsTargetingActor)
 			{
@@ -178,11 +111,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self);
 			return;
 		}

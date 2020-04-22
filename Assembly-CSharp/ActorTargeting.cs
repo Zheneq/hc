@@ -29,10 +29,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 1;
 					}
 				}
@@ -87,15 +83,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReconnectReplayStateChanged);
 			return;
 		}
@@ -105,19 +92,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		if (m_actorData == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actorData = GetComponent<ActorData>();
 		}
 		ActorTurnSM actorTurnSM = m_actorData.GetActorTurnSM();
@@ -125,15 +99,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
@@ -147,50 +112,14 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			Ability abilityOfActionType = abilityData.GetAbilityOfActionType(type);
 			if (abilityOfActionType == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			if (m_actorData == y)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorTurnSM != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION && abilityOfActionType.IsAbilitySelected())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -202,11 +131,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (HUD_UI.Get() != null)
 			{
 				HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.TurnOffTargetingAbilityIndicator(m_actorData, 0);
@@ -225,15 +149,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DrawTargeters();
 			CalculateTargetedActors();
 			return;
@@ -244,19 +159,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		if (m_actorData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorData.TeamSensitiveData_authority != null)
 			{
 				while (true)
@@ -279,34 +181,12 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool flag = ShouldDrawTargeters();
 		if (m_markedForForceRedraw)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetTargeters(false);
 			m_targetersBeingDrawn = false;
 			m_markedForForceRedraw = false;
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_targetersBeingDrawn)
 			{
 				DrawTargeters();
@@ -320,20 +200,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_targetersBeingDrawn)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					ResetTargeters(false);
 					return;
 				}
@@ -346,19 +216,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		if (ShouldDrawTargeters())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_targetersBeingDrawn)
 			{
 				while (true)
@@ -396,19 +253,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		List<AbilityRequestData> abilityRequestDataForClient = GetAbilityRequestDataForClient();
 		if (abilityRequestDataForClient != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < abilityRequestDataForClient.Count; i++)
 			{
 				AbilityRequestData abilityRequestData = abilityRequestDataForClient[i];
@@ -416,37 +260,14 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityRequestData.m_actionType != actionType)
 				{
 					continue;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return abilityRequestData.m_targets;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -469,44 +290,13 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				{
 					if (actorData == activeOwnedActorData)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromSelf))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
 					if (actorData != activeOwnedActorData)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromAllies))
 						{
 							continue;
@@ -514,28 +304,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					}
 					if (abilityOfActionType.Targeter != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < abilityOfActionType.Targeters.Count && i < abilityOfActionType.GetExpectedNumberOfTargeters(); i++)
 						{
 							if (i >= current.m_targets.Count)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							AbilityUtil_Targeter abilityUtil_Targeter = abilityOfActionType.Targeters[i];
@@ -557,51 +329,15 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 												AbilityTooltipSymbol key = current3.Key;
 												if (!m_currentTargetedActors.ContainsKey(current2.m_actor))
 												{
-													while (true)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													m_currentTargetedActors[current2.m_actor] = new Dictionary<AbilityTooltipSymbol, int>();
 												}
 												if (!m_currentTargetedActors[current2.m_actor].ContainsKey(key))
 												{
-													while (true)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													m_currentTargetedActors[current2.m_actor][key] = 0;
 												}
 												m_currentTargetedActors[current2.m_actor][key] += current3.Value;
 											}
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
-									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -634,10 +370,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -649,15 +381,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = true;
 			if (i == 0)
 			{
@@ -667,15 +390,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			int num;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (inCover ? 1 : 0);
 			}
 			else
@@ -686,11 +400,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!flag2)
 			{
 				while (true)
@@ -707,27 +416,9 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			HashSet<AbilityTooltipSubject> hashSet = new HashSet<AbilityTooltipSubject>();
 			if (abilityTargeting.GetExpectedNumberOfTargeters() > 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j <= currentTargeterIndex; j++)
 				{
 					abilityTargeting.Targeters[j].AppendToTooltipSubjectSet(target, hashSet);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -738,15 +429,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			int num2;
 			if (!AbilityUtils.AbilityHasTag(abilityTargeting, AbilityTags.NameplateTargetNumberIgnoreCover))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (abilityTargeting.ForceIgnoreCover(target) ? 1 : 0);
 			}
 			else
@@ -760,15 +442,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			bool customTargeterNumbers = abilityTargeting.GetCustomTargeterNumbers(target, currentTargeterIndex, s_targetingNumberUpdateScratch);
 			if (customTargeterNumbers)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityTargeting is GenericAbility_Container)
 				{
 					while (true)
@@ -780,43 +453,16 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						default:
 							if (s_targetingNumberUpdateScratch.m_damage > 0)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int value = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_damage, flag && !flag3);
 								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Damage, value);
 							}
 							if (s_targetingNumberUpdateScratch.m_healing > 0)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int value2 = AbilityUtils.CalculateHealingForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_healing);
 								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Healing, value2);
 							}
 							if (s_targetingNumberUpdateScratch.m_absorb > 0)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int value3 = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, s_targetingNumberUpdateScratch.m_absorb);
 								AddSymbolToValuePair(symbolToValueMap, AbilityTooltipSymbol.Absorb, value3);
 							}
@@ -857,15 +503,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			}
 			if (!customTargeterNumbers)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary = abilityTargeting.GetCustomNameplateItemTooltipValues(target, currentTargeterIndex);
 			}
 			bool flag4 = false;
@@ -886,53 +523,17 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = current2.m_value;
 							if (customTargeterNumbers)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (s_targetingNumberUpdateScratch.HasOverride(current2.m_symbol))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 = s_targetingNumberUpdateScratch.GetOverrideValue(current2.m_symbol);
 									goto IL_0358;
 								}
 							}
 							if (dictionary != null && dictionary.ContainsKey(current2.m_symbol))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 = dictionary[current2.m_symbol];
 							}
 							goto IL_0358;
@@ -942,54 +543,18 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							case AbilityTooltipSymbol.Damage:
 								if (flag4)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 = 0;
 								}
 								if (num3 > 0)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_showStatusAdjustedTargetingNumbers)
 									{
 										num3 = AbilityUtils.CalculateDamageForTargeter(caster, target, abilityTargeting, num3, flag && !flag3);
 									}
 									else if (flag)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag3)
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num3 = AbilityUtils.ApplyCoverDamageReduction(target.GetActorStats(), num3, reducedCoverEffectiveness);
 										}
 									}
@@ -1013,39 +578,12 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							case AbilityTooltipSymbol.Absorb:
 								if (flag7)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 = 0;
 								}
 								if (num3 > 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_showStatusAdjustedTargetingNumbers)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num3 = AbilityUtils.CalculateAbsorbForTargeter(caster, target, abilityTargeting, num3);
 									}
 									flag7 = true;
@@ -1058,37 +596,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 								}
 								if (caster != target)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num3 > 0)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (m_showStatusAdjustedTargetingNumbers)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num3 = AbilityUtils.CalculateTechPointsForTargeter(target, abilityTargeting, num3);
 										}
 										flag6 = true;
@@ -1098,26 +609,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							}
 							if (num3 > 0)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!symbolToValueMap.ContainsKey(current2.m_symbol))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									symbolToValueMap.Add(current2.m_symbol, num3);
 								}
 								else
@@ -1125,15 +618,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 									symbolToValueMap[current2.m_symbol] += num3;
 								}
 							}
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1171,30 +655,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool result = false;
 		if (m_currentTargetedActors.ContainsKey(target))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentTargetedActors[target].ContainsKey(symbol))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				targetedActorValue += m_currentTargetedActors[target][symbol];
 				result = true;
 			}
@@ -1207,19 +669,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		int result;
 		if (ClientGameManager.Get().PlayerInfo != null && ClientGameManager.Get().PlayerInfo.IsSpectator)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (ClientGameManager.Get().SpectatorHideAbilityTargeter ? 1 : 0);
 		}
 		else
@@ -1233,33 +682,11 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		if (m_actorData == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_actorData = GetComponent<ActorData>();
 		}
 		ActorData actorData = m_actorData;
 		if (!(GameFlowData.Get() == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				if (GameFlowData.Get().LocalPlayerData == null)
@@ -1308,15 +735,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				}
 				if (!GameplayUtils.IsPlayerControlled(this))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!GameplayData.Get().m_npcsShowTargeters)
 					{
 						while (true)
@@ -1363,15 +781,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				}
 				return true;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -1387,10 +796,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1410,28 +815,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		if (!(ClientGameManager.Get() == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!ClientGameManager.Get().IsFastForward)
 			{
 				if (SinglePlayerManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!SinglePlayerManager.Get().EnableCooldownIndicators())
 					{
 						return false;
@@ -1441,15 +828,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorData == activeOwnedActorData)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().m_ownedActorDatas.Count <= 1)
 					{
 						return false;
@@ -1526,15 +904,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				}
 				return true;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -1552,56 +921,16 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			{
 				if (item.m_targets.Count == 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 				}
 				else if (!(actorData == activeOwnedActorData) || !AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromSelf))
 				{
 					if (actorData != activeOwnedActorData && AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromAllies))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (abilityOfActionType.Targeter != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.UseTeleportUIEffect))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							abilityOfActionType.Targeter.UpdateEffectOnCaster(item.m_targets[0], actorData);
 							abilityOfActionType.Targeter.UpdateTargetAreaEffect(item.m_targets[0], actorData);
 							abilityOfActionType.Targeter.UpdateTargeting(item.m_targets[0], actorData);
@@ -1610,15 +939,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						}
 						else if (abilityOfActionType.GetExpectedNumberOfTargeters() < 2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							abilityOfActionType.Targeter.SetLastUpdateCursorState(item.m_targets[0]);
 							abilityOfActionType.Targeter.UpdateTargeting(item.m_targets[0], actorData);
 							abilityOfActionType.Targeter.StartConfirmedTargeting(item.m_targets[0], actorData);
@@ -1629,56 +949,20 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							int num = abilityOfActionType.GetExpectedNumberOfTargeters();
 							if (num > abilityOfActionType.GetNumTargets())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = abilityOfActionType.GetNumTargets();
 							}
 							if (num > abilityOfActionType.Targeters.Count)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = abilityOfActionType.Targeters.Count;
 							}
 							if (num > item.m_targets.Count)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = item.m_targets.Count;
 							}
 							for (int i = 0; i < num; i++)
 							{
 								if (abilityOfActionType.Targeters[i].IsUsingMultiTargetUpdate())
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									abilityOfActionType.Targeters[i].SetLastUpdateCursorState(item.m_targets[i]);
 									abilityOfActionType.Targeters[i].UpdateTargetingMultiTargets(item.m_targets[i], actorData, i, item.m_targets);
 								}
@@ -1690,39 +974,12 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 								abilityOfActionType.Targeters[i].StartConfirmedTargeting(item.m_targets[i], actorData);
 								abilityOfActionType.Targeters[i].UpdateFadeOutHighlights(actorData);
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						abilityOfActionType.Targeter.UpdateArrowsForUI();
 						if (actorData == activeOwnedActorData && abilityOfActionType != null && abilityOfActionType.ShouldAutoQueueIfValid())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityRequestDataForClient.Count == 1 && actorData.GetAbilityData().GetLastSelectedAbility() == null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actorData.GetAbilityData().SetLastSelectedAbility(abilityOfActionType);
 							}
 						}
@@ -1744,10 +1001,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1758,11 +1011,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			ClearAbilityCooldowns();
 			MarkForForceRedraw();
 			return;
@@ -1777,15 +1025,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ReconnectReplayStateChanged);
 			return;
 		}
@@ -1810,104 +1049,28 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			Ability abilityOfActionType = abilityData.GetAbilityOfActionType(abilityRequestData.m_actionType);
 			if (abilityOfActionType == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				continue;
 			}
 			if (actorData == activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromSelf))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (actorData != activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.HideConfirmedTargeterFromAllies))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (abilityOfActionType.Targeter != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < abilityOfActionType.Targeters.Count; j++)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (j >= abilityOfActionType.GetExpectedNumberOfTargeters())
 					{
-						break;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						break;
 					}
 					AbilityUtil_Targeter abilityUtil_Targeter;
@@ -1918,53 +1081,17 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(actorData == y))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo))
 							{
 								actorData.ForceDisplayTargetHighlight = false;
 								goto IL_019f;
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						actorData.ForceDisplayTargetHighlight = true;
 						abilityUtil_Targeter.StartConfirmedTargeting(abilityRequestData.m_targets[j], actorData);
 						goto IL_019f;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 					IL_019f:
@@ -1973,27 +1100,9 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			}
 			if (!(actorData != activeOwnedActorData))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().m_ownedActorDatas.Count <= 1)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateTargetingAbilityIndicator(actorData, abilityOfActionType, abilityRequestData.m_actionType, num);
@@ -2001,27 +1110,9 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		if (!(actorData != activeOwnedActorData))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().m_ownedActorDatas.Count <= 1)
 			{
 				goto IL_02bc;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UpdateAbilityCooldowns(num, false);
@@ -2038,41 +1129,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool flag2 = false;
 		if (actionTargeting != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(m_actorData.GetTeam()))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 			}
@@ -2081,15 +1141,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		object obj;
 		if (Board.Get().PlayerFreeSquare != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = Board.Get().PlayerFreeSquare.OccupantActor;
 		}
 		else
@@ -2099,53 +1150,17 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		ActorData y = (ActorData)obj;
 		if (!(m_actorData == y))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo))
 			{
 				s_updatedAbilityCooldownsActors.Clear();
 				HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SetCatalystPipsVisible(m_actorData, false);
 				goto IL_0310;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (Time.time != s_lastTimeAddedAbilityCooldownsActor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!s_updatedAbilityCooldownsActors.Contains(m_actorData))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				s_updatedAbilityCooldownsActors.Add(m_actorData);
 				s_lastTimeAddedAbilityCooldownsActor = Time.time;
 			}
@@ -2158,15 +1173,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					Ability current = enumerator.Current;
 					if (current == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -2176,15 +1182,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						int num;
 						if (abilityAction == AbilityData.ActionType.ABILITY_4)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((moddedCost >= actualMaxTechPoints) ? 1 : 0);
 						}
 						else
@@ -2194,28 +1191,10 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						bool flag4 = (byte)num != 0;
 						if (!flag3)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag4)
 							{
 								if (flag2)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (abilityAction == actionTargeting)
 									{
 										continue;
@@ -2223,26 +1202,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 								}
 								if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(m_actorData.GetTeam()))
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!showRequestedAbilities)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (abilityRequestDataForClient.FirstOrDefault((AbilityRequestData a) => a.m_actionType == abilityAction) != null)
 										{
 											continue;
@@ -2255,15 +1216,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						}
 					}
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SetCatalystPipsVisible(m_actorData, true);
 		}
@@ -2271,59 +1223,14 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		IL_0310:
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityRequestDataForClient.FirstOrDefault((AbilityRequestData a) => a.m_actionType == actionTargeting) == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionTargeting != AbilityData.ActionType.CARD_0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionTargeting != AbilityData.ActionType.CARD_1)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actionTargeting != AbilityData.ActionType.CARD_2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateTargetingAbilityIndicator(m_actorData, abilityData.GetAbilityOfActionType(actionTargeting), actionTargeting, targetingAbilityIndicatorIndex);
 							targetingAbilityIndicatorIndex++;
 						}
@@ -2342,15 +1249,6 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.TurnOffTargetingAbilityIndicator(m_actorData, 0);
 			return;
 		}
@@ -2362,44 +1260,13 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		List<AbilityRequestData> abilityRequestDataForClient = GetAbilityRequestDataForClient();
 		if (abilityRequestDataForClient != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityRequestDataForClient.Count > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData != null)
 				{
 					AbilityData abilityData = m_actorData.GetAbilityData();
 					for (int i = 0; i < abilityRequestDataForClient.Count; i++)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare == null)
 						{
 							AbilityRequestData abilityRequestData = abilityRequestDataForClient[i];
@@ -2407,39 +1274,12 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Ability abilityOfActionType = abilityData.GetAbilityOfActionType(abilityRequestData.m_actionType);
 							if (abilityOfActionType != null && abilityOfActionType.GetRunPriority() == AbilityPriority.Evasion)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = abilityOfActionType.GetEvadeDestinationForTargeter(abilityRequestData.m_targets, m_actorData);
 							}
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}

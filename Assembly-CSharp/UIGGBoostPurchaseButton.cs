@@ -49,32 +49,10 @@ public class UIGGBoostPurchaseButton : MonoBehaviour
 		float num2 = CommerceClient.Get().GetGGPackPrice(pack.ProductCode, accountCurrency);
 		if (num2 <= 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = num;
 		}
 		else if (num < num2)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = num2;
 		}
 		m_priceAmount.text = UIStorePanel.GetLocalizedPriceString(num2, accountCurrency);

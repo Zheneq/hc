@@ -41,26 +41,12 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(args is GameEventManager.ActorHitHealthChangeArgs))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 				if (m_owner == actorHitHealthChangeArgs.m_target)
 				{
@@ -83,19 +69,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		m_incompleteCrystalVfxList = new List<AttachedActorVFXInfo>();
 		if (m_actorModelData != null && m_actorModelData.m_parentActorData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_martyrSyncComp = m_actorModelData.m_parentActorData.GetComponent<Martyr_SyncComponent>();
 			m_martyrPassive = m_actorModelData.m_parentActorData.GetComponent<Passive_Martyr>();
 			m_owner = m_actorModelData.m_parentActorData;
@@ -117,30 +90,12 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				if (m_martyrSyncComp == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					attachedActorVFXInfo.SetInstanceLayer(instanceLayer);
 				}
 				m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Failed to spawn vfx on joint in MartyrCrystalStockVFXController");
 			}
 			GameObject gameObject = m_incompleteCrystalVfxPrefab;
@@ -152,27 +107,9 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(gameObject, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_Partial_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo2.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				m_incompleteCrystalVfxList.Add(attachedActorVFXInfo2);
 			}
@@ -183,11 +120,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorDamaged_Client);
 			return;
 		}
@@ -198,19 +130,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		object obj;
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actorModelData.m_parentActorData;
 		}
 		else
@@ -221,26 +140,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num;
 		if (!(actorData == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((actorData.GetActorModelDataRenderer() == null || actorData.GetActorModelDataRenderer().enabled) ? 1 : 0);
 			}
 			else
@@ -256,15 +157,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num2;
 		if (actorData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
 		}
 		else
@@ -275,26 +167,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num3;
 		if (!(actorData == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData.GetTeam()) ? 1 : 0);
 			}
 			else
@@ -311,15 +185,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int numPartial = 0;
 		if (m_martyrSyncComp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			numActive = m_spawnedCrystalVfxList.Count;
 		}
 		else
@@ -333,26 +198,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			attachedActorVFXInfo = m_spawnedCrystalVfxList[i];
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible = ((i < numActive) ? 1 : 0);
 					continue;
 				}
@@ -364,15 +211,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			int num4;
 			if (j >= numActive)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = ((j < numActive + numPartial) ? 1 : 0);
 			}
 			else
@@ -384,15 +222,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			int actorVisible2;
 			if (flag && !flag2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVisible2 = (flag4 ? 1 : 0);
 			}
 			else
@@ -403,26 +232,12 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			for (int k = 0; k < m_animDrivenVfxList.Count; k++)
 			{
 				AnimEventToVfxContainer animEventToVfxContainer = m_animDrivenVfxList[k];
 				int actorVisible3;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible3 = ((!flag2) ? 1 : 0);
 				}
 				else
@@ -448,31 +263,9 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 	{
 		if (m_spawnedCrystalVfxList != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_spawnedCrystalVfxList.Count; i++)
 			{
 				m_spawnedCrystalVfxList[i].DestroyVfx();
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_spawnedCrystalVfxList.Clear();
 		}
@@ -486,11 +279,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_owner.OnAnimationEventDelegates -= HandleAnimEvent;
 			m_owner.OnTurnStartDelegates -= HandleTurnTick;
 			return;
@@ -512,38 +300,16 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						numActive = Mathf.Max(0, m_martyrSyncComp.DamageCrystals + m_martyrSyncComp.m_clientCrystalAdjustment);
 						numActive = Mathf.Min(numActive, m_martyrPassive.m_maxCrystals);
 						num = numActive;
 						if (m_martyrPassive.m_crystalGainMode == Passive_Martyr.CrystalGainMode.ByDamageTaken)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_martyrPassive.m_damageToCrystalConversion > 0f)
 							{
 								int num2 = Mathf.FloorToInt((float)m_martyrSyncComp.m_clientDamageThisTurn / m_martyrPassive.m_damageToCrystalConversion);
 								if (m_martyrPassive.m_maxCrystalsGainedEachTurn > 0 && num2 > m_martyrPassive.m_maxCrystalsGainedEachTurn)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = m_martyrPassive.m_maxCrystalsGainedEachTurn;
 								}
 								num = numActive + num2;
@@ -552,50 +318,14 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 						}
 						if (m_martyrPassive.m_crystalGainMode == Passive_Martyr.CrystalGainMode.ByEnergy)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actor != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_martyrPassive.m_energyToCrystalConversion > 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int energyToDisplay = actor.GetEnergyToDisplay();
 									int num3 = energyToDisplay / m_martyrPassive.m_energyToCrystalConversion;
 									if (num3 > num)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num = num3;
 									}
 								}
@@ -619,19 +349,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		{
 			if (m_animDrivenVfxList[i].m_turnOffOnTurnStart)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_animDrivenVfxList[i].m_shouldShowPersistentVfx = false;
 			}
 		}
@@ -641,11 +358,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_martyrSyncComp.m_clientDamageThisTurn = 0;
 			return;
 		}
@@ -667,35 +379,16 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(eventObj == m_hideCrystalsAnimEvent))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_martyrSyncComp != null)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						m_martyrSyncComp.OnClientCrystalConsumed();
 						return;
 					}

@@ -54,73 +54,20 @@ public class SenseiDash : Ability
 			AbilityUtil_Targeter_ChargeAoE obj = abilityUtil_Targeter as AbilityUtil_Targeter_ChargeAoE;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
 				{
 					bool result = false;
 					SenseiDash senseiDash = ability as SenseiDash;
 					if (senseiDash != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (senseiDash.CanHitEnemy() && actorToConsider.GetTeam() != caster.GetTeam())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 						if (senseiDash.CanHitAlly())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorToConsider.GetTeam() == caster.GetTeam())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = true;
 							}
 						}
@@ -162,19 +109,6 @@ public class SenseiDash : Ability
 		int result;
 		if (GetHealAmount() <= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GetEffectOnTargetAlly().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -209,19 +143,6 @@ public class SenseiDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnTargetEnemy != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnTargetEnemy;
 		}
 		else
@@ -236,19 +157,6 @@ public class SenseiDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnTargetAlly != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnTargetAlly;
 		}
 		else
@@ -304,19 +212,6 @@ public class SenseiDash : Ability
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetHealAmount());
 		if (GetEffectOnTargetAlly() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetEffectOnTargetAlly().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
 		return numbers;
@@ -328,32 +223,10 @@ public class SenseiDash : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			bool flag = true;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = (flag ? GetDamageAmount() : 0);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
@@ -362,15 +235,6 @@ public class SenseiDash : Ability
 				int value;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = GetHealAmount();
 				}
 				else
@@ -393,30 +257,8 @@ public class SenseiDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					bool flag = false;
@@ -428,15 +270,6 @@ public class SenseiDash : Ability
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							ActorData current = enumerator.Current;
@@ -460,37 +293,10 @@ public class SenseiDash : Ability
 					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
 					if (boardSquareSafe2 != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquareSafe2.IsBaselineHeight())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe2 != caster.GetCurrentBoardSquare())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, caster.GetCurrentBoardSquare(), false, out int _);
 							}
 						}

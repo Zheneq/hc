@@ -17,15 +17,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -41,10 +32,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return new GameBalanceVars.PlayerUnlockable[0];
 				}
 			}
@@ -85,23 +72,9 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 			{
 				list.Add(availableModsForAbility[j].GetAbilityModUnlockData(m_charType, i));
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return SortItems(list).ToArray();
 		}
 	}
@@ -117,19 +90,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 	{
 		if (m_ownedToggle.isOn)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!item.IsOwned())
 			{
 				return true;
@@ -153,22 +113,8 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return result;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -200,10 +146,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetItemCost(item, type);
 				}
 			}
@@ -245,10 +187,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 					uITitledTooltip.Setup(abilityMod.GetName(), fullTooltip, string.Empty);
 					return true;

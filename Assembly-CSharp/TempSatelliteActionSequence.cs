@@ -27,34 +27,12 @@ public class TempSatelliteActionSequence : Sequence
 	{
 		if (m_setRotationOnInit)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject gameObject = SequenceManager.Get().FindTempSatellite(base.Source);
 			if (gameObject != null)
 			{
 				TempSatellite component = gameObject.GetComponent<TempSatellite>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetRotation(base.TargetRotation);
 				}
 			}
@@ -63,15 +41,6 @@ public class TempSatelliteActionSequence : Sequence
 		int num;
 		if (m_ignoreStartEventIfActorRagdoll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((base.Caster.IsModelAnimatorDisabled() || base.Caster.IsDead()) ? 1 : 0);
 		}
 		else
@@ -81,15 +50,6 @@ public class TempSatelliteActionSequence : Sequence
 		flag = ((byte)num != 0);
 		if (!(m_startActionEvent == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				return;
@@ -125,15 +85,6 @@ public class TempSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ProcessAction();
 			return;
 		}
@@ -147,15 +98,6 @@ public class TempSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_processedAction = true;
 			GameObject gameObject = SequenceManager.Get().FindTempSatellite(base.Source);
 			if (!(gameObject != null))
@@ -169,22 +111,12 @@ public class TempSatelliteActionSequence : Sequence
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_action != 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (base.Target != null)
 					{
 						component.TriggerAttack(base.Target.gameObject);
@@ -203,35 +135,16 @@ public class TempSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_timeToProcessAction > 0f))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_processedAction && GameTime.time > m_timeToProcessAction)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						m_timeToProcessAction = -1f;
 						ProcessAction();
 						return;

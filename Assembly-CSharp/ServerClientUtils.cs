@@ -157,15 +157,6 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_useTargetSquare = true;
 				m_targetSquareX = square.x;
 				m_targetSquareY = square.y;
@@ -173,11 +164,6 @@ public static class ServerClientUtils
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						m_targetPos = square.ToVector3();
 						return;
 					}
@@ -200,26 +186,12 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (targetActorArray.Length <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_numTargetActors = (byte)targetActorArray.Length;
 					m_targetActorIndices = new int[m_numTargetActors];
 					for (int i = 0; i < m_numTargetActors; i++)
@@ -242,10 +214,6 @@ public static class ServerClientUtils
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return new List<int>(m_targetActorIndices);
 					}
 				}
@@ -264,10 +232,6 @@ public static class ServerClientUtils
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						m_casterActorIndex = caster.ActorIndex;
 						return;
 					}
@@ -284,15 +248,6 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_sourceRootID = source.RootID;
 				m_sourceRemoveAtEndOfTurn = source.RemoveAtEndOfTurn;
 				m_waitForClientEnable = source.WaitForClientEnable;
@@ -308,24 +263,10 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (extraParams.Length > 0)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						m_extraParams = extraParams;
 						m_numExtraParams = (byte)extraParams.Length;
 						return;
@@ -350,48 +291,17 @@ public static class ServerClientUtils
 			string text = string.Empty;
 			if (m_targetActorIndices != null && m_targetActorIndices.Length > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				for (int i = 0; i < m_targetActorIndices.Length; i++)
 				{
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i]);
 					if (actorData != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + " | " + actorData.GetDebugName();
 					}
 					else
 					{
 						text = text + " | (Unknown Actor) " + m_targetActorIndices[i];
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -409,32 +319,10 @@ public static class ServerClientUtils
 			stream.Serialize(ref value);
 			if (m_useTargetPos)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref m_targetPos);
 			}
 			if (m_useTargetSquare)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte value2 = (byte)m_targetSquareX;
 				byte value3 = (byte)m_targetSquareY;
 				stream.Serialize(ref value2);
@@ -442,15 +330,6 @@ public static class ServerClientUtils
 			}
 			if (m_useTargetRotation)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vec = m_targetRotation * new Vector3(1f, 0f, 0f);
 				float value4 = VectorUtils.HorizontalAngle_Deg(vec);
 				stream.Serialize(ref value4);
@@ -463,11 +342,6 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				sbyte value6 = (sbyte)m_casterActorIndex;
 				stream.Serialize(ref value6);
 				stream.Serialize(ref m_sourceRootID);
@@ -517,33 +391,11 @@ public static class ServerClientUtils
 			}
 			if (out2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref value4);
 				stream.Serialize(ref value5);
 			}
 			if (out3)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float value10 = 0f;
 				stream.Serialize(ref value10);
 				Vector3 toDirection = VectorUtils.AngleDegreesToVector(value10);
@@ -558,11 +410,6 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				stream.Serialize(ref value7);
 				stream.Serialize(ref value8);
 				stream.Serialize(ref value9);
@@ -577,11 +424,6 @@ public static class ServerClientUtils
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					SequenceStartData sequenceStartData = new SequenceStartData();
 					sequenceStartData.m_prefabID = value;
 					sequenceStartData.m_useTargetPos = @out;
@@ -610,19 +452,6 @@ public static class ServerClientUtils
 			BoardSquare targetSquare;
 			if (m_useTargetSquare)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				targetSquare = Board.Get().GetBoardSquare(m_targetSquareX, m_targetSquareY);
 			}
 			else
@@ -675,30 +504,8 @@ public static class ServerClientUtils
 			GameObject x = SequenceLookup.Get().GetPrefabOfSequenceId(m_prefabID);
 			if (x == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (SequenceLookup.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					x = SequenceLookup.Get().GetSimpleHitSequencePrefab();
 				}
 			}
@@ -710,19 +517,6 @@ public static class ServerClientUtils
 			int result;
 			if (sequenceSource != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((m_sourceRootID == sequenceSource.RootID) ? 1 : 0);
 			}
 			else
@@ -785,15 +579,6 @@ public static class ServerClientUtils
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref m_targetPos);
 				return;
 			}
@@ -812,19 +597,6 @@ public static class ServerClientUtils
 			stream.Serialize(ref value4);
 			if (value4)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref value5);
 			}
 			return new SequenceEndData(value, (AssociationType)value3, (int)value2, value5);
@@ -846,10 +618,6 @@ public static class ServerClientUtils
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						ClientEffectBarrierManager.Get().EndSequenceOfBarrier(m_prefabId, (int)m_association, m_targetPos);
 						return;
 					}
@@ -869,55 +637,15 @@ public static class ServerClientUtils
 		ActionBufferPhase result = ActionBufferPhase.Done;
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		else if (ClientActionBuffer.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ClientActionBuffer.Get().CurrentActionPhase;
 		}
 		else if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameStatus == GameStatus.Started)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Trying to examine current action phase, but ClientActionBuffer does not exist.");
 			}
 		}
@@ -949,29 +677,11 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				b = (byte)(b | (byte)(1 << i));
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return b;
 		}
 	}
@@ -984,19 +694,6 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (short)(num | (short)(1 << i));
 			}
 		}
@@ -1011,29 +708,11 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num |= 1 << i;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return num;
 		}
 	}
@@ -1043,19 +722,6 @@ public static class ServerClientUtils
 		byte b8 = 0;
 		if (b0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			b8 = (byte)(b8 | 1);
 		}
 		if (b1)
@@ -1064,41 +730,14 @@ public static class ServerClientUtils
 		}
 		if (b2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 = (byte)(b8 | 4);
 		}
 		if (b3)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 = (byte)(b8 | 8);
 		}
 		if (b4)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 = (byte)(b8 | 0x10);
 		}
 		if (b5)
@@ -1111,15 +750,6 @@ public static class ServerClientUtils
 		}
 		if (b7)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 = (byte)(b8 | 0x80);
 		}
 		return b8;

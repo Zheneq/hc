@@ -36,19 +36,6 @@ public static class AbilityUtils
 			bool flag2 = ability.CurrentAbilityMod != null && ability.CurrentAbilityMod.m_tagsModType == AbilityMod.TagOverrideType.Append;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = HasTagInList(tag, ability.CurrentAbilityMod.m_abilityTagsInMod);
 			}
 			else
@@ -56,26 +43,8 @@ public static class AbilityUtils
 				int num;
 				if (!HasTagInList(tag, ability.m_tags))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (HasTagInList(tag, ability.CurrentAbilityMod.m_abilityTagsInMod) ? 1 : 0);
 					}
 					else
@@ -97,19 +66,6 @@ public static class AbilityUtils
 	{
 		if (listToCheck != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < listToCheck.Count; i++)
 			{
 				if (listToCheck[i] != tagToFind)
@@ -118,11 +74,6 @@ public static class AbilityUtils
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
@@ -135,31 +86,9 @@ public static class AbilityUtils
 		bool result = false;
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (!AbilityHasTag(ability, AbilityTags.IgnoreCover))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (ability.ForceIgnoreCover(targetActor) ? 1 : 0);
 			}
 			else
@@ -176,31 +105,9 @@ public static class AbilityUtils
 		bool result = false;
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (!AbilityHasTag(ability, AbilityTags.ReduceCoverByHalf))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (ability.ForceReduceCoverEffectiveness(targetActor) ? 1 : 0);
 			}
 			else
@@ -259,32 +166,10 @@ public static class AbilityUtils
 		float result;
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorStats actorStats = caster.GetActorStats();
 			ActorMovement actorMovement = caster.GetActorMovement();
 			if (actorStats != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float statBaseValueFloat = actorStats.GetStatBaseValueFloat(StatType.Movement_Horizontal);
 				float modifiedStatFloat = actorStats.GetModifiedStatFloat(StatType.Movement_Horizontal);
 				num = Mathf.Max(modifiedStatFloat - statBaseValueFloat, 0f);
@@ -334,31 +219,9 @@ public static class AbilityUtils
 		{
 			if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (targetingParadigm != Ability.TargetingParadigm.Position)
 				{
 					goto IL_0186;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().x - currentRangeInSquares));
@@ -376,15 +239,6 @@ public static class AbilityUtils
 					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetTravelBoardSquareWorldPosition());
 					if (abilityData.ValidateAbilityOnTarget(ability, abilityTarget, targetIndex, currentMinRangeInSquares, currentRangeInSquares2))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(boardSquare);
 					}
 				}
@@ -412,55 +266,19 @@ public static class AbilityUtils
 			int num = techPointInteraction.m_amount;
 			if (ability.CurrentAbilityMod != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
 			}
 			AddToRewardAmountForInteraction(ref reward, techPointInteraction.m_type, interaction, num, firstTime, hitOnAlly, hitOnEnemy);
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (ability.CurrentAbilityMod != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TechPointInteractionMod[] techPointInteractionMods = ability.CurrentAbilityMod.m_techPointInteractionMods;
 				foreach (TechPointInteractionMod techPointInteractionMod in techPointInteractionMods)
 				{
 					if (!hashSet.Contains(techPointInteractionMod.interactionType))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(techPointInteractionMod.interactionType);
 						int moddedTechPointForInteraction = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
 						if (moddedTechPointForInteraction > 0)
@@ -468,15 +286,6 @@ public static class AbilityUtils
 							AddToRewardAmountForInteraction(ref reward, techPointInteractionMod.interactionType, interaction, moddedTechPointForInteraction, firstTime, hitOnAlly, hitOnEnemy);
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return reward;
@@ -494,15 +303,6 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				reward += addAmount;
 				return;
 			}
@@ -513,11 +313,6 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				reward += addAmount;
 				return;
 			}
@@ -528,11 +323,6 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				reward += addAmount;
 				return;
 			}
@@ -543,20 +333,10 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (firstTime)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						reward += addAmount;
 						return;
 					}
@@ -570,11 +350,6 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				reward += addAmount;
 				return;
 			}
@@ -585,20 +360,10 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (hitOnAlly)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						reward += addAmount;
 						return;
 					}
@@ -612,11 +377,6 @@ public static class AbilityUtils
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (hitOnEnemy)
 				{
 					reward += addAmount;
@@ -633,19 +393,6 @@ public static class AbilityUtils
 		int num2;
 		if (targetInCover)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = ((!flag) ? 1 : 0);
 		}
 		else
@@ -657,15 +404,6 @@ public static class AbilityUtils
 		ActorStatus actorStatus = target.GetActorStatus();
 		if (actorStatus.HasStatus(StatusType.DamageImmune))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3)
 			{
 				return 0;
@@ -688,15 +426,6 @@ public static class AbilityUtils
 		ActorStats actorStats2 = target.GetActorStats();
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseDamage = Mathf.RoundToInt((float)baseDamage * GameplayMutators.GetDamageMultiplier());
 		}
 		int baseDamage2 = (!AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs)) ? actorStats.CalculateOutgoingDamageForTargeter(baseDamage) : baseDamage;
@@ -705,15 +434,6 @@ public static class AbilityUtils
 		int num4 = num3;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool reducedCoverEffectiveness = AbilityReduceCoverEffectiveness(ability, target);
 			num4 = ApplyCoverDamageReduction(actorStats2, num4, reducedCoverEffectiveness);
 		}
@@ -732,36 +452,14 @@ public static class AbilityUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
 		}
 		if (caster != target)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (caster.GetTeam() == target.GetTeam())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
 				{
 					return 0;
@@ -776,15 +474,6 @@ public static class AbilityUtils
 		int result;
 		if (AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = baseHeal;
 		}
 		else
@@ -803,30 +492,8 @@ public static class AbilityUtils
 		}
 		if (caster != target)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster.GetTeam() == target.GetTeam())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam))
 				{
 					while (true)
@@ -850,15 +517,6 @@ public static class AbilityUtils
 		int result;
 		if (AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = baseAbsorb;
 		}
 		else
@@ -872,19 +530,6 @@ public static class AbilityUtils
 	{
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseGain = MathUtil.RoundToIntPadded((float)baseGain * GameplayMutators.GetEnergyGainMultiplier());
 		}
 		int a = baseGain;
@@ -894,41 +539,14 @@ public static class AbilityUtils
 		AbilityModPropertyInt energizedEnergyGainMod;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useEnergizedOverride)
 					{
 						energizedEnergyGainMod = GameplayMutators.Get().m_energizedEnergyGainMod;
 						goto IL_00b1;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				energizedEnergyGainMod = GameWideData.Get().m_energizedEnergyGainMod;
@@ -938,50 +556,14 @@ public static class AbilityUtils
 		AbilityModPropertyInt slowEnergyGainEnergyGainMod;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useSlowEnergyGainOverride)
 					{
 						slowEnergyGainEnergyGainMod = GameplayMutators.Get().m_slowEnergyGainEnergyGainMod;
 						goto IL_012c;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				slowEnergyGainEnergyGainMod = GameWideData.Get().m_slowEnergyGainEnergyGainMod;
@@ -1004,19 +586,6 @@ public static class AbilityUtils
 		float num = targetStats.GetModifiedStatFloat(StatType.CoverIncomingDamageMultiplier);
 		if (reducedCoverEffectiveness)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = Mathf.Min(num * 1.5f, 1f);
 		}
 		return Mathf.RoundToInt((float)initialDamage * num);
@@ -1027,33 +596,11 @@ public static class AbilityUtils
 		int num = 0;
 		if (actorsToConsider != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < actorsToConsider.Count; i++)
 			{
 				ActorData actorData = actorsToConsider[i];
 				if (actorData.GetTeam() != observingActor.GetTeam())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -1073,45 +620,14 @@ public static class AbilityUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!includeSelf)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(observingActor != actorData))
 					{
 						continue;
 					}
 				}
 				num++;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;

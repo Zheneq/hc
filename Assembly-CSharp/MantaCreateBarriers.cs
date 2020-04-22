@@ -54,19 +54,6 @@ public class MantaCreateBarriers : Ability
 		}
 		if (m_prisonSides < 3)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_prisonSides = 4;
 		}
 		Ability[] chainAbilities = GetChainAbilities();
@@ -79,29 +66,11 @@ public class MantaCreateBarriers : Ability
 				Ability ability = array[num];
 				if (ability != null && ability is MantaCreateBarriersChainFinal)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_finalDamageChain = (ability as MantaCreateBarriersChainFinal);
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -140,19 +109,6 @@ public class MantaCreateBarriers : Ability
 		StandardBarrierData cachedPrisonBarrierData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedPrisonBarrierData = m_abilityMod.m_prisonBarrierDataMod.GetModifiedValue(m_prisonBarrierData);
 		}
 		else
@@ -168,19 +124,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_requireCasterInShapeMod.GetModifiedValue(m_requireCasterInShape);
 		}
 		else
@@ -195,19 +138,6 @@ public class MantaCreateBarriers : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_targetAreaShapeMod.GetModifiedValue(m_targetAreaShape);
 		}
 		else
@@ -222,19 +152,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_delayBarriersUntilStartOfNextTurnMod.GetModifiedValue(m_delayBarriersUntilStartOfNextTurn);
 		}
 		else
@@ -249,19 +166,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_prisonSidesMod.GetModifiedValue(m_prisonSides);
 		}
 		else
@@ -276,19 +180,6 @@ public class MantaCreateBarriers : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_prisonRadiusMod.GetModifiedValue(m_prisonRadius);
 		}
 		else
@@ -308,19 +199,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_createBarriersImmediatelyMod.GetModifiedValue(m_createBarriersImmediately);
 		}
 		else
@@ -335,19 +213,6 @@ public class MantaCreateBarriers : Ability
 		StandardGroundEffectInfo result;
 		if ((bool)m_abilityMod && m_abilityMod.m_groundEffectInfoMod.m_applyGroundEffect)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_groundEffectInfoMod;
 		}
 		else
@@ -362,19 +227,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageOnCastMod.GetModifiedValue(m_damageOnCast);
 		}
 		else
@@ -389,19 +241,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealOnCastMod.GetModifiedValue(m_allyHealOnCast);
 		}
 		else
@@ -416,19 +255,6 @@ public class MantaCreateBarriers : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnAlliesOnCast != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnAlliesOnCast;
 		}
 		else
@@ -443,19 +269,6 @@ public class MantaCreateBarriers : Ability
 		StandardBarrierData result;
 		if (m_cachedPrisonBarrierData == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_prisonBarrierData;
 		}
 		else
@@ -483,15 +296,6 @@ public class MantaCreateBarriers : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_MantaCreateBarriers);
 			Setup();
 			return;
@@ -509,19 +313,6 @@ public class MantaCreateBarriers : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_finalDamageChain != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_finalDamageChain.GetDamageOnCast()));
 		}
 		else
@@ -542,19 +333,6 @@ public class MantaCreateBarriers : Ability
 		int num = (!(m_finalDamageChain != null)) ? GetDamageOnCast() : m_finalDamageChain.GetDamageOnCast();
 		if (GetGroundEffectInfo().m_applyGroundEffect && GetGroundEffectInfo().m_groundEffectData.damageAmount > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += GetGroundEffectInfo().m_groundEffectData.damageAmount;
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -573,10 +351,6 @@ public class MantaCreateBarriers : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = 0;
 					List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
 					using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
@@ -608,19 +382,6 @@ public class MantaCreateBarriers : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
 				while (true)

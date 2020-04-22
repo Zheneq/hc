@@ -48,10 +48,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_charType;
 					}
 				}
@@ -72,19 +68,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		bool flag = setArrowsVisible;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_selectedArrows.gameObject.activeSelf)
 			{
 				flag = false;
@@ -101,74 +84,20 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return !m_isMainCharacter;
 			}
 		}
 		bool flag = true;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
 						else if (m_playerInfo == null)
@@ -185,38 +114,11 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 							{
 								goto IL_014a;
 							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_playerInfo.IsNPCBot)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_playerInfo.IsRemoteControlled)
 								{
 									goto IL_014a;
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							flag = true;
@@ -241,15 +143,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isOutsideGame)
 			{
 				UICharacterScreen.Get().m_partyListPanel.NotifyOutOfGamePortraitClicked(this, m_charType);
@@ -262,15 +155,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 					if (!m_playerInfo.IsRemoteControlled)
 					{
 						goto IL_008a;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UICharacterScreen.Get().m_partyListPanel.NotifyBotPortraitClicked(this, m_playerInfo);
@@ -291,37 +175,18 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_isOutsideGame)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_isMainCharacter)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if ((!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()) && !(AppState_LandingPage.Get() == AppState.GetCurrent())) ? AppState_CharacterSelect.IsReady() : AppState_GroupCharacterSelect.Get().IsReady())
 					{
 						while (true)
@@ -392,19 +257,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		{
 			if (info.CharacterType == CharacterType.None)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(CharacterType.Gremlins);
 				m_characterImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
 			}
@@ -416,15 +268,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 			UIManager.SetGameObjectActive(m_characterImage, true);
 			if (!info.IsNPCBot)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!info.IsRemoteControlled)
 				{
 					UIManager.SetGameObjectActive(m_readyImage, info.ReadyState == ReadyState.Ready);
@@ -434,25 +277,7 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 					{
 						UIManager.SetGameObjectActive(component, false);
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0177;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(m_readyImage, true);
@@ -463,15 +288,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 				int doActive;
 				if (!info.IsRemoteControlled)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = ((j <= (int)info.Difficulty) ? 1 : 0);
 				}
 				else
@@ -507,15 +323,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		int doActive2;
 		if (info.IsGameOwner)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = ((GameManager.Get().GameConfig.GameType == GameType.Custom) ? 1 : 0);
 		}
 		else
@@ -532,19 +339,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		int doActive;
 		if (!isMainCharacter)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			doActive = (charType.IsValidForHumanGameplay() ? 1 : 0);
 		}
 		else
@@ -562,11 +356,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (clientGameManager.IsPlayerAccountDataAvailable())
 			{
 				if (charType != 0)

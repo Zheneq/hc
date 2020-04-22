@@ -30,19 +30,6 @@ public class ScampDualLasers : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (m_shieldDownTargetSelect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			relevantTargetSelectCompForEditor.Add(m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -63,19 +50,6 @@ public class ScampDualLasers : GenericAbility_Container
 		AbilityUtil_Targeter_ScampDualLasers abilityUtil_Targeter_ScampDualLasers = base.Targeter as AbilityUtil_Targeter_ScampDualLasers;
 		if (abilityUtil_Targeter_ScampDualLasers != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = GetNumLasers;
 			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
@@ -83,15 +57,6 @@ public class ScampDualLasers : GenericAbility_Container
 		TargetSelect_DualMeetingLasers targetSelect_DualMeetingLasers2 = m_shieldDownTargetSelect as TargetSelect_DualMeetingLasers;
 		if (targetSelect_DualMeetingLasers != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			targetSelect_DualMeetingLasers.m_delegateLaserCount = GetNumLasers;
 			targetSelect_DualMeetingLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
@@ -101,11 +66,6 @@ public class ScampDualLasers : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			targetSelect_DualMeetingLasers2.m_delegateLaserCount = GetNumLasers;
 			targetSelect_DualMeetingLasers2.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 			return;
@@ -118,32 +78,10 @@ public class ScampDualLasers : GenericAbility_Container
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_shieldDownTargetSelect == null))
 			{
 				collection = m_shieldDownTargetSelect.CreateTargeters(this);
 				goto IL_0054;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		collection = m_targetSelectComp.CreateTargeters(this);
@@ -157,11 +95,6 @@ public class ScampDualLasers : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = GetNumLasers;
 			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 			return;
@@ -177,19 +110,6 @@ public class ScampDualLasers : GenericAbility_Container
 	{
 		if (GetExtraAoeRadiusTurnAfterLosingSuit() > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsTurnAfterLostSuit())
 			{
 				return GetExtraAoeRadiusTurnAfterLosingSuit();
@@ -209,10 +129,6 @@ public class ScampDualLasers : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetTargetSelectComp();
 				}
 			}
@@ -231,10 +147,6 @@ public class ScampDualLasers : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetOnHitAuthoredData();
 				}
 			}
@@ -242,15 +154,6 @@ public class ScampDualLasers : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (m_cachedShieldDownOnHitData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_cachedShieldDownOnHitData;
 		}
 		else
@@ -268,26 +171,12 @@ public class ScampDualLasers : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetExtraDamageTurnAfterLosingSuit() <= 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				ActorHitContext actorHitContext2 = actorHitContext[targetActor];
 				int hash = ContextKeys._001A.GetHash();
 				if (!actorHitContext2._0015.ContainsInt(hash))
@@ -296,20 +185,10 @@ public class ScampDualLasers : GenericAbility_Container
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					if (actorHitContext2._0015.GetInt(hash) > 0)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							results.m_damage += GetExtraDamageTurnAfterLosingSuit();
 							return;
 						}
@@ -330,19 +209,6 @@ public class ScampDualLasers : GenericAbility_Container
 		int result;
 		if (m_syncComp != null && m_syncComp.m_lastSuitLostTurn != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GameFlowData.Get().CurrentTurn - m_syncComp.m_lastSuitLostTurn == 1) ? 1 : 0);
 		}
 		else
@@ -357,19 +223,6 @@ public class ScampDualLasers : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageTurnAfterLosingSuitMod.GetModifiedValue(m_extraDamageTurnAfterLosingSuit);
 		}
 		else

@@ -47,15 +47,6 @@ public class UITooltipManager : UIScene
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return array;
 			}
 		}
@@ -117,15 +108,6 @@ public class UITooltipManager : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 			return;
 		}
@@ -141,45 +123,14 @@ public class UITooltipManager : UIScene
 	{
 		if (m_currentDisplayTooltip != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentDisplayTooltip.isActiveAndEnabled)
 			{
 				GameObject pointerEnter = m_inputModule.GetLastPointerEventDataPublic(-1).pointerEnter;
 				if (!(m_currentHoveredObject == null) && !(pointerEnter == null))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsEqualOrParent(m_currentHoveredObject.transform, pointerEnter.transform))
 					{
 						goto IL_00b4;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				HideDisplayTooltip();
@@ -199,11 +150,6 @@ public class UITooltipManager : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_currentMenuTooltip.isActiveAndEnabled)
 			{
 				while (true)
@@ -226,27 +172,9 @@ public class UITooltipManager : UIScene
 			}
 			if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButtonDown(2))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			GameObject gameObject = m_inputModule.GetLastPointerEventDataPublic(-1).pointerCurrentRaycast.gameObject;
@@ -256,20 +184,10 @@ public class UITooltipManager : UIScene
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!IsEqualOrParent(m_currentMenuTooltip.transform, gameObject.transform))
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						HideMenu();
 						return;
 					}
@@ -292,10 +210,6 @@ public class UITooltipManager : UIScene
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -305,11 +219,6 @@ public class UITooltipManager : UIScene
 		while (child != null);
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -326,10 +235,6 @@ public class UITooltipManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -340,15 +245,6 @@ public class UITooltipManager : UIScene
 			{
 				return false;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return true;
 	}
@@ -357,19 +253,6 @@ public class UITooltipManager : UIScene
 	{
 		if (m_currentDisplayTooltip != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentHoveredObject.CallDisableTooltip();
 			m_currentDisplayTooltip.SetVisible(false);
 		}
@@ -384,24 +267,10 @@ public class UITooltipManager : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_tooltips[(int)type] == m_currentDisplayTooltip)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					HideDisplayTooltip();
 					return;
 				}
@@ -424,10 +293,6 @@ public class UITooltipManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					HideDisplayTooltip();
 					return;
 				}
@@ -448,19 +313,6 @@ public class UITooltipManager : UIScene
 	{
 		if (m_currentMenuTooltip != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentMenuTooltip.SetVisible(false);
 		}
 		m_currentMenuTooltip = GetTooltip(obj.GetTooltipType());
@@ -487,19 +339,6 @@ public class UITooltipManager : UIScene
 	{
 		if (m_tooltips[(int)type] == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITooltipBase uITooltipBase = UnityEngine.Object.Instantiate(m_tooltipPrefabs[(int)type]);
 			uITooltipBase.transform.SetParent(base.transform);
 			uITooltipBase.transform.localPosition = Vector3.zero;
@@ -520,10 +359,6 @@ public class UITooltipManager : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_currentHoveredObject != obj)
 					{
 						while (true)
@@ -575,11 +410,6 @@ public class UITooltipManager : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_currentMenuTooltip == null) && !(m_currentClickedObject != obj) && !m_currentClickedObject.PopulateTooltip(m_currentMenuTooltip))
 			{
 				HideMenu();
@@ -616,45 +446,14 @@ public class UITooltipManager : UIScene
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (obj is UITooltipHoverObject)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UITooltipHoverObject uITooltipHoverObject = obj as UITooltipHoverObject;
 							positioningData.GetCornerBoundsInViewport(out left, out width, out bottom, out height);
 							if (uITooltipHoverObject.m_anchorPoints != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (uITooltipHoverObject.m_anchorPoints.Length > 0)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									array = uITooltipHoverObject.m_anchorPoints;
 									goto IL_00b5;
 								}
@@ -677,15 +476,6 @@ public class UITooltipManager : UIScene
 					IL_01c5:
 					if (num != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						comparee *= -1f;
 					}
 					comparee.x = comparee.x / -2f + 0.5f;
@@ -699,57 +489,21 @@ public class UITooltipManager : UIScene
 					flag = false;
 					if (left < 0f)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector.x -= left;
 						flag = true;
 					}
 					else if (left + width > 1f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector.x -= left + width - 1f;
 						flag = true;
 					}
 					if (bottom < 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector.y -= bottom;
 						flag = true;
 					}
 					else if (bottom + height > 1f)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector.y -= bottom + height - 1f;
 						flag = true;
 					}
@@ -763,15 +517,6 @@ public class UITooltipManager : UIScene
 					comparee.Normalize();
 					if (tooltip.m_anchorPoints.Length > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array2 = tooltip.m_anchorPoints;
 					}
 					else
@@ -781,37 +526,10 @@ public class UITooltipManager : UIScene
 					candidates = array2;
 					if (obj.m_gravityWell.x >= left)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (obj.m_gravityWell.x <= left + width)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (obj.m_gravityWell.y >= bottom)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = ((obj.m_gravityWell.y <= bottom + height) ? 1 : 0);
 								goto IL_01c5;
 							}
@@ -834,30 +552,12 @@ public class UITooltipManager : UIScene
 			float num2 = Vector2.Distance(comparee, candidates[i]);
 			if (num2 < num)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = num2;
 				vector = candidates[i];
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return vector;
 		}
 	}

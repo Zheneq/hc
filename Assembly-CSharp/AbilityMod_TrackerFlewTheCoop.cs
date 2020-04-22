@@ -39,15 +39,6 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectInfo(tokens, m_additionalEffectOnSelf, "Effect_AdditionalOnSelf");
 			return;
 		}
@@ -62,19 +53,6 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnSelf, "[Additional Effect on Self]", string.Empty, flag);
 		if (m_addVisionAroundStartSquare)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			empty += "* Adding Vision on Starting Square\n";
 			empty = empty + "[Vision Radius] = " + InEditorDescHelper.ColoredString(m_visionRadius.ToString()) + "\n";
 			empty = empty + "[Vision Duration] = " + InEditorDescHelper.ColoredString(m_visionDuration.ToString()) + "\n";

@@ -22,15 +22,6 @@ public class UINameplateOvercon : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_canvasGroup.blocksRaycasts = false;
 			m_canvasGroup.interactable = false;
 			return;
@@ -49,33 +40,11 @@ public class UINameplateOvercon : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_foregroundImg != null && !string.IsNullOrEmpty(entry.m_staticSpritePath))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Sprite sprite = Resources.Load(entry.m_staticSpritePath, typeof(Sprite)) as Sprite;
 						if (sprite != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_foregroundImg.sprite = sprite;
 							Color color = m_foregroundImg.color;
 							color.a = entry.m_initialAlpha;
@@ -88,15 +57,6 @@ public class UINameplateOvercon : MonoBehaviour
 					}
 					if (!string.IsNullOrEmpty(entry.m_customPrefabPath))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_customPrefabParent != null)
 						{
 							GameObject gameObject = Resources.Load(entry.m_customPrefabPath, typeof(GameObject)) as GameObject;
@@ -105,15 +65,6 @@ public class UINameplateOvercon : MonoBehaviour
 								GameObject gameObject2 = Object.Instantiate(gameObject);
 								if (gameObject2 != null)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									gameObject2.transform.SetParent(m_customPrefabParent.transform);
 									gameObject2.transform.localPosition = new Vector3(0f, entry.m_customPrefabHeightOffset, 0f);
 								}
@@ -140,15 +91,6 @@ public class UINameplateOvercon : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (visible)
 			{
 				while (true)
@@ -180,15 +122,6 @@ public class UINameplateOvercon : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_customPrefabParent);
 			return;
 		}
@@ -202,24 +135,10 @@ public class UINameplateOvercon : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Time.time >= m_timeToDestroy)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					Object.Destroy(base.gameObject);
 					return;
 				}

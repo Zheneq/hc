@@ -30,19 +30,6 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 	{
 		if (m_ability.GetExpectedNumberOfTargeters() > 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargetIndex >= m_ability.GetExpectedNumberOfTargeters() - 1)
 			{
 				goto IL_003e;
@@ -59,15 +46,6 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 		AbilityTarget target;
 		if (currentTargetIndex == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			target = currentTarget;
 		}
 		else
@@ -78,42 +56,15 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 		Vector3 vector = currentTarget.FreePos - centerOfShape;
 		if (m_lockToCardinalDirs)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
 		}
 		int num = 0;
 		if (m_knockbackDistance > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EnableAllMovementArrows();
 			List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
 			if (currentTargetIndex > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				visibleActorsInRange = (m_ability.Targeters[0] as AbilityUtil_Targeter_KnockbackAoE).GetVisibleActorsInRange();
 			}
 			foreach (ActorData item2 in visibleActorsInRange)
@@ -126,26 +77,8 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 			}
 			if (m_showArrowHighlight)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_highlights != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_highlights.Count < 1)
 					{
 						GameObject item = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight();

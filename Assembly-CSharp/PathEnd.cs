@@ -18,19 +18,6 @@ public class PathEnd : MonoBehaviour
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (meshRenderer.materials[0] != null)
 				{
 					meshRenderer.materials[0].SetColor("_TintColor", newColor);

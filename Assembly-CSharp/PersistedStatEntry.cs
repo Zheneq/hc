@@ -46,10 +46,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0f;
 				}
 			}
@@ -76,19 +72,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 			{
 				goto IL_0054;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		Max = val;
 		goto IL_0054;
@@ -98,15 +81,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 			if (!flag)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Min = val;

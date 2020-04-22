@@ -22,19 +22,6 @@ public class AbilityModPropertyEffectInfo
 			StandardEffectInfo result = effectInfo;
 			if (useSequencesFromSource && input != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				StandardEffectInfo shallowCopy = effectInfo.GetShallowCopy();
 				shallowCopy.m_effectData.m_sequencePrefabs = input.m_effectData.m_sequencePrefabs;
 				shallowCopy.m_effectData.m_tickSequencePrefab = input.m_effectData.m_tickSequencePrefab;

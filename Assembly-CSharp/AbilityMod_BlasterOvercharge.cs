@@ -43,15 +43,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_maxCastCountMod, "MaxCastCount", string.Empty, blasterOvercharge.m_maxCastCount);
 			AbilityMod.AddToken(tokens, m_extraDamageCountMod, "ExtraDamageCount", string.Empty, blasterOvercharge.m_extraDamageCount);
 			AbilityMod.AddToken(tokens, m_extraDamageMod, "ExtraDamage", string.Empty, blasterOvercharge.m_extraDamage);
@@ -73,19 +64,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = blasterOvercharge.m_maxCastCount;
 		}
 		else
@@ -98,15 +76,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = blasterOvercharge.m_extraDamageCount;
 		}
 		else
@@ -119,15 +88,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = blasterOvercharge.m_extraDamage;
 		}
 		else
@@ -140,15 +100,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = blasterOvercharge.m_extraDamageForDelayedLaser;
 		}
 		else
@@ -161,15 +112,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = blasterOvercharge.m_extraDamageForMultiCast;
 		}
 		else
@@ -182,15 +124,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = blasterOvercharge.m_effectOnSelfOnCast;
 		}
 		else
@@ -203,15 +136,6 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = blasterOvercharge.m_extraEffectOnOtherAbilities;
 		}
 		else
@@ -221,39 +145,12 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 		empty = str7 + PropDesc(extraEffectOnOtherAbilitiesMod, "[ExtraEffectOnOtherAbilities]", flag, (StandardEffectInfo)baseVal7);
 		if (m_useExtraEffectActionTypeOverride)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_extraEffectActionTypesOverride != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty += "Using override for extra effect target abilities:\n";
 				for (int i = 0; i < m_extraEffectActionTypesOverride.Count; i++)
 				{
 					empty = empty + "    " + m_extraEffectActionTypesOverride[i].ToString() + "\n";
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				empty += "\n";
 			}

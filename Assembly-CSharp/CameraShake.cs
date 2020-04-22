@@ -40,15 +40,6 @@ public class CameraShake : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_elapsedTime += Time.deltaTime;
 			if (!CameraManager.Get().AllowCameraShake())
 			{
@@ -56,41 +47,18 @@ public class CameraShake : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				float f = Mathf.Min(1f, m_elapsedTime / m_duration);
 				float d = 1f - Mathf.Abs(Mathf.Pow(f, m_dampeningPower));
 				Vector3 a = base.transform.rotation * Vector3.left;
 				a *= Random.Range(m_horizontalIntensity * (1f - m_ratioRange), m_horizontalIntensity);
 				if (Random.value > 0.5f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a *= -1f;
 				}
 				Vector3 b = base.transform.rotation * Vector3.up;
 				b *= Random.Range(m_verticalIntensity * (1f - m_ratioRange), m_verticalIntensity);
 				if (Random.value > 0.5f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b *= -1f;
 				}
 				base.transform.position = base.transform.position + (a + b) * d;

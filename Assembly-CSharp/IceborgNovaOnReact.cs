@@ -58,19 +58,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		AddTokenInt(tokens, "DamageThreshForInstanceOnSelf", string.Empty, m_damageThreshForInstanceOnSelf);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (!(m_syncComp != null))
@@ -79,11 +66,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_syncComp.AddTooltipTokens(tokens);
 			return;
 		}
@@ -109,19 +91,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_reactRequireDamageMod.GetModifiedValue(m_reactRequireDamage);
 		}
 		else
@@ -136,19 +105,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_reactEffectEndEarlyIfTriggeredMod.GetModifiedValue(m_reactEffectEndEarlyIfTriggered);
 		}
 		else
@@ -163,19 +119,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyOnTargetPerReactionMod.GetModifiedValue(m_energyOnTargetPerReaction);
 		}
 		else
@@ -195,19 +138,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraEnergyPerNovaCoreTriggerMod.GetModifiedValue(m_extraEnergyPerNovaCoreTrigger);
 		}
 		else
@@ -222,19 +152,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageThreshForInstanceOnSelfMod.GetModifiedValue(m_damageThreshForInstanceOnSelf);
 		}
 		else

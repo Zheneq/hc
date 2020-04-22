@@ -98,19 +98,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 			{
 				if (charTypeInt >= 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_characterType = (CharacterType)charTypeInt;
 					m_characterRole = CharacterRole.None;
 				}
@@ -147,10 +134,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
@@ -158,15 +141,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 				if (m_characterType != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 				}
 				else
@@ -205,22 +179,9 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						string text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), m_matchesPlayed);
 						if (m_matchesPlayed > 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = text + Environment.NewLine + string.Format(StringUtil.TR("WinPercentage", "Global"), m_matchesWon * 100 / m_matchesPlayed);
 						}
 						uISimpleTooltip.Setup(text);
@@ -270,19 +231,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 		if (m_characterType != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(ClientGameManager.Get().GetPlayerCharacterData(m_characterType));
 		}
 		else
@@ -291,15 +239,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.PersistedStatsDictionaryBySeason.Keys);
 		}
 		using (IEnumerator<int> enumerator = list.SelectMany(_003C_003Ef__am_0024cache0).Distinct().GetEnumerator())
@@ -323,15 +262,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					}
 				}
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		UIManager.SetGameObjectActive(m_seasonsDropdownBtn, false);
 	}
@@ -343,31 +273,9 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(m_season);
 		if (seasonTemplate != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!seasonTemplate.IsTutorial)
 			{
 				goto IL_006d;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_season = -1;
@@ -378,28 +286,10 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		string text;
 		if (m_season < 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = string.Empty;
 		}
 		else if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = StringUtil.TR("CurrentSeason", "Global");
 		}
 		else
@@ -410,15 +300,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		PersistedStats stats;
 		if (m_characterType != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_characterType);
 			GetStats(playerCharacterData, flag, out stats);
 			m_freelancerDropdownBtn.Setup(GameWideData.Get().GetCharacterDisplayName(m_characterType), m_characterType);
@@ -427,15 +308,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		}
 		else if (m_characterRole != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_freelancerLayout, false);
 			stats = new PersistedStats();
 			using (Dictionary<CharacterType, PersistedCharacterData>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().GetAllPlayerCharacterData().Values.GetEnumerator())
@@ -445,52 +317,16 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					PersistedCharacterData current = enumerator.Current;
 					if (current.CharacterType.IsValidForHumanGameplay())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterType);
 						if (characterResourceLink.m_characterRole == m_characterRole)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GetStats(current, flag, out PersistedStats stats2);
 							if (stats2 != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								stats.CombineStats(stats2);
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_freelancerDropdownBtn.Setup(StringUtil.TR("CharacterRole_" + m_characterRole, "Global"), m_characterRole);
@@ -503,27 +339,9 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 			{
 				if (value.CharacterType.IsValidForHumanGameplay())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GetStats(value, flag, out PersistedStats stats3);
 					if (stats3 != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						stats.CombineStats(stats3);
 					}
 				}
@@ -587,44 +405,13 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 	{
 		if (response != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (response.Success)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = !response.FreelancerSpecificPercentiles.IsNullOrEmpty();
 				for (int i = 0; i < m_freelancerItems.Length; i++)
 				{
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (response.FreelancerSpecificPercentiles.ContainsKey(i))
 						{
 							HasFreelancerStatsToCompareTo = true;
@@ -637,15 +424,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				}
 				if (!response.GlobalPercentiles.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HasGlobalStatsToCompareTo = true;
 					UpdatePercentiles(m_generalItems, response.GlobalPercentiles);
 					UpdatePercentiles(m_firepowerItems, response.GlobalPercentiles);
@@ -675,15 +453,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		HasFreelancerStatsToCompareTo = false;
 		if (response != null && response.LocalizedFailure != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			StatCompareFailure = response.LocalizedFailure.ToString();
 		}
 		goto IL_01d9;
@@ -694,11 +463,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_percentileInfos[GetPercentilesResponseKey()] = response;
 			return;
 		}
@@ -715,10 +479,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					charData.ExperienceComponent.PersistedStatsDictionary.TryGetValue(m_gameType, out stats);
 					return;
 				}
@@ -746,33 +506,11 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		int i;
 		for (i = 0; i < statTypes.Length; i++)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (i < widgets.Length)
 			{
 				UIManager.SetGameObjectActive(widgets[i], true);
 				widgets[i].SetupTotalledStat(stats, statTypes[i], m_characterType);
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -793,30 +531,8 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				string text2 = StringUtil.TR_FreelancerStatDescription(m_characterType.ToString(), i);
 				if (text.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (text2.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
@@ -825,15 +541,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				m_freelancerItems[i].SetupFreelancerTotalledStats(stats, text, text2, i, component, m_characterType);
 				i++;
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -864,19 +571,6 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 			PercentileInfo value = null;
 			if (percentiles != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				percentiles.TryGetValue(widgets[i].GeneralStatType, out value);
 			}
 			widgets[i].UpdatePercentiles(value);

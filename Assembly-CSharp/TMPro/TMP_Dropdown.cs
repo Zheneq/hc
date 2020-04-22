@@ -88,15 +88,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					componentInParent.Hide();
 					return;
 				}
@@ -326,31 +317,9 @@ namespace TMPro
 			{
 				if (Application.isPlaying)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (value == m_Value)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (options.Count == 0)
 					{
@@ -384,19 +353,6 @@ namespace TMPro
 			m_AlphaTweenRunner.Init(this);
 			if ((bool)m_CaptionImage)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_CaptionImage.enabled = (m_CaptionImage.sprite != null);
 			}
 			if (!m_Template)
@@ -405,11 +361,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				m_Template.gameObject.SetActive(false);
 				return;
 			}
@@ -420,54 +371,14 @@ namespace TMPro
 			OptionData optionData = s_NoOptionData;
 			if (options.Count > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				optionData = options[Mathf.Clamp(m_Value, 0, options.Count - 1)];
 			}
 			if ((bool)m_CaptionText)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (optionData != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (optionData.text != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_CaptionText.text = optionData.text;
 						goto IL_00b5;
 					}
@@ -482,22 +393,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (optionData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_CaptionImage.sprite = optionData.image;
 				}
 				else
@@ -523,15 +420,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				RefreshShownValue();
 				return;
 			}
@@ -559,15 +447,6 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("The dropdown template is not assigned. The template needs to be assigned and must have a child GameObject with a Toggle component serving as the item.", this);
 					return;
 				}
@@ -578,15 +457,6 @@ namespace TMPro
 			validTemplate = true;
 			if ((bool)componentInChildren)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(componentInChildren.transform == template))
 				{
 					if (!(componentInChildren.transform.parent is RectTransform))
@@ -598,26 +468,8 @@ namespace TMPro
 					{
 						if (itemText != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!itemText.transform.IsChildOf(componentInChildren.transform))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								validTemplate = false;
 								Debug.LogError("The dropdown template is not valid. The Item Text must be on the item GameObject or children of it.", template);
 								goto IL_018e;
@@ -625,29 +477,11 @@ namespace TMPro
 						}
 						if (itemImage != null && !itemImage.transform.IsChildOf(componentInChildren.transform))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							validTemplate = false;
 							Debug.LogError("The dropdown template is not valid. The Item Image must be on the item GameObject or children of it.", template);
 						}
 					}
 					goto IL_018e;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			validTemplate = false;
@@ -678,19 +512,6 @@ namespace TMPro
 			T val = go.GetComponent<T>();
 			if (!(UnityEngine.Object)val)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				val = go.AddComponent<T>();
 			}
 			return val;
@@ -719,26 +540,12 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsInteractable())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (m_Dropdown != null)
 					{
 						while (true)
@@ -809,15 +616,6 @@ namespace TMPro
 						DropdownItem item = AddItem(data, value == i, componentInChildren, m_Items);
 						if (item == null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 						item.toggle.isOn = (value == i);
@@ -827,28 +625,10 @@ namespace TMPro
 						});
 						if (item.toggle.isOn)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							item.toggle.Select();
 						}
 						if (toggle != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Navigation navigation = toggle.navigation;
 							Navigation navigation2 = item.toggle.navigation;
 							navigation.mode = Navigation.Mode.Explicit;
@@ -868,15 +648,6 @@ namespace TMPro
 					float num = rectTransform.rect.height - rectTransform2.rect.height;
 					if (num > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector2 sizeDelta2 = rectTransform.sizeDelta;
 						float x2 = sizeDelta2.x;
 						Vector2 sizeDelta3 = rectTransform.sizeDelta;
@@ -897,67 +668,26 @@ namespace TMPro
 								Vector3 vector3 = rectTransform3.InverseTransformPoint(array[num2]);
 								if (!(vector3[j] < rect3.min[j]))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(vector3[j] > rect3.max[j]))
 									{
 										num2++;
 										continue;
-									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								flag = true;
 							}
 							else
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							break;
 						}
 						if (flag)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							RectTransformUtility.FlipLayoutOnAxis(rectTransform, j, false, false);
 						}
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						for (int k = 0; k < m_Items.Count; k++)
 						{
 							RectTransform rectTransform4 = m_Items[k].rectTransform;
@@ -1037,19 +767,6 @@ namespace TMPro
 			dropdownItem.gameObject.name = "Item " + items.Count + ((data.text == null) ? string.Empty : (": " + data.text));
 			if (dropdownItem.toggle != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				dropdownItem.toggle.isOn = false;
 			}
 			if ((bool)dropdownItem.text)
@@ -1058,15 +775,6 @@ namespace TMPro
 			}
 			if ((bool)dropdownItem.image)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dropdownItem.image.sprite = data.image;
 				dropdownItem.image.enabled = (dropdownItem.image.sprite != null);
 			}
@@ -1091,10 +799,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -1125,33 +829,11 @@ namespace TMPro
 				AlphaFadeList(0.15f, 0f);
 				if (IsActive())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					StartCoroutine(DelayedDestroyDropdownList(0.15f));
 				}
 			}
 			if (m_Blocker != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DestroyBlocker(m_Blocker);
 			}
 			m_Blocker = null;
@@ -1180,33 +862,11 @@ namespace TMPro
 				{
 					if (parent.GetChild(num2) == transform)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						num = num2 - 1;
 						break;
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}

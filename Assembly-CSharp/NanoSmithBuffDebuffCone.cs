@@ -24,19 +24,6 @@ public class NanoSmithBuffDebuffCone : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Buff Debuff Cone";
 		}
 		m_sequencePrefab = m_castSequencePrefab;

@@ -26,10 +26,6 @@ public class LocalizationArg_FirstType : LocalizationArg
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return StringUtil.TR_QuestDescription(m_id);
 				}
 			}

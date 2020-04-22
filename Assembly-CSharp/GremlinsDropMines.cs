@@ -36,19 +36,6 @@ public class GremlinsDropMines : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Drop Mines";
 		}
 		m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
@@ -73,19 +60,6 @@ public class GremlinsDropMines : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_bombInfoComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_bombInfoComp.GetDamageOnMovedOver());
 			GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		}
@@ -97,19 +71,6 @@ public class GremlinsDropMines : Ability
 		int result = 0;
 		if (m_bombInfoComp != null && m_bombInfoComp.GetEnergyOnExplosion() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 			result = m_bombInfoComp.GetEnergyOnExplosion() * visibleActorsInRangeByTooltipSubject.Count;
 		}
@@ -122,19 +83,6 @@ public class GremlinsDropMines : Ability
 		GremlinsLandMineInfoComponent component = GetComponent<GremlinsLandMineInfoComponent>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(component.m_damageAmount);
 		}
 		return list;
@@ -160,19 +108,6 @@ public class GremlinsDropMines : Ability
 		m_abilityMod = (abilityMod as AbilityMod_GremlinsDropMines);
 		if (m_bombInfoComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		if (!(m_bombInfoComp != null))
@@ -181,11 +116,6 @@ public class GremlinsDropMines : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_cachedEnemyHitEffectInfo = m_bombInfoComp.GetEnemyHitEffectOnMovedOver();
 			return;
 		}
@@ -201,19 +131,6 @@ public class GremlinsDropMines : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_bombInfoComp.m_enemyHitEffect;
 		}
 		else

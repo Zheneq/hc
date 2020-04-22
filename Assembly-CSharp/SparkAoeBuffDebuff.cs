@@ -60,19 +60,6 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Spark Aoe Buff Debuff";
 		}
 		SetupTargeter();
@@ -83,19 +70,6 @@ public class SparkAoeBuffDebuff : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_radiusMod.GetModifiedValue(m_radius);
 		}
 		else
@@ -115,19 +89,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -147,19 +108,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if ((bool)mod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = mod.m_baseSelfHealMod.GetModifiedValue(m_baseSelfHeal);
 		}
 		else
@@ -184,19 +132,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(m_selfHealCountEnemyHit);
 		}
 		else
@@ -211,19 +146,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0);
 		}
 		else
@@ -238,19 +160,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldOnSelfDuration;
 		}
 		else
@@ -265,41 +174,10 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (!GetSelfHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetSelfHealPerHit(m_abilityMod) <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetBaseSelfHeal(m_abilityMod) <= 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((GetShieldOnSelfPerAllyHit() > 0) ? 1 : 0);
 					goto IL_0064;
 				}
@@ -316,19 +194,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (!GetAllyHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((GetAllyHeal(m_abilityMod) > 0) ? 1 : 0);
 		}
 		else
@@ -343,19 +208,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (!GetEnemyHitEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_damageAmount > 0) ? 1 : 0);
 		}
 		else
@@ -370,19 +222,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfHitEffect;
 		}
 		else
@@ -402,19 +241,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -430,19 +256,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -453,15 +266,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -484,22 +288,9 @@ public class SparkAoeBuffDebuff : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 					if (!IncludeCaster())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 					}
 					base.Targeter = new AbilityUtil_Targeter_Shape(this, GetHitShape(), ShouldIgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies(), affectsCaster);
@@ -520,19 +311,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SparkAoeBuffDebuff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_SparkAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -561,19 +339,6 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (GetSelfHealPerHit(m_abilityMod) <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetBaseSelfHeal(m_abilityMod) <= 0 && GetShieldOnSelfPerAllyHit() <= 0)
 			{
 				while (true)
@@ -592,26 +357,8 @@ public class SparkAoeBuffDebuff : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int num = 0;
 				int num2 = 0;
@@ -623,26 +370,8 @@ public class SparkAoeBuffDebuff : Ability
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2++;
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int num4 = dictionary[AbilityTooltipSymbol.Healing] = CalcSelfHealAmountFromHits(num2, num);
 				if (GetShieldOnSelfPerAllyHit() > 0)
@@ -651,15 +380,6 @@ public class SparkAoeBuffDebuff : Ability
 					StandardEffectInfo selfHitEffect = GetSelfHitEffect();
 					if (selfHitEffect.m_applyEffect && selfHitEffect.m_effectData.m_absorbAmount > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 = selfHitEffect.m_effectData.m_absorbAmount;
 					}
 					dictionary[AbilityTooltipSymbol.Absorb] = num5 + num2 * GetShieldOnSelfPerAllyHit();
@@ -674,58 +394,18 @@ public class SparkAoeBuffDebuff : Ability
 		int result = 0;
 		if (GetSelfHealPerHit(m_abilityMod) <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetBaseSelfHeal(m_abilityMod) <= 0)
 			{
 				goto IL_0093;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
 		if (SelfHealCountAllyHit())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += allyHits;
 		}
 		if (SelfHealCountEnemyHit())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += enemyHits;
 		}
 		result = GetBaseSelfHeal(m_abilityMod) + num * GetSelfHealPerHit(m_abilityMod);
@@ -742,15 +422,6 @@ public class SparkAoeBuffDebuff : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SparkAoeBuffDebuff);
 			SetupTargeter();
 			return;

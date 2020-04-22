@@ -83,57 +83,17 @@ public class UIDynamicCone : MonoBehaviour
 		m_maxConePieces = 36;
 		if (m_maxConePieces * 10 < 360)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_maxConePieces++;
 		}
 		if (!m_emptyCone)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_createdConeObject = CreateConeMesh(m_initialConeWidthAngle, m_initialConeRadius, m_coneMaterial);
 		}
 		if (m_showBorder)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_maxBorderPieces = 72;
 			if (m_maxBorderPieces * 5 < 360)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_maxBorderPieces++;
 			}
 			m_createBorderObject = CreateBorderConeMesh(m_initialConeWidthAngle, m_initialConeRadius, m_borderMaterial);
@@ -142,15 +102,6 @@ public class UIDynamicCone : MonoBehaviour
 		m_sideB = HighlightUtils.Get().CreateBoundaryLine(m_initialConeRadius, true, false);
 		if (m_sideA != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_sideAParent = new GameObject();
 			m_sideA.transform.parent = m_sideAParent.transform;
 			m_sideA.transform.localPosition = new Vector3(0f, 0f, 0f - c_borderZOffset);
@@ -172,30 +123,8 @@ public class UIDynamicCone : MonoBehaviour
 			MeshFilter component = m_createdConeObject.GetComponent<MeshFilter>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (component.sharedMesh != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(component.sharedMesh);
 				}
 			}
@@ -206,11 +135,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			MeshFilter component2 = m_createBorderObject.GetComponent<MeshFilter>();
 			if (!(component2 != null))
 			{
@@ -218,20 +142,10 @@ public class UIDynamicCone : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (component2.sharedMesh != null)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						UnityEngine.Object.Destroy(component2.sharedMesh);
 						return;
 					}
@@ -249,15 +163,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			child.transform.parent = base.transform;
 			child.transform.localPosition = Vector3.zero;
 			child.transform.localRotation = Quaternion.identity;
@@ -289,15 +194,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			array[0] = Vector3.zero;
 			array2[0] = new Vector2(0.5f, 0.5f);
 			int[] array4 = new int[3 * m_maxConePieces];
@@ -315,11 +211,6 @@ public class UIDynamicCone : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_coneMesh.triangles = array4;
 				m_coneMesh.normals = array3;
 				component.material = material;
@@ -335,19 +226,6 @@ public class UIDynamicCone : MonoBehaviour
 		coneRadius = Mathf.Max(0f, coneRadius);
 		if (Mathf.Approximately(coneWidthAngle, m_currentAngleInWorld))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Mathf.Approximately(coneRadius, m_currentRadiusInWorld))
 			{
 				return;
@@ -377,15 +255,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		if (m_showBorder)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AdjustConeBorderMeshVertices(coneWidthAngle, coneRadius);
 		}
 		if (coneWidthAngle < 360f)
@@ -400,40 +269,13 @@ public class UIDynamicCone : MonoBehaviour
 					SetBorderStartOffset(m_borderStartOffsetInSquares);
 					if (m_sideA != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_sideAParent != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_sideAParent.transform.localRotation = Quaternion.LookRotation(-1f * VectorUtils.AngleDegreesToVector(90f + num));
 						}
 					}
 					if (m_sideB != null && m_sideBParent != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_sideBParent.transform.localRotation = Quaternion.LookRotation(-1f * VectorUtils.AngleDegreesToVector(90f - num));
 					}
 					SetSidesActive(!m_forceHideSides);
@@ -452,15 +294,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_createdConeObject, active);
 			return;
 		}
@@ -508,15 +341,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_borderMesh.triangles = array2;
 			m_borderMesh.normals = array;
 			component.material = material;
@@ -535,15 +359,6 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3[] vertices = m_borderMesh.vertices;
 			Vector2[] uv = m_borderMesh.uv;
 			float num = 0.5f * coneWidthAngle;
@@ -566,11 +381,6 @@ public class UIDynamicCone : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_borderMesh.vertices = vertices;
 				m_borderMesh.uv = uv;
 				return;
@@ -582,32 +392,10 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (m_sideA != null && m_sideA.activeSelf != active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_sideA, active);
 		}
 		if (m_sideB != null && m_sideB.activeSelf != active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_sideB, active);
 		}
 		m_currentSidesActive = active;
@@ -622,30 +410,8 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (m_createBorderObject != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_createBorderObject.activeSelf != active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_createBorderObject.SetActive(active);
 			}
 		}
@@ -660,19 +426,6 @@ public class UIDynamicCone : MonoBehaviour
 		float lengthInSquares = Mathf.Max(0f, num - m_borderStartOffsetInSquares);
 		if (m_sideA != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_sideAParent != null)
 			{
 				HighlightUtils.Get().ResizeBoundaryLine(lengthInSquares, m_sideA);
@@ -685,20 +438,10 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_sideBParent != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					HighlightUtils.Get().ResizeBoundaryLine(lengthInSquares, m_sideB);
 					m_sideB.transform.localPosition = new Vector3(0f, 0f, 0f - c_borderZOffset - num2);
 					return;

@@ -46,15 +46,6 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			EndNormalXPLoop();
 			return;
 		}
@@ -82,15 +73,6 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			EndGGXPLoop();
 			return;
 		}
@@ -123,71 +105,22 @@ public class UIScreenManager : MonoBehaviour
 		bool flag = false;
 		if (!m_wasInGroup && ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AppState_RankModeDraft.Get() != AppState.GetCurrent())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			AppState_GroupCharacterSelect.Get().NotifyJoinedNewGroup();
 		}
 		else if (m_wasInGroup)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_GroupCharacterSelect.Get().NotifyDroppedGroup();
 			}
 		}
 		m_wasInGroup = ClientGameManager.Get().GroupInfo.InAGroup;
 		if (UIPlayCategoryMenu.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIPlayCategoryMenu.Get().UpdateGroupInfo();
 		}
 		if (!(UIFrontEnd.Get() != null))
@@ -196,48 +129,16 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (UIFrontEnd.Get().m_playerPanel != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.Get().m_playerPanel.NotifyGroupUpdate(ClientGameManager.Get().GroupInfo.Members);
 			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.Get().m_frontEndNavPanel.NotifyGroupUpdate();
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().NotifyGroupUpdate();
 				UICharacterSelectScreenController.Get().UpdateReadyButton();
 			}
@@ -247,23 +148,9 @@ public class UIScreenManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				int num;
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (int)GameManager.Get().GameStatus;
 				}
 				else
@@ -289,11 +176,6 @@ public class UIScreenManager : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					UIFrontEnd.Get().m_frontEndNavPanel.PlayBtnClicked(null);
 					return;
 				}
@@ -311,42 +193,11 @@ public class UIScreenManager : MonoBehaviour
 		bool flag = !visible;
 		if (m_HideHUD != flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_HideHUD = flag;
 			if (!m_HideHUDDebug)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().SetMainElementsVisible(!m_HideHUD, hideChat);
 				}
 			}
@@ -358,11 +209,6 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
@@ -372,15 +218,6 @@ public class UIScreenManager : MonoBehaviour
 			CanvasGroup component = HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.GetComponent<CanvasGroup>();
 			if (nameplateVisible)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.alpha = 1f;
 			}
 			else
@@ -405,19 +242,6 @@ public class UIScreenManager : MonoBehaviour
 			CanvasGroup component = HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.GetComponent<CanvasGroup>();
 			if (nameplateVisible)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				component.alpha = 1f;
 			}
 			else
@@ -433,11 +257,6 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIFrontEnd uIFrontEnd = UIFrontEnd.Get();
 			for (int i = 0; i < uIFrontEnd.m_frontendCanvasContainers.Length; i++)
 			{
@@ -445,22 +264,8 @@ public class UIScreenManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (UICharacterSelectScreenController.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UICharacterSelectScreenController.Get().buttonContainer != null)
 					{
 						UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().buttonContainer, visible);
@@ -468,65 +273,20 @@ public class UIScreenManager : MonoBehaviour
 				}
 				if (UICharacterSelectScreen.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(UICharacterSelectScreen.Get().transform.parent, visible);
 				}
 				if (UICharacterScreen.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterScreen.Get().DoRefreshFunctions(ushort.MaxValue);
 				}
 				if (UIChatBox.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(UIChatBox.Get(), visible);
 				}
 				if (UICharacterSelectWorldObjects.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UICharacterSelectWorldObjects.Get().m_objectsToHideForToggleUI != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<GameObject>.Enumerator enumerator = UICharacterSelectWorldObjects.Get().m_objectsToHideForToggleUI.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
@@ -534,41 +294,14 @@ public class UIScreenManager : MonoBehaviour
 								GameObject current = enumerator.Current;
 								if (current != null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(current, visible);
 								}
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
 					UICharacterSelectRing[] ringAnimations = UICharacterSelectWorldObjects.Get().m_ringAnimations;
 					if (ringAnimations != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int j = 0; j < ringAnimations.Length; j++)
 						{
 							if (ringAnimations[j] != null)
@@ -576,26 +309,12 @@ public class UIScreenManager : MonoBehaviour
 								ringAnimations[j].PlayAnimation("ReadyOut");
 							}
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				if (NavigationBar.Get() != null)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						UIManager.SetGameObjectActive(NavigationBar.Get(), visible);
 						return;
 					}
@@ -613,27 +332,9 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float alpha;
 			if (visible)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				alpha = 1f;
 			}
 			else
@@ -660,33 +361,11 @@ public class UIScreenManager : MonoBehaviour
 		}
 		if (UIActorDebugPanel.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(UIActorDebugPanel.Get(), false);
 			UIActorDebugPanel.Get().Reset();
 		}
 		if ((bool)UIDebugMenu.Get())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(UIDebugMenu.Get().m_container, false);
 		}
 		if (UILoadingScreenPanel.Get() != null)
@@ -699,19 +378,6 @@ public class UIScreenManager : MonoBehaviour
 	{
 		if (normalXPLoopStartTime > 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Time.time - normalXPLoopStartTime >= 20f)
 			{
 				normalXPLoopStartTime = -1f;
@@ -733,48 +399,24 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(UIFrontEnd.Get().m_frontEndNavPanel != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!UIFrontEnd.Get().m_frontEndNavPanel.gameObject.activeInHierarchy)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!Input.GetKeyDown(KeyCode.Escape))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (!UIFrontEnd.Get().CanMenuEscape())
 						{
 							return;
@@ -799,11 +441,6 @@ public class UIScreenManager : MonoBehaviour
 							{
 								while (true)
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
 									KeyBinding_UI.Get().ToggleKeybinds();
 									return;
 								}
@@ -847,67 +484,18 @@ public class UIScreenManager : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameState gameState = GameFlowData.Get().gameState;
 			if (gameState != GameState.BothTeams_Decision)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameState != GameState.BothTeams_Resolve)
 				{
 					goto IL_015a;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (HUD_UI.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleHUD))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = !m_HideHUDDebug;
 					SetHUDHideDebug(!flag, !flag, false, true);
 					LineData.SetAllowMovementLinesVisibleForHud(!flag);
@@ -915,26 +503,8 @@ public class UIScreenManager : MonoBehaviour
 			}
 			if (HUD_UI.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleHUDExceptNameplates))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag2 = !m_HideHUDDebug;
 					SetHUDHideDebug(!flag2, true, flag2);
 					GameFlowData.Get().activeOwnedActorData.GetActorController().SetMovementDistanceLinesVisible(!flag2);
@@ -954,22 +524,8 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (!Directory.Exists("Screenshots"))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Directory.CreateDirectory("Screenshots");
 			}
 			DirectoryInfo directoryInfo = new DirectoryInfo("Screenshots");
@@ -980,15 +536,6 @@ public class UIScreenManager : MonoBehaviour
 				Match match = m_screenshotNameRegex.Match(files[i].Name);
 				if (match != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Regex regex = new Regex("\\d{8}");
 					Match match2 = regex.Match(match.Value);
 					int num2 = int.Parse(match2.Value);
@@ -1000,35 +547,12 @@ public class UIScreenManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				int superSize = 1;
 				if (!Input.GetKey(KeyCode.LeftControl))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKey(KeyCode.RightControl))
 					{
 						goto IL_026f;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				superSize = 4;
@@ -1048,24 +572,10 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_SetHandler)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_SetHandler = true;
 					ClientGameManager.Get().OnGroupUpdateNotification += HandleGroupUpdateNotification;
 					return;
@@ -1092,15 +602,6 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return text;
 		}
 	}
@@ -1119,27 +620,9 @@ public class UIScreenManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Info("HEALTHBARCHECK: Entrance success");
 			if (HUD_UI.Get().m_textConsole != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, true);
 			}
 			if (HUD_UI.Get().m_mainScreenPanel != null)

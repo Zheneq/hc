@@ -19,19 +19,6 @@ public class NumericContextOperand
 	{
 		if (m_contextKey == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_contextKey = ContextVars.GetHash(m_contextName);
 		}
 		return m_contextKey;
@@ -51,19 +38,6 @@ public class NumericContextOperand
 				abilityModPropertyFloat.CopyValuesFrom(m_additionalModifiers[i]);
 				numericContextOperand.m_additionalModifiers.Add(abilityModPropertyFloat);
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return numericContextOperand;
 	}
@@ -79,30 +53,8 @@ public class NumericContextOperand
 				AbilityModPropertyFloat abilityModPropertyFloat = m_additionalModifiers[i];
 				if (abilityModPropertyFloat.operation != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					text = text + indent + "    Then " + AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty);
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return text;

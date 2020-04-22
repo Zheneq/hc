@@ -80,15 +80,6 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DoSelect(m_isSelected, string.Empty, string.Empty);
 			return;
 		}
@@ -102,15 +93,6 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_animPrefix.IsNullOrEmpty())
 			{
 				spriteController.selectableButton = this;
@@ -128,26 +110,8 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (spriteController.m_defaultImage != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(spriteController.m_defaultImage.gameObject, !disabled);
 			}
 			if (spriteController.m_hoverImage != null)
@@ -171,59 +135,22 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isSelected)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_animationController != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (spriteController != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (spriteController.m_defaultImage != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(spriteController.m_defaultImage.gameObject, !m_isDisabled);
 						}
 					}
@@ -242,81 +169,31 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isSelected)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_animationController != null))
 				{
 					return;
 				}
 				if (spriteController != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (spriteController.m_hoverImage != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(spriteController.m_hoverImage.gameObject, !m_isDisabled);
 					}
 				}
 				if (active)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PlayAnimation("HoverIN", m_hoverAnimLayer, overrideNormalizedTime);
 				}
 				else
 				{
 					if (!forceAnim)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_isHover == active)
 						{
 							goto IL_00fc;
@@ -327,15 +204,6 @@ public class _SelectableBtn : MonoBehaviour
 						if (!forceAnim)
 						{
 							goto IL_00fc;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					PlayAnimation("HoverOUT", m_hoverAnimLayer, overrideNormalizedTime);
@@ -356,48 +224,20 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_isSelected)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_animationController != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (spriteController != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (spriteController.m_pressedImage != null)
 						{
 							UIManager.SetGameObjectActive(spriteController.m_pressedImage.gameObject, !m_isDisabled);
@@ -405,66 +245,21 @@ public class _SelectableBtn : MonoBehaviour
 					}
 					if (active)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						PlayAnimation("PressIN", m_pressAnimLayer, 0f);
 					}
 					else
 					{
 						if (!forceAnim)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_isPressed == active)
 							{
 								goto IL_013c;
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (spriteController != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (spriteController.IsMouseHover())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								NotifyHoverStatusChange(true, false, 1f);
 								goto IL_013c;
 							}
@@ -488,15 +283,6 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_selectedContainer, false);
 			return;
 		}
@@ -518,10 +304,6 @@ public class _SelectableBtn : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (selected)
 					{
 						while (true)
@@ -535,15 +317,6 @@ public class _SelectableBtn : MonoBehaviour
 								object stateName;
 								if (selectINSuffixOverride.IsNullOrEmpty())
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									stateName = "SelectIN";
 								}
 								else
@@ -558,15 +331,6 @@ public class _SelectableBtn : MonoBehaviour
 					}
 					if (spriteController != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (spriteController.IsMouseHover())
 						{
 							while (true)
@@ -602,31 +366,9 @@ public class _SelectableBtn : MonoBehaviour
 	{
 		if (m_isSelected == selected)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!forceReplayAnim)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		DoSelect(selected, selectINSuffixOverride, selectOutSuffixOverride);
@@ -645,15 +387,6 @@ public class _SelectableBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_animationController.gameObject.activeSelf)
 			{
 				while (true)
@@ -672,39 +405,12 @@ public class _SelectableBtn : MonoBehaviour
 			bool flag = false;
 			if (layer < 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < m_animationController.layerCount; i++)
 				{
 					if (m_animationController.HasState(i, num))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -715,11 +421,6 @@ public class _SelectableBtn : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_animationController.Play(num, layer, normalizedTime);
 					return;
 				}

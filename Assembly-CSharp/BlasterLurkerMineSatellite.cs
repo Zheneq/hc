@@ -31,19 +31,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				{
 					Object.Destroy(materials[i]);
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 		}
 	}
@@ -66,38 +53,11 @@ public class BlasterLurkerMineSatellite : TempSatellite
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (owner.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 					goto IL_00a5;
 				}
@@ -130,15 +90,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -155,19 +106,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
 				else
@@ -215,15 +153,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0061;
 			}
@@ -249,27 +178,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			object obj;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = GameFlowData.Get().activeOwnedActorData;
 			}
 			else
@@ -281,26 +192,8 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			int num;
 			if (!m_attackTriggered)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null && owner != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((actorData.GetTeam() == owner.GetTeam()) ? 1 : 0);
 				}
 				else
@@ -315,38 +208,11 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			bool flag = (byte)num != 0;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_modelAnimator != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 					if (!currentAnimatorStateInfo.IsTag("Despawn"))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsTag("Attack"))
 						{
 							goto IL_00fb;
@@ -365,25 +231,11 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			{
 				if (m_renderers[i] != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_renderers[i].enabled = flag;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_visible = flag;
 				return;
 			}

@@ -51,15 +51,6 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -74,29 +65,11 @@ public class UIPlayerSeasonDisplayInfo
 				{
 					if (!SeasonRewardEntries[num].Equals(uIPlayerSeasonDisplayInfo.SeasonRewardEntries[num]))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -104,15 +77,6 @@ public class UIPlayerSeasonDisplayInfo
 		bool flag2 = FullSeasonRewardEntries.Count == uIPlayerSeasonDisplayInfo.FullSeasonRewardEntries.Count;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			while (true)
 			{
@@ -120,29 +84,11 @@ public class UIPlayerSeasonDisplayInfo
 				{
 					if (!FullSeasonRewardEntries[num2].Equals(uIPlayerSeasonDisplayInfo.FullSeasonRewardEntries[num2]))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						break;
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -150,15 +96,6 @@ public class UIPlayerSeasonDisplayInfo
 		bool flag3 = RepeatingRewards.Count == uIPlayerSeasonDisplayInfo.RepeatingRewards.Count;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num3 = 0;
 			while (true)
 			{
@@ -166,29 +103,11 @@ public class UIPlayerSeasonDisplayInfo
 				{
 					if (!RepeatingRewards[num3].Equals(uIPlayerSeasonDisplayInfo.RepeatingRewards[num3]))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = false;
 						break;
 					}
 					num3++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -196,15 +115,6 @@ public class UIPlayerSeasonDisplayInfo
 		bool flag4 = ChapterEntries.Count == uIPlayerSeasonDisplayInfo.ChapterEntries.Count;
 		if (flag4)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num4 = 0;
 			while (true)
 			{
@@ -218,107 +128,26 @@ public class UIPlayerSeasonDisplayInfo
 					num4++;
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		int result;
 		if (SeasonNumber == uIPlayerSeasonDisplayInfo.SeasonNumber)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CurrentChapter == uIPlayerSeasonDisplayInfo.CurrentChapter)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SeasonName == uIPlayerSeasonDisplayInfo.SeasonName)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (PlayerSeasonLevel == uIPlayerSeasonDisplayInfo.PlayerSeasonLevel && currentPercentThroughPlayerSeasonLevel == uIPlayerSeasonDisplayInfo.currentPercentThroughPlayerSeasonLevel)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentXPThroughPlayerLevel == uIPlayerSeasonDisplayInfo.currentXPThroughPlayerLevel)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentLevelDisplayIndex == uIPlayerSeasonDisplayInfo.currentLevelDisplayIndex)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag2 && flag3)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										result = (flag4 ? 1 : 0);
 										goto IL_02e5;
 									}
@@ -347,19 +176,6 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			if (level >= repeatingReward.StartLevel)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((level - repeatingReward.StartLevel) % repeatingReward.RepeatEveryXLevels == 0)
 				{
 					list.Add(repeatingReward);
@@ -379,15 +195,6 @@ public class UIPlayerSeasonDisplayInfo
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ChapterEntries.Clear();
 			for (int j = 0; j < SeasonRewardEntries.Count; j++)
 			{
@@ -395,11 +202,6 @@ public class UIPlayerSeasonDisplayInfo
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				SeasonRewardEntries.Clear();
 				for (int k = 0; k < FullSeasonRewardEntries.Count; k++)
 				{
@@ -412,11 +214,6 @@ public class UIPlayerSeasonDisplayInfo
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					CommunityRankRewardEntries.Clear();
 					PlayerSeasonLevel = 0;
 					CommunityRank = 0;
@@ -448,19 +245,6 @@ public class UIPlayerSeasonDisplayInfo
 		SeasonEndTime = string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.StartTime.Value.Day, StringUtil.TR("Month" + timeRange.StartTime.Value.Month, "Global"), timeRange.StartTime.Value.Year) + " - ";
 		if (timeRange.EndTime.HasValue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SeasonEndTime += string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.EndTime.Value.Day, StringUtil.TR("Month" + timeRange.EndTime.Value.Month, "Global"), timeRange.EndTime.Value.Year);
 		}
 		else
@@ -474,25 +258,11 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			if (unlockedSeasonChapters[i] > num)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = unlockedSeasonChapters[i];
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			CurrentChapter = num;
 			List<SeasonChapter> chapters = SeasonWideData.Get().GetSeasonTemplate(SeasonNumber).Chapters;
 			for (int j = 0; j < count; j++)
@@ -506,15 +276,6 @@ public class UIPlayerSeasonDisplayInfo
 				SeasonChapter nextChapterInfo = null;
 				if (j + 1 < count)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					nextChapterInfo = chapters[j + 1];
 				}
 				uISeasonChapterEntry.Setup(chapters[j], previousChapterInfo, nextChapterInfo, SeasonNumber, j);
@@ -522,11 +283,6 @@ public class UIPlayerSeasonDisplayInfo
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (SeasonNumber != accountData.QuestComponent.ActiveSeason)
 				{
 					while (true)
@@ -546,15 +302,6 @@ public class UIPlayerSeasonDisplayInfo
 				{
 					if (allRewards[k].level > num2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = allRewards[k].level;
 					}
 					if (allRewards[k].repeatEveryXLevels > 0)
@@ -566,32 +313,10 @@ public class UIPlayerSeasonDisplayInfo
 				List<UISeasonRepeatingRewardInfo> repeatingRewards = RepeatingRewards;
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache0 = delegate(UISeasonRepeatingRewardInfo info1, UISeasonRepeatingRewardInfo info2)
 					{
 						if (info1 == null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (info2 == null)
 							{
 								while (true)
@@ -643,80 +368,26 @@ public class UIPlayerSeasonDisplayInfo
 					int level = allRewards[l].level;
 					if (array[level] == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array[level] = new List<SeasonReward>();
 					}
 					if (allRewards[l].repeatEveryXLevels != 0)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = true;
 					if (level <= PlayerSeasonLevel)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (allRewards[l] is SeasonItemReward)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SeasonItemReward seasonItemReward = allRewards[l] as SeasonItemReward;
 							if (!seasonItemReward.Conditions.IsNullOrEmpty() && accountData.QuestComponent.SeasonItemRewardsGranted.ContainsKey(level))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = accountData.QuestComponent.SeasonItemRewardsGranted[level].Contains(seasonItemReward.ItemReward.ItemTemplateId);
 							}
 						}
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array[allRewards[l].level].Add(allRewards[l]);
 					}
 				}
@@ -726,15 +397,6 @@ public class UIPlayerSeasonDisplayInfo
 					int num5;
 					if (array != null && array[num4] != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 = ((array[num4].Count > 0) ? 1 : 0);
 					}
 					else
@@ -744,38 +406,11 @@ public class UIPlayerSeasonDisplayInfo
 					bool flag2 = (byte)num5 != 0;
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (repeatingRewardsForLevel.Count <= 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 1)
 							{
 								goto IL_078f;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -786,15 +421,6 @@ public class UIPlayerSeasonDisplayInfo
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							UISeasonRepeatingRewardInfo current = enumerator.Current;
@@ -817,26 +443,8 @@ public class UIPlayerSeasonDisplayInfo
 					}
 					if (!flag2 && !flag3)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num4 != 1 && num4 != PlayerSeasonLevel)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != PlayerSeasonLevel + 1)
 							{
 								goto IL_078f;
@@ -856,15 +464,6 @@ public class UIPlayerSeasonDisplayInfo
 					{
 						array[num4].Add(repeatingRewardsForLevel[m].GetSeasonRewardReference());
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uISeasonRewardEntry.Init(num4, num4 <= PlayerSeasonLevel, array[num4], null, num4 == PlayerSeasonLevel);
 					SeasonRewardEntries.Add(uISeasonRewardEntry);
 					goto IL_078f;
@@ -872,30 +471,12 @@ public class UIPlayerSeasonDisplayInfo
 					List<SeasonReward> list = new List<SeasonReward>();
 					if (array[num4] != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<SeasonReward>.Enumerator enumerator2 = array[num4].GetEnumerator())
 						{
 							while (enumerator2.MoveNext())
 							{
 								SeasonReward current2 = enumerator2.Current;
 								list.Add(current2);
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -904,15 +485,6 @@ public class UIPlayerSeasonDisplayInfo
 						for (int n = 0; n < repeatingRewardsForLevel.Count; n++)
 						{
 							list.Add(repeatingRewardsForLevel[n].GetSeasonRewardReference());
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					UISeasonRewardEntry uISeasonRewardEntry2 = new UISeasonRewardEntry();

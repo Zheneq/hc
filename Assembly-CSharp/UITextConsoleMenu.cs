@@ -56,19 +56,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleButtonAction action = (UITextConsoleButtonAction)i;
 			if (IsValidButtonAction(action, true))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, OnMenuMouseOver);
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerExit, OnMenuMouseExit);
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, OnMenuMouseClicked);
@@ -112,19 +99,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			if (!IsValidButtonAction((UITextConsoleButtonAction)i))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 			if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
 			{
@@ -185,15 +159,6 @@ public class UITextConsoleMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_handle = string.Empty;
 			return;
 		}
@@ -206,30 +171,8 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleButtonAction action = (UITextConsoleButtonAction)i;
 			if (IsValidButtonAction(action))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_menuButtons[i].m_icon.color = Color.white;
 					m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -270,19 +213,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleButtonAction action = (UITextConsoleButtonAction)i;
 			if (IsValidButtonAction(action))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_menuButtons[i].m_icon.color = m_unhighlightedMenuItemColor;
 				m_menuButtons[i].m_label.color = m_unhighlightedMenuItemColor;
 			}
@@ -295,15 +225,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			int doActive;
 			if (inGame)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = (IsValidInGame(action) ? 1 : 0);
 			}
 			else
@@ -340,31 +261,9 @@ public class UITextConsoleMenu : MonoBehaviour
 		}
 		if (!(EventSystem.current.currentSelectedGameObject == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsoleMenu>() == null))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Get().SetVisible(false);

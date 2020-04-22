@@ -42,10 +42,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -118,15 +114,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnQuestCompleteNotification -= OnQuestCompleteNotification;
 			ClientGameManager.Get().OnQuestProgressChanged -= OnQuestProgressChanged;
 			ClientGameManager.Get().OnFriendStatusNotification -= OnFriendStatusNotification;
@@ -166,30 +153,8 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		UIManager.SetGameObjectActive(m_freelancerDropdownBtn, m_achievementType == AchievementType.Freelancer);
 		if (m_achievementType == AchievementType.Freelancer)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_characterType != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_freelancerDropdownBtn.Setup(GameWideData.Get().GetCharacterDisplayName(m_characterType), m_characterType);
 			}
 			else
@@ -208,86 +173,23 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!questTemplate.Enabled)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			if (m_achievementType != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questTemplate.AchievmentType != m_achievementType)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (m_achievementType == AchievementType.Freelancer)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_characterType != 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!QuestWideData.IsCharacterQuest(questTemplate.Objectives, GameWideData.Get().GetCharacterResourceLink(m_characterType)))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -300,15 +202,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		{
 			if (quests[k].AchievementPrevious > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary.Remove(quests[k].AchievementPrevious);
 			}
 		}
@@ -324,15 +217,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			UIPlayerProgressAchievementItem uIPlayerProgressAchievementItem;
 			if (i >= m_achievementItems.Count)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uIPlayerProgressAchievementItem = Object.Instantiate(m_itemPrefab);
 				int num2 = m_achievementItems.Count % m_verticalColumns.Length;
 				uIPlayerProgressAchievementItem.transform.SetParent(m_verticalColumns[num2].transform);
@@ -350,15 +234,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			i++;
 			num += uIPlayerProgressAchievementItem.Setup(quest, questMetaDatas);
 		}
-		while (true)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (; i < m_achievementItems.Count; i++)
 		{
 			UIManager.SetGameObjectActive(m_achievementItems[i], false);
@@ -371,11 +246,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_scrollRect.verticalNormalizedPosition = 1f;
 			return;
 		}

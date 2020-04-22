@@ -31,19 +31,6 @@ public class PatrolState : FSMState
 		m_PatrolPath.m_currentWayPoint = m_PatrolPath.GetInitalWaypoint();
 		if (m_PatrolPath.m_currentWayPoint == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC " + base.MyBrain.name);
 		}
 		GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, m_PatrolPath.m_currentWayPoint, m_PatrolPath.mWayPoints.IndexOf(m_PatrolPath.m_currentWayPoint), m_PatrolPath, m_PatrolPath.m_AlternateDestination == null);
@@ -54,15 +41,6 @@ public class PatrolState : FSMState
 	{
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NPCBrain_StateMachine nPCBrain_StateMachine = thisBrain as NPCBrain_StateMachine;
 			AbilityData component = thisBrain.GetComponent<AbilityData>();
 			ActorData component2 = nPCBrain_StateMachine.GetComponent<ActorData>();
@@ -74,11 +52,6 @@ public class PatrolState : FSMState
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!component2 || !component3 || !component4)
 				{
 					yield break;
@@ -108,26 +81,8 @@ public class PatrolState : FSMState
 				float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
 				if (!currentWayPoint.MustArriveAtWayPointToContinue && currentBoardSquare != boardSquare)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 < remainingHorizontalMovement)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_PatrolPath.m_AlternateDestination == null)
 						{
 							while (true)
@@ -136,15 +91,6 @@ public class PatrolState : FSMState
 								{
 									if (!(boardSquare.OccupantActor == base.MyActorData))
 									{
-										break;
-									}
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
 										break;
 									}
 								}
@@ -165,27 +111,9 @@ public class PatrolState : FSMState
 						component3.SelectMovementSquareForMovement(boardSquare);
 						yield break;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (turnsToDelayRemaining == -1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.Log("Arrived at point: " + boardSquare);
 					GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.PointReached, base.MyActorData, currentWayPoint, m_PatrolPath.mWayPoints.IndexOf(currentWayPoint), m_PatrolPath, m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
@@ -206,10 +134,6 @@ public class PatrolState : FSMState
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									m_PatrolPath.WaypointsVisitedThisCycle++;
 									return;
 								}

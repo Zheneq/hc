@@ -38,10 +38,6 @@ public class UICharacterMovementItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -54,19 +50,6 @@ public class UICharacterMovementItem : MonoBehaviour
 	{
 		if (actorDataRef.Contains(data))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actorDataRef.Remove(data);
 			UpdateIndicators();
 		}
@@ -79,19 +62,6 @@ public class UICharacterMovementItem : MonoBehaviour
 		int num2 = 0;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < actorDataRef.Count; i++)
 			{
 				if (actorDataRef[i] == null)
@@ -101,41 +71,14 @@ public class UICharacterMovementItem : MonoBehaviour
 				int num3;
 				if (ClientGameManager.Get() != null && ClientGameManager.Get().PlayerInfo != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
 					{
 						num3 = 1;
 						goto IL_00db;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = ((GameManager.Get().PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
 				}
 				else
@@ -147,28 +90,10 @@ public class UICharacterMovementItem : MonoBehaviour
 				int num4;
 				if (num3 != 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = ((actorDataRef[i].GetTeam() == Team.TeamA) ? 1 : 0);
 				}
 				else if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = ((actorDataRef[i].GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam()) ? 1 : 0);
 				}
 				else
@@ -177,27 +102,9 @@ public class UICharacterMovementItem : MonoBehaviour
 				}
 				if (num4 != 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterMovementMarker uICharacterMovementMarker = m_blueMarkers[num];
 					if (uICharacterMovementMarker != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (uICharacterMovementMarker.gameObject != null)
 						{
 							UIManager.SetGameObjectActive(uICharacterMovementMarker, true);
@@ -210,28 +117,10 @@ public class UICharacterMovementItem : MonoBehaviour
 				UICharacterMovementMarker uICharacterMovementMarker2 = m_redMarkers[num2];
 				if (uICharacterMovementMarker2 != null && uICharacterMovementMarker2.gameObject != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(uICharacterMovementMarker2, true);
 					uICharacterMovementMarker2.m_characterImage.sprite = actorDataRef[i].GetScreenIndicatorIcon();
 					num2++;
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = num; j < m_blueMarkers.Length; j++)
@@ -243,24 +132,10 @@ public class UICharacterMovementItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int k = num2; k < m_redMarkers.Length; k++)
 			{
 				if (m_redMarkers[k] != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_redMarkers[k], false);
 				}
 			}
@@ -288,49 +163,18 @@ public class UICharacterMovementItem : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (myCanvas == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			myCanvas = HUD_UI.Get().GetTopLevelCanvas();
 		}
 		if (myCanvas != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CanvasRect == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CanvasRect = (myCanvas.transform as RectTransform);
 			}
 		}
@@ -340,11 +184,6 @@ public class UICharacterMovementItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 vector = boardSquareRef.gameObject.transform.position + Vector3.up * m_heightOffset;
 			Vector3 b = Camera.main.WorldToScreenPoint(vector);
 			Vector3 a = Camera.main.WorldToScreenPoint(vector + Camera.main.transform.up);

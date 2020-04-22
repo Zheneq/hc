@@ -64,19 +64,6 @@ public class ExoDualCone : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Dual Cones";
 		}
 		SetupTargeter();
@@ -86,19 +73,6 @@ public class ExoDualCone : Ability
 	{
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Exo_SyncComponent>();
 		}
 		SetCachedFields();
@@ -133,19 +107,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo cachedEffectOnHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnHit = m_abilityMod.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
@@ -156,15 +117,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo cachedEffectOnOverlapHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnOverlapHit = m_abilityMod.m_effectOnOverlapHitMod.GetModifiedValue(m_effectOnOverlapHit);
 		}
 		else
@@ -179,19 +131,6 @@ public class ExoDualCone : Ability
 		ConeTargetingInfo result;
 		if (m_cachedConeInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedConeInfo;
 		}
 		else
@@ -206,19 +145,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_leftConeHorizontalOffsetMod.GetModifiedValue(m_leftConeHorizontalOffset);
 		}
 		else
@@ -238,19 +164,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneForwardOffsetMod.GetModifiedValue(m_coneForwardOffset);
 		}
 		else
@@ -280,19 +193,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_interpolateMinAngleMod.GetModifiedValue(m_interpolateMinAngle);
 		}
 		else
@@ -307,19 +207,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_interpolateMaxAngleMod.GetModifiedValue(m_interpolateMaxAngle);
 		}
 		else
@@ -334,19 +221,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_interpolateMinDistMod.GetModifiedValue(m_interpolateMinDist);
 		}
 		else
@@ -361,19 +235,6 @@ public class ExoDualCone : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_interpolateMaxDistMod.GetModifiedValue(m_interpolateMaxDist);
 		}
 		else
@@ -388,19 +249,6 @@ public class ExoDualCone : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -420,19 +268,6 @@ public class ExoDualCone : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
@@ -447,19 +282,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnHit != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnHit;
 		}
 		else
@@ -474,19 +296,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnOverlapHit != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnOverlapHit;
 		}
 		else
@@ -501,19 +310,6 @@ public class ExoDualCone : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForConsecitiveHitMod.GetModifiedValue(m_extraDamageForConsecutiveUse);
 		}
 		else
@@ -555,19 +351,6 @@ public class ExoDualCone : Ability
 		float num2 = GetRightConeDegreesFromForward();
 		if (InterpolateAngle())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num3 = CalculateAngleFromCenter(currentTarget, base.ActorData);
 			num = num3;
 			num2 = num3;
@@ -594,10 +377,6 @@ public class ExoDualCone : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 vector = currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition();
 					vector.y = 0f;
 					float value = vector.magnitude / Board.Get().squareSize;
@@ -619,19 +398,6 @@ public class ExoDualCone : Ability
 		int val;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ExoDualCone.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -643,15 +409,6 @@ public class ExoDualCone : Ability
 		int val2;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ExoDualCone.m_extraDamageForOverlapMod.GetModifiedValue(m_extraDamageForOverlap);
 		}
 		else
@@ -663,15 +420,6 @@ public class ExoDualCone : Ability
 		int val3;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ExoDualCone.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
@@ -683,15 +431,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ExoDualCone.m_effectOnHitMod.GetModifiedValue(m_effectOnHit);
 		}
 		else
@@ -702,15 +441,6 @@ public class ExoDualCone : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ExoDualCone.m_effectOnOverlapHitMod.GetModifiedValue(m_effectOnOverlapHit);
 		}
 		else
@@ -723,15 +453,6 @@ public class ExoDualCone : Ability
 		int val4;
 		if ((bool)abilityMod_ExoDualCone)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ExoDualCone.m_extraEnergyForConsecutiveUseMod.GetModifiedValue(m_extraEnergyForConsecutiveUse);
 		}
 		else
@@ -754,41 +475,10 @@ public class ExoDualCone : Ability
 		int num = GetDamageAmount();
 		if (GetExtraDamageForConsecitiveHit() > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp.UsedBasicAttackLastTurn())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += GetExtraDamageForConsecitiveHit();
 				}
 			}
@@ -796,39 +486,12 @@ public class ExoDualCone : Ability
 		int tooltipSubjectCountOnActor = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
 		if (tooltipSubjectCountOnActor > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectCountOnActor == 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += GetExtraDamageForSingleHit();
 			}
 			else if (tooltipSubjectCountOnActor > 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += (tooltipSubjectCountOnActor - 1) * GetExtraDamageForOverlap();
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -840,30 +503,8 @@ public class ExoDualCone : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.UsedBasicAttackLastTurn())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetExtraEnergyForConsecutiveUse() > 0)
 				{
 					int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);

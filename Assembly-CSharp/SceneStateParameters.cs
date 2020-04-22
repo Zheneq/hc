@@ -13,30 +13,8 @@ public class SceneStateParameters
 			int result;
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().GroupInfo.InAGroup)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (ClientGameManager.Get().GroupInfo.IsLeader ? 1 : 0);
 					goto IL_0055;
 				}
@@ -55,30 +33,8 @@ public class SceneStateParameters
 			int result;
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().GroupInfo.InAGroup)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((!ClientGameManager.Get().GroupInfo.IsLeader) ? 1 : 0);
 					goto IL_0059;
 				}
@@ -98,78 +54,20 @@ public class SceneStateParameters
 		{
 			if (GameManager.Get().QueueInfo == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameManager.Get().GameStatus != GameStatus.LoadoutSelecting && GameManager.Get().GameStatus != GameStatus.FreelancerSelecting)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GroupInfo != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GroupInfo.InAGroup)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int i = 0; i < ClientGameManager.Get().GroupInfo.Members.Count; i++)
 							{
 								if (ClientGameManager.Get().GroupInfo.Members[i].AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (AppState_GroupCharacterSelect.Get().IsReady())
 									{
 										return true;
@@ -179,37 +77,14 @@ public class SceneStateParameters
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!AppState_CharacterSelect.IsReady())
 								{
 									continue;
 								}
 								while (true)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
 									return true;
 								}
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -226,30 +101,8 @@ public class SceneStateParameters
 			int result;
 			if (GameManager.Get().GameInfo != null && GameManager.Get().PlayerInfo != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((GameManager.Get().GameStatus != GameStatus.None) ? 1 : 0);
 					goto IL_0065;
 				}
@@ -268,30 +121,8 @@ public class SceneStateParameters
 			int result;
 			if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameManager.Get().GameInfo.GameConfig != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom) ? 1 : 0);
 					goto IL_0073;
 				}
@@ -310,30 +141,8 @@ public class SceneStateParameters
 			int result;
 			if (!IsInGameLobby)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().GroupInfo != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Practice) ? 1 : 0);
 					goto IL_004d;
 				}
@@ -360,10 +169,6 @@ public class SceneStateParameters
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return ClientGameManager.Get().GroupInfo.ChararacterInfo.CharacterType;
 					}
 				}
@@ -385,10 +190,6 @@ public class SceneStateParameters
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter;
 					}
 				}
@@ -403,30 +204,8 @@ public class SceneStateParameters
 		{
 			if (GameManager.Get().GameInfo != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
 						return GameManager.Get().PlayerInfo.CharacterType;

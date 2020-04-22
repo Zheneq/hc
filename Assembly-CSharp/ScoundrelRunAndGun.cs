@@ -18,19 +18,6 @@ public class ScoundrelRunAndGun : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Run and Gun";
 		}
 		SetupTargeter();
@@ -48,10 +35,6 @@ public class ScoundrelRunAndGun : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, m_damageRadius, m_damageRadius, m_damageRadius, -1, false, m_penetrateLineOfSight);
 					return;
 				}
@@ -96,10 +79,6 @@ public class ScoundrelRunAndGun : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_techPointGainWithNoHits.GetModifiedValue(0);
 				}
 			}
@@ -111,19 +90,6 @@ public class ScoundrelRunAndGun : Ability
 	{
 		if (GetTechPointGainWithNoHits() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 0)
 			{
 				while (true)
@@ -189,19 +155,6 @@ public class ScoundrelRunAndGun : Ability
 		int result = 1;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_numTargeters > 1)
 			{
 				result = m_abilityMod.m_numTargeters;
@@ -225,15 +178,6 @@ public class ScoundrelRunAndGun : Ability
 				BoardSquare boardSquare;
 				if (targetIndex == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = caster.GetCurrentBoardSquare();
 				}
 				else
@@ -246,15 +190,6 @@ public class ScoundrelRunAndGun : Ability
 				int num2;
 				if (num >= m_abilityMod.m_minDistanceBetweenSteps * squareSize)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((num <= m_abilityMod.m_maxDistanceBetweenSteps * squareSize) ? 1 : 0);
 				}
 				else
@@ -264,54 +199,18 @@ public class ScoundrelRunAndGun : Ability
 				bool flag3 = (byte)num2 != 0;
 				if (flag2 && flag3)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_abilityMod.m_minDistanceBetweenAnySteps > 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < targetIndex; i++)
 						{
 							BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
 							flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= m_abilityMod.m_minDistanceBetweenAnySteps * squareSize);
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				int result;
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (flag3 ? 1 : 0);
 				}
 				else
@@ -319,19 +218,6 @@ public class ScoundrelRunAndGun : Ability
 					result = 0;
 				}
 				return (byte)result != 0;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;

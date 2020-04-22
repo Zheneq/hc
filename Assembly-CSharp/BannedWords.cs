@@ -22,10 +22,6 @@ public class BannedWords
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return phrase;
 				}
 			}
@@ -41,15 +37,6 @@ public class BannedWords
 				int num3;
 				if (num2 < 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = phrase.Length - num;
 				}
 				else
@@ -67,29 +54,11 @@ public class BannedWords
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string[] fullStrings = bannedWordsData.m_fullStrings;
 						foreach (string b in fullStrings)
 						{
 							if (text == b)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Mask(stringBuilder, num, num4);
 							}
 						}
@@ -111,26 +80,8 @@ public class BannedWords
 									num5++;
 									continue;
 								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						string[] prefixStrings = bannedWordsData.m_prefixStrings;
 						foreach (string text3 in prefixStrings)
@@ -141,77 +92,23 @@ public class BannedWords
 								Mask(stringBuilder, num, length2);
 							}
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string[] suffixStrings = bannedWordsData.m_suffixStrings;
 						foreach (string text4 in suffixStrings)
 						{
 							int length3 = text4.Length;
 							if (text.EndsWith(text4))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Mask(stringBuilder, num + num4 - length3, length3);
 							}
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num2 < 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				num = num2 + 1;
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

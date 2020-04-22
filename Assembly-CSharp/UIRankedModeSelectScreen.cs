@@ -145,19 +145,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		CanvasGroup component = m_rankList.GetComponent<CanvasGroup>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.blocksRaycasts = true;
 			component.interactable = true;
 		}
@@ -168,19 +155,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnGroupUpdateNotification -= HandleGroupUpdateNotification;
 		}
 		s_instance = null;
@@ -194,15 +168,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -215,15 +180,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -238,19 +194,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		else if (m_selectedViewTab == UIRankDisplayType.Duo)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 2;
 		}
 		else
@@ -266,28 +209,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		else if (m_selectedRank == 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (TierInfoPerGroupSize != null)
 			{
 				if (TierInfoPerGroupSize.ContainsKey(num2))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TierInfoPerGroupSize[num2].OurEntry.HasValue)
 					{
 						RankedScoreboardEntry value = TierInfoPerGroupSize[num2].OurEntry.Value;
@@ -300,38 +225,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						int winStreak = value3.WinStreak;
 						if (winStreak != 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_streakContainer, false);
 							if (winStreak > 0)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (winStreak > 1)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_StreakLabel.text = string.Format(StringUtil.TR("RankedWinStreak", "RankMode"), winStreak.ToString());
 								}
 								else
@@ -341,15 +239,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							else if (winStreak < -1)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_StreakLabel.text = string.Format(StringUtil.TR("RankedLossStreak", "RankMode"), Mathf.Abs(winStreak).ToString());
 							}
 							else
@@ -392,28 +281,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		m_RankDropdownTopPlayers.spriteController.SetClickable(m_selectedRank != 2);
 		if (m_selectedRank == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetDropdownText(StringUtil.TR("MyInstance", "RankMode"));
 		}
 		else if (m_selectedRank == 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetDropdownText(StringUtil.TR("Friends", "Global"));
 		}
 		else if (m_selectedRank == 2)
@@ -435,10 +306,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SelectRankFilter(0);
 					return;
 				}
@@ -465,15 +332,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_RankDropdownDivision.spriteController.ForceSetPointerEntered(false);
 			m_RankDropdownFriends.spriteController.ForceSetPointerEntered(false);
 			m_RankDropdownTopPlayers.spriteController.ForceSetPointerEntered(false);
@@ -489,15 +347,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DoFilterDropdownVisible(visible);
 			return;
 		}
@@ -523,19 +372,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		int result = 0;
 		if (m_selectedQueueType == UIRankDisplayType.Solo)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 1;
 		}
 		else if (m_selectedQueueType == UIRankDisplayType.Duo)
@@ -557,15 +393,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				KeyValuePair<GameType, GameTypeAvailability> current = enumerator.Current;
@@ -578,10 +405,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (current.Value.IsActive)
 							{
 								return true;
@@ -604,15 +427,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				KeyValuePair<GameType, GameTypeAvailability> current = enumerator.Current;
@@ -626,10 +440,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							int key = ConvertDisplayTypeToGroupSize(m_selectedQueueType);
 							if (!current.Value.QueueableGroupSizes.IsNullOrEmpty())
 							{
@@ -690,10 +500,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_emptyRankListText != null)
 					{
 						while (true)
@@ -760,11 +566,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_emptyRankListText.text = StringUtil.TR("PlayMoreToGetRanked", "RankMode");
 			return;
 		}
@@ -776,63 +577,14 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		bool flag = false;
 		if (Details.RequirementTypeNotMet.HasValue)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Details.RequirementTypeNotMet.Value == QueueRequirement.RequirementType.VsHumanMatches && Details.CausedBySelf.HasValue)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Details.CausedBySelf.Value)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Details.NumGamesPlayed.HasValue)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Details.NumGamesRequired.HasValue)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							m_UnlockText.text = $"{Details.NumGamesPlayed.Value}/{Details.NumGamesRequired.Value}";
 							m_UnlockFillBar.fillAmount = UIPlayerProfileRankDisplay.GetRankFillAmt((float)Details.NumGamesPlayed.Value / (float)Details.NumGamesRequired.Value);
@@ -849,19 +601,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (displayLoading)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_rewardContainer, false);
 			UIManager.SetGameObjectActive(m_LockedRankedModeContainer, false);
 			UIManager.SetGameObjectActive(m_UnlockedRankedModeContainer, false);
@@ -889,10 +628,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!specificResponse.Entries.IsNullOrEmpty())
 						{
 							while (true)
@@ -938,19 +673,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		if (m_selectedViewTab != tab)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_ourTier = -1;
 			m_ourDivisionId = -1;
 		}
@@ -958,67 +680,22 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		int key = 0;
 		if (tab == UIRankDisplayType.Solo)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			key = 1;
 		}
 		else if (tab == UIRankDisplayType.Duo)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			key = 2;
 		}
 		else if (tab == UIRankDisplayType.FullTeam)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			key = 4;
 		}
 		if (TierInfoPerGroupSize.ContainsKey(key) && m_selectedRank == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PerGroupSizeTierInfo perGroupSizeTierInfo = TierInfoPerGroupSize[key];
 			RankedScoreboardEntry? ourEntry = perGroupSizeTierInfo.OurEntry;
 			if (ourEntry.HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (TierInfoPerGroupSize[key].OurEntry.HasValue)
 				{
 					goto IL_016e;
@@ -1048,10 +725,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OpenTab(UIRankDisplayType.Duo);
 					return;
 				}
@@ -1069,11 +742,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				OpenTab(UIRankDisplayType.Reward);
 				return;
 			}
@@ -1085,43 +753,12 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		m_selectedQueueType = UIRankDisplayType.None;
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().GroupInfo.Members.Count == 2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selectedQueueType = UIRankDisplayType.Duo;
 			}
 			else if (ClientGameManager.Get().GroupInfo.Members.Count == 4)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selectedQueueType = UIRankDisplayType.FullTeam;
 			}
 		}
@@ -1158,19 +795,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		int num = clientGameManager.GroupInfo.Members.Count;
 		if (num < 1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1;
 		}
 		bool flag2 = clientGameManager.MeetsGroupSizeRequirement(GameType.Ranked, num);
@@ -1178,27 +802,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		int num2;
 		if (clientGameManager.GameTypeAvailabilies.ContainsKey(GameType.Ranked))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			DateTime? penaltyTimeout = clientGameManager.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout;
 			if (penaltyTimeout.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((DateTime.UtcNow < clientGameManager.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value) ? 1 : 0);
 				goto IL_00bb;
 			}
@@ -1214,15 +820,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		{
 			if (!flag3)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cannotQueue = RankedQueueRejectionReasons.ServerDisabled;
 			}
 			else if (!flag2)
@@ -1231,28 +828,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			}
 			else if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cannotQueue = RankedQueueRejectionReasons.DoNotMeetRequirements;
 			}
 			else if (flag5)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cannotQueue = RankedQueueRejectionReasons.PenaltyTimeout;
 			}
 			else if (flag6)
@@ -1272,15 +851,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		flag6 = false;
 		if (clientGameManager.GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num4 = 0;
 			while (true)
 			{
@@ -1289,26 +859,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					DateTime? penaltyTimeout2 = clientGameManager.GroupInfo.Members[num4].PenaltyTimeout;
 					if (penaltyTimeout2.HasValue)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (DateTime.UtcNow < clientGameManager.GroupInfo.Members[num4].PenaltyTimeout.Value)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag6 = true;
 							break;
 						}
@@ -1316,73 +868,19 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					num4++;
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		if (m_selectedQueueType != UIRankDisplayType.None)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag5)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = ((!flag6) ? 1 : 0);
 							goto IL_01c8;
 						}
@@ -1412,43 +910,16 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (!m_startQueueBtn.spriteController.IsClickable())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 			if (m_cannotQueue == RankedQueueRejectionReasons.DoNotMeetRequirements)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager clientGameManager = ClientGameManager.Get();
 					LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(GameType.Ranked);
 					string text;
 					if (blockingQueueRestriction == null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("UnknownError", "Global");
 					}
 					else
@@ -1464,11 +935,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					int num = ClientGameManager.Get().GroupInfo.Members.Count;
 					if (num < 1)
 					{
@@ -1477,15 +943,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					LocalizationPayload localizationPayload = ClientGameManager.Get().GetReasonGroupSizeCantQueue(GameType.Ranked, num);
 					if (localizationPayload == null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						localizationPayload = LocalizationPayload.Create("BadGroupSizeForQueue", "Matchmaking", LocalizationArg_Int32.Create(num));
 					}
 					uITitledTooltip.Setup(StringUtil.TR("IncorrectGroupSizeTitle", "Ranked"), localizationPayload.ToString(), string.Empty);
@@ -1496,11 +953,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					uITitledTooltip.Setup(StringUtil.TR("Disabled", "Global"), string.Format(StringUtil.TR("RankedModeDisabled", "Ranked")), string.Empty);
 					return true;
 				}
@@ -1509,11 +961,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager clientGameManager2 = ClientGameManager.Get();
 					TimeSpan difference = clientGameManager2.GameTypeAvailabilies[GameType.Ranked].PenaltyTimeout.Value - DateTime.UtcNow;
 					string timeDifferenceText = StringUtil.GetTimeDifferenceText(difference);
@@ -1537,15 +984,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							DateTime? penaltyTimeout = ClientGameManager.Get().GroupInfo.Members[i].PenaltyTimeout;
 							if (penaltyTimeout.HasValue)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text2 = text2 + ClientGameManager.Get().GroupInfo.Members[i].MemberDisplayName + " ";
 							}
 						}
@@ -1576,15 +1014,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1594,32 +1023,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		List<UIRankingDisplayEntry> list = new List<UIRankingDisplayEntry>();
 		if (!entries.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < entries.Count; i++)
 			{
 				UIRankingDisplayEntry item = new UIRankingDisplayEntry(entries[i], groupSize);
 				list.Add(item);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -1636,33 +1043,11 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 					KeyValuePair<int, PerGroupSizeTierInfo> current = enumerator.Current;
 					if (current.Value.OurEntry.HasValue)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int key = current.Key;
 						RankedScoreboardEntry value = current.Value.OurEntry.Value;
 						int tier = value.Tier;
 						if (tierInfoPerGroupSize.TryGetValue(key, out PerGroupSizeTierInfo value2) && value2.OurEntry.HasValue)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							string text = null;
 							RankedScoreboardEntry value3 = value2.OurEntry.Value;
 							int tier2 = value3.Tier;
@@ -1672,41 +1057,14 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							}
 							else if (tier2 < tier)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = "TierRaised";
 							}
 							else if (tier2 > tier)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = "TierLowered";
 							}
 							if (text != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string[] array = new string[4]
 								{
 									"SoloGroup",
@@ -1725,15 +1083,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 					}
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		s_tierInfoPerGroupSize = tierInfoPerGroupSize;
@@ -1743,11 +1092,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_rankDisplays.Length; i++)
 			{
 				m_rankDisplays[i].Setup((UIRankDisplayType)i, s_tierInfoPerGroupSize);
@@ -1755,28 +1099,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			UIRankDisplayType tab = UIRankDisplayType.Solo;
 			if (ClientGameManager.Get().GroupInfo.Members.Count == 2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tab = UIRankDisplayType.Duo;
 			}
 			else if (ClientGameManager.Get().GroupInfo.Members.Count == 4)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tab = UIRankDisplayType.FullTeam;
 			}
 			OpenTab(tab);
@@ -1796,30 +1122,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_rankRewardDisabledNotice, !GameManager.Get().GameplayOverrides.RankedUpdatesEnabled);
 				m_rankRewardDisabledNotice.text = StringUtil.TR("RankRewardsDisabledDescription", "OverlayScreensScene");
 			}
@@ -1833,26 +1137,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				UIManager.SetGameObjectActive(m_rankDisplays[i].m_InPlacementMatchesContainer, false);
 				UIManager.SetGameObjectActive(m_rankDisplays[i].m_HasRankAlreadyContainer, false);
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_loadedData)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_soloRankTabButton.spriteController.SetClickable(false);
 				m_duoRankTabButton.spriteController.SetClickable(false);
 				m_teamRankTabButton.spriteController.SetClickable(false);
@@ -1873,10 +1159,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							m_loadedData = true;
 							m_soloRankTabButton.spriteController.SetClickable(true);
 							m_duoRankTabButton.spriteController.SetClickable(true);
@@ -1891,15 +1173,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				LobbyGameClientInterface lobbyInterface = ClientGameManager.Get().LobbyInterface;
 				if (lobbyInterface != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lobbyInterface.WriteErrorToConsole(overviewResponse.LocalizedFailure, overviewResponse.ErrorMessage);
 				}
 				Log.Error("Failed to load overall Ranked Leaderboard info: " + overviewResponse.ErrorMessage);
@@ -1924,10 +1197,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CheckQueueButtonStatus();
 					return;
 				}
@@ -1949,54 +1218,18 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null && component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIMainMenu componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UIMainMenu>();
 						bool flag2 = false;
 						if (componentInParent == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
@@ -2006,50 +1239,14 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 									{
 										if (!(componentInParent2 == m_filterListDropdownBtn))
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!(componentInParent2 == m_RankDropdownDivision))
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!(componentInParent2 == m_RankDropdownFriends))
 												{
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!(componentInParent2 == m_RankDropdownTopPlayers))
 													{
 														componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
 														continue;
-													}
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 											}
@@ -2058,15 +1255,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 									}
 									else
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									break;
 								}
@@ -2074,15 +1262,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						}
 						if (!(componentInParent != null))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
 								goto IL_01b1;
@@ -2106,43 +1285,12 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (tier > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameType key = GameType.Ranked;
 				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tier <= value.PerTierDefinitions.Count)
 					{
 						while (true)
@@ -2169,43 +1317,12 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 	{
 		if (tier > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameType key = GameType.Ranked;
 				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tier <= value.PerTierDefinitions.Count)
 					{
 						while (true)
@@ -2241,10 +1358,6 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (tier >= 2)
 					{
 						instanceName = clientGameManager.GetTierInstanceName(instanceId);

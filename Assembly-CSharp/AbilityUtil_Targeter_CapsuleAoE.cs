@@ -30,19 +30,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		int shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
 		}
 		else
@@ -65,19 +52,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		BoardSquare boardSquare;
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 		}
 		else
@@ -91,26 +65,8 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		else if (m_ability.GetExpectedNumberOfTargeters() == 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetDefaultStartSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare2 = GetDefaultStartSquare();
 			}
 		}
@@ -121,15 +77,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		bool flag3 = m_radiusAroundEnd > 0f;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float widthInSquares = m_rangeFromLine * 2f;
 			if (m_highlights.Count == 0)
 			{
@@ -138,37 +85,10 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			}
 			if (vector == vector2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_highlights.Count > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_highlights[0] != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_highlights[0].SetActive(false);
 					}
 				}
@@ -177,15 +97,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			{
 				if (m_highlights.Count > 0 && m_highlights[0] != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_highlights[0].SetActive(true);
 				}
 				TargeterUtils.RefreshLaserBoxHighlight(m_highlights[0], vector, vector2, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
@@ -193,29 +104,11 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count != 1)
 			{
 				if (m_highlights.Count != 0 || flag)
 				{
 					goto IL_025e;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			GameObject item2 = TargeterUtils.CreateCircleHighlight(vector, m_radiusAroundStart, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
@@ -231,27 +124,9 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		{
 			if (GetAffectsTarget(item4, targetingActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 damageOrigin = vector;
 				if (UseEndPosAsDamageOriginIfOverlap)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 travelBoardSquareWorldPosition = item4.GetTravelBoardSquareWorldPosition();
 					travelBoardSquareWorldPosition.y = vector2.y;
 					if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
@@ -262,53 +137,17 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 				AddActorInRange(item4, damageOrigin, targetingActor);
 				if (m_radiusAroundStart > 0f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = VectorUtils.HorizontalPlaneDistInSquares(vector, item4.GetTravelBoardSquareWorldPosition());
 					if (num <= m_radiusAroundStart * Board.Get().squareSize)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(item4, damageOrigin, targetingActor, AbilityTooltipSubject.Near, true);
 					}
 				}
 				if (m_radiusAroundEnd > 0f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector2, item4.GetTravelBoardSquareWorldPosition());
 					if (num2 <= m_radiusAroundEnd * Board.Get().squareSize)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(item4, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
 					}
 				}
@@ -320,11 +159,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInRadiusOfLine(m_indicatorHandler, vector, vector2, m_radiusAroundStart, m_radiusAroundEnd, m_rangeFromLine, m_penetrateLoS, targetingActor);
 			HideUnusedSquareIndicators();
@@ -338,28 +172,10 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		int num3 = 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3++;
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3++;
 		}
 		TargeterUtils.RefreshCircleHighlight(m_highlights[num3], vector2, TargeterUtils.HeightAdjustType.FromPathArrow);
@@ -373,99 +189,27 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		{
 			if (m_highlights.Count == 2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
 						goto IL_031b;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (m_highlights.Count == 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2 ^ flag)
 				{
 					goto IL_031b;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_highlights.Count == 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_031b;
 					}
 				}

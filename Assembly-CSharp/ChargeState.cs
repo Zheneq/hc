@@ -20,10 +20,6 @@ public class ChargeState : MoveState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_moveSpeed = aesheticPath.segmentMovementSpeed;
 					return;
 				}
@@ -35,24 +31,10 @@ public class ChargeState : MoveState
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			BoardSquarePathInfo prev = aesheticPath.prev;
 			Vector3 a;
 			if (prev == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = owner.m_actor.transform.position;
 			}
 			else
@@ -79,19 +61,6 @@ public class ChargeState : MoveState
 	{
 		if (m_ownerActorData.GetActorModelData() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_ownerActorData.GetActorModelData().IsPlayingChargeEnd())
 			{
 				BoardSquare square = m_pathSquareInfo.square;
@@ -100,30 +69,12 @@ public class ChargeState : MoveState
 				m_owner.m_actor.SetTransformPositionToVector(worldPosition);
 				if (m_pathSquareInfo.next != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_pathSquareInfo.chargeEndType == BoardSquarePathInfo.ChargeEndType.Pivot)
 					{
 						Vector3 dir = m_pathSquareInfo.next.square.ToVector3() - worldPosition;
 						dir.y = 0f;
 						if (dir.magnitude > 0f)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							dir.Normalize();
 							m_owner.m_actor.TurnToDirection(dir);
 						}
@@ -159,37 +110,10 @@ public class ChargeState : MoveState
 		float num = Time.deltaTime;
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num > 0.04f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 0.08f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0.04f;
 				}
 			}
@@ -208,15 +132,6 @@ public class ChargeState : MoveState
 			float num4 = Board.Get().squareSize * Board.Get().squareSize;
 			if (m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_playedEnd || sqrMagnitude < num4)
 				{
 					dir2 = m_owner.m_actor.GetFacingDirAfterMovement();
@@ -229,26 +144,12 @@ public class ChargeState : MoveState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_owner.m_actor.TurnToDirection(dir2);
 				return;
 			}
 		}
 		if (m_pathSquareInfo.chargeEndType != BoardSquarePathInfo.ChargeEndType.None)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_pathSquareInfo.next != null)
 			{
 				m_owner.m_actor.SetTransformPositionToVector(worldPosition2);
@@ -258,11 +159,6 @@ public class ChargeState : MoveState
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (m_owner.m_actor.GetActorModelData() == null)
 					{
 						m_updatePath = true;
@@ -277,15 +173,6 @@ public class ChargeState : MoveState
 		Vector3 dir3 = vector;
 		if (m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			dir3 = m_owner.m_actor.GetFacingDirAfterMovement();
 			dir3.y = 0f;
 			if (dir3.magnitude > 0.01f)

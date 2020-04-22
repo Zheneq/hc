@@ -38,15 +38,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgConeOrLaser.m_shieldPerEnemyHit);
 			AbilityMod.AddToken(tokens, m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgConeOrLaser.m_shieldDuration);
@@ -62,19 +53,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgConeOrLaser != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgConeOrLaser.m_targetSelectComp, "-- Target Select --");
 			text += PropDesc(m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, flag ? iceborgConeOrLaser.m_shieldPerEnemyHit : 0);
 			string str = text;
@@ -82,15 +60,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgConeOrLaser.m_shieldDuration;
 			}
 			else
@@ -103,15 +72,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = (iceborgConeOrLaser.m_applyDelayedAoeEffect ? 1 : 0);
 			}
 			else
@@ -124,15 +84,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = (iceborgConeOrLaser.m_skipDelayedAoeEffectIfHasExisting ? 1 : 0);
 			}
 			else

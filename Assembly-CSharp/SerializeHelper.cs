@@ -18,47 +18,16 @@ public class SerializeHelper
 	{
 		if (stream.isWriting)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_writeStream = stream;
 			m_appendWriter = new NetworkWriter();
 			stream = new NetworkWriterAdapter(m_appendWriter);
 		}
 		else if (stream.isReading)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NetworkServer.active)
 			{
 				if (m_lastDataLength != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stream.ReadBytes((int)m_lastDataLength);
 				}
 				return true;
@@ -77,33 +46,11 @@ public class SerializeHelper
 			uint num = (uint)m_appendWriter.Position;
 			if (m_lastData != null && m_lastDataLength == num)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				flag2 = true;
 				for (int i = 0; i < m_lastDataLength; i++)
 				{
 					if (m_lastData[i] != array[i])
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						break;
 					}
@@ -116,15 +63,6 @@ public class SerializeHelper
 			}
 			if (!initialState)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value == 0)
 				{
 					goto IL_00dd;
@@ -141,15 +79,6 @@ public class SerializeHelper
 		int result;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (initialState ? 1 : 0);
 		}
 		else
@@ -177,19 +106,6 @@ public class SerializeHelper
 				{
 					if (actorsToSerialize[i] != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						array[i] = actorsToSerialize[i].ActorIndex;
 					}
 					else
@@ -197,30 +113,12 @@ public class SerializeHelper
 						array[i] = ActorData.s_invalidActorIndex;
 					}
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			stream.Serialize(ref value);
 			for (int j = 0; j < value; j++)
 			{
 				int value2 = array[j];
 				stream.Serialize(ref value2);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!stream.isReading)
@@ -237,35 +135,16 @@ public class SerializeHelper
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			ActorData[] array2 = new ActorData[array.Length];
 			for (int l = 0; l < array2.Length; l++)
 			{
 				if (array[l] != ActorData.s_invalidActorIndex)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array2[l] = ((!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().FindActorByActorIndex(array[l]));
 				}
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				actorsToSerialize = array2;
 				return;
 			}
@@ -277,19 +156,6 @@ public class SerializeHelper
 		int num;
 		if (actorToInt == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 0;
 		}
 		else
@@ -300,51 +166,15 @@ public class SerializeHelper
 		stream.Serialize(ref value);
 		if (value > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorToInt == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorToInt = new Dictionary<ActorData, int>();
 			}
 		}
 		if (stream.isWriting)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<ActorData, int>.Enumerator enumerator = actorToInt.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -353,15 +183,6 @@ public class SerializeHelper
 						int num2;
 						if (current.Key == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = ActorData.s_invalidActorIndex;
 						}
 						else
@@ -371,28 +192,10 @@ public class SerializeHelper
 						short value2 = (short)num2;
 						if (value2 != ActorData.s_invalidActorIndex)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							short value3 = (short)current.Value;
 							stream.Serialize(ref value2);
 							stream.Serialize(ref value3);
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -403,15 +206,6 @@ public class SerializeHelper
 		}
 		if (actorToInt != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorToInt.Clear();
 		}
 		for (int i = 0; i < value; i++)
@@ -423,28 +217,10 @@ public class SerializeHelper
 			ActorData actorData = null;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorData = GameFlowData.Get().FindActorByActorIndex(value4);
 			}
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorToInt[actorData] = value5;
 			}
 		}
@@ -473,19 +249,6 @@ public class SerializeHelper
 		Vector3 zero = Vector3.zero;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache1 = delegate(IBitStream s, ref Vector3 value)
 			{
 				s.Serialize(ref value);
@@ -502,19 +265,6 @@ public class SerializeHelper
 		{
 			if (toSerializeArray != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				value = toSerializeArray.Length;
 			}
 			stream.Serialize(ref value);
@@ -523,15 +273,6 @@ public class SerializeHelper
 				T val = toSerializeArray[i];
 				serializeDelegate(stream, ref val);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!stream.isReading)
 		{
@@ -539,11 +280,6 @@ public class SerializeHelper
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			stream.Serialize(ref value);
 			array = new T[value];
 			for (int j = 0; j < array.Length; j++)
@@ -554,11 +290,6 @@ public class SerializeHelper
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				toSerializeArray = array;
 				return;
 			}

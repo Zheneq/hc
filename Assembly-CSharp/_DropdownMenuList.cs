@@ -37,10 +37,6 @@ public class _DropdownMenuList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_openCallback();
 					return;
 				}
@@ -52,11 +48,6 @@ public class _DropdownMenuList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_closeCallback();
 			return;
 		}

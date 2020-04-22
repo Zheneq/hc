@@ -344,19 +344,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			ref State currentControlPointState = ref m_currentControlPointState;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -380,19 +367,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			ref int lockedTurnsRemaining = ref m_lockedTurnsRemaining;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -442,30 +416,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			ref bool grantingVisionForTeamA = ref m_grantingVisionForTeamA;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetGrantingVisionForTeamA(value);
 					base.syncVarHookGuard = false;
@@ -487,19 +439,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			ref bool grantingVisionForTeamB = ref m_grantingVisionForTeamB;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -525,35 +464,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (newState != State.Disabled)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_resetProgressOnceDisabled)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						Networkm_progressTeamA = 0;
 						Networkm_progressTeamB = 0;
 						Networkm_currentProgressTugOfWar = 0;
@@ -573,27 +493,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Networkm_lockedTurnsRemaining = lockedTurnsRemaining;
 			if (CurrentControlPointState == State.Locked)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lockedTurnsRemaining == 0)
 				{
 					SetCurrentControlPointState(State.Enabled);
@@ -604,11 +506,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					SetCurrentControlPointState(State.Locked);
 					return;
 				}
@@ -621,32 +518,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (m_boundaryNeutral != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_boundaryNeutral.SetActive(false);
 		}
 		if (m_boundaryAllied != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_boundaryAllied.SetActive(false);
 		}
 		if (m_boundaryEnemy != null)
@@ -678,19 +553,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		SetLockedTurnsRemaining(m_turnsLockedAfterActivated);
 		if (s_controlPoints == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_controlPoints = new List<ControlPoint>();
 		}
 		s_controlPoints.Add(this);
@@ -702,19 +564,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TurnTick);
 		if (m_autoBoundary != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary);
 			m_autoBoundary = null;
 		}
@@ -724,11 +573,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.RemoveControlPoint(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveControlPoint(this);
 			return;
@@ -759,10 +603,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return squaresInRegion;
 				}
 			}
@@ -782,47 +622,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!m_initializedControlPointHud)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.AddControlPoint(this);
 				HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddControlPoint(this);
 				m_initializedControlPointHud = true;
 			}
 			if (m_boundaryToShow != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_boundaryVFX != m_boundaryToShow)
 				{
 					if (m_boundaryVFX != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_boundaryVFX.SetActive(false);
 					}
 					m_boundaryToShow.SetActive(true);
@@ -839,11 +648,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			float num = (1f - Mathf.Cos(Time.time * m_boundaryOscillationSpeed)) / 2f;
 			float num2 = num * m_boundaryOscillationHeight;
 			Transform transform = m_autoBoundary.transform;
@@ -858,37 +662,18 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get().LocalPlayerData != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					Team controllingTeam = GetControllingTeam();
 					Color mainColor = GetMainColor(controllingTeam, teamViewing);
 					int num3;
 					if (m_numTeamAPlayers > 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = ((m_numTeamBPlayers > 0) ? 1 : 0);
 					}
 					else
@@ -900,15 +685,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					bool flag2;
 					if (m_canContributeProgressWhileContested)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (m_numTeamAPlayers > m_numTeamBPlayers);
 						flag2 = (m_numTeamBPlayers > m_numTeamAPlayers);
 					}
@@ -917,15 +693,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						int num4;
 						if (m_numTeamAPlayers > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = ((m_numTeamBPlayers == 0) ? 1 : 0);
 						}
 						else
@@ -945,15 +712,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							num5 = 1;
 							goto IL_02c1;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					num5 = ((flag2 && teamViewing == Team.TeamB) ? 1 : 0);
 					goto IL_02c1;
@@ -962,15 +720,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					int num6;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (teamViewing != 0)
 						{
 							num6 = 1;
@@ -979,15 +728,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num6 = ((teamViewing != Team.TeamB) ? 1 : 0);
 					}
 					else
@@ -1012,44 +752,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (m_autoBoundary != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_autoGenerateBoundaryVisuals)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_currentControlPointState != State.Disabled)
 				{
 					if (!forceRefreshBoundary)
 					{
 						goto IL_005b;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1064,31 +773,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_autoGenerateBoundaryVisuals)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_currentControlPointState != State.Disabled)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(m_region.GetSquaresInRegion(), Color.yellow);
 						m_autoBoundary.name = m_displayName + " Auto-Boundary";
 						UnityEngine.Object.DontDestroyOnLoad(m_autoBoundary);
@@ -1110,15 +804,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_autoBoundary.GetComponent<Renderer>().material.SetColor("_TintColor", newColor);
 			return;
 		}
@@ -1136,10 +821,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_boundaryToShow = m_autoBoundary;
 					return;
 				}
@@ -1158,22 +839,12 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get().activeOwnedActorData != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					Team controllingTeam = GetControllingTeam();
 					if (controllingTeam == Team.Invalid)
@@ -1216,10 +887,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_primaryColor_neutral;
 				}
 			}
@@ -1251,10 +918,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (alliedControlled)
 					{
 						while (true)
@@ -1320,19 +983,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Vector3 b2;
 		if (Camera.main != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Camera.main.transform != null)
 			{
 				Vector3 a = Camera.main.WorldToScreenPoint(vector);
@@ -1358,15 +1008,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().LocalPlayerData == null)
 			{
 				while (true)
@@ -1392,28 +1033,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				num = Mathf.Abs(CurrentProgressTugOfWar);
 				if (CurrentProgressTugOfWar > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bar.value = (float)num / (float)m_maxTotalProgressForTeamA;
 				}
 				else if (CurrentProgressTugOfWar < 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bar.value = (float)num / (float)m_maxTotalProgressForTeamB;
 				}
 				else
@@ -1425,15 +1048,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				int active;
 				if (num <= 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					active = ((CurrentControlPointState == State.Enabled) ? 1 : 0);
 				}
 				else
@@ -1456,15 +1070,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (CurrentControlPointState != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				progressLabel.color = m_uiTextColor_Locked;
 			}
 			else if (alliedCapturing)
@@ -1477,15 +1082,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			else if (contested)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				progressLabel.color = m_secondaryColor_contested;
 			}
 			else
@@ -1496,15 +1092,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			{
 				if (teamViewing == Team.TeamA)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					controllerLabel.text = "Friendly Controlled";
 				}
 				else
@@ -1514,15 +1101,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			else if (controllingTeam == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (teamViewing == Team.TeamB)
 				{
 					controllerLabel.text = "Friendly Controlled";
@@ -1538,43 +1116,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (m_totalObjectivePointsToDispense >= 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text = " (" + (m_totalObjectivePointsToDispense - m_numObjectivePointsDispensed) + " ObjPts)";
 				controllerLabel.text += text;
 			}
 			string text2 = string.Empty;
 			if (m_progressType == ControlProgressType.IndependentProgress)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = 0;
 				int num3 = 0;
 				if (teamViewing == Team.TeamA)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = m_progressTeamA;
 					num3 = m_progressTeamB;
 				}
@@ -1601,15 +1152,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (alliedCapturing)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (alliedControlled)
 				{
 					progressLabel.text = "Friendly Occupied";
@@ -1621,15 +1163,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			else if (enemyCapturing)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (enemyControlled)
 				{
 					progressLabel.text = "Enemy Occupied";
@@ -1641,15 +1174,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			else if (!contested)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				progressLabel.text = "Uncontested";
 			}
 			else
@@ -1672,10 +1196,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1697,15 +1217,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnTurnStart_ControlPoint();
 			return;
 		}
@@ -1737,10 +1248,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Team.TeamA;
 				}
 			}
@@ -1764,10 +1271,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ControlPoint::OnCapturedBy(Team,Team)' called on client");
 					return;
 				}
@@ -1786,26 +1289,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				{
 					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyCapture)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
 							break;
 						}
@@ -1817,37 +1302,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyTeamACapture)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
 								break;
 							}
@@ -1855,37 +1313,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == CaptureMessageCondition.OnEnemyTeamACapture)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() != capturedByTeam)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
 								break;
 							}
@@ -1893,37 +1324,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == CaptureMessageCondition.OnFriendlyTeamBCapture)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamB)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
 								break;
 							}
@@ -1931,15 +1335,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == CaptureMessageCondition.OnEnemyTeamBCapture && activeOwnedActorData.GetTeam() != capturedByTeam)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (capturedByTeam == Team.TeamB)
 						{
 							InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f);
@@ -1949,15 +1344,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1974,19 +1360,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Team controllingTeam = GetControllingTeam();
 		if (controllingTeam == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			teamAControlled = true;
 			teamBControlled = false;
 		}
@@ -2003,15 +1376,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		int num;
 		if (m_numTeamAPlayers > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((m_numTeamBPlayers > 0) ? 1 : 0);
 		}
 		else
@@ -2021,15 +1385,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		contested = ((byte)num != 0);
 		if (m_canContributeProgressWhileContested)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			teamACapturing = (m_numTeamAPlayers > m_numTeamBPlayers);
 			teamBCapturing = (m_numTeamBPlayers > m_numTeamAPlayers);
 		}
@@ -2038,15 +1393,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			int num2;
 			if (m_numTeamAPlayers > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((m_numTeamBPlayers == 0) ? 1 : 0);
 			}
 			else
@@ -2057,15 +1403,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			int num3;
 			if (m_numTeamBPlayers > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = ((m_numTeamAPlayers == 0) ? 1 : 0);
 			}
 			else
@@ -2076,15 +1413,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
 				while (true)
@@ -2108,27 +1436,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 									num4 = 1;
 									goto IL_0157;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							if (controllingTeam == Team.TeamB)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num4 = ((teamViewing == Team.TeamB) ? 1 : 0);
 							}
 							else
@@ -2141,15 +1451,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						alliedCapturing = ((byte)num5 != 0);
 						if (teamACapturing)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (teamViewing != 0)
 							{
 								num6 = 1;
@@ -2158,15 +1459,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						}
 						if (teamBCapturing)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6 = ((teamViewing != Team.TeamB) ? 1 : 0);
 						}
 						else
@@ -2183,15 +1475,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 								num5 = 1;
 								goto IL_01af;
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						num5 = ((teamBCapturing && teamViewing == Team.TeamB) ? 1 : 0);
 						goto IL_01af;
@@ -2199,41 +1482,14 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						alliedControlled = ((byte)num4 != 0);
 						if (controllingTeam == Team.TeamA)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (teamViewing == Team.TeamB)
 							{
 								num7 = 1;
 								goto IL_018d;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (controllingTeam == Team.TeamB)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num7 = ((teamViewing == Team.TeamA) ? 1 : 0);
 						}
 						else
@@ -2269,10 +1525,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_grantingVisionForTeamA;
 				}
 			}
@@ -2301,24 +1553,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_grantingVisionForTeamA != grantingVisionForTeamA)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Networkm_grantingVisionForTeamA = grantingVisionForTeamA;
 					List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
 					using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
@@ -2353,15 +1591,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Networkm_grantingVisionForTeamB = grantingVisionForTeamB;
 			List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
 			foreach (ActorData item in allTeamMembers)
@@ -2396,30 +1625,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2427,26 +1634,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2456,15 +1645,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2472,26 +1652,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2499,15 +1661,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2519,15 +1672,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2535,26 +1679,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2562,15 +1688,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x80) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2582,15 +1699,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2598,26 +1706,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x200) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2625,26 +1715,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x400) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2681,123 +1753,38 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_progressTeamA = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_progressTeamB = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_controllingTeam = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetCurrentState((State)reader.ReadInt32());
 		}
 		if ((num & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetLockedTurnsRemaining((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x80) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x100) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x200) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetGrantingVisionForTeamA(reader.ReadBoolean());
 		}
 		if ((num & 0x400) == 0)
@@ -2806,11 +1793,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			HookSetGrantingVisionForTeamB(reader.ReadBoolean());
 			return;
 		}

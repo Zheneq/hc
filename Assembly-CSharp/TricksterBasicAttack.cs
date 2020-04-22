@@ -49,19 +49,6 @@ public class TricksterBasicAttack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Trickster Laser";
 		}
 		Setup();
@@ -94,19 +81,6 @@ public class TricksterBasicAttack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -117,15 +91,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedEnemySingleHitHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemySingleHitHitEffect = m_abilityMod.m_enemySingleHitHitEffectMod.GetModifiedValue(m_enemySingleHitHitEffect);
 		}
 		else
@@ -136,15 +101,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedEnemyMultiHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultiHitEffect = m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(m_enemyMultiHitEffect);
 		}
 		else
@@ -155,15 +111,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
@@ -174,15 +121,6 @@ public class TricksterBasicAttack : Ability
 		SpoilsSpawnData cachedSpoilSpawnInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnInfo = m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(m_spoilSpawnInfo);
 		}
 		else
@@ -197,19 +135,6 @@ public class TricksterBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -229,19 +154,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount);
 		}
 		else
@@ -256,19 +168,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
@@ -283,19 +182,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemySingleHitHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemySingleHitHitEffect;
 		}
 		else
@@ -310,19 +196,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyMultiHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyMultiHitEffect;
 		}
 		else
@@ -337,19 +210,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -364,19 +224,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit);
 		}
 		else
@@ -391,19 +238,6 @@ public class TricksterBasicAttack : Ability
 		SpoilsSpawnData result;
 		if (m_cachedSpoilSpawnInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSpoilSpawnInfo;
 		}
 		else
@@ -418,19 +252,6 @@ public class TricksterBasicAttack : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -466,55 +287,15 @@ public class TricksterBasicAttack : Ability
 		AbilityUtil_Targeter_TricksterLaser abilityUtil_Targeter_TricksterLaser = base.Targeter as AbilityUtil_Targeter_TricksterLaser;
 		if (abilityUtil_Targeter_TricksterLaser != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityUtil_Targeter_TricksterLaser.m_actorToHitCount.ContainsKey(targetActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = abilityUtil_Targeter_TricksterLaser.m_actorToHitCount[targetActor];
 				int numFromCover = abilityUtil_Targeter_TricksterLaser.m_actorToCoverCount[targetActor];
 				int num2 = CalcDamageFromNumHits(num, numFromCover);
 				if (num == 1)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetExtraDamageForSingleHit() > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += GetExtraDamageForSingleHit();
 					}
 				}
@@ -536,10 +317,6 @@ public class TricksterBasicAttack : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 					return tooltipSubjectCountTotalWithDuplicates * GetEnergyGainPerLaserHit();
 				}
@@ -556,19 +333,6 @@ public class TricksterBasicAttack : Ability
 		int val;
 		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_TricksterBasicAttack.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -581,15 +345,6 @@ public class TricksterBasicAttack : Ability
 		int val2;
 		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_TricksterBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit);
 		}
 		else
@@ -600,15 +355,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_TricksterBasicAttack.m_enemySingleHitHitEffectMod.GetModifiedValue(m_enemySingleHitHitEffect);
 		}
 		else
@@ -620,15 +366,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterBasicAttack.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
@@ -640,15 +377,6 @@ public class TricksterBasicAttack : Ability
 		int val3;
 		if ((bool)abilityMod_TricksterBasicAttack)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_TricksterBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit);
 		}
 		else
@@ -668,30 +396,8 @@ public class TricksterBasicAttack : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_afterImageSyncComp.TurnToPosition(current, targetPos);
 						Animator modelAnimator = current.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -720,30 +426,8 @@ public class TricksterBasicAttack : Ability
 		{
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.IsDead())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = item.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);

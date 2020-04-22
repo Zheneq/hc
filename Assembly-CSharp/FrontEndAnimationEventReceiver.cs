@@ -41,10 +41,6 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (Application.isEditor)
 					{
 						while (true)
@@ -69,11 +65,6 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal");
 			AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], base.gameObject);
 			return;
@@ -88,24 +79,10 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!eventName.StartsWith("fol/"))
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent(eventName, base.gameObject);
 					return;
 				}
@@ -122,25 +99,11 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string[] array = eventName.Split(',');
 			if (array.Length == 3)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					string subtitleText = array[0];
 					float result = 0f;
 					float.TryParse(array[1], out result);

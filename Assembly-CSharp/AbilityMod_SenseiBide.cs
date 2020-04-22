@@ -50,15 +50,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_onCastTargetEffectDataMod, "OnCastTargetEffectData", senseiBide.m_onCastTargetEffectData);
 			AbilityMod.AddToken_EffectMod(tokens, m_additionalTargetHitEffectMod, "AdditionalTargetHitEffect", senseiBide.m_additionalTargetHitEffect);
 			AbilityMod.AddToken(tokens, m_explosionRadiusMod, "ExplosionRadius", string.Empty, senseiBide.m_explosionRadius);
@@ -83,19 +74,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (senseiBide.m_targetingIgnoreLos ? 1 : 0);
 		}
 		else
@@ -108,15 +86,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiBide.m_onCastTargetEffectData;
 		}
 		else
@@ -129,15 +98,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = senseiBide.m_additionalTargetHitEffect;
 		}
 		else
@@ -152,15 +112,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiBide.m_maxDamage;
 		}
 		else
@@ -174,15 +125,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiBide.m_damageMult;
 		}
 		else
@@ -195,15 +137,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiBide.m_enemyHitEffect;
 		}
 		else
@@ -216,15 +149,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiBide.m_absorbMultForHeal;
 		}
 		else
@@ -237,15 +161,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = senseiBide.m_multOnInitialDamageForSubseqHits;
 		}
 		else
@@ -258,15 +173,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiBide.m_extraHealOnHealAoeIfQueued;
 		}
 		else

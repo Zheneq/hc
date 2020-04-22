@@ -19,15 +19,6 @@ public class SeasonRewards
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < UnlockRewards.Count; j++)
 			{
 				list.Add(UnlockRewards[j]);
@@ -38,11 +29,6 @@ public class SeasonRewards
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return list;
 			}
 		}

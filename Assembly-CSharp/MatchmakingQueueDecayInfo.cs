@@ -22,19 +22,6 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 	{
 		if (!m_leaderboardTiers.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TierInfo tierInfo = m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null && tierInfo.DecayAmount != 0)
 			{
@@ -52,54 +39,14 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 	{
 		if (!m_leaderboardTiers.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TierInfo tierInfo = m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tierInfo.PointType != TierPointsTypes.Limitless)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tierInfo.PointType != TierPointsTypes.DerivedFromMMR)
 					{
 						goto IL_00a7;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				TierInfo tierInfo2 = m_leaderboardTiers.ElementAtOrDefault(tierIndex + 1);
@@ -116,15 +63,6 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 							int result;
 							if (tierInfo2.PointType != TierPointsTypes.Limitless)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = ((tierInfo2.PointType == TierPointsTypes.DerivedFromMMR) ? 1 : 0);
 							}
 							else

@@ -48,15 +48,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AddOnHitDataTokens(tokens, m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
 			AbilityMod.AddToken(tokens, m_reactDurationMod, "ReactDuration", string.Empty, iceborgNovaOnReact.m_reactDuration);
@@ -75,19 +66,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgNovaOnReact != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgNovaOnReact.m_targetSelectComp, "-- Target Select --");
 			text += GetOnHitDataDesc(m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
 			text += PropDesc(m_reactDurationMod, "[ReactDuration]", flag, flag ? iceborgNovaOnReact.m_reactDuration : 0);
@@ -96,15 +74,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = (iceborgNovaOnReact.m_reactRequireDamage ? 1 : 0);
 			}
 			else
@@ -117,15 +86,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = (iceborgNovaOnReact.m_reactEffectEndEarlyIfTriggered ? 1 : 0);
 			}
 			else
@@ -140,15 +100,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgNovaOnReact.m_extraEnergyPerNovaCoreTrigger;
 			}
 			else
@@ -161,15 +112,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgNovaOnReact.m_damageThreshForInstanceOnSelf;
 			}
 			else

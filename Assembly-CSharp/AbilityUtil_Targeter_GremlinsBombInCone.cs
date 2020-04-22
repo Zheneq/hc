@@ -70,19 +70,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		GridPos gridPos;
 		if (GetCurrentRangeInSquares() != 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gridPos = currentTarget.GridPos;
 		}
 		else
@@ -105,10 +92,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, currentTarget);
 					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 					centerOfShape.y = travelBoardSquareWorldPosition.y + m_heightOffset;
@@ -136,10 +119,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -156,19 +135,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 	{
 		if (!(targetActor != caster))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_affectsCaster == AffectsActor.Never)
 			{
 				return false;
@@ -190,15 +156,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_highlights[2].SetActive(false);
 			m_highlights[3].SetActive(false);
 			return;
@@ -213,15 +170,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(target, targetingActor);
 			SetHighlightPos(highlightGoalPos);
 			BoardSquare gameplayRefSquare = GetGameplayRefSquare(target, targetingActor);
@@ -241,29 +189,11 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 			int num = 2;
 			int num2;
 			if (m_showAngleIndicators)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((currentTargetIndex == 0) ? 1 : 0);
 			}
 			else
@@ -277,28 +207,10 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			}
 			if (m_highlights != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_highlights.Count >= num)
 				{
 					MoveHighlightsTowardPos(highlightGoalPos);
 					goto IL_0174;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_highlights = new List<GameObject>();
@@ -306,15 +218,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicLineSegmentMesh(m_angleIndicatorLength, 0.2f, true, Color.cyan));
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicLineSegmentMesh(m_angleIndicatorLength, 0.2f, true, Color.cyan));
 			}
@@ -326,15 +229,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
@@ -344,26 +238,8 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			ActorData occupantActor = gameplayRefSquare.OccupantActor;
 			if (occupantActor != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 					using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
@@ -372,15 +248,6 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 						{
 							ActorData current = enumerator.Current;
 							HandleAddActorInShape(current, targetingActor, currentTarget, damageOrigin);
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					gameObject.SetActive(true);
@@ -411,30 +278,8 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		int num;
 		if (m_showAngleIndicators)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargetIndex == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((m_highlights.Count >= 4) ? 1 : 0);
 				goto IL_003e;
 			}
@@ -474,31 +319,9 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 	{
 		if (!(potentialTarget != targetingActor))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_affectsCaster == AffectsActor.Never)
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (potentialTarget.GetTeam() == targetingActor.GetTeam())

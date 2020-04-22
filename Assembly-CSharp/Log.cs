@@ -76,25 +76,12 @@ public static class Log
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
 			}
 			if (args != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (args.Length != 0)
 				{
 					for (int i = 0; i < args.Length; i++)
@@ -102,36 +89,13 @@ public static class Log
 						Exception ex = args[i] as Exception;
 						if (ex != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							args[i] = ex.ToReadableString();
 						}
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						return string.Format(message, args);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return message;
@@ -148,10 +112,6 @@ public static class Log
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return $"{formattedMessage} (repeated {repeatCount} times)";
 					}
 				}
@@ -316,10 +276,6 @@ public static class Log
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Level.Everything;
 				}
 			}

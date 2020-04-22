@@ -59,31 +59,9 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		ClearActorsInRange();
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 2)
 			{
 				goto IL_0076;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -105,37 +83,14 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, endPos);
 			bool showCone = false;
 			Vector3 vector = Vector3.zero;
 			Vector3 vector2 = Vector3.forward;
 			if (list.Count > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AddConeOnFirstLaserHit)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					showCone = true;
 					vector = list[0].GetTravelBoardSquareWorldPositionForLos();
 					vector2 = currentTarget.AimDirection;
@@ -165,28 +120,10 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			m_laserPart.ShowHiddenSquares(m_indicatorHandler, laserStartPos, laserEndPos, targetingActor, m_ignoreLos);
 			if (showCone)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_conePart.ShowHiddenSquares(m_indicatorHandler, coneStartPos, forwardAngle, targetingActor, m_ignoreLos);
 			}
 			HideUnusedSquareIndicators();

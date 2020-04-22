@@ -45,15 +45,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_baseSelfHealMod, "BaseSelfHeal", string.Empty, rampartAoeBuffDebuff.m_baseSelfHeal);
 			AbilityMod.AddToken(tokens, m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, rampartAoeBuffDebuff.m_selfHealAmountPerHit);
 			AbilityMod.AddToken_EffectMod(tokens, m_selfHitEffectMod, "SelfHitEffect", rampartAoeBuffDebuff.m_selfHitEffect);
@@ -76,19 +67,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (rampartAoeBuffDebuff.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -102,15 +80,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
@@ -124,15 +93,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (rampartAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
@@ -146,15 +106,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartAoeBuffDebuff.m_selfHitEffect;
 		}
 		else
@@ -167,15 +118,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rampartAoeBuffDebuff.m_allyHitEffect;
 		}
 		else

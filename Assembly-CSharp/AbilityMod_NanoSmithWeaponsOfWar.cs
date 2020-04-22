@@ -31,15 +31,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_allyTargetEffectOverride, "TargetAllyOnHitEffect", nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect);
 			AbilityMod.AddToken(tokens, m_sweepDamageMod, "SweepDamageAmount", string.Empty, nanoSmithWeaponsOfWar.m_sweepDamageAmount);
 			AbilityMod.AddToken(tokens, m_sweepDurationMod, "SweepDuration", string.Empty, nanoSmithWeaponsOfWar.m_sweepDuration);
@@ -60,19 +51,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = nanoSmithWeaponsOfWar.m_sweepDuration;
 		}
 		else
@@ -85,15 +63,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithWeaponsOfWar.m_sweepDamageAmount;
 		}
 		else
@@ -107,15 +76,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect;
 		}
 		else

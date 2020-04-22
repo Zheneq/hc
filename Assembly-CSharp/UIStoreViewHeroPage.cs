@@ -90,19 +90,6 @@ public class UIStoreViewHeroPage : UIScene
 		_ButtonSwapSprite restrictedIsoUseBuyGameBtn = m_restrictedIsoUseBuyGameBtn;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 				Get().SetRestrictedISOUSePopVisible(false);
@@ -135,15 +122,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SelectPanel(m_defaultPanelBtn);
 			ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
 			ClientGameManager.Get().OnBankBalanceChange += HandleBankBalanceChange;
@@ -161,24 +139,10 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
 					ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
 					return;
@@ -210,10 +174,6 @@ public class UIStoreViewHeroPage : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -232,19 +192,6 @@ public class UIStoreViewHeroPage : UIScene
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
 		}
@@ -281,15 +228,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnCharacterDataUpdated(playerCharacterData);
 			return;
 		}
@@ -312,10 +250,6 @@ public class UIStoreViewHeroPage : UIScene
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					for (int i = 0; i < m_panels.Length; i++)
 					{
 						UIManager.SetGameObjectActive(m_panels[i].Panel, false);
@@ -369,15 +303,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			componentInChildren.SetMouseIsOver(true);
 			return;
 		}
@@ -392,15 +317,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			componentInChildren.SetMouseIsOver(false);
 			return;
 		}
@@ -417,10 +333,6 @@ public class UIStoreViewHeroPage : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_charLink.m_characterType;
 				}
 			}
@@ -436,19 +348,6 @@ public class UIStoreViewHeroPage : UIScene
 		{
 			if (m_panels[i].Panel == panel)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
 				m_panels[i].Button.m_totalCount.text = "/" + totalCount;
 			}
@@ -510,24 +409,10 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterType == m_charLink.m_characterType)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_buyHeroContainer, false);
 					return;
 				}
@@ -549,15 +434,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdateBuyButtons();
 			return;
 		}
@@ -572,15 +448,6 @@ public class UIStoreViewHeroPage : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clientGameManager == null)
 			{
 				return;
@@ -601,15 +468,6 @@ public class UIStoreViewHeroPage : UIScene
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(m_charLink.m_characterType);
 			if (!clientGameManager.HasPurchasedGame)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!playerCharacterData.CharacterComponent.Unlocked)
 				{
 					while (true)
@@ -634,26 +492,8 @@ public class UIStoreViewHeroPage : UIScene
 								buyHeroContainer = m_buyHeroContainer;
 								if (unlockFreelancerCurrencyPrice <= 0)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(freelancerPrice > 0f))
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										doActive = (flag ? 1 : 0);
 										goto IL_0194;
 									}

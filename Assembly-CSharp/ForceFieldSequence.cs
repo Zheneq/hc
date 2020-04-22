@@ -17,19 +17,6 @@ public class ForceFieldSequence : Sequence
 	{
 		if ((bool)m_forceFieldPrefab)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_initialized && m_forceFieldVFX == null && (bool)base.Target)
 			{
 				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
@@ -42,15 +29,6 @@ public class ForceFieldSequence : Sequence
 				}
 				if (m_shieldStart != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Target.GetComponent<AudioSource>().PlayOneShot(m_shieldStart);
 				}
 				if (!string.IsNullOrEmpty(m_startAudioEvent))
@@ -65,22 +43,12 @@ public class ForceFieldSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (!base.Target)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				Renderer[] componentsInChildren = m_forceFieldVFX.GetComponentsInChildren<Renderer>();
 				Renderer[] array = componentsInChildren;
 				foreach (Renderer renderer in array)
@@ -102,15 +70,6 @@ public class ForceFieldSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Target != null && base.Target.GetComponent<AudioSource>() != null)
 			{
 				base.Target.GetComponent<AudioSource>().PlayOneShot(m_shieldEnd);

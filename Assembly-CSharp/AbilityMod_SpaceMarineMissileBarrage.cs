@@ -27,15 +27,6 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineMissileBarrage.m_damage);
 			AbilityMod.AddToken(tokens, m_activeDurationMod, "Duration", string.Empty, 1);
 			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
@@ -43,11 +34,6 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					AbilityMod.AddToken_EffectInfo(tokens, m_missileHitEffectOverride, "EnemyHitEffect", spaceMarineMissileBarrage.m_effectOnTargets);
 					return;
 				}
@@ -66,19 +52,6 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = spaceMarineMissileBarrage.m_damage;
 		}
 		else

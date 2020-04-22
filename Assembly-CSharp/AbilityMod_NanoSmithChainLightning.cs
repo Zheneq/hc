@@ -49,15 +49,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserDamageMod, "LaserDamage", string.Empty, nanoSmithChainLightning.m_laserDamage);
 			AbilityMod.AddToken_EffectMod(tokens, m_laserEnemyHitEffectMod, "LaserEnemyHitEffect", nanoSmithChainLightning.m_laserEnemyHitEffect);
 			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, nanoSmithChainLightning.m_laserRange);
@@ -84,19 +75,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = nanoSmithChainLightning.m_laserDamage;
 		}
 		else
@@ -109,15 +87,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithChainLightning.m_laserEnemyHitEffect;
 		}
 		else
@@ -130,15 +99,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithChainLightning.m_laserRange;
 		}
 		else
@@ -151,15 +111,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nanoSmithChainLightning.m_laserWidth;
 		}
 		else
@@ -172,15 +123,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (nanoSmithChainLightning.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -193,15 +135,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nanoSmithChainLightning.m_laserMaxHits;
 		}
 		else
@@ -214,15 +147,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nanoSmithChainLightning.m_chainRadius;
 		}
 		else
@@ -235,15 +159,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = nanoSmithChainLightning.m_chainDamage;
 		}
 		else
@@ -256,15 +171,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = nanoSmithChainLightning.m_chainMaxHits;
 		}
 		else
@@ -277,15 +183,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = nanoSmithChainLightning.m_energyGainPerChainHit;
 		}
 		else
@@ -298,15 +195,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = nanoSmithChainLightning.m_chainEnemyHitEffect;
 		}
 		else
@@ -319,15 +207,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = (nanoSmithChainLightning.m_chainCanHitInvisibleActors ? 1 : 0);
 		}
 		else
@@ -340,15 +219,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = nanoSmithChainLightning.m_extraAbsorbPerHitForVacuumBomb;
 		}
 		else
@@ -361,15 +231,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = nanoSmithChainLightning.m_maxExtraAbsorbForVacuumBomb;
 		}
 		else

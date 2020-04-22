@@ -22,19 +22,6 @@ public class LootTableEntry
 		int result;
 		if (Index > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((Type != LootTableEntryType.None) ? 1 : 0);
 		}
 		else
@@ -55,10 +42,6 @@ public class LootTableEntry
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}

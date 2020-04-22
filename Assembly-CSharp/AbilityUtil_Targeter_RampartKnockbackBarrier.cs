@@ -61,30 +61,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		BoardSquare boardSquare = null;
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargetIndex > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			}
 			else
@@ -93,15 +71,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			}
 			if (boardSquare != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				active = true;
 				vector3 = boardSquare.ToVector3();
 				vector2 = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, currentTarget.FreePos, m_allowAimAtDiagonals, out Vector3 offset);
@@ -117,15 +86,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			if (m_highlights.Count >= 2)
 			{
 				goto IL_01bf;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -152,15 +112,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		float num3;
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 0.5f;
 		}
 		else
@@ -171,55 +122,19 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, laserRangeInSquares, m_width, targetingActor, relevantTeams, m_penetrateLos, -1, m_lengthIgnoreLos, false, out laserCoords.end, null, null, true);
 		if (actorsInLaser.Count > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 laserEndPos;
 			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, m_width, targetingActor, relevantTeams, true, -1, true, true, out laserEndPos, null, null, true);
 			for (int num4 = actorsInLaser.Count - 1; num4 >= 0; num4--)
 			{
 				if (actorsInLaser2.Contains(actorsInLaser[num4]))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInLaser.RemoveAt(num4);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float lengthInWorld = num2;
 		if (!m_lengthIgnoreLos)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector4 = laserCoords.end - vector;
 			vector4.y = 0f;
 			lengthInWorld = vector4.magnitude;
@@ -238,52 +153,16 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, vector2, laserCoords.start, m_knockbackDistance);
 				num5 = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num5);
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		SetMovementArrowEnabledFromIndex(num5, false);
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self);
 		}
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count < 3)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
 			m_highlights[2].transform.position = vector3;
@@ -295,11 +174,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			ResetSquareIndicatorIndexToUse();
 			Vector3 a3 = laserCoords.end - laserCoords.start;
 			a3.y = 0f;

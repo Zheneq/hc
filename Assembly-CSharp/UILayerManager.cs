@@ -38,15 +38,6 @@ public class UILayerManager
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return num;
 		}
 	}
@@ -59,15 +50,6 @@ public class UILayerManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			init = true;
 			m_parentInfo = info;
 			LayersContainer = new GameObject();
@@ -85,33 +67,10 @@ public class UILayerManager
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (list.Count > 1)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (_003C_003Ef__am_0024cache0 == null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
 						{
 							if (keyA.Value > keyB.Value)
@@ -127,10 +86,6 @@ public class UILayerManager
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										return -1;
 									}
 								}
@@ -142,15 +97,6 @@ public class UILayerManager
 					for (int j = 0; j < list.Count; j++)
 					{
 						CanvasLayers[list[j].Key].ScenesContainer.transform.SetAsLastSibling();
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				LayersContainer.SetLayerRecursively(ObjectLayerValue);
@@ -170,32 +116,10 @@ public class UILayerManager
 				canvas = CanvasLayers[num].GetBatchCanvas(theScene, type);
 				if (canvas != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -213,32 +137,10 @@ public class UILayerManager
 				canvas = CanvasLayers[num].GetDefaultCanvas(theScene);
 				if (canvas != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -261,19 +163,6 @@ public class UILayerManager
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		return canvas;
@@ -287,19 +176,6 @@ public class UILayerManager
 			num = CanvasLayers[i].GetNameplateCanvasLayer();
 			if (num != -1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 		}
@@ -317,15 +193,6 @@ public class UILayerManager
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				runtimeSceneInfo.RuntimeSceneContainer.SetLayerRecursively(ObjectLayerValue);
 				return runtimeSceneInfo;
 			}
@@ -342,15 +209,6 @@ public class UILayerManager
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}

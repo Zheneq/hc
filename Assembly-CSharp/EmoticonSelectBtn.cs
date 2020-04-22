@@ -30,19 +30,6 @@ public class EmoticonSelectBtn : MonoBehaviour
 		m_lastTimeUpdate = -1f;
 		if (unlocked)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_theBtn.spriteController.callback = ChatEmojiClicked;
 		}
 		m_theBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, ChatEmojiTooltip);
@@ -60,19 +47,6 @@ public class EmoticonSelectBtn : MonoBehaviour
 	{
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd && UIFrontEnd.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 			{
 				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
@@ -88,31 +62,16 @@ public class EmoticonSelectBtn : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (HUD_UI.Get().m_textConsole != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						HUD_UI.Get().m_textConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
 						EmoticonPanel.Get().SetPanelOpen(false);
 						return;
@@ -137,28 +96,10 @@ public class EmoticonSelectBtn : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_lastTimeUpdate = Time.time;
 				currentEmojiFrame++;
 				if (currentEmojiFrame > emojiRef.m_endIndex)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentEmojiFrame = emojiRef.m_startIndex;
 				}
 				m_DefaultSprite.text = $"<sprite=\"EmoticonsAssets\" index={emojiRef.m_frameToDisplayForSelect}>";

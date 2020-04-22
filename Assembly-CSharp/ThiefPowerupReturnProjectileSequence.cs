@@ -30,32 +30,10 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 			GameObject result = null;
 			if (catToVfx != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				foreach (PowerUpCategoryToVFX powerUpCategoryToVFX in catToVfx)
 				{
 					if (powerUpCategoryToVFX.m_category == (PowerUp.PowerUpCategory)categoryInt && powerUpCategoryToVFX.m_vfxPrefab != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = powerUpCategoryToVFX.m_vfxPrefab;
 						break;
 					}
@@ -81,19 +59,6 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 			PowerupTypeExtraParams powerupTypeExtraParams = extraSequenceParams as PowerupTypeExtraParams;
 			if (powerupTypeExtraParams != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_powerupCategoryInt = powerupTypeExtraParams.powerupCategory;
 			}
 		}
@@ -114,19 +79,6 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 		GameObject gameObject = PowerUpCategoryToVFX.GetPrefabForCategory(m_powerupToProjectileVFXPrefab, m_powerupCategoryInt);
 		if (gameObject == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameObject = m_fxPrefab;
 		}
 		return gameObject;

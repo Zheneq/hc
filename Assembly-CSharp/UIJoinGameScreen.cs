@@ -49,24 +49,10 @@ public class UIJoinGameScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					HandleGameplayOverridesChange(GameManager.Get().GameplayOverrides);
 					return;
 				}
@@ -83,15 +69,6 @@ public class UIJoinGameScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= HandleGameplayOverridesChange;
 			return;
 		}
@@ -105,15 +82,6 @@ public class UIJoinGameScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cancelButton.ResetMouseState();
 			m_createButton.ResetMouseState();
 			UIManager.Get().SetSceneVisible(GetSceneType(), visible, new SceneVisibilityParameters());
@@ -141,32 +109,10 @@ public class UIJoinGameScreen : UIScene
 			bool flag2 = data.selectedObject == componentsInChildren[num].m_joinAsSpectatorButton.gameObject;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!flag2)
 				{
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (!m_buttonLookup.TryGetValue(componentsInChildren[num], out LobbyGameInfo value))
@@ -175,15 +121,6 @@ public class UIJoinGameScreen : UIScene
 			}
 			if (!AssetBundleManager.Get().SceneExistsInBundle("maps", value.GameConfig.Map))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!AssetBundleManager.Get().SceneExistsInBundle("testing", value.GameConfig.Map))
 				{
 					while (true)
@@ -240,34 +177,12 @@ public class UIJoinGameScreen : UIScene
 	{
 		if (m_buttonLookup != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (Dictionary<UICustomMatchEntry, LobbyGameInfo>.KeyCollection.Enumerator enumerator = m_buttonLookup.Keys.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					UICustomMatchEntry current = enumerator.Current;
 					Object.Destroy(current.gameObject);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -283,26 +198,8 @@ public class UIJoinGameScreen : UIScene
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				AddServerButton(current2);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int count = gameInfoList.Count;
@@ -323,30 +220,12 @@ public class UIJoinGameScreen : UIScene
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
 		List<LobbyGameInfo> customGameInfos = ClientGameManager.Get().CustomGameInfos;
 		if (customGameInfos == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		else
@@ -368,27 +247,9 @@ public class UIJoinGameScreen : UIScene
 							num++;
 							continue;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					goto IL_00b8;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = true;
@@ -414,39 +275,17 @@ public class UIJoinGameScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (HasGamesListChanged())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_currentGames = ClientGameManager.Get().CustomGameInfos;
 			UpdateServerList(m_currentGames);
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().CanMenuEscape() && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 			{
 				CancelClicked(null);

@@ -83,15 +83,6 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityStatusEffectEntry[] componentsInChildren = m_layoutGroup.GetComponentsInChildren<AbilityStatusEffectEntry>();
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
@@ -126,59 +117,19 @@ public class UIAbilityTooltip : UITooltipBase
 		m_tooltipDescription.text = ability.GetToolTipString();
 		if (!ability.m_flavorText.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TextMeshProUGUI tooltipDescription = m_tooltipDescription;
 			string text = tooltipDescription.text;
 			tooltipDescription.text = text + Environment.NewLine + Environment.NewLine + "<i>" + ability.m_flavorText + "</i>";
 		}
 		if (m_freeActionsLabelObj != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_freeActionsLabelObj, ability.IsFreeAction());
 		}
 		if (m_cooldownText != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = ability.GetCooldownForUIDisplay();
 			if (ability.GetModdedMaxStocks() > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.GetModdedStockRefreshDuration() >= 0)
 				{
 					num = ability.GetModdedStockRefreshDuration();
@@ -208,39 +159,16 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ability != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				List<StatusType> statusTypesForTooltip = ability.GetStatusTypesForTooltip();
 				List<StatusType> list;
 				if (mod != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list = mod.GetStatusTypesForTooltip();
 				}
 				else
@@ -252,15 +180,6 @@ public class UIAbilityTooltip : UITooltipBase
 				{
 					if (i >= m_statusEffectDisplayList.Count)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityStatusEffectEntry abilityStatusEffectEntry = UnityEngine.Object.Instantiate(m_statusEffectPrefab);
 						abilityStatusEffectEntry.transform.SetParent(m_layoutGroup.transform);
 						abilityStatusEffectEntry.transform.localPosition = Vector3.zero;
@@ -275,15 +194,6 @@ public class UIAbilityTooltip : UITooltipBase
 				{
 					if (!statusTypesForTooltip.Contains(list[k]))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i >= m_statusEffectDisplayList.Count)
 						{
 							AbilityStatusEffectEntry abilityStatusEffectEntry2 = UnityEngine.Object.Instantiate(m_statusEffectPrefab);
@@ -315,15 +225,6 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mod != null)
 			{
 				m_modTitle.text = $"{mod.GetName()} <#8E8E8E>";
@@ -333,26 +234,12 @@ public class UIAbilityTooltip : UITooltipBase
 					{
 						UIManager.SetGameObjectActive(m_modCostNotches[i], i < mod.m_equipCost);
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				m_modTooltip.text = mod.GetFullTooltip(ability);
 				if (!m_modTooltipParentTransform.gameObject.activeSelf)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						UIManager.SetGameObjectActive(m_modTooltipParentTransform, true);
 						return;
 					}
@@ -368,19 +255,6 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (phaseIndex < m_perPhaseUIElements.Length)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetupPhaseUIElements(m_perPhaseUIElements[phaseIndex], phaseName);
 		}
 		else
@@ -393,11 +267,6 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (phaseIndex < m_phaseGradientColors.Length)
 			{
 				while (true)
@@ -425,19 +294,6 @@ public class UIAbilityTooltip : UITooltipBase
 			string text;
 			if (phaseName != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = phaseName;
 			}
 			else
@@ -448,28 +304,10 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		if (m_phaseIcon != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Image phaseIcon = m_phaseIcon;
 			object sprite;
 			if (uiElementInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = uiElementInfo.m_icon;
 			}
 			else
@@ -479,15 +317,6 @@ public class UIAbilityTooltip : UITooltipBase
 			phaseIcon.sprite = (Sprite)sprite;
 			if (!m_phaseIcon.gameObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_phaseIcon, true);
 			}
 		}
@@ -495,15 +324,6 @@ public class UIAbilityTooltip : UITooltipBase
 		{
 			if (m_perPhaseUIElements[i].m_tickFill != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_perPhaseUIElements[i].m_tickFill, m_perPhaseUIElements[i] == uiElementInfo);
 			}
 		}
@@ -527,15 +347,6 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!movieAssetName.IsNullOrEmpty())
 			{
 				while (true)

@@ -23,41 +23,10 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		GridLayoutGroup[] componentsInChildren = base.gameObject.GetComponentsInChildren<GridLayoutGroup>(true);
 		if (componentsInChildren != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (componentsInChildren.Length > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HitchDetector.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HitchDetector.Get().AddNewLayoutGroup(componentsInChildren[0]);
 				}
 			}
@@ -75,10 +44,6 @@ public class UIStoreGamePanel : UIStoreBasePanel
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						UIPurchaseableItem item = new UIPurchaseableItem
 						{
 							m_itemType = PurchaseItemType.Game,
@@ -124,19 +89,6 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		{
 			if (i + 1 < gamePackData.m_gamePacks.Length)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gameItemList[i].Setup(gamePackData.m_gamePacks[i + 1]);
 			}
 			else
@@ -146,11 +98,6 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 			string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 			if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty())

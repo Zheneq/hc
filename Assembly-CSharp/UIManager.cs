@@ -74,15 +74,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return null;
 		}
 	}
@@ -98,15 +89,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return null;
 		}
 	}
@@ -122,32 +104,10 @@ public class UIManager : MonoBehaviour
 				canvas = LayerInfos[num].GetDefaultCanvas(theScene);
 				if (canvas != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -162,19 +122,6 @@ public class UIManager : MonoBehaviour
 			canvas = LayerInfos[i].GetDefaultCanvas(theScene);
 			if (canvas != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 		}
@@ -192,32 +139,10 @@ public class UIManager : MonoBehaviour
 				canvas = LayerInfos[num].GetBatchCanvas(theScene, type);
 				if (canvas != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -240,19 +165,6 @@ public class UIManager : MonoBehaviour
 				num2++;
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		return num;
@@ -269,19 +181,6 @@ public class UIManager : MonoBehaviour
 				Transform transform = (Transform)enumerator.Current;
 				if (transform != trans.gameObject)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ChangeLayersRecursively(transform, name);
 				}
 			}
@@ -309,15 +208,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (newParent == null)
 			{
 				while (true)
@@ -355,15 +245,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gameObject.SetActive(true);
 			return;
 		}
@@ -377,46 +258,15 @@ public class UIManager : MonoBehaviour
 		}
 		if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds.Contains(gObject.GetInstanceID()))
 			{
 				DisableGameObjectWithAnimOutInfo disableGameObjectWithAnimOutInfo = overrideAnimInfo;
 				if (disableGameObjectWithAnimOutInfo == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					disableGameObjectWithAnimOutInfo = gObject.GetComponent<DisableGameObjectWithAnimOutInfo>();
 				}
 				if (!(disableGameObjectWithAnimOutInfo == null))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(disableGameObjectWithAnimOutInfo.m_animator == null))
 					{
 						if (doActive)
@@ -424,41 +274,14 @@ public class UIManager : MonoBehaviour
 							bool flag = false;
 							if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length > 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									for (int i = 0; i < disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length; i++)
 									{
 										DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo = disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo[i];
 										if (setGameObjectEnableInfo.m_AnimationNameToPlay.IsNullOrEmpty())
 										{
 											continue;
-										}
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										flag = true;
 										UIAnimationEventManager uIAnimationEventManager = UIAnimationEventManager.Get();
@@ -469,27 +292,9 @@ public class UIManager : MonoBehaviour
 										float animStartTimeNormalized = setGameObjectEnableInfo.m_AnimStartTimeNormalized;
 										if (_003C_003Ef__mg_0024cache0 == null)
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											_003C_003Ef__mg_0024cache0 = AnimationDoneCallback;
 										}
 										uIAnimationEventManager.PlayAnimation(animator, animationNameToPlay, null, animationNameForDoneCallback, animLayer, animStartTimeNormalized, true, true, _003C_003Ef__mg_0024cache0, gObject);
-									}
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -499,11 +304,6 @@ public class UIManager : MonoBehaviour
 							}
 							while (true)
 							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
 								gObject.SetActive(true);
 								return;
 							}
@@ -511,26 +311,8 @@ public class UIManager : MonoBehaviour
 						bool flag2 = false;
 						if (gObject.activeInHierarchy)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo != null && disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length > 0)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								for (int j = 0; j < disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length; j++)
 								{
 									DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo2 = disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo[j];
@@ -548,27 +330,9 @@ public class UIManager : MonoBehaviour
 						}
 						return;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				gObject.SetActive(doActive);
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (gObject.activeSelf != doActive)
@@ -585,15 +349,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			init = true;
 			base.gameObject.AddComponent<UIAnimationEventManager>();
 			List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
@@ -608,33 +363,14 @@ public class UIManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (list.Count <= 1)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (_003C_003Ef__am_0024cache0 == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
 						{
 							if (keyA.Value > keyB.Value)
@@ -650,10 +386,6 @@ public class UIManager : MonoBehaviour
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										return -1;
 									}
 								}
@@ -683,10 +415,6 @@ public class UIManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("UIScene did not implement ui scene interface");
 					return null;
 				}
@@ -701,11 +429,6 @@ public class UIManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				RunTimeScenes.Add(runtimeSceneInfo);
 				((IUIScene)scene).NotifyGameStateChange(new SceneStateParameters
 				{
@@ -713,15 +436,6 @@ public class UIManager : MonoBehaviour
 				});
 				if (scene.GetMouseClickObjects() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MouseObjectClickListeners.AddRange(scene.GetMouseClickObjects());
 				}
 				return runtimeSceneInfo;
@@ -754,15 +468,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (list.Count != num)
 			{
 			}
@@ -776,19 +481,6 @@ public class UIManager : MonoBehaviour
 		{
 			if (infoA != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (infoB != null)
 				{
 					if (infoA.SceneLoadPriority == infoB.SceneLoadPriority)
@@ -827,19 +519,6 @@ public class UIManager : MonoBehaviour
 		{
 			if (!DoesSceneExist(scenesToLoad[i].m_SceneType))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!scenesToLoad[i].UnitySceneLoadName.IsNullOrEmpty())
 				{
 					yield return AssetBundleManager.Get().LoadSceneAsync(scenesToLoad[i].UnitySceneLoadName, "uiscenes", LoadSceneMode.Additive);
@@ -848,11 +527,6 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			DoneInitialLoading = true;
 			yield break;
 		}
@@ -879,25 +553,11 @@ public class UIManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -909,55 +569,15 @@ public class UIManager : MonoBehaviour
 		{
 			if (newState == ClientState.InFrontEnd)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!RunTimeScenes[i].DisplayInfo.m_InFrontEnd)
 				{
 					goto IL_0080;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (newState == ClientState.InGame)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!RunTimeScenes[i].DisplayInfo.m_InGame)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0080;
 				}
 			}
@@ -980,15 +600,6 @@ public class UIManager : MonoBehaviour
 			}
 			if (RunTimeScenes[i].RuntimeSemiStaticSceneContainer != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int l = 0; l < RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.childCount; l++)
 				{
 					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.GetChild(l).gameObject);
@@ -996,27 +607,9 @@ public class UIManager : MonoBehaviour
 			}
 			if (RunTimeScenes[i].RuntimeCameraMovementSceneContainer != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int m = 0; m < RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.childCount; m++)
 				{
 					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.GetChild(m).gameObject);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (RunTimeScenes[i].RuntimePerFrameSceneContainer != null)
@@ -1025,26 +618,12 @@ public class UIManager : MonoBehaviour
 				{
 					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimePerFrameSceneContainer.transform.GetChild(n).gameObject);
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			RunTimeScenes.RemoveAt(i);
 			i--;
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			List<UISceneDisplayInfo> list = new List<UISceneDisplayInfo>();
 			for (int num = 0; num < LayerInfos.Length; num++)
 			{
@@ -1052,11 +631,6 @@ public class UIManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				DoneInitialLoading = false;
 				StartCoroutine("LoadSceneAsync", list);
 				return;
@@ -1072,42 +646,15 @@ public class UIManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < MouseObjectClickListeners.Count; i++)
 			{
 				bool flag = true;
 				UIScene.CloseObjectInfo closeObjectInfo = MouseObjectClickListeners[i];
 				if (closeObjectInfo.m_SceneReference != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(EventSystem.current != null))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!EventSystem.current.IsPointerOverGameObject(-1))
 					{
@@ -1116,38 +663,11 @@ public class UIManager : MonoBehaviour
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Transform transform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform;
 							if (transform != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num = 0;
 								while (true)
 								{
@@ -1155,84 +675,30 @@ public class UIManager : MonoBehaviour
 									{
 										if (closeObjectInfo.m_GameObjectsToIgnoreCloseCall[num] == transform.gameObject)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 											break;
 										}
 										num++;
 										continue;
 									}
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 							}
 							if (closeObjectInfo.m_checkParentObjectsOfClickedObject)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									while (transform != null)
 									{
 										for (int j = 0; j < closeObjectInfo.m_GameObjectsToIgnoreCloseCall.Length; j++)
 										{
 											if (closeObjectInfo.m_GameObjectsToIgnoreCloseCall[j] == transform.gameObject)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = false;
 												break;
 											}
 										}
 										transform = transform.parent;
-									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -1248,27 +714,9 @@ public class UIManager : MonoBehaviour
 						{
 							SetGameObjectActive(closeObjectInfo.m_GameObjectsToDisableOnClick[k], false);
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (closeObjectInfo.m_AnimatorToClose != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIAnimationEventManager.Get().PlayAnimation(closeObjectInfo.m_AnimatorToClose, closeObjectInfo.m_animationToPlay, null, string.Empty);
 					}
 				}

@@ -29,19 +29,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
 		else
@@ -52,15 +39,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		object obj;
 		if (trackerTeslaPrison != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>();
 		}
 		else
@@ -73,15 +51,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		float baseVal2;
 		if (trackerDroneInfoComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerDroneInfoComponent.m_targeterMaxRangeFromCaster;
 		}
 		else
@@ -101,19 +70,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
 		else
@@ -127,15 +83,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerTeslaPrison.m_additionalEffectOnEnemiesInShape;
 		}
 		else
@@ -150,15 +97,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		float baseVal3;
 		if (trackerDroneInfoComponent != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerDroneInfoComponent.m_targeterMaxRangeFromCaster;
 		}
 		else

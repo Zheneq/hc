@@ -80,19 +80,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Sensei Circle Or Laser";
 		}
 		Setup();
@@ -102,19 +89,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Sensei_SyncComponent>();
 		}
 		SetCachedFields();
@@ -124,15 +98,6 @@ public class SenseiBasicAttack : Ability
 		int affectsCaster;
 		if (GetHealPerEnemyHit() <= 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = ((GetAbsorbAmountIfTriggeredHitCount() > 0) ? 1 : 0);
 		}
 		else
@@ -163,45 +128,14 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if (GetHealPerEnemyHit() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorsSoFar.Count > 0)
 			{
 				result = 1;
 				goto IL_0061;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (GetAbsorbAmountIfTriggeredHitCount() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((actorsSoFar.Count >= GetCdrMinTriggerHitCount()) ? 1 : 0);
 		}
 		else
@@ -218,19 +152,6 @@ public class SenseiBasicAttack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -241,15 +162,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo cachedCircleEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedCircleEnemyHitEffect = m_abilityMod.m_circleEnemyHitEffectMod.GetModifiedValue(m_circleEnemyHitEffect);
 		}
 		else
@@ -260,15 +172,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserEnemyHitEffect = m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
@@ -283,19 +186,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_circleDistThresholdMod.GetModifiedValue(m_circleDistThreshold);
 		}
 		else
@@ -310,19 +200,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_circleRadiusMod.GetModifiedValue(m_circleRadius);
 		}
 		else
@@ -337,19 +214,6 @@ public class SenseiBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -364,19 +228,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_circleDamageMod.GetModifiedValue(m_circleDamage);
 		}
 		else
@@ -401,19 +252,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -438,19 +276,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserFarDistThreshMod.GetModifiedValue(m_laserFarDistThresh);
 		}
 		else
@@ -475,19 +300,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnAbilityMod.GetModifiedValue(m_cdrOnAbility);
 		}
 		else
@@ -502,19 +314,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrMinTriggerHitCountMod.GetModifiedValue(m_cdrMinTriggerHitCount);
 		}
 		else
@@ -529,19 +328,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_absorbPerEnemyHitOnTurnStartMod.GetModifiedValue(m_absorbPerEnemyHitOnTurnStart);
 		}
 		else
@@ -561,19 +347,6 @@ public class SenseiBasicAttack : Ability
 		float num;
 		if (forCone)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GetCircleFarDistThresh();
 		}
 		else
@@ -583,26 +356,8 @@ public class SenseiBasicAttack : Ability
 		float num2 = num;
 		if (num2 > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetExtraDamageForFarTarget() > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 				vector.y = 0f;
 				float magnitude = vector.magnitude;
@@ -652,19 +407,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0;
 			int num = 0;
 			if (flag)
@@ -672,26 +414,8 @@ public class SenseiBasicAttack : Ability
 				num = GetCircleDamage();
 				if (GetExtraDamageForAlternating() > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((bool)m_syncComp && m_syncComp.m_lastPrimaryUsedMode == 2)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += GetExtraDamageForAlternating();
 					}
 				}
@@ -701,37 +425,10 @@ public class SenseiBasicAttack : Ability
 				num = GetLaserDamage();
 				if (GetExtraDamageForAlternating() > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((bool)m_syncComp)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_syncComp.m_lastPrimaryUsedMode == 1)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += GetExtraDamageForAlternating();
 						}
 					}
@@ -742,54 +439,18 @@ public class SenseiBasicAttack : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int healing = 0;
 			if (GetHealPerEnemyHit() > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				healing = visibleActorsCountByTooltipSubject * GetHealPerEnemyHit();
 			}
 			results.m_healing = healing;
 			if (GetAbsorbAmountIfTriggeredHitCount() > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				if (visibleActorsCountByTooltipSubject2 >= GetCdrMinTriggerHitCount())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_absorb = GetAbsorbAmountIfTriggeredHitCount();
 				}
 			}
@@ -821,33 +482,11 @@ public class SenseiBasicAttack : Ability
 	{
 		if (targets != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (caster != null)
 			{
 				int result;
 				if (ShouldUseCircle(targets[0].FreePos, caster))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_onCastCircleAnimIndex;
 				}
 				else

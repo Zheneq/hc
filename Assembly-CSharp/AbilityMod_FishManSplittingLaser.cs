@@ -61,15 +61,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_primaryTargetDamageAmountMod, "PrimaryTargetDamageAmount", string.Empty, fishManSplittingLaser.m_primaryTargetDamageAmount);
 			AbilityMod.AddToken(tokens, m_primaryTargetHealingAmountMod, "PrimaryTargetHealingAmount", string.Empty, fishManSplittingLaser.m_primaryTargetHealingAmount);
 			AbilityMod.AddToken_EffectMod(tokens, m_primaryTargetEnemyHitEffectMod, "PrimaryTargetEnemyHitEffect", fishManSplittingLaser.m_primaryTargetEnemyHitEffect);
@@ -101,19 +92,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = fishManSplittingLaser.m_primaryTargetDamageAmount;
 		}
 		else
@@ -126,15 +104,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManSplittingLaser.m_primaryTargetHealingAmount;
 		}
 		else
@@ -147,15 +116,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManSplittingLaser.m_primaryTargetEnemyHitEffect;
 		}
 		else
@@ -168,15 +128,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManSplittingLaser.m_primaryTargetAllyHitEffect;
 		}
 		else
@@ -189,15 +140,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = fishManSplittingLaser.m_primaryTargetingInfo;
 		}
 		else
@@ -210,15 +152,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (fishManSplittingLaser.m_secondaryLasersCanHitEnemies ? 1 : 0);
 		}
 		else
@@ -231,15 +164,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (fishManSplittingLaser.m_secondaryLasersCanHitAllies ? 1 : 0);
 		}
 		else
@@ -252,15 +176,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = fishManSplittingLaser.m_secondaryTargetDamageAmount;
 		}
 		else
@@ -273,15 +188,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManSplittingLaser.m_secondaryTargetHealingAmount;
 		}
 		else
@@ -294,15 +200,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManSplittingLaser.m_secondaryTargetEnemyHitEffect;
 		}
 		else
@@ -315,15 +212,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManSplittingLaser.m_secondaryTargetAllyHitEffect;
 		}
 		else
@@ -336,15 +224,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		object baseLaserInfo2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo2 = fishManSplittingLaser.m_secondaryTargetingInfo;
 		}
 		else
@@ -357,15 +236,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = (fishManSplittingLaser.m_alwaysSplit ? 1 : 0);
 		}
 		else
@@ -378,15 +248,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		float baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = fishManSplittingLaser.m_minSplitAngle;
 		}
 		else
@@ -399,15 +260,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		float baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = fishManSplittingLaser.m_maxSplitAngle;
 		}
 		else
@@ -420,15 +272,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		float baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = fishManSplittingLaser.m_lengthForMinAngle;
 		}
 		else
@@ -441,15 +284,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		float baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = fishManSplittingLaser.m_lengthForMaxAngle;
 		}
 		else
@@ -462,15 +296,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		int baseVal16;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = fishManSplittingLaser.m_numSplitBeamPairs;
 		}
 		else

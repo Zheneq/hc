@@ -35,19 +35,6 @@ public class LobbyCharacterGameplayData
 			LobbyAbilityModGameplayData defaultAbilityMod = GetDefaultAbilityMod(i);
 			if (defaultAbilityMod != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result.SetModForAbility(i, defaultAbilityMod.Index);
 			}
 			else
@@ -57,11 +44,6 @@ public class LobbyCharacterGameplayData
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return result;
 		}
 	}
@@ -80,10 +62,6 @@ public class LobbyCharacterGameplayData
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					using (Dictionary<int, LobbyAbilityModGameplayData>.ValueCollection.Enumerator enumerator = abilityData.AbilityModData.Values.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -134,10 +112,6 @@ public class LobbyCharacterGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					{
 						foreach (LobbyAbilityModGameplayData value in abilityData.AbilityModData.Values)
 						{
@@ -174,10 +148,6 @@ public class LobbyCharacterGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return AbilityData[abilityIndex];
 				}
 			}
@@ -204,10 +174,6 @@ public class LobbyCharacterGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return SkinData[skinIndex];
 				}
 			}
@@ -223,15 +189,6 @@ public class LobbyCharacterGameplayData
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SkinData[skinIndex] = skinData;
 			return;
 		}
@@ -241,19 +198,6 @@ public class LobbyCharacterGameplayData
 	{
 		if (skinIndex < SkinData.Length)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (patternIndex < SkinData[skinIndex].PatternData.Length && colorIndex < SkinData[skinIndex].PatternData[patternIndex].ColorData.Length)
 			{
 				while (true)

@@ -28,15 +28,6 @@ public class PKFxSoundManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_spawnedSound == null)
 			{
 				return;
@@ -46,15 +37,6 @@ public class PKFxSoundManager : MonoBehaviour
 				AudioSource audioSource = m_spawnedSound[num];
 				if (!audioSource.isPlaying)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(audioSource.gameObject);
 					m_spawnedSound.RemoveAt(num);
 				}
@@ -94,10 +76,6 @@ public class PKFxSoundManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameObject gameObject = new GameObject("FxSound");
 					if (gameObject != null)
 					{

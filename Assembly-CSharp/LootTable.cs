@@ -50,19 +50,6 @@ public class LootTable
 		int result;
 		if (SelectionRule == LootTableEntrySelectionRule.PickFromOneEntry)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((Entries.Count > 1) ? 1 : 0);
 		}
 		else

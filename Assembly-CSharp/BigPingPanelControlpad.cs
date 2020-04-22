@@ -56,15 +56,6 @@ public class BigPingPanelControlpad : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!selectableBtn.IsDisabled)
 			{
 				selectableBtn.SetSelected(!clear, false, string.Empty, string.Empty);
@@ -77,19 +68,6 @@ public class BigPingPanelControlpad : MonoBehaviour
 	{
 		if (lineSize == 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hoverPingType != 0)
 			{
 				SetSelectedButton(m_hoverPingType, true);
@@ -103,11 +81,6 @@ public class BigPingPanelControlpad : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			ActorController.PingType pingType = ActorController.PingType.Default;
 			angle += 45f;
 			if (angle < 0f)
@@ -135,22 +108,8 @@ public class BigPingPanelControlpad : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_hoverPingType != 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetSelectedButton(m_hoverPingType, true);
 				}
 				m_hoverPingType = pingType;

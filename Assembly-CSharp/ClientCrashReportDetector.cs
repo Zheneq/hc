@@ -28,19 +28,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 			string text;
 			if (parent == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = string.Empty;
 			}
 			else
@@ -54,43 +41,16 @@ public class ClientCrashReportDetector : MonoBehaviour
 			{
 				if (num >= directories.Length)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				string text2 = directories[num];
 				if (Directory.GetFiles(text2, "crash.dmp").Length > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_crashDumpDirectoryPath = text2;
 					break;
 				}
 				if (m_crashDumpDirectoryPath != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				num++;
@@ -139,15 +99,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_threadedJob.Update();
 			return;
 		}
@@ -169,10 +120,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("RecoveredFromCrash", "Global"), StringUtil.TR("BelowMinimumSpec", "Global"), StringUtil.TR("Ok", "Global"));
 					DeleteCrashDumpDirectory();
 					return;
@@ -181,26 +128,8 @@ public class ClientCrashReportDetector : MonoBehaviour
 		}
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().IsConnectedToLobbyServer)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientStatusReport clientStatusReport = new ClientStatusReport();
 				clientStatusReport.Status = ClientStatusReport.ClientStatusReportType._001D;
 				clientStatusReport.StatusDetails = m_crashDumpDirectoryPath;
@@ -215,35 +144,12 @@ public class ClientCrashReportDetector : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			string crashDumpDirectoryPath = m_crashDumpDirectoryPath;
 			object arg;
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().SessionInfo != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					arg = ClientGameManager.Get().SessionInfo.SessionToken.ToString();
 					goto IL_01ab;
 				}
@@ -260,19 +166,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().IsConnectedToLobbyServer)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientStatusReport clientStatusReport = new ClientStatusReport();
 			clientStatusReport.Status = ClientStatusReport.ClientStatusReportType._0012;
 			clientStatusReport.StatusDetails = m_crashDumpDirectoryPath;
@@ -308,19 +201,6 @@ public class ClientCrashReportDetector : MonoBehaviour
 	{
 		if (m_threadedJob != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_threadedJob.Cancel();
 		}
 		s_instance = null;

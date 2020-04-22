@@ -44,15 +44,6 @@ public class UIClickListener : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_closeAction == null)
 			{
 				while (true)
@@ -68,27 +59,9 @@ public class UIClickListener : MonoBehaviour
 			}
 			if (!Input.GetMouseButtonDown(0))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButtonDown(1))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			PointerEventData pointerEventData = new PointerEventData(EventSystem.current);

@@ -49,10 +49,6 @@ public class AbilityData : NetworkBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -68,15 +64,6 @@ public class AbilityData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_cooldownRemaining = remaining;
 				return;
 			}
@@ -302,15 +289,6 @@ public class AbilityData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_softTargetedActor = value;
 				ActorData actor = m_actor;
 				if (!(actor == GameFlowData.Get().activeOwnedActorData))
@@ -319,11 +297,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					CameraManager cameraManager = CameraManager.Get();
 					if ((bool)m_softTargetedActor)
 					{
@@ -343,11 +316,6 @@ public class AbilityData : NetworkBehaviour
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							cameraManager.SetTargetObject(base.gameObject, CameraManager.CameraTargetReason.AbilitySoftTargeting);
 							return;
 						}
@@ -407,19 +375,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (m_abilitiesList != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilitiesList.Count != 0)
 			{
 				goto IL_0088;
@@ -466,19 +421,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = teamSensitiveData_authority.HasToggledAction(actionType);
 		}
 		return result;
@@ -490,19 +432,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = teamSensitiveData_authority.HasQueuedAction(actionType);
 		}
 		return result;
@@ -520,19 +449,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = teamSensitiveData_authority.HasQueuedAbilityInPhase(phase);
 		}
 		return result;
@@ -560,53 +476,17 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability[] chainAbilities = abilityEntry.ability.GetChainAbilities();
 			foreach (Ability ability in chainAbilities)
 			{
 				if (ability != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AddToAllChainAbilitiesList(ability, (ActionType)j);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_cooldowns = new Dictionary<string, int>();
 			m_actor = GetComponent<ActorData>();
 			for (int l = 0; l < 3; l++)
@@ -629,15 +509,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetSpriteForAbility(m_ability0, m_sprite0);
 			SetSpriteForAbility(m_ability1, m_sprite1);
 			SetSpriteForAbility(m_ability2, m_sprite2);
@@ -673,29 +544,11 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability[] chainAbilities = ability.m_chainAbilities;
 			foreach (Ability ability2 in chainAbilities)
 			{
 				if (ability2 != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ability2.sprite = sprite;
 				}
 			}
@@ -728,62 +581,21 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < 3; j++)
 			{
 				m_currentCardIds.Add(-1);
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (GameplayUtils.IsPlayerControlled(this))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = GameplayData.Get().m_turnsAbilitiesUnlock.Length;
 					for (int k = 0; k < num; k++)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k < 7)
 						{
 							PlaceInCooldownTillTurn((ActionType)k, GameplayData.Get().m_turnsAbilitiesUnlock[k]);
 							continue;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -820,19 +632,6 @@ public class AbilityData : NetworkBehaviour
 		int result;
 		if (actionType >= ActionType.CARD_0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actionType <= ActionType.CARD_2) ? 1 : 0);
 		}
 		else
@@ -847,19 +646,6 @@ public class AbilityData : NetworkBehaviour
 		int result;
 		if (actionType >= ActionType.CHAIN_0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((actionType <= ActionType.CHAIN_2) ? 1 : 0);
 		}
 		else
@@ -880,10 +666,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -909,31 +691,9 @@ public class AbilityData : NetworkBehaviour
 		List<CameraShotSequence> list = new List<CameraShotSequence>();
 		if (characterData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 			if (abilityOfActionType != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < character.m_taunts.Count; i++)
 				{
 					CharacterTaunt characterTaunt = character.m_taunts[i];
@@ -941,41 +701,14 @@ public class AbilityData : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i >= characterData.CharacterComponent.Taunts.Count || !characterData.CharacterComponent.Taunts[i].Unlocked)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					TauntCameraSet tauntCamSetData = m_actor.m_tauntCamSetData;
 					object obj;
 					if (tauntCamSetData != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = tauntCamSetData.GetTauntCam(characterTaunt.m_uniqueID);
 					}
 					else
@@ -987,37 +720,10 @@ public class AbilityData : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(cameraShotSequence);
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1034,53 +740,17 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!includeHidden)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterTaunt.m_isHidden)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			list.Add(characterTaunt);
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1089,19 +759,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (CameraManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CameraManager.Get().m_abilityCinematicState == CameraManager.AbilityCinematicState.Never)
 			{
 				return false;
@@ -1109,27 +766,9 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (characterData != null && character.m_characterType != 0 && actionType != ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int count = characterData.CharacterComponent.Taunts.Count;
 			for (int i = 0; i < character.m_taunts.Count; i++)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i < count)
 				{
 					CharacterTaunt characterTaunt = character.m_taunts[i];
@@ -1137,51 +776,15 @@ public class AbilityData : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (characterTaunt.m_actionForTaunt != actionType)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (checkTauntUniqueId)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterTaunt.m_uniqueID != uniqueId)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (!characterData.CharacterComponent.Taunts[i].Unlocked || !GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, characterTaunt.m_uniqueID))
@@ -1190,22 +793,8 @@ public class AbilityData : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1221,44 +810,13 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (character.m_characterType != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actionType != ActionType.INVALID_ACTION)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				foreach (CharacterTaunt taunt in character.m_taunts)
 				{
 					if (taunt.m_actionForTaunt == actionType)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameplayOverrides.IsTauntAllowed(character.m_characterType, (int)actionType, taunt.m_uniqueID))
 						{
 							return true;
@@ -1277,58 +835,18 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				Ability ability = m_abilities[i].ability;
 				if (!teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(ability != null))
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(ability == GetSelectedAbility()))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(m_abilities[i].ability.RunPriority);
@@ -1347,57 +865,17 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				Ability ability = m_abilities[i].ability;
 				if (!teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(ability != null) || !(ability == GetSelectedAbility()))
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				list.Add(m_abilities[i]);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -1414,10 +892,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
@@ -1432,15 +906,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (sqrMagnitude > sqrMagnitude2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 1;
 		}
 		else
@@ -1459,15 +924,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int targetSelectionIndex = actorTurnSM.GetTargetSelectionIndex();
 			int numTargets = m_selectedAbility.GetNumTargets();
 			if (targetSelectionIndex >= numTargets)
@@ -1530,26 +986,12 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData == m_actor))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
 				if (m_actionToSelectWhenEnteringDecisionState != ActionType.INVALID_ACTION && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 				{
@@ -1571,15 +1013,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				if (m_actionsToCancelForTurnRedo != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 					{
 						while (true)
@@ -1610,15 +1043,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				if (!actorTurnSM.CanSelectAbility())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorTurnSM.CanQueueSimpleAction())
 					{
 						return;
@@ -1630,26 +1054,12 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					for (int i = 0; i < m_abilities.Length; i++)
 					{
 						AbilityEntry abilityEntry = m_abilities[i];
 						if (abilityEntry == null || !(abilityEntry.ability != null) || abilityEntry.keyPreference == KeyPreference.NullPreference || !InputManager.Get().IsKeyBindingNewlyHeld(abilityEntry.keyPreference))
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 						{
@@ -1691,15 +1101,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -1718,15 +1119,6 @@ public class AbilityData : NetworkBehaviour
 				default:
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SendAbilityPing(false, actionType, ability);
 					}
 					return false;
@@ -1738,37 +1130,10 @@ public class AbilityData : NetworkBehaviour
 		bool flag4 = InputManager.Get().IsKeyBindingHeld(KeyPreference.AbilityRetargetingModifier);
 		if (HasQueuedAction(actionType))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag4)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SendAbilityPing(true, actionType, ability);
 				}
 				else if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
@@ -1788,15 +1153,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (CanQueueActionByCancelingOthers(ability, actionType, flag3, flag2, out List<ActionType> actionsToCancel, out bool cancelMovement))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				SendAbilityPing(true, actionType, ability);
@@ -1808,37 +1164,10 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GetSelectedActionType() == actionType)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!SinglePlayerManager.IsCancelDisabled())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ClearSelectedAbility();
 								actorTurnSM.BackToDecidingState();
 								goto IL_0205;
@@ -1846,15 +1175,6 @@ public class AbilityData : NetworkBehaviour
 						}
 					}
 					return RedoTurn(ability, actionType, actionsToCancel, cancelMovement, flag4);
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				actorTurnSM.BackToDecidingState();
 				m_cancelMovementForTurnRedo = cancelMovement;
@@ -1865,15 +1185,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SendAbilityPing(false, actionType, ability);
 		}
 		goto IL_0205;
@@ -1889,31 +1200,9 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (!(m_lastPingSendTime <= 0f))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Time.time - m_lastPingSendTime > HUD_UIResources.Get().m_mapPingCooldown))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(m_actor.m_characterType, ability, selectable, Mathf.Max(GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), GetTurnsTillUnlock(actionType)), actionType == ActionType.ABILITY_4, m_actor.GetEnergyToDisplay(), m_actor.GetActualMaxTechPoints());
@@ -1926,19 +1215,6 @@ public class AbilityData : NetworkBehaviour
 		object obj;
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actor.GetActorController();
 		}
 		else
@@ -1949,15 +1225,6 @@ public class AbilityData : NetworkBehaviour
 		object obj2;
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj2 = m_actor.GetActorTurnSM();
 		}
 		else
@@ -1967,39 +1234,12 @@ public class AbilityData : NetworkBehaviour
 		ActorTurnSM actorTurnSM = (ActorTurnSM)obj2;
 		if (ability != null && !ability.IsSimpleAction())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (retargetingModifierKeyHeld)
 			{
 				if (!actionsToCancel.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionsToCancel.Contains(actionType))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ability.BackupTargetingForRedo(actorTurnSM);
 					}
 				}
@@ -2012,15 +1252,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (cancelMovement)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorTurnSM.RequestCancelMovement();
 			UISounds.GetUISounds().Play("ui/ingame/v1/move_undo");
 		}
@@ -2035,15 +1266,6 @@ public class AbilityData : NetworkBehaviour
 					actorTurnSM.RequestCancelAction(current, true);
 					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else if (!m_loggedErrorForNullAction)
@@ -2053,49 +1275,13 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability.IsSimpleAction())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionsToCancel != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actionsToCancel.Contains(actionType))
 					{
 						goto IL_01f4;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (HasQueuedAction(actionType))
@@ -2127,30 +1313,8 @@ public class AbilityData : NetworkBehaviour
 		cancelMovement = false;
 		if (ability.IsSimpleAction())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (canQueueSimpleAction)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 				{
 					flag = true;
@@ -2159,75 +1323,21 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (canSelectAbility)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ValidateActionIsRequestableDisregardingQueuedActions(actionType))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability.IsFreeAction())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.GetRunPriority() != AbilityPriority.Evasion)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!IsCard(actionType))
 					{
 						if (ability.IsFreeAction() && HasQueuedAction(actionType))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actionsToCancel.Add(actionType);
 						}
 						goto IL_0179;
@@ -2241,15 +1351,6 @@ public class AbilityData : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability abilityOfActionType = GetAbilityOfActionType(actionType2);
 				if (!(abilityOfActionType != null))
 				{
@@ -2261,27 +1362,9 @@ public class AbilityData : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!IsCard(actionType))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				actionsToCancel.Add(actionType2);
@@ -2294,30 +1377,12 @@ public class AbilityData : NetworkBehaviour
 		IL_0179:
 		if (m_actor.HasQueuedMovement())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
 			{
 				cancelMovement = true;
 			}
 			else if (ability.GetMovementAdjustment() == Ability.MovementAdjustment.ReducedMovement)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cancelMovement = !m_actor.QueuedMovementAllowsAbility;
 			}
 		}
@@ -2328,19 +1393,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!m_cancelMovementForTurnRedo)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actionsToCancelForTurnRedo.IsNullOrEmpty())
 			{
 				return false;
@@ -2358,19 +1410,6 @@ public class AbilityData : NetworkBehaviour
 		m_actionToSelectWhenEnteringDecisionState = ActionType.INVALID_ACTION;
 		if (m_lastSelectedAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lastSelectedAbility.DestroyBackupTargetingInfo(false);
 		}
 		m_retargetActionWithoutClearingOldAbilities = false;
@@ -2389,10 +1428,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return new List<ActorData>();
 				}
 			}
@@ -2407,67 +1442,22 @@ public class AbilityData : NetworkBehaviour
 				ActorData current = enumerator.Current;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!component.IsVisible(current.GetCurrentBoardSquare()))
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (checkLoS)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!component.IsVisibleBySelf(current.GetCurrentBoardSquare()))
 					{
 						if (!actor.IsLineOfSightVisibleException(current))
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				list.Add(current);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		List<ActorData> list2 = new List<ActorData>();
@@ -2476,15 +1466,6 @@ public class AbilityData : NetworkBehaviour
 			ActorData actorData = list[i];
 			if (!actorData.IsDead())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget target = AbilityTarget.CreateAbilityTargetFromActor(actorData, actor);
 				if (ValidateAbilityOnTarget(testAbility, target, targetIndex))
 				{
@@ -2494,11 +1475,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list2;
 		}
 	}
@@ -2511,15 +1487,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				m_abilities[i].SetCooldownRemaining(m_cooldownsSync[i]);
@@ -2545,53 +1512,21 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(CardManagerData.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < m_currentCardIds.Count; i++)
 				{
 					Ability useAbility = null;
 					if (m_currentCardIds[i] > 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
 						object obj;
 						if (spawnedCardInstance != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = spawnedCardInstance.m_useAbility;
 						}
 						else
@@ -2604,11 +1539,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UpdateCardBarUI();
 					return;
 				}
@@ -2626,41 +1556,10 @@ public class AbilityData : NetworkBehaviour
 			Ability abilityOfActionType = GetAbilityOfActionType(type);
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityOfActionType != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityOfActionType.GetAffectsMovement())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
@@ -2669,26 +1568,8 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityOfActionType != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityOfActionType.ShouldUpdateDrawnTargetersOnQueueChange())
 				{
 					flag2 = true;
@@ -2697,33 +1578,10 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameplayUtils.IsMinion(this))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorMovement component = GetComponent<ActorMovement>();
 					component.UpdateSquaresCanMoveTo();
 				}
@@ -2732,11 +1590,6 @@ public class AbilityData : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_actor.GetActorTargeting().MarkForForceRedraw();
 					return;
 				}
@@ -2758,32 +1611,10 @@ public class AbilityData : NetworkBehaviour
 			Ability ability = abilityEntry.ability;
 			if (ability == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				continue;
 			}
 			if (AbilityUtils.AbilityHasTag(ability, AbilityTags.TriggerCooldownOnRespawn))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TriggerCooldown(action);
 			}
 			if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ClearCooldownOnRespawn))
@@ -2798,19 +1629,6 @@ public class AbilityData : NetworkBehaviour
 		object obj;
 		if (m_actor == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = null;
 		}
 		else
@@ -2821,15 +1639,6 @@ public class AbilityData : NetworkBehaviour
 		int num;
 		if (GameFlowData.Get().activeOwnedActorData == m_actor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((m_actor != null) ? 1 : 0);
 		}
 		else
@@ -2839,26 +1648,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag = (byte)num != 0;
 		if ((bool)m_selectedAbility)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selectedAbility.OnAbilityDeselect();
 			}
 		}
@@ -2866,53 +1657,17 @@ public class AbilityData : NetworkBehaviour
 		Networkm_selectedActionForTargeting = GetActionTypeOfAbility(m_selectedAbility);
 		if ((bool)m_selectedAbility)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selectedAbility.OnAbilitySelect();
 			}
 		}
 		if (actorTurnSM != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorTurnSM.OnSelectedAbilityChanged(selectedAbility);
 		}
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_actor.OnSelectedAbilityChanged(selectedAbility);
 		}
 		if (CameraManager.Get() != null)
@@ -2966,19 +1721,6 @@ public class AbilityData : NetworkBehaviour
 		ActionType actionType = ActionType.INVALID_ACTION;
 		if (abilityName != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -2986,37 +1728,10 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (m_abilities[num] != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_abilities[num].ability != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_abilities[num].ability.m_abilityName == abilityName)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actionType = (ActionType)num;
 								break;
 							}
@@ -3025,28 +1740,10 @@ public class AbilityData : NetworkBehaviour
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (actionType == ActionType.INVALID_ACTION)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b = 0;
 				while (true)
 				{
@@ -3054,26 +1751,8 @@ public class AbilityData : NetworkBehaviour
 					{
 						if (m_allChainAbilities[b] != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_allChainAbilities[b].m_abilityName == abilityName)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								sbyte b2 = b;
 								b2 = checked((sbyte)(b2 + 10));
 								actionType = (ActionType)b2;
@@ -3082,15 +1761,6 @@ public class AbilityData : NetworkBehaviour
 						}
 						b = (sbyte)(b + 1);
 						continue;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -3110,19 +1780,6 @@ public class AbilityData : NetworkBehaviour
 		ActionType actionType = ActionType.INVALID_ACTION;
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -3130,43 +1787,16 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (m_abilities[num] != null && m_abilities[num].ability == ability)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actionType = (ActionType)num;
 						break;
 					}
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (actionType == ActionType.INVALID_ACTION)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b = 0;
 				while (true)
 				{
@@ -3174,15 +1804,6 @@ public class AbilityData : NetworkBehaviour
 					{
 						if (m_allChainAbilities[b] != null && m_allChainAbilities[b] == ability)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							sbyte b2 = b;
 							b2 = checked((sbyte)(b2 + 10));
 							actionType = (ActionType)b2;
@@ -3190,15 +1811,6 @@ public class AbilityData : NetworkBehaviour
 						}
 						b = (sbyte)(b + 1);
 						continue;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -3219,33 +1831,11 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (m_allChainAbilities[num] == ability)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						actionType = m_allChainAbilityParentActionTypes[num];
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -3265,34 +1855,12 @@ public class AbilityData : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = (int)(type - 10);
 					if (num >= 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num < m_allChainAbilities.Count)
 						{
 							return m_allChainAbilities[num];
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return null;
@@ -3306,15 +1874,6 @@ public class AbilityData : NetworkBehaviour
 			{
 				return m_abilities[(int)type].ability;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return null;
 	}
@@ -3326,19 +1885,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (abilityEntry != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityEntry.ability != null && abilityEntry.ability.GetType() == abilityType)
 				{
 					return abilityEntry.ability;
@@ -3347,11 +1893,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -3365,40 +1906,17 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityEntry.ability.GetType() != typeof(T))
 			{
 				continue;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return abilityEntry.ability as T;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return (T)null;
 		}
 	}
@@ -3407,19 +1925,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (type >= ActionType.ABILITY_0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)type < m_abilities.Length)
 			{
 				return m_abilities[(int)type];
@@ -3439,10 +1944,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return cardInfo.PrepCard;
 				}
 			}
@@ -3452,11 +1953,6 @@ public class AbilityData : NetworkBehaviour
 		case ActionType.CARD_1:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return cardInfo.DashCard;
 			}
 		case ActionType.CARD_2:
@@ -3488,10 +1984,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
@@ -3499,52 +1991,16 @@ public class AbilityData : NetworkBehaviour
 		int b = 0;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameplayData.Get() != null)
 			{
 				int currentTurn = GameFlowData.Get().CurrentTurn;
 				SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 				if (spawnPointManager != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (spawnPointManager.m_spawnInDuringMovement && GameplayData.Get().m_disableAbilitiesOnRespawn)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_actor.NextRespawnTurn == currentTurn)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							b = 1;
 							goto IL_0116;
 						}
@@ -3552,15 +2008,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				if (IsCard(actionType))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int turnCatalystsUnlock = GameplayData.Get().m_turnCatalystsUnlock;
 					b = turnCatalystsUnlock - currentTurn;
 				}
@@ -3569,15 +2016,6 @@ public class AbilityData : NetworkBehaviour
 					int[] turnsAbilitiesUnlock = GameplayData.Get().m_turnsAbilitiesUnlock;
 					if ((int)actionType < turnsAbilitiesUnlock.Length)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						b = turnsAbilitiesUnlock[(int)actionType] - currentTurn;
 					}
 				}
@@ -3609,10 +2047,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -3629,15 +2063,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (!(abilityEntry.ability != null))
 			{
@@ -3645,11 +2070,6 @@ public class AbilityData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
 				if (moddedCooldown > 0)
 				{
@@ -3669,15 +2089,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				else if (abilityEntry.ability.m_cooldown == -1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
 				}
 				SynchronizeCooldownsToSlots();
@@ -3694,25 +2105,11 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
 					SynchronizeCooldownsToSlots();
 					return;
@@ -3746,19 +2143,6 @@ public class AbilityData : NetworkBehaviour
 				string key = enumerator.Current.Key;
 				if (m_cooldowns[key] > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = 1;
 					if (GameplayMutators.Get() != null)
 					{
@@ -3768,27 +2152,9 @@ public class AbilityData : NetworkBehaviour
 					m_cooldowns[key] -= num;
 					if (m_cooldowns[key] == 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_cooldowns.Remove(key);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SynchronizeCooldownsToSlots();
@@ -3804,19 +2170,6 @@ public class AbilityData : NetworkBehaviour
 				string key = enumerator.Current.Key;
 				if (m_cooldowns[key] > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = false;
 					using (List<Ability>.Enumerator enumerator2 = abilities.GetEnumerator())
 					{
@@ -3824,15 +2177,6 @@ public class AbilityData : NetworkBehaviour
 						{
 							if (!enumerator2.MoveNext())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							Ability current = enumerator2.Current;
@@ -3858,28 +2202,10 @@ public class AbilityData : NetworkBehaviour
 						m_cooldowns[key]--;
 						if (m_cooldowns[key] == 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_cooldowns.Remove(key);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SynchronizeCooldownsToSlots();
@@ -3896,55 +2222,15 @@ public class AbilityData : NetworkBehaviour
 				ActionType actionType = GetActionType(key);
 				if (actionType >= ActionType.ABILITY_0 && actionType <= ActionType.ABILITY_6)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_cooldowns[key] > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_cooldowns[key]--;
 						if (m_cooldowns[key] == 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_cooldowns.Remove(key);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SynchronizeCooldownsToSlots();
@@ -3962,10 +2248,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -3990,51 +2272,19 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string abilityName = abilityEntry.ability.m_abilityName;
 			if (m_cooldowns.ContainsKey(abilityName))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cooldowns.Remove(abilityName);
 				flag = true;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					SynchronizeCooldownsToSlots();
 					return;
 				}
@@ -4066,25 +2316,11 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string abilityName = abilityEntry.ability.m_abilityName;
 			if (m_cooldowns.ContainsKey(abilityName))
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_cooldowns.Remove(abilityName);
 					SynchronizeCooldownsToSlots();
 					return;
@@ -4108,15 +2344,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cooldowns[abilityEntry.ability.m_abilityName] = num;
 			SynchronizeCooldownsToSlots();
 			return;
@@ -4137,19 +2364,6 @@ public class AbilityData : NetworkBehaviour
 			object obj;
 			if (abilityEntry.ability == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = null;
 			}
 			else
@@ -4160,26 +2374,8 @@ public class AbilityData : NetworkBehaviour
 			int num2;
 			if (abilityEntry.ability != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_cooldowns.ContainsKey(key))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = m_cooldowns[key];
 					goto IL_009b;
 				}
@@ -4189,15 +2385,6 @@ public class AbilityData : NetworkBehaviour
 			IL_009b:
 			if (abilityEntry.GetCooldownRemaining() != num2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityEntry.SetCooldownRemaining(num2);
 				if (m_cooldownsSync[num] != num2)
 				{
@@ -4219,10 +2406,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void AbilityData::InitializeStockCounts()' called on client");
 					return;
 				}
@@ -4236,26 +2419,8 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityEntry.ability.GetModdedMaxStocks() > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityEntry.ability.m_initialStockAmount >= 0)
 				{
 					int desiredAmount = Mathf.Min(abilityEntry.ability.GetModdedMaxStocks(), abilityEntry.ability.m_initialStockAmount);
@@ -4277,10 +2442,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return abilityEntry.ability.GetModdedMaxStocks();
 				}
 			}
@@ -4307,30 +2468,8 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!IsChain(action))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DebugParameters.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (DebugParameters.Get().GetParameterAsBool("NoCooldowns"))
 				{
 					goto IL_0045;
@@ -4367,15 +2506,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (!(abilityEntry.ability != null))
 			{
@@ -4383,11 +2513,6 @@ public class AbilityData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				int moddedMaxStocks = abilityEntry.ability.GetModdedMaxStocks();
 				if (moddedMaxStocks <= 0)
 				{
@@ -4395,11 +2520,6 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (m_consumedStockCount[(int)action] >= moddedMaxStocks)
 					{
 						return;
@@ -4410,15 +2530,6 @@ public class AbilityData : NetworkBehaviour
 						int num = moddedStockRefreshDuration + 1;
 						if (m_stockRefreshCountdowns[(int)action] != num)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_stockRefreshCountdowns[(int)action] = num;
 						}
 					}
@@ -4427,11 +2538,6 @@ public class AbilityData : NetworkBehaviour
 					{
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							m_consumedStockCount[(int)action] = num2;
 							return;
 						}
@@ -4454,10 +2560,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -4471,32 +2573,10 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (m_consumedStockCount[i] != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_consumedStockCount[i] = 0;
 			}
 			if (m_stockRefreshCountdowns[i] != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_stockRefreshCountdowns[i] = 0;
 			}
 		}
@@ -4510,15 +2590,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -4531,26 +2602,12 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (advanceAmount <= 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				AbilityEntry abilityEntry = m_abilities[(int)action];
 				if (m_stockRefreshCountdowns[(int)action] <= 0 && m_consumedStockCount[(int)action] <= 0)
 				{
@@ -4558,22 +2615,12 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (abilityEntry == null)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (!(abilityEntry.ability != null) || abilityEntry.ability.GetModdedStockRefreshDuration() <= 0)
 						{
 							return;
@@ -4584,15 +2631,6 @@ public class AbilityData : NetworkBehaviour
 						int num3 = Mathf.Max(0, m_consumedStockCount[(int)action] - num);
 						if (m_consumedStockCount[(int)action] != num3)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_consumedStockCount[(int)action] = num3;
 						}
 						if (m_stockRefreshCountdowns[(int)action] >= num2)
@@ -4628,15 +2666,6 @@ public class AbilityData : NetworkBehaviour
 														default:
 															if (abilityEntry.ability.RefillAllStockOnRefresh())
 															{
-																while (true)
-																{
-																	switch (3)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																m_consumedStockCount[(int)action] = 0;
 															}
 															else
@@ -4701,11 +2730,6 @@ public class AbilityData : NetworkBehaviour
 						}
 						while (true)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
 							if (abilityEntry.ability.RefillAllStockOnRefresh())
 							{
 								m_consumedStockCount[(int)action] = 0;
@@ -4730,15 +2754,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (!(abilityEntry.ability != null))
 			{
@@ -4746,11 +2761,6 @@ public class AbilityData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				int value = Mathf.Max(0, abilityEntry.ability.GetModdedMaxStocks() - desiredAmount);
 				m_consumedStockCount[(int)action] = value;
 				if (m_consumedStockCount[(int)action] != 0)
@@ -4759,20 +2769,10 @@ public class AbilityData : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (m_stockRefreshCountdowns[(int)action] != 0)
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							m_stockRefreshCountdowns[(int)action] = 0;
 							return;
 						}
@@ -4796,15 +2796,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = Mathf.Clamp(desiredCountdown, 0, abilityEntry.ability.GetModdedStockRefreshDuration());
 			if (m_stockRefreshCountdowns[(int)action] != num)
 			{
@@ -4818,19 +2809,6 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (!IsChain(action))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityEntry abilityEntry = m_abilities[(int)action];
 			if (abilityEntry.ability != null)
 			{
@@ -4862,19 +2840,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (num2 < 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = AbilityUtils.GetCurrentMinRangeInSquares(ability, actor, targetIndex);
 		}
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
@@ -4912,15 +2877,6 @@ public class AbilityData : NetworkBehaviour
 								int result;
 								if (sqrMagnitude <= num3 * num3)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = ((sqrMagnitude >= num4 * num4) ? 1 : 0);
 								}
 								else
@@ -4960,42 +2916,11 @@ public class AbilityData : NetworkBehaviour
 		bool result = true;
 		if ((bool)src)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)dest)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num;
 				if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = src.HorizontalDistanceInSquaresTo(dest);
 				}
 				else
@@ -5005,15 +2930,6 @@ public class AbilityData : NetworkBehaviour
 				int num2;
 				if (!(rangeInSquares < 0f))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((num <= rangeInSquares) ? 1 : 0);
 				}
 				else
@@ -5024,27 +2940,9 @@ public class AbilityData : NetworkBehaviour
 				bool flag2 = num >= minRangeInSquares;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						goto IL_00a7;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = false;
@@ -5062,19 +2960,6 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = specificAbility.GetTargetingParadigm(targetIndex);
 		if (actor.GetCurrentBoardSquare() == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = false;
 		}
 		else
@@ -5085,42 +2970,15 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (targetingParadigm == Ability.TargetingParadigm.Direction)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 					goto IL_00d0;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			ReadOnlyCollection<BoardSquare> lineOfSightVisibleExceptionSquares = actor.LineOfSightVisibleExceptionSquares;
 			if (lineOfSightVisibleExceptionSquares.Contains(boardSquareSafe))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else if (actor.GetCurrentBoardSquare()._0013(target.GridPos.x, target.GridPos.y))
@@ -5138,32 +2996,10 @@ public class AbilityData : NetworkBehaviour
 		ActorData actor = m_actor;
 		if (!(target == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(actor == null))
 			{
 				if (!ignoreExceptions)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actor.IsLineOfSightVisibleException(target))
 					{
 						while (true)
@@ -5182,15 +3018,6 @@ public class AbilityData : NetworkBehaviour
 				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
 				return currentBoardSquare2._0013(currentBoardSquare.x, currentBoardSquare.y);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -5201,43 +3028,12 @@ public class AbilityData : NetworkBehaviour
 		ActorTurnSM actorTurnSM = m_actor.GetActorTurnSM();
 		if ((bool)actorTurnSM)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<AbilityTarget> abilityTargets = actorTurnSM.GetAbilityTargets();
 			if (abilityTargets != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num;
 				if (targetIndex <= abilityTargets.Count)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (ValidateAbilityOnTarget(ability, target, targetIndex, abilityTargets, calculatedMinRangeInSquares, calculatedMaxRangeInSquares) ? 1 : 0);
 				}
 				else
@@ -5256,15 +3052,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -5273,42 +3060,15 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingParadigm != Ability.TargetingParadigm.Position)
 			{
 				goto IL_00d8;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		int num;
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetBoardSquareSafe(target.GridPos).IsBaselineHeight()) ? 1 : 0);
 		}
 		else
@@ -5318,26 +3078,8 @@ public class AbilityData : NetworkBehaviour
 		flag = ((byte)num != 0);
 		if (!ability.IsSimpleAction())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquareSafe))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (!flag)
@@ -5351,15 +3093,6 @@ public class AbilityData : NetworkBehaviour
 		int result;
 		if (num2 != 0 && ValidateAbilityIsCastableDisregardingMovement(ability))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (ability.CustomTargetValidation(actor, target, targetIndex, currentTargets) ? 1 : 0);
 		}
 		else
@@ -5371,15 +3104,6 @@ public class AbilityData : NetworkBehaviour
 		int num3;
 		if (!ability.IsSimpleAction())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = (IsAbilityTargetInRange(ability, target, targetIndex, calculatedMinRangeInSquares, calculatedMaxRangeInSquares) ? 1 : 0);
 		}
 		else
@@ -5391,11 +3115,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return false;
 			}
 		}
@@ -5407,15 +3126,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			flag3 = ActorCover.CalcCoverLevelGeoOnly(out bool[] _, boardSquareSafe3);
 		}
@@ -5424,15 +3134,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = HasLineOfSightToTarget(ability, target, targetIndex);
 			}
 			else
@@ -5442,26 +3143,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag && flag3)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (flag4 ? 1 : 0);
 				goto IL_01de;
 			}
@@ -5476,19 +3159,6 @@ public class AbilityData : NetworkBehaviour
 		Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 		if (!ValidateActionIsRequestable(actionType))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = false;
 		}
 		else
@@ -5501,29 +3171,11 @@ public class AbilityData : NetworkBehaviour
 					AbilityTarget target = targets[num];
 					if (!ValidateAbilityOnTarget(abilityOfActionType, target, num, targets))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -5544,24 +3196,11 @@ public class AbilityData : NetworkBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						bool flag = ValidateAbilityIsCastableDisregardingMovement(ability);
 						bool flag2 = ability.GetMovementAdjustment() != Ability.MovementAdjustment.NoMovement || !m_actor.HasQueuedMovement();
 						int num;
 						if (!m_actor.QueuedMovementAllowsAbility)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((!ability.GetAffectsMovement()) ? 1 : 0);
 						}
 						else
@@ -5573,15 +3212,6 @@ public class AbilityData : NetworkBehaviour
 						int num2;
 						if (IsCard(GetActionTypeOfAbility(ability)))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = ((!HasQueuedCardAbility()) ? 1 : 0);
 						}
 						else
@@ -5591,37 +3221,10 @@ public class AbilityData : NetworkBehaviour
 						bool flag5 = (byte)num2 != 0;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag2)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag3)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag4)
 									{
 										result = (flag5 ? 1 : 0);
@@ -5653,19 +3256,6 @@ public class AbilityData : NetworkBehaviour
 			int num;
 			if (!abilityOfActionType.IsFreeAction())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((GetActionCostOfQueuedAbilities(abilityAction) == 0) ? 1 : 0);
 			}
 			else
@@ -5676,15 +3266,6 @@ public class AbilityData : NetworkBehaviour
 			int num2;
 			if (abilityOfActionType.GetMovementAdjustment() == Ability.MovementAdjustment.NoMovement)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = ((!m_actor.HasQueuedMovement()) ? 1 : 0);
 			}
 			else
@@ -5696,15 +3277,6 @@ public class AbilityData : NetworkBehaviour
 			int num3;
 			if (abilityOfActionType.RunPriority == AbilityPriority.Evasion)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = ((!HasQueuedAbilityInPhase(AbilityPriority.Evasion)) ? 1 : 0);
 			}
 			else
@@ -5715,70 +3287,16 @@ public class AbilityData : NetworkBehaviour
 			bool flag7 = !IsCard(abilityAction) || !HasQueuedCardAbility();
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag5)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag6)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = (flag7 ? 1 : 0);
 									goto IL_0139;
 								}
@@ -5811,10 +3329,6 @@ public class AbilityData : NetworkBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						ActionType actionTypeOfAbility = GetActionTypeOfAbility(ability);
 						bool flag = actionTypeOfAbility != ActionType.INVALID_ACTION;
 						bool flag2 = !actor.IsDead();
@@ -5822,15 +3336,6 @@ public class AbilityData : NetworkBehaviour
 						int num;
 						if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenOutOfCombat))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (actor.OutOfCombat ? 1 : 0);
 						}
 						else
@@ -5842,48 +3347,12 @@ public class AbilityData : NetworkBehaviour
 						bool flag6 = !actor.GetActorStatus().IsActionSilenced(actionTypeOfAbility);
 						if (flag)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag2)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag3 && flag4)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag5)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = (flag6 ? 1 : 0);
 										goto IL_00eb;
 									}
@@ -5896,15 +3365,6 @@ public class AbilityData : NetworkBehaviour
 					IL_00eb:
 					if (num2 != 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (ability.CustomCanCastValidation(actor) ? 1 : 0);
 					}
 					else
@@ -5933,23 +3393,10 @@ public class AbilityData : NetworkBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						ActorData actor = m_actor;
 						int num;
 						if (IsActionInCooldown(abilityAction))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((abilityOfActionType.GetModdedMaxStocks() > 0) ? 1 : 0);
 						}
 						else
@@ -5959,37 +3406,10 @@ public class AbilityData : NetworkBehaviour
 						bool flag = (byte)num != 0;
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actor != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.IgnoreCooldownIfFullEnergy))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetActualMaxTechPoints());
 								}
 							}
@@ -6001,26 +3421,8 @@ public class AbilityData : NetworkBehaviour
 						flag5 = SinglePlayerManager.IsActionAllowed(actor, abilityAction);
 						if (flag && flag2)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag3 && flag4)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = (flag5 ? 1 : 0);
 								goto IL_00fc;
 							}
@@ -6042,30 +3444,8 @@ public class AbilityData : NetworkBehaviour
 		BoardSquare result = null;
 		if ((bool)m_selectedAbility)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_selectedAbility.IsAutoSelect())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_actor.GetCurrentBoardSquare();
 			}
 		}
@@ -6078,32 +3458,10 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
@@ -6118,19 +3476,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -6138,41 +3483,14 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (teamSensitiveData_authority.HasQueuedAction(num))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (IsCard((ActionType)num))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							break;
 						}
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -6186,32 +3504,10 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				if (teamSensitiveData_authority.HasQueuedAction(i))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -6225,19 +3521,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				ActionType actionType = (ActionType)i;
@@ -6245,88 +3528,25 @@ public class AbilityData : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 				if (abilityOfActionType != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityOfActionType.GetMovementAdjustment() > movementAdjustment)
 					{
 						movementAdjustment = abilityOfActionType.GetMovementAdjustment();
 					}
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 		if (spawnPointManager != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (spawnPointManager.m_spawnInDuringMovement)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actor.NextRespawnTurn == GameFlowData.Get().CurrentTurn)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayData.Get().m_movementAllowedOnRespawn < movementAdjustment)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movementAdjustment = GameplayData.Get().m_movementAllowedOnRespawn;
 					}
 				}
@@ -6341,19 +3561,6 @@ public class AbilityData : NetworkBehaviour
 		Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = GetQueuedAbilitiesMovementAdjustType();
 		if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = -1f * m_actor.GetPostAbilityHorizontalMovementChange();
 		}
 		return result;
@@ -6375,30 +3582,8 @@ public class AbilityData : NetworkBehaviour
 				Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 				if (abilityOfActionType != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.AddRange(abilityOfActionType.GetStatusToApplyWhenRequested());
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -6417,10 +3602,6 @@ public class AbilityData : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					for (int i = 0; i < 14; i++)
 					{
 						ActionType actionType = (ActionType)i;
@@ -6465,19 +3646,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				ActionType actionType = (ActionType)i;
@@ -6490,26 +3658,8 @@ public class AbilityData : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityOfActionType.GetAffectsMovement())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = false;
 					break;
 				}
@@ -6524,19 +3674,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			while (true)
 			{
@@ -6548,26 +3685,8 @@ public class AbilityData : NetworkBehaviour
 						Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 						if (abilityOfActionType != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityOfActionType.GetPreventsMovement())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 								break;
 							}
@@ -6575,15 +3694,6 @@ public class AbilityData : NetworkBehaviour
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -6597,19 +3707,6 @@ public class AbilityData : NetworkBehaviour
 		ActorTeamSensitiveData teamSensitiveData_authority = m_actor.TeamSensitiveData_authority;
 		if (teamSensitiveData_authority != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < 14; i++)
 			{
 				ActionType actionType = (ActionType)i;
@@ -6617,54 +3714,18 @@ public class AbilityData : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actionType == actionToSkip)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 				if (abilityOfActionType != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!abilityOfActionType.IsFreeAction())
 					{
 						num++;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -6681,10 +3742,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_cardTypeToCardInstance[cardType];
 				}
 			}
@@ -6705,26 +3762,8 @@ public class AbilityData : NetworkBehaviour
 						component = gameObject.GetComponent<Card>();
 						if (component != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (component.m_useAbility != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								gameObject.transform.parent = base.gameObject.transform;
 								m_cardTypeToCardInstance[cardType] = component;
 								component.m_useAbility.OverrideActorDataIndex(m_actor.ActorIndex);
@@ -6753,33 +3792,11 @@ public class AbilityData : NetworkBehaviour
 		}
 		else if (cardSlotIndex == 2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			keyPreference = KeyPreference.Card3;
 		}
 		m_abilities[num].Setup(useAbility, keyPreference);
 		if (cardSlotIndex < m_cachedCardAbilities.Count)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_cachedCardAbilities[cardSlotIndex] = useAbility;
 		}
 		if (!NetworkServer.active)
@@ -6788,11 +3805,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			SynchronizeCooldownsToSlots();
 			return;
 		}
@@ -6806,15 +3818,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_currentCardIds.Count; i++)
 			{
 				Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
@@ -6822,15 +3825,6 @@ public class AbilityData : NetworkBehaviour
 				object useAbility;
 				if (spawnedCardInstance != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					useAbility = spawnedCardInstance.m_useAbility;
 				}
 				else
@@ -6872,15 +3866,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateCatalysts(m_actor, m_cachedCardAbilities);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.UpdateCatalysts(m_actor, m_cachedCardAbilities);
 			return;
@@ -6900,30 +3885,8 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (actionTypeInt < m_abilities.Length)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilities[actionTypeInt].ability != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilities[actionTypeInt].ability.CanShowTargetableRadiusPreview())
 				{
 					while (true)
@@ -6948,19 +3911,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (m_abilities[i] != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_abilities[i].ability != null)
 				{
 					m_abilities[i].ability.OnClientCombatPhasePlayDataReceived(resolutionActions, m_actor);
@@ -6994,10 +3944,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -7009,36 +3955,13 @@ public class AbilityData : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityEntry.ability != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityEntry.ability.DrawGizmos();
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			DrawBoardVisibilityGizmos();
 			return;
 		}
@@ -7052,15 +3975,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
 			if (playerFreeSquare != null)
 			{
@@ -7074,26 +3988,8 @@ public class AbilityData : NetworkBehaviour
 							BoardSquare current = enumerator.Current;
 							if (current.IsBaselineHeight())
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (playerFreeSquare._0013(current.x, current.y))
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Color white = Color.white;
 									white.a = 0.5f;
 									Gizmos.color = white;
@@ -7111,15 +4007,6 @@ public class AbilityData : NetworkBehaviour
 									Gizmos.DrawWireCube(current.ToVector3(), size2);
 								}
 							}
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -7155,10 +4042,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_consumedStockCount called on server.");
 					return;
 				}
@@ -7178,10 +4061,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_stockRefreshCountdowns called on server.");
 					return;
 				}
@@ -7225,10 +4104,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdRefillStocks called on client.");
 					return;
 				}
@@ -7248,10 +4123,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdClearCooldowns called on server.");
 					return;
 				}
@@ -7290,10 +4161,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdRefillStocks called on server.");
 					return;
 				}
@@ -7323,10 +4190,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_cooldownsSync);
 					SyncListInt.WriteInstance(writer, m_consumedStockCount);
 					SyncListInt.WriteInstance(writer, m_stockRefreshCountdowns);
@@ -7339,26 +4202,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7366,26 +4211,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7395,15 +4222,6 @@ public class AbilityData : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7411,26 +4229,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7438,26 +4238,8 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -7481,10 +4263,6 @@ public class AbilityData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.ReadReference(reader, m_cooldownsSync);
 					SyncListInt.ReadReference(reader, m_consumedStockCount);
 					SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
@@ -7505,28 +4283,10 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, m_stockRefreshCountdowns);
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, m_currentCardIds);
 		}
 		if ((num & 0x10) == 0)
@@ -7535,11 +4295,6 @@ public class AbilityData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
 			return;
 		}

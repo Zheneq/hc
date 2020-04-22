@@ -31,19 +31,6 @@ public class NanoSmithBoltInfo
 		Vector3 start = boltStartPos;
 		if (startTargetingFromCaster)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			start = caster.GetTravelBoardSquareWorldPositionForLos();
 		}
 		VectorUtils.LaserCoords coords = default(VectorUtils.LaserCoords);
@@ -51,49 +38,13 @@ public class NanoSmithBoltInfo
 		List<ActorData> actorsInRange = AreaEffectUtils.GetActorsInLaser(coords.start, boltDirection, range, width, caster, TargeterUtils.GetRelevantTeams(caster, includeAllies, includeEnemies), penetrateLineOfSight, -1, false, true, out coords.end, nonActorTargetInfo);
 		if (!includeActorAtStartPos)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(boltStartPos);
 			if (boardSquare != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.OccupantActor != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorsInRange.Contains(boardSquare.OccupantActor))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorsInRange.Remove(boardSquare.OccupantActor);
 					}
 				}
@@ -101,26 +52,8 @@ public class NanoSmithBoltInfo
 		}
 		if (!includeCaster)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorsInRange.Contains(caster))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInRange.Remove(caster);
 			}
 		}
@@ -135,19 +68,6 @@ public class NanoSmithBoltInfo
 		sequenceEndPoints = new List<VectorUtils.LaserCoords>();
 		if (count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = startAngleOffset;
 			if (relativeToAimDirection)
 			{
@@ -166,39 +86,12 @@ public class NanoSmithBoltInfo
 						ActorData current = enumerator.Current;
 						if (!list.Contains(current))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(current);
 						}
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				sequenceActors.Add(actorsHitByBolt);
 				sequenceEndPoints.Add(endPoints);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -233,15 +126,6 @@ public class NanoSmithBoltInfo
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -250,19 +134,6 @@ public class NanoSmithBoltInfo
 	{
 		if (includeAllies)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, allySubject);
 		}
 		if (includeEnemies)

@@ -16,19 +16,6 @@ public class DecidingState : TurnState
 		AbilityData component2 = m_SM.GetComponent<AbilityData>();
 		if ((bool)component2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component2.ClearSelectedAbility();
 		}
 		ActorData component3 = m_SM.GetComponent<ActorData>();
@@ -38,15 +25,6 @@ public class DecidingState : TurnState
 		}
 		if (SpawnPointManager.Get().m_playersSelectRespawn && component3.NextRespawnTurn > GameFlowData.Get().CurrentTurn)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component3.RespawnPickedPositionSquare == null)
 			{
 				while (true)
@@ -91,15 +69,6 @@ public class DecidingState : TurnState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (component.GetSelectedAbility() != null)
 				{
 					m_SM.NextState = TurnStateEnum.TARGETING_ACTION;
@@ -115,15 +84,6 @@ public class DecidingState : TurnState
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.");
 			}
 			else
@@ -141,15 +101,6 @@ public class DecidingState : TurnState
 		case TurnMessage.DONE_BUTTON_CLICKED:
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get() != null)
 				{
 					SinglePlayerManager.Get().RecalcCanEndTurn();
@@ -166,11 +117,6 @@ public class DecidingState : TurnState
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				SinglePlayerManager.Get().OnActorLockInEntered(m_SM.GetComponent<ActorData>());
 				return;
 			}
@@ -182,32 +128,10 @@ public class DecidingState : TurnState
 		ActorData component = m_SM.GetComponent<ActorData>();
 		if (GameFlowData.Get().activeOwnedActorData == component)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
 				if (!Input.GetMouseButtonUp(1))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!InputManager.Get().GetAcceptButtonDown())
 					{
 						goto IL_00b7;
@@ -215,26 +139,8 @@ public class DecidingState : TurnState
 				}
 				if (InterfaceManager.Get().ShouldHandleMouseClick())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_SM.HandledMouseInput)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_SM.HandledMouseInput = true;
 						m_SM.SelectMovementSquare();
 					}

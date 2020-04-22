@@ -114,19 +114,6 @@ public class ClericConeKnockback : Ability
 		StandardEffectInfo result;
 		if (m_cachedTargetHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedTargetHitEffect;
 		}
 		else

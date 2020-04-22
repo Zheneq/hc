@@ -44,10 +44,6 @@ public class UIAutocompleteList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -64,11 +60,6 @@ public class UIAutocompleteList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_slots = new List<UIAutocompleteEntry>(componentsInChildren);
 			return;
 		}
@@ -96,15 +87,6 @@ public class UIAutocompleteList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_visibilityQueue.Clear();
 			m_scrollRect.verticalScrollbar.value = 1f;
 			for (int j = 0; j < autocompleteEntries.Count; j++)
@@ -112,15 +94,6 @@ public class UIAutocompleteList : MonoBehaviour
 				UIAutocompleteEntry uIAutocompleteEntry;
 				if (j < m_slots.Count)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uIAutocompleteEntry = m_slots[j];
 				}
 				else
@@ -155,19 +128,6 @@ public class UIAutocompleteList : MonoBehaviour
 		string text2 = entry.GetTextValue().TrimEnd() + " " + text.Trim();
 		if (!m_beforeAutocomplete.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text2 = m_beforeAutocomplete + " " + text2;
 		}
 		m_parent.m_textInput.text = text2;
@@ -215,15 +175,6 @@ public class UIAutocompleteList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -239,10 +190,6 @@ public class UIAutocompleteList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_selectionIndex = 0;
 					return;
 				}
@@ -263,15 +210,6 @@ public class UIAutocompleteList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetupCurrentSelection();
 			return;
 		}
@@ -291,33 +229,11 @@ public class UIAutocompleteList : MonoBehaviour
 		string text3 = string.Empty;
 		while (text2.Length > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!text.ToLower().EndsWith(text2.ToLower()))
 			{
 				text3 = text2[text2.Length - 1] + text3;
 				text2 = text2.Remove(text2.Length - 1, 1);
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

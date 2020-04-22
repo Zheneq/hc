@@ -18,15 +18,6 @@ public class PKFxAnimFloat : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.enabled = false;
 			return;
 		}

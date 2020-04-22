@@ -48,15 +48,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_energyGainPerMissMod, "EnergyGainPerMiss", string.Empty, gremlinsMultiTargeterApocolypse.m_energyGainPerMiss);
 			AbilityMod.AddToken(tokens, m_minDistanceBetweenBombsMod, "MinDistanceBetweenBombs", string.Empty, gremlinsMultiTargeterApocolypse.m_minDistanceBetweenBombs);
 			AbilityMod.AddToken(tokens, m_maxAngleWithFirstMod, "MaxAngleWithFirst", string.Empty, gremlinsMultiTargeterApocolypse.m_maxAngleWithFirst);
@@ -68,11 +59,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_targetDataOverrides == null)
 				{
 					return;
@@ -86,20 +72,10 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (gremlinsMultiTargeterApocolypse.m_targetData.Length > 0)
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							AbilityMod.AddToken_IntDiff(tokens, "TargeterRange_Diff", string.Empty, Mathf.RoundToInt(m_targetDataOverrides[0].m_range - gremlinsMultiTargeterApocolypse.m_targetData[0].m_range), false, 0);
 							return;
 						}
@@ -116,19 +92,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		object obj;
 		if (gremlinsMultiTargeterApocolypse != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = gremlinsMultiTargeterApocolypse.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
@@ -145,15 +108,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (gremlinsMultiTargeterApocolypse.m_leaveLandmineOnEmptySquare ? 1 : 0);
 		}
 		else
@@ -168,15 +122,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (gremlinsMultiTargeterApocolypse.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -189,15 +134,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsMultiTargeterApocolypse.m_minDistanceBetweenBombs;
 		}
 		else
@@ -210,15 +146,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = gremlinsMultiTargeterApocolypse.m_maxAngleWithFirst;
 		}
 		else
@@ -231,15 +158,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
@@ -252,15 +170,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
@@ -273,15 +182,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = gremlinsLandMineInfoComponent.m_enemyHitEffect;
 		}
 		else
@@ -294,15 +194,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = gremlinsLandMineInfoComponent.m_energyGainOnExplosion;
 		}
 		else

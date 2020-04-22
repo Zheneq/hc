@@ -35,19 +35,6 @@ public class CopyMainCameraDepth : MonoBehaviour
 		m_Camera2.RemoveCommandBuffer(CameraEvent.BeforeForwardOpaque, m_CmdDepthWrite);
 		if (m_CamDepth == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_CamDepth = new RenderTexture(m_Camera1.pixelWidth, m_Camera1.pixelHeight, 32, RenderTextureFormat.Depth);
 		}
 		if (!m_CamDepth.IsCreated())

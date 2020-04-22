@@ -47,15 +47,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_radiusMod, "TargetingRadius", "targeting radius", sparkAoeBuffDebuff.m_radius);
 			AbilityMod.AddToken_EffectMod(tokens, m_allyHitEffectMod, "EffectOnAlly", sparkAoeBuffDebuff.m_allyHitEffect);
 			AbilityMod.AddToken(tokens, m_allyHealMod, "Heal_OnAlly", "heal on ally", sparkAoeBuffDebuff.m_allyHealAmount);
@@ -79,19 +70,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sparkAoeBuffDebuff.m_radius;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (sparkAoeBuffDebuff.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -125,15 +94,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkAoeBuffDebuff.m_allyHealAmount;
 		}
 		else
@@ -146,15 +106,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkAoeBuffDebuff.m_allyHitEffect;
 		}
 		else
@@ -167,15 +118,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkAoeBuffDebuff.m_baseSelfHeal;
 		}
 		else
@@ -188,15 +130,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = sparkAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
@@ -209,15 +142,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (sparkAoeBuffDebuff.m_selfHealCountEnemyHit ? 1 : 0);
 		}
 		else
@@ -230,15 +154,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (sparkAoeBuffDebuff.m_selfHealCountAllyHit ? 1 : 0);
 		}
 		else
@@ -250,15 +165,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		empty += PropDesc(m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]");
 		if (m_shieldOnSelfPerAllyHitMod != null && m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Shield Duration (for hit on allies)] " + m_shieldOnSelfDuration + "\n";
 		}
@@ -267,15 +173,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		object baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = sparkAoeBuffDebuff.m_enemyHitEffect;
 		}
 		else

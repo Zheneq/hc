@@ -77,10 +77,6 @@ public class SparkDash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 2;
 				}
 			}
@@ -95,19 +91,6 @@ public class SparkDash : Ability
 		m_healBeamAbility = (component.GetAbilityOfType(typeof(SparkHealingBeam)) as SparkHealingBeam);
 		if (m_beamSyncComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_beamSyncComp = GetComponent<SparkBeamTrackerComponent>();
 		}
 		SetCachedFields();
@@ -115,28 +98,10 @@ public class SparkDash : Ability
 		AbilityUtil_Targeter abilityUtil_Targeter = null;
 		if (ShouldHitActorsInBetween())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, 0f, 0f, 0.5f * GetChargeWidth(), -1, false, m_chargeHitPenetrateLos);
 			abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, true, false);
 			if (ShouldHitActorsInBetween())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = TargeterAddActorInbetweenDelegate;
 			}
 			abilityUtil_Targeter = abilityUtil_Targeter_ChargeAoE;
@@ -149,15 +114,6 @@ public class SparkDash : Ability
 		}
 		if (ChooseDestinaton())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeters.Add(abilityUtil_Targeter);
 			AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge2 = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false);
 			abilityUtil_Targeter_Charge2.SetUseMultiTargetUpdate(true);
@@ -187,68 +143,19 @@ public class SparkDash : Ability
 		bool flag2 = GetHealOnSelfForEnemyHit() > 0;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag2)
 			{
 				goto IL_00d5;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (caster != null && actorsSoFar != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < actorsSoFar.Count; i++)
 			{
 				if (flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorsSoFar[i].GetTeam() == caster.GetTeam())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
@@ -257,26 +164,8 @@ public class SparkDash : Ability
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorsSoFar[i].GetTeam() != caster.GetTeam())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
@@ -294,56 +183,16 @@ public class SparkDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 		if (sparkDash != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorToConsider.GetCurrentBoardSquare() == boardSquareSafe)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				else
 				{
 					if (sparkDash.GetInBetweenEnemyEffect().m_applyEffect)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorToConsider.GetTeam() != caster.GetTeam())
 						{
 							result = true;
@@ -351,26 +200,8 @@ public class SparkDash : Ability
 					}
 					if (sparkDash.GetInBetweenAllyEffect().m_applyEffect)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorToConsider.GetTeam() == caster.GetTeam())
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 					}
@@ -389,19 +220,6 @@ public class SparkDash : Ability
 		bool num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_chooseDestinationMod.GetModifiedValue(m_chooseDestination);
 		}
 		else
@@ -411,15 +229,6 @@ public class SparkDash : Ability
 		int result;
 		if (num)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((m_targetData.Length > 1) ? 1 : 0);
 		}
 		else
@@ -434,19 +243,6 @@ public class SparkDash : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chooseDestShapeMod.GetModifiedValue(m_chooseDestinationShape);
 		}
 		else
@@ -472,10 +268,6 @@ public class SparkDash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_damageBeamAbility.GetInitialDamage();
 				}
 			}
@@ -494,10 +286,6 @@ public class SparkDash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_healBeamAbility.GetHealingOnAttach();
 				}
 			}
@@ -516,10 +304,6 @@ public class SparkDash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_healBeamAbility.GetHealOnSelfPerTurn();
 				}
 			}
@@ -541,19 +325,6 @@ public class SparkDash : Ability
 		bool num;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_hitActorsInBetweenMod.GetModifiedValue(m_hitActorsInBetween);
 		}
 		else
@@ -564,15 +335,6 @@ public class SparkDash : Ability
 		int num2;
 		if (!GetInBetweenEnemyEffect().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (GetInBetweenAllyEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -584,15 +346,6 @@ public class SparkDash : Ability
 		int result;
 		if (flag && flag2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((chargeWidth > 0f) ? 1 : 0);
 		}
 		else
@@ -607,19 +360,6 @@ public class SparkDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chargeHitWidthMod.GetModifiedValue(m_chargeHitWidth);
 		}
 		else
@@ -654,19 +394,6 @@ public class SparkDash : Ability
 		StandardEffectInfo cachedTargetEnemyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTargetEnemyEffect = m_abilityMod.m_effectOnEnemyMod.GetModifiedValue(m_effectOnTargetEnemy);
 		}
 		else
@@ -677,15 +404,6 @@ public class SparkDash : Ability
 		StandardEffectInfo cachedTargetAllyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTargetAllyEffect = m_abilityMod.m_effectOnAllyMod.GetModifiedValue(m_effectOnTargetAlly);
 		}
 		else
@@ -697,15 +415,6 @@ public class SparkDash : Ability
 		StandardEffectInfo cachedInBetweenAllyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedInBetweenAllyEffect = m_abilityMod.m_effectOnAllyInBetweenMod.GetModifiedValue(m_effectOnAllyInBetween);
 		}
 		else
@@ -726,19 +435,6 @@ public class SparkDash : Ability
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Ally, GetHealOnAlly());
 		if (GetTargetAllyEffect() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GetTargetAllyEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, 1);
@@ -765,46 +461,15 @@ public class SparkDash : Ability
 			int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = GetDamage();
 				if (m_damageBeamAbility != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += m_damageBeamAbility.GetBonusDamageFromTetherAge(age);
 				}
 				Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
 				int value;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = num;
 				}
 				else
@@ -822,15 +487,6 @@ public class SparkDash : Ability
 					dictionary3 = dictionary;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							value2 = healOnAlly;
@@ -842,27 +498,9 @@ public class SparkDash : Ability
 				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int value3 = 0;
 					if (visibleActorsCountByTooltipSubject > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value3 = GetHealOnSelfForAllyHit();
 					}
 					else if (visibleActorsCountByTooltipSubject2 > 0)
@@ -891,46 +529,15 @@ public class SparkDash : Ability
 			{
 				goto IL_0108;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		result = false;
 		SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();
 		List<ActorData> list = null;
 		if (m_canTargetAny)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> actorsVisibleToActor;
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 			}
 			else
@@ -990,19 +597,6 @@ public class SparkDash : Ability
 		bool flag2 = false;
 		if (targetIndex == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Team> list = new List<Team>();
 			list.Add(caster.GetOpposingTeam());
 			list.Add(caster.GetTeam());
@@ -1014,52 +608,16 @@ public class SparkDash : Ability
 				{
 					if (!enumerator.MoveNext())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					ActorData current = enumerator.Current;
 					if (CanTargetActorInDecision(caster, current, true, true, false, ValidateCheckPath.CanBuildPath, true, false))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_canTargetAny)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!component.IsTrackingActor(current.ActorIndex))
 							{
 								continue;
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						flag = true;
@@ -1076,37 +634,10 @@ public class SparkDash : Ability
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe2 != null && boardSquareSafe2.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 != boardSquareSafe && boardSquareSafe2 != caster.GetCurrentBoardSquare())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe2, GetChooseDestShape(), target.FreePos, boardSquareSafe, false, caster))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, boardSquareSafe, false, out int _);
 					}
 				}
@@ -1115,15 +646,6 @@ public class SparkDash : Ability
 		int result;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag ? 1 : 0);
 		}
 		else

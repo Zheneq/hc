@@ -86,19 +86,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sparkBasicAttack.m_laserDamageAmount;
 		}
 		else
@@ -111,15 +98,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkBasicAttack.m_laserHitEffect.m_effectData.m_damagePerTurn;
 		}
 		else
@@ -132,15 +110,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkBasicAttack.m_additionalEnergizedDamage;
 		}
 		else
@@ -150,15 +119,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		empty = str3 + AbilityModHelper.GetModPropertyDesc(additionalDamageOnRadiatedMod, "[Additional Damage on Radiated]", flag, baseVal3);
 		if (m_useBonusDamageOverTime)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += "Using Bonus Damage Over Time (please remember to put in a max cap)\n";
 			empty += PropDesc(m_bonusDamageIncreaseRateMod, "[Bonus Damage Increase Per Turn]", flag);
 			empty += PropDesc(m_maxBonusDamageAmountMod, "[Max Bonus Damage]", flag);
@@ -168,15 +128,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkBasicAttack.m_healOnCasterOnTick;
 		}
 		else
@@ -189,15 +140,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkBasicAttack.m_energyOnCasterPerTurn;
 		}
 		else
@@ -211,15 +153,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = sparkBasicAttack.m_bonusEnergyGrowthRate;
 		}
 		else
@@ -232,15 +165,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = sparkBasicAttack.m_tetherDistance;
 		}
 		else
@@ -253,15 +177,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		object baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sparkBasicAttack.m_laserHitEffect;
 		}
 		else
@@ -274,15 +189,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = sparkBasicAttack.m_tetherDuration;
 		}
 		else
@@ -295,15 +201,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = sparkBasicAttack.m_laserInfo;
 		}
 		else

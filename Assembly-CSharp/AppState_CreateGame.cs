@@ -39,32 +39,10 @@ public class AppState_CreateGame : AppState
 		BotDifficulty botDifficulty2 = BotDifficulty.Easy;
 		if (gameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			botDifficulty = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay;
 		}
 		if (gameConfig.GameType != GameType.Solo)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameConfig.GameType != GameType.Coop)
 			{
 				goto IL_005f;
@@ -75,15 +53,6 @@ public class AppState_CreateGame : AppState
 		IL_005f:
 		if (!ClientGameManager.Get().IsCharacterAvailable(ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter, gameConfig.GameType))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
 			int num = 0;
 			while (true)
@@ -93,26 +62,8 @@ public class AppState_CreateGame : AppState
 					CharacterResourceLink characterResourceLink = characterResourceLinks[num];
 					if (characterResourceLink.m_characterType != 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterResourceLink.m_isHidden)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameConfig.GameType))
 						{
@@ -123,15 +74,6 @@ public class AppState_CreateGame : AppState
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
@@ -140,15 +82,6 @@ public class AppState_CreateGame : AppState
 		BotDifficulty selectedBotSkillTeamB = botDifficulty2;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(CreateGameResponse response)
 			{
 				if (response.Success)
@@ -160,10 +93,6 @@ public class AppState_CreateGame : AppState
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							AppState_CharacterSelect.Get().Enter();
 							return;
 						}
@@ -176,15 +105,6 @@ public class AppState_CreateGame : AppState
 				}
 				else
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = response.LocalizedFailure.ToString();
 				}
 				string description = (string)obj;

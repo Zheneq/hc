@@ -10,30 +10,8 @@ public static class AbilityModHelper
 		bool result = true;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = GameManager.Get().GameplayOverrides.IsAbilityModAllowed(characterType, actionTypeInt, abilityScopeId);
 			}
 		}
@@ -59,41 +37,10 @@ public static class AbilityModHelper
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityMod.m_name.Length > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(abilityMod);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -105,19 +52,6 @@ public static class AbilityModHelper
 		GameObject modPrefabForAbilityType = GetModPrefabForAbilityType(abilityType);
 		if (modPrefabForAbilityType != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod[] components = modPrefabForAbilityType.GetComponents<AbilityMod>();
 			AbilityMod[] array = components;
 			foreach (AbilityMod abilityMod in array)
@@ -125,26 +59,8 @@ public static class AbilityModHelper
 				int num2;
 				if (unlockedOnly && characterData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!characterData.CharacterComponent.IsModUnlocked(abilityIndex, abilityMod.m_abilityScopeId))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (GameManager.Get().GameplayOverrides.EnableAllMods ? 1 : 0);
 						goto IL_008c;
 					}
@@ -155,50 +71,14 @@ public static class AbilityModHelper
 				bool flag = (byte)num2 != 0;
 				if (abilityMod.m_availableInGame)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityMod.EquippableForGameType())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(abilityMod);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -211,31 +91,9 @@ public static class AbilityModHelper
 		AbilityData component = characterActorData.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 			for (int i = 0; i < abilitiesAsList.Count; i++)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
 					Ability ability = abilitiesAsList[i];
@@ -243,38 +101,11 @@ public static class AbilityModHelper
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GetAvailableModsForAbilityType(ability.GetType(), i, playerCharacterData, true).Count > 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 					continue;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -293,10 +124,6 @@ public static class AbilityModHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetAvailableModsForAbilityType(ability.GetType());
 				}
 			}
@@ -318,10 +145,6 @@ public static class AbilityModHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -340,46 +163,15 @@ public static class AbilityModHelper
 		string str = string.Empty;
 		if (operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			str = ((!(value >= 0f)) ? " " : " +");
 			str += InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString());
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.Override)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = " = " + InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString());
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = " x " + InEditorDescHelper.ColoredString(value.ToString()) + " and round down";
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil)
@@ -388,29 +180,11 @@ public static class AbilityModHelper
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = " x " + InEditorDescHelper.ColoredString(value.ToString()) + " and round nearest";
 		}
 		string str2 = prefix + str;
 		if (showBaseVal)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int modifiedValue = modProp.GetModifiedValue(baseVal);
 			str2 += GetDiffString(modifiedValue, baseVal, operation);
 		}
@@ -421,19 +195,6 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				float value = modProp.value;
@@ -441,27 +202,9 @@ public static class AbilityModHelper
 				string str = string.Empty;
 				if (operation == AbilityModPropertyFloat.ModOp.Add)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					object obj;
 					if (value >= 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = " +";
 					}
 					else
@@ -473,15 +216,6 @@ public static class AbilityModHelper
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Override)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Multiply)
@@ -497,15 +231,6 @@ public static class AbilityModHelper
 				}
 				return text + "\n";
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return string.Empty;
 	}
@@ -514,19 +239,6 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				bool value = modProp.value;
@@ -534,27 +246,9 @@ public static class AbilityModHelper
 				string str = string.Empty;
 				if (operation == AbilityModPropertyBool.ModOp.Override)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					object input;
 					if (value)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						input = "True";
 					}
 					else
@@ -567,28 +261,10 @@ public static class AbilityModHelper
 				string text = prefix + str;
 				if (showBaseVal)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
 				}
 				return text + "\n";
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -598,34 +274,12 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				AbilityAreaShape value = modProp.value;
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyShape.ModOp.Override)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
 				}
 				string text = prefix + str;
@@ -635,15 +289,6 @@ public static class AbilityModHelper
 					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
 				}
 				return text + "\n";
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -653,61 +298,21 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				KnockbackType value = modProp.value;
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyKnockbackType.ModOp.Override)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
 				}
 				string text = prefix + str;
 				if (showBaseVal)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
 				}
 				return text + "\n";
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -724,10 +329,6 @@ public static class AbilityModHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -740,15 +341,6 @@ public static class AbilityModHelper
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = baseLaserInfo.range;
 		}
 		else
@@ -762,15 +354,6 @@ public static class AbilityModHelper
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = baseLaserInfo.width;
 		}
 		else
@@ -784,15 +367,6 @@ public static class AbilityModHelper
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = baseLaserInfo.maxTargets;
 		}
 		else
@@ -806,15 +380,6 @@ public static class AbilityModHelper
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (baseLaserInfo.penetrateLos ? 1 : 0);
 		}
 		else
@@ -828,15 +393,6 @@ public static class AbilityModHelper
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (baseLaserInfo.affectsEnemies ? 1 : 0);
 		}
 		else
@@ -850,15 +406,6 @@ public static class AbilityModHelper
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (baseLaserInfo.affectsAllies ? 1 : 0);
 		}
 		else
@@ -872,15 +419,6 @@ public static class AbilityModHelper
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (baseLaserInfo.affectsCaster ? 1 : 0);
 		}
 		else
@@ -901,10 +439,6 @@ public static class AbilityModHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return string.Empty;
 				}
 			}
@@ -912,15 +446,6 @@ public static class AbilityModHelper
 		int num;
 		if (showBaseVal)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((baseConeInfo != null) ? 1 : 0);
 		}
 		else
@@ -935,15 +460,6 @@ public static class AbilityModHelper
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = baseConeInfo.m_radiusInSquares;
 		}
 		else
@@ -958,15 +474,6 @@ public static class AbilityModHelper
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = baseConeInfo.m_backwardsOffset;
 		}
 		else
@@ -981,15 +488,6 @@ public static class AbilityModHelper
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (baseConeInfo.m_affectsEnemies ? 1 : 0);
 		}
 		else
@@ -1003,15 +501,6 @@ public static class AbilityModHelper
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (baseConeInfo.m_affectsAllies ? 1 : 0);
 		}
 		else
@@ -1025,15 +514,6 @@ public static class AbilityModHelper
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (baseConeInfo.m_affectsCaster ? 1 : 0);
 		}
 		else
@@ -1048,58 +528,18 @@ public static class AbilityModHelper
 		int num;
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				if (showBaseVal)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (baseVal.m_applyEffect ? 1 : 0);
 						goto IL_0051;
 					}
 				}
 				num = 0;
 				goto IL_0051;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -1108,65 +548,20 @@ public static class AbilityModHelper
 		string text = GetModEffectInfoDesc(modProp.effectInfo, prefix, string.Empty, flag, (!flag) ? null : baseVal);
 		if (modProp.useSequencesFromSource)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (modProp.effectInfo.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect info |") + "\n";
 			}
 		}
 		string text2 = text;
 		if (showBaseVal)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (baseVal == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = SourceColorStr("\t(No Effect Info in Base)\n");
 			}
 			else if (!baseVal.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 += SourceColorStr("\tEffect set to not apply in Base Ability\n");
 			}
 		}
@@ -1177,33 +572,11 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modProp.operation != 0)
 			{
 				int num;
 				if (showBaseVal)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((baseVal != null) ? 1 : 0);
 				}
 				else
@@ -1216,15 +589,6 @@ public static class AbilityModHelper
 				object baseVal2;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					baseVal2 = baseVal;
 				}
 				else
@@ -1234,41 +598,14 @@ public static class AbilityModHelper
 				string text = GetModEffectDataDesc(effectData, prefix, empty, flag, (StandardActorEffectData)baseVal2);
 				if (modProp.useSequencesFromSource)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect data |") + "\n";
 				}
 				string result = text;
 				if (showBaseVal && baseVal == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = SourceColorStr("\t(No Effect Data in Base)\n");
 				}
 				return result;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -1282,19 +619,6 @@ public static class AbilityModHelper
 			{
 				return modProp.spoilsSpawnDataOverride.GetInEditorDescription(prefix, "    ", showBaseVal, baseVal);
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return string.Empty;
 	}
@@ -1303,55 +627,15 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (baseVal != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modProp.operation != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (modProp.barrierModData != null)
 					{
 						string empty = string.Empty;
 						StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
 						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1363,30 +647,8 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (baseVal != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modProp.operation != 0)
 				{
 					if (modProp.groundFieldModData != null)
@@ -1394,15 +656,6 @@ public static class AbilityModHelper
 						string empty = string.Empty;
 						GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
 						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1428,19 +681,6 @@ public static class AbilityModHelper
 		string text;
 		if (operation != AbilityModPropertyInt.ModOp.Add)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = " diff = " + Mathf.Abs(finalVal - baseVal);
 		}
 		else
@@ -1465,10 +705,6 @@ public static class AbilityModHelper
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return input;
 				}
 			}
@@ -1482,41 +718,10 @@ public static class AbilityModHelper
 		int num;
 		if (effectInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (effectInfo.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (useBaseVal)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal != null)
 					{
 						num = (baseVal.m_applyEffect ? 1 : 0);
@@ -1528,15 +733,6 @@ public static class AbilityModHelper
 			}
 			if (baseVal != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += SourceColorStr(prefix + " | SET TO NOT APPLY\n");
 			}
 		}
@@ -1549,15 +745,6 @@ public static class AbilityModHelper
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = baseVal.m_effectData;
 		}
 		else
@@ -1567,30 +754,12 @@ public static class AbilityModHelper
 		text = GetModEffectDataDesc(effectData, prefix, indent, flag, (StandardActorEffectData)baseVal2);
 		if (useBaseVal)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (baseVal == null)
 			{
 				text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 			}
 			else if (!baseVal.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
 			}
 		}
@@ -1607,19 +776,6 @@ public static class AbilityModHelper
 			int num;
 			if (useBaseVal)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((baseVal != null) ? 1 : 0);
 			}
 			else
@@ -1630,15 +786,6 @@ public static class AbilityModHelper
 			text += effectData.GetInEditorDescription(indent, true, diff, baseVal);
 			if (useBaseVal && baseVal == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 			}
 		}
@@ -1650,56 +797,16 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (effectInfo != null && effectInfo.m_applyGroundEffect)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = text + prefix + "\n";
 			text += effectInfo.m_groundEffectData.GetInEditorDescription();
 			if (useBaseVal)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (baseVal == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 				}
 				else if (!baseVal.m_applyGroundEffect)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
 				}
 				else
@@ -1716,41 +823,10 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (cooldownChangeInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (cooldownChangeInfo.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (cooldownChangeInfo.cooldownAddAmount != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int cooldownAddAmount = cooldownChangeInfo.cooldownAddAmount;
 					string text2 = (cooldownAddAmount < 0) ? " is Reduced by " : "is Increased by ";
 					string text3 = text;
@@ -1766,19 +842,6 @@ public static class AbilityModHelper
 		string text = actionType.ToString();
 		if (abilityData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability ability = null;
 			switch (actionType)
 			{
@@ -1811,33 +874,11 @@ public static class AbilityModHelper
 	{
 		if (mod != null && mod.modAmount != null && mod.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mod.modAmount.operation != 0)
 			{
 				string text;
 				if (abilityData == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = mod.abilitySlot.ToString();
 				}
 				else
@@ -1849,27 +890,9 @@ public static class AbilityModHelper
 				string text2;
 				if (mod.modAmount.operation == AbilityModPropertyInt.ModOp.Add)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					object str3;
 					if (mod.modAmount.value >= 0f)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						str3 = " + ";
 					}
 					else
@@ -1893,41 +916,10 @@ public static class AbilityModHelper
 	{
 		if (mod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mod.availableStockModAmount != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (mod.refreshTimeRemainingModAmount != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mod.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 					{
 						string text = string.Empty;
@@ -1941,27 +933,9 @@ public static class AbilityModHelper
 						}
 						if (text.Length > 0)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = prefix + " for ability at [" + mod.abilitySlot.ToString() + "]\n" + text;
 						}
 						return text;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1973,47 +947,16 @@ public static class AbilityModHelper
 	{
 		if (mod != null && mod.modAmount != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mod.modAmount.operation != 0)
 			{
 				string modPropertyDesc = GetModPropertyDesc(mod.modAmount, string.Empty);
 				string text = "TechPoint on [" + mod.interactionType.ToString() + "]" + modPropertyDesc;
 				if (useBase)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = text2 + SourceColorStr("\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(mod.modAmount.GetModifiedValue(baseVal).ToString()) + "\n";
 				}
 				return text;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -2038,24 +981,10 @@ public static class AbilityModHelper
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (effectInfo.m_applyEffect)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					AddTooltipNumbersFromEffect(effectInfo.m_effectData, numbers);
 					return;
 				}
@@ -2072,26 +1001,12 @@ public static class AbilityModHelper
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (effectData == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				numbers.Add(effectData.m_duration);
 				if (effectData.m_absorbAmount > 0)
 				{
@@ -2099,26 +1014,12 @@ public static class AbilityModHelper
 				}
 				if (effectData.m_damagePerTurn > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					numbers.Add(effectData.m_damagePerTurn);
 				}
 				if (effectData.m_healingPerTurn > 0)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						numbers.Add(effectData.m_healingPerTurn);
 						return;
 					}

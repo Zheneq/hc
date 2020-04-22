@@ -147,52 +147,12 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		int result;
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actor.GetAccountIdWithSomeConditionB_zq() != -1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actor.GetAccountIdWithSomeConditionA_zq() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_actor.GetIsHumanControlled())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_actor.GetPlayerDetails().m_botsMasqueradeAsHumans)
 						{
 							result = (m_actor.GetPlayerDetails().ReplacedWithBots ? 1 : 0);
@@ -216,41 +176,14 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				(tooltip as GameOverBannerMenu).Setup(m_actor);
 				return true;
 			}
 		}
 		if (m_statline != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_statline.AccountID != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_statline.AccountID != 0)
 				{
 					if (!m_statline.IsHumanControlled)
@@ -258,15 +191,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						if (!m_statline.HumanReplacedByBot)
 						{
 							goto IL_00b3;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					(tooltip as GameOverBannerMenu).Setup(m_statline);
@@ -284,19 +208,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		UIContributionTooltip uIContributionTooltip = tooltip as UIContributionTooltip;
 		if (m_actor != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (uIContributionTooltip != null)
 			{
 				while (true)
@@ -329,21 +240,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_statsPageOneContainer != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_statsPageOneContainer, false);
 					}
 					if (m_statsPageTwoContainer != null)
@@ -370,22 +268,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (m_statsPageOneContainer != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_statsPageOneContainer, true);
 			}
 			if (m_statsPageTwoContainer != null)
@@ -418,30 +302,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			ggPackImage = m_ggPackImage;
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (actorData.PlayerData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = ((HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(actorData.PlayerData.PlayerHandle) > 0) ? 1 : 0);
 					goto IL_0118;
 				}
@@ -460,27 +322,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(abilityData2 != null))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (i >= list.Count)
 			{
@@ -491,15 +335,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			Ability ability;
 			if (abilityEntry2 != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ability = abilityEntry2.ability;
 			}
 			else
@@ -510,15 +345,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			if (!(theAbility != null))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			AbilityMod abilityMod = AbilityModHelper.GetModForAbility(theAbility, abilityEntry.AbilityModId);
 			m_abilityReferences.Add(theAbility);
@@ -532,15 +358,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			UIManager.SetGameObjectActive(m_freeActionLabel[i], theAbility.IsFreeAction());
 			if (abilityMod != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_abilityModReferences.Add(abilityMod);
 				m_modIcons[i].sprite = abilityMod.m_iconSprite;
 				m_modIcons[i].color = Color.white;
@@ -554,29 +371,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			string text;
 			if (abilityEntry2 != null && actorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = actorData.TechPoints + actorData.ReservedTechPoints;
 				bool flag = abilityData.HasQueuedAction((AbilityData.ActionType)i);
 				int num2;
 				if (theAbility.GetModdedCost() > num)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (flag ? 1 : 0);
 				}
 				else
@@ -587,26 +386,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				text = string.Empty;
 				if (theAbility.GetModdedMaxStocks() <= 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityEntry2.GetCooldownRemaining() == 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
 							goto IL_0d1f;
@@ -617,15 +398,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						int num3;
 						if (num >= actorData.GetActualMaxTechPoints())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = (AbilityUtils.AbilityHasTag(theAbility, AbilityTags.IgnoreCooldownIfFullEnergy) ? 1 : 0);
 						}
 						else
@@ -639,15 +411,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					else if (abilityEntry2.GetCooldownRemaining() == -1)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = "~";
 					}
 				}
@@ -658,65 +421,20 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(theAbility);
 					if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int consumedStocksCount = component.GetConsumedStocksCount(actionTypeOfAbility);
 						int stockRefreshCountdown = component.GetStockRefreshCountdown(actionTypeOfAbility);
 						int num4 = moddedMaxStocks - consumedStocksCount;
 						if (!component.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = component.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
 						}
 						else if (stockRefreshCountdown > 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num4 != 0)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!theAbility.RefillAllStockOnRefresh())
 								{
 									goto IL_0d1f;
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							text = stockRefreshCountdown.ToString();
@@ -731,15 +449,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			IL_0d1f:
 			if (theAbility.GetModdedCost() > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag3 = theAbility.GetModdedCost() <= num;
 				UIManager.SetGameObjectActive(m_disableContainer[i], !flag3);
 				m_cooldownLabel[i].text = string.Empty;
@@ -748,28 +457,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			{
 				if (m_cooldownLabel[i].text != text)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_cooldownLabel[i].text = text;
 				}
 				if (m_cooldownLabel[i].text.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_disableContainer[i], false);
 				}
 				else
@@ -790,15 +481,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			}
 			else if (theAbility.GetPhaseString() == StringUtil.TR("Prep", "Global"))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = m_prepColor;
 			}
 			else
@@ -809,50 +491,18 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipClickObject>().Setup(TooltipType.PlayerBannerMenu, ClickedContribution);
 			m_ContributionHitBoxTooltip.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Contribution, SetupContibutionTooltip);
 			if (m_KillsLabel != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_KillsLabel.text = statline.TotalPlayerKills.ToString();
 			}
 			if (m_DeathsLabel != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_DeathsLabel.text = statline.TotalDeaths.ToString();
 			}
 			if (m_DamageDealt != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_DamageDealt.text = statline.TotalPlayerDamage.ToString();
 			}
 			if (m_RoleNumber != null)
@@ -861,65 +511,20 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			}
 			if (m_HealingNumber != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_HealingNumber.text = (statline.TotalPlayerHealingFromAbility + statline.TotalPlayerAbsorb).ToString();
 			}
 			if (m_DamageReceivedNumber != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_DamageReceivedNumber.text = statline.TotalPlayerDamageReceived.ToString();
 			}
 			if (m_KDANumber != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_KDANumber.text = $"{statline.TotalPlayerAssists}:{statline.TotalDeaths}:{statline.TotalPlayerKills}";
 			}
 			if (m_TimePerTurn != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (statline.TotalPlayerTurns == 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_TimePerTurn.text = "-";
 				}
 				else
@@ -929,26 +534,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			}
 			if (secretButtonClicked)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_DebugTotalContribution != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_DebugTotalContribution.text = statline.TotalPlayerContribution.ToString();
 				}
 			}
@@ -972,38 +559,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		list = null;
 		if (statline.Character != CharacterType.PunchingDummy)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (statline.Character != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameWideData gameWideData = GameWideData.Get();
 				if ((bool)gameWideData)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterResourceLink characterResourceLink = gameWideData.GetCharacterResourceLink(statline.Character);
 					m_characterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
 					abilityData2 = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
@@ -1014,28 +574,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (m_abilityReferences == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_abilityReferences = new List<Ability>();
 		}
 		if (m_abilityModReferences == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_abilityModReferences = new List<AbilityMod>();
 		}
 		m_abilityReferences.Clear();
@@ -1047,15 +589,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		object obj;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = GameFlowData.Get().activeOwnedActorData;
 		}
 		else
@@ -1074,15 +607,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		bool flag4;
 		if (statline.IsHumanControlled)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = true;
 		}
 		else if (statline.IsBotMasqueradingAsHuman)
@@ -1091,15 +615,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		else if (statline.HumanReplacedByBot)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = true;
 		}
 		else
@@ -1108,15 +623,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (flag4)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_botOverlay, false);
 		}
 		else
@@ -1126,39 +632,12 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			m_DebugBotNameText.text = statline.DisplayName;
 			if (!(m_actor == null))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (team != m_actor.GetTeam())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(SinglePlayerCoordinator.Get() != null))
 					{
 						UIManager.SetGameObjectActive(m_botOverlay, false);
 						goto IL_03d3;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1169,15 +648,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		IL_03d3:
 		if (statline.IsPerspective)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_selfImage, true);
 			UIManager.SetGameObjectActive(m_enemyImage, false);
 			UIManager.SetGameObjectActive(m_allyImage, false);
@@ -1187,15 +657,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			bool flag5 = false;
 			if (actorData2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag5 = (actorData == actorData2);
 			}
 			UIManager.SetGameObjectActive(m_selfImage, flag5);
@@ -1203,15 +664,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			int doActive3;
 			if (!statline.IsAlly)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive3 = ((!flag5) ? 1 : 0);
 			}
 			else
@@ -1243,29 +695,11 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.BannerID);
 		if (banner != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_bannerImage.sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 		}
 		GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.EmblemID);
 		if (banner2 != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_emblemImage, true);
 			m_emblemImage.sprite = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 		}
@@ -1273,15 +707,6 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(statline.RibbonID);
 		if (ribbon != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 			UIManager.SetGameObjectActive(m_ribbonImage, ribbon != null);
 		}
@@ -1291,127 +716,37 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (m_playerLevel != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_playerLevel, false);
 		}
 		if (teamInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (teamInfo.TeamPlayerInfo != null)
 			{
 				LobbyPlayerInfo lobbyPlayerInfo = teamInfo.TeamPlayerInfo.FirstOrDefault((LobbyPlayerInfo element) => element.PlayerId == statline.PlayerId);
 				if (lobbyPlayerInfo != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!statline.IsHumanControlled)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (secretButtonClicked)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_DebugBotDifficultyText.text = $"AI Level: {(int)(lobbyPlayerInfo.Difficulty + 1)}";
 						}
 					}
 					Dictionary<int, ForbiddenDevKnowledge> forbiddenDevKnowledge = GameManager.Get().ForbiddenDevKnowledge;
 					if (!forbiddenDevKnowledge.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out ForbiddenDevKnowledge value))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_DebugAccountELO != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string arg = (value.UsedMatchmakingElo == value.AccMatchmakingElo) ? "green" : "orange";
 								m_DebugAccountELO.text = $"<color={arg}>{value.UsedMatchmakingElo:F0}</color>";
 							}
 							if (m_DebugCharacterELO != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int value2 = 0;
 								if (!s_groupToColorMap.TryGetValue(value.GroupIdAtStartOfMatch, out value2))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									value2 = s_nextColorId;
 									s_nextColorId++;
 									s_groupToColorMap.Add(value.GroupIdAtStartOfMatch, value2);
@@ -1423,28 +758,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					if (m_DebugAccountELO != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_DebugAccountELO.text = "Dev Only";
 					}
 					if (m_DebugCharacterELO != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_DebugCharacterELO.text = "Dev Only";
 					}
 				}

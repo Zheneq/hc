@@ -40,19 +40,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxBounces;
 		}
 		else
@@ -67,19 +54,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxTargetsHit;
 		}
 		else
@@ -94,19 +68,6 @@ public class ScoundrelBouncingLaser : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_width;
 		}
 		else
@@ -121,19 +82,6 @@ public class ScoundrelBouncingLaser : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxDistancePerBounce;
 		}
 		else
@@ -158,19 +106,6 @@ public class ScoundrelBouncingLaser : Ability
 		int b;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			b = m_minDamageAmount;
 		}
 		else
@@ -190,19 +125,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageChangePerHit;
 		}
 		else
@@ -224,10 +146,6 @@ public class ScoundrelBouncingLaser : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_BounceLaser(this, GetLaserWidth(), GetDistancePerBounce(), GetMaxTotalDistance(), GetMaxBounces(), GetMaxTargetHits(), false);
 					return;
 				}
@@ -271,19 +189,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result = 1;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useTargetDataOverrides && m_abilityMod.m_targetDataOverrides.Length > 1)
 			{
 				result = m_abilityMod.m_targetDataOverrides.Length;
@@ -317,27 +222,9 @@ public class ScoundrelBouncingLaser : Ability
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = GetBaseDamage();
 				if (CollectTheCoins.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(base.ActorData));
 					num += num2;
 				}
@@ -354,11 +241,6 @@ public class ScoundrelBouncingLaser : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -370,19 +252,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val;
 		if ((bool)abilityMod_ScoundrelBouncingLaser)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ScoundrelBouncingLaser.m_baseDamageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -394,15 +263,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val2;
 		if ((bool)abilityMod_ScoundrelBouncingLaser)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ScoundrelBouncingLaser.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
 		}
 		else
@@ -415,15 +275,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val3;
 		if ((bool)abilityMod_ScoundrelBouncingLaser)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ScoundrelBouncingLaser.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce);
 		}
 		else
@@ -435,15 +286,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val4;
 		if ((bool)abilityMod_ScoundrelBouncingLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ScoundrelBouncingLaser.m_maxBounceMod.GetModifiedValue(m_maxBounces);
 		}
 		else
@@ -462,15 +304,6 @@ public class ScoundrelBouncingLaser : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ScoundrelBouncingLaser);
 			SetupTargeter();
 			return;

@@ -14,19 +14,6 @@ internal class GroupJoinManager
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new GroupJoinManager();
 		}
 		return s_instance;
@@ -40,33 +27,11 @@ internal class GroupJoinManager
 		{
 			if (value.HasExpired(utcNow))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(value);
 			}
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(GroupRequestWindow p)
 			{
 				p.CleanupWindow();
@@ -86,25 +51,12 @@ internal class GroupJoinManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (UIFrontEnd.Get().m_landingPageScreen != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().m_landingPageScreen.m_inCustomGame)
 			{
 				SendGroupConfirmation(GroupInviteResponseType.PlayerInCustomMatch, request);
@@ -140,15 +92,6 @@ internal class GroupJoinManager
 		}
 		if (m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value) && value != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!value.CanAdd())
 			{
 				while (true)
@@ -176,19 +119,6 @@ internal class GroupJoinManager
 	{
 		if (status == GroupInviteResponseType.PlayerRejected)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value))
 			{
 				value = new LeakyBucket(2.0, TimeSpan.FromMinutes(10.0));

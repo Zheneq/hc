@@ -48,19 +48,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoMarkedAreaAttack != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, dinoMarkedAreaAttack.m_targetSelectComp);
 		}
 		string str = text;
@@ -68,15 +55,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = dinoMarkedAreaAttack.m_delayTurns;
 		}
 		else
@@ -89,15 +67,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (int)dinoMarkedAreaAttack.m_shape;
 		}
 		else
@@ -110,15 +79,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (dinoMarkedAreaAttack.m_delayedHitIgnoreLos ? 1 : 0);
 		}
 		else
@@ -131,15 +91,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = dinoMarkedAreaAttack.m_extraDamageForSingleMark;
 		}
 		else
@@ -152,15 +103,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = dinoMarkedAreaAttack.m_energyToAllyOnDamageHit;
 		}
 		else

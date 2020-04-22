@@ -39,19 +39,6 @@ public class FriendInfo
 		int result;
 		if (StatusString == "In Game")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GameplayOverrides.AllowSpectatorsOutsideCustom ? 1 : 0);
 		}
 		else

@@ -44,19 +44,6 @@ public class LobbyGameConfig
 			List<GameSubType> subTypes = SubTypes;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_003C_003Ef__am_0024cache0 = ((GameSubType p) => p.NeedsPreSelectedFreelancer);
 			}
 			return subTypes.Exists(_003C_003Ef__am_0024cache0);
@@ -77,10 +64,6 @@ public class LobbyGameConfig
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
 					}
 				}
@@ -129,32 +112,10 @@ public class LobbyGameConfig
 		{
 			if (!SubTypes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (InstanceSubTypeBit != 0)
 				{
 					if (InstanceSubType.GameOverrides != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TimeSpan? turnTimeSpan = InstanceSubType.GameOverrides.TurnTimeSpan;
 						if (turnTimeSpan.HasValue)
 						{
@@ -174,15 +135,6 @@ public class LobbyGameConfig
 						}
 					}
 					return TimeSpan.FromSeconds(20.0).TotalSeconds;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return 20.0;
@@ -247,10 +199,6 @@ public class LobbyGameConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameOptionFlags = GameOptionFlags.WithGameOption(flag);
 					return;
 				}
@@ -270,10 +218,6 @@ public class LobbyGameConfig
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
 				}
 			}
@@ -336,10 +280,6 @@ public class LobbyGameConfig
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						bFoundSomething = true;
 						yield return gst;
 						/*Error: Unable to find new state assignment for yield return*/;
@@ -369,10 +309,6 @@ public class LobbyGameConfig
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						{
 							foreach (GameSubType subType in defaultGameConfig.SubTypes)
 							{
@@ -382,15 +318,6 @@ public class LobbyGameConfig
 								{
 									if (gameMapConfig.IsActive)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (disabledMaps.Contains(gameMapConfig.Map))
 										{
 											result = true;

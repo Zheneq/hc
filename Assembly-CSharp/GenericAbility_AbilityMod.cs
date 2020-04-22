@@ -20,15 +20,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AddOnHitDataTokens(tokens, m_onHitDataMod, genericAbility_Container.m_onHitData);
 			return;
 		}
@@ -42,15 +33,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (baseData != null)
 			{
 				mod._001D(tokens, baseData);
@@ -65,19 +47,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 		GenericAbility_Container genericAbility_Container = GetTargetAbilityOnAbilityData(abilityData) as GenericAbility_Container;
 		if (genericAbility_Container != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetOnHitDataDesc(m_onHitDataMod, genericAbility_Container.m_onHitData);
 		}
 		return text;
@@ -87,19 +56,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 	{
 		if (mod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (baseData != null)
 			{
 				while (true)
@@ -121,19 +77,6 @@ public class GenericAbility_AbilityMod : AbilityMod
 	{
 		if (mod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (baseTargetSelect != null)
 			{
 				return mod.GetInEditorDesc(baseTargetSelect, header);

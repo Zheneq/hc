@@ -54,19 +54,6 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = mantaRegeneration.m_healEffectData;
 		}
 		else
@@ -79,15 +66,6 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaRegeneration.m_otherSelfEffect;
 		}
 		else

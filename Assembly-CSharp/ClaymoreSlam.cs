@@ -73,19 +73,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo cachedMiddleEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedMiddleEnemyHitEffect = m_abilityMod.m_middleEnemyHitEffectMod.GetModifiedValue(m_middleEnemyHitEffect);
 		}
 		else
@@ -96,15 +83,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo cachedSideEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSideEnemyHitEffect = m_abilityMod.m_sideEnemyHitEffectMod.GetModifiedValue(m_sideEnemyHitEffect);
 		}
 		else
@@ -119,19 +97,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -146,19 +111,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_midLaserWidthMod.GetModifiedValue(m_midLaserWidth);
 		}
 		else
@@ -173,19 +125,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_fullLaserWidthMod.GetModifiedValue(m_fullLaserWidth);
 		}
 		else
@@ -200,19 +139,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -232,19 +158,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_middleDamageMod.GetModifiedValue(m_middleDamage);
 		}
 		else
@@ -259,19 +172,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo result;
 		if (m_cachedMiddleEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedMiddleEnemyHitEffect;
 		}
 		else
@@ -296,19 +196,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraSideDamagePerMiddleHitMod.GetModifiedValue(m_extraSideDamagePerMiddleHit);
 		}
 		else
@@ -323,19 +210,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageOnLowHealthTargetMod.GetModifiedValue(m_extraDamageOnLowHealthTarget);
 		}
 		else
@@ -350,19 +224,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lowHealthThresholdMod.GetModifiedValue(m_lowHealthThreshold);
 		}
 		else
@@ -377,19 +238,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyLossOnMidHitMod.GetModifiedValue(m_energyLossOnMidHit);
 		}
 		else
@@ -404,19 +252,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyLossOnSideHitMod.GetModifiedValue(m_energyLossOnSideHit);
 		}
 		else
@@ -431,19 +266,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healPerMidHit.GetModifiedValue(0);
 		}
 		else
@@ -458,19 +280,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healPerSideHit.GetModifiedValue(0);
 		}
 		else
@@ -489,19 +298,6 @@ public class ClaymoreSlam : Ability
 		int affectsCaster;
 		if (GetHealPerMidHit() <= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = ((GetHealPerSideHit() > 0) ? 1 : 0);
 		}
 		else
@@ -518,19 +314,6 @@ public class ClaymoreSlam : Ability
 		int val;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ClaymoreSlam.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -542,15 +325,6 @@ public class ClaymoreSlam : Ability
 		int val2;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreSlam.m_middleDamageMod.GetModifiedValue(m_middleDamage);
 		}
 		else
@@ -561,15 +335,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreSlam.m_middleEnemyHitEffectMod.GetModifiedValue(m_middleEnemyHitEffect);
 		}
 		else
@@ -581,15 +346,6 @@ public class ClaymoreSlam : Ability
 		int val3;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreSlam.m_sideDamageMod.GetModifiedValue(m_sideDamage);
 		}
 		else
@@ -600,15 +356,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ClaymoreSlam.m_sideEnemyHitEffectMod.GetModifiedValue(m_sideEnemyHitEffect);
 		}
 		else
@@ -620,15 +367,6 @@ public class ClaymoreSlam : Ability
 		int val4;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ClaymoreSlam.m_extraSideDamagePerMiddleHitMod.GetModifiedValue(m_extraSideDamagePerMiddleHit);
 		}
 		else
@@ -640,15 +378,6 @@ public class ClaymoreSlam : Ability
 		int val5;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_ClaymoreSlam.m_extraDamageOnLowHealthTargetMod.GetModifiedValue(m_extraDamageOnLowHealthTarget);
 		}
 		else
@@ -660,15 +389,6 @@ public class ClaymoreSlam : Ability
 		int val6;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_ClaymoreSlam.m_energyLossOnMidHitMod.GetModifiedValue(m_energyLossOnMidHit);
 		}
 		else
@@ -680,15 +400,6 @@ public class ClaymoreSlam : Ability
 		int val7;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_ClaymoreSlam.m_energyLossOnSideHitMod.GetModifiedValue(m_energyLossOnSideHit);
 		}
 		else
@@ -700,15 +411,6 @@ public class ClaymoreSlam : Ability
 		int val8;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val8 = abilityMod_ClaymoreSlam.m_healPerMidHit.GetModifiedValue(0);
 		}
 		else
@@ -720,15 +422,6 @@ public class ClaymoreSlam : Ability
 		int val9;
 		if ((bool)abilityMod_ClaymoreSlam)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val9 = abilityMod_ClaymoreSlam.m_healPerSideHit.GetModifiedValue(0);
 		}
 		else
@@ -757,73 +450,24 @@ public class ClaymoreSlam : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Primary);
 			int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Secondary);
 			int value = 0;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetActor.GetHitPointShareOfMax() < GetLowHealthThreshold())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = GetExtraDamageOnLowHealthTarget();
 				}
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = value;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] += GetMiddleDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = GetSideDamage();
 				if (GetExtraSideDamagePerMiddleHit() > 0)
 				{
@@ -836,15 +480,6 @@ public class ClaymoreSlam : Ability
 				int num2 = GetHealPerMidHit() * visibleActorsCountByTooltipSubject + GetHealPerSideHit() * visibleActorsCountByTooltipSubject2;
 				if (num2 > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary[AbilityTooltipSymbol.Healing] = num2;
 				}
 			}

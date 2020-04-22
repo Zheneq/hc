@@ -38,19 +38,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_radiusAroundStartMod.GetModifiedValue(m_radiusAroundStart);
 		}
 		else
@@ -65,19 +52,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_radiusAroundEndMod.GetModifiedValue(m_radiusAroundEnd);
 		}
 		else
@@ -92,19 +66,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_rangeFromLineMod.GetModifiedValue(m_rangeFromLine);
 		}
 		else
@@ -119,19 +80,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		bool result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_trimPathOnTargetHitMod.GetModifiedValue(m_trimPathOnTargetHit);
 		}
 		else
@@ -157,19 +105,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				while (true)
@@ -203,19 +138,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startSquare.ToVector3(), boardSquare.ToVector3(), out collision, out collisionNormal);
 		if (collision)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startSquare.ToVector3(), abilityLineEndpoint);
 		}
 		BoardSquarePathInfo chargePath = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, startSquare, false);
@@ -235,10 +157,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -249,33 +167,18 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (chargePath.next == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!(lineHalfWidthInSquares > 0f))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					destSquare = chargePath.GetPathEndpoint().square;
 					Vector3 worldPositionForLoS = startSquare.GetWorldPositionForLoS();
 					Vector3 worldPositionForLoS2 = destSquare.GetWorldPositionForLoS();
@@ -283,15 +186,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 					actors.Remove(caster);
 					if (forServer)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -307,11 +201,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						ActorData actorData = actors[0];
 						Vector3 projectionPoint = VectorUtils.GetProjectionPoint(vector, worldPositionForLoS, actorData.GetTravelBoardSquareWorldPositionForLos());
 						BoardSquarePathInfo next = chargePath.next;
@@ -325,15 +214,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 							float num2 = VectorUtils.HorizontalPlaneDistInWorld(projectionPoint, next.next.square.ToVector3());
 							if (num2 > num)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (next.square.IsBaselineHeight())
 								{
 									break;

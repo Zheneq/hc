@@ -37,10 +37,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -50,15 +46,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		m_options = new List<UIPlayerProgressDropdownBtn>();
 		if (m_scrollRect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(m_scrollRect.verticalScrollbar.gameObject, EventTriggerType.Scroll, OnScroll);
 			m_hitboxes.Add(m_scrollRect.gameObject);
 			m_hitboxes.Add(m_scrollRect.verticalScrollbar.gameObject);
@@ -80,19 +67,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		UIManager.SetGameObjectActive(uIPlayerProgressDropdownBtn, true);
 		if (m_scrollRect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			uIPlayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(OnScroll);
 		}
 		uIPlayerProgressDropdownBtn.AttachToDropdown(this);
@@ -111,19 +85,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		UIManager.SetGameObjectActive(uIPlayerProgressDropdownBtn, true);
 		if (m_scrollRect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			uIPlayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(OnScroll);
 		}
 		uIPlayerProgressDropdownBtn.AttachToDropdown(this);
@@ -140,19 +101,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 	{
 		if (m_callback != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_callback(typeSpecificData);
 		}
 		SetVisible(false);
@@ -179,10 +127,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -190,15 +134,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		m_isVisible = visible;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIClickListener.Get().Enable(m_hitboxes, delegate
 			{
 				SetVisible(false);
@@ -208,15 +143,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 			{
 				RectTransform layoutRoot = m_layoutGroup.transform.GetChild(i) as RectTransform;
 				LayoutRebuilder.ForceRebuildLayoutImmediate(layoutRoot);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			LayoutRebuilder.ForceRebuildLayoutImmediate(m_layoutGroup.transform as RectTransform);
 			float preferredHeight = m_layoutGroup.preferredHeight;
@@ -229,28 +155,10 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 			{
 				m_options[j].m_button.SetSelected(false, false, string.Empty, string.Empty);
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIClickListener.Get().Disable();
 		}
 		if (m_animator != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_animator.isInitialized)
 			{
 				while (true)
@@ -272,11 +180,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false);
 			return;
 		}
@@ -295,15 +198,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false);
 			return;
 		}
@@ -317,15 +211,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -340,25 +225,11 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return m_options[i].gameObject.activeSelf;
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -378,15 +249,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

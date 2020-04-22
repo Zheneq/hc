@@ -56,33 +56,11 @@ public class GenericSequenceProjectileInfo
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxImpact);
 			m_fxImpact = null;
 		}
@@ -92,11 +70,6 @@ public class GenericSequenceProjectileInfo
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_targetHitFx.Count; i++)
 			{
 				Object.Destroy(m_targetHitFx[i]);
@@ -130,19 +103,6 @@ public class GenericSequenceProjectileInfo
 	{
 		if ((bool)m_authoredInfo.m_fxImpactPrefab)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxImpact = m_parentSequence.InstantiateFX(m_authoredInfo.m_fxImpactPrefab, impactPos, impactRot);
 			m_impactDurationLeft = m_impactDuration;
 		}
@@ -160,54 +120,22 @@ public class GenericSequenceProjectileInfo
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fx != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_parentSequence.IsHitFXVisibleWrtTeamFilter(target, m_authoredInfo.m_hitFxTeamFilter))
 				{
 					return;
 				}
 				if (m_authoredInfo.m_targetHitFxPrefab != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject gameObject = m_authoredInfo.m_hitPosJoint.FindJointObject(target.gameObject);
 					Vector3 vector;
 					if (gameObject != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = gameObject.transform.position;
 					}
 					else
@@ -218,26 +146,8 @@ public class GenericSequenceProjectileInfo
 					GameObject gameObject2 = m_parentSequence.InstantiateFX(m_authoredInfo.m_targetHitFxPrefab, position, m_fx.transform.rotation);
 					if (gameObject2 != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_authoredInfo.m_targetHitFxAttachToJoint)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_parentSequence.AttachToBone(gameObject2, gameObject);
 							gameObject2.transform.localPosition = Vector3.zero;
 							gameObject2.transform.localScale = Vector3.one;
@@ -265,19 +175,6 @@ public class GenericSequenceProjectileInfo
 		Vector3[] array = new Vector3[5];
 		if (m_authoredInfo.m_maxHeight == 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 endPos = m_endPos;
 			endPos.y += m_authoredInfo.m_yOffset;
 			Vector3 b = endPos - startPos;
@@ -319,27 +216,9 @@ public class GenericSequenceProjectileInfo
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameObject referenceModel = m_parentSequence.GetReferenceModel(m_parentSequence.Caster, m_authoredInfo.m_jointReferenceType);
 				if (referenceModel != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_authoredInfo.m_fxJoint.Initialize(referenceModel);
 				}
 				SpawnFX();
@@ -353,15 +232,6 @@ public class GenericSequenceProjectileInfo
 			m_splineTraveled += m_curSplineSpeed * GameTime.deltaTime;
 			if (m_splineTraveled < m_authoredInfo.m_splineFractionUntilImpact)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = m_spline.Interp(m_splineTraveled);
 				Quaternion rotation = default(Quaternion);
 				rotation.SetLookRotation((vector - m_fx.transform.position).normalized);
@@ -371,15 +241,6 @@ public class GenericSequenceProjectileInfo
 				m_fx.transform.rotation = rotation;
 				if (m_targetActors != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData[] targetActors = m_targetActors;
 					foreach (ActorData actorData in targetActors)
 					{
@@ -387,40 +248,13 @@ public class GenericSequenceProjectileInfo
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_actorsAlreadyHit.Contains(actorData))
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 rhs = actorData.transform.position - m_fx.transform.position;
 						if (Vector3.Dot(vector2, rhs) < 0f)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 position = m_fx.transform.position;
 							ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, vector2);
 							m_parentSequence.Source.OnSequenceHit(m_parentSequence, actorData, impulseInfo);
@@ -428,30 +262,12 @@ public class GenericSequenceProjectileInfo
 							SpawnTargetHitFx(actorData);
 						}
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
 			{
 				if (m_authoredInfo.m_spawnImpactAtFXDespawn)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnImpactFX(m_fx.transform.position, m_fx.transform.rotation);
 				}
 				else
@@ -462,15 +278,6 @@ public class GenericSequenceProjectileInfo
 				m_finished = true;
 				if (m_targetActors != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData[] targetActors2 = m_targetActors;
 					foreach (ActorData actorData2 in targetActors2)
 					{
@@ -479,15 +286,6 @@ public class GenericSequenceProjectileInfo
 							m_parentSequence.Source.OnSequenceHit(m_parentSequence, actorData2, Sequence.CreateImpulseInfoWithObjectPose(m_fx));
 							SpawnTargetHitFx(actorData2);
 						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_parentSequence.Source.OnSequenceHit(m_parentSequence, m_positionForSequenceHit);
@@ -499,11 +297,6 @@ public class GenericSequenceProjectileInfo
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_fxImpact.activeSelf)
 			{
 				return;

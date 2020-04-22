@@ -40,19 +40,6 @@ public class AppState_GameTeardown : AppState
 		clientGameManager.LeaveGame(false, m_lastGameResult);
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.SetVisible(false);
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, false);
 		}
@@ -60,28 +47,10 @@ public class AppState_GameTeardown : AppState
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.GameTeardown, null);
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().GameTeardown();
 		}
 		if (ClientGamePrefabInstantiator.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGamePrefabInstantiator.Get().DestroyInstantiations();
 		}
 		else
@@ -90,15 +59,6 @@ public class AppState_GameTeardown : AppState
 		}
 		if (m_lastGameResult == GameResult.ServerCrashed)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("ServerShutDown", "Global"), StringUtil.TR("Ok", "Global"), delegate
 			{
 				GoToFrontend();
@@ -106,37 +66,10 @@ public class AppState_GameTeardown : AppState
 		}
 		else if (m_lastGameResult.IsConnectionErrorResult())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_lastLobbyErrorMessage.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.AllowRelogin)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string empty = string.Empty;
 					string description = string.Format(StringUtil.TR("PressOkToReconnect", "Global"), m_lastLobbyErrorMessage);
 					string leftButtonLabel = StringUtil.TR("Ok", "Global");
@@ -147,15 +80,6 @@ public class AppState_GameTeardown : AppState
 					};
 					if (_003C_003Ef__am_0024cache0 == null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache0 = delegate
 						{
 							AppState_Shutdown.Get().Enter();
@@ -186,40 +110,13 @@ public class AppState_GameTeardown : AppState
 		m_lastLobbyErrorMessage = null;
 		if (!clientGameManager.PlayerObjectStartedOnClient)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!clientGameManager.InGameUIActivated)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!clientGameManager.VisualSceneLoaded)
 				{
 					if (!clientGameManager.DesignSceneStarted)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -237,52 +134,12 @@ public class AppState_GameTeardown : AppState
 		AppState_FrontendLoadingScreen.NextState nextState;
 		if (m_lastGameInfo.GameConfig.GameType != GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastGameInfo.GameConfig.GameType != 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lastGameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_lastGameResult != GameResult.ClientIdleTimeout && m_lastGameResult != GameResult.SkippedTurnsIdleTimeout)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						nextState = AppState_FrontendLoadingScreen.NextState.GoToCharacterSelect;
 						goto IL_0087;
 					}
@@ -303,15 +160,6 @@ public class AppState_GameTeardown : AppState
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_messageBox.Close();
 			m_messageBox = null;
 			return;

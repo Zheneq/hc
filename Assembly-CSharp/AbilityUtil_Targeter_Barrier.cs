@@ -40,19 +40,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		AbilityTarget abilityTarget = currentTarget;
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			abilityTarget = targets[0];
 		}
 		m_barrierCenterPos = abilityTarget.FreePos;
@@ -62,55 +49,19 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		Vector3 vector2 = m_barrierCenterPos;
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((m_barrierCenterPos - m_lastFreePos).magnitude > 0.2f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			m_lastFreePos = m_barrierCenterPos;
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				active = true;
 				vector2 = boardSquareSafe.ToVector3();
 				Vector3 freePos = abilityTarget.FreePos;
 				if (currentTargetIndex > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					freePos = currentTarget.FreePos;
 				}
 				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, freePos, m_allowAimAtDiagonals, out Vector3 offset);
@@ -124,15 +75,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		float x = m_width * Board.Get().squareSize;
 		if (base.Highlight == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Highlight = Object.Instantiate(HighlightUtils.Get().m_rectangleCursorPrefab.GetComponent<UIRectangleCursor>().m_endWidthLine);
 			base.Highlight.transform.localScale = new Vector3(x, 1f, 1f);
 		}
@@ -142,15 +84,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		int num;
 		if (m_hideIfMovingFast)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (flag ? 1 : 0);
 		}
 		else
@@ -162,15 +95,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		int active2;
 		if (m_snapToBorder)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			active2 = ((!flag2) ? 1 : 0);
 		}
 		else
@@ -184,22 +108,8 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_highlights.Count < 2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
 			m_highlights[1].transform.position = vector2;

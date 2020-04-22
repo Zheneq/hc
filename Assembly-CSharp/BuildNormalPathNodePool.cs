@@ -23,10 +23,6 @@ public class BuildNormalPathNodePool
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = m_allocatedInstances[m_nextEntryIndex];
 					InitNodeValues(boardSquarePathInfo);
 					m_nextEntryIndex++;

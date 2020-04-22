@@ -66,31 +66,9 @@ public class InterfaceManager : NetworkBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NetworkClient client = ClientGameManager.Get().Client;
 			if (client != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				client.UnregisterHandler(49);
 			}
 		}
@@ -106,30 +84,8 @@ public class InterfaceManager : NetworkBehaviour
 		{
 			goto IL_005a;
 		}
-		while (true)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (1 == 0)
-		{
-			/*OpCode not supported: LdMemberToken*/;
-		}
 		if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Input.GetKeyDown(KeyCode.F11))
 			{
 				goto IL_005a;
@@ -139,15 +95,6 @@ public class InterfaceManager : NetworkBehaviour
 		IL_0069:
 		if (activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> ownedActorDatas = GameFlowData.Get().m_ownedActorDatas;
 			Team team = activeOwnedActorData.GetTeam();
 			for (int i = 0; i < ownedActorDatas.Count; i++)
@@ -156,41 +103,14 @@ public class InterfaceManager : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				KeyPreference keyPreference = KeyPreference.Freelancer1;
 				keyPreference += i;
 				if (!InputManager.Get().IsKeyBindingNewlyHeld(keyPreference))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != ownedActorDatas[i])
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = ownedActorDatas[i];
 					flag = true;
 				}
@@ -203,34 +123,15 @@ public class InterfaceManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			CameraManager.Get().SetTargetObject(actorData.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 			if (GameFlowData.Get().IsActorDataOwned(actorData) && actorData != GameFlowData.Get().activeOwnedActorData)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameFlowData.Get().activeOwnedActorData = actorData;
 			}
 			if (flag)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
 					return;
 				}
@@ -253,15 +154,6 @@ public class InterfaceManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
 			return;
 		}
@@ -302,10 +194,6 @@ public class InterfaceManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void InterfaceManager::MsgDisplayAlert(UnityEngine.Networking.NetworkMessage)' called on server");
 					return;
 				}

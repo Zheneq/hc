@@ -76,10 +76,6 @@ public class StylizedFog : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					createResources();
 					UpdateTextures();
 					SetKeywords();
@@ -101,10 +97,6 @@ public class StylizedFog : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					createResources();
 					UpdateTextures();
 					SetKeywords();
@@ -123,15 +115,6 @@ public class StylizedFog : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			clearResources();
 			return;
 		}
@@ -148,31 +131,9 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (!(fogMat == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(fogShader == null))
 			{
 				goto IL_0043;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		createResources();
@@ -185,26 +146,8 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (useBlend)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (blendRamp != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fogMat.SetTexture("_BlendRamp", blendRamp);
 				fogMat.SetFloat("_Blend", blend);
 				Shader.SetGlobalTexture("_SF_BlendRamp", blendRamp);
@@ -217,11 +160,6 @@ public class StylizedFog : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			fogMat.SetTexture("_NoiseTex", noiseTexture);
 			fogMat.SetVector("_NoiseSpeed", noiseSpeed);
 			fogMat.SetVector("_NoiseTiling", noiseTiling);
@@ -243,15 +181,6 @@ public class StylizedFog : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				blendRamp = rampBlendTexture;
 				return;
 			}
@@ -262,15 +191,6 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (mainRamp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.DestroyImmediate(mainRamp);
 		}
 		mainRamp = GenerateGradient(rampGradient, 256, 8);
@@ -300,19 +220,6 @@ public class StylizedFog : MonoBehaviour
 					texture2D.SetPixel(i, j, white);
 				}
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		texture2D.Apply();
 		return texture2D;
@@ -322,19 +229,6 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (fogShader == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			fogShader = Shader.Find("Hidden/StylizedFog");
 		}
 		if (fogMat == null && fogShader != null)
@@ -344,27 +238,9 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (!(mainRamp == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(blendRamp == null))
 			{
 				goto IL_00a9;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		setGradient();
@@ -435,10 +311,6 @@ public class StylizedFog : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Shader.EnableKeyword("_FOG_NOISE_ON");
 					Shader.DisableKeyword("_FOG_NOISE_OFF");
 					return;
@@ -472,37 +344,15 @@ public class StylizedFog : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
 		}
 		if (fogShader.isSupported)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(fogShader == null))
 			{
 				return true;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

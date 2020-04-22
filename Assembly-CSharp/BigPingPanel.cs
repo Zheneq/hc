@@ -27,47 +27,16 @@ public class BigPingPanel : MonoBehaviour
 		}
 		if (m_blueMoveButtonHover.alpha > alpha)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			alpha = m_blueMoveButtonHover.alpha;
 			result = ActorController.PingType.Move;
 		}
 		if (m_yellowDefendButtonHover.alpha > alpha)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			alpha = m_yellowDefendButtonHover.alpha;
 			result = ActorController.PingType.Defend;
 		}
 		if (m_greenAssistButtonHover.alpha > alpha)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			alpha = m_greenAssistButtonHover.alpha;
 			result = ActorController.PingType.Assist;
 		}

@@ -24,10 +24,6 @@ public class UITooltipClickObject : UITooltipObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -36,15 +32,6 @@ public class UITooltipClickObject : UITooltipObject
 		bool flag = false;
 		if (m_leftClickEnabled && pointerEventData.button == PointerEventData.InputButton.Left)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 		}
 		else if (m_rightClickEnabled && pointerEventData.button == PointerEventData.InputButton.Right)
@@ -53,26 +40,8 @@ public class UITooltipClickObject : UITooltipObject
 		}
 		else if (m_middleClickEnabled)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (pointerEventData.button == PointerEventData.InputButton.Middle)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}

@@ -77,15 +77,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_circleRadiusMod, "CircleRadius", string.Empty, senseiHealAoE.m_circleRadius);
 			AbilityMod.AddToken(tokens, m_selfHealMod, "SelfHeal", string.Empty, senseiHealAoE.m_selfHeal);
 			AbilityMod.AddToken(tokens, m_selfLowHealthThreshMod, "SelfLowHealthThresh", string.Empty, senseiHealAoE.m_selfLowHealthThresh);
@@ -121,19 +112,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = senseiHealAoE.m_circleRadius;
 		}
 		else
@@ -146,15 +124,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (senseiHealAoE.m_penetrateLoS ? 1 : 0);
 		}
 		else
@@ -167,15 +136,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (senseiHealAoE.m_includeSelf ? 1 : 0);
 		}
 		else
@@ -188,15 +148,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiHealAoE.m_selfHeal;
 		}
 		else
@@ -209,15 +160,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiHealAoE.m_selfLowHealthThresh;
 		}
 		else
@@ -230,15 +172,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiHealAoE.m_extraSelfHealForLowHealth;
 		}
 		else
@@ -252,15 +185,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiHealAoE.m_extraAllyHealIfSingleHit;
 		}
 		else
@@ -274,15 +198,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = senseiHealAoE.m_healChangeStartDist;
 		}
 		else
@@ -295,15 +210,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiHealAoE.m_healChangePerDist;
 		}
 		else
@@ -316,15 +222,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		float baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = senseiHealAoE.m_allyLowHealthThresh;
 		}
 		else
@@ -337,15 +234,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = senseiHealAoE.m_extraAllyHealForLowHealth;
 		}
 		else
@@ -358,15 +246,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		object baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = senseiHealAoE.m_allyHitEffect;
 		}
 		else
@@ -379,15 +258,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = senseiHealAoE.m_allyEnergyGain;
 		}
 		else
@@ -400,15 +270,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = senseiHealAoE.m_cdrForAnyDamage;
 		}
 		else
@@ -421,15 +282,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = senseiHealAoE.m_cdrForDamagePerUniqueAbility;
 		}
 		else
@@ -442,15 +294,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal16;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = senseiHealAoE.m_turnsAfterInitialCast;
 		}
 		else
@@ -464,15 +307,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal17;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = senseiHealAoE.m_selfHealOnSubsequentTurns;
 		}
 		else
@@ -487,15 +321,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		int baseVal18;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal18 = senseiHealAoE.m_energyPerAllyHitOnSubseqTurns;
 		}
 		else

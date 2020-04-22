@@ -35,33 +35,11 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((StatType a, StatType b) => a == b);
 		}
 		Func<StatType, StatType, bool> equals = _003C_003Ef__am_0024cache0;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = ((StatType a) => (int)a);
 		}
 		FuncEqualityComparer<StatType> comparer = new FuncEqualityComparer<StatType>(equals, _003C_003Ef__am_0024cache1);
@@ -84,37 +62,18 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkServer.active)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < 24; j++)
 				{
 					m_modifiedStats.Add(GetStatBaseValueFloat((StatType)j));
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					MarkAllForUpdate();
 					return;
 				}
@@ -135,15 +94,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SendFullUpdateData();
 			m_shouldUpdateFull = false;
 			return;
@@ -166,30 +116,8 @@ public class ActorStats : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_modifiedStats[i] != modifiedStatFloat)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_modifiedStats[i] = modifiedStatFloat;
 				m_modifiedStatsPrevious[i] = modifiedStatFloat;
 			}
@@ -204,15 +132,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkServer.active)
 			{
 				return;
@@ -222,26 +141,12 @@ public class ActorStats : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (num >= m_modifiedStatsPrevious.Length)
 					{
 						return;
 					}
 					if (m_modifiedStats[num] != m_modifiedStatsPrevious[num])
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StatType stat = (StatType)num;
 						float oldStatValue = m_modifiedStatsPrevious[num];
 						m_modifiedStatsPrevious[num] = m_modifiedStats[num];
@@ -273,10 +178,6 @@ public class ActorStats : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					float modifiedStatFloat = GetModifiedStatFloat(stat);
 					StatMod statMod = new StatMod();
 					statMod.Setup(mod, val);
@@ -293,11 +194,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Log.Error("called AddStatMod when server is not active");
 			return;
 		}
@@ -320,10 +216,6 @@ public class ActorStats : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<StatMod> list = m_statMods[stat];
 					using (List<StatMod>.Enumerator enumerator = list.GetEnumerator())
 					{
@@ -332,15 +224,6 @@ public class ActorStats : NetworkBehaviour
 							StatMod current = enumerator.Current;
 							if (current.mod == mod)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.val == val)
 								{
 									while (true)
@@ -382,11 +265,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Log.Error("called RemoveStat when server is not active");
 			return;
 		}
@@ -438,26 +316,12 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_statMods.ContainsKey(stat))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				List<StatMod> list = m_statMods[stat];
 				for (int i = 0; i < list.Count; i++)
 				{
@@ -485,15 +349,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_statMods.ContainsKey(stat))
 			{
 				return;
@@ -503,15 +358,6 @@ public class ActorStats : NetworkBehaviour
 			{
 				if (filterDelegate(list[i]))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CalculateAdjustmentForStatMod(list[i], ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 				}
 			}
@@ -532,19 +378,6 @@ public class ActorStats : NetworkBehaviour
 	{
 		if (m_statMods != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_statMods.ContainsKey(stat))
 			{
 				if (NetworkServer.active)
@@ -563,15 +396,6 @@ public class ActorStats : NetworkBehaviour
 							float multipliers = 1f;
 							if (stat == StatType.Movement_Horizontal)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								CalculateAdjustmentsForMovementHorizontal(ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 							}
 							else
@@ -590,15 +414,6 @@ public class ActorStats : NetworkBehaviour
 				float result;
 				if ((int)stat < m_modifiedStats.Count)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_modifiedStats[(int)stat];
 				}
 				else
@@ -670,34 +485,12 @@ public class ActorStats : NetworkBehaviour
 		case StatType.MaxHitPoints:
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				component.OnMaxHitPointsChanged((int)oldStatValue);
 			}
 			break;
 		case StatType.MaxTechPoints:
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.OnMaxHitPointsChanged((int)oldStatValue);
 			}
 			break;
@@ -716,15 +509,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MarkAllForUpdate();
 		}
 		Board.Get().MarkForUpdateValidSquares();
@@ -737,30 +521,8 @@ public class ActorStats : NetworkBehaviour
 		int num;
 		if (!actorStatus.HasStatus(StatusType.Empowered))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_actorData.GetAbilityData() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered) ? 1 : 0);
 			}
 			else
@@ -777,41 +539,14 @@ public class ActorStats : NetworkBehaviour
 		AbilityModPropertyInt empoweredOutgoingDamageMod;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useEmpoweredOverride)
 					{
 						empoweredOutgoingDamageMod = GameplayMutators.Get().m_empoweredOutgoingDamageMod;
 						goto IL_00d7;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				empoweredOutgoingDamageMod = GameWideData.Get().m_empoweredOutgoingDamageMod;
@@ -820,26 +555,8 @@ public class ActorStats : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingDamageMod : GameWideData.Get().m_weakenedOutgoingDamageMod;
 				b = abilityModPropertyInt.GetModifiedValue(baseDamage);
 			}
@@ -859,19 +576,6 @@ public class ActorStats : NetworkBehaviour
 		int num;
 		if (!actorStatus.HasStatus(StatusType.Empowered))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((m_actorData.GetAbilityData() != null && m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered)) ? 1 : 0);
 		}
 		else
@@ -883,50 +587,14 @@ public class ActorStats : NetworkBehaviour
 		AbilityModPropertyInt empoweredOutgoingHealingMod;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useEmpoweredOverride)
 					{
 						empoweredOutgoingHealingMod = GameplayMutators.Get().m_empoweredOutgoingHealingMod;
 						goto IL_00d8;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				empoweredOutgoingHealingMod = GameWideData.Get().m_empoweredOutgoingHealingMod;
@@ -935,15 +603,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useWeakenedOverride) ? GameplayMutators.Get().m_weakenedOutgoingHealingMod : GameWideData.Get().m_weakenedOutgoingHealingMod;
@@ -967,19 +626,6 @@ public class ActorStats : NetworkBehaviour
 		{
 			if (m_actorData.GetAbilityData() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered) ? 1 : 0);
 			}
 			else
@@ -995,26 +641,8 @@ public class ActorStats : NetworkBehaviour
 		bool flag2 = actorStatus.HasStatus(StatusType.Weakened);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityModPropertyInt abilityModPropertyInt = (!(GameplayMutators.Get() == null) && GameplayMutators.Get().m_useEmpoweredOverride) ? GameplayMutators.Get().m_empoweredOutgoingAbsorbMod : GameWideData.Get().m_empoweredOutgoingAbsorbMod;
 				b = abilityModPropertyInt.GetModifiedValue(baseAbsorb);
 				goto IL_0141;
@@ -1023,50 +651,14 @@ public class ActorStats : NetworkBehaviour
 		AbilityModPropertyInt weakenedOutgoingAbsorbMod;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useWeakenedOverride)
 					{
 						weakenedOutgoingAbsorbMod = GameplayMutators.Get().m_weakenedOutgoingAbsorbMod;
 						goto IL_0136;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				weakenedOutgoingAbsorbMod = GameWideData.Get().m_weakenedOutgoingAbsorbMod;
@@ -1091,55 +683,15 @@ public class ActorStats : NetworkBehaviour
 		int vulnerableDamageFlatAdd;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useVulnerableOverride)
 					{
 						vulnerableDamageMultiplier = GameplayMutators.Get().m_vulnerableDamageMultiplier;
 						vulnerableDamageFlatAdd = GameplayMutators.Get().m_vulnerableDamageFlatAdd;
 						goto IL_00b1;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				vulnerableDamageMultiplier = GameWideData.Get().m_vulnerableDamageMultiplier;
@@ -1150,28 +702,10 @@ public class ActorStats : NetworkBehaviour
 		AbilityModPropertyInt armoredIncomingDamageMod;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				if (!(GameplayMutators.Get() == null))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useArmoredOverride)
 					{
 						armoredIncomingDamageMod = GameplayMutators.Get().m_armoredIncomingDamageMod;
@@ -1188,28 +722,10 @@ public class ActorStats : NetworkBehaviour
 		IL_00b1:
 		if (vulnerableDamageMultiplier > 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = MathUtil.RoundToIntPadded((float)baseDamage * vulnerableDamageMultiplier);
 		}
 		if (vulnerableDamageFlatAdd > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (baseDamage > 0)
 			{
 				num += vulnerableDamageFlatAdd;
@@ -1241,39 +757,13 @@ public class ActorStats : NetworkBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (_003C_003Ef__am_0024cache2 == null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache2 = delegate(StatMod statMod)
 						{
 							bool flag = false;
 							if (statMod.mod == ModType.Multiplier)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								flag = (statMod.val < 1f);
 							}
 							else
@@ -1308,10 +798,6 @@ public class ActorStats : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_modifiedStats called on server.");
 					return;
 				}
@@ -1331,10 +817,6 @@ public class ActorStats : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListFloat.WriteInstance(writer, m_modifiedStats);
 					return true;
 				}
@@ -1345,15 +827,6 @@ public class ActorStats : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1361,15 +834,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1389,15 +853,6 @@ public class ActorStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SyncListFloat.ReadReference(reader, m_modifiedStats);
 			return;
 		}

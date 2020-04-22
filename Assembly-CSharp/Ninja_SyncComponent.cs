@@ -141,19 +141,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		m_owner = GetComponent<ActorData>();
 		if (m_owner != null && m_owner.GetAbilityData() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_shurikenOrDashAbility = (m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaShurikenOrDash)) as NinjaShurikenOrDash);
 			m_shurikenOrDashActionType = m_owner.GetAbilityData().GetActionTypeOfAbility(m_shurikenOrDashAbility);
 			m_rewindAbility = (m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaRewind)) as NinjaRewind);
@@ -166,15 +153,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		UIDynamicCone uIDynamicCone = (!m_rangeIndicatorObj) ? null : m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
 		if (uIDynamicCone != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, 1f, 360f);
 			uIDynamicCone.SetConeObjectActive(false);
 		}
@@ -184,20 +162,10 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_rewindAbility != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_rewindIndicatorObj = Object.Instantiate(m_rewindIndicatorVfxPrefab, Vector3.zero, Quaternion.identity);
 					m_rewindIndicatorObj.SetActive(false);
 					m_rewindIndicatorFoFComp = m_rewindIndicatorObj.GetComponent<FriendlyEnemyVFXSelector>();
@@ -224,19 +192,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_deathmarkedActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
 		}
 		else
@@ -262,67 +217,18 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		dashToUnmarkedRange = 0f;
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_shurikenOrDashAbility != null && GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 				{
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					if (activeOwnedActorData != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_owner.IsVisibleToClient())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag = false;
 							if (m_owner.GetTeam() == activeOwnedActorData.GetTeam())
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = m_owner.GetAbilityData().ValidateActionIsRequestable(m_shurikenOrDashActionType);
 							}
 							else
@@ -347,88 +253,21 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		bool result = false;
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_rewindAbility != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_owner != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!m_owner.IsDead() && FogOfWar.GetClientFog() != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquare squareForRewind = GetSquareForRewind();
 							if (squareForRewind != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 								{
 									if (GameFlowData.Get().LocalPlayerData != null)
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == m_owner.GetTeam())
 										{
 											goto IL_0130;
@@ -436,15 +275,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 									}
 									if (FogOfWar.GetClientFog().IsVisible(squareForRewind))
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_0130;
 									}
 								}
@@ -470,50 +300,14 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_rangeIndicatorObj != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float dashToUnmarkedRange;
 				bool flag = ShouldShowRangeIndicator(out dashToUnmarkedRange);
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_rangeIndicatorObj.activeSelf)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_rangeIndicatorObj.SetActive(true);
 						HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, dashToUnmarkedRange, 360f);
 						Vector3 travelBoardSquareWorldPosition = m_owner.GetTravelBoardSquareWorldPosition();
@@ -524,26 +318,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_rangeIndicatorObj.activeSelf)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_rangeIndicatorObj.SetActive(false);
 					}
 				}
@@ -556,11 +332,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_rewindIndicatorFoFComp != null)
 				{
 					m_rewindIndicatorFoFComp.Setup(m_owner.GetTeam());
@@ -568,15 +339,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				bool flag2 = ShouldShowRevindIndicator();
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_rewindIndicatorObj.activeSelf)
 					{
 						while (true)
@@ -604,11 +366,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (m_rewindIndicatorObj.activeSelf)
 					{
 						m_rewindIndicatorObj.SetActive(false);
@@ -634,10 +391,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_deathmarkedActorIndices called on server.");
 					return;
 				}
@@ -666,30 +419,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -697,26 +428,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -724,26 +437,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -751,26 +446,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -778,26 +455,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -805,15 +464,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -823,15 +473,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -852,45 +493,14 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rewindHToHp = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewindToSquareX = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewindToSquareY = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
@@ -907,11 +517,6 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SyncListUInt.ReadReference(reader, m_deathmarkedActorIndices);
 			return;
 		}

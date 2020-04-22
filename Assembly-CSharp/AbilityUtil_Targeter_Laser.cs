@@ -136,19 +136,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		int maxTargets = GetMaxTargets();
 		if (m_customMaxTargetsDelegate != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			maxTargets = m_customMaxTargetsDelegate(targetingActor);
 		}
 		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
@@ -156,15 +143,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		Vector3 vector = GetAimDirection(currentTarget, targetingActor);
 		if (currentTargetIndex > 0 && m_getClampedAimDirection != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = m_getClampedAimDirection(vector, targets[currentTargetIndex - 1].AimDirection);
 		}
 		m_laserPart.UpdateDimensions(GetWidth(), GetDistance());
@@ -204,38 +182,11 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				actorHitContext._0015.SetFloat(ContextKeys._0018.GetHash(), num2);
 				num++;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_affectsTargetingActor)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_affectCasterDelegate != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_affectCasterDelegate(targetingActor, list))
 				{
 					goto IL_02ed;
@@ -261,15 +212,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, GetPenetrateLoS());
 			HideUnusedSquareIndicators();
@@ -310,45 +252,14 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				BoardSquare current = enumerator.Current;
 				if (current.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.5f, 0.5f, 0.5f));
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Gizmos.color = Color.white;
 		List<BoardSquare> list2;
 		if (GameWideData.Get().UseActorRadiusForLaser())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2 = AreaEffectUtils.GetSquaresInBoxByActorRadius(vector, vector2, GetWidth(), true, targetingActor);
 		}
 		else

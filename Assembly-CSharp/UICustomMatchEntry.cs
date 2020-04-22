@@ -32,30 +32,12 @@ public class UICustomMatchEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool doActive2 = game.ActivePlayers < game.GameConfig.TotalPlayers;
 			componentsInChildren = m_joinButton.transform.parent.GetComponentsInChildren<RectTransform>();
 			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
 				if (componentsInChildren[j] != m_joinButton.transform.parent as RectTransform)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(componentsInChildren[j], doActive2);
 				}
 			}

@@ -42,33 +42,11 @@ public class AppState_FullScreenMovie : AppState
 		m_lastAppState = AppState.GetCurrent();
 		if ((bool)FullScreenMovie.Get())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_moviePlayer = FullScreenMovie.Get().GetMovieTexture();
 			FullScreenMovie.Get().SetVisible(true);
 		}
 		if ((bool)m_moviePlayer)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_movieNames.Count > 0)
 			{
 				string movieAssetName = m_movieNames.Dequeue();
@@ -82,19 +60,6 @@ public class AppState_FullScreenMovie : AppState
 	{
 		if ((bool)m_moviePlayer)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_moviePlayer = null;
 		}
 		if (!(UIScreenManager.Get() != null) || !FullScreenMovie.Get())
@@ -103,11 +68,6 @@ public class AppState_FullScreenMovie : AppState
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			FullScreenMovie.Get().SetVisible(false);
 			return;
 		}
@@ -124,24 +84,11 @@ public class AppState_FullScreenMovie : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_moviePlayer.MovieState != 0 && m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
 					{
 						if (!Input.GetKeyUp(KeyCode.Escape))
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (m_movieNames.Count > 0)
@@ -171,10 +118,6 @@ public class AppState_FullScreenMovie : AppState
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AppState_LandingPage.Get().Enter();
 					return;
 				}

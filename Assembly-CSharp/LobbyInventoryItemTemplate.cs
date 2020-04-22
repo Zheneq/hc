@@ -45,19 +45,6 @@ public class LobbyInventoryItemTemplate
 		List<InventoryItem> list = new List<InventoryItem>();
 		if (IsStackable)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItem item = new InventoryItem(Index, count);
 			list.Add(item);
 		}
@@ -67,15 +54,6 @@ public class LobbyInventoryItemTemplate
 			{
 				InventoryItem item2 = Process();
 				list.Add(item2);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -92,10 +70,6 @@ public class LobbyInventoryItemTemplate
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return $"[{Index}] {DisplayName}, {Type}";
 				}
 			}
@@ -110,15 +84,6 @@ public class LobbyInventoryItemTemplate
 		int[] typeSpecificData = TypeSpecificData;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((int p) => p.ToString());
 		}
 		obj[3] = string.Join(",", typeSpecificData.Select(_003C_003Ef__am_0024cache0).ToArray());

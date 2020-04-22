@@ -36,23 +36,10 @@ public class SeasonWideData : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.GetSeasonExperience(seasonLevel);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return 1;
@@ -74,23 +61,10 @@ public class SeasonWideData : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -108,10 +82,6 @@ public class SeasonWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return seasonTemplate.GetPlayerFacingSeasonNumber();
 				}
 			}
@@ -127,19 +97,6 @@ public class SeasonWideData : MonoBehaviour
 		{
 			if (QuestWideData.AreConditionsMet(conditionalEndReward.Prerequisites.Conditions, conditionalEndReward.Prerequisites.LogicStatement))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(conditionalEndReward);
 			}
 		}
@@ -158,22 +115,9 @@ public class SeasonWideData : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int result;
 					if (startTime < dateTime)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((dateTime <= endTime) ? 1 : 0);
 					}
 					else
@@ -195,44 +139,13 @@ public class SeasonWideData : MonoBehaviour
 		QuestPrerequisites prerequisites = season.Prerequisites;
 		if (prerequisites.Conditions.Count >= 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (prerequisites.Conditions.Count <= 2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!prerequisites.LogicStatement.IsNullOrEmpty())
 				{
 					LogicOpClass logicOpClass = LogicStatement.EvaluateLogicStatement(prerequisites.LogicStatement);
 					if (logicOpClass is NegateLogicOpClass)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NegateLogicOpClass negateLogicOpClass = logicOpClass as NegateLogicOpClass;
 						if (negateLogicOpClass.m_target is ConstantLogicOpClass)
 						{
@@ -263,42 +176,15 @@ public class SeasonWideData : MonoBehaviour
 							ConstantLogicOpClass constantLogicOpClass2 = null;
 							if (array[i] is ConstantLogicOpClass)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								constantLogicOpClass2 = (array[i] as ConstantLogicOpClass);
 								index = constantLogicOpClass2.myIndex;
 							}
 							else if (array[i] is NegateLogicOpClass)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								NegateLogicOpClass negateLogicOpClass2 = array[i] as NegateLogicOpClass;
 								if (negateLogicOpClass2.m_target is ConstantLogicOpClass)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = true;
 									constantLogicOpClass2 = (negateLogicOpClass2.m_target as ConstantLogicOpClass);
 									index2 = constantLogicOpClass2.myIndex;
@@ -321,15 +207,6 @@ public class SeasonWideData : MonoBehaviour
 						}
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag2)
 							{
 								while (true)

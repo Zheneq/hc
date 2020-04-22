@@ -13,15 +13,6 @@ public class SlashCommand_EnableProfanityFilter : SlashCommand
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				while (true)
@@ -50,11 +41,6 @@ public class SlashCommand_EnableProfanityFilter : SlashCommand
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				Options_UI.Get().SetEnableProfanityFilter(false);
 				message.Text = StringUtil.TR("ProfanityFilterDisabled", "SlashCommand");
 				TextConsole.Get().Write(message);

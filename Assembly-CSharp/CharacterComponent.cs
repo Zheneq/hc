@@ -127,15 +127,6 @@ public class CharacterComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return Skins[i];
 		}
 	}
@@ -148,15 +139,6 @@ public class CharacterComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return Taunts[i];
 		}
 	}
@@ -197,19 +179,6 @@ public class CharacterComponent : ICloneable
 				PlayerModData current = enumerator.Current;
 				if (current.AbilityId == abilityId)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.AbilityModID == abilityModId)
 					{
 						while (true)
@@ -224,15 +193,6 @@ public class CharacterComponent : ICloneable
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -254,23 +214,10 @@ public class CharacterComponent : ICloneable
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

@@ -33,26 +33,12 @@ public class TargetingActionState : TurnState
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == m_SM))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				ActorData component = m_SM.GetComponent<ActorData>();
 				AbilityData component2 = m_SM.GetComponent<AbilityData>();
 				BoardSquare autoSelectTarget = component2.GetAutoSelectTarget();
@@ -124,19 +110,6 @@ public class TargetingActionState : TurnState
 			component.ClearActionsToCancelOnTargetingComplete();
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
 			m_SM.NextState = TurnStateEnum.DECIDING;
@@ -167,11 +140,6 @@ public class TargetingActionState : TurnState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				SinglePlayerManager.Get().OnActorLockInEntered(m_SM.GetComponent<ActorData>());
 				return;
 			}
@@ -182,79 +150,21 @@ public class TargetingActionState : TurnState
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == m_SM)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData component = m_SM.GetComponent<AbilityData>();
 				ActorData component2 = m_SM.GetComponent<ActorData>();
 				if ((bool)component)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((bool)component2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Ability selectedAbility = component.GetSelectedAbility();
 						if (selectedAbility != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Ability.TargetingParadigm targetingParadigm = selectedAbility.GetTargetingParadigm(TargetIndex);
 							int num;
 							if (targetingParadigm != Ability.TargetingParadigm.Direction)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = ((targetingParadigm == Ability.TargetingParadigm.Position) ? 1 : 0);
 							}
 							else
@@ -269,87 +179,24 @@ public class TargetingActionState : TurnState
 						}
 						if (!Input.GetMouseButtonUp(0))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!Input.GetMouseButtonUp(1))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!InputManager.Get().GetAcceptButtonDown())
 								{
 									goto IL_026d;
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
 						if (InterfaceManager.Get().ShouldHandleMouseClick() && !m_SM.HandledMouseInput)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_SM.HandledMouseInput = true;
 							AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
 							if (selectedAbility != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (component.ValidateAbilityOnTarget(selectedAbility, abilityTargetForTargeterUpdate, TargetIndex))
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (Input.GetMouseButtonUp(1))
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!Options_UI.Get().GetRightClickingConfirmsAbilityTargets())
 										{
 											m_SM.RequestCancel();
@@ -360,15 +207,6 @@ public class TargetingActionState : TurnState
 									int num2;
 									if (selectedAbility.GetRunPriority() == AbilityPriority.Evasion)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = (selectedAbility.CanOverrideMoveStartSquare() ? 1 : 0);
 									}
 									else
@@ -378,26 +216,8 @@ public class TargetingActionState : TurnState
 									bool flag3 = (byte)num2 != 0;
 									if (flag2)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag3)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											UISounds.GetUISounds().Play("ui/ingame/v1/action");
 											goto IL_026d;
 										}

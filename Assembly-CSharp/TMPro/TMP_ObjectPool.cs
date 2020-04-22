@@ -33,19 +33,6 @@ namespace TMPro
 			T val;
 			if (m_Stack.Count == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				val = new T();
 				countAll++;
 			}
@@ -55,15 +42,6 @@ namespace TMPro
 			}
 			if (m_ActionOnGet != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ActionOnGet(val);
 			}
 			return val;
@@ -73,32 +51,10 @@ namespace TMPro
 		{
 			if (m_Stack.Count > 0 && object.ReferenceEquals(m_Stack.Peek(), element))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Debug.LogError("Internal error. Trying to destroy object that is already released to pool.");
 			}
 			if (m_ActionOnRelease != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ActionOnRelease(element);
 			}
 			m_Stack.Push(element);

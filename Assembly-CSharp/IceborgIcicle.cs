@@ -59,15 +59,6 @@ public class IceborgIcicle : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
 			return;
 		}
@@ -87,10 +78,6 @@ public class IceborgIcicle : GenericAbility_Container
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<ActorData, ActorHitContext> actorContextVars = base.Targeter.GetActorContextVars();
 					using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorContextVars.GetEnumerator())
 					{
@@ -100,37 +87,10 @@ public class IceborgIcicle : GenericAbility_Container
 							ActorData key = current.Key;
 							if (key.GetTeam() != caster.GetTeam())
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.Value._0012)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_syncComp.HasNovaCore(key))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num += energyOnCasterIfTargetHasNovaCore;
 									}
 								}
@@ -159,19 +119,6 @@ public class IceborgIcicle : GenericAbility_Container
 		object result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -186,19 +133,6 @@ public class IceborgIcicle : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyOnCasterIfTargetHasNovaCoreMod.GetModifiedValue(m_energyOnCasterIfTargetHasNovaCore);
 		}
 		else
@@ -213,19 +147,6 @@ public class IceborgIcicle : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrIfHasHitMod.GetModifiedValue(m_cdrIfHasHit);
 		}
 		else

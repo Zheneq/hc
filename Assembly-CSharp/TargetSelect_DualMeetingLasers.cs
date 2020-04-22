@@ -91,19 +91,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -118,19 +105,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_minMeetingDistFromCasterMod.GetModifiedValue(m_minMeetingDistFromCaster);
 		}
 		else
@@ -145,19 +119,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_maxMeetingDistFromCasterMod.GetModifiedValue(m_maxMeetingDistFromCaster);
 		}
 		else
@@ -182,19 +143,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_aoeBaseRadiusMod.GetModifiedValue(m_aoeBaseRadius);
 		}
 		else
@@ -209,19 +157,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_aoeMinRadiusMod.GetModifiedValue(m_aoeMinRadius);
 		}
 		else
@@ -236,19 +171,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_aoeMaxRadiusMod.GetModifiedValue(m_aoeMaxRadius);
 		}
 		else
@@ -263,19 +185,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_aoeRadiusChangePerUnitFromMinMod.GetModifiedValue(m_aoeRadiusChangePerUnitFromMin);
 		}
 		else

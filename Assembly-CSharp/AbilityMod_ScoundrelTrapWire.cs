@@ -42,19 +42,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelTrapWire.m_barrierData.m_width;
 		}
 		else
@@ -64,67 +51,22 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		empty = str + AbilityModHelper.GetModPropertyDesc(barrierScaleMod, "[Barrier Scale]", flag, baseVal);
 		if (m_barrierSequence != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_barrierSequence.Count > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty += "Has Sequence Prefab overrides for Barrier\n";
 			}
 		}
 		if (m_useEnemyMovedThroughOverride)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += m_enemyMovedThroughOverride.GetInEditorDescription("{ Enemy Moved Through Override }", "    ", flag, (!flag) ? null : scoundrelTrapWire.m_barrierData.m_onEnemyMovedThrough);
 		}
 		if (m_useAllyMovedThroughOverride)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str2 = empty;
 			GameplayResponseForActor allyMovedThroughOverride = m_allyMovedThroughOverride;
 			object other;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other = scoundrelTrapWire.m_barrierData.m_onAllyMovedThrough;
 			}
 			else
@@ -138,15 +80,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scoundrelTrapWire.m_barrierData;
 		}
 		else
@@ -169,19 +102,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelTrapWire.m_barrierData;
 		}
 		else

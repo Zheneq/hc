@@ -46,10 +46,6 @@ public class UIStoreGameItem : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_packReference = pack;
 					UIManager.SetGameObjectActive(base.gameObject, true);
 					ClientGameManager clientGameManager = ClientGameManager.Get();
@@ -60,27 +56,9 @@ public class UIStoreGameItem : MonoBehaviour
 					float gamePackPrice = CommerceClient.Get().GetGamePackPrice(pack.ProductCode, accountCurrency, out originalPrice);
 					if (hasPurchasedGame)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num;
 						if (hasPurchasedGame)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ((clientGameManager.HighestPurchasedGamePack < pack.Index) ? 1 : 0);
 						}
 						else
@@ -94,42 +72,15 @@ public class UIStoreGameItem : MonoBehaviour
 						UIManager.SetGameObjectActive(m_originalPriceContainer, false);
 						if (flag)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num2 = 0;
 							while (true)
 							{
 								if (num2 >= pack.Upgrades.Length)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								if (pack.Upgrades[num2].AlreadyOwnedGamePack == clientGameManager.HighestPurchasedGamePack)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									float originalPrice2 = 0f;
 									float gamePackPrice2 = CommerceClient.Get().GetGamePackPrice(pack.Upgrades[num2].ProductCode, accountCurrency, out originalPrice2);
 									m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice2, accountCurrency);
@@ -167,15 +118,6 @@ public class UIStoreGameItem : MonoBehaviour
 						UIInventoryItem uIInventoryItem;
 						if (i < list.Count)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uIInventoryItem = list[i];
 						}
 						else
@@ -193,15 +135,6 @@ public class UIStoreGameItem : MonoBehaviour
 						int doActive;
 						if (pack.InventoryItemTemplateIds[i] >= 629)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							doActive = ((pack.InventoryItemTemplateIds[i] > 631) ? 1 : 0);
 						}
 						else

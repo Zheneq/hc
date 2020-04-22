@@ -5,30 +5,8 @@ public static class GameResultExtensions
 		int result;
 		if (value != GameResult.TieGame)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (value != GameResult.TeamAWon)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((value == GameResult.TeamBWon) ? 1 : 0);
 				goto IL_002c;
 			}
@@ -44,96 +22,20 @@ public static class GameResultExtensions
 		int result;
 		if (gameResult != GameResult.ClientConnectionFailedToLobbyServer)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (gameResult != GameResult.ClientConnectionFailedToGameServer)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameResult != GameResult.ClientNetworkErrorToLobbyServer && gameResult != GameResult.ClientNetworkErrorToGameServer)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameResult != GameResult.ClientHeartbeatTimeoutToLobbyServer)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameResult != GameResult.ClientHeartbeatTimeoutToGameServer)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameResult != GameResult.ClientLoginFailedToLobbyServer && gameResult != GameResult.ClientLoginFailedToGameServer)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameResult != GameResult.LobbyServerNetworkErrorToClient)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gameResult != GameResult.LobbyServerHeartbeatTimeoutToClient && gameResult != GameResult.GameServerNetworkErrorToClient)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										result = ((gameResult == GameResult.GameServerHeartbeatTimeoutToClient) ? 1 : 0);
 										goto IL_00a1;
 									}
@@ -191,31 +93,9 @@ public static class GameResultExtensions
 		GameResult result = GameResult.NoResult;
 		if (gameResultString.EqualsIgnoreCase("win"))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (selfTeam == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 2;
 			}
 			else
@@ -229,15 +109,6 @@ public static class GameResultExtensions
 			int num2;
 			if (selfTeam == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 3;
 			}
 			else

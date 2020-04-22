@@ -31,10 +31,6 @@ public class ActivatableObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_sceneObject.gameObject.SetActive(false);
 					return;
 				}
@@ -46,11 +42,6 @@ public class ActivatableObject
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_sceneObject.gameObject.SetActive(!m_sceneObject.gameObject.activeSelf);
 			return;
 		}

@@ -72,15 +72,6 @@ public class NavigationBar : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_timeInQueueLabel.Length; i++)
 			{
 				m_timeInQueueLabel[i].text = newText;
@@ -118,15 +109,6 @@ public class NavigationBar : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cancelHitbox.GetComponent<UITooltipHoverObject>().Refresh();
 			return;
 		}
@@ -149,30 +131,8 @@ public class NavigationBar : UIScene
 		string newText = string.Empty;
 		if (!isWaitingForGroup)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!isInCustomGame)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				newText = string.Format(arg0: (int)SceneStateParameters.TimeInQueue.TotalSeconds, format: StringUtil.TR("SecondsTimerShort", "Global"));
 			}
 		}
@@ -183,23 +143,9 @@ public class NavigationBar : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_queueStatusDisplayString = ClientGameManager.Get().GenerateQueueLabel();
 			if (!m_searchQueueText.text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_queueStatusDisplayString.IsNullOrEmpty())
 				{
 					while (true)
@@ -214,15 +160,6 @@ public class NavigationBar : UIScene
 							string value = StringUtil.TR("Searching", "Frontend");
 							if (m_queueStatusDisplayString.Contains(value) && m_searchQueueText.text.Contains(value))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = false;
 							}
 							if (flag)
@@ -244,15 +181,6 @@ public class NavigationBar : UIScene
 											}
 											if (animatorClipInfo.clip.name == "CancelBtnStatusChange" && currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												goto IL_01c1;
 											}
 											goto end_IL_0146;
@@ -277,15 +205,6 @@ public class NavigationBar : UIScene
 			}
 			if (!m_searchQueueText.text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_queueStatusDisplayString.IsNullOrEmpty())
 				{
 					return;
@@ -300,30 +219,8 @@ public class NavigationBar : UIScene
 	{
 		if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
 				{
 					return;
@@ -336,11 +233,6 @@ public class NavigationBar : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UpdateStatusMessage();
 			UpdateSearchQueueTooltipLabels();
 			return;

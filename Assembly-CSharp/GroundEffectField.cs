@@ -73,30 +73,8 @@ public class GroundEffectField
 		int result;
 		if (healAmount <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!effectOnAllies.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((energyGain > 0) ? 1 : 0);
 				goto IL_003f;
 			}
@@ -117,19 +95,6 @@ public class GroundEffectField
 		int num;
 		if (addCompare)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -143,15 +108,6 @@ public class GroundEffectField
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.duration;
 		}
 		else
@@ -165,15 +121,6 @@ public class GroundEffectField
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.hitDelayTurns;
 		}
 		else
@@ -187,15 +134,6 @@ public class GroundEffectField
 		int otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.damageAmount;
 		}
 		else
@@ -209,15 +147,6 @@ public class GroundEffectField
 		int otherVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.subsequentDamageAmount;
 		}
 		else
@@ -231,15 +160,6 @@ public class GroundEffectField
 		int otherVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal5 = other.healAmount;
 		}
 		else
@@ -253,15 +173,6 @@ public class GroundEffectField
 		int otherVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal6 = other.subsequentHealAmount;
 		}
 		else
@@ -275,15 +186,6 @@ public class GroundEffectField
 		int otherVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal7 = other.energyGain;
 		}
 		else
@@ -297,15 +199,6 @@ public class GroundEffectField
 		int otherVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal8 = other.subsequentEnergyGain;
 		}
 		else
@@ -317,15 +210,6 @@ public class GroundEffectField
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.effectOnEnemies;
 		}
 		else
@@ -337,15 +221,6 @@ public class GroundEffectField
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = other.effectOnAllies;
 		}
 		else
@@ -365,19 +240,6 @@ public class GroundEffectField
 		int num;
 		if (diff)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((other != null) ? 1 : 0);
 		}
 		else
@@ -390,15 +252,6 @@ public class GroundEffectField
 		string str2 = InEditorDescHelper.BoldedStirng(header) + str;
 		if (duration <= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = str2 + indent + "WARNING: IS PERMANENT (duration <= 0). Woof Woof Woof Woof\n";
 		}
 		else
@@ -407,15 +260,6 @@ public class GroundEffectField
 		}
 		if (hitDelayTurns > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 += InEditorDescHelper.AssembleFieldWithDiff("[ Hit Delay Turns ] = ", indent, otherSep, hitDelayTurns, flag, flag ? other.hitDelayTurns : 0);
 		}
 		string str3 = str2;
@@ -423,15 +267,6 @@ public class GroundEffectField
 		int num2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (int)other.shape;
 		}
 		else
@@ -444,15 +279,6 @@ public class GroundEffectField
 		int otherVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = (other.ignoreMovementHits ? 1 : 0);
 		}
 		else
@@ -465,15 +291,6 @@ public class GroundEffectField
 		int otherVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = (other.endIfHasDoneHits ? 1 : 0);
 		}
 		else
@@ -487,15 +304,6 @@ public class GroundEffectField
 		int num3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = other.damageAmount;
 		}
 		else
@@ -509,15 +317,6 @@ public class GroundEffectField
 		int num4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = other.healAmount;
 		}
 		else
@@ -530,15 +329,6 @@ public class GroundEffectField
 		int num5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = other.subsequentHealAmount;
 		}
 		else
@@ -551,15 +341,6 @@ public class GroundEffectField
 		int num6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num6 = other.energyGain;
 		}
 		else
@@ -570,30 +351,12 @@ public class GroundEffectField
 		str2 += InEditorDescHelper.AssembleFieldWithDiff("[ Subsequent EnergyGain ] = ", indent, otherSep, subsequentEnergyGain, flag, flag ? other.subsequentEnergyGain : 0);
 		if (effectOnEnemies.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = str2 + indent + "Effect on Enemies:\n";
 			string str10 = str2;
 			StandardActorEffectData effectData = effectOnEnemies.m_effectData;
 			object other2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other2 = other.effectOnEnemies.m_effectData;
 			}
 			else
@@ -604,30 +367,12 @@ public class GroundEffectField
 		}
 		if (effectOnAllies.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = str2 + indent + "Effect on Allies:\n";
 			string str11 = str2;
 			StandardActorEffectData effectData2 = effectOnAllies.m_effectData;
 			object other3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other3 = other.effectOnAllies.m_effectData;
 			}
 			else
@@ -641,15 +386,6 @@ public class GroundEffectField
 		object otherVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.persistentSequencePrefab;
 		}
 		else
@@ -663,15 +399,6 @@ public class GroundEffectField
 		object otherVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.allyHitSequencePrefab;
 		}
 		else

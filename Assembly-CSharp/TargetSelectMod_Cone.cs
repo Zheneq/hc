@@ -12,19 +12,6 @@ public class TargetSelectMod_Cone : TargetSelectModBase
 		TargetSelect_Cone targetSelect_Cone = targetSelectBase as TargetSelect_Cone;
 		if (targetSelect_Cone != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_Cone.m_coneInfo);
 		}
 		return text;

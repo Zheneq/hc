@@ -30,10 +30,6 @@ internal class GroupRequestWindow
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string description = string.Format(StringUtil.TR("InviteToFormGroup", "Global"), m_request.LeaderName);
 					m_dialogBox = UIDialogPopupManager.OpenPartyInviteDialog(StringUtil.TR("GroupRequest", "Global"), description, StringUtil.TR("Join", "Global"), StringUtil.TR("Reject", "Global"), delegate
 					{
@@ -56,11 +52,6 @@ internal class GroupRequestWindow
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			string description2 = string.Format(StringUtil.TR("RequestToJoinGroup", "Invite"), m_request.JoinerName);
 			m_dialogBox = UIDialogPopupManager.OpenPartyInviteDialog(StringUtil.TR("GroupRequest", "Global"), description2, StringUtil.TR("Approve", "Global"), StringUtil.TR("Reject", "Global"), delegate
 			{
@@ -84,15 +75,6 @@ internal class GroupRequestWindow
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MarkDone();
 			m_dialogBox.Close();
 			GroupJoinManager.Get().SendGroupConfirmation(GroupInviteResponseType.OfferExpired, m_request);
@@ -138,19 +120,6 @@ internal class GroupRequestWindow
 		int result;
 		if (!m_done)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_expiration < time) ? 1 : 0);
 		}
 		else

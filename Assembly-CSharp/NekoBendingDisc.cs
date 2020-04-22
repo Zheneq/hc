@@ -39,19 +39,6 @@ public class NekoBendingDisc : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Bending Boomerang Disc";
 		}
 		m_syncComp = GetComponent<Neko_SyncComponent>();
@@ -84,10 +71,6 @@ public class NekoBendingDisc : Ability
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 1;
 					}
 				}
@@ -109,30 +92,8 @@ public class NekoBendingDisc : Ability
 		Vector3 aimDirection = targets[0].AimDirection;
 		if (maxBendAngle > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (maxBendAngle < 360f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				aimDir = Vector3.RotateTowards(aimDirection, aimDir, (float)Math.PI / 180f * maxBendAngle, 0f);
 			}
 		}
@@ -156,10 +117,6 @@ public class NekoBendingDisc : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetMaxRangeBeforeBend();
 				}
 			}

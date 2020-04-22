@@ -60,32 +60,10 @@ public class UIModSelectionGridEntry : MonoBehaviour
 		Color color;
 		if (!m_isUnLocked)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			color = m_LockedColor;
 		}
 		else if (isSelected2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			color = m_SelectedColor;
 		}
 		else
@@ -98,28 +76,10 @@ public class UIModSelectionGridEntry : MonoBehaviour
 		Color color2;
 		if (!m_isUnLocked)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			color2 = m_LockedColor;
 		}
 		else if (isSelected2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			color2 = m_SelectedColor;
 		}
 		else
@@ -129,15 +89,6 @@ public class UIModSelectionGridEntry : MonoBehaviour
 		setColor(selected2, false, modPoints, color2);
 		if (m_lockIcon != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lockIcon.enabled = !isUnlocked;
 		}
 		m_ModPoints.text = associatedAbilityMod.m_equipCost.ToString();
@@ -176,19 +127,6 @@ public class UIModSelectionGridEntry : MonoBehaviour
 			{
 				if (m_lockBackground != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_lockBackground.color = Color.white;
 				}
 				isSelected2 = x;
@@ -198,15 +136,6 @@ public class UIModSelectionGridEntry : MonoBehaviour
 				Color color3;
 				if (isSelected2)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color3 = m_SelectedColor;
 				}
 				else
@@ -220,15 +149,6 @@ public class UIModSelectionGridEntry : MonoBehaviour
 				Color color4;
 				if (isSelected2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color4 = m_SelectedColor;
 				}
 				else
@@ -266,32 +186,10 @@ public class UIModSelectionGridEntry : MonoBehaviour
 		Outline component = m_ModPoints.GetComponent<Outline>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.effectColor = Color.black;
 			Vector2 effectDistance;
 			if (selected)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				effectDistance = new Vector2(1f, -1f);
 			}
 			else
@@ -307,11 +205,6 @@ public class UIModSelectionGridEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			component2.effectColor = Color.black;
 			return;
 		}

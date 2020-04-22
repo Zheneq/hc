@@ -320,10 +320,6 @@ public class PersistedStats : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return NetDamageAvoidedByEvadesPerLife;
 				}
 			}
@@ -532,11 +528,6 @@ public class PersistedStats : ICloneable
 		case StatDisplaySettings.StatType.SecondsPlayed:
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return SecondsPlayed;
 			}
 		case StatDisplaySettings.StatType.MatchesWon:
@@ -594,19 +585,6 @@ public class PersistedStats : ICloneable
 		{
 			if (i < StatsToBeMerged.FreelancerSpecificStats.Count)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				FreelancerSpecificStats[i].CombineStats(StatsToBeMerged.FreelancerSpecificStats[i]);
 			}
 		}
@@ -626,30 +604,8 @@ public class PersistedStats : ICloneable
 	{
 		if (FreelancerSpecificStats != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (-1 < index)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (index < FreelancerSpecificStats.Count)
 				{
 					while (true)
@@ -714,19 +670,6 @@ public class PersistedStats : ICloneable
 		persistedStats.MatchesWon = MatchesWon.GetCopy();
 		if (FreelancerSpecificStats == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			persistedStats.FreelancerSpecificStats = null;
 		}
 		else
@@ -737,15 +680,6 @@ public class PersistedStats : ICloneable
 				PersistedStatEntry persistedStatEntry = new PersistedStatEntry();
 				persistedStatEntry = (PersistedStatEntry)FreelancerSpecificStats[i].Clone();
 				persistedStats.FreelancerSpecificStats.Add(persistedStatEntry);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return persistedStats;

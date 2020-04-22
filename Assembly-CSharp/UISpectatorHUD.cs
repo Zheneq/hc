@@ -64,45 +64,14 @@ public class UISpectatorHUD : MonoBehaviour
 		SetTimerMode(m_decisionMode);
 		if ((bool)m_timer)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_timer, false);
 		}
 		if ((bool)m_teamAButton)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(m_teamAButton, EventTriggerType.PointerClick, OnTeamClicked);
 		}
 		if ((bool)m_teamBButton)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(m_teamBButton, EventTriggerType.PointerClick, OnTeamClicked);
 		}
 		if ((bool)m_teamAllButton)
@@ -123,19 +92,6 @@ public class UISpectatorHUD : MonoBehaviour
 		SpectatorToggleOption[] array = null;
 		if (HUD_UIResources.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			array = HUD_UIResources.Get().m_spectatorOptionsToShow;
 			num = array.Length;
 		}
@@ -158,11 +114,6 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = num; j < m_optionsList.Count; j++)
 			{
 				UIManager.SetGameObjectActive(m_optionsList[j], false);
@@ -193,19 +144,6 @@ public class UISpectatorHUD : MonoBehaviour
 		string text = StringUtil.GetSpectatorToggleOptionName(option);
 		if (string.IsNullOrEmpty(text))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = option.ToString();
 		}
 		TextMeshProUGUI[] componentsInChildren = btn.GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -233,15 +171,6 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pointerEventData.pointerCurrentRaycast.gameObject == null)
 			{
 				return;
@@ -256,22 +185,8 @@ public class UISpectatorHUD : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (m_buttonToContext.ContainsKey(selectableBtn))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						OptionButtonContext optionButtonContext = m_buttonToContext[selectableBtn];
 						SetToggleOption(optionButtonContext.m_toggleOption, !component.selectableButton.IsSelected());
 					}
@@ -296,30 +211,8 @@ public class UISpectatorHUD : MonoBehaviour
 	{
 		if (option == SpectatorToggleOption.HideAbilityTemplates)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().SpectatorHideAbilityTargeter = desiredValue;
 			}
 		}
@@ -329,11 +222,6 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			LineData.SpectatorHideMovementLines = desiredValue;
 			return;
 		}
@@ -348,15 +236,6 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text = ((int)GameFlowData.Get().GetTimeRemainingInDecision()).ToString();
 			if (!(m_timerText != null))
 			{
@@ -364,11 +243,6 @@ public class UISpectatorHUD : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(text != m_timerText.text))
 				{
 					return;
@@ -379,11 +253,6 @@ public class UISpectatorHUD : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						component.Play("SpectatorTimerNumberChangeIN", 1, 0f);
 						return;
 					}
@@ -410,15 +279,6 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Animator component = m_timer.GetComponent<Animator>();
 			if (!(component != null))
 			{
@@ -453,26 +313,12 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_teamBPanel)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!m_teamAllPanel)
 				{
 					return;
@@ -482,11 +328,6 @@ public class UISpectatorHUD : MonoBehaviour
 				case Team.TeamA:
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						UIManager.SetGameObjectActive(m_teamAPanel, true);
 						UIManager.SetGameObjectActive(m_teamBPanel, false);
 						UIManager.SetGameObjectActive(m_teamAllPanel, false);
@@ -517,26 +358,12 @@ public class UISpectatorHUD : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pointerEventData == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (pointerEventData.pointerPress == m_teamAButton)
 				{
 					while (true)

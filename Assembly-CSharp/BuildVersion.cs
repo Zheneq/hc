@@ -37,32 +37,10 @@ public static class BuildVersion
 			string arg;
 			if (timeSpan.TotalHours < 1.0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				arg = $"{timeSpan.TotalMinutes:0} minutes ago";
 			}
 			else if (timeSpan.TotalDays < 1.0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = $"{timeSpan.TotalHours:0} hours ago";
 			}
 			else
@@ -74,26 +52,8 @@ public static class BuildVersion
 		}
 		if (!buildHostName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (buildHostName != "unknown")
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += $" on {buildHostName}";
 			}
 		}

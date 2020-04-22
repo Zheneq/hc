@@ -80,15 +80,6 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (mCurrentLanguage != supportedLanguage)
 					{
 						SetLanguageAndCode(supportedLanguage, GetLanguageCode(supportedLanguage));
@@ -118,15 +109,6 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetLanguageAndCode(languageFromCode, value);
 					return;
 				}
@@ -148,10 +130,6 @@ namespace I2.Loc
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return currentLanguage.Substring(num + 1);
 						}
 					}
@@ -160,15 +138,6 @@ namespace I2.Loc
 				int num2 = currentLanguage.LastIndexOfAny("])".ToCharArray());
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num != num2)
 					{
 						return currentLanguage.Substring(num + 1, num2 - num - 1);
@@ -189,30 +158,8 @@ namespace I2.Loc
 				int num2 = text.LastIndexOfAny("])".ToCharArray());
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num != num2)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text.Substring(num);
 					}
 				}
@@ -234,19 +181,6 @@ namespace I2.Loc
 				int num = text.IndexOfAny(" -_/\\".ToCharArray());
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					text = text.Substring(0, num);
 				}
 				CurrentLanguageCode = text + "-" + value;
@@ -280,15 +214,6 @@ namespace I2.Loc
 				while ((object)onLocalizeCallback != onLocalizeCallback2);
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -313,15 +238,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UpdateSources();
 				SelectStartupLanguage();
 				return;
@@ -332,42 +248,11 @@ namespace I2.Loc
 		{
 			if (!(mCurrentLanguage != LanguageName))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(mLanguageCode != LanguageCode))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Force)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -394,10 +279,6 @@ namespace I2.Loc
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						string @string = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
 						if (!@string.IsNullOrEmpty())
 						{
@@ -422,32 +303,10 @@ namespace I2.Loc
 			string text = Application.systemLanguage.ToString();
 			if (text == "ChineseSimplified")
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text = "Chinese (Simplified)";
 			}
 			if (text == "ChineseTraditional")
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Chinese (Traditional)";
 			}
 			if (HasLanguage(@string, true, false))
@@ -538,10 +397,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -556,47 +411,15 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (IsRight2Left)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FixForRTL)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Translation = ApplyRTLfix(Translation, maxLineLengthForRTL);
 						}
 					}
 					if (mGibberishMode)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Term.IndexOf("@TEXTURE") == -1)
 						{
 							while (true)
@@ -617,11 +440,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return false;
 			}
 		}
@@ -642,10 +460,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return ArabicFixer.Fix(line);
 					}
 				}
@@ -664,11 +478,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				line = string.Join("\n", array);
 				return line;
 			}
@@ -685,10 +494,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return ApplyRTLfix(text, maxCharacters);
 					}
 				}
@@ -707,26 +512,8 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (LocalizationManager.OnLocalizeEvent != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					LocalizationManager.OnLocalizeEvent();
 				}
 				ResourceManager.pInstance.CleanResourceCache();
@@ -748,19 +535,6 @@ namespace I2.Loc
 			{
 				if (Sources[num] == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					RemoveSource(Sources[num]);
 				}
 			}
@@ -789,15 +563,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -811,19 +576,6 @@ namespace I2.Loc
 				object obj;
 				if ((bool)asset)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					obj = asset.GetComponent<LanguageSource>();
 				}
 				else
@@ -835,26 +587,8 @@ namespace I2.Loc
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Sources.Contains(languageSource))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AddSource(languageSource);
 				}
 			}
@@ -881,10 +615,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -911,19 +641,6 @@ namespace I2.Loc
 		{
 			if (Initialize)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				InitializeIfNeeded();
 			}
 			int i = 0;
@@ -935,25 +652,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					return true;
 				}
 			}
 			if (AllowDiscartingRegion)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int j = 0;
 				for (int count2 = Sources.Count; j < count2; j++)
 				{
@@ -963,22 +666,8 @@ namespace I2.Loc
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -996,25 +685,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Sources[i].mLanguages[languageIndex].Name;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				int j = 0;
 				for (int count2 = Sources.Count; j < count2; j++)
 				{
@@ -1025,21 +700,11 @@ namespace I2.Loc
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						return Sources[j].mLanguages[languageIndex2].Name;
 					}
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return string.Empty;
 				}
 			}
@@ -1057,25 +722,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Sources[i].mLanguages[languageIndex].Code;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return string.Empty;
 			}
 		}
@@ -1105,19 +756,6 @@ namespace I2.Loc
 				{
 					if (!list.Contains(Sources[i].mLanguages[j].Name))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						list.Add(Sources[i].mLanguages[j].Name);
 					}
 				}
@@ -1137,11 +775,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return list;
 			}
 		}
@@ -1156,15 +789,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return list;
 			}
 		}
@@ -1173,19 +797,6 @@ namespace I2.Loc
 		{
 			if (Sources.Count == 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UpdateSources();
 			}
 			if (Sources.Count == 1)
@@ -1209,11 +820,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return new List<string>(hashSet);
 			}
 		}
@@ -1236,19 +842,6 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(term))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int i = 0;
 				for (int count = Sources.Count; i < count; i++)
 				{
@@ -1257,39 +850,12 @@ namespace I2.Loc
 						return Sources[i];
 					}
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			object result;
 			if (fallbackToFirst)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Sources.Count > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = Sources[0];
 					goto IL_009c;
 				}
@@ -1312,25 +878,11 @@ namespace I2.Loc
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return @object;
 				}
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return null;
 			}
 		}

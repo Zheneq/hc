@@ -48,31 +48,9 @@ public class UITextSizer : MonoBehaviour
 	{
 		if (m_textControl != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastStringValue != m_textControl.text)
 			{
 				goto IL_0054;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!doItAgain)
@@ -90,15 +68,6 @@ public class UITextSizer : MonoBehaviour
 		float num2 = 0f;
 		if (m_textControl.preferredWidth / 2f < m_maxWidth - m_extraWidth)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float preferredWidth = m_textControl.preferredWidth;
 			Vector3 localScale = rectTransform.localScale;
 			num = preferredWidth * localScale.x + m_extraWidth + 10f;
@@ -113,15 +82,6 @@ public class UITextSizer : MonoBehaviour
 		}
 		if (m_doNotContractWidth)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = m_maxWidth;
 		}
 		if (m_calcTextHeight)
@@ -138,11 +98,6 @@ public class UITextSizer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_childrenToSize.Length; i++)
 			{
 				m_childrenToSize[i].sizeDelta = sizeDelta2;

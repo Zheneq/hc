@@ -27,19 +27,6 @@ public class ArcherDashAndGroundArrow : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "ArcherDashAndGroundArrow";
 		}
 		Setup();

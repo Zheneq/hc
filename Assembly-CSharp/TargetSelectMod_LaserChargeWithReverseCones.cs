@@ -27,19 +27,6 @@ public class TargetSelectMod_LaserChargeWithReverseCones : TargetSelectModBase
 		TargetSelect_LaserChargeWithReverseCones targetSelect_LaserChargeWithReverseCones = targetSelectBase as TargetSelect_LaserChargeWithReverseCones;
 		if (targetSelect_LaserChargeWithReverseCones != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[LaserRange]", true, targetSelect_LaserChargeWithReverseCones.m_laserRange);
 			text += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[LaserWidth]", true, targetSelect_LaserChargeWithReverseCones.m_laserWidth);
 			text += AbilityModHelper.GetModPropertyDesc(m_coneInfoMod, "[ConeInfo]", true, targetSelect_LaserChargeWithReverseCones.m_coneInfo);

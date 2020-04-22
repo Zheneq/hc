@@ -45,15 +45,6 @@ public class _LargeScrollList : MonoBehaviour
 		ScrollListItemEntry item = default(ScrollListItemEntry);
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			initialized = true;
 			m_scrollRectComponent = base.gameObject.GetComponent<ScrollRect>();
 			m_scrollBar = m_scrollRectComponent.verticalScrollbar;
@@ -77,11 +68,6 @@ public class _LargeScrollList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				m_scrollBar.onValueChanged.AddListener(ScrollValueChanged);
 				m_scrollRectComponent.elasticity = 0.01f;
 				return;
@@ -121,15 +107,6 @@ public class _LargeScrollList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
@@ -145,15 +122,6 @@ public class _LargeScrollList : MonoBehaviour
 		ScrollListItemEntry item2 = default(ScrollListItemEntry);
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = m_totalHeightOfList - m_totalHeightOfList * value;
 			float height = num - m_totalHeightOfViewArea;
 			float height2 = num + m_totalHeightOfViewArea;
@@ -171,28 +139,10 @@ public class _LargeScrollList : MonoBehaviour
 					ScrollListItemEntry scrollListItemEntry3 = m_activeEntryList[i];
 					if (scrollListItemEntry3.entryIndex <= indexFromHeight2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ScrollListItemEntry scrollListItemEntry4 = m_activeEntryList[i];
 						if (scrollListItemEntry4.prefabTypeIndex == prefabEntryIndexFromItemListIndex)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -205,11 +155,6 @@ public class _LargeScrollList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = indexFromHeight; j < indexFromHeight2 + 1; j++)
 				{
 					if (!IsEntryDisplayed(j))
@@ -217,15 +162,6 @@ public class _LargeScrollList : MonoBehaviour
 						int prefabEntryIndexFromItemListIndex2 = GetPrefabEntryIndexFromItemListIndex(j);
 						if (m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count == 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_LargeScrollListItemEntry theEntry = Object.Instantiate(scrollListPrefabTypes[prefabEntryIndexFromItemListIndex2]);
 							item2.entryIndex = -1;
 							item2.prefabTypeIndex = prefabEntryIndexFromItemListIndex2;
@@ -234,15 +170,6 @@ public class _LargeScrollList : MonoBehaviour
 						}
 						if (m_prefabBankList[prefabEntryIndexFromItemListIndex2].Count > 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ScrollListItemEntry item3 = m_prefabBankList[prefabEntryIndexFromItemListIndex2][0];
 							item3.m_theEntry.SetVisible(true);
 							item3.m_theEntry.SetParent(m_scrollRectComponent.content);
@@ -260,15 +187,6 @@ public class _LargeScrollList : MonoBehaviour
 						ScrollListItemEntry scrollListItemEntry5 = m_activeEntryList[k];
 						if (scrollListItemEntry5.entryIndex == j)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ScrollListItemEntry scrollListItemEntry6 = m_activeEntryList[k];
 							scrollListItemEntry6.m_theEntry.SetVisible(true);
 							IDataEntry dataEntry = m_listReference[j];
@@ -312,15 +230,6 @@ public class _LargeScrollList : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num2 != 0)
 					{
 						num += m_spacing;
@@ -329,15 +238,6 @@ public class _LargeScrollList : MonoBehaviour
 					num2++;
 					goto IL_0043;
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -375,19 +275,6 @@ public class _LargeScrollList : MonoBehaviour
 	{
 		if (-1 < index)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (index < m_listReference.Count)
 			{
 				while (true)
@@ -410,19 +297,6 @@ public class _LargeScrollList : MonoBehaviour
 		int prefabEntryIndexFromItemListIndex = GetPrefabEntryIndexFromItemListIndex(index);
 		if (-1 < prefabEntryIndexFromItemListIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (prefabEntryIndexFromItemListIndex < scrollListPrefabTypes.Length)
 			{
 				return scrollListPrefabTypes[prefabEntryIndexFromItemListIndex].GetHeight();
@@ -456,15 +330,6 @@ public class _LargeScrollList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ScrollValueChanged(m_scrollBar.value);
 			return;
 		}
@@ -478,15 +343,6 @@ public class _LargeScrollList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float value = 1f - GetHeightFromItemIndex(index) / m_totalHeightOfList;
 			value = Mathf.Clamp01(value);
 			if (m_scrollBar.value == value)

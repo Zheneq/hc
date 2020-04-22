@@ -55,33 +55,11 @@ public class TrackerTranquilizerDarts : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Tranquilizer Darts";
 		}
 		m_droneTracker = GetComponent<TrackerDroneTrackerComponent>();
 		if (m_droneTracker == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		SetupTargeter();
@@ -92,19 +70,6 @@ public class TrackerTranquilizerDarts : Ability
 		SetCachedFields();
 		if (m_droneInfoComp == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_droneInfoComp = GetComponent<TrackerDroneInfoComponent>();
 		}
 		m_targeterMinAngle = Mathf.Max(0f, m_targeterMinAngle);
@@ -127,19 +92,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo;
 		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardEffectInfo = abilityMod_TrackerTranquilizerDarts.m_enemySingleHitEffectMod.GetModifiedValue(m_enemySingleHitEffect);
 		}
 		else
@@ -151,15 +103,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo2;
 		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo2 = abilityMod_TrackerTranquilizerDarts.m_allySingleHitEffectMod.GetModifiedValue(m_allySingleHitEffect);
 		}
 		else
@@ -170,15 +113,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo3;
 		if ((bool)abilityMod_TrackerTranquilizerDarts)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo3 = abilityMod_TrackerTranquilizerDarts.m_allyMultiHitEffectMod.GetModifiedValue(m_allyMultiHitEffect);
 		}
 		else
@@ -197,11 +131,6 @@ public class TrackerTranquilizerDarts : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			component.m_huntedEffectData.AddTooltipTokens(tokens, "TrackedEffect");
 			return;
 		}
@@ -248,19 +177,6 @@ public class TrackerTranquilizerDarts : Ability
 		LaserTargetingInfo cachedLaserTargetingInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserTargetingInfo = m_abilityMod.m_laserTargetingInfoMod.GetModifiedValue(m_laserTargetingInfo);
 		}
 		else
@@ -280,19 +196,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allySingleHitEffect;
 		}
 		else
@@ -307,19 +210,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allyMultiHitEffect;
 		}
 		else
@@ -334,19 +224,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_enemySingleHitEffect;
 		}
 		else
@@ -361,19 +238,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_enemyMultiHitEffect;
 		}
 		else
@@ -388,19 +252,6 @@ public class TrackerTranquilizerDarts : Ability
 		int num;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_laserCount;
 		}
 		else
@@ -422,10 +273,6 @@ public class TrackerTranquilizerDarts : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					min = m_targeterMinInterpDistance * Board.Get().squareSize;
 					max = m_targeterMaxInterpDistance * Board.Get().squareSize;
 					return true;

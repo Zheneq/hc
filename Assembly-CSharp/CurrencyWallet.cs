@@ -25,19 +25,6 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			object obj;
 			if (existingValue != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = (CurrencyWallet)existingValue;
 			}
 			else
@@ -96,25 +83,11 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return Data[i];
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			CurrencyData currencyData = new CurrencyData();
 			currencyData.Type = currencyType;
 			currencyData.Amount = 0;
@@ -132,26 +105,12 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Data[i] = newBalance;
 				return;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Data.Add(newBalance);
 			return;
 		}
@@ -167,33 +126,11 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			{
 				if (Data[num].Type == currencyType)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					currencyData = Data[num];
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -214,11 +151,6 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					Log.Error($"Cannot withdraw {currencyType} amount {amount}, insufficient amount available.");
 					return null;
 				}
@@ -226,15 +158,6 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			currencyData.Amount = num2;
 			if (amount < 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currencyData.m_TotalSpent -= amount;
 			}
 		}

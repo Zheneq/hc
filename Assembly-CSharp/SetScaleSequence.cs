@@ -31,15 +31,6 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StartScaling();
 			return;
 		}
@@ -56,10 +47,6 @@ public class SetScaleSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					StartScaling();
 					return;
 				}
@@ -71,11 +58,6 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_restoreScaleSpeed <= 0f)
 			{
 				while (true)
@@ -103,26 +85,12 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(base.Caster.GetActorModelData() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				GameObject gameObject = base.Caster.GetActorModelData().gameObject;
 				Vector3 localScale = gameObject.transform.localScale;
 				float x = localScale.x;
@@ -154,15 +122,6 @@ public class SetScaleSequence : Sequence
 							float num2;
 							if (num > 0f)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = Mathf.Min(m_targetScale, x + GameTime.deltaTime * m_toTargetScaleSpeed);
 							}
 							else
@@ -182,11 +141,6 @@ public class SetScaleSequence : Sequence
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					float num3 = 1f - x;
 					if (Mathf.Abs(num3) < 0.05f)
 					{
@@ -196,15 +150,6 @@ public class SetScaleSequence : Sequence
 					float num4;
 					if (num3 > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = Mathf.Min(1f, x + GameTime.deltaTime * m_restoreScaleSpeed);
 					}
 					else
@@ -232,15 +177,6 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_toTargetScaleSpeed <= 0f)
 			{
 				SetToTargetScale();
@@ -262,15 +198,6 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Caster.GetActorModelData() != null)
 			{
 				base.Caster.GetActorModelData().gameObject.transform.localScale = m_targetScale * Vector3.one;
@@ -293,15 +220,6 @@ public class SetScaleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Caster.GetActorModelData().gameObject.transform.localScale = Vector3.one;
 			return;
 		}

@@ -48,19 +48,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		AbilityMod.AddToken(tokens, m_lifePerHitMod, "LifePerHit", string.Empty, robotAnimalBite.m_lifePerHit);
 		if (m_extraDamageOnConsecutiveCast > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "ExtraDamage_ConsecutiveCast", string.Empty, m_extraDamageOnConsecutiveCast, false, 0);
 		}
 		if (m_extraDamageOnConsecutiveHit > 0)
@@ -80,19 +67,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = robotAnimalBite.m_lifePerHit;
 		}
 		else
@@ -105,15 +79,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalBite.m_damageAmount;
 		}
 		else
@@ -124,15 +89,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnEnemyOverride, "{ Effect on Enemy }", string.Empty, flag);
 		if (m_extraDamageOnConsecutiveCast > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Extra Damage on Consecutive Casts] = " + m_extraDamageOnConsecutiveCast + "\n";
 		}
@@ -147,28 +103,10 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		}
 		if (m_varianceExtraDamageMin >= 0 && m_varianceExtraDamageMax - m_varianceExtraDamageMin > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Variance Extra Damage] = " + m_varianceExtraDamageMin + " - " + m_varianceExtraDamageMax + "\n";
 			if (m_varianceExtraDamageToSelf > Mathf.Epsilon)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = empty;
 				empty = text + "[Variance Extra Damage to Self] = " + Mathf.RoundToInt((float)m_varianceExtraDamageMin * m_varianceExtraDamageToSelf) + " - " + Mathf.RoundToInt((float)m_varianceExtraDamageMax * m_varianceExtraDamageToSelf) + "\n";
 			}
@@ -185,15 +123,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(m_damageMod.GetModifiedValue(robotAnimalBite.m_damageAmount) + m_extraDamageOnConsecutiveCast);
 			numbers.Add(m_damageMod.GetModifiedValue(robotAnimalBite.m_damageAmount) + m_extraDamageOnConsecutiveHit);
 			return;

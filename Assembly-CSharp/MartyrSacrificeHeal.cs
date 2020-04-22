@@ -44,19 +44,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Sacrifice Heal";
 		}
 		m_syncComponent = GetComponent<Martyr_SyncComponent>();
@@ -102,19 +89,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Always;
 		if (m_freeTargetPosition)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Never;
 		}
 		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, m_targetShape, GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, m_affectsEnemies, m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, affectsBestTarget);
@@ -168,19 +142,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrSacrificeThreshold.m_additionalDamageToSelf;
 		}
 		else
@@ -197,19 +158,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrSacrificeThreshold.m_additionalDamageToEnemy;
 		}
 		else
@@ -226,19 +174,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrSacrificeThreshold.m_additionalHealToAlly;
 		}
 		else
@@ -284,19 +219,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		}
 		else if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int currentHealingForAlly = GetCurrentHealingForAlly(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentHealingForAlly, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
 		}
@@ -323,19 +245,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		bool result = true;
 		if (!m_freeTargetPosition)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
 			result = CanTargetActorInDecision(caster, currentBestActorTarget, m_affectsEnemies, m_affectsAllies, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
 		}

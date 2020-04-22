@@ -95,10 +95,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -115,15 +111,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 				if (m_affectsTargetingActor && !actors.Contains(targetingActor))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actors.Add(targetingActor);
 				}
 				for (int i = 0; i < actors.Count; i++)
@@ -139,15 +126,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				SetMovementArrowEnabledFromIndex(0, false);
 				return;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		ResetSquareIndicatorIndexToUse();
 		HideUnusedSquareIndicators();
@@ -156,15 +134,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 			gameObject.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref m_curSpeed);
 			gameObject.SetActive(true);
@@ -177,52 +146,16 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
 			if (m_affectsCaster == AffectsActor.Possible)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((m_affectCasterDelegate != null) ? m_affectCasterDelegate(targetingActor, actors2, flag) : flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actors2.Add(targetingActor);
 				}
 			}
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!actorData.IsVisibleToClient())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = null;
 				}
 			}
@@ -234,67 +167,22 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					HandleAddActorInShape(current, targetingActor, currentTarget, centerOfShape, actorData);
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_affectsCaster == AffectsActor.Always)
 			{
 				AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
 				if (abilityTooltipSubject == AbilityTooltipSubject.None)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityTooltipSubject = m_allyTooltipSubject;
 				}
 				AddActorInRange(targetingActor, centerOfShape, targetingActor, abilityTooltipSubject);
 			}
 			if (m_affectsBestTarget == AffectsActor.Always)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(actorData, centerOfShape, targetingActor, m_allyTooltipSubject);
 					}
 					else
@@ -305,15 +193,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			}
 			if (ShowTeleportLines)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InstantiateTeleportPathUIEffect();
 				UpdateEffectOnCaster(currentTarget, targetingActor);
 				UpdateTargetAreaEffect(currentTarget, targetingActor);
@@ -333,19 +212,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		int num;
 		if (!(potentialTarget != targetingActor))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((m_affectsCaster == AffectsActor.Possible) ? 1 : 0);
 		}
 		else
@@ -356,15 +222,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		bool flag2 = potentialTarget != bestTarget || m_affectsBestTarget == AffectsActor.Possible;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				while (true)
@@ -376,27 +233,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					default:
 						if (potentialTarget == targetingActor)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
 							if (abilityTooltipSubject == AbilityTooltipSubject.None)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								abilityTooltipSubject = m_allyTooltipSubject;
 							}
 							AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject);
@@ -424,19 +263,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			if (m_highlights.Count >= 2)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		m_highlights = new List<GameObject>();

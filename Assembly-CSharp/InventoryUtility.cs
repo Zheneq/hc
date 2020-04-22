@@ -29,15 +29,6 @@ public static class InventoryUtility
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num2 = (float)GetRandomNumber(0.0, num);
 			int result = 0;
 			int num3 = 0;
@@ -47,29 +38,11 @@ public static class InventoryUtility
 				{
 					if (num2 <= array[num3])
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = num3;
 						break;
 					}
 					num3++;
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -196,31 +169,9 @@ public static class InventoryUtility
 				{
 					if (!forceStack)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!inventoryItem.IsStackable())
 						{
 							goto IL_007b;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					inventoryItem.Count += sourceItem.Count;
@@ -252,31 +203,9 @@ public static class InventoryUtility
 			{
 				if (!forceStack)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!inventoryItemWithData.Item.IsStackable())
 					{
 						goto IL_00a4;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				inventoryItemWithData.Item.Count += sourceItem.Item.Count;
@@ -294,108 +223,23 @@ public static class InventoryUtility
 	{
 		if (itemType != InventoryItemType.TitleID)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (itemType != InventoryItemType.BannerID)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemType != InventoryItemType.Skin && itemType != InventoryItemType.Texture)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (itemType != InventoryItemType.Style)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (itemType != InventoryItemType.Taunt)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (itemType != InventoryItemType.Mod)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (itemType != InventoryItemType.ChatEmoji)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (itemType != InventoryItemType.Overcon)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (itemType != InventoryItemType.AbilityVfxSwap)
 										{
 											return false;
-										}
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}

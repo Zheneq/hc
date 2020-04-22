@@ -12,19 +12,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 		int penetrateLos;
 		if (unanchoredLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			penetrateLos = (unanchoredLaserInfo.penetrateLos ? 1 : 0);
 		}
 		else
@@ -42,19 +29,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 		int result;
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_syncComponent.m_anchored)
 			{
 				result = ((m_unanchoredLaserInfo != null) ? 1 : 0);
@@ -87,10 +61,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_unanchoredLaserInfo.range;
 				}
 			}
@@ -127,10 +97,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

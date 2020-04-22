@@ -244,66 +244,17 @@ public class AccountComponent : ICloneable
 	{
 		if (state != UIStateIdentifier.TutorialCatalysts && state != UIStateIdentifier.TutorialCooldowns)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (state != UIStateIdentifier.TutorialCover)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (state != UIStateIdentifier.TutorialFoW && state != UIStateIdentifier.TutorialMovement)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (state != UIStateIdentifier.TutorialOverview && state != UIStateIdentifier.TutorialPhases)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (state != UIStateIdentifier.TutorialPowerups)
 						{
 							if (state != UIStateIdentifier.TutorialRespawn)
 							{
 								return false;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -325,26 +276,12 @@ public class AccountComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (list.Count <= pool.TotalBannersAbleToBeUnlockedAtOnce)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < list.Count - pool.TotalBannersAbleToBeUnlockedAtOnce; j++)
 				{
 					Log.Info("Unlock Exclusivity Exceeded. Removing ID {0} from {1}", list[j], pool.PoolType);
@@ -380,15 +317,6 @@ public class AccountComponent : ICloneable
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SelectedBackgroundBannerID = num;
 				return;
 			}
@@ -421,15 +349,6 @@ public class AccountComponent : ICloneable
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SelectedForegroundBannerID = num;
 				return;
 			}
@@ -454,15 +373,6 @@ public class AccountComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UnlockedTitleIDs.Count > 0)
 			{
 				while (true)
@@ -493,34 +403,12 @@ public class AccountComponent : ICloneable
 		{
 			if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ValidateExclusivityPool(unlockExlusivePool, UnlockedBannerIDs);
 				ValidateSelectedBanner();
 				ValidateSelectedBanner();
 			}
 			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ValidateExclusivityPool(unlockExlusivePool, UnlockedEmojiIDs);
 			}
 			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
@@ -529,27 +417,9 @@ public class AccountComponent : ICloneable
 			}
 			else if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Ribbon)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ValidateExclusivityPool(unlockExlusivePool, UnlockedRibbonIDs);
 				if (!UnlockedRibbonIDs.Contains(SelectedRibbonID))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SelectedRibbonID = -1;
 				}
 			}
@@ -559,27 +429,9 @@ public class AccountComponent : ICloneable
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ValidateExclusivityPool(unlockExlusivePool, UnlockedTitleIDs);
 				if (!UnlockedTitleIDs.Contains(SelectedTitleID))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SelectedTitleID = -1;
 				}
 			}
@@ -598,15 +450,6 @@ public class AccountComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < list.Count; j++)
 			{
 				Log.Info("Clearing Exclusivity Poos. Removing ID {0} from {1}", list[j], pool.PoolType);
@@ -633,26 +476,12 @@ public class AccountComponent : ICloneable
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				GameBalanceVars.UnlockExlusivePool[] exclusivityPools = LobbyGameplayData.Get().GameBalanceVars.ExclusivityPools;
 				foreach (GameBalanceVars.UnlockExlusivePool unlockExlusivePool in exclusivityPools)
 				{
@@ -660,26 +489,8 @@ public class AccountComponent : ICloneable
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Banner)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedBannerIDs);
 						ValidateSelectedBanner();
 						ValidateSelectedBanner();
@@ -687,29 +498,11 @@ public class AccountComponent : ICloneable
 					}
 					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Emoticon)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedEmojiIDs);
 						continue;
 					}
 					if (unlockExlusivePool.PoolType == GameBalanceVars.UnlockExlusivePool.ExclusivePoolType.Overcon)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedOverconIDs);
 						continue;
 					}
@@ -718,15 +511,6 @@ public class AccountComponent : ICloneable
 						ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedRibbonIDs);
 						if (!UnlockedRibbonIDs.Contains(SelectedRibbonID))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SelectedRibbonID = -1;
 						}
 						continue;
@@ -735,27 +519,9 @@ public class AccountComponent : ICloneable
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClearAllItemsInExclusivityPool(unlockExlusivePool, UnlockedTitleIDs);
 					if (!UnlockedTitleIDs.Contains(SelectedTitleID))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SelectedTitleID = -1;
 					}
 				}
@@ -784,10 +550,6 @@ public class AccountComponent : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return FactionCompetitionData[competitionID];
 				}
 			}
@@ -824,10 +586,6 @@ public class AccountComponent : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return AppliedEntitlements[entitlement];
 				}
 			}
@@ -873,30 +631,8 @@ public class AccountComponent : ICloneable
 		int result = 1;
 		if (TitleLevels != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (TitleLevels.ContainsKey(titleId))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = TitleLevels[titleId];
 			}
 		}
@@ -960,10 +696,6 @@ public class AccountComponent : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -983,10 +715,6 @@ public class AccountComponent : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1000,19 +728,6 @@ public class AccountComponent : ICloneable
 		int result;
 		if (FreeRotationCharacters != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (FreeRotationCharacters.Contains(characterType) ? 1 : 0);
 		}
 		else
@@ -1033,10 +748,6 @@ public class AccountComponent : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception("UI State not specified!");
 				}
 			}

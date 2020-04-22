@@ -21,26 +21,12 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_actorModelData.m_parentActorData != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_owner = m_actorModelData.m_parentActorData;
 				m_owner.OnAnimationEventDelegates += HandleAnimEvent;
 				m_owner.OnTurnStartDelegates += HandleTurnTick;
@@ -77,19 +63,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		object obj;
 		if (m_actorModelData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = m_actorModelData.m_parentActorData;
 		}
 		else
@@ -100,37 +73,10 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		int num;
 		if (!(actorData == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(actorData.GetActorModelDataRenderer() == null))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (actorData.GetActorModelDataRenderer().enabled ? 1 : 0);
 				}
 				else
@@ -151,15 +97,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		int num2;
 		if (actorData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (actorData.IsModelAnimatorDisabled() ? 1 : 0);
 		}
 		else
@@ -172,15 +109,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		{
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
 					num3 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData.GetTeam()) ? 1 : 0);
@@ -202,15 +130,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 			int actorVisible;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVisible = ((!flag2) ? 1 : 0);
 			}
 			else
@@ -242,15 +161,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -267,15 +177,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

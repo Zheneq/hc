@@ -37,10 +37,6 @@ namespace I2.Loc
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Debug.LogError("-- " + translationWWW.error);
 						using (Dictionary<string, string>.Enumerator enumerator = translationWWW.responseHeaders.GetEnumerator())
 						{
@@ -48,15 +44,6 @@ namespace I2.Loc
 							{
 								KeyValuePair<string, string> current = enumerator.Current;
 								Debug.Log(current.Value + "=" + current.Key);
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						return string.Empty;
@@ -86,75 +73,26 @@ namespace I2.Loc
 				string input = text;
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					_003C_003Ef__am_0024cache0 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)));
 				}
 				text = Regex.Replace(input, "\\\\x([a-fA-F0-9]{2})", _003C_003Ef__am_0024cache0);
 				string input2 = text;
 				if (_003C_003Ef__am_0024cache1 == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache1 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value)));
 				}
 				text = Regex.Replace(input2, "&#(\\d+);", _003C_003Ef__am_0024cache1);
 				text = text.Replace("<br>", "\n");
 				if (OriginalText.ToUpper() == OriginalText)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text.ToUpper();
 				}
 				else if (UppercaseFirst(OriginalText) == OriginalText)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = UppercaseFirst(text);
 				}
 				else if (TitleCase(OriginalText) == OriginalText)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = TitleCase(text);
 				}
 				return text;
@@ -188,10 +126,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}

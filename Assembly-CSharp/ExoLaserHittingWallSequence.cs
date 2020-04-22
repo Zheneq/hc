@@ -43,15 +43,6 @@ public class ExoLaserHittingWallSequence : Sequence
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				float num2 = exoAnchorLaser.GetLaserInfo().range * Board.Get().squareSize;
 				if ((double)num + 0.5 < (double)num2)
 				{
@@ -82,19 +73,6 @@ public class ExoLaserHittingWallSequence : Sequence
 		ProcessSequenceVisibility();
 		if (m_fx != null && m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 		}
 		if (!(m_fx != null))
@@ -103,31 +81,16 @@ public class ExoLaserHittingWallSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_hittingWall)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_fxCasterJoint.IsInitialized())
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						Vector3 position = m_fx.transform.position;
 						Vector3 position2 = m_fxCasterJoint.m_jointObject.transform.position;
 						position.y = position2.y;
@@ -144,56 +107,16 @@ public class ExoLaserHittingWallSequence : Sequence
 	{
 		if (!m_fxCasterJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
 		if (m_hittingWall)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fxCasterJoint.IsInitialized())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(m_hitPosition);
 				ref Vector3 hitPosition = ref m_hitPosition;
 				Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
@@ -207,26 +130,8 @@ public class ExoLaserHittingWallSequence : Sequence
 				float num2 = Mathf.Abs(vector.z);
 				if (num > num2)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (vector.x > 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_hitRotation = Quaternion.LookRotation(new Vector3(1f, 0f, 0f));
 					}
 					else
@@ -236,15 +141,6 @@ public class ExoLaserHittingWallSequence : Sequence
 				}
 				else if (vector.z > 0f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_hitRotation = Quaternion.LookRotation(new Vector3(0f, 0f, 1f));
 				}
 				else
@@ -259,11 +155,6 @@ public class ExoLaserHittingWallSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			SpawnFX();
 			return;
 		}
@@ -277,24 +168,10 @@ public class ExoLaserHittingWallSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hittingWall)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_fx = InstantiateFX(m_fxPrefab, m_hitPosition, m_hitRotation);
 					return;
 				}
@@ -321,19 +198,6 @@ public class ExoLaserHittingWallSequence : Sequence
 	{
 		if (m_startEvent == parameter)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 		}
 		if (!(m_stopEvent == parameter))
@@ -342,11 +206,6 @@ public class ExoLaserHittingWallSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			StopFX();
 			return;
 		}

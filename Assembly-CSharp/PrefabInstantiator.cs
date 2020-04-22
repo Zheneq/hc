@@ -20,19 +20,6 @@ public class PrefabInstantiator : MonoBehaviour
 	{
 		if (m_dontDestroyOnLoad)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DontDestroyOnLoad(base.gameObject);
 		}
 		m_instantiatedGameObjects = new GameObject[m_prefabs.Length];
@@ -42,51 +29,19 @@ public class PrefabInstantiator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_prefabs.Length; i++)
 			{
 				GameObject gameObject = m_prefabs[i];
 				if (gameObject == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				GameObject gameObject2 = Object.Instantiate(gameObject);
 				m_instantiatedGameObjects[i] = gameObject2;
 				if (m_dontDestroyOnLoad)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_parentSpawnedObjectsIfPersistent)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameObject2.transform.parent = base.transform;
 						continue;
 					}
@@ -117,15 +72,6 @@ public class PrefabInstantiator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

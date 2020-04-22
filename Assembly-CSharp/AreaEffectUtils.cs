@@ -41,19 +41,6 @@ public static class AreaEffectUtils
 		float num = 90f;
 		if (GameWideData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GameWideData.Get().m_maxAngleForBounceOnActor;
 			if (num <= 0f)
 			{
@@ -68,41 +55,10 @@ public static class AreaEffectUtils
 		int result;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!actor.IsDead() && !actor.IgnoreForAbilityHits)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actor.GetCurrentBoardSquare() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (IsRelevantTeam(validTeams, actor.GetTeam()) ? 1 : 0);
 					goto IL_0065;
 				}
@@ -125,10 +81,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -141,21 +93,11 @@ public static class AreaEffectUtils
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -183,57 +125,17 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(i, j);
 				if (!(boardSquare != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquare.IsBaselineHeight())
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.OccupantActor == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare);
 				}
 			}
@@ -253,11 +155,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -271,15 +168,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(boardSquare);
 			return;
 		}
@@ -289,19 +177,6 @@ public static class AreaEffectUtils
 	{
 		if (!(center == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (borderLayerNumber >= 0)
 			{
 				List<BoardSquare> list = new List<BoardSquare>();
@@ -325,15 +200,6 @@ public static class AreaEffectUtils
 						AddSquareAtIndexToListIfValid(center.x - num, center.y - num2, list);
 						if (num != num2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = i;
 							num2 = borderLayerNumber;
 							AddSquareAtIndexToListIfValid(center.x + num, center.y + num2, list);
@@ -342,55 +208,19 @@ public static class AreaEffectUtils
 							AddSquareAtIndexToListIfValid(center.x - num, center.y - num2, list);
 						}
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (requireLosToCenter)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int num3 = list.Count - 1; num3 >= 0; num3--)
 						{
 							BoardSquare boardSquare = list[num3];
 							if (!center._0013(boardSquare.x, boardSquare.y))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.RemoveAt(num3);
 							}
 						}
 					}
 				}
 				return list;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -428,30 +258,8 @@ public static class AreaEffectUtils
 		bool flag2 = num2 >= 0f;
 		if (flag != flag2)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (PointToLineDistance(testPt, pt1, pt2) < halfWidth)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -471,10 +279,6 @@ public static class AreaEffectUtils
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -544,19 +348,6 @@ public static class AreaEffectUtils
 		a.Normalize();
 		if (magnitude > 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (float num = 0f; num <= magnitude; num += 0.5f * Board.Get().squareSize)
 			{
 				Vector3 vector = end + num * a;
@@ -567,23 +358,9 @@ public static class AreaEffectUtils
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					adjustedEndPoint = vector;
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(start);
 			if (boardSquare2 != null && boardSquare2.IsBaselineHeight())
@@ -606,15 +383,6 @@ public static class AreaEffectUtils
 			BoardSquare boardSquare3 = Board.Get().GetBoardSquare(end);
 			if (boardSquare3 != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare3.IsBaselineHeight())
 				{
 					adjustedEndPoint = end;
@@ -629,19 +397,6 @@ public static class AreaEffectUtils
 	{
 		if (!(source == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(dest == null))
 			{
 				if (source == dest)
@@ -659,27 +414,9 @@ public static class AreaEffectUtils
 				}
 				if (source.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!source._0013(dest.x, dest.y))
 					{
 						return false;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (checkBarreirs)
@@ -707,19 +444,6 @@ public static class AreaEffectUtils
 		int num;
 		if (BarrierManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (BarrierManager.Get().HasAbilityBlockingBarriers() ? 1 : 0);
 		}
 		else
@@ -729,52 +453,16 @@ public static class AreaEffectUtils
 		bool flag2 = (byte)num != 0;
 		if (!(caster == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(BarrierManager.Get() == null))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(offsetToUseInWorld > 0f))
 					{
 						if (BarrierManager.Get().AreAbilitiesBlocked(caster, source, dest, nonActorTargetInfo))
 						{
 							flag = false;
 							goto IL_0252;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -784,15 +472,6 @@ public static class AreaEffectUtils
 		object obj;
 		if (nonActorTargetInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = new List<NonActorTargetInfo>();
 		}
 		else
@@ -802,26 +481,8 @@ public static class AreaEffectUtils
 		List<NonActorTargetInfo> list = (List<NonActorTargetInfo>)obj;
 		if (BarrierManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = source.ToVector3();
 				Vector3 a = dest.ToVector3();
 				Vector3 vector2 = a - vector;
@@ -841,15 +502,6 @@ public static class AreaEffectUtils
 					RaycastHit hit;
 					if (!flag3)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (VectorUtils.RaycastInDirection(vector + b, vector2, magnitude, out hit) ? 1 : 0);
 					}
 					else
@@ -860,15 +512,6 @@ public static class AreaEffectUtils
 					int num3;
 					if (!flag4)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = (VectorUtils.RaycastInDirection(vector - b, vector2, magnitude, out hit) ? 1 : 0);
 					}
 					else
@@ -878,15 +521,6 @@ public static class AreaEffectUtils
 					bool flag6 = (byte)num3 != 0;
 					if (flag5)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag6)
 						{
 							flag = false;
@@ -895,37 +529,10 @@ public static class AreaEffectUtils
 				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (list != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (nonActorTargetInfo != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							nonActorTargetInfo.AddRange(list);
 						}
 					}
@@ -962,10 +569,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
@@ -985,15 +588,6 @@ public static class AreaEffectUtils
 		}
 		if (magnitude == 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num == num2)
 			{
 				while (true)
@@ -1011,15 +605,6 @@ public static class AreaEffectUtils
 		int num3;
 		if (Mathf.Abs(magnitude - (num + num2)) < 0.001f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 1;
 		}
 		else
@@ -1050,45 +635,14 @@ public static class AreaEffectUtils
 					ISquareInsideChecker squareInsideChecker = inAreaCheckers[num];
 					if (squareInsideChecker.IsSquareInside(testSquare, out bool inLos))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (inLos)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							break;
 						}
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -1101,30 +655,8 @@ public static class AreaEffectUtils
 		ActorData result = null;
 		if (square != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (square.OccupantActor != null && IsActorTargetable(square.OccupantActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Team team = square.OccupantActor.GetTeam();
 				if (caster != null)
 				{
@@ -1135,27 +667,9 @@ public static class AreaEffectUtils
 						{
 							goto IL_0097;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (allowEnemy)
 						{
 							goto IL_0097;
@@ -1196,10 +710,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return list;
 				}
 			}
@@ -1221,54 +731,18 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(i, j);
 				if (!(boardSquare != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.height <= -Board.Get().BaselineHeight)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = true;
 				if (!ignoreLoS)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = SquaresHaveLoSForAbilities(boardSquareSafe, boardSquare, caster);
 				}
 				if (flag)
@@ -1279,11 +753,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1299,10 +768,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1333,50 +798,14 @@ public static class AreaEffectUtils
 		float sqrMagnitude = (a - b).sqrMagnitude;
 		if (sqrMagnitude < num * num)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
 			if (boardSquare != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.height >= Board.Get().BaselineHeight)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2;
 					if (!ignoreLoS)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (SquaresHaveLoSForAbilities(boardSquareSafe, boardSquare, caster) ? 1 : 0);
 					}
 					else
@@ -1409,10 +838,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetActorsInConeByActorRadius(centerPos, 0f, 360f, radiusInSquares, 0f, ignoreLoS, caster, onlyValidTeams, nonActorTargetInfo, useLosOverridePos, losOverridePos);
 				}
 			}
@@ -1427,39 +852,12 @@ public static class AreaEffectUtils
 				ActorData occupantActor = current.OccupantActor;
 				if (IsActorTargetable(occupantActor, onlyValidTeams))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = !list.Contains(occupantActor);
 					bool flag2 = squaresInRadius.Contains(occupantActor.GetTravelBoardSquare());
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(occupantActor);
 						}
 					}
@@ -1487,19 +885,6 @@ public static class AreaEffectUtils
 		float sqrMagnitude = (centerPos - testPos).sqrMagnitude;
 		if (sqrMagnitude <= radiusInWorld * radiusInWorld)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float maxAngleWithCenter = 0.5f * coneWidthAngleDeg;
 			Vector3 vec = testPos - centerPos;
 			if (vec.sqrMagnitude > 0.001f)
@@ -1526,19 +911,6 @@ public static class AreaEffectUtils
 		Vector3 vec = testPos - centerPos;
 		if (vec.sqrMagnitude > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float testAngle = VectorUtils.HorizontalAngle_Deg(vec);
 			result = IsAngleWithinCone(testAngle, coneCenterAngle, maxAngleWithCenter);
 		}
@@ -1551,19 +923,6 @@ public static class AreaEffectUtils
 		float num2 = coneCenterAngle + maxAngleWithCenter;
 		if (testAngle < num)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			testAngle += 360f;
 		}
 		else if (testAngle > num2)
@@ -1573,15 +932,6 @@ public static class AreaEffectUtils
 		int result;
 		if (num <= testAngle)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((testAngle <= num2) ? 1 : 0);
 		}
 		else
@@ -1602,19 +952,6 @@ public static class AreaEffectUtils
 		List<BoardSquare> list3 = null;
 		if (coneBackwardOffsetInSquares == 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list2 = GetSquaresInRadius(coneStart.x, coneStart.z, radiusInSquares, ignoreLoS, caster);
 			list3 = list2;
 		}
@@ -1639,15 +976,6 @@ public static class AreaEffectUtils
 					int num3;
 					if (coneBackwardOffsetInSquares != 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = (list3.Contains(item) ? 1 : 0);
 					}
 					else
@@ -1658,15 +986,6 @@ public static class AreaEffectUtils
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						list.Add(item);
@@ -1696,10 +1015,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return list;
 				}
 			}
@@ -1714,26 +1029,8 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsSquareInConeByActorRadius(boardSquare, coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, ignoreLoS, caster))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare);
 				}
 			}
@@ -1751,43 +1048,12 @@ public static class AreaEffectUtils
 		bool result = false;
 		if (IsSquareInRadius(testSquare, b.x, b.z, radiusInSquares, true, caster))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsSquareInRadius(testSquare, coneStart.x, coneStart.z, radiusInSquares, ignoreLoS, caster))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vec = testSquare.ToVector3() - b;
 				vec.y = 0f;
 				if (vec.sqrMagnitude > 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float testAngle = VectorUtils.HorizontalAngle_Deg(vec);
 					result = IsAngleWithinCone(testAngle, coneCenterAngleDegrees, maxAngleWithCenter);
 				}
@@ -1808,19 +1074,6 @@ public static class AreaEffectUtils
 		bool flag = false;
 		if (IsPosInCone(vector, vector2, num2, coneCenterAngleDegrees, coneWidthDegrees))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = true;
 		}
 		Vector3 vector3 = vector - vector2;
@@ -1828,26 +1081,8 @@ public static class AreaEffectUtils
 		float magnitude = vector3.magnitude;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (magnitude > 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num3 = GetActorTargetingRadius() * squareSize;
 				Vector3 b = default(Vector3);
 				b.x = vector3.z;
@@ -1857,15 +1092,6 @@ public static class AreaEffectUtils
 				b *= num3;
 				if (magnitude > num2 + num3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else
@@ -1876,15 +1102,6 @@ public static class AreaEffectUtils
 					int num5;
 					if (!VectorUtils.IsSegmentIntersectingCircle(vector2, vector2 + num2 * a2, vector, num3))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 = (VectorUtils.IsSegmentIntersectingCircle(vector2, vector2 + num2 * a3, vector, num3) ? 1 : 0);
 					}
 					else
@@ -1893,40 +1110,13 @@ public static class AreaEffectUtils
 					}
 					if (num5 != 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 					else if (magnitude < Mathf.Abs(num2 - num3))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num6;
 						if (!IsPosInCone(vector + b, vector2, num2, coneCenterAngleDegrees, coneWidthDegrees))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6 = (IsPosInCone(vector - b, vector2, num2, coneCenterAngleDegrees, coneWidthDegrees) ? 1 : 0);
 						}
 						else
@@ -1937,53 +1127,17 @@ public static class AreaEffectUtils
 					}
 					else if (magnitude > 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 intersectP;
 						Vector3 intersectP2;
 						int circleCircleIntersections = GetCircleCircleIntersections(vector2, vector, num, GetActorTargetingRadius(), out intersectP, out intersectP2);
 						if (circleCircleIntersections > 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = IsPosInAngleOfCone(intersectP, vector2, coneCenterAngleDegrees, coneWidthDegrees);
 						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (circleCircleIntersections > 1)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = IsPosInAngleOfCone(intersectP2, vector2, coneCenterAngleDegrees, coneWidthDegrees);
 							}
 						}
@@ -1994,38 +1148,11 @@ public static class AreaEffectUtils
 		bool flag2 = true;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!ignoreLoS)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector4;
 				if (useLosOverridePos)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector4 = losOverridePos;
 				}
 				else
@@ -2036,15 +1163,6 @@ public static class AreaEffectUtils
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(vector5);
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = SquareHasLosForCone(vector5, boardSquare, testSquare, caster);
 				}
 				else
@@ -2056,15 +1174,6 @@ public static class AreaEffectUtils
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -2091,10 +1200,6 @@ public static class AreaEffectUtils
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Vector3 a2 = testSquare.ToVector3();
 						Vector3 rhs = a2 - startPos;
 						rhs.y = 0f;
@@ -2114,15 +1219,6 @@ public static class AreaEffectUtils
 						int result;
 						if (VectorUtils.RaycastInDirection(vector2, dir, dir.magnitude, out RaycastHit hit))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((!VectorUtils.RaycastInDirection(vector3, dir2, dir2.magnitude, out hit)) ? 1 : 0);
 						}
 						else
@@ -2157,10 +1253,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetActorsInConeByActorRadius(coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, ignoreLoS, caster, onlyValidTeams, nonActorTargetInfo, useLosOverridePos, losOverridePos);
 				}
 			}
@@ -2174,37 +1266,14 @@ public static class AreaEffectUtils
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
 			if (IsSquareInCone(currentBoardSquare, coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, ignoreLoS, caster))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(actorData);
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -2220,41 +1289,14 @@ public static class AreaEffectUtils
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
 			if (IsSquareInConeByActorRadius(currentBoardSquare, coneStart, coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, coneBackwardOffsetInSquares, ignoreLoS, caster, useLosOverridePos, losOverridePos))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(actorData);
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -2267,30 +1309,8 @@ public static class AreaEffectUtils
 		float num4 = minLengthInSquares;
 		if (interpMinDistOverrideInSquares > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (interpRangeOverrideInSquares > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = interpMinDistOverrideInSquares;
 				num3 = interpMinDistOverrideInSquares + interpRangeOverrideInSquares;
 				num = interpRangeOverrideInSquares;
@@ -2299,15 +1319,6 @@ public static class AreaEffectUtils
 		}
 		if (num <= 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = Mathf.Max(3f, maxLengthInSquares);
 			num4 = 2.5f;
 			num = num3 - num4;
@@ -2330,41 +1341,14 @@ public static class AreaEffectUtils
 		float num7;
 		if (style == StretchConeStyle.Linear)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = num6;
 		}
 		else if (style == StretchConeStyle.DistanceSquared)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = num6 * num6;
 		}
 		else if (style == StretchConeStyle.DistanceCubed)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = num6 * num6 * num6;
 		}
 		else if (style == StretchConeStyle.DistanceToTheFourthPower)
@@ -2373,15 +1357,6 @@ public static class AreaEffectUtils
 		}
 		else if (style == StretchConeStyle.DistanceSquareRoot)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = Mathf.Sqrt(num6);
 		}
 		else
@@ -2392,37 +1367,10 @@ public static class AreaEffectUtils
 		float num9 = num2 * num8;
 		if (widthChangeDiscrete)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numWidthDiscreteChanges > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num8 < 0.02f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = 0f;
 				}
 				float num10 = 1f / (float)numWidthDiscreteChanges;
@@ -2463,10 +1411,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					minX = 0;
 					maxX = 0;
 					minY = 0;
@@ -2490,15 +1434,6 @@ public static class AreaEffectUtils
 		AdjustMinMaxBounds(point2, ref minBounds, ref maxBounds);
 		for (int i = -90; i <= 450; i += 90)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(num5 > (float)i))
 			{
 				break;
@@ -2507,26 +1442,8 @@ public static class AreaEffectUtils
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((float)i < num5)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 point3 = vector + d2 * VectorUtils.AngleDegreesToVector(i);
 				AdjustMinMaxBounds(point3, ref minBounds, ref maxBounds);
 			}
@@ -2556,10 +1473,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2571,11 +1484,6 @@ public static class AreaEffectUtils
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					return;
@@ -2591,15 +1499,6 @@ public static class AreaEffectUtils
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag2 = false;
 					if (ignoreLos)
 					{
@@ -2607,15 +1506,6 @@ public static class AreaEffectUtils
 					}
 					else if (losCheckOverrides != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = SquareHasLosByAreaCheckers(boardSquare, losCheckOverrides);
 					}
 					else
@@ -2655,19 +1545,6 @@ public static class AreaEffectUtils
 			List<ActorData> list3;
 			if (GameWideData.Get().UseActorRadiusForLaser())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list3 = GetActorsInBoxByActorRadius(startPos, endPos, num, ignoreLoS, caster, onlyValidTeams, list2);
 			}
 			else
@@ -2685,42 +1562,15 @@ public static class AreaEffectUtils
 						list.Add(current);
 					}
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (startRadiusInSquares > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> actorsInRadius = GetActorsInRadius(startPos, startRadiusInSquares, ignoreLoS, caster, onlyValidTeams, nonActorTargetInfo);
 			foreach (ActorData item in actorsInRadius)
 			{
 				if (!list.Contains(item))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(item);
 				}
 			}
@@ -2775,19 +1625,6 @@ public static class AreaEffectUtils
 		List<Vector3> list = new List<Vector3>();
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(startPos);
 			list.Add((startPos + endPos) * 0.5f);
 			list.Add(endPos);
@@ -2808,15 +1645,6 @@ public static class AreaEffectUtils
 		}
 		if (startRadiusInSquares > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			OperateOnSquaresInCone(operationObj, startPos, 0f, 360f, startRadiusInSquares, 0f, caster, ignoreLoS, s_radiusOfLineLosCheckers);
 		}
 		if (endRadiusInSquares > 0f)
@@ -2830,19 +1658,6 @@ public static class AreaEffectUtils
 		List<Vector3> list = new List<Vector3>();
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(pt1);
 		}
 		return GetSquaresInBox(pt1, pt2, halfWidthInSquares, list, caster);
@@ -2871,31 +1686,9 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				bool flag;
 				if (losCheckPoints != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (losCheckPoints.Count > 0)
 					{
 						flag = false;
@@ -2904,15 +1697,6 @@ public static class AreaEffectUtils
 							BoardSquare boardSquare2 = Board.Get().GetBoardSquare(losCheckPoint);
 							if (boardSquare2 != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (SquaresHaveLoSForAbilities(boardSquare2, boardSquare, caster))
 								{
 									flag = true;
@@ -2928,26 +1712,12 @@ public static class AreaEffectUtils
 				IL_01e6:
 				if (flag)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare);
 				}
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -2957,19 +1727,6 @@ public static class AreaEffectUtils
 		List<Vector3> list = new List<Vector3>();
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(startPos);
 		}
 		return GetActorsInBox(startPos, endPos, boxWidthInSquares, list, caster, onlyValidTeams);
@@ -2989,30 +1746,8 @@ public static class AreaEffectUtils
 					ActorData occupantActor = current.OccupantActor;
 					if (IsActorTargetable(occupantActor, onlyValidTeams))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!list.Contains(occupantActor))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(occupantActor);
 						}
 					}
@@ -3061,30 +1796,8 @@ public static class AreaEffectUtils
 		int result;
 		if (!VectorUtils.IsSegmentIntersectingCircle(ptA, ptB, circleCenter, radiusInWorld))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!VectorUtils.IsSegmentIntersectingCircle(ptB, ptD, circleCenter, radiusInWorld) && !VectorUtils.IsSegmentIntersectingCircle(ptD, ptC, circleCenter, radiusInWorld))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (VectorUtils.IsSegmentIntersectingCircle(ptC, ptA, circleCenter, radiusInWorld) ? 1 : 0);
 				goto IL_0064;
 			}
@@ -3114,19 +1827,6 @@ public static class AreaEffectUtils
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(i, j);
 				if (boardSquare2 == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					continue;
 				}
 				Vector3 vector = boardSquare2.ToVector3();
@@ -3134,15 +1834,6 @@ public static class AreaEffectUtils
 				int num4;
 				if (!PointInBox(vector, startPos, endPos, num3))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = (IsBoxBorderTouchingCircle(ptA, ptB, ptC, ptD, vector, num) ? 1 : 0);
 				}
 				else
@@ -3151,27 +1842,9 @@ public static class AreaEffectUtils
 				}
 				if (num4 == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (penetrateLos)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare2);
 				}
 				else if (HasLosForLaserByActorRadius(boardSquare, boardSquare2, startPos, endPos, laserWidthInSquares, caster))
@@ -3180,45 +1853,18 @@ public static class AreaEffectUtils
 				}
 				else if (additionalLosSources != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<Vector3>.Enumerator enumerator = additionalLosSources.GetEnumerator())
 					{
 						while (true)
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							Vector3 current = enumerator.Current;
 							BoardSquare boardSquare3 = Board.Get().GetBoardSquare(current);
 							if (boardSquare3 != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (SquaresHaveLoSForAbilities(boardSquare3, boardSquare2, caster))
 								{
 									while (true)
@@ -3255,11 +1901,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -3276,10 +1917,6 @@ public static class AreaEffectUtils
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					startPos.y = 0f;
 					endPos.y = 0f;
 					Vector3 vector = testSquare.ToVector3();
@@ -3302,32 +1939,10 @@ public static class AreaEffectUtils
 		bool result = false;
 		if (penetrateLos)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = true;
 		}
 		else if (HasLosForLaserByActorRadius(boardSquare, square, startPos, endPos, laserWidthInSquares, caster))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else if (additionalLosSources != null)
@@ -3348,15 +1963,6 @@ public static class AreaEffectUtils
 							BoardSquare boardSquare2 = Board.Get().GetBoardSquare(current);
 							if (boardSquare2 != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (SquaresHaveLoSForAbilities(boardSquare2, square, caster))
 								{
 									while (true)
@@ -3410,33 +2016,11 @@ public static class AreaEffectUtils
 					ActorData current = enumerator.Current;
 					if (IsActorTargetable(current, validTeams))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Vector3 travelBoardSquareWorldPosition = current.GetTravelBoardSquareWorldPosition();
 						travelBoardSquareWorldPosition.y = 0f;
 						int num2;
 						if (!PointInBox(travelBoardSquareWorldPosition, startPos, endPos, halfWidth))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = (IsBoxBorderTouchingCircle(ptA, ptB, ptC, ptD, travelBoardSquareWorldPosition, radiusInWorld) ? 1 : 0);
 						}
 						else
@@ -3445,27 +2029,9 @@ public static class AreaEffectUtils
 						}
 						if (num2 == 0)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (penetrateLos)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(current);
 						}
 						else
@@ -3483,30 +2049,12 @@ public static class AreaEffectUtils
 									{
 										if (!enumerator2.MoveNext())
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											break;
 										}
 										Vector3 current2 = enumerator2.Current;
 										BoardSquare boardSquare2 = Board.Get().GetBoardSquare(current2);
 										if (boardSquare2 != null)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (SquaresHaveLoSForAbilities(boardSquare2, currentBoardSquare, caster))
 											{
 												while (true)
@@ -3560,19 +2108,6 @@ public static class AreaEffectUtils
 		object obj;
 		if (nonActorTargetInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = new List<NonActorTargetInfo>();
 		}
 		else
@@ -3584,15 +2119,6 @@ public static class AreaEffectUtils
 		float num = 0.72f;
 		if (caster.GetCurrentBoardSquare() == startSquare)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += GameWideData.Get().m_actorTargetingRadiusInSquares;
 		}
 		Vector3 a = vector2 - num * squareSize * normalized;
@@ -3601,64 +2127,19 @@ public static class AreaEffectUtils
 		Vector3 vector5 = laserStart + Vector3.Dot(lhs, normalized) * normalized;
 		if (Vector3.Dot(normalized, vector5 - laserStart) <= 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector5 = vector3;
 		}
 		bool flag3 = true;
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(vector5);
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare != testSquare)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = boardSquare._0013(testSquare.x, testSquare.y);
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = HasLosByBarriers(boardSquare, testSquare, caster, VectorUtils.s_laserOffset * Board.SquareSizeStatic, list);
 						if (!flag2)
 						{
@@ -3676,65 +2157,20 @@ public static class AreaEffectUtils
 		}
 		else
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			zero = new Vector3(0f, 0f, num2);
 		}
 		bool flag4 = !flag2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag4)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nonActorTargetInfo?.AddRange(list);
 			}
 		}
 		if (!flag4 && flag3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 a2 = vector2;
 				a2.y = travelBoardSquareWorldPositionForLos.y;
 				Vector3 dir = a2 - vector3;
@@ -3744,15 +2180,6 @@ public static class AreaEffectUtils
 				int num3;
 				if (flag5)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = (VectorUtils.RaycastInDirection(vector3 - zero, dir, dir.magnitude, out hit) ? 1 : 0);
 				}
 				else
@@ -3766,26 +2193,8 @@ public static class AreaEffectUtils
 		int result;
 		if (!flag4)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (flag3 ? 1 : 0);
 				goto IL_036c;
 			}
@@ -3806,19 +2215,6 @@ public static class AreaEffectUtils
 			float actorTargetingRadiusInSquares = GameWideData.Get().m_actorTargetingRadiusInSquares;
 			if (actorTargetingRadiusInSquares > 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				startPos = VectorUtils.GetAdjustedStartPosWithOffset(startPos, endPos, actorTargetingRadiusInSquares);
 			}
 		}
@@ -3842,15 +2238,6 @@ public static class AreaEffectUtils
 				int num4;
 				if (!PointInBox(vector, startPos, endPos, num3))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = (IsBoxBorderTouchingCircle(ptA, ptB, ptC, ptD, vector, num) ? 1 : 0);
 				}
 				else
@@ -3859,29 +2246,11 @@ public static class AreaEffectUtils
 				}
 				if (num4 == 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				bool flag = false;
 				if (ignoreLos)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 				else if (losCheckOverrides != null)
@@ -3899,30 +2268,12 @@ public static class AreaEffectUtils
 							{
 								if (!enumerator.MoveNext())
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 								Vector3 current = enumerator.Current;
 								BoardSquare boardSquare3 = Board.Get().GetBoardSquare(current);
 								if (boardSquare3 != null)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (SquaresHaveLoSForAbilities(boardSquare3, boardSquare2, caster))
 									{
 										while (true)
@@ -3979,19 +2330,6 @@ public static class AreaEffectUtils
 		int num;
 		if (!penetrateLos)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (lengthIgnoreLevelGeo ? 1 : 0);
 		}
 		else
@@ -4002,15 +2340,6 @@ public static class AreaEffectUtils
 		object obj;
 		if (nonActorTargets != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = new List<NonActorTargetInfo>();
 		}
 		else
@@ -4024,15 +2353,6 @@ public static class AreaEffectUtils
 		laserCoords.end = VectorUtils.GetLaserEndPoint(startPos, dir, maxDistanceInWorld, penetrateLos, caster, list, checkBarriers);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!penetrateLos)
 			{
 				laserCoords.end = VectorUtils.GetLaserEndPoint(startPos, dir, maxDistanceInWorld, flag, caster, null, checkBarriers);
@@ -4040,48 +2360,12 @@ public static class AreaEffectUtils
 		}
 		if (!penetrateLos)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (laserWidthInSquares > 2f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (list.Count == 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 b = Vector3.Cross(Vector3.up, dir);
 						b.Normalize();
 						b *= 0.5f * laserWidthInSquares * Board.SquareSizeStatic;
@@ -4091,15 +2375,6 @@ public static class AreaEffectUtils
 						VectorUtils.GetLaserEndPoint(startPos2, dir, magnitude, penetrateLos, caster, list, checkBarriers);
 						if (list.Count == 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							VectorUtils.GetLaserEndPoint(startPos3, dir, magnitude, penetrateLos, caster, list, checkBarriers);
 						}
 					}
@@ -4110,41 +2385,14 @@ public static class AreaEffectUtils
 		bool flag2 = GameWideData.Get().UseActorRadiusForLaser();
 		if (actorTargetingRadiusInSquares > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!ignoreStartOffset)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				laserCoords.start = VectorUtils.GetAdjustedStartPosWithOffset(laserCoords.start, laserCoords.end, actorTargetingRadiusInSquares);
 			}
 		}
 		List<ActorData> list2;
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2 = GetActorsInBoxByActorRadius(laserCoords.start, laserCoords.end, laserWidthInSquares, penetrateLos, caster, validTeams, null, nonActorTargets);
 		}
 		else
@@ -4158,39 +2406,12 @@ public static class AreaEffectUtils
 		}
 		if (actorsToExclude != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < actorsToExclude.Count; i++)
 			{
 				if (actors.Contains(actorsToExclude[i]))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actors.Remove(actorsToExclude[i]);
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (excludeCaster)
@@ -4201,26 +2422,8 @@ public static class AreaEffectUtils
 		TargeterUtils.LimitActorsToMaxNumber(ref actors, maxTargets);
 		if (maxTargets > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actors.Count == maxTargets)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = actors[actors.Count - 1];
 				Vector3 lhs = actorData.GetTravelBoardSquareWorldPosition() - laserCoords.start;
 				lhs.y = 0f;
@@ -4232,15 +2435,6 @@ public static class AreaEffectUtils
 		laserEndPos = laserCoords.end;
 		if (nonActorTargets != null && list != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < list.Count; j++)
 			{
 				nonActorTargets.Add(list[j]);
@@ -4255,46 +2449,15 @@ public static class AreaEffectUtils
 	{
 		if (!penetrateLos)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorsHit == null || actorsHit.Count <= 0)
 			{
 				bool result = false;
 				float num = maxDistanceInSquares * Board.Get().squareSize;
 				if (adjustedCoords.Length() < num - 0.1f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				return result;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -4305,19 +2468,6 @@ public static class AreaEffectUtils
 		Dictionary<ActorData, BouncingLaserInfo> dictionary = new Dictionary<ActorData, BouncingLaserInfo>();
 		if (orderedHitActors != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			orderedHitActors.Clear();
 		}
 		Vector3 vector = originalStart;
@@ -4333,15 +2483,6 @@ public static class AreaEffectUtils
 				List<ActorData> list;
 				if (GameWideData.Get().UseActorRadiusForLaser())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list = GetActorsInBoxByActorRadius(vector, vector2, widthInSquares, false, caster, validTeamsToHit);
 				}
 				else
@@ -4352,39 +2493,12 @@ public static class AreaEffectUtils
 				actors.Remove(caster);
 				if (includeActorsAtAnglePoints)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2);
 					ActorData occupantActor = boardSquare.OccupantActor;
 					if (occupantActor != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actors.Contains(occupantActor) && IsRelevantTeam(validTeamsToHit, occupantActor.GetTeam()))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actors.Add(occupantActor);
 						}
 					}
@@ -4400,15 +2514,6 @@ public static class AreaEffectUtils
 						{
 							if (!includeInvisibles && !actorData.IsVisibleToClient())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -4416,40 +2521,13 @@ public static class AreaEffectUtils
 								dictionary.Add(actorData, value2);
 								if (orderedHitActors != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									orderedHitActors.Add(actorData);
 								}
 								num++;
 								if (num >= maxTargetsHit)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (maxTargetsHit > 0)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = num3;
 										Vector3 normalized = (vector2 - vector).normalized;
 										Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector;
@@ -4462,69 +2540,24 @@ public static class AreaEffectUtils
 						num4++;
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				if (num2 != -1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				vector = vector2;
 				num3++;
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		if (num2 != -1 && maxTargetsHit > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			laserAnglePoints[num2] = value;
 			int num5 = laserAnglePoints.Count - 1 - num2;
 			if (num5 > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				laserAnglePoints.RemoveRange(num2 + 1, num5);
 			}
 		}
@@ -4539,15 +2572,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Vector3> list = new List<Vector3>();
 			list.Add(originalStart);
 			list.AddRange(laserAnglePoints);
@@ -4556,15 +2580,6 @@ public static class AreaEffectUtils
 			{
 				if (i >= 2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SquareInsideChecker_BounceSegment squareInsideChecker_BounceSegment = new SquareInsideChecker_BounceSegment(widthInSquares);
 					Vector3 normalized = (list[i] - list[i - 1]).normalized;
 					Vector3 normalized2 = (list[i - 2] - list[i - 1]).normalized;
@@ -4614,31 +2629,9 @@ public static class AreaEffectUtils
 				BoardSquare current = enumerator.Current;
 				if (VectorUtils.IsPointInTriangle(pA, pB, pC, current.ToVector3()))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = true;
 					if (!ignoreLoS)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = SquaresHaveLoSForAbilities(boardSquare, current, caster);
 					}
 					if (flag)
@@ -4672,30 +2665,8 @@ public static class AreaEffectUtils
 				ActorData occupantActor = current.OccupantActor;
 				if (IsActorTargetable(occupantActor, onlyValidTeams))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!list.Contains(occupantActor))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(occupantActor);
 					}
 				}
@@ -4720,19 +2691,6 @@ public static class AreaEffectUtils
 		float num = Board.Get().squareSize / 2f;
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<BoardSquare> squaresAroundEvenShapeCornerPos = GetSquaresAroundEvenShapeCornerPos(cornerPos);
 			list2 = GetCenterSquaresForEvenShapeLos(squaresAroundEvenShapeCornerPos, caster);
 		}
@@ -4745,29 +2703,11 @@ public static class AreaEffectUtils
 			{
 				if (cornersToSubtract > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num4 = Mathf.Min(dimensions - 1 - i, i);
 					int num5 = Mathf.Min(dimensions - 1 - j, j);
 					int num6 = num4 + num5;
 					if (num6 < cornersToSubtract)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -4777,15 +2717,6 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquareSafe.IsBaselineHeight())
 				{
 					continue;
@@ -4793,28 +2724,10 @@ public static class AreaEffectUtils
 				bool flag;
 				if (ignoreLoS)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 				else if (list2.Contains(boardSquareSafe))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 				else
@@ -4827,52 +2740,20 @@ public static class AreaEffectUtils
 							BoardSquare current = enumerator.Current;
 							if (SquaresHaveLoSForAbilities(current, boardSquareSafe, caster))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7++;
 							}
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					flag = ((num7 >= 3) ? true : false);
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquareSafe);
 				}
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -4888,30 +2769,12 @@ public static class AreaEffectUtils
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(cornerPos + new Vector3(num * (float)i, 0f, num * (float)j));
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.Add(boardSquare);
 				}
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -4931,15 +2794,6 @@ public static class AreaEffectUtils
 					{
 						if (!enumerator2.MoveNext())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						BoardSquare current2 = enumerator2.Current;
@@ -4955,10 +2809,6 @@ public static class AreaEffectUtils
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										list.Add(current);
 										goto end_IL_0028;
 									}
@@ -4996,19 +2846,6 @@ public static class AreaEffectUtils
 			{
 				if (cornersToSubtract > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num6 = Mathf.Min(num3 - i, i - num2);
 					int num7 = Mathf.Min(num5 - j, j - num4);
 					int num8 = num6 + num7;
@@ -5022,51 +2859,15 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquare.IsBaselineHeight())
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num9;
 				if (!ignoreLoS)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(boardSquare == centerSquare))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num9 = (SquaresHaveLoSForAbilities(centerSquare, boardSquare, caster) ? 1 : 0);
 						goto IL_0102;
 					}
@@ -5095,11 +2896,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -5216,10 +3012,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetSquaresInShape_OddByOdd(centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster);
 				}
 			}
@@ -5264,30 +3056,8 @@ public static class AreaEffectUtils
 				ActorData current = enumerator.Current;
 				if (IsActorTargetable(current, onlyValidTeams))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (IsSquareInShape(current.GetCurrentBoardSquare(), shape, freePos, centerSquare, ignoreLoS, caster))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(current);
 					}
 				}
@@ -5315,15 +3085,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 			{
@@ -5332,43 +3093,16 @@ public static class AreaEffectUtils
 					ActorData current = enumerator.Current;
 					if (IsActorTargetable(current, onlyValidTeams))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = 0;
 						while (true)
 						{
 							if (num >= shapes.Count)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							AbilityAreaShape shape = shapes[num];
 							if (IsSquareInShape(current.GetCurrentBoardSquare(), shape, freePos, centerSquare, ignoreLos, caster))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actorsInLayers[num].Add(current);
 								list.Add(current);
 								break;
@@ -5403,10 +3137,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OperateOnSquaresInShape_OddByOdd(operationObj, centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster, losCheckOverrides);
 					return;
 				}
@@ -5422,19 +3152,6 @@ public static class AreaEffectUtils
 		float num = Board.Get().squareSize / 2f;
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<BoardSquare> squaresAroundEvenShapeCornerPos = GetSquaresAroundEvenShapeCornerPos(cornerPos);
 			list = GetCenterSquaresForEvenShapeLos(squaresAroundEvenShapeCornerPos, caster);
 		}
@@ -5447,15 +3164,6 @@ public static class AreaEffectUtils
 			{
 				if (cornersToSubtract > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num4 = Mathf.Min(dimensions - 1 - i, i);
 					int num5 = Mathf.Min(dimensions - 1 - j, j);
 					int num6 = num4 + num5;
@@ -5470,27 +3178,9 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquareSafe.IsBaselineHeight())
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool squareHasLos;
 				if (ignoreLoS)
@@ -5503,15 +3193,6 @@ public static class AreaEffectUtils
 				}
 				else if (losCheckOverrides != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					squareHasLos = SquareHasLosByAreaCheckers(boardSquareSafe, losCheckOverrides);
 				}
 				else
@@ -5527,27 +3208,9 @@ public static class AreaEffectUtils
 								num7++;
 							}
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (num7 >= 3)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						squareHasLos = true;
 					}
 					else
@@ -5596,33 +3259,11 @@ public static class AreaEffectUtils
 			{
 				if (cornersToSubtract > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num6 = Mathf.Min(num3 - i, i - num2);
 					int num7 = Mathf.Min(num5 - j, j - num4);
 					int num8 = num6 + num7;
 					if (num8 < cornersToSubtract)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -5631,40 +3272,13 @@ public static class AreaEffectUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquare.IsBaselineHeight())
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = false;
 				if (ignoreLoS)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 				else if (losCheckOverrides != null)
@@ -5676,15 +3290,6 @@ public static class AreaEffectUtils
 					int num9;
 					if (!(boardSquare == centerSquare))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num9 = (SquaresHaveLoSForAbilities(centerSquare, boardSquare, caster) ? 1 : 0);
 					}
 					else
@@ -5730,19 +3335,6 @@ public static class AreaEffectUtils
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(cornerPos + new Vector3(num * (float)i, 0f, num * (float)j));
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.Add(boardSquare);
 				}
 			}
@@ -5762,11 +3354,6 @@ public static class AreaEffectUtils
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -5786,44 +3373,13 @@ public static class AreaEffectUtils
 					{
 						if (!enumerator2.MoveNext())
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						BoardSquare current2 = enumerator2.Current;
 						if (current != current2)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (SquaresHaveLoSForAbilities(current, current2, caster))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 								if (num >= 2)
 								{
@@ -5869,10 +3425,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -5887,15 +3439,6 @@ public static class AreaEffectUtils
 		int num6 = Mathf.RoundToInt((num2 - testSquare.worldX) / squareSize);
 		if (num6 > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = num4 - num6;
 		}
 		else
@@ -5906,15 +3449,6 @@ public static class AreaEffectUtils
 		int num8 = Mathf.RoundToInt((num3 - testSquare.worldY) / squareSize);
 		if (num8 > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num7 = num4 - num8;
 		}
 		else
@@ -5923,51 +3457,15 @@ public static class AreaEffectUtils
 		}
 		if (num5 >= 0 && num7 >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num9 = num5 + num7;
 			if (num9 >= cornersToSubtract)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 				if (!ignoreLoS)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = false;
 					if (squaresInCenter.Contains(testSquare))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 					else
@@ -5977,15 +3475,6 @@ public static class AreaEffectUtils
 						{
 							if (SquaresHaveLoSForAbilities(item, testSquare, caster))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10++;
 							}
 						}
@@ -6009,10 +3498,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -6020,15 +3505,6 @@ public static class AreaEffectUtils
 		List<BoardSquare> squaresInCenter = null;
 		if (!ignoreLoS)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<BoardSquare> squaresAroundCornerPos = GetSquaresAroundCornerPos(cornerPos);
 			squaresInCenter = GetCenterSquaresForShapeLos(squaresAroundCornerPos, caster);
 		}
@@ -6048,19 +3524,6 @@ public static class AreaEffectUtils
 		int num7;
 		if (num2 <= num)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num3 <= num)
 			{
 				int num4 = num - num2;
@@ -6068,26 +3531,8 @@ public static class AreaEffectUtils
 				int num6 = num4 + num5;
 				if (num6 >= cornersToSubtract)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!ignoreLoS)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(testSquare == centerSquare))
 						{
 							num7 = (SquaresHaveLoSForAbilities(centerSquare, testSquare, caster) ? 1 : 0);
@@ -6120,10 +3565,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return IsSquareInShape(boardSquare, shape, freePos, centerSquare, true, null);
 				}
 			}
@@ -6150,30 +3591,8 @@ public static class AreaEffectUtils
 		float num6 = num4 / squareSize;
 		if (num5 <= (float)num2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num6 <= (float)num2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = (float)num2 - num5;
 				float num8 = (float)num2 - num6;
 				float num9 = num7 + num8;
@@ -6201,19 +3620,6 @@ public static class AreaEffectUtils
 		int num8 = Mathf.RoundToInt((num3 - testPos.z) / squareSize);
 		if (num8 > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num7 = num4 - num8;
 		}
 		else
@@ -6222,38 +3628,11 @@ public static class AreaEffectUtils
 		}
 		if (num5 >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num7 >= 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num9 = num5 + num7;
 				if (num9 >= cornersToSubtract)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -6318,10 +3697,6 @@ public static class AreaEffectUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return centerSquare.ToVector3();
 				}
 			}
@@ -6340,30 +3715,8 @@ public static class AreaEffectUtils
 		bool flag;
 		if (pattern != AbilityGridPattern.Plus_Two_x_Two)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (pattern != AbilityGridPattern.Plus_Four_x_Four)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			else
@@ -6395,19 +3748,6 @@ public static class AreaEffectUtils
 	{
 		if (IsActorTargetable(aroundActor))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 			{
@@ -6416,26 +3756,8 @@ public static class AreaEffectUtils
 					ActorData current = enumerator.Current;
 					if (current != aroundActor)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (IsActorTargetable(current, teams))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Board.Get()._000E(aroundActor.GetCurrentBoardSquare(), current.GetCurrentBoardSquare()))
 							{
 								while (true)
@@ -6451,15 +3773,6 @@ public static class AreaEffectUtils
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -6478,187 +3791,57 @@ public static class AreaEffectUtils
 		float num;
 		if (shape == AbilityAreaShape.SingleSquare)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 1f;
 		}
 		else if (shape == AbilityAreaShape.Two_x_Two)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 2f;
 		}
 		else
 		{
 			if (shape != AbilityAreaShape.Three_x_Three)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (shape != AbilityAreaShape.Three_x_Three_NoCorners)
 				{
 					if (shape != AbilityAreaShape.Four_x_Four)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (shape != AbilityAreaShape.Four_x_Four_NoCorners)
 						{
 							if (shape != AbilityAreaShape.Five_x_Five)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (shape != AbilityAreaShape.Five_x_Five_NoCorners)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (shape != AbilityAreaShape.Five_x_Five_ExtraNoCorners)
 									{
 										if (shape != AbilityAreaShape.Six_x_Six)
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (shape != AbilityAreaShape.Six_x_Six_NoCorners)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (shape != AbilityAreaShape.Six_x_Six_ExtraNoCorners)
 												{
 													if (shape != AbilityAreaShape.Seven_x_Seven)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (shape != AbilityAreaShape.Seven_x_Seven_NoCorners)
 														{
-															while (true)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (shape != AbilityAreaShape.Seven_x_Seven_ExtraNoCorners)
 															{
 																num = 0f;
 																goto IL_012e;
-															}
-															while (true)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 														}
 													}
 													num = 7f;
 													goto IL_012e;
 												}
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 										}
 										num = 6f;
 										goto IL_012e;
 									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 							}
 							num = 5f;
 							goto IL_012e;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					num = 4f;

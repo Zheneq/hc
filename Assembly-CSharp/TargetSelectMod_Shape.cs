@@ -31,57 +31,17 @@ public class TargetSelectMod_Shape : TargetSelectModBase
 		TargetSelect_Shape targetSelect_Shape = targetSelectBase as TargetSelect_Shape;
 		if (targetSelect_Shape != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(m_shapeMod, "[Shape]", true, targetSelect_Shape.m_shape);
 			if (m_useAdditionalShapeOverrides)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_additionalShapesOverrides != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "-- Using additional shape overrides --\n";
 					using (List<AbilityAreaShape>.Enumerator enumerator = m_additionalShapesOverrides.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
 							text = text + "\t" + enumerator.Current.ToString() + "\n";
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

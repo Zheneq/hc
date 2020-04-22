@@ -34,19 +34,6 @@ public class UpdateGroupMemberData
 			CharacterVisualInfo result;
 			if (VisualData.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GroupMemberVisualData value = VisualData.Value;
 				result = value.VisualInfo;
 			}
@@ -65,19 +52,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (VisualData.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GroupMemberVisualData value = VisualData.Value;
 				result = value.ForegroundBannerID;
 			}
@@ -96,19 +70,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (VisualData.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GroupMemberVisualData value = VisualData.Value;
 				result = value.BackgroundBannerID;
 			}
@@ -127,19 +88,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (VisualData.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GroupMemberVisualData value = VisualData.Value;
 				result = value.TitleID;
 			}
@@ -158,19 +106,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (VisualData.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GroupMemberVisualData value = VisualData.Value;
 				result = value.RibbonID;
 			}

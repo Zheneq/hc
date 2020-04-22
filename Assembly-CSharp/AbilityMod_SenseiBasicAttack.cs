@@ -60,15 +60,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_circleDistThresholdMod, "CircleDistThreshold", string.Empty, senseiBasicAttack.m_circleDistThreshold);
 			AbilityMod.AddToken(tokens, m_circleRadiusMod, "CircleRadius", string.Empty, senseiBasicAttack.m_circleRadius);
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", senseiBasicAttack.m_laserInfo);
@@ -99,19 +90,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = senseiBasicAttack.m_circleDistThreshold;
 		}
 		else
@@ -124,15 +102,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiBasicAttack.m_circleRadius;
 		}
 		else
@@ -145,15 +114,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = senseiBasicAttack.m_laserInfo;
 		}
 		else
@@ -167,15 +127,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = senseiBasicAttack.m_circleEnemyHitEffect;
 		}
 		else
@@ -188,15 +139,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiBasicAttack.m_laserDamage;
 		}
 		else
@@ -209,15 +151,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiBasicAttack.m_laserEnemyHitEffect;
 		}
 		else
@@ -230,15 +163,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiBasicAttack.m_extraDamageForAlternating;
 		}
 		else
@@ -251,15 +175,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiBasicAttack.m_extraDamageForFarTarget;
 		}
 		else
@@ -272,15 +187,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = senseiBasicAttack.m_laserFarDistThresh;
 		}
 		else
@@ -293,15 +199,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiBasicAttack.m_circleFarDistThresh;
 		}
 		else
@@ -315,15 +212,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = senseiBasicAttack.m_cdrOnAbility;
 		}
 		else
@@ -336,15 +224,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = senseiBasicAttack.m_cdrMinTriggerHitCount;
 		}
 		else
@@ -357,15 +236,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart;
 		}
 		else
@@ -378,15 +248,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = senseiBasicAttack.m_absorbAmountIfTriggeredHitCount;
 		}
 		else

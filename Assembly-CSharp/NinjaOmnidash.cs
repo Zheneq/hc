@@ -69,19 +69,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Omnidash";
 		}
 		Setup();
@@ -92,19 +79,6 @@ public class NinjaOmnidash : Ability
 		SetCachedFields();
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
 		if (SkipEvade())
@@ -123,19 +97,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (GetDeathmarkTriggerSelfHeal() > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
 				for (int i = 0; i < addedSoFar.Count; i++)
@@ -146,21 +107,11 @@ public class NinjaOmnidash : Ability
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
@@ -184,10 +135,6 @@ public class NinjaOmnidash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ActorData.MovementType.None;
 				}
 			}
@@ -200,19 +147,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if (CanQueueMoveAfterEvade())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!SkipEvade()) ? 1 : 0);
 		}
 		else
@@ -233,10 +167,6 @@ public class NinjaOmnidash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_noEvadeTargetData;
 				}
 			}
@@ -261,19 +191,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -285,15 +202,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo cachedExtraSingleHitEnemyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraSingleHitEnemyEffect = m_abilityMod.m_extraSingleHitEnemyEffectMod.GetModifiedValue(m_extraSingleHitEnemyEffect);
 		}
 		else
@@ -308,19 +216,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage);
 		}
 		else
@@ -340,19 +235,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage);
 		}
 		else
@@ -367,19 +249,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -404,19 +273,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainPerMarkedHitMod.GetModifiedValue(m_energyGainPerMarkedHit);
 		}
 		else
@@ -431,19 +287,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_skipEvadeMod.GetModifiedValue(m_skipEvade);
 		}
 		else
@@ -463,19 +306,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashRadiusAtStartMod.GetModifiedValue(m_dashRadiusAtStart);
 		}
 		else
@@ -490,19 +320,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashRadiusMiddleMod.GetModifiedValue(m_dashRadiusMiddle);
 		}
 		else
@@ -517,19 +334,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashRadiusAtEndMod.GetModifiedValue(m_dashRadiusAtEnd);
 		}
 		else
@@ -544,19 +348,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(m_dashPenetrateLineOfSight);
 		}
 		else
@@ -571,19 +362,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade);
 		}
 		else
@@ -598,19 +376,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
 		}
 		else
@@ -630,19 +395,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
 		}
 		else
@@ -664,19 +416,6 @@ public class NinjaOmnidash : Ability
 		int result = 0;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!(m_abilityMod != null)) ? m_syncComp.m_deathmarkOnTriggerDamage : m_abilityMod.m_deathmarkDamageMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerDamage));
 		}
 		return result;
@@ -687,19 +426,6 @@ public class NinjaOmnidash : Ability
 		int result = 0;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!(m_abilityMod != null)) ? m_syncComp.m_deathmarkOnTriggerCasterHeal : m_abilityMod.m_deathmarkCasterHealMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerCasterHeal));
 		}
 		return result;
@@ -717,59 +443,19 @@ public class NinjaOmnidash : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			int num = results.m_damage = CalcDamageForNumEnemies(visibleActorsCountByTooltipSubject);
 		}
 		else if (targetActor == base.ActorData && GetDeathmarkTriggerSelfHeal() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
 					if (m_syncComp.ActorHasDeathmark(visibleActorsInRangeByTooltipSubject[i]))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += GetDeathmarkTriggerSelfHeal();
 					}
 				}
@@ -784,30 +470,8 @@ public class NinjaOmnidash : Ability
 		int num = 0;
 		if (GetEnergyGainPerMarkedHit() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
@@ -815,15 +479,6 @@ public class NinjaOmnidash : Ability
 					{
 						num += GetEnergyGainPerMarkedHit();
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -834,41 +489,10 @@ public class NinjaOmnidash : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetDeathmarkTriggerDamage() > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsActorMarked(targetActor))
 					{
 						return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, GetDeathmarkTriggerDamage(), false);
@@ -885,52 +509,12 @@ public class NinjaOmnidash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DashIsTeleport())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 					else
@@ -951,15 +535,6 @@ public class NinjaOmnidash : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NinjaOmnidash);
 			Setup();
 			return;

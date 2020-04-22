@@ -82,19 +82,6 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Spend Crystals";
 		}
 		Setup();
@@ -126,19 +113,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo cachedSpentCrystalsEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedSpentCrystalsEffect = m_abilityMod.m_spentCrystalsEffectMod.GetModifiedValue(m_spentCrystalsEffect);
 		}
 		else
@@ -149,15 +123,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -173,19 +138,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (m_cachedSpentCrystalsEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSpentCrystalsEffect;
 		}
 		else
@@ -200,19 +152,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealBaseMod.GetModifiedValue(m_selfHealBase);
 		}
 		else
@@ -237,19 +176,6 @@ public class MartyrSpendCrystals : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealIsOverTimeMod.GetModifiedValue(m_selfHealIsOverTime);
 		}
 		else
@@ -264,19 +190,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
@@ -301,19 +214,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(m_selfAbsorbPerCrystalSpent);
 		}
 		else
@@ -328,19 +228,6 @@ public class MartyrSpendCrystals : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeRadiusBaseMod.GetModifiedValue(m_aoeRadiusBase);
 		}
 		else
@@ -360,19 +247,6 @@ public class MartyrSpendCrystals : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -387,19 +261,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageBaseMod.GetModifiedValue(m_damageBase);
 		}
 		else
@@ -414,19 +275,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damagePerCrystalMod.GetModifiedValue(m_damagePerCrystal);
 		}
 		else
@@ -441,19 +289,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -468,19 +303,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealBaseMod.GetModifiedValue(m_allyHealBase);
 		}
 		else
@@ -495,19 +317,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealPerCrystalMod.GetModifiedValue(m_allyHealPerCrystal);
 		}
 		else
@@ -522,19 +331,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealPerEnemyHitMod.GetModifiedValue(m_allyHealPerEnemyHit);
 		}
 		else
@@ -549,19 +345,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -601,19 +384,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (GetDamageBase() <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetDamagePerCrystal() <= 0)
 			{
 				result = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
@@ -631,19 +401,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (GetAllyHealBase() <= 0 && GetAllyHealPerCrystal() <= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -663,66 +420,17 @@ public class MartyrSpendCrystals : Ability
 		int num = 0;
 		if (GetSelfHealPerEnemyHit() > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += GetSelfHealPerEnemyHit() * numEnemiesHit;
 		}
 		if (GetExtraSelfHealPerTurnAtMaxEnergy() > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_syncComponent != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComponent.m_syncNumTurnsAtFullEnergy > 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = GetExtraSelfHealPerTurnAtMaxEnergy() * (m_syncComponent.m_syncNumTurnsAtFullEnergy - 1);
 					if (GetMaxExtraSelfHealForMaxEnergy() > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = Mathf.Min(GetMaxExtraSelfHealForMaxEnergy(), num2);
 					}
 					num += num2;
@@ -737,19 +445,6 @@ public class MartyrSpendCrystals : Ability
 		int num = 0;
 		if (GetSelfHealPerEnemyHit() > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GetAllyHealPerEnemyHit() * numEnemiesHit;
 		}
 		return GetAllyHealBase() + m_syncComponent.SpentDamageCrystals(caster) * GetAllyHealPerCrystal() + num;
@@ -767,19 +462,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_MartyrSpendCrystals.m_spentCrystalsEffectMod.GetModifiedValue(m_spentCrystalsEffect);
 		}
 		else
@@ -791,15 +473,6 @@ public class MartyrSpendCrystals : Ability
 		int val;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_MartyrSpendCrystals.m_selfHealBaseMod.GetModifiedValue(m_selfHealBase);
 		}
 		else
@@ -811,15 +484,6 @@ public class MartyrSpendCrystals : Ability
 		int val2;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrSpendCrystals.m_selfHealPerCrystalSpentMod.GetModifiedValue(m_selfHealPerCrystalSpent);
 		}
 		else
@@ -832,15 +496,6 @@ public class MartyrSpendCrystals : Ability
 		int val3;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrSpendCrystals.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
@@ -852,15 +507,6 @@ public class MartyrSpendCrystals : Ability
 		int val4;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrSpendCrystals.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(m_maxExtraSelfHealForMaxEnergy);
 		}
 		else
@@ -872,15 +518,6 @@ public class MartyrSpendCrystals : Ability
 		int val5;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_MartyrSpendCrystals.m_selfAbsorbBaseMod.GetModifiedValue(m_selfAbsorbBase);
 		}
 		else
@@ -892,15 +529,6 @@ public class MartyrSpendCrystals : Ability
 		int val6;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_MartyrSpendCrystals.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(m_selfAbsorbPerCrystalSpent);
 		}
 		else
@@ -912,15 +540,6 @@ public class MartyrSpendCrystals : Ability
 		float val7;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_MartyrSpendCrystals.m_aoeRadiusBaseMod.GetModifiedValue(m_aoeRadiusBase);
 		}
 		else
@@ -932,15 +551,6 @@ public class MartyrSpendCrystals : Ability
 		float val8;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val8 = abilityMod_MartyrSpendCrystals.m_aoeRadiuePerCrystalMod.GetModifiedValue(m_aoeRadiuePerCrystal);
 		}
 		else
@@ -952,15 +562,6 @@ public class MartyrSpendCrystals : Ability
 		int val9;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val9 = abilityMod_MartyrSpendCrystals.m_damageBaseMod.GetModifiedValue(m_damageBase);
 		}
 		else
@@ -972,15 +573,6 @@ public class MartyrSpendCrystals : Ability
 		int val10;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val10 = abilityMod_MartyrSpendCrystals.m_damagePerCrystalMod.GetModifiedValue(m_damagePerCrystal);
 		}
 		else
@@ -991,15 +583,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_MartyrSpendCrystals.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -1011,15 +594,6 @@ public class MartyrSpendCrystals : Ability
 		int val11;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val11 = abilityMod_MartyrSpendCrystals.m_allyHealBaseMod.GetModifiedValue(m_allyHealBase);
 		}
 		else
@@ -1031,15 +605,6 @@ public class MartyrSpendCrystals : Ability
 		int val12;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val12 = abilityMod_MartyrSpendCrystals.m_allyHealPerCrystalMod.GetModifiedValue(m_allyHealPerCrystal);
 		}
 		else
@@ -1051,15 +616,6 @@ public class MartyrSpendCrystals : Ability
 		int val13;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val13 = abilityMod_MartyrSpendCrystals.m_allyHealPerEnemyHitMod.GetModifiedValue(m_allyHealPerEnemyHit);
 		}
 		else
@@ -1070,15 +626,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_MartyrSpendCrystals.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -1090,15 +637,6 @@ public class MartyrSpendCrystals : Ability
 		int val14;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val14 = abilityMod_MartyrSpendCrystals.m_selfEnergyGainOnCastMod.GetModifiedValue(m_selfEnergyGainOnCast);
 		}
 		else
@@ -1110,15 +648,6 @@ public class MartyrSpendCrystals : Ability
 		int val15;
 		if ((bool)abilityMod_MartyrSpendCrystals)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val15 = abilityMod_MartyrSpendCrystals.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(m_cdrOnProtectAllyAbility);
 		}
 		else
@@ -1163,19 +692,6 @@ public class MartyrSpendCrystals : Ability
 				}
 				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num2 = symbolToValue[AbilityTooltipSymbol.Healing] = GetCurrentHealingOnAlly(actorData, visibleActorsCountByTooltipSubject);
 				}
 			}
@@ -1194,10 +710,6 @@ public class MartyrSpendCrystals : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetSelfEnergyGainOnCast();
 				}
 			}
@@ -1216,10 +728,6 @@ public class MartyrSpendCrystals : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComponent.DamageCrystals > 0;
 				}
 			}

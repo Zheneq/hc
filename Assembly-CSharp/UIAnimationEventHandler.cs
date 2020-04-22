@@ -42,15 +42,6 @@ public class UIAnimationEventHandler : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SystemMenuBroadcast.Get().NotifySystemMessageOutDone();
 				return;
 			}
@@ -79,11 +70,6 @@ public class UIAnimationEventHandler : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				UILootMatrixScreen.Get().DoOpenChestAnimationEvent();
 				return;
 			}
@@ -94,11 +80,6 @@ public class UIAnimationEventHandler : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				UILootMatrixScreen.Get().FinishRewardAnimation();
 				return;
 			}

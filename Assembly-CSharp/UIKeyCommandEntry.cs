@@ -42,15 +42,6 @@ public class UIKeyCommandEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_secondaryLabels.Length; j++)
 			{
 				m_secondaryLabels[j].text = secondaryKey;
@@ -79,10 +70,6 @@ public class UIKeyCommandEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 					KeyBinding_UI.Get().ToggleKeyBindButton(m_preference, true);
 					return;
@@ -107,10 +94,6 @@ public class UIKeyCommandEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 					KeyBinding_UI.Get().ToggleKeyBindButton(m_preference, false);
 					return;

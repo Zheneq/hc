@@ -26,57 +26,17 @@ public class _InputFieldCursorFix : MonoBehaviour
 	{
 		if (m_caretObject == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.gameObject.transform.Find(base.gameObject.name + " Input Caret") != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_caretObject = (base.gameObject.transform.Find(base.gameObject.name + " Input Caret").transform as RectTransform);
 			}
 		}
 		if (m_theScalar == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_theScalar = base.gameObject.GetComponentInParent<CanvasScaler>();
 		}
 		if (m_theCanvas == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_theCanvas = m_theScalar.GetComponent<Canvas>();
 		}
 		if (!(m_caretObject != null) || !(m_theScalar != null))
@@ -85,35 +45,16 @@ public class _InputFieldCursorFix : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_theCanvas != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 localScale = m_caretObject.transform.localScale;
 				float num = localScale.y;
 				if (m_theCanvas.renderMode == RenderMode.ScreenSpaceCamera)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector2 referenceResolution = m_theScalar.referenceResolution;
 					float num2 = referenceResolution.y / (float)Screen.height;
 					Vector2 referenceResolution2 = m_theScalar.referenceResolution;

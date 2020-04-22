@@ -36,10 +36,6 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Missing args for ability game event.");
 					return false;
 				}
@@ -64,15 +60,6 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 		}
 		if (m_ability != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_ability.GetType() != abilityUseArgs.ability.GetType())
 			{
 				while (true)

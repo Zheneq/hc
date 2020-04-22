@@ -82,10 +82,6 @@ public class UI_NewTextList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -101,11 +97,6 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_rectTransform = GetComponent<RectTransform>();
 			m_lastEmojiTag = string.Empty;
 			m_lastEmojiEntry = null;
@@ -141,10 +132,6 @@ public class UI_NewTextList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0014;
 				}
 			}
@@ -163,19 +150,6 @@ public class UI_NewTextList : MonoBehaviour
 			float textChatHeight = GetTextChatHeight();
 			if (pendingMessages.m_scrollRect != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (pendingMessages.m_scrollRect.gameObject.transform as RectTransform).rect.height;
 			}
 			pendingMessages.m_textMeshPro.CalculateLayoutInputVertical();
@@ -185,26 +159,8 @@ public class UI_NewTextList : MonoBehaviour
 			pendingMessages.m_textMeshPro.rectTransform.anchoredPosition = new Vector2(0f, Mathf.Min(preferredHeight + pendingMessages.m_paddingTextAmount, num2) - num3);
 			if (num2 > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 < preferredHeight + pendingMessages.m_paddingTextAmount)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ShiftChatEntries(num2);
 				}
 				else
@@ -238,32 +194,10 @@ public class UI_NewTextList : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = currentAlpha;
 			CanvasGroup component = m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
 			if (Time.time - m_recentlyAddedText[i].timeDisplayed >= UIScreenManager.Get().m_chatRecentChatDisplayTime)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = currentAlpha;
 			}
 			else
@@ -272,28 +206,10 @@ public class UI_NewTextList : MonoBehaviour
 			}
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.alpha = num;
 				int blocksRaycasts;
 				if (m_recentlyAddedContainer.isActiveAndEnabled && num > 0.1f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					blocksRaycasts = ((UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd) ? 1 : 0);
 				}
 				else
@@ -328,19 +244,6 @@ public class UI_NewTextList : MonoBehaviour
 		{
 			if (num >= m_numLinesToDisplayRecent)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UnityEngine.Object.Destroy(m_recentlyAddedText[i].theText.gameObject);
 				m_recentlyAddedText.RemoveAt(i);
 				i--;
@@ -350,28 +253,10 @@ public class UI_NewTextList : MonoBehaviour
 			int lineCount = originalText.textInfo.lineCount;
 			if (num + lineCount > m_numLinesToDisplayRecent)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int firstCharacterIndex = originalText.textInfo.lineInfo[lineCount - (m_numLinesToDisplayRecent - num)].firstCharacterIndex;
 				int index = originalText.textInfo.characterInfo[firstCharacterIndex].index;
 				if (index <= 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = m_numLinesToDisplayRecent;
 					i--;
 					continue;
@@ -387,26 +272,8 @@ public class UI_NewTextList : MonoBehaviour
 				}
 				if (empty.Contains("</color>"))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!empty.Contains("<color"))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num2 = originalText.text.LastIndexOf("<color=");
 						int num3 = originalText.text.IndexOf(">", num2);
 						empty = originalText.text.Substring(num2, num3 - num2 + 1) + empty;
@@ -440,10 +307,6 @@ public class UI_NewTextList : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Canvas componentInParent = GetComponentInParent<Canvas>();
 					if (componentInParent == null)
 					{
@@ -469,28 +332,10 @@ public class UI_NewTextList : MonoBehaviour
 							CanvasGroup component = m_recentlyAddedText[i].theText.GetComponent<CanvasGroup>();
 							if (component == null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Info("Canvas Group is null");
 							}
 							else if (!component.blocksRaycasts)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -505,40 +350,13 @@ public class UI_NewTextList : MonoBehaviour
 					}
 					if (currentAlpha >= 1f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (textMeshProUGUI == null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int j = 0; j < m_textList.Count; j++)
 							{
 								CanvasGroup component2 = m_textList[j].GetComponent<CanvasGroup>();
 								if (component2 == null)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Log.Info("Canvas Group is null");
 								}
 								else if (component2.blocksRaycasts)
@@ -546,15 +364,6 @@ public class UI_NewTextList : MonoBehaviour
 									num = TMP_TextUtilities.FindIntersectingLink(m_textList[j], Input.mousePosition, worldCamera);
 									if (num >= 0)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										textMeshProUGUI = m_textList[j];
 										break;
 									}
@@ -567,15 +376,6 @@ public class UI_NewTextList : MonoBehaviour
 						if (m_hoveredLink == num)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					ClearPreviousLinkHover();
@@ -607,15 +407,6 @@ public class UI_NewTextList : MonoBehaviour
 													text = text.Substring(0, text.LastIndexOf(':') + 1);
 													if (!(m_lastEmojiTag != text))
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (!(m_lastEmojiEntry != textMeshProUGUI))
 														{
 															goto IL_0364;
@@ -667,15 +458,6 @@ public class UI_NewTextList : MonoBehaviour
 												{
 													if (text4.Length <= 0)
 													{
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														break;
 													}
 													text2 += text4[0];
@@ -722,15 +504,6 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < list.Count; j++)
 			{
 				list[j].text += " ";
@@ -760,10 +533,6 @@ public class UI_NewTextList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -790,15 +559,6 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return num;
 		}
 	}
@@ -811,19 +571,6 @@ public class UI_NewTextList : MonoBehaviour
 			UITooltipHoverObject component = m_lastEmojiEntry.GetComponent<UITooltipHoverObject>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				component.Refresh();
 			}
 		}
@@ -854,43 +601,16 @@ public class UI_NewTextList : MonoBehaviour
 			string text2 = m_hoveredText.text.Substring(num2);
 			while (text2.Length > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!text2.StartsWith("</link>"))
 				{
 					text += text2[0];
 					text2 = text2.Substring(1);
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (text.EndsWith("</u>"))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string str2 = text.Substring(3, text.Length - 7);
 				m_hoveredText.text = str + str2 + text2;
 			}
@@ -907,15 +627,6 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_recentlyAddedText.Count; i++)
 			{
 				m_recentlyAddedText[i].timeDisplayed = Time.time;
@@ -941,15 +652,6 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -969,10 +671,6 @@ public class UI_NewTextList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -987,15 +685,6 @@ public class UI_NewTextList : MonoBehaviour
 			for (int i = 0; i < m_textList.Count; i++)
 			{
 				m_textList[i].rectTransform.anchoredPosition = m_textList[i].rectTransform.anchoredPosition + new Vector2(0f, y);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate(m_textPrefab);
@@ -1037,28 +726,10 @@ public class UI_NewTextList : MonoBehaviour
 		CanvasGroup component2 = textMeshProUGUI2.GetComponent<CanvasGroup>();
 		if (component2 != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CanvasGroup canvasGroup = component2;
 			float alpha;
 			if (addToRecentlyAdded)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				alpha = 1f;
 			}
 			else
@@ -1077,15 +748,6 @@ public class UI_NewTextList : MonoBehaviour
 			float a;
 			if (addToRecentlyAdded)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = 1f;
 			}
 			else
@@ -1099,15 +761,6 @@ public class UI_NewTextList : MonoBehaviour
 		UITooltipHoverObject component3 = textMeshProUGUI2.GetComponent<UITooltipHoverObject>();
 		if (component3 != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component3.Setup(TooltipType.Titled, EmojiTooltipSetup);
 		}
 		component2 = textMeshProUGUI.GetComponent<CanvasGroup>();
@@ -1158,19 +811,6 @@ public class UI_NewTextList : MonoBehaviour
 		int num = -1;
 		if (m_parent.IsHovered())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_camera == null)
 			{
 				m_camera = GetComponentInParent<Canvas>().worldCamera;
@@ -1193,55 +833,19 @@ public class UI_NewTextList : MonoBehaviour
 					{
 						if (list[i].gameObject != component.gameObject)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							EventTrigger component2 = list[i].gameObject.GetComponent<EventTrigger>();
 							if (component2 != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2 = 0;
 								while (true)
 								{
 									if (num2 >= component2.triggers.Count)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									EventTrigger.Entry entry = component2.triggers[num2];
 									if (entry.eventID == EventTriggerType.PointerClick)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										pointerEventData.pointerPress = list[i].gameObject;
 										entry.callback.Invoke(pointerEventData);
 										break;
@@ -1278,15 +882,6 @@ public class UI_NewTextList : MonoBehaviour
 					string linkText = component.textInfo.linkInfo[num].GetLinkText();
 					if (Input.GetMouseButtonUp(1))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_textList.Count > 0)
 						{
 							Vector3 localPosition = m_textList[m_textList.Count - 1].rectTransform.localPosition;
@@ -1295,26 +890,8 @@ public class UI_NewTextList : MonoBehaviour
 							float num3 = Mathf.Abs(y - localPosition2.y);
 							if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (UIFrontEnd.Get() != null)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 									{
 										while (true)
@@ -1356,15 +933,6 @@ public class UI_NewTextList : MonoBehaviour
 												default:
 													if (currentAlpha < 1f && m_recentlyAddedText.Count > 0)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														Vector3 localPosition4 = m_recentlyAddedText[m_recentlyAddedText.Count - 1].originalText.rectTransform.localPosition;
 														float y2 = localPosition4.y;
 														Vector3 localPosition5 = component.rectTransform.localPosition;
@@ -1385,15 +953,6 @@ public class UI_NewTextList : MonoBehaviour
 					}
 					if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIFrontEnd.Get() != null && UIFrontEnd.Get().m_frontEndChatConsole != null)
 						{
 							while (true)
@@ -1445,59 +1004,14 @@ public class UI_NewTextList : MonoBehaviour
 					bool flag = false;
 					if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get() != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameManager.Get().GameInfo != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameManager.Get().GameInfo.GameConfig != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 									}
 								}
@@ -1523,34 +1037,11 @@ public class UI_NewTextList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			string channelName = component.textInfo.linkInfo[num].GetLinkID().Substring(8);
 			if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIFrontEnd.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 					{
 						UIFrontEnd.Get().m_frontEndChatConsole.ChangeChannel(channelName);
@@ -1564,20 +1055,10 @@ public class UI_NewTextList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (HUD_UI.Get().m_textConsole != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						HUD_UI.Get().m_textConsole.ChangeChannel(channelName);
 						return;
 					}

@@ -24,30 +24,8 @@ public class LOSLookup : MonoBehaviour
 		float result = 0f;
 		if (m_boardSquares[xSource + ySource * m_maxX].m_LOS != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boardSquares[xSource + ySource * m_maxX].m_LOS.Length > 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_boardSquares[xSource + ySource * m_maxX].m_LOS[xDest + yDest * m_maxX];
 			}
 		}

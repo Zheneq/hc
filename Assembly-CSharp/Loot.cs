@@ -35,19 +35,6 @@ public class Loot
 		List<InventoryItem> items = Items;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((InventoryItem i) => i.TemplateId);
 		}
 		return items.Select(_003C_003Ef__am_0024cache0);
@@ -64,10 +51,6 @@ public class Loot
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Karmas[karma.TemplateId].Quantity += karma.Quantity;
 					return;
 				}
@@ -92,19 +75,6 @@ public class Loot
 		Karma karma = GetKarma(karmaTemplateId);
 		if (karma != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = karma.Quantity;
 		}
 		return result;

@@ -43,19 +43,6 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelRunAndGun.m_damageAmount;
 		}
 		else

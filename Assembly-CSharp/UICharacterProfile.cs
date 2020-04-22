@@ -94,15 +94,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_tutorialEnergyGlow, false);
 			UIManager.SetGameObjectActive(m_tutorialEnergyArrows, false);
 			previousStatuses = new List<StatusType>();
@@ -120,10 +111,6 @@ public class UICharacterProfile : MonoBehaviour
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								return false;
 							}
 						}
@@ -149,15 +136,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnBankBalanceChange -= HandleBankBalanceChange;
 			return;
 		}
@@ -175,19 +153,6 @@ public class UICharacterProfile : MonoBehaviour
 		int num2;
 		if (GameManager.IsGameTypeValidForGGPack(gameType) && num < 3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = ((!ReplayPlayManager.Get().IsPlayback()) ? 1 : 0);
 		}
 		else
@@ -235,15 +200,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Setup();
 			return;
 		}
@@ -257,26 +213,12 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_ggPackBtnAnimator.isActiveAndEnabled)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				AnimatorClipInfo[] currentAnimatorClipInfo = m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
 				if (currentAnimatorClipInfo == null || currentAnimatorClipInfo.Length <= 0)
 				{
@@ -284,11 +226,6 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 					{
 						m_ggPackBtnAnimator.Play("HUDggPackHOVER");
@@ -307,15 +244,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_ggPackBtnAnimator.isActiveAndEnabled)
 			{
 				return;
@@ -327,22 +255,12 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (currentAnimatorClipInfo.Length <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 					{
 						m_ggPackBtnAnimator.Play("HUDggPackIDLE");
@@ -361,15 +279,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_ggPackTimeLastUsed = Time.unscaledTime;
 			m_useGGPackBtn.SetClickable(false);
 			m_ggPackBtnAnimator.Play("HUDggPackPRESS");
@@ -380,15 +289,6 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			else if (num == 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent("ui/endgame/ggboost_button_silver");
 			}
 			else if (num == 2)
@@ -399,11 +299,6 @@ public class UICharacterProfile : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					ClientGameManager.Get().RequestToUseGGPack();
 					m_waitingForGGPackUseResponse = true;
 					return;
@@ -417,19 +312,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (m_tauntButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_tauntButton.gameObject, EventTriggerType.PointerClick, OnTauntClick);
 		}
 		if (m_tauntSelectionPanel.m_closeSelectionButton != null)
@@ -451,10 +333,6 @@ public class UICharacterProfile : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -482,25 +360,12 @@ public class UICharacterProfile : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_healthPercent > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_healthImage.fillAmount = m_healthPercent;
 			UIManager.SetGameObjectActive(m_healthImage, true);
 		}
@@ -522,25 +387,12 @@ public class UICharacterProfile : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 		}
 		if (m_shieldPercent > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_shieldBarImage.fillAmount = m_shieldPercent;
 			UIManager.SetGameObjectActive(m_shieldBarImage, true);
 		}
@@ -559,19 +411,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		if (m_energyPercent > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_energyImage.fillAmount = m_energyPercent;
 			UIManager.SetGameObjectActive(m_energyImage, true);
 		}
@@ -590,54 +429,14 @@ public class UICharacterProfile : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				TurnStateEnum currentState = activeOwnedActorData.GetActorTurnSM().CurrentState;
 				if (currentState != 0 && currentState != TurnStateEnum.CONFIRMED)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 						{
 							goto IL_0151;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -647,70 +446,25 @@ public class UICharacterProfile : MonoBehaviour
 				int num = 0;
 				while (!flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num < autoQueuedRequestActionTypes.Count)
 					{
 						flag = CanTauntForAction(actor, abilityData, component, autoQueuedRequestActionTypes[num]);
 						num++;
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 					int num2 = 0;
 					while (!flag)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 < requestStackForUndo.Count)
 						{
 							flag = CanTauntForAction(actor, abilityData, component, requestStackForUndo[num2].m_action);
 							num2++;
 							continue;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -729,44 +483,13 @@ public class UICharacterProfile : MonoBehaviour
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actor.m_characterType);
 		if (abilityOfActionType != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (playerCharacterData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!cinematicRequests.IsAbilityCinematicRequested(actionType))
 				{
 					TauntCameraSet tauntCamSetData = abilityData.GetComponent<ActorData>().m_tauntCamSetData;
 					if (tauntCamSetData != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < tauntCamSetData.m_tauntCameraShotSequences.Length; i++)
 						{
 							CameraShotSequence cameraShotSequence = tauntCamSetData.m_tauntCameraShotSequences[i] as CameraShotSequence;
@@ -774,26 +497,8 @@ public class UICharacterProfile : MonoBehaviour
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex) && cinematicRequests.NumRequestsLeft(cameraShotSequence.m_uniqueTauntID) > 0)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, characterResourceLink, actionType, true, cameraShotSequence.m_uniqueTauntID))
 								{
 									return true;
@@ -818,10 +523,6 @@ public class UICharacterProfile : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -856,15 +557,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_debuffGrid == null)
 			{
 				while (true)
@@ -883,30 +575,12 @@ public class UICharacterProfile : MonoBehaviour
 			bool flag = false;
 			if (actorStatus != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < 58; i++)
 				{
 					StatusType statusType = (StatusType)i;
 					if (!actorStatus.HasStatus(statusType, false))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(statusType);
 					if (!iconForStatusType.displayIcon)
@@ -916,79 +590,25 @@ public class UICharacterProfile : MonoBehaviour
 					list.Add(statusType);
 					if (previousStatuses != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!previousStatuses.Contains(statusType))
 						{
 							flag = true;
 						}
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (previousStatuses != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (previousStatuses.Count != list.Count)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!forceUpdate)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIBuffIndicator[] componentsInChildren = m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
@@ -998,29 +618,11 @@ public class UICharacterProfile : MonoBehaviour
 			{
 				list2.Add(componentsInChildren2[j]);
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			while (list2.Count > list.Count)
 			{
 				UIManager.SetGameObjectActive(list2[0], false);
 				Object.Destroy(list2[0].gameObject);
 				list2.RemoveAt(0);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			while (list2.Count < list.Count)
 			{
@@ -1033,15 +635,6 @@ public class UICharacterProfile : MonoBehaviour
 				HUD_UIResources.StatusTypeIcon iconForStatusType2 = HUD_UIResources.GetIconForStatusType(list[k]);
 				if (iconForStatusType2.isDebuff)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uIBuffIndicator.transform.SetParent(m_debuffGrid.transform);
 				}
 				else
@@ -1071,19 +664,6 @@ public class UICharacterProfile : MonoBehaviour
 		m_tauntIsEnabled = visible;
 		if (!visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_selectionMenuOpen = false;
 			UIManager.SetGameObjectActive(m_tauntSelectionPanel, m_selectionMenuOpen);
 		}
@@ -1094,55 +674,15 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool doActive = false;
 				bool doActive2 = false;
 				if (m_visualObject != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_visualObject.activeSelf)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_visualObject, true);
 					}
 				}
@@ -1150,15 +690,6 @@ public class UICharacterProfile : MonoBehaviour
 				m_deadProfileImage.sprite = activeOwnedActorData.GetDeadHUDIcon();
 				if (activeOwnedActorData.IsDead())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive2 = true;
 				}
 				else
@@ -1173,15 +704,6 @@ public class UICharacterProfile : MonoBehaviour
 				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;
 				}
 				else
@@ -1190,15 +712,6 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_shieldText.text = "+" + num;
 				}
 				else
@@ -1224,15 +737,6 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			else if (m_visualObject != null && m_visualObject.activeSelf)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_visualObject, false);
 			}
 		}

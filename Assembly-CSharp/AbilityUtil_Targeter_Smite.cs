@@ -37,19 +37,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -67,15 +54,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				AddActorInRange(current, travelBoardSquareWorldPositionForLos, targetingActor);
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Vector3 vector2 = VectorUtils.AngleDegreesToVector(num);
 		float d = m_coneBackwardOffsetInSquares * Board.Get().squareSize;
@@ -83,27 +61,9 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 		Vector3 position = travelBoardSquareWorldPositionForLos + new Vector3(0f, y, 0f) - vector2 * d;
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count > m_boltCount)
 			{
 				goto IL_01d4;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -134,25 +94,11 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 				ActorData item = actors2[num3];
 				if (actors.Contains(item))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actors2.Remove(item);
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
 				using (List<ActorData>.Enumerator enumerator2 = actors2.GetEnumerator())
 				{
@@ -161,15 +107,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 						ActorData current2 = enumerator2.Current;
 						if (current2.GetTeam() == targetingActor.GetTeam())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AddActorInRange(current2, vector4, targetingActor, AbilityTooltipSubject.Ally);
 						}
 						else
@@ -177,43 +114,16 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 							AddActorInRange(current2, vector4, targetingActor, AbilityTooltipSubject.Secondary);
 						}
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(vector4, vector3, maxDistanceInWorld, widthInWorld, m_boltInfo.penetrateLineOfSight, targetingActor);
 				VectorUtils.LaserCoords laserCoords = laserCoordinates;
 				if (actors2.Count > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					laserCoords = TargeterUtils.GetLaserCoordsToFarthestTarget(laserCoordinates, actors2);
 				}
 				float magnitude = (laserCoords.end - laserCoords.start).magnitude;
 				if (magnitude > 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int index = num2 + 1;
 					m_highlights[index].transform.position = vector4 + new Vector3(0f, y, 0f);
 					m_highlights[index].transform.rotation = Quaternion.LookRotation(vector3);

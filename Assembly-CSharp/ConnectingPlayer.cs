@@ -10,15 +10,6 @@ public class ConnectingPlayer : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NetworkIdentity component = GetComponent<NetworkIdentity>();
 			component.RebuildObservers(true);
 			return;

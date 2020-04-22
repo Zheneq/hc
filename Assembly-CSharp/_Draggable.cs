@@ -28,15 +28,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (sourceImage == null)
 			{
 				while (true)
@@ -68,15 +59,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 				image.color = component.color;
 				if (m_CopyChildrenImages)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CopyChildrenImages(component, image);
 				}
 				image.SetNativeSize();
@@ -106,10 +88,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -124,15 +102,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		image.sprite = component.sprite;
 		if (m_CopyChildrenImages)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CopyChildrenImages(component, image);
 		}
 		image.SetNativeSize();
@@ -156,15 +125,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetDraggedPosition(data);
 			return;
 		}
@@ -174,30 +134,8 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 	{
 		if (dragOnSurfaces)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (data.pointerEnter != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (data.pointerEnter.transform as RectTransform != null)
 				{
 					m_DraggingPlane = (data.pointerEnter.transform as RectTransform);
@@ -211,11 +149,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			component.position = worldPoint;
 			component.rotation = m_DraggingPlane.rotation;
 			return;
@@ -245,19 +178,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		Transform parent = go.transform.parent;
 		while (parent != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!((Object)component == (Object)null))
 			{
 				break;

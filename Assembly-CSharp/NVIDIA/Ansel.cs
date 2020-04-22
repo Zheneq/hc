@@ -135,10 +135,6 @@ namespace NVIDIA
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						MonoBehaviour.print("Ansel not available on this platform");
 						return;
 					}
@@ -250,31 +246,9 @@ namespace NVIDIA
 				_000F.fieldOfView = _000B._001D;
 				if (_000B._000E[0] == 0f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (_000B._000E[1] == 0f)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				_0003 = _000F.projectionMatrix;
@@ -294,11 +268,6 @@ namespace NVIDIA
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					_0013 = false;
 					_0018 = false;
 					_0002();

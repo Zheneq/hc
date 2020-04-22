@@ -14,19 +14,6 @@ public class SeasonCurrencyReward : SeasonReward
 		{
 		default:
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string str3 = CurrencyReward.Type.ToString();
 			string term = str3 + ((!flag) ? string.Empty : "s");
 			inventoryItemTemplate.DisplayName += StringUtil.TR(term, "Rewards");
@@ -38,15 +25,6 @@ public class SeasonCurrencyReward : SeasonReward
 			string str2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str2 = StringUtil.TR("ModTokens", "Rewards");
 			}
 			else
@@ -62,15 +40,6 @@ public class SeasonCurrencyReward : SeasonReward
 			string str;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = StringUtil.TR("GGBoosts", "Rewards");
 			}
 			else

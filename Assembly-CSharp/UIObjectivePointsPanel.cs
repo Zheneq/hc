@@ -37,15 +37,6 @@ public class UIObjectivePointsPanel : UIGameModePanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			textLabel.text = score.ToString();
 			if (friendly)
 			{
@@ -70,34 +61,12 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (myTeamScoreToDisplay != myTeamScore)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetScoreText(FriendlyScore, myTeamScoreToDisplay, true);
 			myTeamScoreToDisplay = myTeamScore;
 			m_TimeMyScoreToChange = Time.time + delayTimeToChangeScore;
 		}
 		if (enemyTeamScoreToDisplay != myEnemyScore)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetScoreText(EnemyScore, enemyTeamScoreToDisplay, false);
 			enemyTeamScoreToDisplay = myEnemyScore;
 			m_TimeEnemyScoreTChange = Time.time + delayTimeToChangeScore;
@@ -124,37 +93,10 @@ public class UIObjectivePointsPanel : UIGameModePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!PhaseIndicators[index].m_phaseImage.gameObject.activeSelf && active)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (PhaseIndicators[index].gameObject.activeInHierarchy)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PhaseIndicators[index].m_phaseAnimationController.Play("PhaseIndicatorAnimation");
 				}
 			}
@@ -176,19 +118,6 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ObjectivePoints.Get().SetUpGameUI(this);
 		}
 		if (Tutorial.Get() != null)
@@ -197,15 +126,6 @@ public class UIObjectivePointsPanel : UIGameModePanel
 		}
 		if (Time.time >= m_TimeMyScoreToChange)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetScoreText(FriendlyScore, myTeamScoreToDisplay, true);
 		}
 		if (Time.time >= m_TimeEnemyScoreTChange)

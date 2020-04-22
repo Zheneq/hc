@@ -16,31 +16,9 @@ public class DebugCommand_Gibberish : DebugCommand
 	{
 		if (base.CheatEnabled)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			LocalizationManager.GibberishMode = !LocalizationManager.GibberishMode;
 			if (LocalizationManager.GibberishMode)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TextConsole.Get().Write("Gibberish mode on");
 			}
 			else

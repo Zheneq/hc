@@ -23,10 +23,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 4096;
 				}
 			}
@@ -55,15 +51,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int resolutionBasedOnScreenResolution = GetResolutionBasedOnScreenResolution();
 			m_sourceTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
 			m_sourceTexture.name = "UnseenRenderTexture";
@@ -89,15 +76,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int resolutionBasedOnScreenResolution = GetResolutionBasedOnScreenResolution();
 			m_renderTexture = new RenderTexture(resolutionBasedOnScreenResolution, resolutionBasedOnScreenResolution, 0);
 			m_renderTexture.name = "OutputRenderTexture";
@@ -119,15 +97,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.targetTexture = GetRenderTexture();
 			return;
 		}
@@ -139,32 +108,10 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		Camera component = GetComponent<Camera>();
 		if ((bool)component)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.targetTexture = null;
 		}
 		if ((bool)m_sourceTexture)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.DestroyImmediate(m_sourceTexture);
 			m_sourceTexture = null;
 		}
@@ -174,11 +121,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Object.DestroyImmediate(m_renderTexture);
 			m_renderTexture = null;
 			return;
@@ -196,15 +138,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			component.targetTexture = GetRenderTexture();
 			return;
 		}
@@ -222,10 +155,6 @@ public class FogOfWarBackgroundEffect : ImageEffectBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

@@ -81,19 +81,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Anchor Laser";
 		}
 		SetupTargeter();
@@ -118,32 +105,10 @@ public class ExoAnchorLaser : Ability
 		SetCachedFields();
 		if (m_syncComponent == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComponent = GetComponent<Exo_SyncComponent>();
 		}
 		if (m_syncComponent == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Missing Exo_SyncComponent on Exo's actorData prefab. ExoAnchorLaser won't function!");
 		}
 		AbilityUtil_Targeter abilityUtil_Targeter = new AbilityUtil_Targeter_SweepSingleClickCone(this, GetMinConeAngle(), GetMaxConeAngle(), GetLaserInfo().range, m_sweepConeBackwardOffset, 0.2f, GetLaserInfo(), m_syncComponent);
@@ -175,19 +140,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored)
 			{
 				return (ActorModelData.ActionAnimationType)m_animIndexForSweep;
@@ -201,19 +153,6 @@ public class ExoAnchorLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -224,15 +163,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData cachedLaserBarrier;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserBarrier = m_abilityMod.m_laserBarrierMod.GetModifiedValue(m_laserBarrier);
 		}
 		else
@@ -243,15 +173,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo cachedEffectOnCaster;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnCaster = m_abilityMod.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster);
 		}
 		else
@@ -272,19 +193,6 @@ public class ExoAnchorLaser : Ability
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else
@@ -299,19 +207,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData result;
 		if (m_cachedLaserBarrier != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserBarrier;
 		}
 		else
@@ -326,19 +221,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount);
 		}
 		else
@@ -353,19 +235,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_sweepConeBackwardOffsetMod.GetModifiedValue(m_sweepConeBackwardOffset);
 		}
 		else
@@ -380,19 +249,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minConeAngleMod.GetModifiedValue(m_minConeAngle);
 		}
 		else
@@ -407,19 +263,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle);
 		}
 		else
@@ -444,19 +287,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageAtZeroDistMod.GetModifiedValue(m_extraDamageAtZeroDist);
 		}
 		else
@@ -471,19 +301,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageChangePerDistMod.GetModifiedValue(m_extraDamageChangePerDist);
 		}
 		else
@@ -503,19 +320,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd);
 		}
 		else
@@ -530,19 +334,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost);
 		}
 		else
@@ -557,19 +348,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnAnchorEnd != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnAnchorEnd;
 		}
 		else
@@ -584,45 +362,14 @@ public class ExoAnchorLaser : Ability
 		List<StatusType> list = m_statusWhenAnchoredAndNotSweeping;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 			}
 		}
 		int result;
 		if (list != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((list.Count > 0) ? 1 : 0);
 		}
 		else
@@ -637,19 +384,6 @@ public class ExoAnchorLaser : Ability
 		List<StatusType> list = m_statusWhenAnchoredAndNotSweeping;
 		if (m_abilityMod != null && m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list = m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 		}
 		if (list != null)
@@ -673,54 +407,14 @@ public class ExoAnchorLaser : Ability
 		int num = baseDamage;
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetExtraDamagePerTurnAnchored() > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (checkDurationBonus)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int turnsAnchored = m_syncComponent.m_turnsAnchored;
 					int num2 = Mathf.Max(0, turnsAnchored) * GetExtraDamagePerTurnAnchored();
 					if (GetMaxExtraDamageForAnchored() > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = Mathf.Min(num2, GetMaxExtraDamageForAnchored());
 					}
 					num += num2;
@@ -728,42 +422,15 @@ public class ExoAnchorLaser : Ability
 			}
 			if (!(GetExtraDamageAtZeroDist() > 0f))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(GetExtraDamageChangePerDist() > 0f))
 				{
 					goto IL_010a;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			float num3 = GetExtraDamageAtZeroDist();
 			float num4 = VectorUtils.HorizontalPlaneDistInSquares(startPos, hitPos) - 1.4f;
 			if (num4 > 0f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 += GetExtraDamageChangePerDist() * num4;
 			}
 			num += Mathf.Max(0, Mathf.RoundToInt(num3));
@@ -787,19 +454,6 @@ public class ExoAnchorLaser : Ability
 		int totalDamage;
 		if (m_syncComponent != null && m_syncComponent.m_anchored)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			totalDamage = GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), GetSweepDamageAmount(), true);
 		}
 		else
@@ -814,19 +468,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_wasAnchoredOnTurnStart)
 			{
 				while (true)
@@ -848,19 +489,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored)
 			{
 				while (true)
@@ -884,19 +512,6 @@ public class ExoAnchorLaser : Ability
 		float num;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = abilityMod_ExoAnchorLaser.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle);
 		}
 		else
@@ -909,15 +524,6 @@ public class ExoAnchorLaser : Ability
 		int val2;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ExoAnchorLaser.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -928,15 +534,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData standardBarrierData;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardBarrierData = abilityMod_ExoAnchorLaser.m_laserBarrierMod.GetModifiedValue(m_laserBarrier);
 		}
 		else
@@ -949,15 +546,6 @@ public class ExoAnchorLaser : Ability
 		int val3;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ExoAnchorLaser.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount);
 		}
 		else
@@ -970,15 +558,6 @@ public class ExoAnchorLaser : Ability
 		int val4;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ExoAnchorLaser.m_maxExtraDamageForAnchoredMod.GetModifiedValue(m_maxExtraDamageForAnchored);
 		}
 		else
@@ -989,15 +568,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ExoAnchorLaser.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster);
 		}
 		else
@@ -1009,15 +579,6 @@ public class ExoAnchorLaser : Ability
 		int val5;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_ExoAnchorLaser.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd);
 		}
 		else
@@ -1029,15 +590,6 @@ public class ExoAnchorLaser : Ability
 		int val6;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_ExoAnchorLaser.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost);
 		}
 		else
@@ -1048,15 +600,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_ExoAnchorLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ExoAnchorLaser.m_effectOnAnchorEndMod.GetModifiedValue(m_effectOnAnchorEnd);
 		}
 		else
@@ -1070,19 +613,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored && !string.IsNullOrEmpty(m_anchoredToolTip))
 			{
 				while (true)
@@ -1108,19 +638,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (!string.IsNullOrEmpty(m_anchoredToolTip))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<TooltipTokenEntry> tooltipTokenEntries = GetTooltipTokenEntries(mod);
 			m_anchoredFinalFullTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(m_anchoredToolTip, tooltipTokenEntries);
 		}
@@ -1131,30 +648,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null && m_syncComponent.m_wasAnchoredOnTurnStart)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (owner != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4))
 				{
 					while (true)
@@ -1192,30 +687,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComponent.m_turnsAnchored > 0)
 				{
 					return sweepAngle / m_turnToTargetSweepDegreesPerSecond;
@@ -1229,30 +702,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.m_anchored)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComponent.m_turnsAnchored > 0)
 				{
 					while (true)

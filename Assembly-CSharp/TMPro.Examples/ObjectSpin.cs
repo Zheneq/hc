@@ -40,19 +40,6 @@ namespace TMPro.Examples
 			Color c;
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				c = component.color;
 			}
 			else
@@ -73,10 +60,6 @@ namespace TMPro.Examples
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						_0012.Rotate(0f, _001D * Time.deltaTime, 0f);
 						return;
 					}

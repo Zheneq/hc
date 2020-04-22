@@ -47,19 +47,6 @@ public class GroundLineSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 b = new Vector3(0f, m_heightOffset, 0f);
 				m_startPos = extraParams2.startPos + b;
 				m_endPos = extraParams2.endPos + b;
@@ -83,26 +70,8 @@ public class GroundLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fx != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
 					m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
@@ -118,19 +87,6 @@ public class GroundLineSequence : Sequence
 	{
 		if (m_fxPrefab != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 startPos = m_startPos;
 			m_fx = InstantiateFX(m_fxPrefab, startPos, default(Quaternion));
 		}
@@ -153,11 +109,6 @@ public class GroundLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			return;
 		}
@@ -171,15 +122,6 @@ public class GroundLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -202,15 +144,6 @@ public class GroundLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.SetActive(false);
 			return;
 		}

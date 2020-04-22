@@ -46,19 +46,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		AbilityMod.AddToken(tokens, m_nearDistanceMod, "NearDistance", string.Empty, blasterDelayedLaser.m_nearDistance);
 		if (m_nearDistanceMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NearDist_MinusOne", string.Empty, Mathf.RoundToInt(m_nearDistanceMod.GetModifiedValue(blasterDelayedLaser.m_nearDistance)) - 1, false, 0);
 		}
 		AbilityMod.AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", blasterDelayedLaser.m_onCastEnemyHitEffect);
@@ -76,19 +63,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = blasterDelayedLaser.m_width;
 		}
 		else
@@ -101,15 +75,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (blasterDelayedLaser.m_triggerAimAtBlaster ? 1 : 0);
 		}
 		else
@@ -122,15 +87,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = blasterDelayedLaser.m_damageAmount;
 		}
 		else
@@ -143,15 +99,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = blasterDelayedLaser.m_effectOnHit;
 		}
 		else
@@ -164,15 +111,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = blasterDelayedLaser.m_extraDamageToNearEnemy;
 		}
 		else
@@ -185,15 +123,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = blasterDelayedLaser.m_nearDistance;
 		}
 		else
@@ -206,15 +135,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		object baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = blasterDelayedLaser.m_onCastEnemyHitEffect;
 		}
 		else

@@ -30,19 +30,6 @@ namespace TMPro.Examples
 		{
 			if (_001D == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0016 = base.gameObject.AddComponent<TextMeshProUGUI>();
 				if (_0012 != null)
 				{
@@ -56,15 +43,6 @@ namespace TMPro.Examples
 			}
 			else if (_001D == 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_0013 = base.gameObject.AddComponent<Text>();
 				if (_0015 != null)
 				{
@@ -81,28 +59,10 @@ namespace TMPro.Examples
 					_0016.text = "The <#0050FF>count is: </color>" + num % 1000;
 					if (num % 1000 == 999)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TextMeshProUGUI textMeshProUGUI = _0016;
 						Material fontSharedMaterial;
 						if (_0016.fontSharedMaterial == _0019)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Material material = _0011;
 							_0016.fontSharedMaterial = material;
 							fontSharedMaterial = material;
@@ -125,11 +85,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

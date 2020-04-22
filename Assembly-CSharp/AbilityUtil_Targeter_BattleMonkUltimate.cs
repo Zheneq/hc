@@ -24,10 +24,6 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_highlights[1];
 					}
 				}
@@ -38,19 +34,6 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 		{
 			if (m_highlights == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_highlights = new List<GameObject>();
 			}
 			while (m_highlights.Count <= 1)
@@ -59,22 +42,8 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_highlights[1] != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					DestroyObjectAndMaterials(m_highlights[1]);
 					m_highlights[1] = null;
 				}
@@ -99,19 +68,6 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 		base.UpdateTargeting(currentTarget, targetingActor);
 		if (m_affectsEnemies)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (EnemyHighlight == null)
 			{
 				EnemyHighlight = HighlightUtils.Get().CreateShapeCursor(m_enemyShape, targetingActor == GameFlowData.Get().activeOwnedActorData);
@@ -121,15 +77,6 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 			BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
 			if (gameplayRefSquare != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_enemyShape, currentTarget.FreePos, gameplayRefSquare, m_enemyShapePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
@@ -137,27 +84,9 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 				{
 					if (!(item != targetingActor))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_affectsCaster != AffectsActor.Possible)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					AddActorInRange(item, highlightGoalPos, targetingActor);

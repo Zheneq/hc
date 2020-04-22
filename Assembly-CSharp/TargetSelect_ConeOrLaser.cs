@@ -73,19 +73,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		ConeTargetingInfo cachedConeInfo;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedConeInfo = m_targetSelMod.m_coneInfoMod.GetModifiedValue(m_coneInfo);
 		}
 		else
@@ -96,15 +83,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		LaserTargetingInfo cachedLaserInfo;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserInfo = m_targetSelMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
 		}
 		else
@@ -129,19 +107,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		LaserTargetingInfo result;
 		if (m_cachedLaserInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserInfo;
 		}
 		else

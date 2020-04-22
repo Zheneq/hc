@@ -24,19 +24,6 @@ public class SquareInsideChecker_Path : ISquareInsideChecker
 		inLos = false;
 		if (m_squaresInPath.Contains(square))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			inLos = true;
 			result = true;
 		}

@@ -45,15 +45,6 @@ public class FPS
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -63,52 +54,26 @@ public class FPS
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
 		}
 		this.m_OnFPSChange = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
-		base._002Ector();
+		
 	}
 
 	internal FPS(Action<float> onChange)
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
 		}
 		this.m_OnFPSChange = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
-		base._002Ector();
+		
 		m_OnFPSChange += onChange;
 	}
 
@@ -128,24 +93,10 @@ public class FPS
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((double)m_timeLeft <= 0.0)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					float obj = CalcForSampledFrames();
 					this.m_OnFPSChange(obj);
 					m_timeLeft = 0.5f;

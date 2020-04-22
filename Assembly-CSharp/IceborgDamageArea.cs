@@ -88,19 +88,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		SetCachedFields();
 		if (GetTargetSelectComp() is TargetSelect_Shape)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TargetSelect_Shape targetSelect_Shape = GetTargetSelectComp() as TargetSelect_Shape;
 			targetSelect_Shape.m_isMovingShapeDelegate = IsMovingShape;
 			targetSelect_Shape.m_moveStartSquareDelegate = GetMoveStartSquare;
@@ -119,11 +106,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_animationIndexForMoveArea = 0;
 			return;
 		}
@@ -140,19 +122,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemyIfHitPreviousTurn, "EffectOnEnemyIfHitPreviousTurn", m_effectOnEnemyIfHitPreviousTurn);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (!(m_syncComp != null))
@@ -161,11 +130,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_syncComp.AddTooltipTokens(tokens);
 			return;
 		}
@@ -176,19 +140,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		GroundEffectField cachedGroundFieldData;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedGroundFieldData = m_abilityMod.m_groundFieldDataMod.GetModifiedValue(m_groundFieldData);
 		}
 		else
@@ -204,19 +155,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialCastMaxRangeMod.GetModifiedValue(m_initialCastMaxRange);
 		}
 		else
@@ -231,19 +169,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		float result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_moveAreaCastMaxRangeMod.GetModifiedValue(m_moveAreaCastMaxRange);
 		}
 		else
@@ -263,19 +188,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_addGroundFieldMod.GetModifiedValue(m_addGroundField);
 		}
 		else
@@ -290,19 +202,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_stopMoversWithSlowStatusMod.GetModifiedValue(m_stopMoversWithSlowStatus);
 		}
 		else
@@ -317,19 +216,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_stopMoverIfHitPreviousTurnMod.GetModifiedValue(m_stopMoverIfHitPreviousTurn);
 		}
 		else
@@ -344,19 +230,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		GroundEffectField result;
 		if (m_cachedGroundFieldData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedGroundFieldData;
 		}
 		else
@@ -371,19 +244,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageOnInitialCastMod.GetModifiedValue(m_extraDamageOnInitialCast);
 		}
 		else
@@ -403,19 +263,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage);
 		}
 		else
@@ -430,19 +277,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
@@ -457,19 +291,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
@@ -484,19 +305,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemyIfHitPreviousTurn != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemyIfHitPreviousTurn;
 		}
 		else
@@ -511,19 +319,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect);
 		}
 		else
@@ -547,30 +342,8 @@ public class IceborgDamageArea : GenericAbility_Container
 		}
 		if (!CanCastToMoveArea())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetExtraDamageOnInitialCast() > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				results.m_damage += GetExtraDamageOnInitialCast();
 			}
 		}
@@ -580,20 +353,10 @@ public class IceborgDamageArea : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (GetGroundFieldDamageChangePerTurn() != 0)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					int turnsSinceInitialCast = m_syncComp.GetTurnsSinceInitialCast();
 					results.m_damage += turnsSinceInitialCast * GetGroundFieldDamageChangePerTurn();
 					return;
@@ -608,19 +371,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		object result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -643,19 +393,6 @@ public class IceborgDamageArea : GenericAbility_Container
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
 			if (boardSquare != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = boardSquare;
 			}
 		}
@@ -673,10 +410,6 @@ public class IceborgDamageArea : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_syncComp.m_damageAreaFreePos;
 				}
 			}
@@ -689,19 +422,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (m_syncComp != null && m_syncComp.m_damageAreaCanMoveThisTurn)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_damageAreaCenterX >= 0)
 			{
 				result = ((m_syncComp.m_damageAreaCenterY >= 0) ? 1 : 0);
@@ -730,10 +450,6 @@ public class IceborgDamageArea : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0;
 				}
 			}
@@ -752,10 +468,6 @@ public class IceborgDamageArea : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_moveAreaMovementAdjustType;
 				}
 			}
@@ -776,10 +488,6 @@ public class IceborgDamageArea : GenericAbility_Container
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquare boardSquare = caster.GetCurrentBoardSquare();
 					Vector3 b = boardSquare.ToVector3();
 					float num = GetInitialCastMaxRange();
@@ -789,15 +497,6 @@ public class IceborgDamageArea : GenericAbility_Container
 						BoardSquare boardSquare2 = Board.Get().GetBoardSquare(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
 						if (boardSquare2 != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe == boardSquare2)
 							{
 								while (true)
@@ -823,15 +522,6 @@ public class IceborgDamageArea : GenericAbility_Container
 					bool flag3 = true;
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							flag3 = boardSquare._0013(boardSquareSafe.x, boardSquareSafe.y);
@@ -840,15 +530,6 @@ public class IceborgDamageArea : GenericAbility_Container
 					int result;
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (flag3 ? 1 : 0);
 					}
 					else
@@ -874,10 +555,6 @@ public class IceborgDamageArea : GenericAbility_Container
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (ActorModelData.ActionAnimationType)m_animationIndexForMoveArea;
 				}
 			}

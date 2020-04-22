@@ -34,15 +34,6 @@ public class UIHalloweenIntroduction : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -76,10 +67,6 @@ public class UIHalloweenIntroduction : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_WhatsInTheHauntAC.enabled = true;
 					UIManager.SetGameObjectActive(m_WhatsInTheHauntLootMatrix, true);
 					UIManager.SetGameObjectActive(m_HowToGetStuff, false);

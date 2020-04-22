@@ -48,15 +48,6 @@ public class BlasterStretchConeSequence : Sequence
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				stream.Serialize(ref startPosOverride);
 				return;
 			}
@@ -163,19 +154,6 @@ public class BlasterStretchConeSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_maxDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				m_angleRangeDegrees = extraParams2.angleInDegrees;
 				m_aimForwardDir = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
@@ -200,19 +178,6 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (m_staggeredRateOfFire <= 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_staggeredRateOfFire = 0.5f;
 		}
 		m_projectileFxInstances = new List<GameObject>();
@@ -220,15 +185,6 @@ public class BlasterStretchConeSequence : Sequence
 		m_projectileActorImpacts = new Dictionary<ActorData, float>();
 		if (m_startEvent == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SpawnFX();
 		}
 		if (!(m_hitReactEvent == null))
@@ -237,20 +193,10 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (m_lastHitReactEvent == null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					SpawnImpactFX(true, null);
 					return;
 				}
@@ -270,19 +216,6 @@ public class BlasterStretchConeSequence : Sequence
 		int maxTargets;
 		if (m_projectilesStopOnEnemy)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			maxTargets = 1;
 		}
 		else
@@ -314,19 +247,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		else if (m_projectileDistanceMode == ProjectileDistanceMode.RandomChoice_MaxVsRandDist)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = (UnityEngine.Random.value >= 0.5f);
 		}
 		else
@@ -352,10 +272,6 @@ public class BlasterStretchConeSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_startPosOverride;
 				}
 			}
@@ -376,30 +292,8 @@ public class BlasterStretchConeSequence : Sequence
 		Vector3 vector;
 		if (m_setBlastFxRotationToGamplayAim)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_didSetValuesFromExtraParams)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = m_aimForwardDir;
 				goto IL_0085;
 			}
@@ -411,28 +305,10 @@ public class BlasterStretchConeSequence : Sequence
 		float value = m_angleRangeDegrees / 2f * ((float)Math.PI / 180f);
 		if (m_blastFxPrefab != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_blastFxInstance = InstantiateFX(m_blastFxPrefab, GetConeStartPos(), Quaternion.LookRotation(vector));
 			FriendlyEnemyVFXSelector component = m_blastFxInstance.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.Setup(base.Caster.GetTeam());
 				component.SetAttribute("angleControl", value);
 				component.SetAttribute("lengthControl", m_maxDistInWorld / Board.Get().squareSize);
@@ -450,15 +326,6 @@ public class BlasterStretchConeSequence : Sequence
 			float num2;
 			if (m_numProjectilesToSpawn < 2)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0f;
 			}
 			else
@@ -469,15 +336,6 @@ public class BlasterStretchConeSequence : Sequence
 			for (int i = 0; i < m_numProjectilesToSpawn; i++)
 			{
 				m_projectileAngleOrder.Add(num + num3 * (float)i);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_projectileAngleOrder.Shuffle(new System.Random());
 			m_forwardDirForProjectileSpawns = vector;
@@ -493,15 +351,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		if (m_projectilesCauseHitReacts)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorData[] targets = base.Targets;
 			foreach (ActorData actorData in targets)
 			{
@@ -517,26 +366,8 @@ public class BlasterStretchConeSequence : Sequence
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				m_projectileActorImpacts[actorData] = num5;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (string.IsNullOrEmpty(m_audioEvent))
@@ -545,11 +376,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 			return;
 		}
@@ -560,19 +386,6 @@ public class BlasterStretchConeSequence : Sequence
 		Quaternion rotation;
 		if (randomAngle)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(0f - m_angleRangeDegrees, m_angleRangeDegrees), Vector3.up);
 		}
 		else
@@ -586,25 +399,11 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 coneStartPos = GetConeStartPos();
 			GameObject gameObject = InstantiateFX(m_projectileFxPrefab, coneStartPos, Quaternion.LookRotation(vector));
 			float value;
 			if (m_projectilesCauseHitReacts)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = m_fxJoint.m_jointObject.transform.position - base.Caster.GetTravelBoardSquareWorldPositionForLos();
 				lhs = Vector3.Dot(lhs, vector) * vector.normalized;
 				value = GetProjectileDistanceWithActorCollisions(coneStartPos, vector, m_maxDistInWorld - lhs.magnitude, projectileIndex);
@@ -623,44 +422,13 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (base.Targets != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				if (!(specificTarget == null))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(base.Targets[i] == specificTarget))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Vector3 targetHitPosition = GetTargetHitPosition(i, m_impactFxJoint);
@@ -670,38 +438,11 @@ public class BlasterStretchConeSequence : Sequence
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
 				if (m_impactFxPrefab != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (IsHitFXVisibleWrtTeamFilter(base.Targets[i], m_hitVfxSpawnTeamMode))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Quaternion rotation;
 						if (m_setBlastFxRotationToGamplayAim)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							rotation = Quaternion.LookRotation(vector);
 						}
 						else
@@ -712,15 +453,6 @@ public class BlasterStretchConeSequence : Sequence
 						FriendlyEnemyVFXSelector component = gameObject.GetComponent<FriendlyEnemyVFXSelector>();
 						if (component != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component.Setup(base.Caster.GetTeam());
 						}
 						m_impactFxInstances.Add(gameObject);
@@ -728,15 +460,6 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				if (!string.IsNullOrEmpty(m_impactAudioEvent))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(m_impactAudioEvent, base.Targets[i].gameObject);
 				}
 				if (!(base.Targets[i] != null))
@@ -748,15 +471,6 @@ public class BlasterStretchConeSequence : Sequence
 				int ragdollActivation;
 				if (lastHit)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ragdollActivation = 1;
 				}
 				else
@@ -764,15 +478,6 @@ public class BlasterStretchConeSequence : Sequence
 					ragdollActivation = 0;
 				}
 				source.OnSequenceHit(this, target, impulseInfo, (ActorModelData.RagdollActivation)ragdollActivation);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		base.Source.OnSequenceHit(this, base.TargetPos);
@@ -782,19 +487,6 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (m_blastFxInstance != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_blastFxInstance.SetActive(false);
 		}
 		if (m_projectileFxInstances == null)
@@ -803,24 +495,10 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_projectileFxInstances.Count; i++)
 			{
 				if (m_projectileFxInstances[i] != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_projectileFxInstances[i].SetActive(false);
 				}
 			}
@@ -845,15 +523,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_projectileFxInstances.Count > 0)
 			{
 				using (Dictionary<ActorData, float>.Enumerator enumerator = m_projectileActorImpacts.GetEnumerator())
@@ -932,41 +601,10 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		if (m_staggerProjectiles)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_timeForNextStaggeredProjectile > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_projectileFxInstances.Count < m_numProjectilesToSpawn)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameTime.time >= m_timeForNextStaggeredProjectile)
 					{
 						CreateProjectile(m_forwardDirForProjectileSpawns, m_projectileFxInstances.Count, false);
@@ -982,45 +620,14 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (parameter == m_startEvent)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 		}
 		if (parameter == m_hitReactEvent)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SpawnImpactFX(m_lastHitReactEvent == null, null);
 		}
 		else if (parameter == m_lastHitReactEvent)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SpawnImpactFX(true, null);
 		}
 		if (!(parameter == m_stopEvent))
@@ -1029,11 +636,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			StopFX();
 			return;
 		}
@@ -1043,48 +645,17 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (m_blastFxInstance != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UnityEngine.Object.Destroy(m_blastFxInstance.gameObject);
 			m_blastFxInstance = null;
 		}
 		if (m_projectileFxInstances != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<GameObject>.Enumerator enumerator = m_projectileFxInstances.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					GameObject current = enumerator.Current;
 					UnityEngine.Object.Destroy(current.gameObject);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_projectileFxInstances = null;
@@ -1097,15 +668,6 @@ public class BlasterStretchConeSequence : Sequence
 				{
 					GameObject current2 = enumerator2.Current;
 					UnityEngine.Object.Destroy(current2.gameObject);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_impactFxInstances = null;

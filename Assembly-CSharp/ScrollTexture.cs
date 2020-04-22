@@ -23,30 +23,12 @@ public class ScrollTexture : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (Renderer renderer in components)
 			{
 				for (int j = 0; j < renderer.sharedMaterials.Length; j++)
 				{
 					if (!m_sharedMatToMatCopy.ContainsKey(renderer.sharedMaterials[j]))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_sharedMatToMatCopy[renderer.sharedMaterials[j]] = renderer.materials[j];
 					}
 				}
@@ -66,11 +48,6 @@ public class ScrollTexture : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				Renderer[] array = (Renderer[])Object.FindObjectsOfType(typeof(Renderer));
 				int num = 0;
 				while (num < array.Length)
@@ -81,15 +58,6 @@ public class ScrollTexture : MonoBehaviour
 					{
 						if (renderer2.sharedMaterials[k] != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterials[k]))
 							{
 								list.Add(k);
@@ -98,36 +66,13 @@ public class ScrollTexture : MonoBehaviour
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (list.Count > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Material[] array2 = new Material[renderer2.sharedMaterials.Length];
 							for (int l = 0; l < array2.Length; l++)
 							{
 								if (list.Contains(l))
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									array2[l] = m_sharedMatToMatCopy[renderer2.sharedMaterials[l]];
 								}
 								else
@@ -135,27 +80,9 @@ public class ScrollTexture : MonoBehaviour
 									array2[l] = renderer2.sharedMaterials[l];
 								}
 							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							renderer2.sharedMaterials = array2;
 							if (m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterial))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								renderer2.sharedMaterial = m_sharedMatToMatCopy[renderer2.sharedMaterial];
 							}
 						}
@@ -201,15 +128,6 @@ public class ScrollTexture : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0053;
 			}

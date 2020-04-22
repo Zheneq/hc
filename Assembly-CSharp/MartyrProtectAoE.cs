@@ -60,19 +60,6 @@ public class MartyrProtectAoE : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Protect Ally";
 		}
 		m_syncComponent = GetComponent<Martyr_SyncComponent>();
@@ -125,19 +112,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -152,19 +126,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -179,19 +140,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedThornsEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedThornsEffect;
 		}
 		else
@@ -206,19 +154,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (m_cachedReturnEffectOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReturnEffectOnEnemy;
 		}
 		else
@@ -287,19 +222,6 @@ public class MartyrProtectAoE : Ability
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -316,44 +238,13 @@ public class MartyrProtectAoE : Ability
 		int result = 0;
 		if (m_syncComponent != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComponent.IsBonusActive(caster))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = m_syncComponent.SpentDamageCrystals(caster);
 				for (int i = 0; i < m_thresholdBasedCrystalBonuses.Count; i++)
 				{
 					if (num >= m_thresholdBasedCrystalBonuses[i].m_crystalThreshold)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((!forAlly) ? m_thresholdBasedCrystalBonuses[i].m_additionalAbsorb : m_thresholdBasedCrystalBonuses[i].m_additionalAbsorbOnAlly);
 					}
 				}

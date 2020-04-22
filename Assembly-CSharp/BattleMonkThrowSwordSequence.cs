@@ -48,30 +48,8 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		base.FinishSetup();
 		if (m_lineStartEvent == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_lineSpawnOnProjectileImpact)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnLineFX();
 			}
 		}
@@ -85,56 +63,16 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		m_swordTempSatelliteInstance = InstantiateFX(m_swordTempSatellitePrefab, base.TargetPos + new Vector3(0f, m_satelliteHeightOffset, 0f), Quaternion.identity);
 		if (m_swordTempSatelliteInstance != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TempSatellite component = m_swordTempSatelliteInstance.GetComponent<TempSatellite>();
 			component.Setup(this);
 			component.SetNotifyOwnerOnAnimEvent(false);
 			if (m_lineSpawned)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_lineFxSatelliteJoint.IsInitialized())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject swordTempSatelliteInstance = m_swordTempSatelliteInstance;
 					if (swordTempSatelliteInstance != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
 					}
 				}
@@ -146,11 +84,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SpawnLineFX();
 			return;
 		}
@@ -184,10 +117,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -197,82 +126,28 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 			GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lineFxCasterStartJoint.Initialize(referenceModel);
 			}
 		}
 		if (!m_lineFxSatelliteJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject swordTempSatelliteInstance = m_swordTempSatelliteInstance;
 			if (swordTempSatelliteInstance != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
 			}
 		}
 		if (m_linePrefab != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = m_lineFxCasterStartJoint.m_jointObject.transform.position;
 			m_lineFx = InstantiateFX(m_linePrefab, position, default(Quaternion));
 		}
 		if (!string.IsNullOrEmpty(m_lineAudioEvent))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(m_lineAudioEvent, base.Caster.gameObject);
 		}
 		if (m_lineDuration > 0f)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lineDespawnTime = GameTime.time + m_lineDuration;
 		}
 		else
@@ -296,63 +171,18 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lineFxCasterStartJoint.m_jointObject != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sequence.SetAttribute(m_lineFx, "startPoint", m_lineFxCasterStartJoint.m_jointObject.transform.position);
 			}
 			if (m_lineFxSatelliteJoint.m_jointObject != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sequence.SetAttribute(m_lineFx, "endPoint", m_lineFxSatelliteJoint.m_jointObject.transform.position);
 			}
 			else if (m_lineFxCasterStartJoint.m_jointObject != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fx != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(m_lineFx, "endPoint", m_fx.transform.position);
 				}
 			}
@@ -362,20 +192,10 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_lineDespawnTime > 0f)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						DestroyLine();
 						return;
 					}
@@ -400,15 +220,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_lineFx);
 			m_lineFx = null;
 			return;

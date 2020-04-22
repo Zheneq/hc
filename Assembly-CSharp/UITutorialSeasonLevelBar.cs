@@ -30,19 +30,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		m_filled = filled;
 		if (m_animator == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_fillContainer, filled);
 		}
 		else
@@ -56,15 +43,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 			object str;
 			if (filled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = "DefaultIN";
 			}
 			else
@@ -86,41 +64,10 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		m_reward = reward;
 		if (m_tooltipHoverObj != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reward != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reward.InventoryTemplate != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_tooltipHoverObj.Setup(TooltipType.InventoryItem, delegate(UITooltipBase tooltip)
 					{
 						if (m_reward == null)
@@ -132,10 +79,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									return false;
 								}
 							}
@@ -161,15 +104,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		}
 		if (m_levelText != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_levelText.text = level.ToString();
 		}
 		UIManager.SetGameObjectActive(m_rewardMarker, reward != null);
@@ -179,11 +113,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (reward == null || reward.SpritePath.IsNullOrEmpty())
 			{
 				UIManager.SetGameObjectActive(m_rewardContainer, false);

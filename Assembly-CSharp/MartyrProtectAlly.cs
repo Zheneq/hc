@@ -74,19 +74,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Martyr Protect Ally";
 		}
 		Setup();
@@ -120,19 +107,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedLaserHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
 		}
 		else
@@ -143,15 +117,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedThornsEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedThornsEffect = m_abilityMod.m_thornsEffectMod.GetModifiedValue(m_thornsEffect);
 		}
 		else
@@ -163,15 +128,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -196,19 +152,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_techPointGainPerRedirectMod.GetModifiedValue(m_techPointGainPerRedirect);
 		}
 		else
@@ -223,19 +166,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -250,19 +180,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(m_affectsEnemies);
 		}
 		else
@@ -277,19 +194,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_affectsAlliesMod.GetModifiedValue(m_affectsAllies);
 		}
 		else
@@ -309,19 +213,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedThornsEffect != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedThornsEffect;
 		}
 		else
@@ -336,19 +227,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedReturnEffectOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReturnEffectOnEnemy;
 		}
 		else
@@ -363,19 +241,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_thornsDamagePerHitMod.GetModifiedValue(m_thornsDamagePerHit);
 		}
 		else
@@ -390,19 +255,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -417,19 +269,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseAbsorbMod.GetModifiedValue(m_baseAbsorb);
 		}
 		else
@@ -449,19 +288,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_baseAbsorbOnAllyMod.GetModifiedValue(m_baseAbsorbOnAlly);
 		}
 		else
@@ -481,19 +307,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraEnergyPerRedirectDamageMod.GetModifiedValue(m_extraEnergyPerRedirectDamage);
 		}
 		else
@@ -514,19 +327,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else
@@ -543,19 +343,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorbOnAlly;
 		}
 		else
@@ -574,19 +361,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float val;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_MartyrProtectAlly.m_damageReductionOnTargetMod.GetModifiedValue(m_damageReductionOnTarget);
 		}
 		else
@@ -598,15 +372,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float val2;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrProtectAlly.m_damageRedirectToCasterMod.GetModifiedValue(m_damageRedirectToCaster);
 		}
 		else
@@ -618,15 +383,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val3;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrProtectAlly.m_techPointGainPerRedirectMod.GetModifiedValue(m_techPointGainPerRedirect);
 		}
 		else
@@ -639,15 +395,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_MartyrProtectAlly.m_returnEffectOnEnemyMod.GetModifiedValue(m_returnEffectOnEnemy);
 		}
 		else
@@ -659,15 +406,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val4;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrProtectAlly.m_thornsDamagePerHitMod.GetModifiedValue(m_thornsDamagePerHit);
 		}
 		else
@@ -678,15 +416,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_MartyrProtectAlly.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -698,15 +427,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val5;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_MartyrProtectAlly.m_baseAbsorbMod.GetModifiedValue(m_baseAbsorb);
 		}
 		else
@@ -719,15 +439,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val6;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_MartyrProtectAlly.m_baseAbsorbOnAllyMod.GetModifiedValue(m_baseAbsorbOnAlly);
 		}
 		else
@@ -739,15 +450,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val7;
 		if ((bool)abilityMod_MartyrProtectAlly)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_MartyrProtectAlly.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(m_absorbOnAllyPerCrystalSpent);
 		}
 		else
@@ -780,19 +482,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int currentAbsorb = GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -852,15 +541,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_MartyrProtectAlly);
 			Setup();
 			return;

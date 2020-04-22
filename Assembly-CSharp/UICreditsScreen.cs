@@ -71,19 +71,6 @@ public class UICreditsScreen : UIScene
 		}
 		else if (m_wasCharModelShown)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_wasCharModelShown = false;
 			UICharacterStoreAndProgressWorldObjects.Get().SetVisible(true);
 		}
@@ -122,15 +109,6 @@ public class UICreditsScreen : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_isVisible)
 			{
 				while (true)
@@ -153,15 +131,6 @@ public class UICreditsScreen : UIScene
 			y += Time.deltaTime * m_movePerSecond;
 			if (y > m_endPos)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				y = m_endPos;
 			}
 			m_scrollBox.localPosition = new Vector3(0f, y, 0f);

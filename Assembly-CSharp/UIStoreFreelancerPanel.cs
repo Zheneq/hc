@@ -46,15 +46,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameBalanceVars.PlayerTitle[] playerTitles = gameBalanceVars.PlayerTitles;
 				foreach (GameBalanceVars.PlayerTitle playerTitle in playerTitles)
 				{
@@ -65,11 +56,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					GameBalanceVars.TauntUnlockData[] tauntUnlockData = gameBalanceVars.GetCharacterUnlockData(charLink.m_characterType).tauntUnlockData;
 					foreach (GameBalanceVars.TauntUnlockData item in tauntUnlockData)
 					{
@@ -77,11 +63,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						GameBalanceVars.SkinUnlockData[] skinUnlockData = gameBalanceVars.GetCharacterUnlockData(charLink.m_characterType).skinUnlockData;
 						foreach (GameBalanceVars.SkinUnlockData skinUnlockData2 in skinUnlockData)
 						{
@@ -123,11 +104,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 						}
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							GameBalanceVars.AbilityVfxUnlockData[] abilityVfxUnlockData = gameBalanceVars.GetCharacterUnlockData(charLink.m_characterType).abilityVfxUnlockData;
 							foreach (GameBalanceVars.AbilityVfxUnlockData item3 in abilityVfxUnlockData)
 							{
@@ -135,11 +111,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 							}
 							while (true)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								AbilityData component = charLink.ActorDataPrefab.GetComponent<AbilityData>();
 								for (int num2 = 0; num2 < 14; num2++)
 								{
@@ -174,15 +145,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 									{
 										m_collectionItems.Add(availableModsForAbility[num3].GetAbilityModUnlockData(charLink.m_characterType, num2));
 									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								return;
 							}
@@ -196,19 +158,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		{
 			if (!force)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_pendingUpdate)
 				{
 					return;
@@ -221,54 +170,18 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			{
 				if (m_collectionItems[i] is GameBalanceVars.ColorUnlockData)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!gameplayOverrides.IsColorAllowed((CharacterType)m_collectionItems[i].Index1, m_collectionItems[i].Index2, m_collectionItems[i].Index3, m_collectionItems[i].ID))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (m_collectionItems[i].IsOwned())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CurrentProgress++;
 					TotalProgress++;
 				}
 				else if (enableHiddenCharacters)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TotalProgress++;
 				}
 				else
@@ -277,53 +190,17 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!GameBalanceVarsExtensions.MeetsVisibilityConditions(m_collectionItems[i]))
 					{
 						continue;
 					}
 					if (m_collectionItems[i] is GameBalanceVars.ColorUnlockData)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_collectionItems[i].Index1).skinUnlockData[m_collectionItems[i].Index2].m_isHidden)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (GameBalanceVars.Get().GetCharacterUnlockData((CharacterType)m_collectionItems[i].Index1).skinUnlockData[m_collectionItems[i].Index2].patternUnlockData[m_collectionItems[i].Index3].m_isHidden)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -338,11 +215,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				m_pendingUpdate = false;
 				return;
 			}
@@ -378,19 +250,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 	{
 		if (HitchDetector.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(m_heroListContainer);
 		}
 		m_freeLancerSlots = new List<UIStorePurchaseFreelancerItem>(m_heroListContainer.GetComponentsInChildren<UIStorePurchaseFreelancerItem>(true));
@@ -402,15 +261,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 				current.m_hitBox.RegisterScrollListener(OnScroll);
 				UIManager.SetGameObjectActive(current, false);
 				StaggerComponent.SetStaggerComponent(current.gameObject, true);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_visibleFreelancers = new List<CharacterData>();
@@ -429,94 +279,27 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterResourceLink.m_characterType == CharacterType.None)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (characterResourceLink.m_characterType == CharacterType.PunchingDummy)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (characterResourceLink.m_characterType.IsWillFill() || characterResourceLink.m_characterType == CharacterType.TestFreelancer1)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (characterResourceLink.m_characterType == CharacterType.TestFreelancer2)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!enableHiddenCharacters)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterResourceLink.m_isHidden)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			CharacterData item = new CharacterData(characterResourceLink);
@@ -524,23 +307,9 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			List<CharacterData> visibleFreelancers = m_visibleFreelancers;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((CharacterData a, CharacterData b) => a.ResourceLink.GetDisplayName().CompareTo(b.ResourceLink.GetDisplayName()));
 			}
 			visibleFreelancers.Sort(_003C_003Ef__am_0024cache0);
@@ -574,15 +343,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= OnCharacterDataUpdated;
 			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
 			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= OnLobbyGameplayOverridesChange;
@@ -602,19 +362,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		{
 			if (num + i < m_visibleFreelancers.Count)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CharacterData characterData = m_visibleFreelancers[num + i];
 				characterData.RefreshProgress();
 				m_freeLancerSlots[i].Setup(characterData.ResourceLink, characterData.CurrentProgress, characterData.TotalProgress);
@@ -626,11 +373,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_currentPage = pageNumber;
 			for (int j = 0; j < m_pageMarkers.Count; j++)
 			{
@@ -668,15 +410,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIStorePanel.Get().OpenFreelancerPage(m_freeLancerSlots[num].GetCharLink());
 			return;
 		}
@@ -698,19 +431,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		FreeLancerClicked(null);
@@ -729,10 +449,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClickedOnPrevPage(null);
 					return;
 				}
@@ -767,10 +483,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -788,19 +500,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			List<CharacterData> visibleFreelancers = m_visibleFreelancers;
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_003C_003Ef__am_0024cache1 = delegate(CharacterData v)
 				{
 					v.QueueProgressRefresh();
@@ -823,11 +522,6 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SetCharacterPageList(m_currentPage);
 			return;
 		}

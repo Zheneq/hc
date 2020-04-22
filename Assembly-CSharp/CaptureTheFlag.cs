@@ -328,19 +328,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (_sequenceSource == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_sequenceSource = new SequenceSource(null, null, m_sequenceSourceId, false);
 			}
 			return _sequenceSource;
@@ -391,15 +378,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Networkm_turninRegionState_Neutral = (int)value;
 				return;
 			}
@@ -414,30 +392,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				if (m_potentialFlagTurnins != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_potentialFlagTurnins.Count != 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_potentialTurninsAreTeamSpecific)
 						{
 							if (m_turninRegionIndex_TeamA == -1)
@@ -467,32 +423,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (m_potentialFlagTurnins != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_potentialFlagTurnins.Count != 0)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_potentialTurninsAreTeamSpecific)
 								{
 									if (m_turninRegionIndex_TeamB == -1)
@@ -509,15 +443,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 										}
 									}
 									return m_potentialFlagTurnins[m_turninRegionIndex_TeamB];
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -542,32 +467,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (m_potentialFlagTurnins != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_potentialFlagTurnins.Count != 0)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_potentialTurninsAreTeamSpecific)
 								{
 									if (m_turninRegionIndex_Neutral == -1)
@@ -607,30 +510,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionState_TeamA = ref m_turninRegionState_TeamA;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetTurninRegionState_TeamA(value);
 					base.syncVarHookGuard = false;
@@ -652,30 +533,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionState_TeamB = ref m_turninRegionState_TeamB;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetTurninRegionState_TeamB(value);
 					base.syncVarHookGuard = false;
@@ -697,30 +556,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionState_Neutral = ref m_turninRegionState_Neutral;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetTurninRegionState_Neutral(value);
 					base.syncVarHookGuard = false;
@@ -742,19 +579,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionIndex_TeamA = ref m_turninRegionIndex_TeamA;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				base.syncVarHookGuard = true;
 				HookSetTurninRegionIndex_TeamA(value);
 				base.syncVarHookGuard = false;
@@ -775,30 +599,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionIndex_TeamB = ref m_turninRegionIndex_TeamB;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetTurninRegionIndex_TeamB(value);
 					base.syncVarHookGuard = false;
@@ -820,30 +622,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			ref int turninRegionIndex_Neutral = ref m_turninRegionIndex_Neutral;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					HookSetTurninRegionIndex_Neutral(value);
 					base.syncVarHookGuard = false;
@@ -890,19 +670,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = this;
 		}
 		else
@@ -915,11 +682,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SequenceSource sequenceSource = new SequenceSource(null, null, false);
 			Networkm_sequenceSourceId = sequenceSource.RootID;
 			return;
@@ -935,47 +697,16 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (m_autoBoundary_spawn_teamA != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary_spawn_teamA);
 			m_autoBoundary_spawn_teamA = null;
 		}
 		if (m_autoBoundary_spawn_teamB != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary_spawn_teamB);
 			m_autoBoundary_spawn_teamB = null;
 		}
 		if (m_autoBoundary_turnin_neutral != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary_turnin_neutral);
 			m_autoBoundary_turnin_neutral = null;
 		}
@@ -986,15 +717,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (m_autoBoundary_turnin_teamB != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(m_autoBoundary_turnin_teamB);
 			m_autoBoundary_turnin_teamB = null;
 		}
@@ -1014,15 +736,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_flags.Add(flag);
 			return;
 		}
@@ -1036,15 +749,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_flags.Remove(flag);
 			return;
 		}
@@ -1058,30 +762,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_flags[i].m_flagGuid != flagGuid)
 			{
 				continue;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return m_flags[i];
 			}
 		}
@@ -1097,30 +783,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_flags[i].ServerHolderActor == actor)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list == null)
 				{
 					list = new List<CTF_Flag>();
@@ -1130,11 +794,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -1144,70 +803,21 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		List<CTF_Flag> list = null;
 		if (actor != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_flags.Count; i++)
 			{
 				if (!(m_flags[i] != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(m_flags[i].ClientHolderActor == actor))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list == null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list = new List<CTF_Flag>();
 				}
 				list.Add(m_flags[i]);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -1221,31 +831,9 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (s_instance.m_flags != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (s_instance.m_flags.Count > 0)
 			{
 				return s_instance.m_flags[0];
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -1263,10 +851,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return mainFlag.ServerIdleSquare;
 				}
 			}
@@ -1286,10 +870,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return mainFlag.ClientIdleSquare;
 				}
 			}
@@ -1309,10 +889,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return mainFlag.ServerHolderActor;
 				}
 			}
@@ -1332,10 +908,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return mainFlag.ClientHolderActor;
 				}
 			}
@@ -1348,41 +920,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		List<ActorData> list = new List<ActorData>();
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Get().m_flagRevealsHolder)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<CTF_Flag> flags = Get().m_flags;
 					for (int i = 0; i < flags.Count; i++)
 					{
@@ -1391,37 +932,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!list.Contains(cTF_Flag.ClientHolderActor))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(cTF_Flag.ClientHolderActor);
 						}
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1441,10 +955,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -1457,19 +967,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		List<ActorData> list = new List<ActorData>();
 		if (NetworkServer.active && Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Get().m_flagRevealsHolder)
 			{
 				List<CTF_Flag> flags = Get().m_flags;
@@ -1480,40 +977,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (cTF_Flag.GatheredHolderActor != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!list.Contains(cTF_Flag.GatheredHolderActor))
 						{
 							list.Add(cTF_Flag.GatheredHolderActor);
 						}
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1541,10 +1011,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance.FlagTurninRegion_Neutral;
 				}
 			}
@@ -1563,10 +1029,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					switch (team)
 					{
 					case Team.TeamA:
@@ -1602,10 +1064,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance.TurninRegionState_Neutral;
 				}
 			}
@@ -1624,10 +1082,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (team == Team.TeamA)
 					{
 						while (true)
@@ -1675,29 +1129,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TurninRegionState_TeamA = m_turninRegionInitialState;
 			TurninRegionState_TeamB = m_turninRegionInitialState;
 			TurninRegionState_Neutral = m_turninRegionInitialState;
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorDamaged_Client);
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorHealed_Client);
 				GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorGainedAbsorb_Client);
@@ -1722,30 +1158,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				CTF_Flag current = enumerator.Current;
 				if (current.ClientHolderActor != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.ClientHolderActor == actor)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						current.OnDropped_Client(actor.GetMostResetDeathSquare(), -1);
 					}
@@ -1755,51 +1169,15 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					}
 					if (contributorsToKillOnClient2.Contains(current.ClientHolderActor))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2.Add(current.ClientHolderActor);
 					}
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ObjectivePoints.Get() != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder, actor.GetTeam());
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder, actor.GetOpposingTeam());
 			}
@@ -1808,15 +1186,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (ObjectivePoints.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathblowByFlagHolder, item.GetTeam());
 				ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder, item.GetOpposingTeam());
 			}
@@ -1828,15 +1197,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				ActorData current3 = enumerator3.Current;
 				if (ObjectivePoints.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerTakedownByFlagHolder, current3.GetTeam());
 					ObjectivePoints.Get().AdjustUnresolvedPoints(m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder, current3.GetOpposingTeam());
 				}
@@ -1865,10 +1225,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1948,19 +1304,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Team team = capturingActor.GetTeam();
 		if (team == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rewardToCapturingTeam.ClientApplyRewardTo(Team.TeamA);
 			m_rewardToOtherTeam.ClientApplyRewardTo(Team.TeamB);
 		}
@@ -1989,10 +1332,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2008,37 +1347,18 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(InterfaceManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!GameFlowData.Get().LocalPlayerData)
 					{
 						return;
@@ -2046,67 +1366,22 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					if (teamViewing != 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (teamViewing != Team.TeamB)
 						{
 							goto IL_00de;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (turninRegionTeam != 0)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (turninRegionTeam != Team.TeamB)
 						{
 							goto IL_00de;
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					RelationshipToClient relationship;
 					Color color;
 					if (teamViewing == turninRegionTeam)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						relationship = RelationshipToClient.Friendly;
 						color = m_textColor_positive;
 					}
@@ -2134,19 +1409,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (relationship == RelationshipToClient.Friendly)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (newState == TurninRegionState.Active)
 			{
 				return m_alliedExtractionPointNowActive;
@@ -2155,11 +1417,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return m_alliedExtractionPointNowInactive;
 				}
 			}
@@ -2179,24 +1436,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		else if (relationship == RelationshipToClient.Hostile)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newState == TurninRegionState.Active)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return m_enemyExtractionPointNowActive;
 				}
 			}
@@ -2210,24 +1453,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		else if (relationship == RelationshipToClient.Neutral)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newState == TurninRegionState.Active)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return m_neutralExtractionPointNowActive;
 				}
 			}
@@ -2235,11 +1464,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return m_neutralExtractionPointNowInactive;
 				}
 			}
@@ -2272,10 +1496,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2286,36 +1506,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (eventType != GameEventManager.EventType.ActorDamaged_Client)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (eventType != GameEventManager.EventType.ActorHealed_Client)
 				{
 					if (eventType != GameEventManager.EventType.ActorGainedAbsorb_Client)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2328,19 +1525,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (m_evasionDropsFlags)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Evasion)
 			{
 				while (true)
@@ -2360,15 +1544,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		List<CTF_Flag> flagsHeldByActor_Client = GetFlagsHeldByActor_Client(actorHitHealthChangeArgs.m_caster);
 		if (flagsHeldByActor_Client != null && flagsHeldByActor_Client.Count > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorHitHealthChangeArgs.m_caster != null)
 			{
 				Team team = actorHitHealthChangeArgs.m_caster.GetTeam();
@@ -2388,11 +1563,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (flagsHeldByActor_Client2.Count > 0)
 			{
 				Team team2 = actorHitHealthChangeArgs.m_target.GetTeam();
@@ -2412,19 +1582,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (!fromCharacterSpecificAbility)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!data.m_includeContributionFromNonCharacterAbilities)
 			{
 				while (true)
@@ -2467,11 +1624,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		case GameEventManager.ActorHitHealthChangeArgs.ChangeType.Absorb:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (outgoing)
 				{
 					while (true)
@@ -2500,15 +1652,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clientMode)
 			{
 				ObjectivePoints.Get().AdjustUnresolvedPoints(points, team);
@@ -2532,25 +1675,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
 		}
 		if (conditions != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (conditions.Length != 0)
 			{
 				if (checkTeam != 0 && checkTeam != Team.TeamB)
@@ -2572,15 +1702,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				bool flag4;
 				if (checkTeam == Team.TeamA)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = (Get().m_teamACaptures > 0);
 					flag4 = (Get().m_teamBCaptures > 0);
 				}
@@ -2595,15 +1716,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					{
 						if (flag5.ServerHolderActor.GetTeam() == checkTeam)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 						else
@@ -2617,15 +1729,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				{
 					if (cTF_VictoryCondition == CTF_VictoryCondition.TeamMustBeHoldingFlag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag)
 						{
 							result = false;
@@ -2634,15 +1737,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					}
 					else if (cTF_VictoryCondition == CTF_VictoryCondition.TeamMustNotBeHoldingFlag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							result = false;
@@ -2651,52 +1745,16 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					}
 					else if (cTF_VictoryCondition == CTF_VictoryCondition.OtherTeamMustBeHoldingFlag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
 					}
 					else if (cTF_VictoryCondition == CTF_VictoryCondition.OtherTeamMustNotBeHoldingFlag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
@@ -2705,41 +1763,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					{
 						if (!flag3)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
 					}
 					else if (cTF_VictoryCondition == CTF_VictoryCondition.TeamMustNotHaveCapturedFlag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag3)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
@@ -2748,15 +1779,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					{
 						if (!flag4)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
@@ -2767,26 +1789,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag4)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 							break;
 						}
@@ -2804,19 +1808,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Networkm_turninRegionState_TeamA = turninRegionState_TeamA;
 		if (FlagTurninRegion_TeamA != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_TeamA.HasNonZeroArea())
 			{
 				Client_OnTurninStateChanged(Team.TeamA, turninRegionState_TeamA2, TurninRegionState_TeamA);
@@ -2831,30 +1822,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Networkm_turninRegionState_TeamB = turninRegionState_TeamB;
 		if (FlagTurninRegion_TeamB != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_TeamB.HasNonZeroArea())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Client_OnTurninStateChanged(Team.TeamB, turninRegionState_TeamB2, TurninRegionState_TeamB);
 			}
 		}
@@ -2867,19 +1836,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Networkm_turninRegionState_Neutral = turninRegionState_Neutral;
 		if (FlagTurninRegion_Neutral != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_Neutral.HasNonZeroArea())
 			{
 				Client_OnTurninStateChanged(Team.Invalid, turninRegionState_Neutral2, TurninRegionState_Neutral);
@@ -2897,19 +1853,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			GenerateFlagTurninVisuals();
 			if (TurninRegionState_TeamA != TurninRegionState.Disabled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Client_OnTurninStateChanged(Team.TeamA, TurninRegionState.Disabled, TurninRegionState_TeamA);
 			}
 		}
@@ -2922,30 +1865,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Networkm_turninRegionIndex_TeamB = turninRegionIndex_TeamB;
 		if (turninRegionIndex_TeamB2 == -1)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_TeamB != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GenerateFlagTurninVisuals();
 				if (TurninRegionState_TeamB != TurninRegionState.Disabled)
 				{
@@ -2962,33 +1883,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Networkm_turninRegionIndex_Neutral = turninRegionIndex_Neutral;
 		if (turninRegionIndex_Neutral2 == -1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_Neutral != null)
 			{
 				GenerateFlagTurninVisuals();
 				if (TurninRegionState_Neutral != TurninRegionState.Disabled)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Client_OnTurninStateChanged(Team.Invalid, TurninRegionState.Disabled, TurninRegionState_Neutral);
 				}
 			}
@@ -3010,52 +1909,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		bool flag4 = m_timeToFocusCameraOnTurninTeamA >= 0f;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag4)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_timeToFocusCameraOnTurninTeamA = Time.time + m_timeTillCameraFocusesOntoExtractionPoint;
 					}
 				}
@@ -3067,47 +1926,19 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				bool flag5 = true;
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamA);
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						while (true)
@@ -3123,15 +1954,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 								int teamRegion;
 								if (flag5)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									teamRegion = 0;
 								}
 								else
@@ -3159,30 +1981,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		bool flag4 = m_timeToFocusCameraOnTurninTeamB >= 0f;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag2 && flag3)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag4)
 				{
 					m_timeToFocusCameraOnTurninTeamB = Time.time + m_timeTillCameraFocusesOntoExtractionPoint;
@@ -3195,47 +1995,19 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				bool flag5 = false;
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamB);
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
 						while (true)
@@ -3265,41 +2037,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		bool flag4 = m_timeToFocusCameraOnTurninNeutral >= 0f;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (flag2 && flag3)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag4)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeToFocusCameraOnTurninNeutral = Time.time + m_timeTillCameraFocusesOntoExtractionPoint;
 				}
 			}
@@ -3310,26 +2051,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (!(HUD_UI.Get() != null))
 			{
 				return;
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddCtfFlagTurnInRegion(FlagTurninRegion_Neutral);
@@ -3345,19 +2072,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (region != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (region.GetSquaresInRegion().Count > 0)
 			{
 				GameObject gameObject = HighlightUtils.Get().CreateBoundaryHighlight(region.GetSquaresInRegion(), Color.yellow);
@@ -3375,19 +2089,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (m_autoGenerateSpawnLocVisuals)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GenerateFlagSpawnBoundaryVisuals();
 		}
 		if (!m_autoGenerateTurninVisuals)
@@ -3396,11 +2097,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			GenerateFlagTurninVisuals();
 			return;
 		}
@@ -3417,44 +2113,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 	{
 		if (m_autoBoundary_turnin_neutral == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FlagTurninRegion_Neutral != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_autoBoundary_turnin_neutral = InstantiateBoundaryObject(FlagTurninRegion_Neutral, "Neutral Turnin Auto-Boundary");
 			}
 		}
 		if (m_autoBoundary_turnin_teamA == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (FlagTurninRegion_TeamA != null)
 			{
 				m_autoBoundary_turnin_teamA = InstantiateBoundaryObject(FlagTurninRegion_TeamA, "TeamA Turnin Auto-Boundary");
@@ -3466,20 +2131,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (FlagTurninRegion_TeamB != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_autoBoundary_turnin_teamB = InstantiateBoundaryObject(FlagTurninRegion_TeamB, "TeamB Turnin Auto-Boundary");
 					return;
 				}
@@ -3496,15 +2151,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = 1f - oscillationLevel * oscillationLevel;
 			float num2 = oscillationLevel * oscillationLevel;
 			Color color = new Color(mainColor.r * num + secondaryColor.r * num2, mainColor.g * num + secondaryColor.g * num2, mainColor.b * num + secondaryColor.b * num2, mainColor.a * num + secondaryColor.a * num2);
@@ -3521,15 +2167,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			autoBoundary.GetComponent<Renderer>().material.SetColor("_TintColor", color);
 			return;
 		}
@@ -3546,10 +2183,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return color1;
 				}
 			}
@@ -3578,15 +2211,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = oscillationLevel * m_boundaryOscillationHeight;
 			Transform transform = obj.transform;
 			Vector3 position = obj.transform.position;
@@ -3604,30 +2228,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Team team;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				goto IL_0080;
 			}
@@ -3637,48 +2239,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		IL_03af:
 		if (m_timeToFocusCameraOnTurninTeamA > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_timeToFocusCameraOnTurninTeamA <= Time.time)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (FlagTurninRegion_TeamA != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FlagTurninRegion_TeamA.GetCenterSquare() != null)
 						{
 							CameraManager.Get().SetTargetObject(FlagTurninRegion_TeamA.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
@@ -3691,48 +2257,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (m_timeToFocusCameraOnTurninTeamB > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_timeToFocusCameraOnTurninTeamB <= Time.time)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (FlagTurninRegion_TeamB != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FlagTurninRegion_TeamB.GetCenterSquare() != null)
 						{
 							CameraManager.Get().SetTargetObject(FlagTurninRegion_TeamB.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
@@ -3745,48 +2275,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (m_timeToFocusCameraOnTurninNeutral > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_timeToFocusCameraOnTurninNeutral <= Time.time)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (FlagTurninRegion_Neutral != null && FlagTurninRegion_Neutral.GetCenterSquare() != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						CameraManager.Get().SetTargetObject(FlagTurninRegion_Neutral.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
 					}
 				}
@@ -3800,33 +2294,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_timeToFocusCameraOnExtraction <= Time.time))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (CameraManager.Get() != null && m_lastExtractionSquare != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().SetTargetObject(m_lastExtractionSquare.gameObject, CameraManager.CameraTargetReason.CtfFlagTurnedIn);
 				}
 				m_timeToFocusCameraOnExtraction = -1f;
@@ -3847,15 +2322,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		else if (team == Team.TeamB)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			color = m_primaryColor_hostile;
 			color2 = m_primaryColor_friendly;
 		}
@@ -3872,15 +2338,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		SetBoundaryColor(m_autoBoundary_spawn_teamB, color2);
 		if (TurninRegionState_Neutral != TurninRegionState.Disabled)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_neutral, oscillationLevel);
 			Color secondaryColor = (TurninRegionState_Neutral != TurninRegionState.Locked) ? m_primaryColor_neutral : m_secondaryColor_locked;
 			SetBoundaryColor(m_autoBoundary_turnin_neutral, m_primaryColor_neutral, secondaryColor, oscillationLevel);
@@ -3892,28 +2349,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if (TurninRegionState_TeamA != TurninRegionState.Disabled)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_teamA, oscillationLevel);
 			Color color4;
 			if (TurninRegionState_TeamA == TurninRegionState.Locked)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color4 = m_secondaryColor_locked;
 			}
 			else
@@ -3943,39 +2382,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		UI_CTF_BriefcasePanel uI_CTF_BriefcasePanel = UI_CTF_BriefcasePanel.Get();
 		if (uI_CTF_BriefcasePanel != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!uI_CTF_BriefcasePanel.m_initialized)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uI_CTF_BriefcasePanel.Setup(this);
 			}
 			if (cur == m_lastFlagCarrierDamageCur)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (max == m_lastFlagCarrierDamageMax)
 				{
 					goto IL_03af;
@@ -3983,15 +2395,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			}
 			if (uI_CTF_BriefcasePanel.UpdateDamageForFlagHolder(cur, max))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lastFlagCarrierDamageCur = cur;
 				m_lastFlagCarrierDamageMax = max;
 			}
@@ -4004,19 +2407,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		Team team;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
 				team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
@@ -4029,54 +2419,18 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		GameObject gameObject;
 		if (teamOfTurninRegionActivating != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (teamOfTurninRegionActivating != Team.TeamB)
 			{
 				gameObject = m_neutralTurninRegionActivatedSequence;
 				goto IL_00a3;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (team != teamOfTurninRegionActivating)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (teamOfTurninRegionActivating != 0 || team == Team.TeamB)
 			{
 				gameObject = m_enemyTurninRegionActivatedSequence;
 				goto IL_00a3;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		gameObject = m_friendlyTurninRegionActivatedSequence;
@@ -4088,11 +2442,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SequenceManager.Get().CreateClientSequences(gameObject, centerPos, new ActorData[0], null, SequenceSource, null);
 			return;
 		}
@@ -4106,45 +2455,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		int num = (s_instance != null) ? (s_instance.m_numFlagDrops + s_instance.m_clientUnresolvedNumFlagDrops) : 0;
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			max = 1f;
 			cur = 1f;
 		}
 		else if (s_instance.m_damageInOneTurnToDropFlag_gross > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			max = s_instance.m_damageInOneTurnToDropFlag_gross + s_instance.m_damageThesholdIncreaseOnDrop * num;
 			if (mainFlag != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cur = mainFlag.DamageOnHolderSinceTurnStart_Gross + mainFlag.ClientUnresolvedDamageOnHolder;
 			}
 			else
@@ -4154,27 +2472,9 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		else if (s_instance.m_damageSincePickedUpToDropFlag_gross > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			max = s_instance.m_damageSincePickedUpToDropFlag_gross + s_instance.m_damageThesholdIncreaseOnDrop * num;
 			if (mainFlag != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cur = mainFlag.DamageOnHolderSincePickedUp_Gross + mainFlag.ClientUnresolvedDamageOnHolder;
 			}
 			else
@@ -4200,46 +2500,22 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(mainFlag != null) || !(mainFlagCarrier_Client != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!(actor != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (mainFlagCarrier_Client == actor)
 					{
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							mainFlag.ClientUnresolvedDamageOnHolder += damage;
 							return;
 						}
@@ -4265,10 +2541,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_turninRegionState_TeamA);
 					writer.WritePackedUInt32((uint)m_turninRegionState_TeamB);
 					writer.WritePackedUInt32((uint)m_turninRegionState_Neutral);
@@ -4293,26 +2565,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4322,15 +2576,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4340,15 +2585,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4358,15 +2594,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4374,26 +2601,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4403,15 +2612,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4419,26 +2619,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x80) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -4462,10 +2644,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_turninRegionState_TeamA = (int)reader.ReadPackedUInt32();
 					m_turninRegionState_TeamB = (int)reader.ReadPackedUInt32();
 					m_turninRegionState_Neutral = (int)reader.ReadPackedUInt32();
@@ -4481,28 +2659,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetTurninRegionState_TeamA((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetTurninRegionState_TeamB((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 4) != 0)
@@ -4511,15 +2671,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetTurninRegionIndex_TeamA((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x10) != 0)
@@ -4532,15 +2683,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookSetNumFlagDrops((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x80) == 0)
@@ -4549,11 +2691,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_sequenceSourceId = reader.ReadPackedUInt32();
 			return;
 		}

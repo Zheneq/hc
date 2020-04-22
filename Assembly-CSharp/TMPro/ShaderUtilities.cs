@@ -147,15 +147,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				isInitialized = true;
 				ID_MainTex = Shader.PropertyToID("_MainTex");
 				ID_FaceTex = Shader.PropertyToID("_FaceTex");
@@ -231,19 +222,6 @@ namespace TMPro
 				float num7;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num7 = Mathf.Max(0f, @float - m_clamp - num6) / (@float * num5);
 				}
 				else
@@ -259,11 +237,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				float float7 = mat.GetFloat(ID_UnderlayOffsetX);
 				float float8 = mat.GetFloat(ID_UnderlayOffsetY);
 				float float9 = mat.GetFloat(ID_UnderlayDilate);
@@ -289,55 +262,15 @@ namespace TMPro
 				{
 					if (!material.shaderKeywords.Contains(Keyword_MASK_SOFT))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!material.shaderKeywords.Contains(Keyword_MASK_HARD))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!material.shaderKeywords.Contains(Keyword_MASK_TEX))
 							{
 								return false;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					return true;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
 				}
 			}
 			return false;
@@ -347,19 +280,6 @@ namespace TMPro
 		{
 			if (!isInitialized)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GetShaderPropertyIDs();
 			}
 			if (material == null)
@@ -408,28 +328,10 @@ namespace TMPro
 			}
 			if (material.HasProperty(ID_FaceDilate))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = material.GetFloat(ID_FaceDilate) * num5;
 			}
 			if (material.HasProperty(ID_OutlineSoftness))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = material.GetFloat(ID_OutlineSoftness) * num5;
 			}
 			if (material.HasProperty(ID_OutlineWidth))
@@ -439,37 +341,10 @@ namespace TMPro
 			num10 = num4 + num3 + num2;
 			if (material.HasProperty(ID_GlowOffset))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (shaderKeywords.Contains(Keyword_Glow))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (material.HasProperty(ID_ScaleRatio_B))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num6 = material.GetFloat(ID_ScaleRatio_B);
 					}
 					num8 = material.GetFloat(ID_GlowOffset) * num6;
@@ -479,26 +354,8 @@ namespace TMPro
 			num10 = Mathf.Max(num10, num2 + num8 + num9);
 			if (material.HasProperty(ID_UnderlaySoftness) && shaderKeywords.Contains(Keyword_Underlay))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (material.HasProperty(ID_ScaleRatio_C))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = material.GetFloat(ID_ScaleRatio_C);
 				}
 				float num11 = material.GetFloat(ID_UnderlayOffsetX) * num7;
@@ -525,15 +382,6 @@ namespace TMPro
 			float x;
 			if (zero2.x < zero.x)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				x = zero.x;
 			}
 			else
@@ -544,15 +392,6 @@ namespace TMPro
 			float y;
 			if (zero2.y < zero.y)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				y = zero.y;
 			}
 			else
@@ -563,15 +402,6 @@ namespace TMPro
 			float z;
 			if (zero2.z < zero.z)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				z = zero.z;
 			}
 			else
@@ -582,15 +412,6 @@ namespace TMPro
 			float w;
 			if (zero2.w < zero.w)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				w = zero.w;
 			}
 			else
@@ -610,19 +431,6 @@ namespace TMPro
 		{
 			if (!isInitialized)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GetShaderPropertyIDs();
 			}
 			if (materials == null)
@@ -673,68 +481,23 @@ namespace TMPro
 				}
 				if (materials[i].HasProperty(ID_FaceDilate))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = materials[i].GetFloat(ID_FaceDilate) * num5;
 				}
 				if (materials[i].HasProperty(ID_OutlineSoftness))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = materials[i].GetFloat(ID_OutlineSoftness) * num5;
 				}
 				if (materials[i].HasProperty(ID_OutlineWidth))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = materials[i].GetFloat(ID_OutlineWidth) * num5;
 				}
 				num10 = num4 + num3 + num2;
 				if (materials[i].HasProperty(ID_GlowOffset))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (shaderKeywords.Contains(Keyword_Glow))
 					{
 						if (materials[i].HasProperty(ID_ScaleRatio_B))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6 = materials[i].GetFloat(ID_ScaleRatio_B);
 						}
 						num8 = materials[i].GetFloat(ID_GlowOffset) * num6;
@@ -744,28 +507,10 @@ namespace TMPro
 				num10 = Mathf.Max(num10, num2 + num8 + num9);
 				if (materials[i].HasProperty(ID_UnderlaySoftness))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (shaderKeywords.Contains(Keyword_Underlay))
 					{
 						if (materials[i].HasProperty(ID_ScaleRatio_C))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num7 = materials[i].GetFloat(ID_ScaleRatio_C);
 						}
 						float num11 = materials[i].GetFloat(ID_UnderlayOffsetX) * num7;
@@ -793,15 +538,6 @@ namespace TMPro
 				float x;
 				if (zero2.x < zero.x)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					x = zero.x;
 				}
 				else
@@ -812,15 +548,6 @@ namespace TMPro
 				float y;
 				if (zero2.y < zero.y)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					y = zero.y;
 				}
 				else
@@ -831,15 +558,6 @@ namespace TMPro
 				float z;
 				if (zero2.z < zero.z)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					z = zero.z;
 				}
 				else
@@ -850,15 +568,6 @@ namespace TMPro
 				float w;
 				if (zero2.w < zero.w)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					w = zero.w;
 				}
 				else

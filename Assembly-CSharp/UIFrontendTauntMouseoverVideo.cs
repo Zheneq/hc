@@ -20,10 +20,6 @@ public class UIFrontendTauntMouseoverVideo : UITooltipBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AudioManager.StandardizeAudioLinkages(m_movieTexturePlayer.gameObject);
 					m_movieTexturePlayer.Play(movieAssetName, true, false, false);
 					if (!m_movieTexturePlayer.gameObject.activeSelf)
@@ -50,11 +46,6 @@ public class UIFrontendTauntMouseoverVideo : UITooltipBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_movieTexturePlayer, false);
 			return;
 		}

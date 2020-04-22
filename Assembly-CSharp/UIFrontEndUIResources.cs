@@ -36,35 +36,16 @@ public class UIFrontEndUIResources : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(textObject.GetComponentInParent<TMP_InputField>() == null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (textObject.GetComponentInParent<InputField>() == null)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						UIEventTriggerUtils.AddListener(textObject.gameObject, EventTriggerType.PointerClick, OnTextClicked);
 						return;
 					}
@@ -94,25 +75,11 @@ public class UIFrontEndUIResources : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string a = component.textInfo.linkInfo[num].GetLinkID().Substring(8);
 			if (a == "join")
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					DebugCommands.Get().RunDebugCommand("/discord", "join");
 					return;
 				}

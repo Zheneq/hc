@@ -31,19 +31,6 @@ public class GameResultBadgeData : MonoBehaviour
 		{
 			if (description != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (description.StatUnit == StatUnitType.PerTurn)
 				{
 					return StringUtil.TR("PerTurn", "Global");
@@ -52,11 +39,6 @@ public class GameResultBadgeData : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						return StringUtil.TR("PerLife", "Global");
 					}
 				}
@@ -64,11 +46,6 @@ public class GameResultBadgeData : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						return StringUtil.TR("PerTwentyLives", "Global");
 					}
 				}
@@ -119,15 +96,6 @@ public class GameResultBadgeData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return false;
 		}
 	}
@@ -170,25 +138,11 @@ public class GameResultBadgeData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return StatDescriptions[i];
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -226,25 +180,11 @@ public class GameResultBadgeData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return GameResultBadges[i];
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}

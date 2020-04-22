@@ -33,19 +33,6 @@ public class BrushRegion : BoardRegion
 		{
 			if (!(m_quads[0].m_corner1 == null))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(m_quads[0].m_corner2 == null))
 				{
 					Vector3 position = m_quads[0].m_corner1.position;
@@ -54,26 +41,8 @@ public class BrushRegion : BoardRegion
 					BoardSquare boardSquareUnsafe2 = Board.Get().GetBoardSquareUnsafe(position2.x, position2.z);
 					if (boardSquareUnsafe != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquareUnsafe2 != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 position3 = (boardSquareUnsafe.ToVector3() + boardSquareUnsafe2.ToVector3()) * 0.5f;
 							if (m_functioningVFX != null)
 							{
@@ -81,15 +50,6 @@ public class BrushRegion : BoardRegion
 							}
 							if (m_disruptedVFX != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_disruptedVFX.transform.position = position3;
 							}
 						}
@@ -112,38 +72,11 @@ public class BrushRegion : BoardRegion
 				BoardSquare current = enumerator.Current;
 				if (current.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position4 = current.ToVector3();
 					if (HighlightUtils.Get() != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (HighlightUtils.Get().m_brushDisruptedSquarePrefab != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject = UnityEngine.Object.Instantiate(HighlightUtils.Get().m_brushDisruptedSquarePrefab);
 							gameObject.transform.position = position4;
 							gameObject.transform.parent = BrushCoordinator.Get().transform;
@@ -151,15 +84,6 @@ public class BrushRegion : BoardRegion
 						}
 						if (HighlightUtils.Get().m_brushFunctioningSquarePrefab != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject2 = UnityEngine.Object.Instantiate(HighlightUtils.Get().m_brushFunctioningSquarePrefab);
 							gameObject2.transform.position = position4;
 							gameObject2.transform.parent = BrushCoordinator.Get().transform;
@@ -170,41 +94,14 @@ public class BrushRegion : BoardRegion
 					MaskSideFlagForSquare(ref sideFlags, current, squaresInRegion);
 					if (sideFlags != 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_exteriorSquareFlags[current] = sideFlags;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float y;
 		if (HighlightUtils.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			y = HighlightUtils.Get().m_brushBorderHeightOffset;
 		}
 		else
@@ -222,28 +119,10 @@ public class BrushRegion : BoardRegion
 		m_borderVfxParentFunctioning.transform.localRotation = Quaternion.identity;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_borderVfxParentFunctioning.transform.parent = GameFlowData.Get().GetBrushBordersRoot().transform;
 		}
 		if (m_borderVfxParentDisrupted != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Brush region border vfx parent already exists when initializing region");
 			UnityEngine.Object.Destroy(m_borderVfxParentDisrupted);
 		}
@@ -252,15 +131,6 @@ public class BrushRegion : BoardRegion
 		m_borderVfxParentDisrupted.transform.localRotation = Quaternion.identity;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_borderVfxParentDisrupted.transform.parent = GameFlowData.Get().GetBrushBordersRoot().transform;
 		}
 		m_borderVfxListFunctioning.Clear();
@@ -268,15 +138,6 @@ public class BrushRegion : BoardRegion
 		object obj;
 		if (HighlightUtils.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = HighlightUtils.Get().m_brushFunctioningBorderPrefab;
 		}
 		else
@@ -287,15 +148,6 @@ public class BrushRegion : BoardRegion
 		object obj2;
 		if (HighlightUtils.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj2 = HighlightUtils.Get().m_brushDisruptedBorderPrefab;
 		}
 		else
@@ -309,15 +161,6 @@ public class BrushRegion : BoardRegion
 			{
 				KeyValuePair<BoardSquare, byte> current2 = enumerator2.Current;
 				AddSideVfxPrefabs(current2.Key, current2.Value, functioningPrefab, disruptedPrefab, m_borderVfxParentFunctioning, m_borderVfxParentDisrupted, m_borderVfxListFunctioning, m_borderVfxListDisrupted);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_borderVfxParentDisrupted.SetActive(false);
@@ -344,10 +187,6 @@ public class BrushRegion : BoardRegion
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								return true;
 							}
 						}
@@ -374,19 +213,6 @@ public class BrushRegion : BoardRegion
 		int num;
 		if (!(CameraManager.Get() == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((!CameraManager.Get().ShouldHideBrushVfx()) ? 1 : 0);
 		}
 		else
@@ -400,15 +226,6 @@ public class BrushRegion : BoardRegion
 			{
 				goto IL_00e6;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_borderVfxParentFunctioning.SetActive(functioning);
 		for (int i = 0; i < m_borderVfxListFunctioning.Count; i++)
@@ -418,51 +235,15 @@ public class BrushRegion : BoardRegion
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (functioning)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag && flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					pKFxFX.StartEffect();
 					continue;
 				}
 			}
 			pKFxFX.TerminateEffect();
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_00e6;
 		IL_00e6:
@@ -476,37 +257,10 @@ public class BrushRegion : BoardRegion
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!functioning)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
 							pKFxFX2.StartEffect();
@@ -515,15 +269,6 @@ public class BrushRegion : BoardRegion
 					}
 				}
 				pKFxFX2.TerminateEffect();
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_lastBorderCanBeVisible = flag2;
@@ -534,19 +279,6 @@ public class BrushRegion : BoardRegion
 		int result;
 		if (m_exteriorSquareFlags.ContainsKey(square))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_exteriorSquareFlags[square];
 		}
 		else
@@ -561,19 +293,6 @@ public class BrushRegion : BoardRegion
 		Color color;
 		if (functioning)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			color = Color.white;
 		}
 		else
@@ -587,11 +306,6 @@ public class BrushRegion : BoardRegion
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			foreach (KeyValuePair<BoardSquare, byte> exteriorSquareFlag in m_exteriorSquareFlags)
 			{
 				DrawDebugGizmos(exteriorSquareFlag.Key, exteriorSquareFlag.Value);
@@ -616,42 +330,11 @@ public class BrushRegion : BoardRegion
 	{
 		if (!(squareToTest == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (squareToTest.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (squaresInSet.Contains(squareToTest))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -671,19 +354,6 @@ public class BrushRegion : BoardRegion
 					SideFlags sideFlags2 = (SideFlags)enumerator.Current;
 					if (((int)sideFlags & (int)sideFlags2) != 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						AddSideVfxForSide(sideFlags2, vfxPos, functioningPrefab, disruptedPrefab, functioningRoot, disruptedRoot, functioningVfxList, disruptedVfxList);
 					}
 				}
@@ -725,19 +395,6 @@ public class BrushRegion : BoardRegion
 		Quaternion rotationForSidePrefab = GetRotationForSidePrefab(side);
 		if (functioningPrefab != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameObject gameObject = UnityEngine.Object.Instantiate(functioningPrefab);
 			gameObject.transform.localPosition = vfxPos;
 			gameObject.transform.localRotation = rotationForSidePrefab;
@@ -748,15 +405,6 @@ public class BrushRegion : BoardRegion
 			{
 				functioningVfxList.Add(item);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!(disruptedPrefab != null))
 		{
@@ -764,11 +412,6 @@ public class BrushRegion : BoardRegion
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			GameObject gameObject2 = UnityEngine.Object.Instantiate(disruptedPrefab);
 			gameObject2.transform.localPosition = vfxPos;
 			gameObject2.transform.localRotation = rotationForSidePrefab;
@@ -803,10 +446,6 @@ public class BrushRegion : BoardRegion
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Quaternion.identity;
 				}
 			}
@@ -818,11 +457,6 @@ public class BrushRegion : BoardRegion
 		case SideFlags.Left:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return Quaternion.Euler(0f, 270f, 0f);
 			}
 		case SideFlags.Right:
@@ -843,45 +477,14 @@ public class BrushRegion : BoardRegion
 		Vector3 b2 = new Vector3(0.5f * Board.Get().squareSize, 0f, 0f);
 		if ((sideFlags & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Gizmos.DrawLine(a + b - b2, a + b + b2);
 		}
 		if ((sideFlags & 2) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Gizmos.DrawLine(a - b + b2, a - b - b2);
 		}
 		if ((sideFlags & 4) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Gizmos.DrawLine(a - b2 + b, a - b2 - b);
 		}
 		if ((sideFlags & 8) == 0)
@@ -890,11 +493,6 @@ public class BrushRegion : BoardRegion
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Gizmos.DrawLine(a + b2 + b, a + b2 - b);
 			return;
 		}

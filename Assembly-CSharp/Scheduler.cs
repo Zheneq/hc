@@ -24,15 +24,6 @@ public class Scheduler
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AddTask(action, (int)timeSpan.TotalMilliseconds, isOneShot);
 			return;
 		}
@@ -60,10 +51,6 @@ public class Scheduler
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						ScheduledTask scheduledTask = new ScheduledTask(action, timeoutMs, isOneShot);
 						scheduledTask.TaskComplete = (EventHandler)Delegate.Combine(scheduledTask.TaskComplete, new EventHandler(TaskComplete));
 						m_scheduledTasks.Add(action, scheduledTask);
@@ -107,10 +94,6 @@ public class Scheduler
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0020;
 					}
 				}

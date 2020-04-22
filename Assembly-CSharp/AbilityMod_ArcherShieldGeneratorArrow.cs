@@ -46,15 +46,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_lessAbsorbPerTurnMod, "LessAbsorbPerTurn", string.Empty, archerShieldGeneratorArrow.m_lessAbsorbPerTurn);
 			AbilityMod.AddToken_EffectMod(tokens, m_directHitEnemyEffectMod, "DirectHitEnemyEffect", archerShieldGeneratorArrow.m_directHitEnemyEffect);
 			AbilityMod.AddToken_EffectMod(tokens, m_directHitAllyEffectMod, "DirectHitAllyEffect", archerShieldGeneratorArrow.m_directHitAllyEffect);
@@ -78,19 +69,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (archerShieldGeneratorArrow.m_affectsEnemies ? 1 : 0);
 		}
 		else
@@ -103,15 +81,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (archerShieldGeneratorArrow.m_affectsAllies ? 1 : 0);
 		}
 		else
@@ -124,15 +93,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (archerShieldGeneratorArrow.m_affectsCaster ? 1 : 0);
 		}
 		else
@@ -145,15 +105,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerShieldGeneratorArrow.m_lessAbsorbPerTurn;
 		}
 		else
@@ -166,15 +117,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = archerShieldGeneratorArrow.m_directHitEnemyEffect;
 		}
 		else
@@ -187,15 +129,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = archerShieldGeneratorArrow.m_directHitAllyEffect;
 		}
 		else

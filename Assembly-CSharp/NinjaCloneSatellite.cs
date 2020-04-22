@@ -65,19 +65,6 @@ public class NinjaCloneSatellite : TempSatellite
 		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 		if (currentAnimatorStateInfo.IsTag("Despawn"))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentAnimatorStateInfo.normalizedTime >= 1f)
 			{
 				while (true)
@@ -99,11 +86,6 @@ public class NinjaCloneSatellite : TempSatellite
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_attackTarget != null)
 			{
 				base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
@@ -131,20 +113,10 @@ public class NinjaCloneSatellite : TempSatellite
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (currentAnimatorStateInfo.normalizedTime >= 1f)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						TriggerDespawn();
 						return;
 					}

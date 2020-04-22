@@ -57,10 +57,6 @@ public class BuildNormalPathHeap
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 from = p1.square.ToVector3() - m_tieBreakerTestPos;
 					Vector3 from2 = p2.square.ToVector3() - m_tieBreakerTestPos;
 					return Vector3.Angle(from, m_tieBreakerDir).CompareTo(Vector3.Angle(from2, m_tieBreakerDir));
@@ -82,10 +78,6 @@ public class BuildNormalPathHeap
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}
@@ -115,15 +107,6 @@ public class BuildNormalPathHeap
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_buffer = array;
 			return;
 		}
@@ -135,19 +118,6 @@ public class BuildNormalPathHeap
 		m_buffer[m_numElements] = elem;
 		if (m_squareToIndex.ContainsKey(elem.square))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("square added to heap multiple times?");
 		}
 		m_squareToIndex[elem.square] = m_numElements;
@@ -164,24 +134,10 @@ public class BuildNormalPathHeap
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CompareFunc(m_buffer[index], m_buffer[num]) < 0)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = m_buffer[num];
 					m_buffer[num] = m_buffer[index];
 					m_buffer[index] = boardSquarePathInfo;
@@ -226,49 +182,17 @@ public class BuildNormalPathHeap
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (CompareFunc(m_buffer[num3], m_buffer[num]) < 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = num3;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (num != index)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = m_buffer[index];
 					m_buffer[index] = m_buffer[num];
 					m_buffer[num] = boardSquarePathInfo;
@@ -298,10 +222,6 @@ public class BuildNormalPathHeap
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_buffer[value];
 				}
 			}
@@ -321,10 +241,6 @@ public class BuildNormalPathHeap
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = m_buffer[value];
 					float f_cost = boardSquarePathInfo.F_cost;
 					float f_cost2 = adjSquarePathInfo.F_cost;

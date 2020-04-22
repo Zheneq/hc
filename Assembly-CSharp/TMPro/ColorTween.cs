@@ -99,10 +99,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -110,30 +106,12 @@ namespace TMPro
 			Color arg = Color.Lerp(m_StartColor, m_TargetColor, floatPercentage);
 			if (m_TweenMode == ColorTweenMode.Alpha)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg.r = m_StartColor.r;
 				arg.g = m_StartColor.g;
 				arg.b = m_StartColor.b;
 			}
 			else if (m_TweenMode == ColorTweenMode.RGB)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg.a = m_StartColor.a;
 			}
 			m_Target.Invoke(arg);
@@ -143,19 +121,6 @@ namespace TMPro
 		{
 			if (m_Target == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_Target = new ColorTweenCallback();
 			}
 			m_Target.AddListener(callback);

@@ -30,52 +30,12 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 		m_overviewStat = overviewStat;
 		if (m_overviewStat != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.DamageEfficiency)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageDamageDonePerTurn)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageDamageTakenPerTurn)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageSupportDonePerTurn)
 						{
 							m_value = new PersistedStatEntry();
@@ -112,42 +72,11 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 	{
 		if (m_overviewStat != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.MatchesWon)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_overviewStat != UIPlayerProgressOverview.OverviewStat.NumBadges)
 				{
 					return m_value.Average();
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -167,19 +96,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float fillAmount4;
 			if (maxValue > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				fillAmount4 = num / maxValue;
 			}
 			else
@@ -198,15 +114,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float fillAmount2;
 			if (maxValue > 0f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fillAmount2 = num / maxValue;
 			}
 			else
@@ -223,15 +130,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float num;
 			if (num2 > 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_value.GetSum() / num2;
 			}
 			else

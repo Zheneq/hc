@@ -69,30 +69,8 @@ public class SequenceManager : MonoBehaviour
 				Sequence current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					hashSet.Add(current.gameObject);
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_sequences.Clear();
@@ -108,34 +86,12 @@ public class SequenceManager : MonoBehaviour
 		{
 			if (m_sequences[num] == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_sequences.RemoveAt(num);
 			}
 		}
 		List<Sequence> sequences = m_sequences;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = ((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd);
 		}
 		List<Sequence> list = sequences.FindAll(_003C_003Ef__am_0024cache0);
@@ -146,15 +102,6 @@ public class SequenceManager : MonoBehaviour
 			{
 				Sequence current = enumerator.Current;
 				objectsToDestroy.Add(current.gameObject);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		list = m_sequences.FindAll((Sequence sequence) => objectsToDestroy.Contains(sequence.gameObject));
@@ -174,57 +121,17 @@ public class SequenceManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (sequence.MarkedForRemoval)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (sequence.Source.RootID != (uint)seqSourceId)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (sequence.PrefabLookupId != sequencePrefabLookupId)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!(sequence.TargetPos == targetPos))
 			{
@@ -232,11 +139,6 @@ public class SequenceManager : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				sequence.MarkForRemoval();
 				return;
 			}
@@ -264,19 +166,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = m_sequences[i];
 			if (sequence == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null sequence in list, index {0}", i);
 			}
 			else
@@ -287,22 +176,12 @@ public class SequenceManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			SendAbilityPhaseStart(AbilityPriority.INVALID);
 			m_lastHandledAbilityPriority = AbilityPriority.INVALID;
 			if (m_sequences.Count > 200)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("More than " + 200 + " sequences tracked concurrently");
 					_001D();
 					return;
@@ -328,10 +207,6 @@ public class SequenceManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -349,19 +224,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = m_sequences[i];
 			if (sequence != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				empty = sequence.name;
 			}
 			else
@@ -370,15 +232,6 @@ public class SequenceManager : MonoBehaviour
 			}
 			if (dictionary.ContainsKey(empty))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[empty]++;
 			}
 			else
@@ -388,11 +241,6 @@ public class SequenceManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			string text = string.Empty;
 			using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
 			{
@@ -401,15 +249,6 @@ public class SequenceManager : MonoBehaviour
 					KeyValuePair<string, int> current = enumerator.Current;
 					string text2 = text;
 					text = text2 + "[ " + current.Key + " ] count = " + current.Value + "\n";
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Error(text);
@@ -424,19 +263,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = m_sequences[i];
 			if (sequence == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null sequence in list, index {0}", i);
 			}
 			else
@@ -464,15 +290,6 @@ public class SequenceManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lastHandledAbilityPriority = abilityPhase;
 			return;
 		}
@@ -487,70 +304,21 @@ public class SequenceManager : MonoBehaviour
 		}
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			prefab = caster.ReplaceSequence(prefab);
 		}
 		if (prefab == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SequenceLookup.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prefab = SequenceLookup.Get().GetSimpleHitSequencePrefab();
 			}
 		}
 		Sequence[] array = null;
 		if (prefab != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
 			if ((bool)gameObject)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array = gameObject.GetComponents<Sequence>();
 				Sequence[] array2 = array;
 				foreach (Sequence sequence in array2)
@@ -558,56 +326,20 @@ public class SequenceManager : MonoBehaviour
 					sequence.BaseInitialize_Client(targetSquare, targetPos, targetRotation, targets, caster, GetNewId(), prefab, baseSequenceLookupId, source, extraParams);
 					m_sequences.Add(sequence);
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else if (source != null)
 		{
 			if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning("Creating sequences for null prefab.  Hitting immediately (without informing theatrics)...");
 			}
 			Sequence seq = null;
 			if (targets != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (ActorData target in targets)
 				{
 					source.OnSequenceHit(seq, target, null);
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			source.OnSequenceHit(seq, targetPos);
@@ -643,19 +375,6 @@ public class SequenceManager : MonoBehaviour
 		{
 			if (m_sequences[i] == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null sequence in list, index {0}", i);
 			}
 			else
@@ -664,27 +383,9 @@ public class SequenceManager : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TempSatelliteSequence tempSatelliteSequence = m_sequences[i] as TempSatelliteSequence;
 				if (tempSatelliteSequence != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = tempSatelliteSequence.GetTempSatellite();
 					break;
 				}
@@ -705,34 +406,12 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = m_sequences[i];
 			if (sequence == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null sequence in list, index {0}", i);
 				continue;
 			}
 			SequenceSource source2 = sequence.Source;
 			if (source2 == source)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sequence.AnimationEvent(eventObject, sourceObject);
 			}
 		}
@@ -758,19 +437,6 @@ public class SequenceManager : MonoBehaviour
 				Sequence current = enumerator.Current;
 				if (current.Caster == caster && current.Targets != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.AddRange(current.Targets);
 				}
 			}
@@ -798,10 +464,6 @@ public class SequenceManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Attempted to call client only method without client.");
 					return;
 				}
@@ -814,26 +476,8 @@ public class SequenceManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (sequence.Source == source)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sequence.OnDoClientEnable();
 			}
 		}
@@ -854,34 +498,12 @@ public class SequenceManager : MonoBehaviour
 		string text = string.Empty;
 		if (source != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_sequences.Count; i++)
 			{
 				Sequence sequence = m_sequences[i];
 				if (!(sequence != null))
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (sequence.Source == source)
 				{

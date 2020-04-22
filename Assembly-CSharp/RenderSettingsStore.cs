@@ -105,19 +105,6 @@ public class RenderSettingsStore : MonoBehaviour
 		GameObject gameObject = GameObject.Find("RenderSettingsStore");
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DestroyImmediate(gameObject);
 		}
 		GameObject gameObject2 = new GameObject("RenderSettingsStore");
@@ -134,19 +121,6 @@ public class RenderSettingsStore : MonoBehaviour
 			RenderSettingsStore component = gameObject.GetComponent<RenderSettingsStore>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				component.RestoreGlobalRenderSettings();
 				result = true;
 			}

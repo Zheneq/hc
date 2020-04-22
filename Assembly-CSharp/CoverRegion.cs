@@ -19,19 +19,6 @@ public class CoverRegion
 	{
 		if (angle_deg > m_startAngle)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (angle_deg > m_endAngle)
 			{
 				angle_deg -= 360f;
@@ -40,30 +27,12 @@ public class CoverRegion
 		}
 		if (angle_deg < m_startAngle && angle_deg < m_endAngle)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			angle_deg += 360f;
 		}
 		goto IL_0059;
 		IL_0059:
 		if (m_startAngle <= angle_deg)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (angle_deg <= m_endAngle)
 			{
 				while (true)

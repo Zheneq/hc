@@ -27,10 +27,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -46,19 +42,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		QuestTemplateRef = null;
 		if (-1 < questID - 1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (questID - 1 < QuestWideData.Get().m_quests.Count)
 			{
 				QuestTemplateRef = QuestWideData.Get().m_quests[questID - 1];
@@ -66,27 +49,9 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		}
 		if (QuestTemplateRef != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Sprite sprite = Resources.Load<Sprite>(QuestTemplateRef.IconFilename);
 			if ((bool)sprite)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_contractImage.sprite = sprite;
 			}
 			else
@@ -110,34 +75,12 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (m_infoReference != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_infoReference.QuestProgressRef.Id == newProgress.Id)
 			{
 				UIBaseQuestDisplayInfo uIBaseQuestDisplayInfo = DeleteCache();
 				uIBaseQuestDisplayInfo.QuestProgressRef = newProgress;
 				Setup(uIBaseQuestDisplayInfo);
 				return true;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -152,15 +95,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			QuestListPanel.Get().NotifyEntryExpanded(this);
 			return;
 		}
@@ -177,19 +111,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 			int index = m_infoReference.QuestTemplateRef.Index;
 			if (questComponent != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = questComponent.GetRejectedCount(index);
 			}
 		}
@@ -207,10 +128,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -292,19 +209,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (response.Success)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetExpanded(false);
 		}
 		SetTrashSelected(false);

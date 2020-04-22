@@ -23,10 +23,6 @@ public class LocalizationArg_FirstRank : LocalizationArg
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return StringUtil.TR("First", "FirstRank");
 				}
 			}

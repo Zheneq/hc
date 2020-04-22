@@ -41,10 +41,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return num;
 					}
 				}
@@ -65,10 +61,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						cursor = CaretPosition.Left;
 						return num2;
 					}
@@ -113,19 +105,6 @@ namespace TMPro
 				float y2 = vector2.y;
 				if (y > position.y)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (y2 < position.y)
 					{
 						while (true)
@@ -145,26 +124,12 @@ namespace TMPro
 				float num2 = Mathf.Min(a, b);
 				if (num2 < num)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = num2;
 					result = i;
 				}
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return result;
 			}
 		}
@@ -185,19 +150,6 @@ namespace TMPro
 					TMP_CharacterInfo tMP_CharacterInfo = text.textInfo.characterInfo[num2];
 					if (visibleOnly && !tMP_CharacterInfo.isVisible)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 					}
 					else
 					{
@@ -207,15 +159,6 @@ namespace TMPro
 						Vector3 vector4 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.bottomLeft.y, 0f));
 						if (PointIntersectRectangle(position, vector, vector2, vector3, vector4))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = num2;
 							break;
 						}
@@ -226,15 +169,6 @@ namespace TMPro
 						float num7;
 						if (num3 < num4)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num7 = num3;
 						}
 						else
@@ -245,15 +179,6 @@ namespace TMPro
 						float num9;
 						if (num8 < num5)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num9 = num8;
 						}
 						else
@@ -264,15 +189,6 @@ namespace TMPro
 						float num10;
 						if (num8 < num6)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num10 = num8;
 						}
 						else
@@ -282,30 +198,12 @@ namespace TMPro
 						num8 = num10;
 						if (num > num8)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = num8;
 							result = num2;
 						}
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -325,10 +223,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return true;
 					}
 				}
@@ -345,30 +239,8 @@ namespace TMPro
 				TMP_CharacterInfo tMP_CharacterInfo = text.textInfo.characterInfo[i];
 				if (visibleOnly)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!tMP_CharacterInfo.isVisible)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -382,21 +254,11 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					return i;
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return -1;
 			}
 		}
@@ -412,30 +274,8 @@ namespace TMPro
 				TMP_CharacterInfo tMP_CharacterInfo = text.textInfo.characterInfo[i];
 				if (visibleOnly)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!tMP_CharacterInfo.isVisible)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
@@ -464,15 +304,6 @@ namespace TMPro
 				float num7;
 				if (num6 < num4)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = num6;
 				}
 				else
@@ -483,15 +314,6 @@ namespace TMPro
 				float num8;
 				if (num6 < num5)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = num6;
 				}
 				else
@@ -507,11 +329,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return result;
 			}
 		}
@@ -540,44 +357,13 @@ namespace TMPro
 					num2 = Mathf.Min(num2, tMP_CharacterInfo.descender);
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (isVisible)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							a = new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.descender, 0f);
 							b = new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.ascender, 0f);
 							if (tMP_WordInfo.characterCount == 1)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = false;
 								zero = new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f);
 								zero2 = new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f);
@@ -603,26 +389,8 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tMP_WordInfo.characterCount - 1)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f);
 							zero2 = new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f);
@@ -636,11 +404,6 @@ namespace TMPro
 							}
 							while (true)
 							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
 								return i;
 							}
 						}
@@ -664,11 +427,6 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						return i;
 					}
 				}
@@ -711,33 +469,11 @@ namespace TMPro
 					bool isVisible = tMP_CharacterInfo.isVisible;
 					if (!flag && isVisible)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						flag = true;
 						vector = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.descender, 0f));
 						vector2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.ascender, 0f));
 						if (tMP_WordInfo.characterCount == 1)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -745,11 +481,6 @@ namespace TMPro
 							{
 								while (true)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
 									return i;
 								}
 							}
@@ -760,15 +491,6 @@ namespace TMPro
 							float num7;
 							if (num3 < num4)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7 = num3;
 							}
 							else
@@ -779,15 +501,6 @@ namespace TMPro
 							float num9;
 							if (num8 < num5)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num9 = num8;
 							}
 							else
@@ -798,15 +511,6 @@ namespace TMPro
 							float num10;
 							if (num8 < num6)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10 = num8;
 							}
 							else
@@ -816,15 +520,6 @@ namespace TMPro
 							num8 = num10;
 							if (num > num8)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num8;
 								result = i;
 							}
@@ -832,26 +527,8 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tMP_WordInfo.characterCount - 1)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -877,15 +554,6 @@ namespace TMPro
 							float num16;
 							if (num15 < num14)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num16 = num15;
 							}
 							else
@@ -905,27 +573,9 @@ namespace TMPro
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == text.textInfo.characterInfo[num2 + 1].lineNumber)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
@@ -951,15 +601,6 @@ namespace TMPro
 					float num22;
 					if (num21 < num19)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num22 = num21;
 					}
 					else
@@ -970,15 +611,6 @@ namespace TMPro
 					float num23;
 					if (num21 < num20)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num23 = num21;
 					}
 					else
@@ -988,15 +620,6 @@ namespace TMPro
 					num21 = num23;
 					if (num > num21)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num21;
 						result = i;
 					}
@@ -1017,11 +640,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return result;
 			}
 		}
@@ -1042,30 +660,12 @@ namespace TMPro
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(y2 < position.y))
 				{
 					continue;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					return i;
 				}
 			}
@@ -1091,58 +691,18 @@ namespace TMPro
 					int lineNumber = tMP_CharacterInfo.lineNumber;
 					if (text.overflowMode == TextOverflowModes.Page)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (tMP_CharacterInfo.pageNumber + 1 != text.pageToDisplay)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						a = transform.TransformPoint(new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.descender, 0f));
 						b = transform.TransformPoint(new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.ascender, 0f));
 						if (tMP_LinkInfo.linkTextLength == 1)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = transform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = transform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -1154,26 +714,8 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tMP_LinkInfo.linkTextLength - 1)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = transform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = transform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -1183,11 +725,6 @@ namespace TMPro
 							}
 							while (true)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
 								return i;
 							}
 						}
@@ -1196,27 +733,9 @@ namespace TMPro
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == text.textInfo.characterInfo[num + 1].lineNumber)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					zero = transform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
@@ -1227,11 +746,6 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						return i;
 					}
 				}
@@ -1251,11 +765,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				return -1;
 			}
 		}
@@ -1281,30 +790,8 @@ namespace TMPro
 					int lineNumber = tMP_CharacterInfo.lineNumber;
 					if (text.overflowMode == TextOverflowModes.Page)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (tMP_CharacterInfo.pageNumber + 1 != text.pageToDisplay)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -1315,15 +802,6 @@ namespace TMPro
 						vector2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.bottomLeft.x, tMP_CharacterInfo.ascender, 0f));
 						if (tMP_LinkInfo.linkTextLength == 1)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -1331,11 +809,6 @@ namespace TMPro
 							{
 								while (true)
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
 									return i;
 								}
 							}
@@ -1346,15 +819,6 @@ namespace TMPro
 							float num7;
 							if (num3 < num4)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7 = num3;
 							}
 							else
@@ -1365,15 +829,6 @@ namespace TMPro
 							float num9;
 							if (num8 < num5)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num9 = num8;
 							}
 							else
@@ -1384,15 +839,6 @@ namespace TMPro
 							float num10;
 							if (num8 < num6)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10 = num8;
 							}
 							else
@@ -1402,15 +848,6 @@ namespace TMPro
 							num8 = num10;
 							if (num > num8)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num8;
 								result = i;
 							}
@@ -1418,26 +855,8 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tMP_LinkInfo.linkTextLength - 1)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
 							zero2 = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.ascender, 0f));
@@ -1461,15 +880,6 @@ namespace TMPro
 							float num15;
 							if (num11 < num12)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num15 = num11;
 							}
 							else
@@ -1480,15 +890,6 @@ namespace TMPro
 							float num17;
 							if (num16 < num13)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num17 = num16;
 							}
 							else
@@ -1499,15 +900,6 @@ namespace TMPro
 							float num18;
 							if (num16 < num14)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num18 = num16;
 							}
 							else
@@ -1517,15 +909,6 @@ namespace TMPro
 							num16 = num18;
 							if (num > num16)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num16;
 								result = i;
 							}
@@ -1536,27 +919,9 @@ namespace TMPro
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == text.textInfo.characterInfo[num2 + 1].lineNumber)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					zero = rectTransform.TransformPoint(new Vector3(tMP_CharacterInfo.topRight.x, tMP_CharacterInfo.descender, 0f));
@@ -1581,15 +946,6 @@ namespace TMPro
 					float num23;
 					if (num19 < num20)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num23 = num19;
 					}
 					else
@@ -1601,15 +957,6 @@ namespace TMPro
 					float num25;
 					if (num24 < num22)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num25 = num24;
 					}
 					else
@@ -1619,15 +966,6 @@ namespace TMPro
 					num24 = num25;
 					if (num > num24)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num24;
 						result = i;
 					}
@@ -1648,11 +986,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				return result;
 			}
 		}
@@ -1668,41 +1001,10 @@ namespace TMPro
 			int result;
 			if (0f <= num)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (num <= Vector3.Dot(vector, vector))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (0f <= num2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((num2 <= Vector3.Dot(vector2, vector2)) ? 1 : 0);
 						goto IL_0095;
 					}
@@ -1727,10 +1029,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -1755,10 +1053,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (num2 == 0f)
 						{
 							while (true)
@@ -1779,28 +1073,10 @@ namespace TMPro
 			float num3 = num2 / num;
 			if (!(num3 < 0f))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(num3 > 1f))
 				{
 					intersectingPoint = line.Point1 + num3 * vector;
 					return true;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -1825,10 +1101,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return Vector3.Dot(vector3, vector3);
 					}
 				}
@@ -1848,10 +1120,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return c;
 					}
 				}
@@ -1870,10 +1138,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return c;
 					}
 				}

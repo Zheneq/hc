@@ -56,10 +56,6 @@ namespace TMPro.Examples
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						_0013 = _000E.transform;
 						_0013.position = _0016.position + new Vector3(0f, 15f, 0f);
 						_0015 = _000E.AddComponent<TextMesh>();
@@ -110,31 +106,9 @@ namespace TMPro.Examples
 				_0013.position += new Vector3(0f, num2 * Time.deltaTime, 0f);
 				if (_0009.Compare(_0018.position, 1000))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (_0019.Compare(_0018.rotation, 1000))
 					{
 						goto IL_02bb;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				_0009 = _0018.position;
@@ -166,19 +140,6 @@ namespace TMPro.Examples
 				num3 -= Time.deltaTime / num * num2;
 				if (num3 <= 3f)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num4 = Mathf.Clamp(num4 - Time.deltaTime / num6 * 255f, 0f, 255f);
 				}
 				_0015.text = ((int)num3).ToString();
@@ -196,11 +157,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				yield return new WaitForSeconds(Random.Range(0.1f, 1f));
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

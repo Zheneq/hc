@@ -43,15 +43,6 @@ namespace TMPro
 			default:
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (style != FontStyles.Superscript)
 					{
 						while (true)
@@ -109,15 +100,6 @@ namespace TMPro
 			default:
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (style != FontStyles.Superscript)
 					{
 						while (true)
@@ -143,15 +125,6 @@ namespace TMPro
 								case FontStyles.Highlight:
 									if (highlight > 1)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										highlight--;
 									}
 									else
@@ -162,15 +135,6 @@ namespace TMPro
 								case FontStyles.Subscript:
 									if (subscript > 1)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										subscript--;
 									}
 									else
@@ -195,15 +159,6 @@ namespace TMPro
 			case FontStyles.Bold:
 				if (bold > 1)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bold--;
 				}
 				else
@@ -234,15 +189,6 @@ namespace TMPro
 			case FontStyles.Strikethrough:
 				if (strikethrough > 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					strikethrough--;
 				}
 				else

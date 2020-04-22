@@ -15,19 +15,6 @@ public class ActorVFX : NetworkBehaviour
 			m_square = square;
 			if (HighlightUtils.Get().m_footstepsVFXPrefab != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (FogOfWar.GetClientFog() != null)
 				{
 					while (true)
@@ -69,28 +56,10 @@ public class ActorVFX : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquare = moveToSquare;
 				BoardSquare boardSquare2 = prevSquare;
 				if (!movingIntoBrush)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = prevSquare;
 					boardSquare2 = moveToSquare;
 				}
@@ -105,11 +74,6 @@ public class ActorVFX : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						m_vfxObj.transform.position = position;
 						m_vfxObj.transform.rotation = Quaternion.LookRotation(vector2);
 						return;
@@ -179,47 +143,16 @@ public class ActorVFX : NetworkBehaviour
 		}
 		if (HighlightUtils.Get().m_onDeathVFXPrefab != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_onDeathVfxContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_onDeathVFXPrefab, HighlightUtils.Get().m_onDeathVFXDuration, null);
 			m_durationBasedVfxList.Add(m_onDeathVfxContainer);
 		}
 		if (HighlightUtils.Get().m_onRespawnVFXPrefab != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_onRespawnVFXContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_onRespawnVFXPrefab, HighlightUtils.Get().m_onRespawnVFXDuration, null);
 			m_durationBasedVfxList.Add(m_onRespawnVFXContainer);
 		}
 		if (HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXPrefab != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_onKnockbackWhileUnstoppableContainer = new DurationActorVFXInfo(HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXPrefab, HighlightUtils.Get().m_knockbackHitWhileUnstoppableVFXDuration, base.gameObject);
 			m_durationBasedVfxList.Add(m_onKnockbackWhileUnstoppableContainer);
 		}
@@ -237,34 +170,12 @@ public class ActorVFX : NetworkBehaviour
 		}
 		if (HighlightUtils.Get().m_statusVfxPrefabToJoint != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			StatusVfxPrefabToJoint[] statusVfxPrefabToJoint = HighlightUtils.Get().m_statusVfxPrefabToJoint;
 			foreach (StatusVfxPrefabToJoint statusVfxPrefabToJoint2 in statusVfxPrefabToJoint)
 			{
 				if (statusVfxPrefabToJoint2.m_status == StatusType.INVALID)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (statusVfxPrefabToJoint2.m_status != StatusType.NUM)
 				{
@@ -274,15 +185,6 @@ public class ActorVFX : NetworkBehaviour
 						m_statusIndicatorVFXList.Add(statusIndicatorVFX);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!(HighlightUtils.Get().m_knockedBackVFXPrefab != null))
@@ -296,11 +198,6 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_statusIndicatorVFXList.Add(knockbackStatusIndicatorVFX);
 			return;
 		}
@@ -312,19 +209,6 @@ public class ActorVFX : NetworkBehaviour
 		bool sameTeamAsClientActor = false;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			sameTeamAsClientActor = ((!(GameFlowData.Get().activeOwnedActorData != null)) ? (m_actorData.GetTeam() == Team.TeamA) : (GameFlowData.Get().activeOwnedActorData.GetTeam() == m_actorData.GetTeam()));
 		}
 		bool flag = actorData.IsDead();
@@ -333,15 +217,6 @@ public class ActorVFX : NetworkBehaviour
 		int num;
 		if (actorData.GetActorMovement() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (actorData.GetActorMovement().InChargeState() ? 1 : 0);
 		}
 		else
@@ -352,15 +227,6 @@ public class ActorVFX : NetworkBehaviour
 		int num2;
 		if (HUD_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (HUD_UI.Get().MainHUDElementsVisible() ? 1 : 0);
 		}
 		else
@@ -371,15 +237,6 @@ public class ActorVFX : NetworkBehaviour
 		int num3;
 		if (CameraManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = (CameraManager.Get().InCinematic() ? 1 : 0);
 		}
 		else
@@ -389,60 +246,15 @@ public class ActorVFX : NetworkBehaviour
 		bool flag6 = (byte)num3 != 0;
 		if (m_chaseMouseover != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
 				if (playerFreeSquare == actorData.GetCurrentBoardSquare())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ActorTurnSM.IsClientDecidingMovement())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ActorData.WouldSquareBeChasedByClient(playerFreeSquare))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_chaseMouseover.SetActive(true);
 							m_chaseMouseover.transform.position = actorData.GetBonePosition("hip_JNT");
 							goto IL_01e7;
@@ -465,11 +277,6 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_statusIndicatorVFXList.Count; j++)
 			{
 				AttachedActorVFXInfo attachedActorVFXInfo = m_statusIndicatorVFXList[j];
@@ -480,26 +287,8 @@ public class ActorVFX : NetworkBehaviour
 				int num4;
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2 && !flag6)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = ((!flag4) ? 1 : 0);
 						goto IL_0465;
 					}
@@ -512,91 +301,27 @@ public class ActorVFX : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = 0; k < m_durationBasedVfxList.Count; k++)
 				{
 					DurationActorVFXInfo durationActorVFXInfo = m_durationBasedVfxList[k];
 					if (durationActorVFXInfo != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						durationActorVFXInfo.OnUpdate();
 					}
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					int num5;
 					if (flag3)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag4)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!m_actorData.IgnoreForAbilityHits)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num5 = (flag5 ? 1 : 0);
 										goto IL_052a;
 									}
@@ -625,26 +350,8 @@ public class ActorVFX : NetworkBehaviour
 		{
 			if (actorData.IsHiddenInBrush())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!CanBeSeenInBrush() && flag3)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						m_concealedVFX.SetActive(true);
@@ -655,37 +362,10 @@ public class ActorVFX : NetworkBehaviour
 			}
 			if (actorData.GetActorStatus().IsInvisibleToEnemies(false))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_concealedVFX.SetActive(true);
 						m_concealedVFX.transform.position = actorData.GetNameplatePosition(0f);
 						goto IL_03a7;
@@ -698,72 +378,18 @@ public class ActorVFX : NetworkBehaviour
 		IL_01e7:
 		if (m_moveMouseover != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare playerFreeSquare2 = Board.Get().PlayerFreeSquare;
 				bool flag7 = playerFreeSquare2 == actorData.GetCurrentBoardSquare();
 				if (!m_chaseMouseover.activeSelf)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag7)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ActorTurnSM.IsClientDecidingMovement())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ActorData.WouldSquareBeChasedByClient(playerFreeSquare2, true))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_moveMouseover.SetActive(true);
 								m_moveMouseover.transform.position = actorData.GetBonePosition("hip_JNT");
 								goto IL_02cc;
@@ -786,42 +412,11 @@ public class ActorVFX : NetworkBehaviour
 				FootstepVFX current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.m_vfxObj != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.m_vfxObj);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_footstepsVFX.Clear();
@@ -835,27 +430,9 @@ public class ActorVFX : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (brushMoveVFX.m_vfxObj != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Object.Destroy(brushMoveVFX.m_vfxObj);
 			}
 			m_brushMoveVFX.RemoveAt(num);
@@ -874,28 +451,10 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float d = HighlightUtils.Get().m_baseCircleSizeInSquares * Board.Get().squareSize;
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(HighlightUtils.Get().m_friendBaseCirclePrefab, m_actorData, HighlightUtils.Get().m_baseCircleJoint, false, "BaseCircleVFX_Friendly", AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo.SetInstanceScale(d * Vector3.one);
 				attachedActorVFXInfo.SetInstanceLocalPosition(HighlightUtils.Get().m_circlePrefabHeight * Vector3.up);
 				m_friendBaseCircleContainer = attachedActorVFXInfo;
@@ -903,15 +462,6 @@ public class ActorVFX : NetworkBehaviour
 			AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(HighlightUtils.Get().m_enemyBaseCirclePrefab, m_actorData, HighlightUtils.Get().m_baseCircleJoint, false, "BaseCircleVFX_Enemy", AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
 			if (attachedActorVFXInfo2.HasVfxInstance())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo2.SetInstanceScale(d * Vector3.one);
 				attachedActorVFXInfo2.SetInstanceLocalPosition(HighlightUtils.Get().m_circlePrefabHeight * Vector3.up);
 				m_enemyBaseCircleContainer = attachedActorVFXInfo2;
@@ -925,61 +475,21 @@ public class ActorVFX : NetworkBehaviour
 	{
 		if (m_chaseMouseover != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_chaseMouseover);
 			m_chaseMouseover = null;
 		}
 		if (m_moveMouseover != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_moveMouseover);
 			m_moveMouseover = null;
 		}
 		if (m_concealedVFX != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_concealedVFX);
 			m_concealedVFX = null;
 		}
 		if (m_footstepsVFX != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<FootstepVFX>.Enumerator enumerator = m_footstepsVFX.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -987,26 +497,8 @@ public class ActorVFX : NetworkBehaviour
 					FootstepVFX current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Object.Destroy(current.m_vfxObj);
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_footstepsVFX.Clear();
@@ -1020,67 +512,22 @@ public class ActorVFX : NetworkBehaviour
 					BrushMoveVFX current2 = enumerator2.Current;
 					if (current2 != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current2.m_vfxObj != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Object.Destroy(current2.m_vfxObj);
 						}
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_brushMoveVFX.Clear();
 		}
 		if (m_statusIndicatorVFXList != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<AttachedActorVFXInfo>.Enumerator enumerator3 = m_statusIndicatorVFXList.GetEnumerator())
 			{
 				while (enumerator3.MoveNext())
 				{
 					enumerator3.Current?.DestroyVfx();
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_statusIndicatorVFXList.Clear();
@@ -1090,25 +537,11 @@ public class ActorVFX : NetworkBehaviour
 			DurationActorVFXInfo durationActorVFXInfo = m_durationBasedVfxList[i];
 			if (durationActorVFXInfo != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				durationActorVFXInfo.DestroyVfx();
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_friendBaseCircleContainer != null)
 			{
 				m_friendBaseCircleContainer.DestroyVfx();
@@ -1118,11 +551,6 @@ public class ActorVFX : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_enemyBaseCircleContainer.DestroyVfx();
 					m_enemyBaseCircleContainer = null;
 					return;
@@ -1141,31 +569,9 @@ public class ActorVFX : NetworkBehaviour
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ActorData actorData = m_actorData;
 				if (activeOwnedActorData.GetQueuedChaseTarget() == actorData)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -1179,43 +585,12 @@ public class ActorVFX : NetworkBehaviour
 		PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 		if (localPlayerData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (BeingChasedByClient())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = m_actorData;
 				int num;
 				if (actorData.SomeVisibilityCheckB_zq(localPlayerData, false))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((!actorData.SomeVisibilityCheckA_zq(localPlayerData, false)) ? 1 : 0);
 				}
 				else
@@ -1224,15 +599,6 @@ public class ActorVFX : NetworkBehaviour
 				}
 				if (num == 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FootstepVFX item = new FootstepVFX(square, m_actorData);
 					m_footstepsVFX.Add(item);
 				}
@@ -1241,85 +607,22 @@ public class ActorVFX : NetworkBehaviour
 		BrushCoordinator brushCoordinator = BrushCoordinator.Get();
 		if (square != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (prevNode != null && (bool)brushCoordinator && FogOfWar.GetClientFog() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare square2 = prevNode.square;
 				bool flag = brushCoordinator.IsRegionFunctioning(square.BrushRegion);
 				bool flag2 = brushCoordinator.IsRegionFunctioning(square2.BrushRegion);
 				if (flag != flag2)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BoardSquarePathInfo.IsConnectionTypeConventional(prevNode.connectionType))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!moveToNode.m_visibleToEnemies)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!prevNode.m_visibleToEnemies)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_actorData.GetTeam() != localPlayerData.GetTeamViewing())
 								{
 									goto IL_01a2;
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -1337,11 +640,6 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_hitInCoverVfxContainer.HideVfx();
 			return;
 		}
@@ -1353,19 +651,6 @@ public class ActorVFX : NetworkBehaviour
 		int num;
 		if (actorData.IsHiddenInBrush())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((!BrushCoordinator.Get().IsRegionFunctioning(actorData.GetTravelBoardSquareBrushRegion())) ? 1 : 0);
 		}
 		else
@@ -1377,15 +662,6 @@ public class ActorVFX : NetworkBehaviour
 		int num2;
 		if (!component.HasStatus(StatusType.CantHideInBrush, false))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (component.HasStatus(StatusType.Revealed, false) ? 1 : 0);
 		}
 		else
@@ -1398,15 +674,6 @@ public class ActorVFX : NetworkBehaviour
 		bool flag4;
 		if (actorsInRadius.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = true;
 		}
 		else
@@ -1438,15 +705,6 @@ public class ActorVFX : NetworkBehaviour
 		int result;
 		if (!flag && !flag2 && !flag3 && !flag4)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag5 ? 1 : 0);
 		}
 		else
@@ -1474,40 +732,13 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = hitOrigin - actorPos;
 			vector.y = 0f;
 			vector.Normalize();
 			if (vector == Vector3.zero)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (caster.GetCurrentBoardSquare() != null)
 					{
 						vector = caster.GetTravelBoardSquareWorldPosition() - actorPos;
@@ -1517,15 +748,6 @@ public class ActorVFX : NetworkBehaviour
 				}
 				if (vector == Vector3.zero)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = Vector3.forward;
 				}
 			}
@@ -1542,15 +764,6 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_onDeathVfxContainer.ShowVfxAtPosition(actorPos, m_actorData.IsVisibleToClient(), Vector3.zero);
 			return;
 		}
@@ -1564,28 +777,10 @@ public class ActorVFX : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_onRespawnVFXContainer.ShowVfxAtPosition(m_actorData.GetTravelBoardSquareWorldPosition(), true, Vector3.zero);
 			object obj;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = GameFlowData.Get().LocalPlayerData;
 			}
 			else
@@ -1597,11 +792,6 @@ public class ActorVFX : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent((m_actorData.GetTeam() != playerData.GetTeamViewing()) ? "ui/ingame/resurrection/enemy" : "ui/ingame/resurrection/ally", base.gameObject);
 					return;
 				}

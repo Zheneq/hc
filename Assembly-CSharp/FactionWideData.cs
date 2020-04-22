@@ -24,19 +24,6 @@ public class FactionWideData : MonoBehaviour
 		FactionGroup factionGroup = Get().GetFactionGroup(faction.FactionGroupIDToUse);
 		if (factionGroup.ColorHex != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (factionGroup.ColorHex.Length == 8)
 			{
 				for (int i = 0; i < 4; i++)
@@ -45,11 +32,6 @@ public class FactionWideData : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					return array;
 				}
 			}
@@ -67,25 +49,11 @@ public class FactionWideData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return m_factionGroups[i];
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return new FactionGroup();
 		}
 	}
@@ -107,24 +75,11 @@ public class FactionWideData : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current;
 						}
 					}
 				}
 				num++;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -135,19 +90,6 @@ public class FactionWideData : MonoBehaviour
 		FactionCompetition factionCompetition = GetFactionCompetition(competitionId);
 		if (factionCompetition != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			using (List<Faction>.Enumerator enumerator = factionCompetition.Factions.GetEnumerator())
 			{
@@ -159,15 +101,6 @@ public class FactionWideData : MonoBehaviour
 						return current;
 					}
 					num++;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -192,10 +125,6 @@ public class FactionWideData : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = 0;
 					long num2 = 0L;
 					{
@@ -204,15 +133,6 @@ public class FactionWideData : MonoBehaviour
 							num2 += tier.ContributionToComplete;
 							if (num2 <= factionScore)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 							}
 						}
@@ -234,15 +154,6 @@ public class FactionWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			factionTier.ContributionToComplete = contributionToComplete;
 			return;
 		}
@@ -260,33 +171,11 @@ public class FactionWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (currentLevel >= 1)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentLevel <= faction.FactionPlayerProgressInfo.Length)
 						{
 							return faction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					throw new ArgumentException($"Current level {currentLevel} is outside the player faction level range {1}-{faction.FactionPlayerProgressInfo.Length}");
@@ -301,30 +190,8 @@ public class FactionWideData : MonoBehaviour
 		FactionCompetition factionCompetition = GetFactionCompetition(competitionId);
 		if (factionCompetition != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (factionCompetition.Factions != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < factionCompetition.Factions.Count; i++)
 				{
 					Faction faction = factionCompetition.Factions[i];
@@ -332,26 +199,8 @@ public class FactionWideData : MonoBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (faction.RibbonIds == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					for (int j = 0; j < faction.RibbonIds.Count; j++)
@@ -362,22 +211,8 @@ public class FactionWideData : MonoBehaviour
 						}
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							return true;
 						}
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -394,15 +229,6 @@ public class FactionWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			throw new Exception("FactionWideData failed to load");
 		}
 	}
@@ -422,43 +248,12 @@ public class FactionWideData : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(t > Convert.ToDateTime(m_factionGroups[i].FilterDisplayStartTime)))
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (t < Convert.ToDateTime(m_factionGroups[i].FilterDisplayEndTime))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(m_factionGroups[i]);
 			}
 		}
@@ -477,15 +272,6 @@ public class FactionWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return -1;
 		}
 	}

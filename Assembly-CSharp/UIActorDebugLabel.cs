@@ -37,30 +37,8 @@ public class UIActorDebugLabel : MonoBehaviour
 				KeyValuePair<string, string> current = enumerator.Current;
 				if (m_shouldKeep.Contains(current.Key))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					text = text + current.Value + "\n\n";
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_label.text = text;

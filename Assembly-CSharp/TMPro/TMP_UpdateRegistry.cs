@@ -22,19 +22,6 @@ namespace TMPro
 			{
 				if (s_Instance == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					s_Instance = new TMP_UpdateRegistry();
 				}
 				return s_Instance;
@@ -89,26 +76,8 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_LayoutRebuildQueue.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_LayoutRebuildQueue.Clear();
 					m_LayoutQueueLookup.Clear();
 				}
@@ -119,11 +88,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (m_GraphicRebuildQueue.Count > 0)
 					{
 						m_GraphicRebuildQueue.Clear();

@@ -39,19 +39,6 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 			DiscReturnProjectileExtraParams discReturnProjectileExtraParams = extraSequenceParams as DiscReturnProjectileExtraParams;
 			if (discReturnProjectileExtraParams != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_setAnimDistParam = discReturnProjectileExtraParams.setAnimDistParamWithThisProjectile;
 				m_shouldSetForNormalDiscParam = discReturnProjectileExtraParams.setAnimParamForNormalDisc;
 			}
@@ -77,15 +64,6 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_splineTraveled < m_splineFractionUntilImpact)
 			{
 				Animator modelAnimator = base.Caster.GetModelAnimator();
@@ -104,15 +82,6 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Animator modelAnimator = base.Caster.GetModelAnimator();
 			if (m_animParamToSet.IsNullOrEmpty())
 			{
@@ -120,20 +89,10 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (modelAnimator != null)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						modelAnimator.SetInteger(m_animParamToSet, m_animParamValue);
 						return;
 					}
@@ -152,15 +111,6 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Animator modelAnimator = base.Caster.GetModelAnimator();
 			modelAnimator.SetFloat(animDistToGoal, 0f);
 			return;

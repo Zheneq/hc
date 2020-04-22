@@ -24,10 +24,6 @@ public class ClientPowerupResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -64,15 +60,6 @@ public class ClientPowerupResults
 					}
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -88,10 +75,6 @@ public class ClientPowerupResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 					{
 						seqStartData.CreateSequencesFromData(OnPowerupHitActor, OnPowerupHitPosition);
@@ -102,15 +85,6 @@ public class ClientPowerupResults
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
 		}
 		m_powerupAbilityResults.RunClientAbilityHits();
@@ -137,10 +111,6 @@ public class ClientPowerupResults
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_powerupAbilityResults.GetDebugDescription();
 				}
 			}

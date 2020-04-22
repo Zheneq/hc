@@ -18,15 +18,6 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnTempSatellite();
 			return;
 		}
@@ -48,15 +39,6 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnTempSatellite();
 			return;
 		}
@@ -70,49 +52,17 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_setFinishTrigger)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_tempSatelliteInstance == null))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning())
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				m_setFinishTrigger = true;

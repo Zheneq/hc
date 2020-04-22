@@ -26,19 +26,6 @@ namespace TMPro
 			{
 				if (m_defaultSpriteAsset == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_defaultSpriteAsset = Resources.Load<TMP_SpriteAsset>("Sprite Assets/Default Sprite Asset");
 				}
 				return m_defaultSpriteAsset;
@@ -74,33 +61,11 @@ namespace TMPro
 				int hashCode = spriteInfoList[i].hashCode;
 				if (!m_NameLookup.ContainsKey(hashCode))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_NameLookup.Add(hashCode, i);
 				}
 				int unicode = spriteInfoList[i].unicode;
 				if (!m_UnicodeLookup.ContainsKey(unicode))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_UnicodeLookup.Add(unicode, i);
 				}
 			}
@@ -122,10 +87,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return value;
 					}
 				}
@@ -137,19 +98,6 @@ namespace TMPro
 		{
 			if (m_UnicodeLookup == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UpdateLookupTables();
 			}
 			int value = 0;
@@ -173,19 +121,6 @@ namespace TMPro
 		{
 			if (m_NameLookup == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UpdateLookupTables();
 			}
 			int simpleHashCode = TMP_TextUtilities.GetSimpleHashCode(name);
@@ -204,10 +139,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -228,37 +159,10 @@ namespace TMPro
 			}
 			if (spriteAsset.fallbackSpriteAssets != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (spriteAsset.fallbackSpriteAssets.Count > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < spriteAsset.fallbackSpriteAssets.Count; i++)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (spriteIndex == -1)
 						{
 							TMP_SpriteAsset tMP_SpriteAsset = SearchFallbackForSprite(spriteAsset.fallbackSpriteAssets[i], unicode, out spriteIndex);
@@ -268,22 +172,8 @@ namespace TMPro
 							}
 							while (true)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
 								return tMP_SpriteAsset;
 							}
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -297,19 +187,6 @@ namespace TMPro
 			spriteIndex = -1;
 			if (spriteAssets != null && spriteAssets.Count > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				for (int i = 0; i < spriteAssets.Count; i++)
 				{
 					TMP_SpriteAsset tMP_SpriteAsset = SearchFallbackForSprite(spriteAssets[i], unicode, out spriteIndex);
@@ -319,22 +196,8 @@ namespace TMPro
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						return tMP_SpriteAsset;
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return null;

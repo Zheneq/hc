@@ -29,19 +29,6 @@ public struct Player
 		int connectionId;
 		if (connection == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			connectionId = -1;
 		}
 		else
@@ -53,15 +40,6 @@ public struct Player
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
 		if (_003C_003Ef__mg_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__mg_0024cache1 = OnGameStateChanged;
 		}
 		GameFlowData.s_onGameStateChanged += _003C_003Ef__mg_0024cache1;
@@ -72,19 +50,6 @@ public struct Player
 		int result;
 		if (obj is Player)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((this == (Player)obj) ? 1 : 0);
 		}
 		else
@@ -138,10 +103,6 @@ public struct Player
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

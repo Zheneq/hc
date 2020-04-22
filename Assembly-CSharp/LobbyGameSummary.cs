@@ -47,10 +47,6 @@ public class LobbyGameSummary
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -78,10 +74,6 @@ public class LobbyGameSummary
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000c;
 				}
 			}
@@ -102,10 +94,6 @@ public class LobbyGameSummary
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					value.Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
 					return;
 				}
@@ -127,10 +115,6 @@ public class LobbyGameSummary
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (value.TryGetValue(playerId, out ELODancecard value2))
 					{
 						while (true)

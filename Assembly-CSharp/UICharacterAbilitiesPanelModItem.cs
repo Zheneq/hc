@@ -22,19 +22,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 	{
 		if (m_saveBtn != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_btn.spriteController.AddSubButton(m_saveBtn.spriteController);
 			m_saveBtn.spriteController.callback = SaveLoadoutClicked;
 		}
@@ -62,15 +49,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_panel.NotifySaveModLoadoutClicked(this);
 			return;
 		}
@@ -90,15 +68,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}

@@ -75,15 +75,6 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SetQuestId(m_questId);
 			return;
 		}
@@ -122,10 +113,6 @@ public class QuestItemExpanded : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Warning("Assigned quest id {0} that is missing data in QuestWideData.", questId);
 					return;
 				}
@@ -140,15 +127,6 @@ public class QuestItemExpanded : MonoBehaviour
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
 		if ((bool)sprite)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_contractIcon.sprite = sprite;
 		}
 		else
@@ -174,15 +152,6 @@ public class QuestItemExpanded : MonoBehaviour
 				QuestObjective current = enumerator.Current;
 				if (current.SuperHidden)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3++;
 					continue;
 				}
@@ -199,15 +168,6 @@ public class QuestItemExpanded : MonoBehaviour
 					{
 						goto IL_02dd;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!(text4 == string.Empty))
 				{
@@ -221,26 +181,8 @@ public class QuestItemExpanded : MonoBehaviour
 					}
 					else
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num4 == 1)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text3 += $"    <color=white>{text4}</color>";
 						}
 						else
@@ -253,40 +195,13 @@ public class QuestItemExpanded : MonoBehaviour
 				IL_02dd:
 				num3++;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_longDescription.text = text3;
 		if (questTemplate.ObjectiveCountType == RequiredObjectiveCountType.SumObjectiveProgress)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
 					QuestProgress questProgress = questComponent.Progress[questId];
@@ -299,41 +214,14 @@ public class QuestItemExpanded : MonoBehaviour
 							int key = current2.Key;
 							if (questTemplate.Objectives.Count <= key)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else if (questTemplate.Objectives[key].SuperHidden)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								num += value;
 							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -341,61 +229,16 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		else if (questTemplate.Objectives.Count == 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = questTemplate.Objectives[0].MaxCount;
 			if (questComponent != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestProgress questProgress2 = questComponent.Progress[questId];
 					if (questProgress2.ObjectiveProgress.ContainsKey(0))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!questTemplate.Objectives[0].SuperHidden)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += questProgress2.ObjectiveProgress[0];
 						}
 					}
@@ -407,26 +250,8 @@ public class QuestItemExpanded : MonoBehaviour
 			num2 = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestProgress questProgress3 = questComponent.Progress[questId];
 					using (Dictionary<int, int>.Enumerator enumerator3 = questProgress3.ObjectiveProgress.GetEnumerator())
 					{
@@ -438,39 +263,12 @@ public class QuestItemExpanded : MonoBehaviour
 							{
 								if (questTemplate.Objectives[key2].SuperHidden)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else if (questTemplate.Objectives[current3.Key].MaxCount <= current3.Value)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num++;
 								}
 							}
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -490,15 +288,6 @@ public class QuestItemExpanded : MonoBehaviour
 		{
 			if (num6 >= num5)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(questReward, false);
 			}
 			else
@@ -517,11 +306,6 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (num5 == 0)
 			{
 				UIManager.SetGameObjectActive(m_rewardsContainer, false);
@@ -534,15 +318,6 @@ public class QuestItemExpanded : MonoBehaviour
 			}
 			if (text3.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_detailTextContainer, false);
 				UIManager.SetGameObjectActive(m_detailsDivider, false);
 			}
@@ -563,19 +338,6 @@ public class QuestItemExpanded : MonoBehaviour
 		{
 			if (m_longDescription.text == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_longDescription.text = string.Empty;
 			}
 			m_longDescription.CalculateLayoutInputHorizontal();
@@ -583,15 +345,6 @@ public class QuestItemExpanded : MonoBehaviour
 			float num = 0f;
 			if (m_longDescription.text != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_longDescription.text != string.Empty)
 				{
 					num = m_longDescription.preferredHeight + 20f;
@@ -626,15 +379,6 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_lateUpdateCount--;
 			UpdateHeight();
 			return;

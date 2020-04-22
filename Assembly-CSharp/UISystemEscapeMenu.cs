@@ -38,19 +38,6 @@ public class UISystemEscapeMenu : UIScene
 		int num;
 		if (GameManager.Get() != null && GameManager.Get().GameConfig != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GameManager.Get().IsAllowingPlayerRequestedPause() ? 1 : 0);
 		}
 		else
@@ -61,26 +48,8 @@ public class UISystemEscapeMenu : UIScene
 		bool flag2 = false;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = GameFlowData.Get().GetPausedByPlayerRequest();
 			}
 		}
@@ -88,15 +57,6 @@ public class UISystemEscapeMenu : UIScene
 		int doActive;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = ((!flag2) ? 1 : 0);
 		}
 		else
@@ -108,15 +68,6 @@ public class UISystemEscapeMenu : UIScene
 		int doActive2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = (flag2 ? 1 : 0);
 		}
 		else
@@ -219,19 +170,6 @@ public class UISystemEscapeMenu : UIScene
 		int num;
 		if (gameInfo.GameConfig.GameType.AllowsReconnect())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((gameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
 		}
 		else
@@ -241,15 +179,6 @@ public class UISystemEscapeMenu : UIScene
 		bool allowsReconnect = (byte)num != 0;
 		if (ReplayPlayManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
@@ -260,67 +189,22 @@ public class UISystemEscapeMenu : UIScene
 		string description;
 		if (gameInfo.GameConfig.GameType != GameType.Tutorial)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 			{
 				title = StringUtil.TR("LeaveGame", "Global");
 				bool flag = false;
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 					}
 				}
 				if (ClientGameManager.Get().HasLeavingPenalty(GameManager.Get().GameConfig.GameType))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						description = StringUtil.TR("QuitGamePromptWithPenalty", "Global");
@@ -329,15 +213,6 @@ public class UISystemEscapeMenu : UIScene
 				}
 				description = StringUtil.TR("LeaveGameConfirmation", "Global");
 				goto IL_01c2;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		title = StringUtil.TR("LeaveTutorial", "Global");
@@ -356,10 +231,6 @@ public class UISystemEscapeMenu : UIScene
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 						{
 							while (true)
@@ -385,30 +256,8 @@ public class UISystemEscapeMenu : UIScene
 	{
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().IsAllowingPlayerRequestedPause())
 				{
 					while (true)
@@ -422,15 +271,6 @@ public class UISystemEscapeMenu : UIScene
 							object obj;
 							if (GameFlowData.Get() != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								obj = GameFlowData.Get().activeOwnedActorData;
 							}
 							else
@@ -440,15 +280,6 @@ public class UISystemEscapeMenu : UIScene
 							ActorData actorData = (ActorData)obj;
 							if (actorData != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorData.GetActorController() != null)
 								{
 									while (true)
@@ -493,21 +324,8 @@ public class UISystemEscapeMenu : UIScene
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleSystemMenu))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 							if (activeOwnedActorData == null)
 							{
@@ -519,15 +337,6 @@ public class UISystemEscapeMenu : UIScene
 							bool flag2 = component.HasQueuedAbilities();
 							if (!flag)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag2)
 								{
 									goto IL_00a7;

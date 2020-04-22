@@ -16,10 +16,6 @@ public static class ErrorCheck
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("Component is null.");
 					return;
 				}
@@ -42,15 +38,6 @@ public static class ErrorCheck
 		NetworkView[] components = c.gameObject.GetComponents<NetworkView>();
 		if (components != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (components.Length > 0)
 			{
 				Log.Error(string.Concat(c.GetType(), " in ", legiblePath, " needs a NetworkIdentity but has an old NetworkView."));
@@ -59,15 +46,6 @@ public static class ErrorCheck
 		NetworkIdentity[] components2 = c.GetComponents<NetworkIdentity>();
 		if (components2 != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (components2.Length == 1)
 			{
 				return;
@@ -84,15 +62,6 @@ public static class ErrorCheck
 		int num;
 		if (components2 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 0;
 		}
 		else
@@ -132,10 +101,6 @@ public static class ErrorCheck
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error("net serialization writer position is negative and may have overflowed: {0} for {1}", writerPositionBeforeSerialize, componentToString);
 					return;
 				}
@@ -161,35 +126,12 @@ public static class ErrorCheck
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			bool flag = true;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QosType qosType = NetworkManager.singleton.channels[channelIndex];
 				if (qosType != QosType.ReliableFragmented && qosType != QosType.UnreliableFragmented)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -197,11 +139,6 @@ public static class ErrorCheck
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Log.Error("Too much net serialization data on object {0} for channel {1}.\nObject sends at least {2} byte packet, max allowed is {3}.\nScript \"{4}\" wrote {5} bytes.\nSend less, or change sending script to use another channel.", gameObjectToString, channelIndex, writerPositionAfterSerialize, (short)1024, componentToString, writerPositionAfterSerialize - writerPositionBeforeSerialize);
 					return;
 				}

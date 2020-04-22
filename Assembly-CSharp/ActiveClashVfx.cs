@@ -22,24 +22,10 @@ public class ActiveClashVfx
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!audioEvent.IsNullOrEmpty())
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent(audioEvent, square.gameObject);
 					return;
 				}
@@ -52,19 +38,6 @@ public class ActiveClashVfx
 	{
 		if (m_vfxObj != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_vfxObj);
 		}
 		m_vfxObj = null;

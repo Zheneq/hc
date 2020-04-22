@@ -46,15 +46,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_maxAngleForLaserMod, "MaxAngleForLaser", string.Empty, archerDashAndShoot.m_maxAngleForLaser);
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, archerDashAndShoot.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, archerDashAndShoot.m_laserRange);
@@ -80,19 +71,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = archerDashAndShoot.m_maxAngleForLaser;
 		}
 		else
@@ -105,15 +83,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerDashAndShoot.m_laserWidth;
 		}
 		else
@@ -126,15 +95,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerDashAndShoot.m_laserRange;
 		}
 		else
@@ -147,15 +107,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerDashAndShoot.m_aoeRadius;
 		}
 		else
@@ -169,15 +120,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = archerDashAndShoot.m_directDamage;
 		}
 		else
@@ -191,15 +133,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = archerDashAndShoot.m_directTargetEffect;
 		}
 		else
@@ -214,15 +147,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = archerDashAndShoot.m_cooldown;
 		}
 		else

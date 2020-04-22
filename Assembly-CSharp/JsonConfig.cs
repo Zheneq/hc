@@ -64,19 +64,6 @@ public class JsonConfig
 		int num = HostName.IndexOf('.');
 		if (num >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HostName = HostName.Substring(0, num);
 		}
 		string text = null;
@@ -93,30 +80,12 @@ public class JsonConfig
 		}
 		if (text == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "unknown";
 		}
 		SystemUserName = text.ToLower();
 		int num2 = SystemUserName.IndexOf('\\');
 		if (num2 != -1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SystemUserName = SystemUserName.Substring(num2 + 1);
 		}
 		LoadedFileInfo = new List<FileInfo>();
@@ -130,19 +99,6 @@ public class JsonConfig
 		JsonConvert.PopulateObject(data, this, settings);
 		if (EnablePostProcess)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PostProcess();
 		}
 		if (!EnablePatches)
@@ -151,11 +107,6 @@ public class JsonConfig
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			ApplyPatches();
 			return;
 		}
@@ -173,31 +124,9 @@ public class JsonConfig
 		FileInfo fileInfo = new FileInfo(fileName);
 		if (!fileInfo.Exists)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!failIfNotFound)
 			{
 				goto IL_004c;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		data = File.ReadAllText(fileName);
@@ -229,23 +158,10 @@ public class JsonConfig
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -267,19 +183,6 @@ public class JsonConfig
 		{
 			if ((fieldInfo.Attributes & FieldAttributes.NotSerialized) == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (fieldInfo.GetCustomAttributes(typeof(SensitiveDataAttribute), false).Length > 0)
 				{
 					object defaultValue = fieldInfo.FieldType.GetDefaultValue();

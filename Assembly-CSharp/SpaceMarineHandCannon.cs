@@ -52,19 +52,6 @@ public class SpaceMarineHandCannon : Ability
 		float num = 0f;
 		if (ShouldExplode())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ModdedConeLength();
 		}
 		return ModdedLaserLength() + num;
@@ -93,35 +80,13 @@ public class SpaceMarineHandCannon : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Damage] = ModdedLaserDamage();
 					}
 					else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Damage] = ModdedConeDamage();
 					}
 					return dictionary;
@@ -139,19 +104,6 @@ public class SpaceMarineHandCannon : Ability
 		int val;
 		if ((bool)abilityMod_SpaceMarineHandCannon)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SpaceMarineHandCannon.m_laserDamageMod.GetModifiedValue(m_primaryDamage);
 		}
 		else
@@ -163,15 +115,6 @@ public class SpaceMarineHandCannon : Ability
 		int val2;
 		if ((bool)abilityMod_SpaceMarineHandCannon)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SpaceMarineHandCannon.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
 		else
@@ -207,19 +150,6 @@ public class SpaceMarineHandCannon : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_primaryDamage;
 		}
 		else
@@ -234,19 +164,6 @@ public class SpaceMarineHandCannon : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneDamage;
 		}
 		else
@@ -261,19 +178,6 @@ public class SpaceMarineHandCannon : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneWidthAngle;
 		}
 		else
@@ -293,19 +197,6 @@ public class SpaceMarineHandCannon : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_primaryWidth;
 		}
 		else
@@ -329,19 +220,6 @@ public class SpaceMarineHandCannon : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useLaserHitEffectOverride)
 			{
 				return m_abilityMod.m_laserHitEffectOverride;
@@ -354,19 +232,6 @@ public class SpaceMarineHandCannon : Ability
 	{
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useConeHitEffectOverride)
 			{
 				while (true)

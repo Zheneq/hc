@@ -58,10 +58,6 @@ public class InventoryItemTemplate
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return DisplayName;
 				}
 			}
@@ -124,10 +120,6 @@ public class InventoryItemTemplate
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return $"[{Index}] {DisplayName}, {Type}";
 				}
 			}

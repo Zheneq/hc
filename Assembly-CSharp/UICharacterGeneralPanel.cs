@@ -102,26 +102,12 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_descriptionScrollRect.verticalScrollbar.gameObject.activeSelf)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_descriptionScrollRect.verticalScrollbar.value != 1f)
 				{
 					m_needResetScrollbar = false;
@@ -140,15 +126,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_articleButtons = new List<UIArticleSelectButton>(m_articlesGrid.GetComponentsInChildren<UIArticleSelectButton>(true));
 			using (List<UIArticleSelectButton>.Enumerator enumerator = m_articleButtons.GetEnumerator())
 			{
@@ -182,15 +159,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_buyInGameButton.spriteController.callback = BuyInGameClicked;
 			m_buyForCashButton.spriteController.callback = BuyForCashClicked;
 			m_buyForTokenButton.spriteController.callback = BuyForTokenClicked;
@@ -202,33 +170,11 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (m_rewards != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_rewards.Count != 0)
 			{
 				UIRewardListTooltip uIRewardListTooltip = tooltip as UIRewardListTooltip;
 				uIRewardListTooltip.Setup(m_rewards, m_expDataLevel, UIRewardListTooltip.RewardsType.Character);
 				return true;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -238,19 +184,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (m_descriptionScrollRect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_MouseEventPasser mouseEventPasser = m_description.gameObject.AddComponent<_MouseEventPasser>();
 			mouseEventPasser.AddNewHandler(m_descriptionScrollRect);
 			mouseEventPasser = m_descriptionScrollRect.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
@@ -282,15 +215,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Setup(m_characterType);
 			return;
 		}
@@ -304,15 +228,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
 			return;
 		}
@@ -327,15 +242,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_charLink.m_characterType.IsValidForHumanGameplay())
 			{
 				while (true)
@@ -355,15 +261,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			object obj;
 			if (playerCharacterData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = playerCharacterData.ExperienceComponent;
 			}
 			else
@@ -382,30 +279,12 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			m_needResetScrollbar = true;
 			if (experienceComponent != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_levelLabel.text = string.Format(StringUtil.TR("LevelLabel", "Global"), experienceComponent.Level);
 				m_takedownsLabel.text = experienceComponent.Kills.ToString();
 				m_matchesWonLabel.text = experienceComponent.Wins.ToString();
 				m_gamesPlayedLabel.text = experienceComponent.Matches.ToString();
 				if (experienceComponent.Level > 0 && experienceComponent.Level < gameBalanceVars.MaxCharacterLevel)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = gameBalanceVars.CharacterExperienceToLevel(experienceComponent.Level);
 					m_experienceSlider.fillAmount = (float)playerCharacterData.ExperienceComponent.XPProgressThroughLevel / (float)num;
 					UIManager.SetGameObjectActive(m_experienceSlider, true);
@@ -424,28 +303,10 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			}
 			if (charLink.m_characterRole == CharacterRole.Assassin)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_roleIcon.sprite = m_assassinIcon;
 			}
 			else if (charLink.m_characterRole == CharacterRole.Support)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_roleIcon.sprite = m_supportIcon;
 			}
 			else
@@ -483,15 +344,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			{
 				if (gameBalanceVars.RepeatingCharacterLevelRewards[j].charType == (int)charLink.m_characterType && gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel > 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
 					rewardData.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.Amount;
 					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.ItemTemplateId);
@@ -506,11 +358,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.SetGameObjectActive(m_rewardContainer, false);
 				int num2 = 0;
 				while (true)
@@ -524,15 +371,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 								num2++;
 								continue;
 							}
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						UIManager.SetGameObjectActive(m_rewardContainer, true);
 						m_nextRewardIcon.sprite = Resources.Load<Sprite>(m_rewards[num2].SpritePath);
@@ -541,15 +379,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					}
 					else
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					break;
 				}
@@ -566,15 +395,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					UIArticleSelectButton uIArticleSelectButton;
 					if (k < m_articleButtons.Count)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						uIArticleSelectButton = m_articleButtons[k];
 					}
 					else
@@ -589,26 +409,12 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					uIArticleSelectButton.Setup(articlesByCharacter[k]);
 					UIManager.SetGameObjectActive(uIArticleSelectButton, true);
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (; k < m_articleButtons.Count; k++)
 				{
 					UIManager.SetGameObjectActive(m_articleButtons[k], false);
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					LayoutRebuilder.ForceRebuildLayoutImmediate(m_bottomScrollRect.transform as RectTransform);
 					m_bottomScrollRect.verticalNormalizedPosition = 1f;
 					m_descriptionScrollRect.verticalNormalizedPosition = 1f;
@@ -643,15 +449,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdateBuyButtons();
 			return;
 		}
@@ -670,15 +467,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clientGameManager == null)
 			{
 				return;
@@ -736,26 +524,8 @@ public class UICharacterGeneralPanel : MonoBehaviour
 									buyHeroContainer = m_buyHeroContainer;
 									if (unlockFreelancerCurrencyPrice <= 0)
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!(freelancerPrice > 0f))
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											doActive = (flag ? 1 : 0);
 											goto IL_01ec;
 										}
@@ -811,24 +581,10 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterType == m_charLink.m_characterType)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_buyHeroContainer, false);
 					return;
 				}

@@ -87,59 +87,19 @@ public class ChatterManager : MonoBehaviour
 	{
 		if (m_currentCooldownSec > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentCooldownSec -= Time.deltaTime;
 		}
 		m_currentIntervalSec += Time.deltaTime;
 		if (m_currentlyPlayingChatter != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_timeSinceLastChatterStart += Time.deltaTime;
 			if (m_timeSinceLastChatterStart > 20f)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ChatterDebugLog($"Current Chatter has been cleared - timeout has been exceeded waiting for an end event for audio event [{m_currentlyPlayingChatter.GetCommonData().m_audioEvent}].");
 				m_currentlyPlayingChatter = null;
 				m_currentlyPlayingChatterTarget = null;
 				if (m_chatterCooldownSec > 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_currentCooldownSec = m_chatterCooldownSec;
 				}
 			}
@@ -168,15 +128,6 @@ public class ChatterManager : MonoBehaviour
 					m_conversationIndex++;
 					if (m_conversation.m_lines.Length <= m_conversationIndex)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_conversation = null;
 						m_conversationIndex = 0;
 					}
@@ -191,11 +142,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			float time = Time.time;
 			SubmittedChatter submittedChatter = m_submittedChatter[0];
 			float num = time - submittedChatter.timeSubmitted;
@@ -221,10 +167,6 @@ public class ChatterManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to existing chatter " + m_currentlyPlayingChatter.GetCommonData().m_audioEvent + " still playing");
 					return;
 				}
@@ -246,15 +188,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		if (m_chatterAvailability.ContainsKey(chatter.GetCommonData().m_audioEvent))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_chatterAvailability[chatter.GetCommonData().m_audioEvent] > Time.time)
 			{
 				ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to individual chatter cooldown");
@@ -263,15 +196,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		if (m_chatterGroupAvailability.ContainsKey(chatter.GetCommonData().m_globalChatterGroup))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_chatterGroupAvailability[chatter.GetCommonData().m_globalChatterGroup] > Time.time)
 			{
 				while (true)
@@ -291,26 +215,8 @@ public class ChatterManager : MonoBehaviour
 		float num = chatter.GetCommonData().m_priority;
 		if ((bool)GameFlowData.Get())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData == source)
 				{
 					num *= m_localActorPriorityMultiplier;
@@ -341,15 +247,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PostChatterEvent(m_currentlyPlayingChatterTarget, m_currentlyPlayingChatter.GetCommonData().m_audioEvent, m_currentlyPlayingChatter, AudioManager.EventAction.StopSound);
 			return;
 		}
@@ -364,55 +261,15 @@ public class ChatterManager : MonoBehaviour
 	{
 		if (Options_UI.Get().GetChatterEnabled())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (EnableChatter)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ChatterData commonData = submission.chatter.GetCommonData();
 				string audioEventOverride = commonData.GetAudioEventOverride();
 				if (string.IsNullOrEmpty(audioEventOverride))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ChatterDebugLog("<color=white>Playing chatter: </color>" + commonData.m_audioEvent + ", priority " + submission.calculatedPriority);
 					if (Random.Range(0f, 1f) > commonData.m_pctRatioVOToEmote)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						PostChatterEvent(submission.source.gameObject, commonData.m_audioEventEmote, submission.chatter);
 					}
 					else
@@ -427,28 +284,10 @@ public class ChatterManager : MonoBehaviour
 				}
 				if (commonData.m_cooldownTimeSeconds > 0f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_chatterAvailability[commonData.m_audioEvent] = Time.time + commonData.m_cooldownTimeSeconds;
 				}
 				if (commonData.m_globalChatterGroup != 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_chatterGroupAvailability[commonData.m_globalChatterGroup] = Time.time + commonData.m_cooldownTimeSeconds;
 				}
 				m_timeSinceLastChatterStart = 0f;
@@ -460,15 +299,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		if (!submission.errorPrintCompleted)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			submission.errorPrintCompleted = true;
 			ChatterDebugLog("Wanted to play chatter: " + submission.chatter.GetCommonData().m_audioEvent + " but the UI (state: " + Options_UI.Get().ActiveStateName + ") has chatter disabled");
 		}
@@ -480,15 +310,6 @@ public class ChatterManager : MonoBehaviour
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				KeyValuePair<string, float> current = enumerator.Current;
@@ -515,11 +336,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			using (Dictionary<ChatterData.ChatterGroup, float>.Enumerator enumerator2 = m_chatterGroupAvailability.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -573,10 +389,6 @@ public class ChatterManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AudioManager.PostEventNotify(eventName, GenerateNotifyCallback(chatterHandle), target);
 					return;
 				}
@@ -600,15 +412,6 @@ public class ChatterManager : MonoBehaviour
 		ChatterComponent component2 = target.GetComponent<ChatterComponent>();
 		if ((bool)component2 && (bool)UIFrontEnd.GetVisibleCharacters())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component2.GetCharacterResourceLink() == UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0))
 			{
 				while (true)
@@ -622,15 +425,6 @@ public class ChatterManager : MonoBehaviour
 						string text = UIFrontEnd.GetVisibleCharacters().CharacterResourceLinkInSlot(0).ReplaceAudioEvent(eventName, UICharacterSelectWorldObjects.Get().CharacterVisualInfoInSlot(0));
 						if (text != eventName)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						AudioManager.PostEventNotify(text, GenerateNotifyCallback(chatterHandle), base.gameObject);
 						return;
@@ -650,26 +444,12 @@ public class ChatterManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (chatterHandle != m_currentlyPlayingChatter)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				ChatterDebugLog("Received finished callback from Fabric.");
 				m_currentlyPlayingChatter = null;
 				m_currentlyPlayingChatterTarget = null;
@@ -690,15 +470,6 @@ public class ChatterManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.Chatter, false))
 			{
 				Log.Warning(Log.Category.ChatterAudio, "<color=orange>Chatter:</color> " + logStr + " @time " + Time.time);

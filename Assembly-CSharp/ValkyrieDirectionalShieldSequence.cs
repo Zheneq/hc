@@ -30,19 +30,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_aimDirection = base.Caster.GetActorCover().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
 			}
 		}
@@ -67,15 +54,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InitializeFXStorage();
 			m_placeholderShieldIndicator = new GameObject("Valkyrie_ShieldPlaceholder");
 			GameObject fxParentObject = GetFxParentObject();
@@ -105,19 +83,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fx.transform.rotation = Quaternion.LookRotation(m_aimDirection);
 		}
 		if (!(m_placeholderShieldIndicator != null))
@@ -126,11 +91,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_placeholderShieldIndicator.transform.position = base.Caster.transform.position + 2f * Vector3.up;
 			m_placeholderShieldIndicator.transform.rotation = Quaternion.LookRotation(m_aimDirection);
 			return;

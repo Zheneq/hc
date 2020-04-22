@@ -64,15 +64,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -83,31 +74,9 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		ClearActorsInRange();
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count > 1)
 			{
 				goto IL_00bf;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -115,15 +84,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		for (int i = 0; i < m_numCones; i++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(m_coneInfo.m_radiusInSquares, m_coneInfo.m_widthAngleDeg, false));
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_00bf;
 		IL_00bf:
@@ -140,15 +100,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		ActorData actorData = null;
 		if (actors2.Count > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorData = actors2[0];
 			Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 			AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor);
@@ -171,48 +122,12 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		bool flag = false;
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare.OccupantActor != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.OccupantActor != targetingActor)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare.OccupantActor.IsVisibleToClient())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare, boardSquarePathInfo);
 						if (chargeDestination != boardSquare)
 						{
@@ -225,15 +140,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.GetCurrentBoardSquare(), true);
 		}
 		int arrowIndex = 0;
@@ -260,53 +166,17 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			}
 			if (actors3.Contains(targetingActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actors3.Remove(targetingActor);
 			}
 			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, vector2);
 			if (m_coneLosCheckDelegate != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int num2 = actors3.Count - 1; num2 >= 0; num2--)
 				{
 					if (!m_coneLosCheckDelegate(actors3[num2], targetingActor, coneLosCheckPos, null))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actors3.RemoveAt(num2);
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			AddActorsInRange(actors3, vector2, targetingActor);
@@ -317,30 +187,12 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					if (dictionary.ContainsKey(current))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[current]++;
 					}
 					else
 					{
 						dictionary[current] = 1;
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Vector3 position = vector3;
@@ -353,45 +205,13 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_affectsTargetingActor)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_includeCasterDelegate != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_includeCasterDelegate(targetingActor, m_actorsAddedSoFar))
 					{
 						goto IL_06a7;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Tertiary);
@@ -406,15 +226,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 					ActorHitContext actorHitContext2 = m_actorContextVars[current2.Key];
 					actorHitContext2._0015.SetInt(ContextKeys._0019.GetHash(), current2.Value);
 					actorHitContext2._0015.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetHash(), 0);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
@@ -432,11 +243,6 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					HideUnusedSquareIndicators();
 					return;
 				}

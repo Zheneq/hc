@@ -54,15 +54,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", fishManRoamingDebuff.m_laserInfo);
 			AbilityMod.AddToken_EffectMod(tokens, m_effectWhileOnEnemyMod, "EffectWhileOnEnemy", fishManRoamingDebuff.m_effectWhileOnEnemy);
 			AbilityMod.AddToken_EffectMod(tokens, m_effectWhileOnAllyMod, "EffectWhileOnAlly", fishManRoamingDebuff.m_effectWhileOnAlly);
@@ -89,19 +80,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = fishManRoamingDebuff.m_effectWhileOnEnemy;
 		}
 		else
@@ -114,15 +92,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManRoamingDebuff.m_effectWhileOnAlly;
 		}
 		else
@@ -136,15 +105,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (fishManRoamingDebuff.m_jumpIgnoresLineOfSight ? 1 : 0);
 		}
 		else
@@ -157,15 +117,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManRoamingDebuff.m_numJumps;
 		}
 		else
@@ -178,15 +129,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (fishManRoamingDebuff.m_canJumpToEnemies ? 1 : 0);
 		}
 		else
@@ -199,15 +141,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (fishManRoamingDebuff.m_canJumpToAllies ? 1 : 0);
 		}
 		else
@@ -220,15 +153,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (fishManRoamingDebuff.m_canJumpToInvisibleTargets ? 1 : 0);
 		}
 		else
@@ -241,15 +165,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManRoamingDebuff.m_damageToEnemyOnInitialHit;
 		}
 		else
@@ -262,15 +177,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManRoamingDebuff.m_healingToAllyOnInitialHit;
 		}
 		else
@@ -283,15 +189,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManRoamingDebuff.m_damageToEnemiesOnJump;
 		}
 		else
@@ -304,15 +201,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = fishManRoamingDebuff.m_healingToAlliesOnJump;
 		}
 		else
@@ -326,15 +214,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = fishManRoamingDebuff.m_jumpAnimationIndex;
 		}
 		else

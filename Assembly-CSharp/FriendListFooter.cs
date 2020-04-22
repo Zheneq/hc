@@ -55,10 +55,6 @@ public class FriendListFooter : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(m_invitePanel, false);
 					for (int i = 0; i < m_placeHolders.Length; i++)
 					{
@@ -66,15 +62,6 @@ public class FriendListFooter : MonoBehaviour
 						int doActive;
 						if (true)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							doActive = ((!flag) ? 1 : 0);
 						}
 						else
@@ -95,22 +82,8 @@ public class FriendListFooter : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (m_InviteText != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_InviteText.text = string.Format(StringUtil.TR("InviteFriendPrompt", "FriendList"), HUD_UIResources.ColorToHex(m_textColor), m_inputField.text);
 			}
 			if (!flag)
@@ -119,20 +92,10 @@ public class FriendListFooter : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (Input.GetKeyDown(KeyCode.Return))
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						InviteClicked(null);
 						return;
 					}

@@ -34,58 +34,18 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		bool flag = true;
 		if (effectTarget != null && caster != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag2 = effectTarget.GetTeam() == caster.GetTeam();
 			ActorStatus actorStatus = effectTarget.GetActorStatus();
 			if (actorStatus.HasStatus(StatusType.EffectImmune))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
 			{
 				if (effectTarget != caster)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam))
 						{
 							flag = false;
@@ -95,15 +55,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				}
 				if (actorStatus.HasStatus(StatusType.BuffImmune))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (effectData.m_isBuff)
 					{
 						flag = false;
@@ -112,15 +63,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				}
 				if (actorStatus.HasStatus(StatusType.DebuffImmune) && effectData.m_isDebuff)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -137,15 +79,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		if (EffectDebugConfig.TracingAddAndRemove())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData != null)
 			{
 				string text = "<color=green>Effect</color>: CLIENT Effect Start for guid [" + effectData.m_effectGUID + "]\n";
@@ -156,15 +89,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 						ServerClientUtils.SequenceStartData current = enumerator.Current;
 						string text2 = text;
 						text = text2 + "SeqPrefabId " + current.GetSequencePrefabId() + "\n";
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Log.Warning(text);
@@ -186,86 +110,23 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					{
 						list.Add(item);
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (effectData.m_effectTarget != null && effectData.m_caster != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget.GetActorBehavior() != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				effectData.m_effectTarget.GetActorBehavior().Client_RecordEffectFromActor(effectData.m_caster);
 			}
 		}
 		bool flag3 = ClientResolutionManager.Get().IsInResolutionState();
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (effectData.m_statuses != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (effectData.m_statuses.Count > 0)
 					{
 						ActorStatus actorStatus2 = effectData.m_effectTarget.GetActorStatus();
@@ -277,15 +138,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 								actorStatus2.ClientAddStatus(current3);
 								list2.Add(current3);
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						using (List<StatusType>.Enumerator enumerator4 = effectData.m_statusesOnTurnStart.GetEnumerator())
 						{
@@ -294,15 +146,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 								StatusType current4 = enumerator4.Current;
 								list3.Add(current4);
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
@@ -310,50 +153,14 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (effectData.m_absorb != 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectData.m_effectTarget.ClientUnresolvedAbsorb += effectData.m_absorb;
 				}
 				if (effectData.m_expectedHoT > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectData.m_effectTarget.ClientExpectedHoTTotalAdjust += effectData.m_expectedHoT;
 				}
 			}
@@ -385,15 +192,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientEffectData clientEffectData = m_effectGuidToData[effectGuid];
 			List<Sequence> sequences = clientEffectData.m_sequences;
 			using (List<Sequence>.Enumerator enumerator = sequences.GetEnumerator())
@@ -406,39 +204,12 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 						current.MarkForRemoval();
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			sequences.Clear();
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientEffectData.m_target != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (clientEffectData.m_statuses != null)
 					{
 						ActorStatus actorStatus = clientEffectData.m_target.GetActorStatus();
@@ -484,10 +255,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0012;
 				}
 			}
@@ -513,15 +280,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Sequence> list = m_barrierGuidToSequences[barrierGuid];
 			using (List<Sequence>.Enumerator enumerator = list.GetEnumerator())
 			{
@@ -530,38 +288,11 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					Sequence current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current.MarkedForRemoval)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							current.MarkForRemoval();
 						}
 					}
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			list.Clear();
@@ -579,15 +310,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Sequence> list = new List<Sequence>();
 			List<Sequence> sequences = m_effectGuidToData[effectGuid].m_sequences;
 			using (List<Sequence>.Enumerator enumerator = sequences.GetEnumerator())
@@ -597,54 +319,18 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					Sequence current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current.MarkedForRemoval && current.PrefabLookupId == sequencePrefabLookupId)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(targetPos == Vector3.zero))
 							{
 								if (!(targetPos == current.TargetPos))
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							list.Add(current);
 						}
 					}
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<Sequence>.Enumerator enumerator2 = list.GetEnumerator())
@@ -677,66 +363,21 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Sequence> list = new List<Sequence>();
 			List<Sequence> list2 = m_barrierGuidToSequences[barrierGuid];
 			foreach (Sequence item in list2)
 			{
 				if (item != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!item.MarkedForRemoval)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (item.PrefabLookupId == sequencePrefabLookupId)
 						{
 							if (!(targetPos == Vector3.zero))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(targetPos == item.TargetPos))
 								{
 									continue;
-								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							list.Add(item);
@@ -774,15 +415,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_effectGuidToData.Clear();
 			m_barrierGuidToSequences.Clear();
 			return;

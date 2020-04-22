@@ -307,15 +307,6 @@ public class FreelancerStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_freelancerTypeStr = component.m_characterType.ToString();
 			return;
 		}
@@ -329,15 +320,6 @@ public class FreelancerStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -346,19 +328,6 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (statIndex < m_name.Count)
 			{
 				while (true)
@@ -386,19 +355,6 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (statIndex < m_descriptions.Count)
 			{
 				while (true)
@@ -426,19 +382,6 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (statIndex < m_values.Count)
 			{
 				while (true)
@@ -486,10 +429,6 @@ public class FreelancerStats : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_values called on server.");
 					return;
 				}
@@ -513,19 +452,6 @@ public class FreelancerStats : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -535,15 +461,6 @@ public class FreelancerStats : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -560,10 +477,6 @@ public class FreelancerStats : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.ReadReference(reader, m_values);
 					return;
 				}
@@ -576,11 +489,6 @@ public class FreelancerStats : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			SyncListInt.ReadReference(reader, m_values);
 			return;
 		}

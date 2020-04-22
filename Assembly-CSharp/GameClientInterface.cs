@@ -30,15 +30,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -54,15 +45,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -84,15 +66,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -108,15 +81,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -136,15 +100,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -160,15 +115,6 @@ public class GameClientInterface : WebSocketInterface
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -178,19 +124,6 @@ public class GameClientInterface : WebSocketInterface
 	{
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate
 			{
 			};
@@ -198,15 +131,6 @@ public class GameClientInterface : WebSocketInterface
 		this.OnConnected = _003C_003Ef__am_0024cache0;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = delegate
 			{
 			};
@@ -217,15 +141,6 @@ public class GameClientInterface : WebSocketInterface
 		};
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 			};
@@ -282,10 +197,6 @@ public class GameClientInterface : WebSocketInterface
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", m_serverAddress, notification.Message.Trim(), notification.Code);
 					m_allowRelogin = true;
 					this.OnDisconnected(notification.Message, m_allowRelogin, notification.Code);
@@ -299,11 +210,6 @@ public class GameClientInterface : WebSocketInterface
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
 			{
 				while (true)
@@ -347,32 +253,10 @@ public class GameClientInterface : WebSocketInterface
 	{
 		if (m_webSocket != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_webSocket.State == WebSocket.SocketState.Open)
 			{
 				m_webSocket.Send(bytes);
 				return true;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

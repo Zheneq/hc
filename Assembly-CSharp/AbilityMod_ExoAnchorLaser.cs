@@ -59,15 +59,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoAnchorLaser.m_laserDamageAmount);
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", exoAnchorLaser.m_laserInfo);
 			AbilityMod.AddToken_BarrierMod(tokens, m_laserBarrierMod, "LaserBarrier", exoAnchorLaser.m_laserBarrier);
@@ -101,19 +92,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = exoAnchorLaser.m_sweepConeBackwardOffset;
 		}
 		else
@@ -126,15 +104,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoAnchorLaser.m_minConeAngle;
 		}
 		else
@@ -147,15 +116,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoAnchorLaser.m_maxConeAngle;
 		}
 		else
@@ -168,15 +128,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoAnchorLaser.m_extraDamagePerTurnAnchored;
 		}
 		else
@@ -190,15 +141,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoAnchorLaser.m_extraDamageAtZeroDist;
 		}
 		else
@@ -211,15 +153,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoAnchorLaser.m_extraDamageChangePerDist;
 		}
 		else
@@ -237,15 +170,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 			for (int i = 0; i < m_statusWhenAnchoredAndNotSweepingOverride.Count; i++)
 			{
 				empty = empty + "\t" + m_statusWhenAnchoredAndNotSweepingOverride[i].ToString() + "\n";
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return empty;

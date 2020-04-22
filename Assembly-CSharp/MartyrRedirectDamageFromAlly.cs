@@ -210,19 +210,6 @@ public class MartyrRedirectDamageFromAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else

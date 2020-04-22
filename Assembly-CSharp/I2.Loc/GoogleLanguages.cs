@@ -1288,10 +1288,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}
@@ -1308,27 +1304,9 @@ namespace I2.Loc
 						return value.Code;
 					}
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (ShowWarnings)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log($"Language '{Filter}' not recognized. Please, add the language code to GoogleTranslation.cs");
 			}
 			return string.Empty;
@@ -1349,19 +1327,6 @@ namespace I2.Loc
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 					}
 					string[] array = new string[1];
 					LanguageCodeDef value = current.Value;
@@ -1369,26 +1334,8 @@ namespace I2.Loc
 					string text = string.Concat(array);
 					if (!CodesToExclude.Contains(text))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(current.Key + " " + text);
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			for (int num = list.Count - 2; num >= 0; num--)
@@ -1396,26 +1343,12 @@ namespace I2.Loc
 				string text2 = list[num].Substring(0, list[num].IndexOf(" ["));
 				if (list[num + 1].StartsWith(text2))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list[num] = text2 + "/" + list[num];
 					list.Insert(num + 1, text2 + "/");
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return list;
 			}
 		}
@@ -1431,10 +1364,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}
@@ -1467,19 +1396,6 @@ namespace I2.Loc
 			{
 				if (Filters[i] != string.Empty)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!Language.Contains(Filters[i].ToLower()))
 					{
 						return false;
@@ -1489,11 +1405,6 @@ namespace I2.Loc
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -1504,33 +1415,11 @@ namespace I2.Loc
 			int num = Language.IndexOf(" [");
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Language = Language.Substring(0, num);
 			}
 			num = Language.IndexOf('/');
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty = Language.Substring(0, num);
 				if (Language == empty + "/" + empty)
 				{
@@ -1562,10 +1451,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Language = string.Empty;
 						code = string.Empty;
 						return;
@@ -1610,23 +1495,10 @@ namespace I2.Loc
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								LanguageCodeDef value2 = current.Value;
 								string result;
 								if (!string.IsNullOrEmpty(value2.GoogleCode))
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									LanguageCodeDef value3 = current.Value;
 									result = value3.GoogleCode;
 								}
@@ -1670,10 +1542,6 @@ namespace I2.Loc
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						goto end_IL_0011;
 					}
 				}

@@ -22,15 +22,6 @@ public class ControllerButtonState
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value)
 				{
 					while (true)
@@ -65,15 +56,6 @@ public class ControllerButtonState
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value)
 				{
 					while (true)
@@ -108,15 +90,6 @@ public class ControllerButtonState
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value)
 				{
 					while (true)
@@ -176,33 +149,11 @@ public class ControllerButtonState
 		}
 		else
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			arg = "_";
 		}
 		string arg2;
 		if (m_value)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "1";
 		}
 		else

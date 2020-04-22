@@ -22,19 +22,6 @@ public class UISystemMenuPanel : UIScene
 		s_instance = this;
 		if (m_debugButton != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_debugButton.gameObject, EventTriggerType.PointerClick, OnDebugClick);
 		}
 		base.Awake();
@@ -53,15 +40,6 @@ public class UISystemMenuPanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = !UIDebugMenu.Get().m_container.gameObject.activeSelf;
 			if (flag)
 			{
@@ -80,15 +58,6 @@ public class UISystemMenuPanel : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (HydrogenConfig.Get().DevMode)
 			{
 				while (true)

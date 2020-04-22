@@ -46,19 +46,6 @@ public class TricksterCreateDamageFields : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Ground Fields";
 		}
 		Setup();
@@ -75,19 +62,6 @@ public class TricksterCreateDamageFields : Ability
 		AbilityAreaShape num;
 		if (UseInitialShapeOverride())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GetInitialShapeOverride();
 		}
 		else
@@ -103,19 +77,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedSelfEffectForMultiHit = m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
@@ -131,19 +92,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_addFieldAroundSelfMod.GetModifiedValue(m_addFieldAroundSelf);
 		}
 		else
@@ -158,19 +106,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useInitialShapeOverrideMod.GetModifiedValue(m_useInitialShapeOverride);
 		}
 		else
@@ -185,19 +120,6 @@ public class TricksterCreateDamageFields : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_initialShapeOverrideMod.GetModifiedValue(m_initialShapeOverride);
 		}
 		else
@@ -212,19 +134,6 @@ public class TricksterCreateDamageFields : Ability
 		GroundEffectField result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_groundFieldInfoMod.GetModifiedValue(m_groundFieldInfo);
 		}
 		else
@@ -239,19 +148,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo result;
 		if (m_cachedSelfEffectForMultiHit != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -276,19 +172,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(m_spawnSpoilForAllyHit);
 		}
 		else
@@ -303,19 +186,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -339,19 +209,6 @@ public class TricksterCreateDamageFields : Ability
 	{
 		if (!AddFieldAroundSelf())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_afterImageSyncComp != null)
 			{
 				return m_afterImageSyncComp.HasVaidAfterImages();
@@ -366,32 +223,10 @@ public class TricksterCreateDamageFields : Ability
 		GroundEffectField groundFieldInfo = GetGroundFieldInfo();
 		if (groundFieldInfo.IncludeEnemies())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.damageAmount, groundFieldInfo.subsequentDamageAmount);
 		}
 		if (groundFieldInfo.IncludeAllies())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.healAmount, groundFieldInfo.subsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 			Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.energyGain, groundFieldInfo.subsequentEnergyGain, AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Secondary);
 		}
@@ -405,19 +240,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_TricksterCreateDamageFields)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_TricksterCreateDamageFields.m_selfEffectForMultiHitMod.GetModifiedValue(m_selfEffectForMultiHit);
 		}
 		else
@@ -428,15 +250,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_TricksterCreateDamageFields)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterCreateDamageFields.m_extraEnemyEffectOnCastMod.GetModifiedValue(m_extraEnemyEffectOnCast);
 		}
 		else
@@ -456,30 +269,8 @@ public class TricksterCreateDamageFields : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_afterImageSyncComp.TurnToPosition(current, targetPos);
 						Animator modelAnimator = current.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -508,30 +299,8 @@ public class TricksterCreateDamageFields : Ability
 		{
 			if (item != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.IsDead())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = item.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);
@@ -548,15 +317,6 @@ public class TricksterCreateDamageFields : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_TricksterCreateDamageFields);
 			Setup();
 			return;

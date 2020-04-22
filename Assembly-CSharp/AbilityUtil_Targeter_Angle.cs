@@ -91,19 +91,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		{
 			if (num2 < s_numAngles)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (num2 >= 0)
 				{
 					break;
@@ -119,45 +106,14 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 	{
 		if (m_curAngle != goalAngle)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_curAngle != float.MinValue)
 			{
 				float deltaTime = Time.deltaTime;
 				float num = Mathf.Abs(goalAngle - m_curAngle);
 				if (num > (float)Math.PI)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_curAngle > goalAngle)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_curAngle -= (float)Math.PI * 2f;
 					}
 					else
@@ -210,15 +166,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 				m_curSpeed = value;
 				return m_curAngle + num4 * num3;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_curSpeed = s_nearAcceleratingMinSpeed;
 		return goalAngle;
@@ -230,19 +177,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -265,19 +199,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 		if (actors.Contains(targetingActor))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actors.Remove(targetingActor);
 		}
 		VectorUtils.LaserCoords points = TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(ref actors, m_maxTargets, coords);
@@ -290,15 +211,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				AddActorInRange(current, points.start, targetingActor);
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!m_affectsCaster)
 		{
@@ -306,11 +218,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			AddActorInRange(targetingActor, points.start, targetingActor);
 			return;
 		}
@@ -321,19 +228,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		if (base.Highlight == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.Highlight = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, cursorLength);
 		}
 		else
@@ -380,19 +274,6 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 				BoardSquare current = enumerator.Current;
 				if (current.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.05f, 0.1f, 0.05f));
 				}
 			}

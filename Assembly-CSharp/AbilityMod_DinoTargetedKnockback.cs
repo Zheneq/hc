@@ -41,15 +41,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_extraDamageIfFullPowerLayerConeMod, "ExtraDamageIfFullPowerLayerCone", string.Empty, dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone);
 			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, dinoTargetedKnockback.m_shieldPerEnemyHit);
@@ -66,19 +57,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoTargetedKnockback != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelMod, dinoTargetedKnockback.m_targetSelectComp);
 			text += PropDesc(m_extraDamageIfFullPowerLayerConeMod, "[ExtraDamageIfFullPowerLayerCone]", flag, flag ? dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone : 0);
 			string str = text;
@@ -86,15 +64,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = dinoTargetedKnockback.m_shieldPerEnemyHit;
 			}
 			else
@@ -108,15 +77,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = (dinoTargetedKnockback.m_doHitsAroundKnockbackDest ? 1 : 0);
 			}
 			else
@@ -129,15 +89,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = (int)dinoTargetedKnockback.m_hitsAroundKnockbackDestShape;
 			}
 			else

@@ -32,19 +32,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (m_shapeAroundSelf)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(targetingActor.GetCurrentBoardSquare());
 		}
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
@@ -55,78 +42,24 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (current.GetCurrentBoardSquare() != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(current.GetCurrentBoardSquare());
 					}
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_highlights.Count == list.Count)
 			{
 				goto IL_0147;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
 		for (int i = 0; i < list.Count; i++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_0147;
 		IL_0147:
@@ -145,67 +78,22 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					bool flag = current2.GetTeam() == targetingActor.GetTeam();
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_includeEnemies)
 						{
 							goto IL_0246;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (!flag)
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_includeAllies || !(current2 != targetingActor))
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (validAfterImages.Contains(current2))
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					goto IL_0246;
 					IL_0246:
@@ -216,26 +104,8 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						ActorCover actorCover = current2.GetActorCover();
 						if (actorCover != null && actorCover.IsInCoverWrt(dictionary[current2]))
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorCover.IsInCoverWrt(vector))
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								dictionary[current2] = vector;
 							}
 						}
@@ -245,15 +115,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						dictionary[current2] = vector;
 						dictionary2[current2] = 1;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_highlights[j].transform.position = centerOfShape;
@@ -270,15 +131,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					int num;
 					if (key.GetTeam() == targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 2;
 					}
 					else
@@ -287,15 +139,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					}
 					AbilityTooltipSubject subjectType = (AbilityTooltipSubject)num;
 					AddActorInRange(key, value, targetingActor, subjectType, true);
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			while (true)

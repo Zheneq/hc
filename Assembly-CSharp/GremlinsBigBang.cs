@@ -29,19 +29,6 @@ public class GremlinsBigBang : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Big Bang";
 		}
 		SetupTargeter();
@@ -63,10 +50,6 @@ public class GremlinsBigBang : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_GremlinsBigBang);
 					SetupTargeter();
 					return;
@@ -93,10 +76,6 @@ public class GremlinsBigBang : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_bombShape.GetModifiedValue(m_bombShape);
 				}
 			}
@@ -115,10 +94,6 @@ public class GremlinsBigBang : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_knockbackShape.GetModifiedValue(m_knockbackShape);
 				}
 			}
@@ -131,19 +106,6 @@ public class GremlinsBigBang : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 		}
 		else
@@ -164,10 +126,6 @@ public class GremlinsBigBang : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
 				}
 			}
@@ -209,19 +167,6 @@ public class GremlinsBigBang : Ability
 		{
 			if (item.m_actor.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 			}
 		}
@@ -229,15 +174,6 @@ public class GremlinsBigBang : Ability
 		int num3 = m_bombDamageAmount;
 		if (num == 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = ModdedDamageForSingleTarget();
 		}
 		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, num3 + num2);

@@ -40,15 +40,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_subButtons[0].gameObject, EventTriggerType.PointerClick, DoAddBot);
 			m_subButtons[1].GetComponent<UITooltipClickObject>().Setup(TooltipType.BotSettingsMenu, SetupBotSettingsMenu);
 			UIEventTriggerUtils.AddListener(m_subButtons[2].gameObject, EventTriggerType.PointerClick, DoKickPlayer);
@@ -115,15 +106,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_subButtons[num].color = Color.white;
 			return;
 		}
@@ -135,19 +117,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		{
 			if (m_subButtons[i].gameObject != selectedObject)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_subButtons[i].color = Color.gray;
 			}
 		}
@@ -180,15 +149,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIGameSettingsPanel.Get().KickPlayer(this);
 			return;
 		}
@@ -212,10 +172,6 @@ public class UITeamMemberEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIGameSettingsPanel.Get().RemoveBot(this);
 					return;
 				}
@@ -237,19 +193,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(m_subActionBtnContainer, true);
 		if (m_playerInfo == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_PlayerText.text = "-";
 			UIManager.SetGameObjectActive(m_subButtons[0], m_teamId != Team.Spectator);
 			UIManager.SetGameObjectActive(m_subButtons[1], false);
@@ -265,15 +208,6 @@ public class UITeamMemberEntry : MonoBehaviour
 			UIManager.SetGameObjectActive(m_subButtons[3], true);
 			if (!m_playerInfo.IsNPCBot)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_playerInfo.IsRemoteControlled)
 				{
 					UIManager.SetGameObjectActive(m_subButtons[1], false);
@@ -290,15 +224,6 @@ public class UITeamMemberEntry : MonoBehaviour
 					UIManager.SetGameObjectActive(m_subButtons[4], false);
 					goto IL_01c4;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UIManager.SetGameObjectActive(m_subButtons[1], true);
 			UIManager.SetGameObjectActive(m_subButtons[2], false);
@@ -313,33 +238,14 @@ public class UITeamMemberEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (GameManager.Get().GameplayOverrides.AllowSpectators)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_teamId == Team.Spectator)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_PlayerText.text = StringUtil.TR("COMINGSOON", "Global");
 				}
 				UIManager.SetGameObjectActive(m_subButtons[5], false);

@@ -67,15 +67,6 @@ public class UICardButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tooltipHoverObject = m_hitbox.GetComponent<UITooltipHoverObject>();
 			m_tooltipHoverObject.Setup(TooltipType.Ability, ShowTooltip);
 			return;
@@ -106,15 +97,6 @@ public class UICardButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerDown, OnCardButtonDown);
 			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerUp, OnCardButtonUp);
 			UIEventTriggerUtils.AddListener(m_hitbox.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
@@ -145,10 +127,6 @@ public class UICardButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -175,33 +153,11 @@ public class UICardButton : MonoBehaviour
 		m_abilityData = abilityData;
 		if (m_tooltipHoverObject != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tooltipHoverObject.Refresh();
 		}
 		object turnSM;
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			turnSM = m_abilityData.GetComponent<ActorTurnSM>();
 		}
 		else
@@ -211,28 +167,10 @@ public class UICardButton : MonoBehaviour
 		m_turnSM = (ActorTurnSM)turnSM;
 		if (abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(abilityEntry.ability == null))
 			{
 				if (m_abilityEntry != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_abilityEntry.ability != null)
 					{
 						UIManager.SetGameObjectActive(m_abilityIcon, true);
@@ -243,15 +181,6 @@ public class UICardButton : MonoBehaviour
 				}
 				if (m_abilityEntry != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_status, false);
 					UIManager.SetGameObjectActive(m_abilityIcon, false);
 					m_hitbox.enabled = false;
@@ -289,15 +218,6 @@ public class UICardButton : MonoBehaviour
 			int doActive;
 			if (j == num)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = ((num != -1) ? 1 : 0);
 			}
 			else
@@ -329,10 +249,6 @@ public class UICardButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityEntry.keyPreference;
 				}
 			}
@@ -344,30 +260,8 @@ public class UICardButton : MonoBehaviour
 	{
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityEntry.ability != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_turnSM != null)
 				{
 					while (true)
@@ -393,15 +287,6 @@ public class UICardButton : MonoBehaviour
 								flag2 = (m_abilityEntry.ability == m_abilityData.GetSelectedAbility());
 								if (m_abilityEntry.ability.IsSimpleAction())
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag3 = turnSM.CanQueueSimpleAction();
 								}
 								else
@@ -411,37 +296,10 @@ public class UICardButton : MonoBehaviour
 								flag4 = (GameFlowData.Get().gameState == GameState.BothTeams_Decision && m_abilityData.ValidateActionIsRequestable(m_actionType));
 								if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve && turnSM.CurrentState != TurnStateEnum.CONFIRMED)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (turnSM.CurrentState != TurnStateEnum.WAITING)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (turnSM.CurrentState == TurnStateEnum.RESOLVING)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num = ((GameFlowData.Get().gameState == GameState.BothTeams_Decision) ? 1 : 0);
 										}
 										else
@@ -458,38 +316,11 @@ public class UICardButton : MonoBehaviour
 							flag5 = ((byte)num != 0);
 							if (flag3)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2;
 								if (!flag5)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag4)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = ((!flag) ? 1 : 0);
 									}
 									else
@@ -507,28 +338,10 @@ public class UICardButton : MonoBehaviour
 							UIManager.SetGameObjectActive(m_freeactionIcon, m_abilityEntry.ability.IsFreeAction());
 							if (!m_mouseOver)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_mouseDown = false;
 							}
 							if (!flag2)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 = (m_mouseDown ? 1 : 0);
 							}
 							else
@@ -539,50 +352,14 @@ public class UICardButton : MonoBehaviour
 							flag7 = true;
 							if (m_mouseOver)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag6)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag5)
 										{
 											if (!m_hover.gameObject.activeSelf)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												PlayAnimation("AbilityButtonHover");
 											}
 											flag7 = false;
@@ -597,15 +374,6 @@ public class UICardButton : MonoBehaviour
 							IL_03b1:
 							if (flag7)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							text = string.Empty;
 							if (flag5)
@@ -615,26 +383,8 @@ public class UICardButton : MonoBehaviour
 								UIManager.SetGameObjectActive(m_default, false);
 								if (m_abilityData != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!m_abilityData.IsAbilityAllowedByUnlockTurns(m_actionType))
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										text = m_abilityData.GetTurnsTillUnlock(m_actionType).ToString();
 										UIManager.SetGameObjectActive(m_status, true);
 									}
@@ -648,15 +398,6 @@ public class UICardButton : MonoBehaviour
 							}
 							if (m_status.text != text)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								m_status.text = text;
 							}
 							HighlightUtils.Get().SetRangeIndicatorMouseOverFlag((int)m_actionType, m_mouseOver);
@@ -664,28 +405,10 @@ public class UICardButton : MonoBehaviour
 							IL_033c:
 							if (flag)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag5)
 								{
 									if (!m_selected.gameObject.activeSelf)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										PlayAnimation("AbilityButtonBarQueued");
 									}
 									flag7 = false;
@@ -700,60 +423,15 @@ public class UICardButton : MonoBehaviour
 							IL_026e:
 							if (flag6)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag5)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!m_pressed.gameObject.activeSelf)
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											PlayAnimation("AbilityButtonSelected");
 											if (m_mouseOver)
 											{
-												while (true)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												PlayAnimation("AbilityButtonSelectedNonLoop", 1);
 											}
 										}
@@ -792,15 +470,6 @@ public class UICardButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityData.GetAbilityOfActionType(m_actionType) == null)
 			{
 				while (true)

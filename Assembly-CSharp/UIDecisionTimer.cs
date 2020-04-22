@@ -94,66 +94,17 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameManager.Get().GameConfig.SubTypes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameConfig.InstanceSubType != null)
 					{
 						if (GameManager.Get().GameConfig.InstanceSubType.GameOverrides != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int? initialTimeBankConsumables = GameManager.Get().GameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 							if (initialTimeBankConsumables.HasValue)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int? initialTimeBankConsumables2 = GameManager.Get().GameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 								result = initialTimeBankConsumables2.Value;
 							}
@@ -178,19 +129,6 @@ public class UIDecisionTimer : MonoBehaviour
 		{
 			if (i < m_numStartingTimeBankConsumables)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_timeBankNotches[i], true);
 			}
 			else
@@ -235,10 +173,6 @@ public class UIDecisionTimer : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -258,15 +192,6 @@ public class UIDecisionTimer : MonoBehaviour
 					float savedTimeToDisplay = GetSavedTimeToDisplay();
 					if (savedTimeToDisplay > 0f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UpdateTimeLabels(m_savedSecondsLabel, m_savedMillisecondsLabel, savedTimeToDisplay);
 						string stateName = "LockedSavedTimeIndicator";
 						m_animationController.Play(stateName, -1, 0f);
@@ -295,37 +220,10 @@ public class UIDecisionTimer : MonoBehaviour
 		AnimatorClipInfo[] currentAnimatorClipInfo = m_animationController.GetCurrentAnimatorClipInfo(0);
 		if (currentAnimatorClipInfo != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentAnimatorClipInfo.Length > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name == text)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_animationController.Play(text, -1, 0f);
 				}
 				else
@@ -340,11 +238,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			FinishedUnlockTimeAnimation();
 			return;
 		}
@@ -371,15 +264,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -416,19 +300,6 @@ public class UIDecisionTimer : MonoBehaviour
 		int num = Mathf.FloorToInt(timeToDisplay);
 		if (num > 9)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			secondsLabel.text = num.ToString();
 		}
 		else
@@ -461,19 +332,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (m_currentTimeVal > 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float currentTimeVal = m_currentTimeVal;
 			m_currentTimeImage.fillAmount = currentTimeVal;
 			UIManager.SetGameObjectActive(m_currentTimeImage, true);
@@ -481,15 +339,6 @@ public class UIDecisionTimer : MonoBehaviour
 			{
 				if (m_currentTimeVal * GameFlowData.Get().m_maxTurnTime < 5f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_currentTimeImage.sprite = m_lowTimeBar;
 				}
 				else
@@ -509,41 +358,10 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState != TurnStateEnum.CONFIRMED)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_savedTimeVal = 0f;
 					UIManager.SetGameObjectActive(m_savedTimeImage, false);
 				}
@@ -555,15 +373,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (m_savedTimeVal > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_savedTimeImage, true);
 			m_savedTimeImage.fillAmount = m_savedTimeVal;
 		}
@@ -582,56 +391,16 @@ public class UIDecisionTimer : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (i == m_numStartingTimeBankConsumables - numConsumablesLeft)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (beingUsed)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeBankNotches[i].Play("TimeBankItemDefaultUSED");
 					continue;
 				}
 			}
 			if (i < m_numStartingTimeBankConsumables - numConsumablesLeft)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_timeBankNotches[i].Play("TimeBankItemDefaultOUT");
 				continue;
 			}
@@ -642,15 +411,6 @@ public class UIDecisionTimer : MonoBehaviour
 				{
 					UIManager.SetGameObjectActive(componentsInChildren[j], true);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_timeBankNotches[i].Play("TimeBankItemDefaultIN");
 		}
@@ -671,67 +431,18 @@ public class UIDecisionTimer : MonoBehaviour
 		bool useTimeBankBars = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TimeBank component = GameFlowData.Get().activeOwnedActorData.GetComponent<TimeBank>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.TimeToDisplay() <= 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().WillEnterTimebankMode())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						useTimeBankBars = true;
 						float num = component.TimeToDisplay() + GameWideData.Get().m_tbConsumableDuration;
 						float fillAmount = num / GameWideData.Get().m_tbConsumableDuration;
 						if (component.TimeToDisplay() < 0f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UpdateTimeLabels(m_timeBankSecondsLabel, m_timeBankMillisecondsLabel, num);
 						}
 						m_timeBankImage.fillAmount = fillAmount;
@@ -747,42 +458,11 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (!m_initializedGameFlowData)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_initializedGameFlowData = true;
 				if (GameFlowData.Get().PreventAutoLockInOnTimeout())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_soloInfiniteTimerIndicator, true);
 				}
 			}
@@ -790,77 +470,23 @@ public class UIDecisionTimer : MonoBehaviour
 		bool doActive = true;
 		if (m_currentTimeVal > 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = false;
 		}
 		else if (GameFlowData.Get() != null && GameFlowData.Get().PreventAutoLockInOnTimeout())
 		{
 			if (GameFlowData.Get().IsInDecisionState())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().activeOwnedActorData != null)
 					{
 						TimeBank component = GameFlowData.Get().activeOwnedActorData.GetComponent<TimeBank>();
 						if (component != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (component.TimeToDisplay() <= 0f)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameFlowData.Get().WillEnterTimebankMode())
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									float num = component.TimeToDisplay() + GameWideData.Get().m_tbConsumableDuration;
 									if (num > 0f)
 									{
@@ -891,38 +517,11 @@ public class UIDecisionTimer : MonoBehaviour
 		IL_017f:
 		if (m_soloInfiniteTimerIndicator.gameObject.activeSelf)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = false;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().IsInResolveState())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_soloInfiniteTimerIndicator, false);
 				}
 			}

@@ -58,30 +58,8 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().Client != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().Client.RegisterHandler(69, MsgServerMovementStarting);
 				ClientGameManager.Get().Client.RegisterHandler(71, MsgFailsafeHurryMovementPhase);
 				m_currentMessageHandlersState = MessageHandlersState.Registered;
@@ -98,26 +76,8 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() != null && ClientGameManager.Get().Client != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().Client.UnregisterHandler(69);
 				ClientGameManager.Get().Client.UnregisterHandler(71);
 				m_currentMessageHandlersState = MessageHandlersState.Unregistered;
@@ -135,30 +95,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().m_ownedActorDatas.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					ActorData current = enumerator.Current;
 					SendMovementCompleted(current, false);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_movingActors.Clear();
@@ -182,30 +124,8 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 	{
 		if ((bool)ClientGameManager.Get())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get().IsFastForward)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_movedButUnhandledActors.Clear();
 			}
 		}
@@ -221,15 +141,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				string text2 = text;
 				text = text2 + "\n\t" + i + ". " + m_movingActors[i].ToString();
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			Debug.LogError("Client received ServerMovementStarting message for movement type " + currentMovementType.ToString() + ", but ClientMovementManager still has " + m_movingActors.Count + " moving actors:" + text);
 		}
@@ -249,11 +160,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_currentMovementType = currentMovementType;
 			m_amMovingActors = true;
 			ExamineActorMovement();
@@ -263,20 +169,10 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().IsFastForward)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						ExecuteMovementFailsafe();
 						m_currentMovementType = ServerMovementManager.MovementType.None;
 						return;
@@ -295,33 +191,11 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			ActorMovementEntry actorMovementEntry = m_movingActors[i];
 			if (actorMovementEntry == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Debug.LogError("For some reason, there's a null entry in m_movingActors.");
 				continue;
 			}
 			if (actorMovementEntry.m_progressState == ActorMovementEntry.MovementProgressState.FinishedMovement)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			ActorData actor = actorMovementEntry.m_actor;
@@ -333,26 +207,8 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			}
 			else if (actor.IsDead())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!actorMovementEntry.m_doomed)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("One of the actors claimed to be moving is dead (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
 				}
 				flag = true;
@@ -361,40 +217,13 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				if (actor.IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorMovementEntry.m_doomed)
 					{
 						if (m_currentMovementType != ServerMovementManager.MovementType.NormalMovement_Chase)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_currentMovementType != ServerMovementManager.MovementType.NormalMovement_NonChase)
 							{
 								goto IL_0127;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
@@ -403,30 +232,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				}
 				if (actorMovementEntry.m_progressState == ActorMovementEntry.MovementProgressState.NotStartedMovement)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else
 				{
 					if (actor.GetCurrentBoardSquare() != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actor.GetCurrentBoardSquare() != actor.GetTravelBoardSquare())
 						{
 							flag = false;
@@ -435,15 +246,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					}
 					if (actor.GetActorMovement().AmMoving())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 					else
@@ -460,25 +262,11 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			IL_01a5:
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return result;
 		}
 	}
@@ -494,10 +282,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -508,37 +292,10 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		if (actorMovementType != ActorData.MovementType.Charge)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorMovementType != ActorData.MovementType.Flight)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorMovementType != ActorData.MovementType.Teleport)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorMovementType != ActorData.MovementType.WaypointFlight)
 					{
 						if (actorMovementType == ActorData.MovementType.Knockback)
@@ -567,15 +324,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 									int result;
 									if (managerMovementType != ServerMovementManager.MovementType.NormalMovement_Chase)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										result = ((managerMovementType == ServerMovementManager.MovementType.NormalMovement_NonChase) ? 1 : 0);
 									}
 									else
@@ -589,15 +337,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						}
 						return false;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -608,19 +347,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 	{
 		if (actorMovementType != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorMovementType != ActorData.MovementType.Knockback)
 			{
 				return;
@@ -635,38 +361,11 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				ActorMovementEntry actorMovementEntry = m_movingActors[num];
 				if (actorMovementEntry.m_actor == mover)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					if (DoMovementTypesMatch(actorMovementType, m_currentMovementType))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorMovementType == ActorData.MovementType.Teleport)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
 						}
 						else
@@ -680,15 +379,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						object obj;
 						if (dest == null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = "(null)";
 						}
 						else
@@ -704,15 +394,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		if (flag)
@@ -721,47 +402,15 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!(dest != mover.GetCurrentBoardSquare()))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (path == null)
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (path.next == null)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_movedButUnhandledActors.Add(mover);
@@ -780,10 +429,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -797,30 +442,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				ActorMovementEntry actorMovementEntry = m_movingActors[num];
 				if (actorMovementEntry.m_actor == mover)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -830,11 +457,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_movedButUnhandledActors.Add(mover);
 			return;
 		}
@@ -855,26 +477,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < list.Count; j++)
 			{
 				m_movedButUnhandledActors.Remove(list[j]);
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_movedButUnhandledActors.Count > 0)
 				{
 					string str = "There were " + m_movedButUnhandledActors.Count + " actor(s) with unhandled movement even after examining new movement.  Unhandled actors:";
@@ -884,11 +492,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						Debug.LogError(str + "\nClearing them...");
 						m_movedButUnhandledActors.Clear();
 						return;
@@ -916,15 +519,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return null;
 		}
 	}
@@ -946,30 +540,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(num2);
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(actorData);
 				text = text + "\n\t" + actorData.GetDebugName();
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			bool flag = false;
 			int num3 = 0;
 			while (true)
@@ -984,15 +560,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					num3++;
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (!flag)
@@ -1001,11 +568,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (AreActorsDoneMoving())
 				{
 					while (true)
@@ -1057,10 +619,6 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_0014;
 				}
 			}

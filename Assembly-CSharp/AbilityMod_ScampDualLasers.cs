@@ -40,39 +40,12 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_defaultOnHitDataMod != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_defaultOnHitDataMod._001D(tokens, scampDualLasers.m_onHitData);
 			}
 			if (m_shieldDownOnHitDataMod != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_shieldDownOnHitDataMod._001D(tokens, scampDualLasers.m_shieldDownOnHitData);
 			}
 			AbilityMod.AddToken(tokens, m_extraDamageTurnAfterLosingSuitMod, "ExtraDamageTurnAfterLosingSuit", string.Empty, scampDualLasers.m_extraDamageTurnAfterLosingSuit);
@@ -88,19 +61,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		string text = string.Empty;
 		if (scampDualLasers != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_defaultOnHitDataMod != null)
 			{
 				string str = text;
@@ -108,15 +68,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 				object obj;
 				if (scampDualLasers != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = scampDualLasers.m_onHitData;
 				}
 				else
@@ -129,15 +80,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 				object obj2;
 				if (scampDualLasers != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = scampDualLasers.m_shieldDownOnHitData;
 				}
 				else
@@ -154,15 +96,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = scampDualLasers.m_extraDamageTurnAfterLosingSuit;
 		}
 		else
@@ -175,15 +108,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit;
 		}
 		else

@@ -26,19 +26,6 @@ public static class CrashReportSender
 				object obj;
 				if (array == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					obj = "NULL";
 				}
 				else
@@ -77,15 +64,6 @@ public static class CrashReportSender
 			string arg = string.Empty;
 			if (ex != null && ex.Response != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Stream responseStream = ex.Response.GetResponseStream();
 				try
 				{

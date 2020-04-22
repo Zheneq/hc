@@ -31,15 +31,6 @@ public class AbilityMod_DinoForceChase : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_cdrOnKnockbackAbilityMod, "CdrOnKnockbackAbility", string.Empty, dinoForceChase.m_cdrOnKnockbackAbility);
 			AbilityMod.AddToken(tokens, m_energyPerUnstoppableEnemyHitMod, "EnergyPerUnstoppableEnemyHit", string.Empty, dinoForceChase.m_energyPerUnstoppableEnemyHit);
@@ -60,19 +51,6 @@ public class AbilityMod_DinoForceChase : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				baseVal = dinoForceChase.m_cdrOnKnockbackAbility;
 			}
 			else

@@ -17,24 +17,10 @@ public class UIVideoOverlayPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (videoPlayer.MovieState == PlayRawImageMovieTexture.MovieStates.Done)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					UILandingPageFullScreenMenus.Get().SetVideoContainerVisible(false);
 					return;
 				}
@@ -54,10 +40,6 @@ public class UIVideoOverlayPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_videoPlacement.GetComponentInChildren<PlayRawImageMovieTexture>();
 				}
 			}

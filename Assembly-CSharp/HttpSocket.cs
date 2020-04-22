@@ -68,19 +68,6 @@ public class HttpSocket
 		int num = (int)requestArgs.Request.ContentLength64;
 		if (MaxMessageSize > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num > MaxMessageSize)
 			{
 				while (true)
@@ -105,15 +92,6 @@ public class HttpSocket
 		{
 			if (text2.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			string[] array3 = text2.Split('=');
@@ -121,15 +99,6 @@ public class HttpSocket
 			object obj;
 			if (array3.Length > 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = array3[1];
 			}
 			else
@@ -140,78 +109,24 @@ public class HttpSocket
 			str += $"\"{text3}\" : \"{text4}\", ";
 			if (text3 == "messageType")
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text4;
 			}
 			if (text3 == "formatted")
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (text4.ToLower() == "true")
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_serializer = FormattedJsonSerializer.Get();
 				}
 			}
 			if (text3 == "timeoutMs")
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_timeoutMs = Convert.ToInt32(text4);
 				if (m_timeoutMs > 60000)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeoutMs = 60000;
 				}
 				if (m_timeoutMs < -1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_timeoutMs = -1;
 				}
 			}
@@ -219,26 +134,12 @@ public class HttpSocket
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			str += "\n}";
 			ConnectionAddress = requestArgs.Request.RemoteEndPoint.ToString();
 			ForwardedConnectionAddress = requestArgs.Request.Headers["X-Forwarded-For"];
 			string text5 = new StreamReader(requestArgs.Request.InputStream).ReadToEnd();
 			if (text5.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text5 = str;
 			}
 			if (!text.IsNullOrEmpty())
@@ -280,10 +181,6 @@ public class HttpSocket
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -303,15 +200,6 @@ public class HttpSocket
 				string s;
 				if (webSocketMessage != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StringWriter stringWriter = new StringWriter();
 					m_serializer.Serialize(stringWriter, webSocketMessage);
 					s = stringWriter.ToString();
@@ -340,15 +228,6 @@ public class HttpSocket
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lock (m_lock)
 			{
 				if (!m_responseSent)

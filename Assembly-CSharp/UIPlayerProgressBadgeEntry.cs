@@ -32,58 +32,18 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 			string text2 = null;
 			if (Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Gold)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupGoldRequirementColorHex);
 			}
 			else if (Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Silver)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupSilverRequirementColorHex);
 			}
 			else if (Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Bronze)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupBronzeRequirementColorHex);
 			}
 			if (!text2.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format("<color={0}>{2}</color>: {1}", text2, Requirements, StringUtil.TR(Quality.ToString(), "BadgeQuality"));
 			}
 			if (Requirements.IsNullOrEmpty())
@@ -120,10 +80,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -141,15 +97,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 					string text = StringUtil.TR_BadgeGroupDescription(m_groupIndex);
 					if (text.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = "No badge GROUP description, needs to be authored";
 					}
 					List<BadgeGroupDisplayInfo> list = new List<BadgeGroupDisplayInfo>();
@@ -158,15 +105,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 						GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(m_groupReference.BadgeIDs[i]);
 						if (badgeInfo != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(new BadgeGroupDisplayInfo
 							{
 								Quality = badgeInfo.Quality,
@@ -176,15 +114,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 					}
 					if (_003C_003Ef__am_0024cache0 == null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_003C_003Ef__am_0024cache0 = delegate(BadgeGroupDisplayInfo x, BadgeGroupDisplayInfo y)
 						{
 							if (x.Quality != y.Quality)
@@ -192,19 +121,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 								int result;
 								if (x.Quality > y.Quality)
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									result = -1;
 								}
 								else
@@ -256,15 +172,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tooltipObj.Setup(TooltipType.Titled, DoBadgeTooltip);
 			return;
 		}
@@ -294,15 +201,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_name.text = StringUtil.TR_BadgeGroupName(Index);
 			return;
 		}
@@ -322,15 +220,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_groupReference = null;
 			m_groupIndex = 0;
 			m_badgeReference = badge;

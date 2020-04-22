@@ -31,15 +31,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore);
 			AbilityMod.AddToken(tokens, m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit);
@@ -54,34 +45,12 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgIcicle != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyInt energyOnCasterIfTargetHasNovaCoreMod = m_energyOnCasterIfTargetHasNovaCoreMod;
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore;
 			}
 			else
@@ -94,15 +63,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgIcicle.m_cdrIfHasHit;
 			}
 			else

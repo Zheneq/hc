@@ -151,31 +151,9 @@ public class SystemPerformanceMetrics
 		CpuUsedPercent = m_cpuUsage.NextValue();
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PsApiPerformanceInformation PerformanceInformation = default(PsApiPerformanceInformation);
 			if (GetPerformanceInfo(out PerformanceInformation, Marshal.SizeOf(PerformanceInformation)))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				long num = PerformanceInformation.PageSize.ToInt64();
 				PhysicalMemoryTotalMb = PerformanceInformation.PhysicalTotal.ToInt64() * num / 1024 / 1024;
 				PhysicalMemoryAvailableMb = PerformanceInformation.PhysicalAvailable.ToInt64() * num / 1024 / 1024;
@@ -204,15 +182,6 @@ public class SystemPerformanceMetrics
 				CheckMemInfoValue(memInfoLine, s_swapTotalRegex, ref value5);
 				CheckMemInfoValue(memInfoLine, s_swapFreeRegex, ref value6);
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PhysicalMemoryTotalMb = value;
 			PhysicalMemoryAvailableMb = value2 + value3 + value4;
 			PhysicalMemoryUsedMb = PhysicalMemoryTotalMb - PhysicalMemoryAvailableMb;
@@ -222,15 +191,6 @@ public class SystemPerformanceMetrics
 		}
 		if (PhysicalMemoryTotalMb != 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PhysicalMemoryUsedPercent = 100f * PhysicalMemoryUsedMb / PhysicalMemoryTotalMb;
 		}
 		if (VirtualMemoryTotalMb == 0f)
@@ -239,11 +199,6 @@ public class SystemPerformanceMetrics
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			VirtualMemoryUsedPercent = 100f * VirtualMemoryUsedMb / VirtualMemoryTotalMb;
 			return;
 		}
@@ -258,15 +213,6 @@ public class SystemPerformanceMetrics
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = (float)Convert.ToInt64(match.Groups[1].Value) / 1024f;
 			return;
 		}

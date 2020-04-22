@@ -30,15 +30,6 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -47,37 +38,14 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 		{
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				Log.Error("Missing args for Match Ended game event.");
 				return false;
 			}
 		}
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 				{
 					while (true)
@@ -98,15 +66,6 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 		int num;
 		if (matchEndedArgs.result == GameResult.TeamAWon)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamA)
 			{
 				num = 1;
@@ -115,15 +74,6 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 		}
 		if (matchEndedArgs.result == GameResult.TeamBWon)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((team == Team.TeamB) ? 1 : 0);
 		}
 		else

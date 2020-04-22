@@ -14,19 +14,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 	{
 		if (AudioListenerController.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_audioListener = AudioListenerController.Get().gameObject;
 		}
 		SetRenderSettings();
@@ -69,41 +56,18 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				float num = 5f;
 				float d = 0.1f;
 				float num2 = 5f;
 				float num3 = 5f;
 				if (Input.GetMouseButton(2))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 localEulerAngles = base.transform.localEulerAngles;
 					float x = localEulerAngles.x - Input.GetAxis("Mouse Y") * num2;
 					Vector3 localEulerAngles2 = base.transform.localEulerAngles;
@@ -113,37 +77,10 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 				Vector3 zero = Vector3.zero;
 				if (!UIUtils.InputFieldHasFocus())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AccountPreferences.DoesApplicationHaveFocus())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Input.GetKey(KeyCode.W))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							zero += base.transform.forward * d;
 						}
 						if (Input.GetKey(KeyCode.A))
@@ -152,15 +89,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.S))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							zero -= base.transform.forward * d;
 						}
 						if (Input.GetKey(KeyCode.D))
@@ -169,15 +97,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.R))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							zero += base.transform.up * d;
 						}
 						if (Input.GetKey(KeyCode.F))
@@ -186,15 +105,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.LeftShift))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							zero *= num;
 						}
 					}

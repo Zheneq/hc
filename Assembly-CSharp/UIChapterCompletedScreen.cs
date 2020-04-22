@@ -89,19 +89,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		m_pendingTakeovers = new Queue<PendingTakeover>();
 		if (ClientGameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnChapterUnlockNotification += ChapterUnlocked;
 			ClientGameManager.Get().OnChapterCompleteNotification += ChapterCompleted;
 			ClientGameManager.Get().OnSeasonCompleteNotification += HandleSeasonStatusNotification;
@@ -126,15 +113,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnChapterUnlockNotification -= ChapterUnlocked;
 			ClientGameManager.Get().OnChapterCompleteNotification -= ChapterCompleted;
 			ClientGameManager.Get().OnSeasonCompleteNotification -= HandleSeasonStatusNotification;
@@ -147,19 +125,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		ClientGameManager.Get().SendSeasonStatusConfirm(SeasonStatusConfirmed.DialogType._000E);
 		if (UIFrontEnd.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
 				UIFrontEnd.Get().m_frontEndNavPanel.SeasonsBtnClicked(null);
@@ -200,22 +165,9 @@ public class UIChapterCompletedScreen : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(m_endSeasonNotification.SeasonEndedIndex);
 					if (seasonTemplate != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (seasonTemplate.IsTutorial)
 						{
 							m_WaitingToDisplayEndOfSeasonTakeover = false;
@@ -223,15 +175,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 							UINewUserFlowManager.MarkSeasonsNew(true);
 							if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ClientGameManager.Get().PreventNextAccountStatusCheck();
 								UIFrontEnd.Get().m_frontEndNavPanel.LandingPageBtnClicked(null);
 							}
@@ -252,29 +195,11 @@ public class UIChapterCompletedScreen : MonoBehaviour
 					{
 						if (currentAnimatorClipInfo[i].clip.name == "EndOfSeasonDefaultIN")
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currentAnimatorClipInfo[i].clip.events.Length == 7)
 							{
 								for (int j = 0; j < currentAnimatorClipInfo[i].clip.events.Length; j++)
 								{
 									SeasonLevelUpAnimTimes[j] = currentAnimatorClipInfo[i].clip.events[j].time / currentAnimatorClipInfo[i].clip.length;
-								}
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -307,15 +232,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 										List<SeasonTemplate.SeasonEndRewards> list = new List<SeasonTemplate.SeasonEndRewards>();
 										if (m_endSeasonNotification.SeasonLevelEarnedFromEnded >= 2)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											list.Add(seasonTemplate.EndRewards);
 											using (List<SeasonTemplate.ConditionalSeasonEndRewards>.Enumerator enumerator = seasonTemplate.ConditionalEndRewards.GetEnumerator())
 											{
@@ -326,15 +242,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 													{
 														list.Add(current);
 													}
-												}
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 										}
@@ -347,15 +254,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 												{
 													if (num < m_questRewards.Length)
 													{
-														while (true)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemReward.ItemTemplateId);
 														UIManager.SetGameObjectActive(m_questRewards[num], true);
 														m_questRewards[num].SetupHack(itemTemplate, itemTemplate.IconPath, itemReward.Amount);
@@ -369,28 +267,10 @@ public class UIChapterCompletedScreen : MonoBehaviour
 														QuestCurrencyReward current4 = enumerator4.Current;
 														if (num < m_questRewards.Length)
 														{
-															while (true)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															UIManager.SetGameObjectActive(m_questRewards[num], true);
 															m_questRewards[num].Setup(current4, 0);
 															num++;
 														}
-													}
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 												using (List<QuestUnlockReward>.Enumerator enumerator5 = current2.UnlockRewards.GetEnumerator())
@@ -400,39 +280,12 @@ public class UIChapterCompletedScreen : MonoBehaviour
 														QuestUnlockReward current5 = enumerator5.Current;
 														if (num < m_questRewards.Length)
 														{
-															while (true)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															UIManager.SetGameObjectActive(m_questRewards[num], true);
 															m_questRewards[num].SetupHack(current5.resourceString);
 															num++;
 														}
 													}
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
-											}
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										for (int l = num; l < m_questRewards.Length; l++)
@@ -467,22 +320,8 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (SeasonLevelUpAnimTimes[0] <= currentAnimatorStateInfo.normalizedTime)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[1])
 				{
 					while (true)
@@ -508,15 +347,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 			}
 			if (SeasonLevelUpAnimTimes[1] <= currentAnimatorStateInfo.normalizedTime)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[3])
 				{
 					m_SeasonLevelsGained.text = m_endSeasonNotification.SeasonLevelEarnedFromEnded.ToString();
@@ -525,11 +355,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 					{
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionSeasonPoints);
 							m_playingSeasonPoints = false;
 							return;
@@ -540,15 +365,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 			}
 			if (SeasonLevelUpAnimTimes[3] <= currentAnimatorStateInfo.normalizedTime)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorStateInfo.normalizedTime < SeasonLevelUpAnimTimes[4])
 				{
 					float num3 = (currentAnimatorStateInfo.normalizedTime - SeasonLevelUpAnimTimes[3]) / (SeasonLevelUpAnimTimes[4] - SeasonLevelUpAnimTimes[3]);
@@ -558,11 +374,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							UIFrontEnd.PlayLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
 							m_playingReactorPoints = true;
 							return;
@@ -577,11 +388,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UIFrontEnd.StopLoopingSound(FrontEndButtonSounds.SeasonTransitionReactorPoints);
 					m_playingReactorPoints = false;
 					return;
@@ -607,10 +413,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -623,11 +425,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UINewReward.Get().NotifyNewRewardReceived(RewardUtils.GetSeasonsUnlockedReward());
 			return;
 		}
@@ -642,19 +439,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		int num;
 		if (takeoverToDisplay.m_takeover == m_unlockedTakeover)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((takeoverToDisplay.m_chapter == 1) ? 1 : 0);
 		}
 		else
@@ -664,15 +448,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		bool flag = (byte)num != 0;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			takeoverToDisplay.m_takeover.m_ChapterTitleTextLabel.text = StringUtil.TR("SeasonUnlocked", "Seasons");
 			UIManager.SetGameObjectActive(m_seasonsBlurb, true);
 		}
@@ -698,15 +473,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 						num2++;
 					}
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<QuestCurrencyReward>.Enumerator enumerator2 = seasonChapter.CurrencyRewards.GetEnumerator())
 			{
@@ -720,15 +486,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 						num2++;
 					}
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<QuestUnlockReward>.Enumerator enumerator3 = seasonChapter.UnlockRewards.GetEnumerator())
 			{
@@ -737,28 +494,10 @@ public class UIChapterCompletedScreen : MonoBehaviour
 					QuestUnlockReward current3 = enumerator3.Current;
 					if (num2 < takeoverToDisplay.m_takeover.m_questRewards.Length)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(takeoverToDisplay.m_takeover.m_questRewards[num2], true);
 						takeoverToDisplay.m_takeover.m_questRewards[num2].SetupHack(current3.resourceString);
 						num2++;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -795,10 +534,6 @@ public class UIChapterCompletedScreen : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -809,55 +544,30 @@ public class UIChapterCompletedScreen : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (UIFrontEnd.Get() == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (UISeasonsPanel.Get() == null || UINewReward.Get().IsActive() || UIFrontEnd.Get().m_playerPanel.IsUpdatingExperience())
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (UIFrontendLoadingScreen.Get().IsVisible())
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						if (QuestOfferPanel.Get().IsActive())
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							if (UIFactionsIntroduction.Get().IsActive())
 							{
 								return;

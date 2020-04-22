@@ -32,31 +32,9 @@ public class TricksterMakeBarriers : Ability
 		Ability[] chainAbilities = GetChainAbilities();
 		if (chainAbilities.Length > 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability ability = chainAbilities[0];
 			if (ability != null && ability is TricksterMakeBarriers_Damage)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_chainAbility = (ability as TricksterMakeBarriers_Damage);
 			}
 		}
@@ -69,19 +47,6 @@ public class TricksterMakeBarriers : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		if (m_chainAbility != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_chainAbility.m_damageAmount);
 			m_chainAbility.m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 		}
@@ -99,19 +64,6 @@ public class TricksterMakeBarriers : Ability
 		float result;
 		if (m_chainAbility == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0f;
 		}
 		else
@@ -131,19 +83,6 @@ public class TricksterMakeBarriers : Ability
 		float result;
 		if (m_chainAbility == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0f;
 		}
 		else
@@ -158,19 +97,6 @@ public class TricksterMakeBarriers : Ability
 		int result;
 		if (m_chainAbility == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -192,15 +118,6 @@ public class TricksterMakeBarriers : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -215,19 +132,6 @@ public class TricksterMakeBarriers : Ability
 				ActorData current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!current.IsDead())
 					{
 						Animator modelAnimator = current.GetModelAnimator();

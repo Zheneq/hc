@@ -10,19 +10,6 @@ public class NPCLocation : MonoBehaviour
 		{
 			if (m_boardSquare == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Board board = Board.Get();
 				Vector3 position = base.transform.position;
 				float x = position.x;
@@ -44,10 +31,6 @@ public class NPCLocation : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

@@ -24,19 +24,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (m_sideB != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideB, lengthInSquares, m_color);
 			}
 			if (!(m_front != null))
@@ -45,11 +32,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 localPosition = m_front.transform.localPosition;
 				localPosition.z = lengthInSquares * Board.Get().squareSize;
 				m_front.transform.localPosition = localPosition;
@@ -67,19 +49,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (m_sideB != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_sideB, lengthInSquares, m_color);
 				m_sideB.transform.localPosition = new Vector3(-0.5f * num, 0f, 0f);
 			}
@@ -89,11 +58,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(m_front, widthInSquares, m_color);
 				m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.Get().squareSize);
 				return;
@@ -117,15 +81,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_parentObj.activeSelf != visible)
 				{
 					m_parentObj.SetActive(visible);
@@ -262,30 +217,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		m_delayedLaserAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterDelayedLaser)) as BlasterDelayedLaser);
 		if (m_delayedLaserAbility != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_laserRangeMarkerForAlly = CreateHitAreaTemplate(m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true);
 				m_laserRangeMarkerForAlly.m_parentObj.SetActive(false);
 			}
@@ -328,72 +261,18 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = false;
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_actorData.GetCurrentBoardSquare() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get() != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_canActivateDelayedLaser)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 							}
 						}
@@ -414,29 +293,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 						Vector3 vector = m_delayedLaserAimDir;
 						if (m_delayedLaserAbility.TriggerAimAtBlaster())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 vector2 = m_actorData.GetCurrentBoardSquare().ToVector3() - m_delayedLaserStartPos;
 							vector2.y = 0f;
 							vector2.Normalize();
 							if (vector2.magnitude > 0f)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector = vector2;
 							}
 						}
@@ -476,10 +337,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					writer.WritePackedUInt32((uint)m_overchargeBuffs);
 					writer.WritePackedUInt32((uint)m_overchargeUses);
 					writer.Write(m_canActivateDelayedLaser);
@@ -494,26 +351,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -523,15 +362,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -539,26 +369,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -566,15 +378,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -584,15 +387,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -602,15 +396,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -620,26 +405,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x40) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -663,10 +430,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_overchargeBuffs = (int)reader.ReadPackedUInt32();
 					m_overchargeUses = (int)reader.ReadPackedUInt32();
 					m_canActivateDelayedLaser = reader.ReadBoolean();
@@ -685,67 +448,22 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_overchargeUses = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_canActivateDelayedLaser = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_delayedLaserStartPos = reader.ReadVector3();
 		}
 		if ((num & 0x10) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_delayedLaserAimDir = reader.ReadVector3();
 		}
 		if ((num & 0x20) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x40) == 0)
@@ -754,11 +472,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
 			return;
 		}

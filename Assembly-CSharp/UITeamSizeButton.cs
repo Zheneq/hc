@@ -72,15 +72,6 @@ public class UITeamSizeButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_hover, false);
 			m_textLabel.color = Color.white;
 			return;
@@ -95,15 +86,6 @@ public class UITeamSizeButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Clickable)
 			{
 				m_callback(this);
@@ -126,10 +108,6 @@ public class UITeamSizeButton : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_textLabel.color = Color.white;
 					return;
 				}

@@ -185,10 +185,6 @@ public class PkFxCustomShader : ScriptableObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("[PKFX] CustomShader.SetConstant : " + constant.m_Descriptor.Name + " doesn't exist");
 					return;
 				}
@@ -198,15 +194,6 @@ public class PkFxCustomShader : ScriptableObject
 		{
 			if (m_ShaderConstantList[i].m_Descriptor.Name == constant.m_Descriptor.Name)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ShaderConstantList[i].m_Value0 = constant.m_Value0;
 				m_ShaderConstantList[i].m_Value1 = constant.m_Value1;
 				m_ShaderConstantList[i].m_Value2 = constant.m_Value2;
@@ -226,19 +213,6 @@ public class PkFxCustomShader : ScriptableObject
 		{
 			if (!ShaderConstantExist(item))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(new PKFxManager.ShaderConstant(item));
 			}
 			else
@@ -253,31 +227,9 @@ public class PkFxCustomShader : ScriptableObject
 	{
 		if (m_ShaderConstantsCache != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_ShaderConstantsCache.Length >= m_ShaderConstantList.Count)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_ShaderConstantsCache = new SShaderConstantPinned[m_ShaderConstantList.Count];
@@ -303,41 +255,10 @@ public class PkFxCustomShader : ScriptableObject
 			int num2;
 			if (m_ShaderConstantsCache[i].m_Value0 == shaderConstant.m_Value0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_ShaderConstantsCache[i].m_Value1 == shaderConstant.m_Value1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_ShaderConstantsCache[i].m_Value2 == shaderConstant.m_Value2)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = ((m_ShaderConstantsCache[i].m_Value3 != shaderConstant.m_Value3) ? 1 : 0);
 						goto IL_00c2;
 					}
@@ -348,15 +269,6 @@ public class PkFxCustomShader : ScriptableObject
 			IL_00c2:
 			if (num2 == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!forceUpdate)
 				{
 					continue;
@@ -375,20 +287,10 @@ public class PkFxCustomShader : ScriptableObject
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!PKFxManager.ShaderSetConstant(m_LoadedShaderId, num + 1, m_ShaderConstantsHandler))
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					Debug.LogError("[PKFX] Shader constant through pinned memory failed.");
 					Debug.LogError("[PKFX] Did you try to change an FX without stopping it beforehand?");
 					return;
@@ -409,10 +311,6 @@ public class PkFxCustomShader : ScriptableObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -447,10 +345,6 @@ public class PkFxCustomShader : ScriptableObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -464,15 +358,6 @@ public class PkFxCustomShader : ScriptableObject
 				{
 					return true;
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -508,10 +393,6 @@ public class PkFxCustomShader : ScriptableObject
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return SystemInfo.graphicsDeviceVersion.StartsWith("Direct3D 11");
 				}
 			}

@@ -128,15 +128,6 @@ public class UINewReward : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnPlayerFactionContributionChangeNotification -= OnPlayerFactionContributionChangeNotification;
 			ClientGameManager.Get().OnQuestCompleteNotification -= HandleQuestCompleteNotification;
 			return;
@@ -160,26 +151,12 @@ public class UINewReward : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
 			int num = currentLevel2;
 			while (num < currentLevel)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (num <= faction.FactionPlayerProgressInfo.Length)
 					{
 						NotifyNewTrustReward(faction.FactionPlayerProgressInfo[num - 1].LevelUpRewards, num, factionGroup.IconPath);
@@ -211,32 +188,10 @@ public class UINewReward : UIScene
 		item.m_unlockLevel = unlockLevel;
 		if (GameFlowData.Get() == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			item.m_displayName = string.Empty;
 		}
 		else if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			item.m_displayName = GameFlowData.Get().activeOwnedActorData.DisplayName;
 		}
 		else
@@ -259,19 +214,6 @@ public class UINewReward : UIScene
 		item.m_unlockLevel = -1;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			item.m_displayName = GameFlowData.Get().activeOwnedActorData.DisplayName;
 		}
 		else
@@ -311,10 +253,6 @@ public class UINewReward : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -345,10 +283,6 @@ public class UINewReward : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000e;
 				}
 			}
@@ -368,15 +302,6 @@ public class UINewReward : UIScene
 				factionRewardAnnounceInfo2.FactionSpritePath = string.Empty;
 				factionRewardAnnounceInfo2.DisplayDescription = displayDescription;
 				m_trustRewardsToAnnounce.Add(factionRewardAnnounceInfo2);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<QuestCurrencyReward>.Enumerator enumerator3 = rewards.CurrencyRewards.GetEnumerator())
@@ -422,52 +347,12 @@ public class UINewReward : UIScene
 		string text = string.Empty;
 		if (info.m_rewardData.Type != RewardUtils.RewardType.ISO)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (info.m_rewardData.Type != RewardUtils.RewardType.ModToken)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.m_rewardData.Type != RewardUtils.RewardType.GGBoost)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (info.m_rewardData.Type != RewardUtils.RewardType.System)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = RewardUtils.GetTypeDisplayString(info.m_rewardData.Type, false);
 					}
 				}
@@ -476,28 +361,10 @@ public class UINewReward : UIScene
 		string str = string.Empty;
 		if (info.m_unlockLevel > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), info.m_unlockLevel);
 		}
 		if (info.m_unlockCharType != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = str + " " + GameWideData.Get().GetCharacterResourceLink(info.m_unlockCharType).GetDisplayName();
 		}
 		else
@@ -507,15 +374,6 @@ public class UINewReward : UIScene
 		name = RewardUtils.GetDisplayString(info.m_rewardData, true);
 		if (info.m_rewardData.SpritePath == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rewardIcon.sprite = m_generalSprite;
 		}
 		else
@@ -554,19 +412,6 @@ public class UINewReward : UIScene
 		{
 			if (i >= rewards.Count)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_seasonRewards[i], false);
 			}
 			else
@@ -605,19 +450,6 @@ public class UINewReward : UIScene
 		FactionItemReward factionItemReward = info.FactionReward as FactionItemReward;
 		if (factionItemReward != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
 			m_trustRewardName.text = itemTemplate.GetDisplayName();
 			m_trustRewardDescription.text = itemTemplate.GetObtainDescription();
@@ -626,15 +458,6 @@ public class UINewReward : UIScene
 		FactionUnlockReward factionUnlockReward = info.FactionReward as FactionUnlockReward;
 		if (factionUnlockReward != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_trustRewardIcon.sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
 			m_trustRewardName.text = RewardUtils.GetRewardDisplayName(factionUnlockReward.UnlockReward.purchaseType, factionUnlockReward.UnlockReward.typeSpecificData);
 			m_trustRewardDescription.text = StringUtil.TR("Unlocked", "OverlayScreensScene");
@@ -646,11 +469,6 @@ public class UINewReward : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_trustRewardIcon.sprite = Resources.Load<Sprite>(RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type));
 			m_trustRewardName.text = factionCurrencyReward.CurrencyReward.Amount.ToString();
 			RewardUtils.RewardType type = RewardUtils.RewardType.ISO;
@@ -658,26 +476,8 @@ public class UINewReward : UIScene
 			switch (type2)
 			{
 			default:
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type2 != CurrencyType.UnlockFreelancerToken)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -707,19 +507,6 @@ public class UINewReward : UIScene
 		int result;
 		if (!m_rewardAnnouncementInProgress)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((rewardTypesToAnnounce.Count > 0) ? 1 : 0);
 		}
 		else
@@ -742,54 +529,14 @@ public class UINewReward : UIScene
 		}
 		if (m_rewardAnnouncementInProgress)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float num = Time.time - m_rewardStartTime;
 			if (!m_autoPlayNextReward)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= m_timeBeforeCanCloseReward)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Input.GetMouseButtonDown(0))
 					{
 						goto IL_0128;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (m_container.gameObject.activeInHierarchy)
@@ -798,27 +545,9 @@ public class UINewReward : UIScene
 					{
 						goto IL_0128;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_seasonContainer.gameObject.activeInHierarchy)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num > m_seasonAnimationController.GetCurrentAnimatorStateInfo(0).length)
 					{
 						goto IL_0128;
@@ -828,52 +557,16 @@ public class UINewReward : UIScene
 				{
 					goto IL_03cc;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			goto IL_0128;
 		}
 		if (rewardTypesToAnnounce.Count <= 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_seasonRewardsToAnnounce.Count <= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_trustRewardsToAnnounce.Count <= 0)
 				{
 					goto IL_03cc;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -891,15 +584,6 @@ public class UINewReward : UIScene
 					SeasonReward seasonReward2 = m_seasonRewardsToAnnounce[num2];
 					if (seasonReward2.m_unlockLevel == unlockLevel)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(m_seasonRewardsToAnnounce[num2]);
 						m_seasonRewardsToAnnounce.RemoveAt(num2);
 						if (list.Count >= m_seasonRewards.Length)
@@ -909,15 +593,6 @@ public class UINewReward : UIScene
 					}
 					num2--;
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -929,15 +604,6 @@ public class UINewReward : UIScene
 		}
 		else if (m_trustRewardsToAnnounce.Count > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SetupTrustReward(m_trustRewardsToAnnounce[0]);
 			UIManager.SetGameObjectActive(m_seasonContainer, false);
 			UIManager.SetGameObjectActive(m_container, false);
@@ -980,15 +646,6 @@ public class UINewReward : UIScene
 		m_rewardAnnouncementInProgress = false;
 		if (rewardTypesToAnnounce.Count <= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_container, false);
 			UIManager.SetGameObjectActive(m_seasonContainer, false);
 			UIManager.SetGameObjectActive(m_trustContainer, false);
@@ -1010,19 +667,6 @@ public class UINewReward : UIScene
 		int result;
 		if (rewardTypesToAnnounce.Count <= 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_rewardAnnouncementInProgress ? 1 : 0);
 		}
 		else

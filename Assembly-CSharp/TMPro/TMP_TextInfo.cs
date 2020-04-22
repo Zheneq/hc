@@ -80,15 +80,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -101,15 +92,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -122,15 +104,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -143,15 +116,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -169,19 +133,6 @@ namespace TMPro
 		{
 			if (lineInfo == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				lineInfo = new TMP_LineInfo[2];
 			}
 			for (int i = 0; i < lineInfo.Length; i++)
@@ -215,19 +166,6 @@ namespace TMPro
 				{
 					goto IL_00d3;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			m_CachedMeshInfo = new TMP_MeshInfo[meshInfo.Length];
 			for (int i = 0; i < m_CachedMeshInfo.Length; i++)
@@ -238,15 +176,6 @@ namespace TMPro
 				m_CachedMeshInfo[i].uvs2 = new Vector2[num];
 				m_CachedMeshInfo[i].colors32 = new Color32[num];
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_00d3;
 			IL_00d3:
 			for (int j = 0; j < m_CachedMeshInfo.Length; j++)
@@ -254,15 +183,6 @@ namespace TMPro
 				int num2 = meshInfo[j].vertices.Length;
 				if (m_CachedMeshInfo[j].vertices.Length != num2)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_CachedMeshInfo[j].vertices = new Vector3[num2];
 					m_CachedMeshInfo[j].uvs0 = new Vector2[num2];
 					m_CachedMeshInfo[j].uvs2 = new Vector2[num2];
@@ -275,11 +195,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return m_CachedMeshInfo;
 			}
 		}
@@ -289,19 +204,6 @@ namespace TMPro
 			int num;
 			if (size > 1024)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = size + 256;
 			}
 			else
@@ -316,31 +218,9 @@ namespace TMPro
 		{
 			if (isBlockAllocated)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num;
 				if (size > 1024)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = size + 256;
 				}
 				else

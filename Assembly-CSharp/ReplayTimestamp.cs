@@ -57,19 +57,6 @@ public struct ReplayTimestamp
 		int result;
 		if (obj is ReplayTimestamp)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((this == (ReplayTimestamp)obj) ? 1 : 0);
 		}
 		else
@@ -94,19 +81,6 @@ public struct ReplayTimestamp
 		int result;
 		if (lhs.turn == rhs.turn)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((lhs.phase != rhs.phase) ? 1 : 0);
 		}
 		else
@@ -130,19 +104,6 @@ public struct ReplayTimestamp
 		int result;
 		if (!(lhs < rhs))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((lhs == rhs) ? 1 : 0);
 		}
 		else

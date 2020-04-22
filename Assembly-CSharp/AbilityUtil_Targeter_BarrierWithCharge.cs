@@ -12,19 +12,6 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 		int fromIndex = 0;
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 			fromIndex = AddMovementArrowWithPrevious(targetingActor, path, TargeterMovementType.Movement, 0);
 		}

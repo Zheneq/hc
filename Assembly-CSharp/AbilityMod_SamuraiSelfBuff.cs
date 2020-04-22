@@ -53,15 +53,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_selfBuffEffectMod, "SelfBuffEffect", samuraiSelfBuff.m_selfBuffEffect);
 			AbilityMod.AddToken(tokens, m_extraDamageIfQueuedMod, "ExtraDamageIfQueued", string.Empty, samuraiSelfBuff.m_extraDamageIfQueued);
 			AbilityMod.AddToken(tokens, m_baseShieldingMod, "BaseShielding", string.Empty, samuraiSelfBuff.m_baseShielding);
@@ -88,19 +79,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (samuraiSelfBuff.m_selfBuffLastsUntilYouDealDamage ? 1 : 0);
 		}
 		else
@@ -113,15 +91,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiSelfBuff.m_selfBuffEffect;
 		}
 		else
@@ -134,15 +103,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiSelfBuff.m_extraDamageIfQueued;
 		}
 		else
@@ -155,15 +115,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = samuraiSelfBuff.m_baseShielding;
 		}
 		else
@@ -177,15 +128,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = samuraiSelfBuff.m_generalEffectOnSelf;
 		}
 		else
@@ -198,15 +140,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = samuraiSelfBuff.m_aoeRadius;
 		}
 		else
@@ -219,15 +152,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = samuraiSelfBuff.m_knockbackDist;
 		}
 		else
@@ -240,15 +164,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = samuraiSelfBuff.m_damageAmount;
 		}
 		else
@@ -261,15 +176,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = (samuraiSelfBuff.m_penetrateLoS ? 1 : 0);
 		}
 		else
@@ -282,15 +188,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = samuraiSelfBuff.m_damageIncreaseFirstHit;
 		}
 		else
@@ -303,15 +200,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = samuraiSelfBuff.m_damageIncreaseSubseqHits;
 		}
 		else
@@ -324,15 +212,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = samuraiSelfBuff.m_techPointGainPerIncomingHit;
 		}
 		else
@@ -345,15 +224,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = (samuraiSelfBuff.m_buffInResponseToIndirectDamage ? 1 : 0);
 		}
 		else
@@ -366,15 +236,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = samuraiSelfBuff.m_cdrIfNotHit;
 		}
 		else

@@ -225,10 +225,6 @@ public class ControllerInputSnapshot
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 forward = main.transform.forward;
 					Vector3 vector = new Vector3(forward.x, 0f, forward.z);
 					vector.Normalize();
@@ -304,15 +300,6 @@ public class ControllerInputSnapshot
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
@@ -339,10 +326,6 @@ public class ControllerInputSnapshot
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return LeftStickY;
 				}
 			}
@@ -438,15 +421,6 @@ public class ControllerInputSnapshot
 					float result;
 					if (Button_A.Value)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = 1f;
 					}
 					else
@@ -471,15 +445,6 @@ public class ControllerInputSnapshot
 					float result2;
 					if (Button_A.Value)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result2 = 1f;
 					}
 					else
@@ -504,15 +469,6 @@ public class ControllerInputSnapshot
 					float result3;
 					if (Button_X.Value)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result3 = 1f;
 					}
 					else
@@ -537,15 +493,6 @@ public class ControllerInputSnapshot
 					float result4;
 					if (Button_Y.Value)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result4 = 1f;
 					}
 					else
@@ -570,15 +517,6 @@ public class ControllerInputSnapshot
 					float result5;
 					if (Button_leftShoulder.Value)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result5 = 1f;
 					}
 					else
@@ -603,15 +541,6 @@ public class ControllerInputSnapshot
 					float result6;
 					if (Button_rightShoulder.Value)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result6 = 1f;
 					}
 					else
@@ -636,15 +565,6 @@ public class ControllerInputSnapshot
 					float result7;
 					if (Button_start.Value)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result7 = 1f;
 					}
 					else
@@ -663,23 +583,9 @@ public class ControllerInputSnapshot
 		case ControlpadInputValue.Button_leftStickIn:
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				float result9;
 				if (Button_leftStickIn.Value)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result9 = 1f;
 				}
 				else
@@ -693,15 +599,6 @@ public class ControllerInputSnapshot
 			float result8;
 			if (Button_rightStickIn.Value)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result8 = 1f;
 			}
 			else

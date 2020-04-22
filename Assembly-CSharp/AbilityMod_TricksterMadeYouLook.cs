@@ -48,19 +48,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		string text = string.Empty;
 		if (m_spoilsSpawnDataOnDisappear != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += PropDesc(m_spoilsSpawnDataOnDisappear, "[SpoilSpawnDataOnDisappear]");
 		}
 		string str = text;
@@ -68,15 +55,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (tricksterMadeYouLook.m_hitActorsInBetween ? 1 : 0);
 		}
 		else
@@ -91,15 +69,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (tricksterMadeYouLook.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -109,26 +78,8 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		text = str2 + PropDesc(penetrateLosMod, "[PenetrateLos]", flag, (byte)baseVal2 != 0);
 		if (m_cooldownReductionForTravelHit != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_cooldownReductionForTravelHit.HasCooldownReduction())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Cooldown Reductions For Enemy Hit In Travel:\n";
 				text += m_cooldownReductionForTravelHit.GetDescription(abilityData);
 			}
@@ -138,15 +89,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterMadeYouLook.m_damageAmount;
 		}
 		else
@@ -159,15 +101,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterMadeYouLook.m_enemyOnHitEffect;
 		}
 		else

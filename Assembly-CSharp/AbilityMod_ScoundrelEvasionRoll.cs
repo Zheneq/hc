@@ -44,41 +44,10 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		AbilityMod.AddToken(tokens, m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep);
 		if (m_dropTrapWireOnStart)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_trapWireBarrierData != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_trapwirePattern != 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier");
 				}
 			}
@@ -97,19 +66,6 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelEvasionRoll.m_extraEnergyPerStep;
 		}
 		else
@@ -119,26 +75,8 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		empty = str + PropDesc(extraEnergyPerStepMod, "[ExtraEnergyPerStep]", flag, baseVal);
 		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_trapwirePattern != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				empty = empty + "Drops TrapWire with Pattern[ " + m_trapwirePattern.ToString() + " ]\n";
 				empty += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, flag);
 			}
@@ -146,29 +84,11 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, flag);
 		if (m_techPointGainPerAdjacentAlly > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
 		}
 		if (m_techPointGrantedToAdjacentAllies > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
 		}

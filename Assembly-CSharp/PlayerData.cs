@@ -56,35 +56,16 @@ public class PlayerData : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (value == s_invalidPlayerIndex)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (GameFlowData.Get() != null && MyNetworkManager.Get() != null)
 					{
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							m_playerIndex = value;
 							return;
 						}
@@ -113,31 +94,9 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (m_fogOfWar == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fogOfWar = GetComponent<FogOfWar>();
 			if (m_fogOfWar == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fogOfWar = base.gameObject.AddComponent<FogOfWar>();
 			}
 		}
@@ -155,19 +114,6 @@ public class PlayerData : NetworkBehaviour
 		string text;
 		if (GameFlow.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId);
 		}
 		else
@@ -181,11 +127,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			m_playerHandle = text2;
 			return;
 		}
@@ -224,15 +165,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameFlowData.Get().RemoveExistingPlayer(base.gameObject);
 			return;
 		}
@@ -251,35 +183,16 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((bool)ActorData)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CycleTeam))
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						CycleSpectatingTeam();
 						return;
 					}
@@ -298,36 +211,17 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkServer.active)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				PlayerDetails value = null;
 				if (GameFlow.Get().playerDetails.TryGetValue(m_player, out value) && value.IsLocal())
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						GameManager.PlayerObjectStartedOnClientNotification playerObjectStartedOnClientNotification = new GameManager.PlayerObjectStartedOnClientNotification();
 						playerObjectStartedOnClientNotification.AccountId = GameManager.Get().PlayerInfo.AccountId;
 						playerObjectStartedOnClientNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
@@ -346,19 +240,6 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NetworkIdentity component = GetComponent<NetworkIdentity>();
 			component.RebuildObservers(true);
 		}
@@ -368,30 +249,12 @@ public class PlayerData : NetworkBehaviour
 		Log.Info("HEALTHBARCHECK: IS STARTED: " + ClientGameManager.Get().DesignSceneStarted);
 		if (ClientGameManager.Get().DesignSceneStarted)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
 		}
 		ClientGameManager.Get().CheckAndSendClientPreparedForGameStartNotification();
 		string text;
 		if (GameFlow.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = GameFlow.Get().GetPlayerHandleFromConnectionId(m_player.m_connectionId);
 		}
 		else
@@ -401,15 +264,6 @@ public class PlayerData : NetworkBehaviour
 		string text2 = text;
 		if (!string.IsNullOrEmpty(text2))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerHandle = text2;
 		}
 		SetupCamera();
@@ -424,15 +278,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_abilityBar.Setup(ActorData);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.ProcessTeams();
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
@@ -440,11 +285,6 @@ public class PlayerData : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD, ActorData == null);
 					return;
 				}
@@ -457,58 +297,18 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (ActorData == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SpawnPointManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<BoardSquare> squaresInRegion = SpawnPointManager.Get().m_initialSpawnPointsTeamA.GetSquaresInRegion();
 				List<BoardSquare> squaresInRegion2 = SpawnPointManager.Get().m_initialSpawnPointsTeamB.GetSquaresInRegion();
 				if (squaresInRegion.Count > 0 && squaresInRegion2.Count > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = squaresInRegion[0].transform.position;
 					Vector3 position2 = squaresInRegion2[0].transform.position;
 					Vector3 lhs = position - position2;
 					lhs.y = 0f;
 					if (Mathf.Abs(lhs.x) > Mathf.Abs(lhs.z))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs.z = 0f;
 					}
 					else
@@ -536,15 +336,6 @@ public class PlayerData : NetworkBehaviour
 		object obj;
 		if (CameraManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = CameraManager.Get().GetIsometricCamera();
 		}
 		else
@@ -558,11 +349,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			isometricCamera.OnReconnect();
 			return;
 		}
@@ -572,19 +358,6 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (m_fogOfWar != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fogOfWar.MarkForRecalculateVisibility();
 		}
 		if (!(HUD_UI.Get() != null))
@@ -593,11 +366,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.MarkFramesForForceUpdate();
 			if (HUD_UI.Get().m_mainScreenPanel.m_spectatorHUD != null)
 			{
@@ -636,10 +404,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AppState_GameTeardown.Get().Enter();
 					return;
 				}
@@ -651,22 +415,12 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (GameFlowData.Get().gameState == GameState.SpawningPlayers)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (GameFlowData.Get().gameState == GameState.Deployment)
 				{
 					return;
@@ -678,30 +432,12 @@ public class PlayerData : NetworkBehaviour
 				ActorData component = GetComponent<ActorData>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.GetAbilityData().SpawnAndSetupCardsOnReconnect();
 					component.SetupAbilityModOnReconnect();
 					component.SetupForRespawnOnReconnect();
 				}
 				if (TeamSensitiveDataMatchmaker.Get() != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TeamSensitiveDataMatchmaker.Get().SetTeamSensitiveDataForUnhandledActors();
 				}
 				SetupCamera(true);
@@ -715,19 +451,6 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (GameFlowData.Get().LocalPlayerData == this)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
 				while (true)
@@ -755,19 +478,6 @@ public class PlayerData : NetworkBehaviour
 		int result;
 		if (teamViewing != targetTeam)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((teamViewing == Team.Invalid) ? 1 : 0);
 		}
 		else
@@ -781,19 +491,6 @@ public class PlayerData : NetworkBehaviour
 	{
 		if (m_spectatingTeam != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_spectatingTeam != Team.TeamB)
 			{
 				if (m_prevSpectatingTeam == Team.TeamA)
@@ -805,15 +502,6 @@ public class PlayerData : NetworkBehaviour
 					m_spectatingTeam = Team.TeamA;
 				}
 				goto IL_005b;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_prevSpectatingTeam = m_spectatingTeam;
@@ -839,15 +527,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			theatricsManager.OnUpdatePhaseEnded(m_player.m_accountId, phaseCompleted, phaseSeconds, phaseDeltaSeconds);
 			return;
 		}
@@ -863,15 +542,6 @@ public class PlayerData : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			singlePlayerManager.OnTutorialQueueEmpty();
 			return;
 		}
@@ -889,10 +559,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -926,10 +592,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -957,10 +619,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdTheatricsManagerUpdatePhaseEnded called on client.");
 					return;
 				}
@@ -1004,10 +662,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command CmdSetPausedForDebugging called on client.");
 					return;
 				}
@@ -1027,10 +681,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdTheatricsManagerUpdatePhaseEnded called on server.");
 					return;
 				}
@@ -1068,10 +718,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CmdTutorialQueueEmpty();
 					return;
 				}
@@ -1096,10 +742,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdDebugEndGame called on server.");
 					return;
 				}
@@ -1135,10 +777,6 @@ public class PlayerData : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("Command function CmdSetPausedForDebugging called on server.");
 					return;
 				}

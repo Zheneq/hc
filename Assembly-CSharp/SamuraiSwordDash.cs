@@ -76,19 +76,6 @@ public class SamuraiSwordDash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Sword Dash";
 		}
 		SetupTargeter();
@@ -113,19 +100,6 @@ public class SamuraiSwordDash : Ability
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 		}
@@ -139,19 +113,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedDashEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedDashEnemyHitEffect = m_abilityMod.m_dashEnemyHitEffectMod.GetModifiedValue(m_dashEnemyHitEffect);
 		}
 		else
@@ -162,15 +123,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedDashSelfHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedDashSelfHitEffect = m_abilityMod.m_dashSelfHitEffectMod.GetModifiedValue(m_dashSelfHitEffect);
 		}
 		else
@@ -181,15 +133,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedMarkEffectInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedMarkEffectInfo = m_abilityMod.m_markEffectInfoMod.GetModifiedValue(m_markEffectInfo);
 		}
 		else
@@ -209,19 +152,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageRadiusAtStartMod.GetModifiedValue(m_damageRadiusAtStart);
 		}
 		else
@@ -236,19 +166,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageRadiusAtEndMod.GetModifiedValue(m_damageRadiusAtEnd);
 		}
 		else
@@ -263,19 +180,6 @@ public class SamuraiSwordDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
 		}
 		else
@@ -290,19 +194,6 @@ public class SamuraiSwordDash : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canMoveAfterEvadeMod.GetModifiedValue(m_canMoveAfterEvade);
 		}
 		else
@@ -317,19 +208,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -344,19 +222,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxDamageTargetsMod.GetModifiedValue(m_maxDamageTargets);
 		}
 		else
@@ -376,19 +241,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_dashLessDamagePerTargetMod.GetModifiedValue(m_dashLessDamagePerTarget);
 		}
 		else
@@ -403,19 +255,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedDashEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDashEnemyHitEffect;
 		}
 		else
@@ -430,19 +269,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedDashSelfHitEffect != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDashSelfHitEffect;
 		}
 		else
@@ -457,19 +283,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (m_cachedMarkEffectInfo != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedMarkEffectInfo;
 		}
 		else
@@ -484,19 +297,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyRefundIfTargetDashedAwayMod.GetModifiedValue(m_energyRefundIfTargetDashedAway);
 		}
 		else
@@ -511,19 +311,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDamageMod.GetModifiedValue(m_knockbackDamage);
 		}
 		else
@@ -538,19 +325,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackLessDamagePerTargetMod.GetModifiedValue(m_knockbackLessDamagePerTarget);
 		}
 		else
@@ -565,19 +339,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackExtraDamageFromDamageTakenMultMod.GetModifiedValue(m_knockbackExtraDamageFromDamageTakenMult);
 		}
 		else
@@ -592,19 +353,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackExtraDamageByDistMod.GetModifiedValue(m_knockbackExtraDamageByDist);
 		}
 		else
@@ -619,19 +367,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackExtraDamageChangePerDistMod.GetModifiedValue(m_knockbackExtraDamageChangePerDist);
 		}
 		else
@@ -646,19 +381,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_knockbackDistMod.GetModifiedValue(m_knockbackDist);
 		}
 		else
@@ -678,90 +400,23 @@ public class SamuraiSwordDash : Ability
 		int num = 0;
 		if (GetKnockbackExtraDamageByDist() <= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetKnockbackExtraDamageChangePerDist() == 0)
 			{
 				goto IL_00b9;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = GetKnockbackExtraDamageByDist();
 		if (endSquare != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (startSquare != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetKnockbackExtraDamageChangePerDist() != 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (KnockbackUtils.CanBuildStraightLineChargePath(base.ActorData, endSquare, startSquare, false, out int numSquaresInPath))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num2 = numSquaresInPath - 2;
 						if (num2 > 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += num2 * GetKnockbackExtraDamageChangePerDist();
 						}
 					}
@@ -779,19 +434,6 @@ public class SamuraiSwordDash : Ability
 		int num = GetDashDamage();
 		if (m_chainedStrike != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num += GetKnockbackDamage();
 		}
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, num));
@@ -811,62 +453,22 @@ public class SamuraiSwordDash : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 					bool flag = true;
 					if (GetMaxDamageTargets() > 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = abilityUtil_Targeter_SamuraiShowdown.OrderedHitActors.IndexOf(targetActor);
 						if (num >= GetMaxDamageTargets())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num2 = GetDashDamage();
 						int num3 = GetDashLessDamagePerTarget();
 						if (m_chainedStrike != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 += GetKnockbackDamage();
 							num3 += m_knockbackLessDamagePerTarget;
 						}
@@ -875,15 +477,6 @@ public class SamuraiSwordDash : Ability
 						Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, b);
 						if (m_syncComponent != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
@@ -911,19 +504,6 @@ public class SamuraiSwordDash : Ability
 			x = (ability as SamuraiAfterimageStrike);
 			if (x != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				break;
 			}
 		}
@@ -931,15 +511,6 @@ public class SamuraiSwordDash : Ability
 		int num2 = m_dashLessDamagePerTarget;
 		if (x != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += m_knockbackDamage;
 			num2 += m_knockbackLessDamagePerTarget;
 		}
@@ -961,30 +532,8 @@ public class SamuraiSwordDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false) != null;
@@ -1012,15 +561,6 @@ public class SamuraiSwordDash : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SamuraiSwordDash);
 			SetupTargeter();
 			return;

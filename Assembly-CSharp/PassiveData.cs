@@ -16,19 +16,6 @@ public class PassiveData : MonoBehaviour
 		{
 			if (passive != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (passive.GetType() == passiveType)
 				{
 					return passive;
@@ -37,11 +24,6 @@ public class PassiveData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -55,30 +37,12 @@ public class PassiveData : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (passive.GetType() != typeof(T))
 			{
 				continue;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return passive as T;
 			}
 		}

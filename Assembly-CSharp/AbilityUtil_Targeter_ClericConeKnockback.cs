@@ -26,10 +26,6 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					InitKnockbackData(0f, KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
 					base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 					return;
@@ -47,15 +43,6 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 		Vector3 vector3 = Vector3.RotateTowards(vector, (!(num > 0f)) ? (-vector2) : vector2, m_maxAngleDegrees * 0.5f * ((float)Math.PI / 180f), 0f);
 		if (m_highlights != null && m_highlights.Count < 1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject item = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight();
 			m_highlights.Add(item);
 		}
@@ -67,30 +54,12 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 		int num2 = 0;
 		if (m_knockbackDistance > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			EnableAllMovementArrows();
 			List<ActorData> visibleActorsInRange = (m_ability.Targeters[0] as AbilityUtil_Targeter_ClericConeKnockback).GetVisibleActorsInRange();
 			foreach (ActorData item2 in visibleActorsInRange)
 			{
 				if (item2.GetTeam() != targetingActor.GetTeam())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(item2, m_knockbackType, vector3, travelBoardSquareWorldPositionForLos, m_knockbackDistance);
 					num2 = AddMovementArrowWithPrevious(item2, path, TargeterMovementType.Knockback, num2);
 				}

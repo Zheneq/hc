@@ -53,26 +53,12 @@ public class UICharacterMovementPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < instances.Count; i++)
 			{
 				Object.Destroy(instances[i].gameObject);
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				instances.Clear();
 				return;
 			}
@@ -109,43 +95,12 @@ public class UICharacterMovementPanel : MonoBehaviour
 				KeyValuePair<BoardSquare, UICharacterMovementItem> current = enumerator.Current;
 				if (current.Value.Actors.Contains(data))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.Value.RemoveActor(data))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						RecycleInstance(current.Value, indicatorType);
 						list.Add(current.Key);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = 0; i < list.Count; i++)
@@ -174,56 +129,16 @@ public class UICharacterMovementPanel : MonoBehaviour
 				KeyValuePair<BoardSquare, UICharacterMovementItem> current = enumerator.Current;
 				if (current.Value.Actors.Contains(data))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!(current.Key != square))
 					{
 						return;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (current.Value.RemoveActor(data))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						RecycleInstance(current.Value, indicatorType);
 						list.Add(current.Key);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = 0; i < list.Count; i++)
@@ -232,11 +147,6 @@ public class UICharacterMovementPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (displayedCharacters.ContainsKey(square))
 			{
 				while (true)
@@ -274,25 +184,11 @@ public class UICharacterMovementPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			switch (indicatorType)
 			{
 			case IndicatorType.Movement:
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_recycledMoveIndicatorInstances.Add(item);
 					return;
 				}
@@ -318,32 +214,10 @@ public class UICharacterMovementPanel : MonoBehaviour
 		}
 		else if (indicatorType == IndicatorType.Respawn)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list = m_recycledRespawnIndicatorInstances;
 		}
 		if (list != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 0)
 			{
 				result = list[0];

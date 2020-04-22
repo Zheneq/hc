@@ -44,10 +44,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -56,15 +52,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		m_purchaseableItems = GetPurchasableItems();
 		if (HitchDetector.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(m_itemsGrid);
 		}
 		m_pageNum = 0;
@@ -76,15 +63,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		if (m_pageMarkers == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_pageMarkers = new List<UIStorePageIndicator>();
 		}
 		for (int i = m_pageMarkers.Count; i < m_numberOfPages; i++)
@@ -118,15 +96,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 			object item;
 			if (j < m_purchaseableItems.Length)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				item = m_purchaseableItems[j];
 			}
 			else
@@ -153,15 +122,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, OnScroll);
 			return;
 		}
@@ -183,15 +143,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClickedOnNextPage(null);
 			return;
 		}
@@ -208,10 +159,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -232,10 +179,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -253,15 +196,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_pageNum = pageNum;
 			int num = m_itemBtns.Length * pageNum;
 			for (int j = 0; j < m_itemBtns.Length; j++)
@@ -270,15 +204,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 				int num2 = j + num;
 				if (num2 < m_purchaseableItems.Length)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					item = m_purchaseableItems[num2];
 				}
 				m_itemBtns[j].Setup(item);

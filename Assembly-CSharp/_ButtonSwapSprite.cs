@@ -66,31 +66,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (m_hitBoxImage == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Image component = GetComponent<Image>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.sprite != null)
 				{
 					try
@@ -107,15 +85,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (m_hitBoxImage != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_hitBoxImage.alphaHitTestMinimumThreshold = 0.4f;
 		}
 		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, OnButtonClicked);
@@ -133,15 +102,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_subButtons.Add(btn);
 			btn.m_parentButton = this;
 			return;
@@ -193,52 +153,12 @@ public class _ButtonSwapSprite : MonoBehaviour
 		bool flag = false;
 		if (m_disableWhenInReadyState)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (GameManager.Get().PlayerInfo.ReadyState == ReadyState.Ready);
 					}
 				}
@@ -247,48 +167,12 @@ public class _ButtonSwapSprite : MonoBehaviour
 		int result;
 		if (m_isVisible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_clickable)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_ignoreDialogboxes)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((UIDialogPopupManager.Get() == null || (UIDialogPopupManager.Get() != null && !UIDialogPopupManager.Get().IsDialogBoxOpen())) ? 1 : 0);
 					}
 					else
@@ -313,15 +197,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_Label.text = newText;
 			return;
 		}
@@ -345,45 +220,14 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (m_recordClick)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().SendUIActionNotification(m_clickMetricRecordContext);
 		}
 		if (m_soundToPlay != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.PlaySound(m_soundToPlay);
 		}
 		if (callback != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			callback(data);
 		}
 		string text = base.gameObject.name;
@@ -399,11 +243,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch(text + " was clicked");
 			return;
 		}
@@ -418,19 +257,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		m_pointerEntered = true;
 		if (!m_forceHoverCallback)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!IsClickable())
 			{
 				return;
@@ -442,11 +268,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			pointerEnterCallback(data);
 			return;
 		}
@@ -460,25 +281,11 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
 			if (component != this)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					OnButtonExit(data);
 					return;
 				}
@@ -491,41 +298,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (m_subButtons != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_subButtons.Count > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
 					if (component != null && m_subButtons.Contains(component))
 					{
@@ -555,15 +331,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (pointerExitCallback != null)
 		{
@@ -584,15 +351,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_pointerDown = true;
 			return;
 		}
@@ -611,10 +369,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					selectableButton.NotifyHoverStatusChange(false);
 					selectableButton.NotifyPressStatusChange(false);
 					return;
@@ -623,15 +377,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (m_hoverImage != null && m_hoverImage.gameObject != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_hoverImage, false);
 		}
 		if (!(m_pressedImage != null))
@@ -640,11 +385,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_pressedImage.gameObject != null)
 			{
 				UIManager.SetGameObjectActive(m_pressedImage, false);
@@ -678,30 +418,8 @@ public class _ButtonSwapSprite : MonoBehaviour
 		{
 			if (m_pointerDown)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (selectableButton != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (selectableButton.m_ignorePressAnimationCall)
 					{
 						flag = !IsClickable();
@@ -714,15 +432,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 				int num;
 				if (!m_alwaysDisplayHover)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0;
 				}
 				else
@@ -734,28 +443,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 			}
 			else if (m_pointerEntered)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !IsClickable();
 				int num2;
 				if (!m_alwaysDisplayHover)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = (IsClickable() ? 1 : 0);
 				}
 				else
@@ -777,15 +468,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		int num3;
 		if (!m_alwaysDisplayHover)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 0;
 		}
 		else
@@ -812,37 +494,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (m_hoverImage != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (selectableButton != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_hoverActive != flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					selectableButton.NotifyHoverStatusChange(flag2);
 				}
 			}
@@ -857,15 +512,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			{
 				if (m_pressActive != flag3)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					selectableButton.NotifyPressStatusChange(flag3);
 				}
 			}
@@ -883,26 +529,12 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_Label, flag3);
 			return;
 		}
 		IL_00f3:
 		if (IsClickable() && m_controlPadInput != ControlpadInputValue.INVALID && ControlpadGameplay.Get().GetButtonDown(m_controlPadInput))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ButtonClickedInternal(null);
 		}
 		goto IL_0148;

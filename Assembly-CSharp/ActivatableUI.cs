@@ -89,19 +89,6 @@ public class ActivatableUI
 			int num;
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((m_activation == ActivationAction.ToggleActive) ? 1 : 0);
 			}
 			else
@@ -177,26 +164,8 @@ public class ActivatableUI
 			{
 				break;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((bool)tutorial.m_tutorialPanel)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = tutorial.m_tutorialPanel.gameObject;
 			}
 			break;
@@ -272,15 +241,6 @@ public class ActivatableUI
 		{
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
@@ -290,15 +250,6 @@ public class ActivatableUI
 			UITutorialPanel uITutorialPanel = UITutorialPanel.Get();
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowCombatPhasePanel();
@@ -316,28 +267,10 @@ public class ActivatableUI
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 					break;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UITutorialPanel uITutorialPanel3 = UITutorialPanel.Get();
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache1 = delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowDashPhasePanel();
@@ -350,42 +283,15 @@ public class ActivatableUI
 		{
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
-					break;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
 			UITutorialPanel uITutorialPanel2 = UITutorialPanel.Get();
 			if (_003C_003Ef__am_0024cache2 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache2 = delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowPrepPhasePanel();
@@ -397,27 +303,9 @@ public class ActivatableUI
 		case UIElement.FadeOutPanel:
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().FadeIn();
-					break;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -426,15 +314,6 @@ public class ActivatableUI
 		case UIElement.ResetMatchTimer:
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					break;
@@ -445,26 +324,8 @@ public class ActivatableUI
 		case UIElement.ResetMatchTurn:
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
-					break;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -503,27 +364,9 @@ public class ActivatableUI
 		case UIElement.StatusEffectTutorialPanel:
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
-					break;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -537,30 +380,12 @@ public class ActivatableUI
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 					break;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UITutorialFullscreenPanel.Get().ShowTeammateTargetingPanel();
 			break;
 		case UIElement.EnergyAndUltimatesTutorialPanel:
 			if (m_activation != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_activation != ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
@@ -576,37 +401,14 @@ public class ActivatableUI
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			bool active = false;
 			if (m_activation == ActivationAction.SetActive)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(gameObject, true);
 				active = true;
 			}
 			else if (m_activation == ActivationAction.ClearActive)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(gameObject, false);
 				active = false;
 			}
@@ -617,15 +419,6 @@ public class ActivatableUI
 			}
 			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.ActivationInfo activationInfo = new GameEventManager.ActivationInfo();
 				activationInfo.actionType = actionType;
 				activationInfo.active = active;
@@ -664,11 +457,6 @@ public class ActivatableUI
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						SinglePlayerManager.Get().SetLockInCancelButtonForceOff(!gameObject.activeSelf);
 						return;
 					}
@@ -745,11 +533,6 @@ public class ActivatableUI
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					SinglePlayerManager.Get().SetLockinPhaseColorForceOff(!gameObject.activeSelf);
 					return;
 				}
@@ -816,11 +599,6 @@ public class ActivatableUI
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					SinglePlayerManager.Get().SetTeamPlayerIconForceOff(2, !gameObject.activeSelf);
 					return;
 				}
@@ -875,20 +653,10 @@ public class ActivatableUI
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if ((bool)SinglePlayerManager.Get())
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						SinglePlayerManager.Get().SetEnemyPlayerIconForceOff(2, !gameObject.activeSelf);
 						return;
 					}

@@ -34,19 +34,6 @@ namespace TMPro
 		{
 			if (mesh == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				mesh = new Mesh();
 			}
 			else
@@ -102,11 +89,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				this.mesh.vertices = vertices;
 				this.mesh.normals = normals;
 				this.mesh.tangents = tangents;
@@ -131,19 +113,6 @@ namespace TMPro
 			int num2;
 			if (!isVolumetric)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num2 = 6;
 			}
 			else
@@ -177,11 +146,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					triangles[num7] = num6;
 					triangles[num7 + 1] = num6 + 1;
 					triangles[num7 + 2] = num6 + 2;
@@ -190,15 +154,6 @@ namespace TMPro
 					triangles[num7 + 5] = num6;
 					if (isVolumetric)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						triangles[num7 + 6] = num6 + 4;
 						triangles[num7 + 7] = num6 + 5;
 						triangles[num7 + 8] = num6 + 1;
@@ -285,15 +240,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				mesh.vertices = vertices;
 				mesh.normals = normals;
 				mesh.tangents = tangents;
@@ -307,19 +253,6 @@ namespace TMPro
 			int num;
 			if (!isVolumetric)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = 4;
 			}
 			else
@@ -330,15 +263,6 @@ namespace TMPro
 			int num3;
 			if (!isVolumetric)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = 6;
 			}
 			else
@@ -439,11 +363,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				mesh.vertices = vertices;
 				mesh.normals = normals;
 				mesh.tangents = tangents;
@@ -463,10 +382,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -490,10 +405,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -506,20 +417,10 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (mesh != null)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						mesh.vertices = vertices;
 						return;
 					}
@@ -537,15 +438,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Array.Clear(vertices, vertexCount, num);
 				return;
 			}
@@ -565,19 +457,6 @@ namespace TMPro
 			int num = vertices.Length - startIndex;
 			if (num > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Array.Clear(vertices, startIndex, num);
 			}
 			if (!updateMesh || !(mesh != null))
@@ -586,11 +465,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				mesh.vertices = vertices;
 				return;
 			}
@@ -611,15 +485,6 @@ namespace TMPro
 					int num3 = (num - i - 1) * 4;
 					if (num2 < num3)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SwapVertexData(num2, num3);
 					}
 				}
@@ -637,15 +502,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -666,15 +522,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num2 != num)
 					{
 						SwapVertexData(num2 * 4, num * 4);

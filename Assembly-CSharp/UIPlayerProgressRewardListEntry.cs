@@ -29,10 +29,6 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					TextMeshProUGUI[] levelTexts = m_levelTexts;
 					foreach (TextMeshProUGUI textMeshProUGUI in levelTexts)
 					{
@@ -49,15 +45,6 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 							string text = RewardUtils.GetDisplayString(reward);
 							if (reward.InventoryTemplate != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = reward.InventoryTemplate.GetDisplayName();
 							}
 							TextMeshProUGUI[] descriptionTexts = m_descriptionTexts;
@@ -89,23 +76,9 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			string text2 = RewardUtils.GetDisplayString(reward);
 			if (reward.InventoryTemplate != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = reward.InventoryTemplate.GetDisplayName();
 			}
 			TextMeshProUGUI[] descriptionTexts2 = m_descriptionTexts;

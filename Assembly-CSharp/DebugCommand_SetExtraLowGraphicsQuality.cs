@@ -15,30 +15,8 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 		object result;
 		if (Options_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.VeryLow)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = "on";
 				goto IL_004c;
 			}
@@ -67,15 +45,6 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Options_UI.Get() == null))
 			{
 				Options_UI.Get().SetPendingGraphicsQuality((Options_UI.Get().GetCurrentGraphicsQuality() != GraphicsQuality.VeryLow) ? GraphicsQuality.VeryLow : GraphicsQuality.Low);
@@ -96,10 +65,6 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					OnIncreaseClick();
 					return true;
 				}

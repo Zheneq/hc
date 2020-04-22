@@ -101,19 +101,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			float d = TheatricsManager.GetRagdollImpactForce();
 			if (hitDirection.sqrMagnitude > 0f)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				hitDirection.Normalize();
 			}
 			else
@@ -142,10 +129,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						text = empty;
 						return text + "Explosion Type Impulse, Radius= " + ExplosionRadius + " | Magnitude = " + ExplosionMagnitude + " | Center= " + ExplosionCenter;
 					}
@@ -362,19 +345,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!m_hasRandomValueParameter)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (parameters[i].name == "RandomValue")
 				{
 					m_hasRandomValueParameter = true;
@@ -384,36 +354,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (parameters[i].name == "TurnStart")
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_hasTurnStartParameter = true;
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			float[] savedTauntCamStartEventDelays;
 			List<int> savedAnimatorStateNameHashes;
 			List<string> savedAnimatorStateNames;
@@ -425,26 +372,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				savedAnimatorStateNames = m_savedAnimData.m_savedAnimatorStateNames;
 				if (savedCamStartEventDelays != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (savedCamStartEventDelays.Length == 21)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_camStartEventDelays = new float[21];
 						Array.Copy(savedCamStartEventDelays, m_camStartEventDelays, 21);
 						goto IL_0153;
@@ -463,11 +392,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				m_animatorStateNameHashToName = new Dictionary<int, string>(m_animatorStateNameHashes.Count);
 				for (int k = 0; k < m_animatorStateNameHashes.Count; k++)
 				{
@@ -475,26 +399,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_projector = base.gameObject.GetComponentInChildren<Projector>();
 					PersistentVFXInfo[] persistentVFX = m_persistentVFX;
 					foreach (PersistentVFXInfo persistentVFXInfo in persistentVFX)
 					{
 						if (persistentVFXInfo.m_vfxPrefab != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							persistentVFXInfo.m_fxJoint.Initialize(base.gameObject);
 							persistentVFXInfo.m_vfxInstance = UnityEngine.Object.Instantiate(persistentVFXInfo.m_vfxPrefab);
 							persistentVFXInfo.m_vfxInstance.transform.parent = persistentVFXInfo.m_fxJoint.m_jointObject.transform;
@@ -505,23 +415,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 						if (s_stealthMaterialPlaneVectorIDs[0] == 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							s_stealthMaterialPlaneVectorIDs[0] = Shader.PropertyToID("_StealthPlane0");
 							s_stealthMaterialPlaneVectorIDs[1] = Shader.PropertyToID("_StealthPlane1");
 							s_stealthMaterialPlaneVectorIDs[2] = Shader.PropertyToID("_StealthPlane2");
@@ -554,15 +450,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (savedAnimatorStateNameHashes != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_animatorStateNameHashes = new List<int>(savedAnimatorStateNameHashes);
 			}
 			if (savedAnimatorStateNames != null)
@@ -587,43 +474,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		PKFxFX[] componentsInChildren = GetComponentsInChildren<PKFxFX>();
 		if (componentsInChildren != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (PKFxFX pKFxFX in componentsInChildren)
 			{
 				if (pKFxFX.m_PlayOnStart)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_popcornFXPlayOnStartComponents.Add(pKFxFX);
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
@@ -633,15 +489,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			string arg;
 			if (m_parentActorData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = m_parentActorData.name;
 			}
 			else
@@ -660,41 +507,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num;
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_parentActorData.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 					goto IL_0076;
 				}
@@ -718,15 +534,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -739,15 +546,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -762,15 +560,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
 			Rigidbody[] array2 = componentsInChildren2;
 			foreach (Rigidbody rigidbody in array2)
@@ -805,19 +594,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (rigidbody2.mass > num)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				rigidbody = rigidbody2;
 				num = rigidbody2.mass;
 			}
@@ -828,11 +604,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_cachedRigidbodyForRagdollImpulse = rigidbody;
 			return;
 		}
@@ -842,32 +613,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (GameEventManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
 		}
 		if (m_appearanceNameToCachedRendererMaterials != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < m_appearanceNameToCachedRendererMaterials.Count; i++)
 			{
 				List<Material[]> list = m_appearanceNameToCachedRendererMaterials.Values.ElementAt(i);
@@ -922,10 +671,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -941,55 +686,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetOpposingTeam() == m_parentActorData.GetTeam())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (movementType == BoardSquarePathInfo.ConnectionType.Flight)
 				{
 					return;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (movementType == BoardSquarePathInfo.ConnectionType.Teleport)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -998,15 +703,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num;
 		if (previousTravelBoardSquarePathInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = ((previousTravelBoardSquarePathInfo.m_visibleToEnemies || previousTravelBoardSquarePathInfo.m_moverHasGameplayHitHere) ? 1 : 0);
 		}
 		else
@@ -1028,15 +724,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					float duration;
 					if (m_parentActorData.GetActorMovement().IsPast2ndToLastSquare())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						duration = m_stealthMoveStoppedHightlightFadeDuration;
 					}
 					else
@@ -1053,15 +740,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		object obj;
 		if (nextTravelBoardSquarePathInfo == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = null;
 		}
 		else
@@ -1072,15 +750,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num2;
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion) ? 1 : 0);
 		}
 		else
@@ -1094,11 +763,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_stealthBrushTransitionParameter.GetEndValue() == 0f)
 			{
 				m_stealthBrushTransitionParameter = new EasedInFloatQuad(m_stealthBrushTransitionParameter);
@@ -1118,67 +782,18 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool result = true;
 		if (m_characterPortrait != other.m_characterPortrait)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			diffDescriptions.Add("\tCharacter Portrait different");
 			result = false;
 		}
 		if (m_cameraVertOffset == other.m_cameraVertOffset)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_cameraVertCoverOffset == other.m_cameraVertCoverOffset)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_cameraHorzOffset == other.m_cameraHorzOffset)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stealthParameterStopPKFX == other.m_stealthParameterStopPKFX)
 					{
 						goto IL_00a4;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1201,15 +816,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					if (!(m_persistentVFX[num].m_vfxPrefab.name != other.m_persistentVFX[num].m_vfxPrefab.name) && !(m_persistentVFX[num].m_fxJoint.m_joint != other.m_persistentVFX[num].m_fxJoint.m_joint))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(m_persistentVFX[num].m_fxJoint.m_jointCharacter != other.m_persistentVFX[num].m_fxJoint.m_jointCharacter))
 						{
 							num++;
@@ -1221,15 +827,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				else
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				break;
 			}
@@ -1254,33 +851,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (parameters[num].name == paramName)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = true;
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1310,19 +885,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		m_dirtyRenderersCache = false;
 		if (m_renderers == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 		}
 		else
@@ -1332,40 +894,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				list3.Add(m_renderers[i]);
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Renderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<Renderer>();
 			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
 				if (!list3.Contains(componentsInChildren[j]))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list3.Add(componentsInChildren[j]);
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			m_renderers = list3.ToArray();
 		}
@@ -1376,15 +911,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (renderer == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			Color[] array = new Color[renderer.sharedMaterials.Length];
@@ -1392,26 +918,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (renderer.sharedMaterials[l] != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (renderer.sharedMaterials[l].HasProperty(materialColorProperty))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array[l] = renderer.sharedMaterials[l].color;
 					}
 					else
@@ -1422,27 +930,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					object stealthReplacementShaderStr;
 					if (base.gameObject.name.Contains("trickster"))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						stealthReplacementShaderStr = "Hydrogen/Trickster";
 					}
 					else
@@ -1456,15 +946,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					array[l] = Color.white;
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_rendererDefaultColors.Add(array);
 			Material[] array2 = new Material[renderer.sharedMaterials.Length];
 			for (int m = 0; m < array2.Length; m++)
@@ -1475,23 +956,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_appearanceNameToCachedRendererMaterials[m_rendererDefaultMaterialsCacheKey] = list4;
 			if (!string.IsNullOrEmpty(m_stealthReplacementShaderStr))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_stealthReplacementShader = Shader.Find(m_stealthReplacementShaderStr);
 			}
 			m_alphaUpdateMarkedDirty = true;
@@ -1511,15 +978,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SkinnedMeshRenderer[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
 			foreach (SkinnedMeshRenderer skinnedMeshRenderer in componentsInChildren2)
 			{
@@ -1529,23 +987,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				base.gameObject.layer = layer;
 				if (m_projector != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_projector.enabled = false;
 				}
 				base.gameObject.SetActive(false);
@@ -1564,19 +1008,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num = 0f;
 		if (!forceStandingOffset)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_parentActorData.GetActorCover().HasAnyCover())
 			{
 				return m_cameraVertCoverOffset;
@@ -1597,41 +1028,14 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					if (renderer != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bounds.Encapsulate(renderer.bounds);
 					}
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					Vector3 size = bounds.size;
 					return Mathf.Max(size.x, Mathf.Max(size.y, size.z));
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return 2f;
@@ -1647,15 +1051,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Collider[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Collider>();
 			Collider[] array2 = componentsInChildren2;
 			foreach (Collider obj2 in array2)
@@ -1664,11 +1059,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				Rigidbody[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Rigidbody>();
 				Rigidbody[] array3 = componentsInChildren3;
 				foreach (Rigidbody obj3 in array3)
@@ -1695,42 +1085,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				if (m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out string value))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = value;
 				}
 			}
@@ -1743,19 +1102,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				while (true)
@@ -1784,10 +1130,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value;
 				}
 			}
@@ -1807,30 +1149,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == s_animHashChargeEnd);
 			}
 		}
@@ -1843,46 +1163,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				bool flag = modelAnimator.IsInTransition(0);
 				if (currentAnimatorStateInfo.tagHash != s_animHashAttack)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorStateInfo.tagHash != s_animHashChargeEnd)
 					{
 						return false;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				endingAttack = flag;
@@ -1904,10 +1193,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -1922,15 +1207,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (excludeCover)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((!m_parentActorData.GetActorCover().HasAnyCover()) ? 1 : 0);
 			}
 			else
@@ -1950,34 +1226,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				int result;
 				if (currentAnimatorStateInfo.tagHash != s_animHashDamage && currentAnimatorStateInfo.shortNameHash != s_animHashDamage)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((currentAnimatorStateInfo.tagHash == s_animHashDamageNoInterrupt) ? 1 : 0);
 				}
 				else
@@ -1985,15 +1239,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					result = 1;
 				}
 				return (byte)result != 0;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2011,15 +1256,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				int num;
 				if (currentAnimatorStateInfo.tagHash != s_animHashIdle)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((currentAnimatorStateInfo.shortNameHash == s_animHashIdle) ? 1 : 0);
 				}
 				else
@@ -2030,15 +1266,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				int num2;
 				if (currentAnimatorStateInfo.tagHash != s_animHashDamage)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((currentAnimatorStateInfo.shortNameHash == s_animHashDamage) ? 1 : 0);
 				}
 				else
@@ -2053,27 +1280,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						result = 0;
 						goto IL_00c5;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((!modelAnimator.IsInTransition(0)) ? 1 : 0);
 				}
 				else
@@ -2081,19 +1290,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					result = 1;
 				}
 				goto IL_00c5;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return false;
@@ -2106,31 +1302,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				return modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == s_animHashKnockdown;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2148,15 +1322,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -2176,15 +1341,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -2199,19 +1355,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				result = m_renderers[index];
 				goto IL_0031;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		result = null;
 		goto IL_0031;
@@ -2224,19 +1367,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_renderers == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -2252,46 +1382,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error(string.Concat(this, " has a NULL model Animator"));
 			}
 		}
 		else if (m_modelAnimator.layerCount == 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_modelAnimator = GetComponentInChildren<Animator>();
 			object str;
 			if (m_parentActorData == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = "NULL";
 			}
 			else
@@ -2301,15 +1400,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			object str2;
 			if (m_modelAnimator == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str2 = "NULL";
 			}
 			else
@@ -2331,19 +1421,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		GameObject gameObject = base.gameObject.FindInChildren("root_JNT");
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rootBoneTransform = gameObject.transform;
 		}
 		gameObject = base.gameObject.FindInChildren("hip_JNT");
@@ -2354,15 +1431,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		gameObject = base.gameObject.FindInChildren("floor_JNT");
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_floorBoneTransform = gameObject.transform;
 		}
 		StoreRigidBodyOffsets();
@@ -2376,24 +1444,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hipBoneTransform != null && m_floorBoneTransform != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					Vector3 position = m_floorBoneTransform.position;
 					Vector3 position2 = m_rootBoneTransform.transform.position;
 					float y = position2.y;
@@ -2416,24 +1470,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hasRandomValueParameter)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_lastAnimatorRandomSetTime = Time.time;
 					m_modelAnimator.SetFloat("RandomValue", UnityEngine.Random.value);
 					return;
@@ -2458,10 +1498,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -2489,32 +1525,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				m_shroudInstances[i].enabled = m_shroudInstancesToEnable[i];
 				flag = true;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_shroudInstancesToEnable = null;
 		}
 		if (m_dirtyRenderersCache && !flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CacheRenderers();
 		}
 		if (m_parentActorData == null)
@@ -2524,42 +1538,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (!m_attemptedToCreateBaseCircle)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorVFX actorVFX = m_parentActorData.GetActorVFX();
 			if (actorVFX != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVFX.SpawnBaseCircles();
 			}
 			m_attemptedToCreateBaseCircle = true;
 		}
 		if (!m_parentActorData.IsModelAnimatorDisabled())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UpdateFloorBone();
 		}
 		UpdateRandomValueForAnimator();
@@ -2573,40 +1560,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag2 = IsPlayingIdleAnim(true);
 		if (m_needsStandingIdleBoundingBox)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_0176;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_rendererBoundsApprox.size == Vector3.zero)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_0176;
 		}
 		goto IL_0280;
@@ -2617,22 +1577,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			if (!(Camera.main != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 position = Camera.main.transform.position;
 				float num = Camera.main.farClipPlane * Camera.main.farClipPlane;
 				for (int j = 0; j < m_activeRigidbodies.Length; j++)
@@ -2642,27 +1592,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rigidbody.IsSleeping())
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					Vector3 position2 = rigidbody.position;
 					if (float.IsNaN(position2.x))
@@ -2676,15 +1608,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					float num2 = Vector3.SqrMagnitude(rigidbody.position - position);
 					if (num2 > num)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rigidbody.isKinematic = true;
 						rigidbody.detectCollisions = false;
 						rigidbody.Sleep();
@@ -2705,15 +1628,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_0176:
 		if (GetNumModelRenderers() > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_needsStandingIdleBoundingBox = !flag2;
 			float num3 = 0.95f * Board.Get().squareSize;
 			float num4 = 4f;
@@ -2731,15 +1645,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				collider.gameObject.layer = ActorData.Layer;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		goto IL_0280;
 	}
@@ -2753,19 +1658,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (m_appearanceNameToCachedRendererMaterials.ContainsKey(name))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Material[]> list = m_appearanceNameToCachedRendererMaterials[name];
 			for (int i = 0; i < m_renderers.Length; i++)
 			{
@@ -2791,15 +1683,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				renderer.materials = array;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
@@ -2818,11 +1701,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					list.Add(array2);
 					for (int l = 0; l < renderer2.materials.Length; l++)
 					{
@@ -2847,15 +1725,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				IL_01a7:;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_appearanceNameToCachedRendererMaterials[name] = list;
 		}
 		m_alphaUpdateMarkedDirty = true;
@@ -2865,19 +1734,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (m_appearanceNameToCachedRendererMaterials.ContainsKey(m_rendererDefaultMaterialsCacheKey))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<Material[]> list = m_appearanceNameToCachedRendererMaterials[m_rendererDefaultMaterialsCacheKey];
 			for (int i = 0; i < m_renderers.Length; i++)
 			{
@@ -2889,65 +1745,20 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						UnityEngine.Object.Destroy(renderer.materials[j]);
 					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.materials = materials;
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			DisableMaterialKeyword(c_stealthShaderKeyword);
 			SetMaterialFloatTeam();
 			if (m_stealthShaderCullModeSettings != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int k = 0; k < m_stealthShaderCullModeSettings.Count; k++)
 				{
 					CullModeSettings cullModeSettings = m_stealthShaderCullModeSettings[k];
 					if (!cullModeSettings.m_forStealth)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetMaterialFloatByNameMatch(s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2961,19 +1772,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			Renderer renderer = m_renderers[i];
 			if (renderer.gameObject.layer == oldLayer)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				renderer.gameObject.layer = newLayer;
 			}
 		}
@@ -2992,15 +1790,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0047;
 			}
@@ -3031,19 +1820,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					if (material.name.IndexOf(searchPtn) < 0)
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
 					}
 				}
 				material.SetFloat(propertyID, value);
@@ -3090,15 +1866,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0049;
 			}
@@ -3129,15 +1896,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0046;
 			}
@@ -3168,15 +1926,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_0046;
 			}
@@ -3208,19 +1957,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						if (enable)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							material.EnableKeyword(keyword);
 						}
 						else
@@ -3243,15 +1979,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					break;
 				}
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -3267,19 +1994,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
 				else
@@ -3313,19 +2027,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				float maxColorComponent = color.maxColorComponent;
 				if (maxColorComponent > 1f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					material.SetColor(propertyId, color * 1f / maxColorComponent);
 				}
 			}
@@ -3350,15 +2051,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_stealthPKFXStopped = false;
 			for (int i = 0; i < m_popcornFXPlayOnStartComponents.Count; i++)
 			{
@@ -3385,46 +2077,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (renderer != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				renderer.enabled = true;
 			}
 		}
 		if (m_shroudInstances != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ShroudInstance[] shroudInstances = m_shroudInstances;
 			foreach (ShroudInstance shroudInstance in shroudInstances)
 			{
 				shroudInstance.enabled = true;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_visibleToClient = true;
@@ -3436,11 +2097,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			SetPersistentVfxActive(true);
 			return;
 		}
@@ -3458,39 +2114,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_shroudInstances != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ShroudInstance[] shroudInstances = m_shroudInstances;
 				foreach (ShroudInstance shroudInstance in shroudInstances)
 				{
 					shroudInstance.enabled = false;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_forceHideRenderers = true;
@@ -3506,15 +2135,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_rendererDefaultColors.Count; i++)
 			{
 				for (int j = 0; j < m_rendererDefaultColors[i].Length; j++)
@@ -3564,15 +2184,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 				goto IL_006e;
 			}
@@ -3584,19 +2195,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (m_rendererDefaultColors != null && m_cachedRendererAlphas != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = 0;
 			for (int i = 0; i < m_rendererDefaultColors.Count; i++)
 			{
@@ -3618,15 +2216,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					break;
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_cachedRendererAlphas = null;
 	}
@@ -3643,19 +2232,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (m_masterSkinVfxInst != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning("Setting master skin vfx instance when there is existing entry");
 		}
 		m_masterSkinVfxInst = vfxInst;
@@ -3669,19 +2245,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			int num;
 			if (CameraManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = (CameraManager.Get().InFaceShot(m_parentActorData) ? 1 : 0);
 			}
 			else
@@ -3696,15 +2259,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (m_visibleToClient == flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_forceUpdateVisibility)
 			{
 				return;
@@ -3719,15 +2273,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (shroudInstance != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					shroudInstance.enabled = flag;
 				}
 			}
@@ -3739,30 +2284,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (renderer != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.enabled = flag;
 				}
 			}
 		}
 		if (m_projector != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_projector.enabled = flag;
 		}
 		ParticleSystem[] componentsInChildren = GetComponentsInChildren<ParticleSystem>();
@@ -3771,15 +2298,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				particleSystem.Clear();
 			}
 			ParticleSystem.EmissionModule emission = particleSystem.emission;
@@ -3787,11 +2305,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			SetPersistentVfxActive(flag);
 			return;
 		}
@@ -3806,30 +2319,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (persistentVFXInfo.m_vfxInstance != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (persistentVFXInfo.m_vfxInstance.activeSelf != active)
 				{
 					persistentVFXInfo.m_vfxInstance.SetActive(active);
@@ -3842,11 +2333,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			m_masterSkinVfxInst.gameObject.SetActiveIfNeeded(active);
 			return;
 		}
@@ -3861,30 +2347,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num;
 		if (!m_parentActorData.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(m_parentActorData))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (m_parentActorData.VisibleTillEndOfPhase ? 1 : 0);
 				goto IL_005d;
 			}
@@ -3897,53 +2361,17 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		List<Plane> list = null;
 		if (!((float)m_stealthBrushTransitionParameter > 0f))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
 				goto IL_014a;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (BrushCoordinator.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare travelBoardSquare = m_parentActorData.GetTravelBoardSquare();
 			Vector3 vector;
 			if ((bool)travelBoardSquare)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = travelBoardSquare.ToVector3();
 			}
 			else
@@ -3960,51 +2388,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag3;
 		if (m_stealthPKFXStopped && !flag3)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_stealthBrokenParameter.GetEndValue() != 1f)
 				{
 					goto IL_0734;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (1f - Mathf.Max(m_stealthBrushTransitionParameter, m_stealthBrokenParameter) <= m_stealthParameterStartPKFX)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RestartPopcornFXPlayOnStart();
 			}
 		}
@@ -4017,11 +2409,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num2;
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			SetMaterialFloat(s_materialPropertyIDStealthFade, m_stealthFadeParameter);
 			SetMaterialFloat(s_materialPropertyIDBrush, m_stealthBrushParameter);
 			SetMaterialFloat(s_materialPropertyIDStealthMoving, m_stealthBrushTransitionParameter);
@@ -4030,15 +2417,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			float value;
 			if (m_parentActorData.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1f;
 			}
 			else
@@ -4079,15 +2457,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num3;
 		if (m_stealthBrushParameter.GetEndValue() == 1f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = (((float)m_stealthBrokenParameter <= 0.99f) ? 1 : 0);
 		}
 		else
@@ -4098,104 +2467,32 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		flag3 = (m_stealthFadeParameter.GetEndValue() == 1f);
 		if (!flag3)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag4)
 			{
 				if (m_stealthShaderEnabled && m_stealthFadeParameter.GetEndValue() == 0f && m_stealthFadeParameter.EaseFinished())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stealthBrushParameter.GetEndValue() == 0f)
 					{
 						if (m_stealthBrushParameter.EaseFinished())
 						{
 							goto IL_06e4;
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (m_stealthBrokenParameter.GetEndValue() == 1f)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_stealthBrushParameter.EaseFinished())
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_06e4;
 						}
 					}
 				}
 				goto IL_06f1;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!m_stealthShaderEnabled)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_stealthReplacementShader != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetMaterialShader(m_stealthReplacementShader);
 				ScaleMaterialColorToSDR(materialOutlineColorProperty);
 				SetMinMaterialFloat(materialOutlineProperty, 1E-05f);
@@ -4205,29 +2502,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			SetMaterialFloatTeam();
 			if (m_stealthShaderCullModeSettings != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < m_stealthShaderCullModeSettings.Count; j++)
 				{
 					CullModeSettings cullModeSettings = m_stealthShaderCullModeSettings[j];
 					if (cullModeSettings.m_forStealth)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SetMaterialFloatByNameMatch(s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
 					}
 				}
@@ -4236,51 +2515,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (Mathf.Max(m_stealthFadeParameter, 1f - (float)m_stealthBrushTransitionParameter) >= m_stealthParameterStopPKFX)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_parentActorData.IsHiddenInBrush())
 				{
 					goto IL_05ac;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!m_stealthPKFXStopped)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				KillPopcornFXPlayOnStart();
 				goto IL_0734;
 			}
@@ -4289,15 +2532,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_06f1:
 		if (Mathf.Min(m_stealthFadeParameter, 1f - (float)m_stealthBrushTransitionParameter) <= m_stealthParameterStartPKFX && m_stealthPKFXStopped)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			RestartPopcornFXPlayOnStart();
 		}
 		goto IL_0734;
@@ -4305,15 +2539,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num4;
 		if (list != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = list.Count;
 		}
 		else
@@ -4327,15 +2552,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num5;
 		if (flag5 && BrushCoordinator.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = ((!BrushCoordinator.Get().IsRegionFunctioning(travelBoardSquareBrushRegion)) ? 1 : 0);
 		}
 		else
@@ -4346,15 +2562,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num6;
 		if (!flag6)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num6 = ((num2 > 0) ? 1 : 0);
 		}
 		else
@@ -4364,90 +2571,27 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag8 = (byte)num6 != 0;
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2 || flag6)
 			{
 				if (m_stealthBrokenParameter.GetEndValue() == 1f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_stealthBrokenParameter.EaseTo(0f, 0.0166666675f);
 				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stealthFadeParameter.GetEndValue() == 0f)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_stealthFadeParameter.EaseTo(1f, m_stealthFadeDuration);
 					}
 				}
 				if (flag8)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stealthBrushParameter.GetEndValue() == 0f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_stealthBrushParameter.EaseTo(1f, 0.0166666675f);
 					}
 				}
 				goto IL_03dd;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_stealthFadeParameter.GetEndValue() != 1f)
@@ -4456,15 +2600,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (!flag8)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_stealthBrushParameter.GetEndValue() == 1f)
 					{
 						m_stealthBrushParameter.EaseTo(0f, 0.0166666675f);
@@ -4472,63 +2607,18 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				goto IL_03dd;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_stealthShaderEnabled)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_stealthBrokenParameter.GetEndValue() == 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_stealthBrokenParameter.EaseTo(1f, m_stealthBrokenEaseDuration);
 				if (m_stealthFadeParameter.GetEndValue() == 1f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_stealthFadeParameter.EaseTo(0f, m_stealthBrokenEaseDuration);
 				}
 				if (m_stealthBrushParameter.GetEndValue() == 0f)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_stealthBrushParameter.EaseTo(0f, m_stealthBrokenEaseDuration);
 				}
 			}
@@ -4545,43 +2635,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int result;
 		if (m_stealthShaderEnabled)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_parentActorData.IsHiddenInBrush() && m_stealthFadeParameter.GetEndValue() == 1f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Mathf.Approximately(m_stealthFadeParameter, 1f))
 				{
 					result = 1;
 					goto IL_008e;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = ((!Mathf.Approximately(m_stealthBrushTransitionParameter, 0f)) ? 1 : 0);
@@ -4603,30 +2662,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool updatingInConfirm = false;
 		if (flag3)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag2)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_renderers != null)
 				{
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
@@ -4634,26 +2671,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						goto IL_009d;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.ShouldForceTargetOutlineForActor(m_parentActorData))
 						{
 							goto IL_009d;
@@ -4669,38 +2688,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_009f:
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Camera.main != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerSelectionEffect component = Camera.main.GetComponent<PlayerSelectionEffect>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.m_drawSelection = true;
 					component.SetDrawingInConfirm(updatingInConfirm);
 				}
@@ -4712,24 +2704,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			int num = LayerMask.NameToLayer("ActorSelected");
 			int num2 = LayerMask.NameToLayer("Actor");
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SetMaterialFloatTeam();
 				SetLayer(num, num2);
 			}
@@ -4741,15 +2719,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			object obj;
 			if (Camera.main != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = Camera.main.GetComponent<PlayerSelectionEffect>();
 			}
 			else
@@ -4761,11 +2730,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					playerSelectionEffect.SetDrawingInConfirm(updatingInConfirm);
 					return;
 				}
@@ -4782,15 +2746,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_rendererDefaultColors == null)
 			{
 				while (true)
@@ -4813,55 +2768,19 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (m_rendererDefaultColors.Count <= curRendererIndex)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				if (!(materials[i] != null))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!materials[i].HasProperty(materialColorProperty))
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Color color = m_rendererDefaultColors[curRendererIndex][i];
 				if (m_rendererDefaultColors[curRendererIndex][i].a == 1f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color.a = Alpha;
 				}
 				else
@@ -4887,15 +2806,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_alphaUpdateMarkedDirty)
 			{
 				Alpha = m_cameraTransparency;
@@ -4924,52 +2834,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num = 0f;
 		if (useTauntCamAltTime)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_tauntCamStartEventDelays != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animationIndex >= 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animationIndex < m_tauntCamStartEventDelays.Length)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_tauntCamStartEventDelays[animationIndex] > 0f)
 						{
 							return m_tauntCamStartEventDelays[animationIndex];
@@ -4981,15 +2851,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float result;
 		if (animationIndex >= 0 && animationIndex < m_camStartEventDelays.Length)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = m_camStartEventDelays[animationIndex];
 		}
 		else
@@ -5004,19 +2865,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			modelAnimator.enabled = !ragDollOn;
 		}
 		SkinnedMeshRenderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -5024,25 +2872,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (skinnedMeshRenderer.enabled)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				skinnedMeshRenderer.updateWhenOffscreen = ragDollOn;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			int layer = LayerMask.NameToLayer("DeadActor");
 			int layer2 = LayerMask.NameToLayer("Actor");
 			Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
@@ -5063,15 +2897,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			object activeRigidbodies;
 			if (ragDollOn)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				activeRigidbodies = componentsInChildren2;
 			}
 			else
@@ -5095,22 +2920,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_rendererBoundsApproxCollider != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_rendererBoundsApproxCollider.enabled = !ragDollOn;
 				}
 				if (ragDollOn)
@@ -5134,26 +2945,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.isEditor)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info("Applying impulse on " + base.gameObject.name + ", impulse info:" + impulseInfo.GetDebugString());
 			}
 			if (rigidBodies == null)
@@ -5177,15 +2970,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 							float magnitude = a.magnitude;
 							if (magnitude > 0.1f)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								a.Normalize();
 							}
 							else
@@ -5202,15 +2986,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						float num;
 						if (rigidBodies.Length > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = 1f / (float)rigidBodies.Length;
 						}
 						else
@@ -5258,15 +3033,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_cachedRigidbodyForRagdollImpulse != null)
 				{
 					while (true)
@@ -5278,15 +3044,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						default:
 							if (Application.isEditor)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Info("Applying impulse on " + m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString());
 							}
 							m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.HitImpulse, ForceMode.Impulse);
@@ -5299,15 +3056,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			object obj;
 			if (rigidBodies.Length > 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = rigidBodies[0];
 			}
 			else
@@ -5324,15 +3072,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				float sqrMagnitude2 = (vector2 - hitPosition).sqrMagnitude;
 				if (sqrMagnitude2 < num4)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = sqrMagnitude2;
 					rigidbody2 = rigidbody3;
 					position = vector2;
@@ -5344,11 +3083,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				rigidbody2.AddForceAtPosition(impulseInfo.HitImpulse, position, ForceMode.Impulse);
 				if (Application.isEditor)
 				{

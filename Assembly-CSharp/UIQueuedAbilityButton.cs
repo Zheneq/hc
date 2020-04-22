@@ -32,10 +32,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerDown, OnPointerDown);
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerClick, OnPointerClick);
 					UIEventTriggerUtils.AddListener(theButton.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
@@ -60,19 +56,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		m_parentReference = reference;
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityEntry.ability != null)
 			{
 				UIManager.SetGameObjectActive(m_theSprite, true);
@@ -82,15 +65,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		if (m_abilityEntry != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_theSprite, false);
 			theButton.enabled = false;
 		}
@@ -108,15 +82,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 			int doActive;
 			if (i == num)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = ((num != -1) ? 1 : 0);
 			}
 			else
@@ -127,11 +92,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_freeActionSprite, abilityEntry.ability.IsFreeAction());
 			UIManager.SetGameObjectActive(m_phaseIndicatorContainer, true);
 			UIManager.SetGameObjectActive(m_close, false);
@@ -165,24 +125,10 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_close, true);
 					UIManager.SetGameObjectActive(m_closeHover, true);
 					UIManager.SetGameObjectActive(m_closeDown, false);
@@ -201,24 +147,10 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_close, true);
 					UIManager.SetGameObjectActive(m_closeHover, false);
 					UIManager.SetGameObjectActive(m_closeDown, true);
@@ -240,10 +172,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -254,11 +182,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 			ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 			if (m_abilityEntry != null)
@@ -307,26 +230,12 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SinglePlayerManager.IsCancelDisabled())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (!HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.IsAnimCancelPlaying() && !m_isLockedIn)
 				{
 					m_parentReference.AbilityCanceled();

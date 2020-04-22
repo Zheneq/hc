@@ -20,10 +20,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						yield break;
 					}
 				}
@@ -35,15 +31,6 @@ namespace TMPro
 				float num2;
 				if (tweenInfo.ignoreTimeScale)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = Time.unscaledDeltaTime;
 				}
 				else
@@ -58,11 +45,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				tweenInfo.TweenValue(1f);
 				yield break;
 			}
@@ -84,10 +66,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						Debug.LogWarning("Coroutine container not configured... did you forget to call Init?");
 						return;
 					}
@@ -120,15 +98,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_CoroutineContainer.StopCoroutine(m_Tween);
 				m_Tween = null;
 				return;

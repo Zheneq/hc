@@ -42,15 +42,6 @@ public class MatchLogger : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string arg = $"Match-{HydrogenConfig.Get().ProcessCode}.log";
 			DateTime now = DateTime.Now;
 			string arg2 = $"{now.Year:d4}-{now.Month:d2}-{now.Day:d2}";
@@ -84,10 +75,6 @@ public class MatchLogger : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ((int)(Time.time - m_matchStartTime)).ToString();
 				}
 			}
@@ -124,35 +111,16 @@ public class MatchLogger : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_logMatch)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_currentLogFile != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						string value = "Match time: " + GetTimeForLogging(false);
 						m_currentLogFile.WriteLine(value);
 						return;
@@ -171,35 +139,16 @@ public class MatchLogger : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_logMatch)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_currentLogFile != null)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						m_currentLogFile.WriteLine(text);
 						return;
 					}
@@ -217,24 +166,10 @@ public class MatchLogger : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentLogFile != null && m_logMatch)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_currentLogFile.Close();
 					m_currentLogFile = null;
 					Application.logMessageReceived -= HandleLog;

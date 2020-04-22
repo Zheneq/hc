@@ -9,19 +9,6 @@ namespace TMPro
 		{
 			if (ch >= '0')
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ch <= '9')
 				{
 					while (true)

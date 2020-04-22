@@ -7,19 +7,6 @@ public static class ServerLibCrashReportUtil
 		object buildName;
 		if (devBuild)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			buildName = "AtlasReactorDev";
 		}
 		else

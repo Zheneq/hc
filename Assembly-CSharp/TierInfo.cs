@@ -41,10 +41,6 @@ public class TierInfo
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return null;
 					}
 				}
@@ -71,10 +67,6 @@ public class TierInfo
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						float val = mmr - (float)MinMMRForBonus;
 						val = Math.Min(val, eloDeltaNeededForMaxBonus);
 						val = Math.Max(1f, val);
@@ -103,10 +95,6 @@ public class TierInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value.PerLoss;
 				}
 			}

@@ -20,30 +20,8 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 				KeyValuePair<CharacterType, LobbyCharacterGameplayData> current = enumerator.Current;
 				if (!roles.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (roles.Contains(current.Value.CharacterRole))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(current.Key);
 					}
 				}
@@ -72,10 +50,6 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -104,19 +78,6 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 			int result;
 			if (groupIds.Contains(p.FactionGroupID))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (p.Characters.Contains(freelancer) ? 1 : 0);
 			}
 			else

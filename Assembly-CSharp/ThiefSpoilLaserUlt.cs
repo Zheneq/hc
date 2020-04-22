@@ -68,19 +68,6 @@ public class ThiefSpoilLaserUlt : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Ult 2";
 		}
 		Setup();
@@ -99,10 +86,6 @@ public class ThiefSpoilLaserUlt : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClearTargeters();
 					for (int i = 0; i < GetLaserCount(); i++)
 					{
@@ -131,19 +114,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (m_targeterMultiTarget)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = GetLaserCount();
 		}
 		else
@@ -168,19 +138,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -191,15 +148,6 @@ public class ThiefSpoilLaserUlt : Ability
 		SpoilsSpawnData cachedSpoilSpawnData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnData = m_abilityMod.m_spoilSpawnDataMod.GetModifiedValue(m_spoilSpawnData);
 		}
 		else
@@ -219,19 +167,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -246,19 +181,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount);
 		}
 		else
@@ -273,19 +195,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -300,19 +209,6 @@ public class ThiefSpoilLaserUlt : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -332,19 +228,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -374,19 +257,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_hitPowerupsMod.GetModifiedValue(m_hitPowerups);
 		}
 		else
@@ -401,19 +271,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_stopOnPowerupHitMod.GetModifiedValue(m_stopOnPowerupHit);
 		}
 		else
@@ -428,19 +285,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_includeSpoilsPowerupsMod.GetModifiedValue(m_includeSpoilsPowerups);
 		}
 		else
@@ -455,19 +299,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_ignorePickupTeamRestrictionMod.GetModifiedValue(m_ignorePickupTeamRestriction);
 		}
 		else
@@ -482,19 +313,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxPowerupsHitMod.GetModifiedValue(m_maxPowerupsHit);
 		}
 		else
@@ -509,19 +327,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_copyBuffsOnEnemyHitMod.GetModifiedValue(m_copyBuffsOnEnemyHit);
 		}
 		else
@@ -536,19 +341,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_copyBuffDurationMod.GetModifiedValue(m_copyBuffDuration);
 		}
 		else
@@ -570,19 +362,6 @@ public class ThiefSpoilLaserUlt : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AccumulateDamageFromTargeter(targetActor, base.Targeter, dictionary);
 		}
 		else
@@ -590,15 +369,6 @@ public class ThiefSpoilLaserUlt : Ability
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
 				AccumulateDamageFromTargeter(targetActor, base.Targeters[i], dictionary);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return dictionary;
@@ -613,39 +383,12 @@ public class ThiefSpoilLaserUlt : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			foreach (AbilityTooltipSubject item in tooltipSubjectTypes)
 			{
 				if (item == AbilityTooltipSubject.Primary)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!symbolToDamage.ContainsKey(AbilityTooltipSymbol.Damage))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						symbolToDamage[AbilityTooltipSymbol.Damage] = GetLaserDamageAmount();
 					}
 					else
@@ -665,19 +408,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val;
 		if ((bool)abilityMod_ThiefSpoilLaserUlt)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ThiefSpoilLaserUlt.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -689,15 +419,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val2;
 		if ((bool)abilityMod_ThiefSpoilLaserUlt)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefSpoilLaserUlt.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount);
 		}
 		else
@@ -709,15 +430,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ThiefSpoilLaserUlt)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ThiefSpoilLaserUlt.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -729,15 +441,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val3;
 		if ((bool)abilityMod_ThiefSpoilLaserUlt)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ThiefSpoilLaserUlt.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets);
 		}
 		else
@@ -749,15 +452,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val4;
 		if ((bool)abilityMod_ThiefSpoilLaserUlt)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ThiefSpoilLaserUlt.m_laserCountMod.GetModifiedValue(m_laserCount);
 		}
 		else
@@ -784,15 +478,6 @@ public class ThiefSpoilLaserUlt : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ThiefSpoilLaserUlt);
 			Setup();
 			return;

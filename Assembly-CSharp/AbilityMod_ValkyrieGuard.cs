@@ -45,15 +45,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieGuard.m_shieldEffectInfo);
 			AbilityMod.AddToken(tokens, m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieGuard.m_techPointGainPerCoveredHit);
 			AbilityMod.AddToken(tokens, m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieGuard.m_techPointGainPerTooCloseForCoverHit);
@@ -78,19 +69,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = valkyrieGuard.m_techPointGainPerCoveredHit;
 		}
 		else
@@ -104,15 +82,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieGuard.m_coveredHitReactionEffect;
 		}
 		else
@@ -125,15 +94,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieGuard.m_tooCloseForCoverHitReactionEffect;
 		}
 		else
@@ -148,15 +108,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieGuard.m_coverDuration;
 		}
 		else
@@ -169,15 +120,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (valkyrieGuard.m_coverLastsForever ? 1 : 0);
 		}
 		else
@@ -191,15 +133,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (valkyrieGuard.m_coverIgnoreMinDist ? 1 : 0);
 		}
 		else

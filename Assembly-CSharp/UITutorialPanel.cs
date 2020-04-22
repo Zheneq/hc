@@ -106,19 +106,6 @@ public class UITutorialPanel : MonoBehaviour
 		int num;
 		if (characterType == CharacterType.Scoundrel)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 0;
 		}
 		else
@@ -128,15 +115,6 @@ public class UITutorialPanel : MonoBehaviour
 		SubtitleLocation displayLocation = (SubtitleLocation)num;
 		if (subtitleText.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (audioEvent.IsNullOrEmpty())
 			{
 				while (true)
@@ -153,26 +131,8 @@ public class UITutorialPanel : MonoBehaviour
 		}
 		if (audioEvent.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (timeToDisplay == 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				timeToDisplay = 3f;
 			}
 		}
@@ -181,15 +141,6 @@ public class UITutorialPanel : MonoBehaviour
 		string subtitle;
 		if (subtitleText.Contains("@"))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			subtitle = StringUtil.TR(subtitleText);
 		}
 		else
@@ -230,15 +181,6 @@ public class UITutorialPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SinglePlayerManager.Get().OnTutorialQueueEmpty();
 			return;
 		}
@@ -262,26 +204,12 @@ public class UITutorialPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QueuedTutorialElements[0].Index != index)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				QueuedTutorialElements.RemoveAt(0);
 				UIManager.SetGameObjectActive(BottomLeftDisplay.Container, false);
 				UIManager.SetGameObjectActive(BottomRightDisplay.Container, false);
@@ -292,20 +220,10 @@ public class UITutorialPanel : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (SinglePlayerManager.Get() != null)
 					{
 						while (true)
 						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
 							SinglePlayerManager.Get().OnTutorialQueueEmpty();
 							return;
 						}
@@ -327,10 +245,6 @@ public class UITutorialPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(BottomLeftDisplay.Container, false);
 					UIManager.SetGameObjectActive(BottomRightDisplay.Container, false);
 					return;
@@ -358,34 +272,11 @@ public class UITutorialPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (Time.timeScale > 1f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				queuedElement.AudioEvent = null;
 				if (queuedElement.TimeToDisplay == 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					queuedElement.TimeToDisplay = 3f / Time.timeScale;
 				}
 				else
@@ -396,15 +287,6 @@ public class UITutorialPanel : MonoBehaviour
 			SubtitleDisplayObjects subtitleDisplayObjects;
 			if (queuedElement.DisplayLocation == SubtitleLocation.BottomLeft)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				subtitleDisplayObjects = BottomLeftDisplay;
 			}
 			else
@@ -414,15 +296,6 @@ public class UITutorialPanel : MonoBehaviour
 			SubtitleDisplayObjects subtitleDisplayObjects2 = subtitleDisplayObjects;
 			if (!queuedElement.Subtitle.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(subtitleDisplayObjects2.Container, true);
 				subtitleDisplayObjects2.CharacterText.text = GameWideData.Get().GetCharacterDisplayName(queuedElement.CharacterType);
 				subtitleDisplayObjects2.CharacterImage.sprite = GameWideData.Get().GetCharacterResourceLink(queuedElement.CharacterType).GetCharacterSelectIcon();
@@ -430,15 +303,6 @@ public class UITutorialPanel : MonoBehaviour
 				int num;
 				if (HUD_UI.Get().MainHUDElementsVisible())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (UIGameOverScreen.Get().IsVisible ? 1 : 0);
 				}
 				else
@@ -455,15 +319,6 @@ public class UITutorialPanel : MonoBehaviour
 			queuedElement.DisplayStartTime = Time.realtimeSinceStartup;
 			if (!queuedElement.AudioEvent.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				OnEventNotify notifyCallback = delegate(EventNotificationType eventType, string eventName, object info, GameObject gameObject)
 				{
 					if (queuedElement.TimeToDisplay == 0f && eventType == EventNotificationType.OnFinished)
@@ -475,10 +330,6 @@ public class UITutorialPanel : MonoBehaviour
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								queuedElement.TimeToDisplay = Time.realtimeSinceStartup - queuedElement.DisplayStartTime + 0.25f;
 								return;
 							}
@@ -487,15 +338,6 @@ public class UITutorialPanel : MonoBehaviour
 				};
 				if (!AudioManager.PostEventNotify(queuedElement.AudioEvent, notifyCallback))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RemoveQueuedElement(queuedElement.Index);
 				}
 			}
@@ -503,11 +345,6 @@ public class UITutorialPanel : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					queuedElement.Action();
 					RemoveQueuedElement(queuedElement.Index);
 					return;
@@ -540,10 +377,6 @@ public class UITutorialPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SinglePlayerManager.Get().UpdateRightAndLeftClickElements(m_tutorialRightClickPanel, m_tutorialRightClickText, m_tutorialLeftClickPanel, m_tutorialLeftClickText, m_tutorialShiftRightClickPanel, m_tutorialShiftRightClickText);
 					SinglePlayerManager.Get().UpdateTutorialTextElements(m_tutorialTextPanel, m_tutorialText, m_tutorialTextPanel2, m_tutorialText2, m_tutorialTextPanel3, m_tutorialText3, m_tutorialCameraMovementPanel, m_tutorialCameraMovementText, m_tutorialCameraRotationPanel, m_tutorialCameraRotationText);
 					SinglePlayerManager.Get().UpdateTutorialError(m_tutorialErrorPanel, m_tutorialErrorText);
@@ -558,11 +391,6 @@ public class UITutorialPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_tutorialLeftClickPanel, false);
 			UIManager.SetGameObjectActive(m_tutorialRightClickPanel, false);
 			UIManager.SetGameObjectActive(m_tutorialTextPanel, false);

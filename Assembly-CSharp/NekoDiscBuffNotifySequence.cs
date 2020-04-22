@@ -18,15 +18,6 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Application.isEditor)
 			{
 				Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
@@ -39,42 +30,11 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(base.TargetPos);
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;
 					m_syncComp.m_clientDiscBuffTargetSquare = boardSquare;
 				}
@@ -86,11 +46,6 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			AudioManager.PostEvent(m_audioEventOnNotify, base.Caster.gameObject);
 			return;
 		}

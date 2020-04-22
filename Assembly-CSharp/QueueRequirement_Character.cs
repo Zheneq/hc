@@ -27,10 +27,6 @@ public class QueueRequirement_Character : QueueRequirement
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"Unknown QueueRequirement_Character requirement: {Requirement}");
 				}
 			}
@@ -43,41 +39,14 @@ public class QueueRequirement_Character : QueueRequirement
 				CharacterType characterType = (CharacterType)num;
 				if (applicant.IsCharacterTypeAvailable(characterType))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (CharacterType == characterType)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -103,10 +72,6 @@ public class QueueRequirement_Character : QueueRequirement
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new Exception($"Unknown requirement is failed: {Requirement}");
 				}
 			}
@@ -146,41 +111,10 @@ public class QueueRequirement_Character : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (reader.Value != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reader.Value.ToString() == "AnyGroupMember")
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					reader.Read();
 					queueRequirement_Character.m_anyGroupMember = bool.Parse(reader.Value.ToString());
 					reader.Read();

@@ -33,19 +33,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 		base.UpdateTargeting(currentTarget, targetingActor);
 		if (m_highlights.Count < 4)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			m_highlights.Add(TargeterUtils.CreateLaserBoxHighlight(Vector3.zero, Vector3.one, m_moveLineWidth, TargeterUtils.HeightAdjustType.DontAdjustHeight));
 			float value = m_moveLineWidth * 0.4f;
@@ -59,27 +46,9 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 		bool flag = IsMovingShape(targetingActor);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare moveStartSquare = GetMoveStartSquare(currentTarget, targetingActor);
 			if (moveStartSquare != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 moveStartFreePos = GetMoveStartFreePos(currentTarget, targetingActor);
 				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, moveStartFreePos, moveStartSquare);
 				Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
@@ -93,15 +62,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 						ActorData current = enumerator.Current;
 						AddActorInRange(current, centerOfShape, targetingActor);
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				List<ActorData> actors2 = AreaEffectUtils.GetActorsInRadiusOfLine(centerOfShape, highlightGoalPos, 0f, 0f, 0.5f * m_moveLineWidth, m_penetrateLoS, targetingActor, relevantTeams, null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
@@ -111,15 +71,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 					{
 						ActorData current2 = enumerator2.Current;
 						AddActorInRange(current2, centerOfShape, targetingActor);
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Vector3 vector = centerOfShape;
@@ -133,15 +84,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				gameObject3.transform.rotation = Quaternion.LookRotation(forward);
 				if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SquareInsideChecker_Shape squareInsideChecker_Shape = m_squarePosCheckerList[0] as SquareInsideChecker_Shape;
 					SquareInsideChecker_Shape squareInsideChecker_Shape2 = m_squarePosCheckerList[1] as SquareInsideChecker_Shape;
 					SquareInsideChecker_Box squareInsideChecker_Box = m_squarePosCheckerList[2] as SquareInsideChecker_Box;
@@ -174,10 +116,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_delegateIsMovingShape(targetingActor);
 				}
 			}
@@ -196,10 +134,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_delegateMoveStartSquare(currentTarget, targetingActor);
 				}
 			}
@@ -218,10 +152,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_delegateMoveStartFreePos(currentTarget, targetingActor);
 				}
 			}

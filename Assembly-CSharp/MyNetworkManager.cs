@@ -34,15 +34,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -58,15 +49,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -86,15 +68,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -125,15 +98,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -149,15 +113,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -179,15 +134,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -203,15 +149,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -231,15 +168,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -270,15 +198,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -309,15 +228,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -333,15 +243,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -361,15 +262,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -385,15 +277,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -413,15 +296,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -437,15 +311,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -476,15 +341,6 @@ public class MyNetworkManager : NetworkManager
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -497,19 +353,6 @@ public class MyNetworkManager : NetworkManager
 		};
 		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache2 = delegate
 			{
 			};
@@ -517,15 +360,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerConnect = _003C_003Ef__am_0024cache2;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 			};
@@ -533,15 +367,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerDisconnect = _003C_003Ef__am_0024cache3;
 		if (_003C_003Ef__am_0024cache4 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache4 = delegate
 			{
 			};
@@ -549,15 +374,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerReady = _003C_003Ef__am_0024cache4;
 		if (_003C_003Ef__am_0024cache5 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache5 = delegate
 			{
 			};
@@ -565,15 +381,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerAddPlayer = _003C_003Ef__am_0024cache5;
 		if (_003C_003Ef__am_0024cache6 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache6 = delegate
 			{
 			};
@@ -581,15 +388,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerRemovePlayer = _003C_003Ef__am_0024cache6;
 		if (_003C_003Ef__am_0024cache7 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache7 = delegate
 			{
 			};
@@ -597,15 +395,6 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerError = _003C_003Ef__am_0024cache7;
 		if (_003C_003Ef__am_0024cache8 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache8 = delegate
 			{
 			};
@@ -616,15 +405,6 @@ public class MyNetworkManager : NetworkManager
 		};
 		if (_003C_003Ef__am_0024cacheA == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheA = delegate
 			{
 			};
@@ -632,22 +412,13 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnClientNotReady = _003C_003Ef__am_0024cacheA;
 		if (_003C_003Ef__am_0024cacheB == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheB = delegate
 			{
 			};
 		}
 		this.m_OnClientError = _003C_003Ef__am_0024cacheB;
 		m_nextPlayerChannelIndex = 6;
-		base._002Ector();
+		
 	}
 
 	internal static MyNetworkManager Get()
@@ -671,15 +442,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("BootstrapSingletons.prefab>My Network Manager>QoS Channels only has {0} channels but our script requires {1}", base.connectionConfig.ChannelCount, NetworkChannelId.Count);
 			return;
 		}
@@ -694,19 +456,6 @@ public class MyNetworkManager : NetworkManager
 		int useWebSockets;
 		if (!(uri.Scheme == "ws"))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			useWebSockets = ((uri.Scheme == "wss") ? 1 : 0);
 		}
 		else
@@ -718,15 +467,6 @@ public class MyNetworkManager : NetworkManager
 		NetworkTransport.Init(base.globalConfig);
 		if (base.useWebSockets)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MyNetworkClient myNetworkClient = new MyNetworkClient();
 			myNetworkClient.UserHandle = userHandle;
 			myNetworkClient.UseSSL = useSSL;
@@ -739,15 +479,6 @@ public class MyNetworkManager : NetworkManager
 			NetworkClient client = base.client;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(NetworkMessageDelegate networkMessageFunction, NetworkMessage data)
 				{
 					NetworkMessage mirror = default(NetworkMessage);
@@ -760,10 +491,6 @@ public class MyNetworkManager : NetworkManager
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								mirror = new NetworkMessage();
 								mirror.channelId = data.channelId;
 								mirror.conn = data.conn;
@@ -786,26 +513,8 @@ public class MyNetworkManager : NetworkManager
 		UseExternalClient(base.client);
 		if (matchInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (LogFilter.logDebug)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log("NetworkManager StartClient match: " + matchInfo);
 			}
 			base.client.Connect(matchInfo);
@@ -814,15 +523,6 @@ public class MyNetworkManager : NetworkManager
 		{
 			if (LogFilter.logDebug)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log("NetworkManager StartClient using provided SecureTunnel");
 			}
 			base.client.Connect(base.secureTunnelEndpoint);
@@ -839,15 +539,6 @@ public class MyNetworkManager : NetworkManager
 			}
 			if (LogFilter.logDebug)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log("NetworkManager StartClient address:" + base.networkAddress + " port:" + base.networkPort);
 			}
 			if (base.useSimulator)
@@ -861,15 +552,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		if (base.migrationManager != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.migrationManager.Initialize(base.client, matchInfo);
 		}
 		return base.client;
@@ -887,19 +569,6 @@ public class MyNetworkManager : NetworkManager
 		client.Connect("localhost", 0);
 		if (base.migrationManager != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.migrationManager.Initialize(client, matchInfo);
 		}
 		return client;
@@ -913,15 +582,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.connectionConfig.Channels.Clear();
 			using (List<QosType>.Enumerator enumerator = base.channels.GetEnumerator())
 			{
@@ -929,15 +589,6 @@ public class MyNetworkManager : NetworkManager
 				{
 					QosType current = enumerator.Current;
 					base.connectionConfig.AddChannel(current);
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.connectionConfig.PingTimeout = (uint)HydrogenConfig.Get().HeartbeatPeriod.TotalMilliseconds;
@@ -976,15 +627,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnServerStart();
 			return;
 		}
@@ -999,15 +641,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnServerConnect(conn);
 			return;
 		}
@@ -1029,15 +662,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnServerReady(conn);
 			return;
 		}
@@ -1051,15 +675,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnServerAddPlayer(conn, playerControllerId);
 			return;
 		}
@@ -1073,15 +688,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnServerRemovePlayer(conn, player);
 			return;
 		}
@@ -1104,15 +710,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnClientConnect(conn);
 			return;
 		}
@@ -1126,15 +723,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnClientDisconnect(conn);
 			return;
 		}
@@ -1148,15 +736,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnClientError(conn, (NetworkError)errorCode);
 			return;
 		}
@@ -1170,15 +749,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			this.m_OnClientNotReady(conn);
 			return;
 		}
@@ -1195,15 +765,6 @@ public class MyNetworkManager : NetworkManager
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1212,19 +773,6 @@ public class MyNetworkManager : NetworkManager
 	{
 		if (m_nextPlayerChannelIndex >= base.channels.Count)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Ran out of unique channels for players, server to client packets may be lost! Allocate more channels in MyNetworkManager.cs and BootstrapSingletons.prefab");
 			m_nextPlayerChannelIndex = 6;
 		}
@@ -1235,19 +783,6 @@ public class MyNetworkManager : NetworkManager
 	{
 		if (m_nextLocalConnectionId == 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_nextLocalConnectionId = base.maxConnections + 1;
 		}
 		return m_nextLocalConnectionId++;

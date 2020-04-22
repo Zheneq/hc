@@ -21,26 +21,12 @@ public class UI_Persistent : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!visible)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < m_enableOnVisible.Length; j++)
 				{
 					UIManager.SetGameObjectActive(m_enableOnVisible[j], true);
@@ -68,15 +54,6 @@ public class UI_Persistent : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.DontDestroyOnLoad(base.gameObject);
 			return;
 		}

@@ -109,19 +109,6 @@ public class NekoAoeAroundDisc : Ability
 	{
 		if (GetTargetData().IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_targetData.IsNullOrEmpty())
 			{
 				return m_targetData[targetIndex].m_checkLineOfSight;
@@ -134,19 +121,6 @@ public class NekoAoeAroundDisc : Ability
 	{
 		if (m_syncComp != null && caster.GetCurrentBoardSquare() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			foreach (BoardSquare item in activeDiscSquares)
 			{
@@ -155,26 +129,8 @@ public class NekoAoeAroundDisc : Ability
 				int num;
 				if (caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(item, caster.GetCurrentBoardSquare(), range, minRange))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_targetData[0].m_checkLineOfSight)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (caster.GetCurrentBoardSquare()._0013(item.x, item.y) ? 1 : 0);
 					}
 					else
@@ -245,10 +201,6 @@ public class NekoAoeAroundDisc : Ability
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return base.GetTargetData();
 					}
 				}
@@ -262,31 +214,9 @@ public class NekoAoeAroundDisc : Ability
 		AbilityTarget abilityTarget = base.CreateAbilityTargetForSimpleAction(caster);
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}

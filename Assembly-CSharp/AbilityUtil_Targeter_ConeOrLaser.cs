@@ -43,19 +43,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		int shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			shouldShowActorRadius = (GameWideData.Get().UseActorRadiusForCone() ? 1 : 0);
 		}
 		else
@@ -74,24 +61,10 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 3)
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					m_highlights[2].SetActive(false);
 					return;
 				}
@@ -113,30 +86,8 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targets != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 				if (boardSquareSafe != null)
 				{
@@ -148,15 +99,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 					vector2.y = 0f;
 					if (vector2.sqrMagnitude == 0f)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 = Vector3.forward;
 					}
 					else
@@ -177,15 +119,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		List<ActorData> actors;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actors = m_conePart.GetHitActors(vector, vector2, targetingActor, relevantTeams);
 			m_conePart.AdjustHighlight(gameObject, vector, vector2);
 			gameObject.SetActive(true);
@@ -219,15 +152,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				int subjectType;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					subjectType = 1;
 				}
 				else
@@ -243,15 +167,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				int value2;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value2 = 1;
 				}
 				else
@@ -261,42 +176,15 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				contextVars.SetInt(hash, value2);
 				if (current != targetingActor)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = 0f;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 to = current.GetTravelBoardSquareWorldPosition() - targetingActor.GetTravelBoardSquareWorldPosition();
 						to.y = 0f;
 						num = Vector3.Angle(vector2, to);
 						actorHitContext._0015.SetFloat(ContextKeys._001D.GetHash(), num);
 					}
 				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!m_affectsTargetingActor || actors.Contains(targetingActor))
@@ -305,25 +193,11 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_customShouldAddCasterDelegate != null)
 			{
 				if (!m_customShouldAddCasterDelegate(targetingActor, actors))
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Self);
@@ -338,19 +212,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 			if (m_highlights.Count >= 3)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -379,15 +240,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			m_conePart.ShowHiddenSquares(m_indicatorHandler, coneStartPos, VectorUtils.HorizontalAngle_Deg(forwardDirection), targetingActor, m_coneInfo.m_penetrateLos);
 			HideUnusedSquareIndicators();
@@ -403,15 +255,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 			m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, m_laserInfo.penetrateLos);
 			HideUnusedSquareIndicators();

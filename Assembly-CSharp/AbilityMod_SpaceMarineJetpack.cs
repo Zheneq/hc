@@ -33,15 +33,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", spaceMarineJetpack.m_effectOnSelf);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineJetpack.m_damage);
 			AbilityMod.AddToken_EffectMod(tokens, m_additionalEffectOnEnemy, "DebuffData", spaceMarineJetpack.m_debuffData);
@@ -59,19 +50,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		object baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = spaceMarineJetpack.m_effectOnSelf;
 		}
 		else
@@ -84,15 +62,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineJetpack.m_damage;
 		}
 		else

@@ -27,19 +27,6 @@ public class Passive_Rampart : Passive
 		object cachedShieldBarrierData;
 		if (barrierMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedShieldBarrierData = barrierMod.GetModifiedValue(m_normalShieldBarrierData);
 		}
 		else

@@ -66,19 +66,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, m_displayIndex + 1);
 		if (!longName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
 				(tooltip as UITitledTooltip).Setup(longName, loreDescription, string.Empty);
@@ -108,10 +95,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -128,15 +111,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (data == null)
 			{
 				while (true)
@@ -154,15 +128,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			Sprite sprite = null;
 			if (currentLevel - 1 == m_currentFaction.FactionPlayerProgressInfo.Length)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_personalBar.m_ProgressFillBar.fillAmount = 1f;
 				m_personalLevelLabel.text = string.Format(StringUtil.TR("PersonalLevel", "TrustWar"), m_currentFaction.FactionPlayerProgressInfo.Length + 1);
 				UIManager.SetGameObjectActive(m_personalBar.m_CompletedBar, true);
@@ -174,29 +139,11 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				float fillAmount = 0f;
 				if (currentLevel - 1 < m_currentFaction.FactionPlayerProgressInfo.Length)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fillAmount = (float)xPThroughCurrentLevel / (float)m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
 					m_personalExpLabel.text = $"{xPThroughCurrentLevel} / {m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel}";
 				}
 				if (m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<FactionReward> allRewards = m_currentFaction.FactionPlayerProgressInfo[currentLevel - 1].LevelUpRewards.GetAllRewards();
 					using (List<FactionReward>.Enumerator enumerator = allRewards.GetEnumerator())
 					{
@@ -204,45 +151,18 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 						{
 							if (!enumerator.MoveNext())
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							FactionReward current = enumerator.Current;
 							FactionItemReward factionItemReward = current as FactionItemReward;
 							if (factionItemReward != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(factionItemReward.ItemReward.ItemTemplateId);
 								sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
 							}
 							FactionCurrencyReward factionCurrencyReward = current as FactionCurrencyReward;
 							if (factionCurrencyReward != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								RewardUtils.RewardType rewardType;
 								string currencyIconPath = RewardUtils.GetCurrencyIconPath(factionCurrencyReward.CurrencyReward.Type, out rewardType);
 								sprite = Resources.Load<Sprite>(currencyIconPath);
@@ -250,15 +170,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 							FactionUnlockReward factionUnlockReward = current as FactionUnlockReward;
 							if (factionUnlockReward != null)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								sprite = Resources.Load<Sprite>(factionUnlockReward.UnlockReward.resourceString);
 							}
 						}
@@ -295,19 +206,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		float num = 0f;
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_CompletedBar, false);
 			UIManager.SetGameObjectActive(m_factionBars[tierIndex].m_ProgressFillBar, true);
 			num = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
@@ -331,56 +229,16 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		m_displayIndex = DisplayIndex;
 		if (m_factionBars != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_factionBars.Length == faction.Tiers.Count)
 			{
 				goto IL_022e;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_factionBars != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < m_factionBars.Length; i++)
 			{
 				Object.Destroy(m_factionBars[i].gameObject);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
@@ -392,26 +250,8 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			UIManager.ReparentTransform(m_factionBars[j].transform, m_FactionLevelContainer.gameObject.transform);
 			m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
 		}
-		while (true)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (m_factionBars.Length == 1)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_factionBars[0].m_EmptyBar.type = Image.Type.Sliced;
 			m_factionBars[0].m_CompletedBar.type = Image.Type.Sliced;
 			m_factionBars[0].m_ProgressFillBar.fillSlope = 3.9f;
@@ -451,26 +291,8 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			int num3;
 			if (num2 != faction.Tiers.Count - 1)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score >= faction.Tiers[num2].ContributionToComplete)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = ((score < faction.Tiers[num2].ContributionToComplete + faction.Tiers[num2 + 1].ContributionToComplete) ? 1 : 0);
 					goto IL_0433;
 				}
@@ -482,15 +304,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			SetupBars(faction, num2, (score >= 0) ? score : 0, showText);
 			if (score >= 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score < faction.Tiers[num2].ContributionToComplete)
 				{
 					m_currentFactionTier = num2;
@@ -498,63 +311,18 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 				}
 				else if (score >= faction.Tiers[num2].ContributionToComplete)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_currentFactionTier = num2;
 					m_isFactionComplete = true;
 				}
 			}
 			if (score >= 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (score < faction.Tiers[num2].ContributionToComplete)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_expLabel != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_expLabel != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_expLabel.text = score + " / " + faction.Tiers[num2].ContributionToComplete;
 							flag = true;
 						}
@@ -565,25 +333,11 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
 			m_factionLevelLabel.text = string.Format(StringUtil.TR("FactionLevel", "TrustWar"), Faction.GetDisplayName(activeFactionCompetition, m_displayIndex + 1), (m_currentFactionTier + 1).ToString());
 			bool flag2 = false;
 			for (int k = m_currentFactionTier; k < faction.Tiers.Count; k++)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
 					foreach (FactionItemReward itemReward in faction.Tiers[k].Rewards.ItemRewards)
@@ -607,15 +361,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 					}
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<FactionCurrencyReward>.Enumerator enumerator2 = faction.Tiers[k].Rewards.CurrencyRewards.GetEnumerator())
 						{
 							if (enumerator2.MoveNext())
@@ -628,29 +373,11 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 							}
 							else
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 					}
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<FactionUnlockReward>.Enumerator enumerator3 = faction.Tiers[k].Rewards.UnlockRewards.GetEnumerator())
 						{
 							if (enumerator3.MoveNext())
@@ -661,28 +388,10 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 							}
 							else
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 					}
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -693,11 +402,6 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_expLabel != null)
 				{
 					m_expLabel.text = num.ToString();

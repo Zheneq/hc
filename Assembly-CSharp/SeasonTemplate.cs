@@ -92,10 +92,6 @@ public class SeasonTemplate
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return SeasonLevelExperience[level - 1];
 					}
 				}

@@ -48,25 +48,11 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			RectTransform component = m_gridLayout.GetComponent<RectTransform>();
 			if (component != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					GridLayoutGroup gridLayout = m_gridLayout;
 					float width = component.rect.width;
 					Vector2 cellSize = m_gridLayout.cellSize;
@@ -91,19 +77,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 	{
 		if (onAcceptButton != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			onAcceptButton(this);
 		}
 		m_abilitiesPanel = null;
@@ -118,15 +91,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_firstButton.gameObject, EventTriggerType.PointerClick, OnAcceptClicked);
 			return;
 		}
@@ -146,19 +110,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			Button button = columnHeaderButtons[i];
 			if (button != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int closureCopy = i;
 				UIEventTriggerUtils.AddListener(button.gameObject, EventTriggerType.PointerClick, delegate(BaseEventData x)
 				{
@@ -172,11 +123,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		int counter;
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
 			List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(inAbility.ability);
 			selectedAbilitiesModIndex = m_abilitiesPanel.m_modInfo.GetModForAbility(inAbilityIndex);
@@ -184,15 +130,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			counter = 0;
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(UIModSelectionGridEntry x)
 				{
 					Object.Destroy(x);
@@ -217,19 +154,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				}
 				else
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num2 = 1;
 				}
 				bool flag = (byte)num2 != 0;
@@ -259,11 +183,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					component.sizeDelta = sizeDelta2;
 					m_scrollBarRef.value = Mathf.Abs(selectedY / sizeDelta2.y - 1f);
 					return;
@@ -280,30 +199,8 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		List<UIModSelectionGridEntry> list2;
 		if (columnIndex == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_003C_003Ef__am_0024cache1 == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache1 = ((UIModSelectionGridEntry element) => element.m_ModName.text);
 			}
 			IOrderedEnumerable<UIModSelectionGridEntry> source = list.OrderBy(_003C_003Ef__am_0024cache1);
@@ -317,29 +214,11 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		bool flag = reverseSort[columnIndex];
 		if (reverseSort[columnIndex])
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2.Reverse();
 		}
 		List<bool> source3 = reverseSort;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = ((bool x) => x = false);
 		}
 		source3.All(_003C_003Ef__am_0024cache3);
@@ -359,19 +238,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
 		if (enabledSomething)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<UIModSelectionGridEntry>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -385,15 +251,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 						return;
 					}
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<UIModSelectionGridEntry>.Enumerator enumerator2 = list.GetEnumerator())
 			{
@@ -403,26 +260,8 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					current2.m_ModEnabled.isOn = current2.justSet;
 					if (current2.m_ModEnabled.isOn)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current2.justSet)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Text modPoints = current2.m_ModPoints;
 							float r = current2.m_NotSelectedColor.r;
 							float g = current2.m_NotSelectedColor.g;
@@ -435,15 +274,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					}
 					if (current2.justSet)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_currentSelectionDetails.text = current2.associatedAbilityMod.GetUnlocalizedFullTooltip(null);
 						m_currentSelectionTitle.text = current2.associatedAbilityMod.m_name;
 						m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(current2.associatedAbilityMod);
@@ -454,15 +284,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
 					}
 					current2.justSet = false;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

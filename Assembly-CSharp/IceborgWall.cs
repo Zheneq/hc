@@ -36,19 +36,6 @@ public class IceborgWall : GenericAbility_Container
 		string text = base.GetOnHitDataDesc();
 		if (m_wallEffectOnHitData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text += "-- On Hit Data for lasers from walls --\n";
 			text += m_wallEffectOnHitData.GetInEditorDesc();
 		}
@@ -65,19 +52,6 @@ public class IceborgWall : GenericAbility_Container
 	{
 		if (base.Targeters.Count > 0 && currentTargeterIndex > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargeterIndex < base.Targeters.Count)
 			{
 				while (true)
@@ -108,24 +82,10 @@ public class IceborgWall : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetActor.GetTeam() != caster.GetTeam())
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					ActorHitContext actorContext = actorHitContext[targetActor];
 					GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_wallEffectOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
 					results.m_damage = m_calculatedValuesForTargeter.m_damage;

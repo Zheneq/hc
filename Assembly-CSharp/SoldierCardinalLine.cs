@@ -47,19 +47,6 @@ public class SoldierCardinalLine : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Cardinal Line";
 		}
 		Setup();
@@ -93,10 +80,6 @@ public class SoldierCardinalLine : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return TargetingParadigm.Direction;
 				}
 			}
@@ -125,10 +108,6 @@ public class SoldierCardinalLine : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					min = 1f;
 					max = 1f;
 					return true;
@@ -143,19 +122,6 @@ public class SoldierCardinalLine : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -171,19 +137,6 @@ public class SoldierCardinalLine : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useBothCardinalDirMod.GetModifiedValue(m_useBothCardinalDir);
 		}
 		else
@@ -198,19 +151,6 @@ public class SoldierCardinalLine : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_positionShapeMod.GetModifiedValue(m_positionShape);
 		}
 		else
@@ -225,19 +165,6 @@ public class SoldierCardinalLine : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_lineWidthMod.GetModifiedValue(m_lineWidth);
 		}
 		else
@@ -257,19 +184,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -289,19 +203,6 @@ public class SoldierCardinalLine : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_nearCenterDistThresholdMod.GetModifiedValue(m_nearCenterDistThreshold);
 		}
 		else
@@ -321,19 +222,6 @@ public class SoldierCardinalLine : Ability
 		AbilityAreaShape result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape);
 		}
 		else
@@ -348,19 +236,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage);
 		}
 		else
@@ -375,19 +250,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns);
 		}
 		else
@@ -407,19 +269,6 @@ public class SoldierCardinalLine : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyEffectOnSubsequentTurns != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyEffectOnSubsequentTurns;
 		}
 		else
@@ -441,54 +290,14 @@ public class SoldierCardinalLine : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (currentTargeterIndex > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTargeterIndex < base.Targeters.Count)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_SoldierCardinalLines abilityUtil_Targeter_SoldierCardinalLines = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SoldierCardinalLines;
 				if (abilityUtil_Targeter_SoldierCardinalLines != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<AbilityTooltipSubject> tooltipSubjectTypes = abilityUtil_Targeter_SoldierCardinalLines.GetTooltipSubjectTypes(targetActor);
 					if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						int num = 0;
 						if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist.ContainsKey(targetActor))
@@ -496,41 +305,14 @@ public class SoldierCardinalLine : Ability
 							num += GetDamageAmount();
 							if (GetExtraDamageForNearCenterTargets() > 0)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist[targetActor] <= GetNearCenterDistThreshold() * Board.Get().squareSize)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num += GetExtraDamageForNearCenterTargets();
 								}
 							}
 						}
 						if (abilityUtil_Targeter_SoldierCardinalLines.m_aoeHitActors.Contains(targetActor))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += GetAoeDamage();
 						}
 						dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -548,19 +330,6 @@ public class SoldierCardinalLine : Ability
 		int val;
 		if ((bool)abilityMod_SoldierCardinalLine)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SoldierCardinalLine.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -574,15 +343,6 @@ public class SoldierCardinalLine : Ability
 		int val2;
 		if ((bool)abilityMod_SoldierCardinalLine)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SoldierCardinalLine.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(m_extraDamageForNearCenterTargets);
 		}
 		else
@@ -594,15 +354,6 @@ public class SoldierCardinalLine : Ability
 		int val3;
 		if ((bool)abilityMod_SoldierCardinalLine)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SoldierCardinalLine.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns);
 		}
 		else
@@ -614,15 +365,6 @@ public class SoldierCardinalLine : Ability
 		int val4;
 		if ((bool)abilityMod_SoldierCardinalLine)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SoldierCardinalLine.m_damageOnSubsequentTurnsMod.GetModifiedValue(m_damageOnSubsequentTurns);
 		}
 		else
@@ -641,15 +383,6 @@ public class SoldierCardinalLine : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SoldierCardinalLine);
 			Setup();
 			return;

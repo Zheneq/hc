@@ -58,15 +58,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefSpoilLaserUlt.m_targeterMaxAngle);
 			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserDamageAmount);
 			AbilityMod.AddToken(tokens, m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserSubsequentDamageAmount);
@@ -95,19 +86,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = thiefSpoilLaserUlt.m_laserRange;
 		}
 		else
@@ -120,15 +98,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefSpoilLaserUlt.m_laserWidth;
 		}
 		else
@@ -141,15 +110,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefSpoilLaserUlt.m_laserMaxTargets;
 		}
 		else
@@ -162,15 +122,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefSpoilLaserUlt.m_laserCount;
 		}
 		else
@@ -183,15 +134,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (thiefSpoilLaserUlt.m_laserPenetrateLos ? 1 : 0);
 		}
 		else
@@ -204,15 +146,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefSpoilLaserUlt.m_spoilSpawnData;
 		}
 		else
@@ -225,15 +158,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (thiefSpoilLaserUlt.m_hitPowerups ? 1 : 0);
 		}
 		else
@@ -246,15 +170,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (thiefSpoilLaserUlt.m_stopOnPowerupHit ? 1 : 0);
 		}
 		else
@@ -268,15 +183,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = (thiefSpoilLaserUlt.m_ignorePickupTeamRestriction ? 1 : 0);
 		}
 		else
@@ -289,15 +195,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = thiefSpoilLaserUlt.m_maxPowerupsHit;
 		}
 		else
@@ -310,15 +207,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = (thiefSpoilLaserUlt.m_copyBuffsOnEnemyHit ? 1 : 0);
 		}
 		else
@@ -331,15 +219,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = thiefSpoilLaserUlt.m_copyBuffDuration;
 		}
 		else

@@ -97,28 +97,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rangeIndicatorObj = HighlightUtils.Get().CreateDynamicConeMesh(m_targeterFreePosMaxRange, 360f, true);
 			object obj;
 			if ((bool)m_rangeIndicatorObj)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = m_rangeIndicatorObj.GetComponent<UIDynamicCone>();
 			}
 			else
@@ -130,11 +112,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					HighlightUtils.Get().AdjustDynamicConeMesh(m_rangeIndicatorObj, m_targeterFreePosMaxRange, 360f);
 					uIDynamicCone.SetConeObjectActive(false);
 					return;
@@ -157,41 +134,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_owner != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < m_afterImages.Count; i++)
 				{
 					int actorIndex = m_afterImages[i];
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 					if (actorData != null && actorData.GetActorModelData() != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						InitializeAfterImageMaterial(actorData.GetActorModelData(), activeActor.GetTeam() == m_owner.GetTeam(), m_afterImageAlpha, m_afterImageShader, true);
 					}
 				}
@@ -211,15 +165,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = inputFreePos - centerOfFreePosLimit;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
@@ -227,11 +172,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					Vector3 normalized = vector.normalized;
 					freePosForAim = centerOfFreePosLimit + normalized * num;
 					return;
@@ -246,19 +186,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
 		if (m_targeterFreePosUseAvgPos)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 zero = Vector3.zero;
 			using (List<ActorData>.Enumerator enumerator = allTargetingActors.GetEnumerator())
 			{
@@ -266,15 +193,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				{
 					ActorData current = enumerator.Current;
 					zero += current.GetTravelBoardSquareWorldPosition();
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			zero /= (float)allTargetingActors.Count;
@@ -289,67 +207,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		bool result = false;
 		if (NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_owner == activeOwnedActorData)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorTurnSM actorTurnSM = m_owner.GetActorTurnSM();
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityData abilityData = m_owner.GetAbilityData();
 						object obj;
 						if ((bool)abilityData)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							obj = abilityData.GetLastSelectedAbility();
 						}
 						else
@@ -361,27 +230,9 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						{
 							if (!(ability is TricksterBasicAttack))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(ability is TricksterCones))
 								{
 									goto IL_00e7;
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							result = true;
@@ -404,42 +255,11 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		GameFlowData gameFlowData = GameFlowData.Get();
 		if (m_rangeIndicatorObj != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = ShouldShowRangeIndicator();
 			if (flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_rangeIndicatorObj.activeSelf)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_rangeIndicatorObj.SetActive(true);
 					List<ActorData> list = new List<ActorData>();
 					list.Add(m_owner);
@@ -452,26 +272,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_rangeIndicatorObj.activeSelf)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_rangeIndicatorObj.SetActive(false);
 				}
 			}
@@ -480,15 +282,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		IL_00f7:
 		if (m_timeToEndCheck > 0f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Time.time < m_timeToEndCheck)
 			{
 				for (int num = m_actorIndexToHideForClient.Count - 1; num >= 0; num--)
@@ -497,15 +290,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					ActorData actorData = gameFlowData.FindActorByActorIndex(actorIndex);
 					if (actorData != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HandleHideClone(actorData);
 						m_actorIndexToHideForClient.RemoveAt(num);
 					}
@@ -537,15 +321,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (NetworkClient.active)
 			{
 				ActorData afterImageByActorIndex = GetAfterImageByActorIndex(actorIndex);
@@ -553,11 +328,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						afterImageByActorIndex.TurnToPosition(position);
 						return;
 					}
@@ -577,26 +347,12 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkClient.active)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (!(actorData != null))
 				{
@@ -604,11 +360,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					actorData.transform.position = position;
 					actorData.transform.rotation = Quaternion.LookRotation(forward);
 					if (!(actorData.GetActorModelData() != null))
@@ -617,22 +368,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						if (enableRenderer)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actorData.GetActorModelData().EnableRendererAndUpdateVisibility();
 						}
 						else
@@ -656,26 +393,12 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkClient.active)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (actorData != null)
 				{
@@ -727,26 +450,12 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!NetworkClient.active)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (!(actorData != null))
 				{
@@ -754,24 +463,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					actorData.EnableRendererAndUpdateVisibility();
 					Animator modelAnimator = actorData.GetModelAnimator();
 					if (modelAnimator != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						modelAnimator.SetInteger(animAttack, unfreezeAnimIndex);
 						modelAnimator.SetInteger(animIdleType, 0);
 						modelAnimator.SetBool(animCinematicCam, false);
@@ -780,15 +475,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					int num;
 					if (GameFlowData.Get().LocalPlayerData != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (int)GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					}
 					else
@@ -802,11 +488,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (m_owner != null)
 						{
 							bool sameTeamAsClientActor = team == m_owner.GetTeam();
@@ -838,10 +519,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_NONE", false);
 					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_ENEMY", false);
 					actorModelData.SetMaterialKeywordOnAllCachedMaterials("_EMISSIONNOISEON_FRIEND", true);
@@ -862,15 +539,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			actorModelData.RestoreDefaultRendererAlphas();
 			actorModelData.EnableMaterialKeyword("_EMISSIONNOISEON_NONE");
 			actorModelData.DisableMaterialKeyword("_EMISSIONNOISEON_ENEMY");
@@ -889,19 +557,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		int num;
 		if (GameFlowData.Get().LocalPlayerData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (int)GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 		}
 		else
@@ -917,22 +572,12 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!(realTrickster != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					bool sameTeamAsClientActor = team == realTrickster.GetTeam();
 					TricksterAfterImageNetworkBehaviour component = realTrickster.GetComponent<TricksterAfterImageNetworkBehaviour>();
 					if (component != null)
@@ -963,23 +608,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return GameFlowData.Get().FindActorByActorIndex(current);
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -1014,41 +646,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(current);
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (actorData.gameObject.activeSelf)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorData.IsDead())
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!requireCurrentSquare || actorData.GetCurrentBoardSquare() != null)
 							{
 								list.Add(actorData);
@@ -1081,41 +682,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(current);
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (actorData.gameObject.activeSelf)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorData.IsDead())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorData.GetCurrentBoardSquare() != null)
 							{
 								while (true)
@@ -1132,15 +702,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -1179,24 +740,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (actor != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						actor.TurnToPosition(position);
 						return;
 					}
@@ -1221,10 +768,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_afterImages called on server.");
 					return;
 				}
@@ -1244,10 +787,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcTurnToPosition called on server.");
 					return;
 				}
@@ -1267,10 +806,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetPose called on server.");
 					return;
 				}
@@ -1302,10 +837,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcUnfreezeActor called on server.");
 					return;
 				}
@@ -1342,10 +873,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetPose called on client.");
 					return;
 				}
@@ -1374,10 +901,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcFreezeActor called on client.");
 					return;
 				}
@@ -1425,10 +948,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_afterImages);
 					writer.WritePackedUInt32((uint)m_maxAfterImageCount);
 					return true;
@@ -1438,26 +957,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1465,26 +966,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1492,15 +975,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1517,19 +991,6 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SyncListInt.ReadReference(reader, m_afterImages);
 		}
 		if ((num & 2) != 0)

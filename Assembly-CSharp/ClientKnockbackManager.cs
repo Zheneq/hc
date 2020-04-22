@@ -55,19 +55,6 @@ public class ClientKnockbackManager : MonoBehaviour
 		int num;
 		if (m_incomingKnockbacks.ContainsKey(sourceActor))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((sourceActor != hitActor) ? 1 : 0);
 		}
 		else
@@ -78,39 +65,12 @@ public class ClientKnockbackManager : MonoBehaviour
 		m_incomingKnockbacks[hitActor]--;
 		if (sourceActor != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_outgoingKnockbacks[sourceActor]--;
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ActorReadyToBeMoved(sourceActor))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				KnockbackActor(sourceActor);
 			}
 		}
@@ -120,11 +80,6 @@ public class ClientKnockbackManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			KnockbackActor(hitActor);
 			return;
 		}
@@ -138,35 +93,16 @@ public class ClientKnockbackManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_pendingKnockbackActors.Contains(caster))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (ActorReadyToBeMoved(caster))
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						KnockbackActor(caster);
 						m_pendingKnockbackActors.Remove(caster);
 						return;
@@ -189,19 +125,6 @@ public class ClientKnockbackManager : MonoBehaviour
 			int num;
 			if (m_outgoingKnockbacks.ContainsKey(target))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_outgoingKnockbacks[target];
 			}
 			else
@@ -212,15 +135,6 @@ public class ClientKnockbackManager : MonoBehaviour
 			int num3;
 			if (num == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = ((num2 == 0) ? 1 : 0);
 			}
 			else
@@ -233,26 +147,8 @@ public class ClientKnockbackManager : MonoBehaviour
 				flag = !TheatricsManager.Get().ClientNeedToWaitBeforeKnockbackMove(target);
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_pendingKnockbackActors.Contains(target))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_pendingKnockbackActors.Add(target);
 					}
 				}
@@ -277,10 +173,6 @@ public class ClientKnockbackManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

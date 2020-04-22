@@ -38,26 +38,12 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_loadingEntry.gameObject.activeSelf)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				RectTransform rectTransform = m_historyList.transform as RectTransform;
 				Vector2 sizeDelta = rectTransform.sizeDelta;
 				float num = sizeDelta.y - m_viewportHeight;
@@ -69,15 +55,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 					{
 						m_checkLoad = false;
 						return;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				LoadNextChunk();
@@ -99,15 +76,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_matchData = new List<PersistedCharacterMatchData>();
 			m_scrollArea = GetComponentInChildren<ScrollRect>();
 			selectedEntry = null;
@@ -147,19 +115,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_chunkNumber * 2 + i < m_matchData.Count)
 			{
 				PersistedCharacterMatchData entry = m_matchData[m_chunkNumber * 2 + i];
@@ -171,29 +126,11 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				uIPlayerProgressHistoryEntry.m_hitbox.RegisterScrollListener(OnScroll);
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		m_chunkNumber++;
 		if (m_chunkNumber * 2 >= m_matchData.Count)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_loadingEntry, false);
 			m_checkLoad = false;
 		}
@@ -219,19 +156,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 	{
 		if ((bool)selectedEntry)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			selectedEntry.SetSelected(false);
 		}
 		selectedEntry = entry;
@@ -251,15 +175,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -271,34 +186,12 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 			string filename;
 			if (m_replayPaths == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<string> list = new List<string>();
 				list.AddRange(Directory.GetFiles(HydrogenConfig.Get().ReplaysPath));
 				string[] directories = Directory.GetDirectories(HydrogenConfig.Get().ReplaysPath);
 				foreach (string path in directories)
 				{
 					list.AddRange(Directory.GetFiles(path));
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int startIndex = HydrogenConfig.Get().ReplaysPath.Length + 1;
 				m_replayPaths = new Dictionary<string, string>();

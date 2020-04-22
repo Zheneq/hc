@@ -35,19 +35,6 @@ public class RageBeastBasicAttack : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Flurry";
 		}
 		Setup();
@@ -79,19 +66,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo cachedEffectOuter;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOuter = m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter);
 		}
 		else
@@ -106,19 +80,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectInner != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectInner;
 		}
 		else
@@ -138,19 +99,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneWidthAngle;
 		}
 		else
@@ -165,19 +113,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneLengthInner;
 		}
 		else
@@ -192,19 +127,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_coneLengthOuter;
 		}
 		else
@@ -219,19 +141,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmountInner;
 		}
 		else
@@ -251,19 +160,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -278,19 +174,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -305,19 +188,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_tpGainInner;
 		}
 		else
@@ -360,19 +230,6 @@ public class RageBeastBasicAttack : Ability
 		int val;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RageBeastBasicAttack.m_innerDamageMod.GetModifiedValue(m_damageAmountInner);
 		}
 		else
@@ -384,15 +241,6 @@ public class RageBeastBasicAttack : Ability
 		int val2;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastBasicAttack.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter);
 		}
 		else
@@ -403,15 +251,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RageBeastBasicAttack.m_effectInnerMod.GetModifiedValue(m_effectInner);
 		}
 		else
@@ -422,15 +261,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RageBeastBasicAttack.m_effectOuterMod.GetModifiedValue(m_effectOuter);
 		}
 		else
@@ -442,15 +272,6 @@ public class RageBeastBasicAttack : Ability
 		int val3;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RageBeastBasicAttack.m_innerTpGain.GetModifiedValue(m_tpGainInner);
 		}
 		else
@@ -462,15 +283,6 @@ public class RageBeastBasicAttack : Ability
 		int val4;
 		if ((bool)abilityMod_RageBeastBasicAttack)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_RageBeastBasicAttack.m_outerTpGain.GetModifiedValue(m_tpGainOuter);
 		}
 		else
@@ -488,15 +300,6 @@ public class RageBeastBasicAttack : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RageBeastBasicAttack);
 			Setup();
 			return;
@@ -519,19 +322,6 @@ public class RageBeastBasicAttack : Ability
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		int num = 0;
 		List<BoardSquare> result = new List<BoardSquare>();
@@ -543,66 +333,21 @@ public class RageBeastBasicAttack : Ability
 				BoardSquare current = enumerator.Current;
 				if (current.OccupantActor != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (current.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current.OccupantActor.IgnoreForAbilityHits)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (visibleActorsOnly)
 							{
 								if (!current.OccupantActor.IsVisibleToClient())
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							num++;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		damageAmount *= num;
@@ -620,32 +365,10 @@ public class RageBeastBasicAttack : Ability
 			GetExtraDamageAndTPForCurrentLocation(true, out damageAmount, out techPointAmount);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedInnerDamage() + damageAmount;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedOuterDamage() + damageAmount;
 			}
 		}
@@ -679,19 +402,6 @@ public class RageBeastBasicAttack : Ability
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		float num = ModdedInnerRadius() * Board.Get().squareSize;
 		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
@@ -704,15 +414,6 @@ public class RageBeastBasicAttack : Ability
 		bool flag;
 		if (num2 > num)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		else

@@ -54,15 +54,6 @@ public class TextConsole
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -84,7 +75,7 @@ public class TextConsole
 		this.OnMessage = delegate
 		{
 		};
-		base._002Ector();
+		
 		ClientGameManager.Get().OnChatNotification += HandleChatNotification;
 	}
 
@@ -119,30 +110,8 @@ public class TextConsole
 		string text = theString;
 		if (text.IndexOf('<') != -1)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (text.IndexOf('>') != -1)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text.Replace("<", "< ");
 			}
 		}
@@ -160,10 +129,6 @@ public class TextConsole
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -171,26 +136,8 @@ public class TextConsole
 		bool flag = false;
 		if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
@@ -200,15 +147,6 @@ public class TextConsole
 		string text;
 		if (input[0] != '/')
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = ((!flag) ? "/global" : "/team");
 			arguments = input;
 		}
@@ -217,15 +155,6 @@ public class TextConsole
 			string[] array = input.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (array.Length >= 2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = array[0];
 				arguments = array[1];
 			}
@@ -242,20 +171,10 @@ public class TextConsole
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (DebugCommands.Get() != null)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					bool flag2 = DebugCommands.Get().RunDebugCommand(text, arguments);
 					return;
 				}
@@ -269,19 +188,6 @@ public class TextConsole
 		string empty = string.Empty;
 		if (response.Success)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			empty = "Success";
 		}
 		else
@@ -299,30 +205,8 @@ public class TextConsole
 	{
 		if (Options_UI.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Options_UI.Get().GetEnableProfanityFilter() && notification.ConsoleMessageType != ConsoleMessageType.BroadcastMessage)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				notification.Text = BannedWords.Get().FilterPhrase(notification.Text, LocalizationManager.CurrentLanguageCode);
 			}
 		}
@@ -342,27 +226,9 @@ public class TextConsole
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (!(clientGameManager == null))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(clientGameManager.Handle != notification.SenderHandle))
 				{
 					goto IL_0148;
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			LastWhisperSenderHandle = notification.SenderHandle;

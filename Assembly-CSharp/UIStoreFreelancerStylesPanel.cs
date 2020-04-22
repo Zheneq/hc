@@ -33,10 +33,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_currentVisualInfo = new CharacterVisualInfo(0, 0, 0);
 					List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
 					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -117,19 +113,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		int num;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (IsVisible ? 1 : 0);
 		}
 		else
@@ -152,15 +135,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		}
 		if (visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterStoreAndProgressWorldObjects.Get().LoadCharacterIntoSlot(m_charType, 0, string.Empty, m_currentVisualInfo, false);
 		}
 		UICharacterStoreAndProgressWorldObjects.Get().SetVisible(visible);
@@ -177,10 +151,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_selectedItem = null;
 					return;
 				}
@@ -200,15 +170,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -243,19 +204,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		uIPurchaseableItem.m_tintIndex = item.ID;
 		if (type == CurrencyType.NONE)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			uIPurchaseableItem.m_purchaseForCash = true;
 		}
 		else

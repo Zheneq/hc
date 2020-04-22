@@ -52,19 +52,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 						FactionReward current = enumerator.Current;
 						if (num >= m_personalTooltipItems.Count)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							UIFactionPersonalReward uIFactionPersonalReward = Object.Instantiate(m_personalRewardPrefab);
 							uIFactionPersonalReward.transform.SetParent(m_personalRewardLayoutGroup.gameObject.transform);
 							uIFactionPersonalReward.transform.localPosition = Vector3.zero;
@@ -75,15 +62,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 						UIManager.SetGameObjectActive(m_personalTooltipItems[num], true);
 						m_personalTooltipItems[num].Setup(current, i, currentPersonalLevel - 1 > i);
 						num++;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -112,32 +90,10 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 	{
 		if (factionInfo != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (factionInfo.RewardLootTableID != 0)
 			{
 				if (currentLevel < 1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentLevel = 1;
 				}
 				else if (isFactionComplete)
@@ -159,44 +115,17 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 							{
 								if (conditions[k].ConditionType == QuestConditionType.FactionTierReached)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (conditions[k].typeSpecificData3 == i + 1)
 									{
 										list.Add(lootTableEntry.Index);
 									}
 								}
 							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (i == 0)
 						{
 							list.Add(lootTableEntry.Index);
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					while (m_tooltipItems.Count <= num)
 					{
@@ -213,11 +142,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					RectTransform rewardTooltipHeightObject = m_rewardTooltipHeightObject;
 					Vector2 sizeDelta = m_rewardTooltipHeightObject.sizeDelta;
 					rewardTooltipHeightObject.sizeDelta = new Vector2(sizeDelta.x, m_tooltipHeightPadding + (float)num * m_factionRewardPrefab.GetComponent<LayoutElement>().preferredHeight);
@@ -227,23 +151,9 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 					}
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -258,15 +168,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_PersonalTooltipContainer, false);
 			return;
 		}
@@ -281,15 +182,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_CommunityFactionTooltipContainer, false);
 			return;
 		}

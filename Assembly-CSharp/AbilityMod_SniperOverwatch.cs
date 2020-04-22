@@ -30,15 +30,6 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_durationMod, "Duration", string.Empty, sniperOverwatch.m_duration);
 			AbilityMod.AddToken(tokens, m_enemyMaxHitsMod, "MaxHits", string.Empty, sniperOverwatch.m_maxHits);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, sniperOverwatch.m_onEnemyMoveThrough.m_damage);
@@ -46,11 +37,6 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sniperOverwatch.m_onEnemyMoveThrough.m_effect);
 					return;
 				}
@@ -69,19 +55,6 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sniperOverwatch.m_duration;
 		}
 		else
@@ -95,15 +68,6 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sniperOverwatch.m_onEnemyMoveThrough.m_damage;
 		}
 		else
@@ -113,15 +77,6 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		empty = str2 + AbilityModHelper.GetModPropertyDesc(damageMod, "[Move Through Damage]", flag, baseVal2);
 		if (m_useEnemyHitEffectOverride)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffectOverride, "{ Enemy On Move Through Effect Override }", string.Empty, flag, (!flag) ? null : sniperOverwatch.m_onEnemyMoveThrough.m_effect);
 		}
 		return empty;

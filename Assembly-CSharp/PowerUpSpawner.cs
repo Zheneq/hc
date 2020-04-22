@@ -84,19 +84,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			int result;
 			if (m_spawningEnabled)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (m_isReady ? 1 : 0);
 			}
 			else
@@ -145,19 +132,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			ref int nextSpawnTurn = ref m_nextSpawnTurn;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -187,42 +161,11 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		int result = 0;
 		if (m_extraPowerupsForMixedSpawn != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int count = m_finalizedPowerupSpawnInfoList.Count;
 			if (m_extraPowerupSelectMode == ExtraPowerupSelectMode.InOrder)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lastServerSpawnPrefabIndex >= 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (m_lastServerSpawnPrefabIndex + 1) % count;
 				}
 				else
@@ -234,26 +177,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			{
 				if (isForFirstSpawn)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_useSameFirstPowerupIfRandom)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = 0;
 						goto IL_0096;
 					}
@@ -276,15 +201,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdateTimerController();
 			return;
 		}
@@ -307,19 +223,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo);
 		if (m_extraPowerupsForMixedSpawn != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_extraPowerupsForMixedSpawn.Count > 0)
 			{
 				for (int i = 0; i < m_extraPowerupsForMixedSpawn.Count; i++)
@@ -329,26 +232,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (powerupSpawnInfo2.m_baseSeqPrefab != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo2);
 					}
 				}
@@ -360,11 +245,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Networkm_nextPowerupPrefabIndex = ChooseNextPrefabSpawnIndex(true);
 			return;
 		}
@@ -378,15 +258,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplayRestart);
 			return;
 		}
@@ -400,15 +271,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_initialized = true;
 			PowerUpManager.AddListenerStatic(this);
 			Board board = Board.Get();
@@ -426,19 +288,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (PowerUpManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PowerUpManager.Get().RemoveListener(this);
 		}
 		if (!NetworkClient.active)
@@ -447,11 +296,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ReplayRestart);
 			return;
 		}
@@ -462,19 +306,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		GameObject baseSeqPrefab = m_finalizedPowerupSpawnInfoList[0].m_baseSeqPrefab;
 		if (m_nextPowerupPrefabIndex >= 0 && m_nextPowerupPrefabIndex < m_finalizedPowerupSpawnInfoList.Count)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseSeqPrefab = m_finalizedPowerupSpawnInfoList[m_nextPowerupPrefabIndex].m_baseSeqPrefab;
 		}
 		if (!(baseSeqPrefab != null))
@@ -483,11 +314,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			SequenceSource source = new SequenceSource(null, null, m_sequenceSourceId, false);
 			m_baseSequences = SequenceManager.Get().CreateClientSequences(baseSeqPrefab, m_boardSquare, null, null, source, null);
 			SetSequencesRoot(m_baseSequences);
@@ -518,26 +344,12 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(PowerUpManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				foreach (Sequence sequence in sequences)
 				{
 					if (!(sequence != null))
@@ -546,11 +358,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						sequence.transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
 						return;
 					}
@@ -577,28 +384,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_baseSequences.Length; i++)
 			{
 				if (IsEnabled)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_baseSequences[i].SetTimerController(m_nextSpawnTurn - GameFlowData.Get().CurrentTurn);
 				}
 				else
@@ -617,31 +406,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!(VisualsLoader.Get() == null))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!VisualsLoader.Get().LevelLoaded())
 				{
 					goto IL_0050;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Initialize();
@@ -654,20 +421,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_nextPowerupPrefabIndex >= 0 && m_currentBasePrefabIndex != m_nextPowerupPrefabIndex)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					ClearPreviousBaseSpawnSequences();
 					PlayBaseSequence();
 					m_currentBasePrefabIndex = m_nextPowerupPrefabIndex;
@@ -689,10 +446,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -705,19 +458,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + m_spawnInterval;
 		if (GameplayMutators.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Networkm_nextSpawnTurn = Mathf.Max(m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
 		}
 		Networkm_nextPowerupPrefabIndex = ChooseNextPrefabSpawnIndex();
@@ -751,15 +491,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Sequence[] spawnSequences = m_spawnSequences;
 			foreach (Sequence sequence in spawnSequences)
 			{
@@ -767,11 +498,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_spawnSequences = null;
 				return;
 			}
@@ -786,15 +512,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Sequence[] baseSequences = m_baseSequences;
 			foreach (Sequence sequence in baseSequences)
 			{
@@ -811,30 +528,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		ClearPreviousSpawnSequences();
 		if (m_nextSpawnTurn == GameFlowData.Get().CurrentTurn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsEnabled)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlaySpawnSequence();
 			}
 		}
@@ -844,15 +539,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			{
 				if (m_nextSpawnTurn <= GameFlowData.Get().CurrentTurn && IsEnabled)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnPowerUp();
 				}
 			}
@@ -867,11 +553,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			ClearPreviousBaseSpawnSequences();
 			PlayBaseSequence();
 			m_currentBasePrefabIndex = m_nextPowerupPrefabIndex;
@@ -905,10 +586,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void PowerUpSpawner::SpawnPowerUp()' called on client");
 					return;
 				}
@@ -918,15 +595,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		m_lastServerSpawnPrefabIndex = 0;
 		if (m_nextPowerupPrefabIndex < m_finalizedPowerupSpawnInfoList.Count)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			powerupObjectPrefab = m_finalizedPowerupSpawnInfoList[m_nextPowerupPrefabIndex].m_powerupObjectPrefab;
 			m_lastServerSpawnPrefabIndex = m_nextPowerupPrefabIndex;
 		}
@@ -940,11 +608,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Vector3 position = boardSquare.ToVector3();
 			m_powerUpInstance = UnityEngine.Object.Instantiate(powerupObjectPrefab, position, Quaternion.identity);
 			m_powerUpInstance.SetPickupTeam(m_teamRestriction);
@@ -959,11 +622,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				string[] tagsToApplyToPowerup = m_tagsToApplyToPowerup;
 				foreach (string powerupTag in tagsToApplyToPowerup)
 				{
@@ -1006,19 +664,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1028,15 +673,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1044,26 +680,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1073,15 +691,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1105,10 +714,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_sequenceSourceId = reader.ReadPackedUInt32();
 					m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
 					m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
@@ -1124,28 +729,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HookNextSpawnTurn((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 8) == 0)
@@ -1154,11 +741,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_spawningEnabled = reader.ReadBoolean();
 			return;
 		}

@@ -46,15 +46,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ProcessAction();
 			return;
 		}
@@ -67,19 +58,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		{
 			if (extraSequenceParams is GenericActorListParam)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GenericActorListParam genericActorListParam = extraSequenceParams as GenericActorListParam;
 				m_actorToHitOnMoveEnd.AddRange(genericActorListParam.m_actors);
 			}
@@ -105,15 +83,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_persistentSatellite = component.GetSatellite(m_satelliteIndex);
 			if (!(m_persistentSatellite != null))
 			{
@@ -121,61 +90,20 @@ public class PersistentSatelliteActionSequence : Sequence
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_action == SatelliteAction.Attack)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Target != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_persistentSatellite.TriggerAttack(base.Target.gameObject);
 						goto IL_0109;
 					}
 				}
 				if (m_action == SatelliteAction.Move)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_persistentSatellite.MoveToPosition(base.TargetPos);
 				}
 				else if (m_action == SatelliteAction.AltMove)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_persistentSatellite.AltMoveToPosition(base.TargetPos);
 				}
 				goto IL_0109;
@@ -197,10 +125,6 @@ public class PersistentSatelliteActionSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ProcessAction();
 					return;
 				}
@@ -212,11 +136,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			HandleOnDestinationHits();
 			return;
 		}
@@ -230,32 +149,10 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		if (!string.IsNullOrEmpty(m_audioEventOnMoveFinish))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string audioEventOnMoveFinish = m_audioEventOnMoveFinish;
 			object parentGameObject;
 			if ((bool)base.Caster)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = base.Caster.gameObject;
 			}
 			else
@@ -275,15 +172,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(0f, base.TargetPos);
 			base.Source.OnSequenceHit(this, base.TargetPos, impulseInfo);
 			if (m_actorToHitOnMoveEnd != null)
@@ -307,49 +195,17 @@ public class PersistentSatelliteActionSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_persistentSatellite != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_action != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_action != SatelliteAction.AltMove)
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (m_hitDestination)
@@ -358,33 +214,10 @@ public class PersistentSatelliteActionSequence : Sequence
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_persistentSatellite.IsMoving())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_hitEvent == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							HandleOnDestinationHits();
 						}
 					}
@@ -394,11 +227,6 @@ public class PersistentSatelliteActionSequence : Sequence
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						BoardSquare boardSquare = Board.Get().GetBoardSquare(m_persistentSatellite.transform.position);
 						if (boardSquare != m_lastBoardSquare)
 						{

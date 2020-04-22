@@ -47,19 +47,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		AbilityMod.AddToken(tokens, m_laserRangeMod, "LaserRange", string.Empty, sniperPenetratingRound.m_laserInfo.range);
 		if (m_useEnemyHitEffectOverride)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", sniperPenetratingRound.m_laserHitEffect);
 		}
 		AbilityMod.AddToken(tokens, m_laserDamage, "Damage", "base damage", sniperPenetratingRound.m_laserDamageAmount);
@@ -77,19 +64,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sniperPenetratingRound.m_laserInfo.width;
 		}
 		else
@@ -100,30 +74,12 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		empty += AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperPenetratingRound.m_laserInfo.range);
 		if (m_useEnemyHitEffectOverride)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str2 = empty;
 			StandardEffectInfo enemyHitEffectOverride = m_enemyHitEffectOverride;
 			string empty2 = string.Empty;
 			object baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = sniperPenetratingRound.m_laserHitEffect;
 			}
 			else
@@ -134,15 +90,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		}
 		if (m_knockbackHitEnemy)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "Can knock back hit enemy within " + m_knockbackThresholdDistance + " squares\n";
 		}
@@ -153,15 +100,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperPenetratingRound.m_lowHealthThreshold;
 		}
 		else
@@ -179,15 +117,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(m_enemyHitEffectOverride.m_effectData.m_duration - 1);
 			return;
 		}

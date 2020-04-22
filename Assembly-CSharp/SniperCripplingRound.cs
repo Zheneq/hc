@@ -55,19 +55,6 @@ public class SniperCripplingRound : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = string.Empty;
 		}
 		SetupTargeter();
@@ -85,10 +72,6 @@ public class SniperCripplingRound : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, m_laserWidth, m_laserRange, m_laserPenetrateLos, false, m_coneWidthAngle, m_coneLength, m_coneBackwardOffset);
 					abilityUtil_Targeter_LaserWithCone.SetMaxLaserTargets(GetModdedMaxLaserTargets());
 					abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(m_alwaysExplodeOnPathEnd);
@@ -149,19 +132,6 @@ public class SniperCripplingRound : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num += GetExplosionDamage();
 			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -178,19 +148,6 @@ public class SniperCripplingRound : Ability
 		int val;
 		if ((bool)abilityMod_SniperCripplingRound)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_SniperCripplingRound.m_laserDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -214,10 +171,6 @@ public class SniperCripplingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SniperCripplingRound);
 					SetupTargeter();
 					return;
@@ -238,19 +191,6 @@ public class SniperCripplingRound : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamageAmount;
 		}
 		else
@@ -270,19 +210,6 @@ public class SniperCripplingRound : Ability
 		int num = m_effectOnLaserHitTargets.m_effectData.m_duration;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
@@ -293,19 +220,6 @@ public class SniperCripplingRound : Ability
 		int num = m_effectOnExplosionHitTargets.m_effectData.m_duration;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
@@ -322,10 +236,6 @@ public class SniperCripplingRound : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_abilityMod.m_maxTargetsMod.GetModifiedValue(1);
 				}
 			}

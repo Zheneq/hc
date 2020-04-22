@@ -23,15 +23,6 @@ public class ArcherHealProjectileSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexExtraParam.m_actorIndex);
 			if (actorData != null)
@@ -51,24 +42,10 @@ public class ArcherHealProjectileSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.ActorHasExpendedHealReaction(base.Target))
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_syncComp.ChangeVfxForHealReaction(base.Target);
 					return;
 				}

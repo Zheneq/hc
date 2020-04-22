@@ -74,10 +74,6 @@ public class LobbyGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return characterData.GetDefaultModInfo();
 				}
 			}
@@ -98,19 +94,6 @@ public class LobbyGameplayData
 		string result;
 		if (characterData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = characterData.DisplayName;
 		}
 		else
@@ -126,19 +109,6 @@ public class LobbyGameplayData
 		CharacterConfig characterConfig;
 		if (characterData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			characterConfig = characterData.CharacterConfig;
 		}
 		else
@@ -164,37 +134,11 @@ public class LobbyGameplayData
 		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values = CardData.Values;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(LobbyCardGameplayData c)
 			{
 				int result4;
 				if (c.RunPhase == AbilityRunPhase.Prep)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result4 = (c.IsDefault ? 1 : 0);
 				}
 				else
@@ -208,33 +152,11 @@ public class LobbyGameplayData
 		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values2 = CardData.Values;
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache1 = delegate(LobbyCardGameplayData c)
 			{
 				int result3;
 				if (c.RunPhase == AbilityRunPhase.Combat)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result3 = (c.IsDefault ? 1 : 0);
 				}
 				else
@@ -250,19 +172,6 @@ public class LobbyGameplayData
 			int result2;
 			if (c.RunPhase == AbilityRunPhase.Dash)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result2 = (c.IsDefault ? 1 : 0);
 			}
 			else
@@ -281,19 +190,6 @@ public class LobbyGameplayData
 			int result;
 			if (c.RunPhase == runPhase)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (c.IsDefault ? 1 : 0);
 			}
 			else
@@ -317,10 +213,6 @@ public class LobbyGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					throw new ArgumentException($"Invalid itemTemplateId {itemTemplateId}");
 				}
 			}
@@ -333,19 +225,6 @@ public class LobbyGameplayData
 		KarmaTemplate karmaTemplate = InventoryData.KarmaTemplates.Where((KarmaTemplate x) => x.Index == karmaTemplateId).Single();
 		if (karmaTemplate != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (karmaTemplate.IsValid())
 			{
 				return karmaTemplate;
@@ -359,31 +238,9 @@ public class LobbyGameplayData
 		LootTable lootTable = InventoryData.LootTables.Where((LootTable x) => x.Index == lootTableId).Single();
 		if (lootTable != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (lootTable.IsValid())
 			{
 				return lootTable;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new InvalidOperationException($"Invalid lootTableId={lootTableId}");
@@ -407,19 +264,6 @@ public class LobbyGameplayData
 			{
 				return FactionData.m_factionCompetitions[competitionId - 1];
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		throw new ArgumentException($"Invalid Faction competitionId={competitionId}");
 	}
@@ -434,25 +278,11 @@ public class LobbyGameplayData
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return FactionData.m_factionGroups[i];
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return new FactionGroup();
 		}
 	}
@@ -461,33 +291,11 @@ public class LobbyGameplayData
 	{
 		if (0 < competitionId)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (competitionId <= FactionData.m_factionCompetitions.Count && 0 <= factionId)
 			{
 				if (factionId < FactionData.m_factionCompetitions[competitionId - 1].Factions.Count)
 				{
 					return FactionData.m_factionCompetitions[competitionId - 1].Factions[factionId];
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -563,10 +371,6 @@ public class LobbyGameplayData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

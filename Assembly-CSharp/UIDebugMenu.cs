@@ -36,10 +36,6 @@ public class UIDebugMenu : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Init();
 					return;
 				}
@@ -88,10 +84,6 @@ public class UIDebugMenu : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -99,15 +91,6 @@ public class UIDebugMenu : MonoBehaviour
 							DebugCommand current = enumerator.Current;
 							if (inFrontEnd && !current.AvailableInFrontEnd())
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -120,40 +103,13 @@ public class UIDebugMenu : MonoBehaviour
 										{
 											continue;
 										}
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									path = path.Remove(0, m_currentPath.Length);
 									string[] array = path.Split('/');
 									if (array[0] != string.Empty)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!list.Contains(array[0]))
 										{
-											while (true)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											list.Add(array[0]);
 										}
 									}
@@ -183,19 +139,6 @@ public class UIDebugMenu : MonoBehaviour
 		bool result = false;
 		if (_001D == m_currentPath.TrimEnd('/'))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = true;
 		}
 		return result;
@@ -210,15 +153,6 @@ public class UIDebugMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<Transform>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -245,19 +179,6 @@ public class UIDebugMenu : MonoBehaviour
 		ClearDebugItems();
 		if (m_currentPath != string.Empty)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DebugCommand_Back debugCommand_Back = new DebugCommand_Back();
 			debugCommand_Back.m_debugMenu = this;
 			CreateDebugItem(debugCommand_Back);
@@ -265,15 +186,6 @@ public class UIDebugMenu : MonoBehaviour
 		m_inFrontEnd = (GameFlowData.Get() == null);
 		if (DebugCommands.Get() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -281,15 +193,6 @@ public class UIDebugMenu : MonoBehaviour
 					DebugCommand current = enumerator.Current;
 					if (m_inFrontEnd)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!current.AvailableInFrontEnd())
 						{
 							continue;
@@ -297,29 +200,11 @@ public class UIDebugMenu : MonoBehaviour
 					}
 					if (_001D(current.GetPath()))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (current.GetPath().Length > 0)
 						{
 							CreateDebugItem(current);
 						}
 					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -333,15 +218,6 @@ public class UIDebugMenu : MonoBehaviour
 				debugCommand_Category.m_category = current2;
 				debugCommand_Category.m_debugMenu = this;
 				CreateDebugItem(debugCommand_Category);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GridLayoutGroup debugMenuGrid = m_debugMenuGrid;
@@ -382,24 +258,10 @@ public class UIDebugMenu : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!UIUtils.InputFieldHasFocus() && AccountPreferences.DoesApplicationHaveFocus() && DebugCommands.Get() != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					bool flag = GameFlowData.Get() == null;
 					using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 					{
@@ -408,15 +270,6 @@ public class UIDebugMenu : MonoBehaviour
 							DebugCommand current = enumerator.Current;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!current.AvailableInFrontEnd())
 								{
 									continue;
@@ -424,26 +277,8 @@ public class UIDebugMenu : MonoBehaviour
 							}
 							if (current._001D() != 0)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (Input.GetKeyDown(current._001D()))
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (HasRequiredModifierKeys(current))
 									{
 										UISounds.GetUISounds().Play("ui_btn_menu_click");
@@ -492,22 +327,9 @@ public class UIDebugMenu : MonoBehaviour
 					break;
 				default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						int num;
 						if (listener._000E() && !Input.GetKey(KeyCode.LeftControl))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (Input.GetKey(KeyCode.RightControl) ? 1 : 0);
 						}
 						else
@@ -517,26 +339,8 @@ public class UIDebugMenu : MonoBehaviour
 						flag = ((byte)num != 0);
 						if (listener._0012())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!Input.GetKey(KeyCode.LeftAlt))
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = (Input.GetKey(KeyCode.RightAlt) ? 1 : 0);
 								goto IL_0086;
 							}
@@ -550,26 +354,8 @@ public class UIDebugMenu : MonoBehaviour
 					flag2 = ((byte)num2 != 0);
 					if (listener._0015())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!Input.GetKey(KeyCode.LeftShift))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = (Input.GetKey(KeyCode.RightShift) ? 1 : 0);
 							goto IL_00c0;
 						}
@@ -580,26 +366,8 @@ public class UIDebugMenu : MonoBehaviour
 					flag3 = ((byte)num3 != 0);
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = (flag3 ? 1 : 0);
 							goto IL_00df;
 						}
@@ -617,19 +385,6 @@ public class UIDebugMenu : MonoBehaviour
 		int num = m_currentPath.TrimEnd('/').LastIndexOf('/');
 		if (num > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentPath = m_currentPath.Substring(0, num + 1);
 		}
 		else

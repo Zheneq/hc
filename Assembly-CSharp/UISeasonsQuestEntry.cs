@@ -22,30 +22,8 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 	{
 		if (m_infoReference.Completed)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (questComponent != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.GetCompletedCount(questID) > 0)
 				{
 					return maxProgress;
@@ -54,51 +32,15 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		}
 		if (!m_infoReference.Completed)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_infoReference is UISeasonQuestDisplayInfo)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = m_infoReference as UISeasonQuestDisplayInfo;
 				if (!uISeasonQuestDisplayInfo.IsQuestStatic)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					DateTime dateTime = ClientGameManager.Get().PacificNow();
 					int num;
 					if (uISeasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((dateTime <= uISeasonQuestDisplayInfo.ChapterEndDate) ? 1 : 0);
 					}
 					else
@@ -120,42 +62,11 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		base.SetProgress(currentProgress, maxProgress, questComponent, questID);
 		if (m_infoReference is UISeasonQuestDisplayInfo)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UISeasonQuestDisplayInfo uISeasonQuestDisplayInfo = m_infoReference as UISeasonQuestDisplayInfo;
 			if (!uISeasonQuestDisplayInfo.IsQuestStatic)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (uISeasonQuestDisplayInfo.Completed)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_lockedChapterOverlay, false);
 				}
 				else
@@ -164,15 +75,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 					int num;
 					if (uISeasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((dateTime <= uISeasonQuestDisplayInfo.ChapterEndDate) ? 1 : 0);
 					}
 					else
@@ -189,15 +91,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		int doActive;
 		if (currentProgress > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = ((currentProgress < maxProgress) ? 1 : 0);
 		}
 		else
@@ -211,19 +104,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 	{
 		if (displayInfo.IsQuestStatic)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_lockedChapterOverlay, seasonChapterLocked);
 		}
 		UIManager.SetGameObjectActive(m_abandonElement, false);

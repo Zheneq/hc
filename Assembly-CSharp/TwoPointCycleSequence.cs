@@ -38,15 +38,6 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -57,45 +48,14 @@ public class TwoPointCycleSequence : Sequence
 		float num = 0f;
 		if (m_cycleType == CycleType.PingPong)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_parameterizedPosition += m_projectileSpeed * GameTime.deltaTime;
 			if (m_parameterizedPosition > 1f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_parameterizedPosition = 0f;
 			}
 			num = m_parameterizedPosition * 2f;
 			if (num > 1f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 2f - num;
 			}
 		}
@@ -128,15 +88,6 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float cyclePosition = GetCyclePosition();
 			Vector3 position = m_fxJoint.m_jointObject.transform.position;
 			Vector3 targetHitPosition = GetTargetHitPosition(0);
@@ -157,15 +108,6 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UpdatePosition();
 			ProcessSequenceVisibility();
 			return;
@@ -176,19 +118,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (!m_fxJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		if (m_fxPrefab != null)
@@ -206,15 +135,6 @@ public class TwoPointCycleSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -225,20 +145,10 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 					return;
 				}
@@ -255,15 +165,6 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -277,15 +178,6 @@ public class TwoPointCycleSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx.gameObject);
 			m_fx = null;
 			return;

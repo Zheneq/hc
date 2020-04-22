@@ -36,10 +36,6 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(m_pattern, currentTarget.FreePos, gameplayRefSquare);
 					Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 					centerOfGridPattern.y = travelBoardSquareWorldPosition.y + m_heightOffset;
@@ -60,27 +56,9 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 			if (base.Highlight == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(m_pattern, m_scale);
 				base.Highlight.transform.position = highlightGoalPos;
 			}

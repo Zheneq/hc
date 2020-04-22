@@ -32,10 +32,6 @@ public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -46,11 +42,6 @@ public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			UIRankedModeDraftScreen.Get().NotifyButtonClicked(this);
 			return;
 		}

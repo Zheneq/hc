@@ -15,10 +15,6 @@ public class AbilityCommon_FanLaser
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = new AbilityUtil_Targeter_ThiefFanLaser(ability, minAngle, maxAngle, minInterpDist, maxInterpDist, laserInfo.range, laserInfo.width, laserInfo.maxTargets, numLasers, laserInfo.penetrateLos, false, false, false, true, 0);
 					abilityUtil_Targeter_ThiefFanLaser.SetAffectedGroups(laserInfo.affectsEnemies, laserInfo.affectsAllies, false);
 					return abilityUtil_Targeter_ThiefFanLaser;
@@ -43,19 +39,6 @@ public class AbilityCommon_FanLaser
 			float num2;
 			if (numLasers > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num2 = CalculateFanAngleDegrees(targets[0], caster, minAngle, maxAngle, minInterpDist, maxInterpDist, interpStep);
 			}
 			else
@@ -66,15 +49,6 @@ public class AbilityCommon_FanLaser
 			float num4;
 			if (numLasers > 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num3 / (float)(numLasers - 1);
 			}
 			else
@@ -95,26 +69,8 @@ public class AbilityCommon_FanLaser
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserInfo.range, laserInfo.width, caster, relevantTeams, laserInfo.penetrateLos, maxTargets, false, true, out laserCoords.end, nonActorTargetInfo);
 			if (i == 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (laserInfo.affectsCaster)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInLaser.Add(caster);
 				}
 			}
@@ -126,15 +82,6 @@ public class AbilityCommon_FanLaser
 					ActorData current = enumerator.Current;
 					if (dictionary.ContainsKey(current))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[current]++;
 					}
 					else
@@ -142,52 +89,16 @@ public class AbilityCommon_FanLaser
 						dictionary[current] = 1;
 					}
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (actorsInLaser.Count > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numLasersWithHits++;
 			}
 			int count = actorsForSequence[i].Count;
 			if (count > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (stopEndPosOnHitActor)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					targetPosForSequences.Add(actorsForSequence[i][count - 1].GetTravelBoardSquareWorldPosition());
 					continue;
 				}
@@ -215,19 +126,6 @@ public class AbilityCommon_FanLaser
 	{
 		if (float.IsNaN(fanAngleDegrees))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			fanAngleDegrees = 0f;
 		}
 		maxAngle = Mathf.Max(maxAngle, 1f);

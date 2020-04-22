@@ -84,30 +84,8 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		base.FinishSetup();
 		if (m_lineStartEvent == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_lineSpawnOnProjectileImpact)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnLineFX();
 			}
 		}
@@ -125,15 +103,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_startJointOverrides.Count <= 0)
 			{
 				return;
@@ -149,15 +118,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (genericIntParam.m_value <= 0)
 				{
 					continue;
@@ -165,15 +125,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				int num = genericIntParam.m_value - 1;
 				if (num < m_startJointOverrides.Count)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_startJointToUse = m_startJointOverrides[num];
 				}
 			}
@@ -196,19 +147,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		int num;
 		if (m_removeLineIfNoTarget)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((base.Targets == null || base.Targets.Length == 0) ? 1 : 0);
 		}
 		else
@@ -218,86 +156,23 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		bool flag = (byte)num != 0;
 		if (m_lineSpawnOnProjectileImpact)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnLineFX();
 			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			DestroyLine();
 		}
 		if (m_onProjAttachFx == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_attachedFxOnHitPrefab != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targets.Length > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool aimAtCaster = m_onProjHitFxAimMode != AimMode.None;
 						bool reverseDir = m_onProjHitFxAimMode == AimMode.CasterToTarget;
 						m_onProjAttachFx = Sequence.SpawnAndAttachFx(this, m_attachedFxOnHitPrefab, base.Targets[0], m_onProjHitJoint, m_onProjHitFxAttachToJoint, aimAtCaster, reverseDir);
@@ -311,31 +186,16 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (base.Targets == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (base.Targets.Length > 0)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						m_lineOnHitTargetAttachJoint.Initialize(base.Targets[0].gameObject);
 						return;
 					}
@@ -350,19 +210,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		base.OnAnimationEvent(parameter, sourceObject);
 		if (m_lineStartEvent == parameter)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnLineFX();
 		}
 		if (!(m_lineRemoveEvent == parameter))
@@ -371,11 +218,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			DestroyLine();
 			return;
 		}
@@ -392,10 +234,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -405,29 +243,11 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 			GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_startJointToUse.Initialize(referenceModel);
 			}
 		}
 		if (m_linePrefab != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = m_startJointToUse.m_jointObject.transform.position;
 			m_lineFx = InstantiateFX(m_linePrefab, position, default(Quaternion));
 			if (m_lineFx != null)
@@ -441,15 +261,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (m_lineDuration > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_lineDespawnTime = GameTime.time + m_lineDuration;
 		}
 		else
@@ -473,101 +284,25 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (m_lineFx != null && base.Caster != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lineFx != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lineFoFComp != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_lineFoFComp.Setup(base.Caster.GetTeam());
 				}
 			}
 		}
 		if (m_lineFx != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_useProjectileStartPosAsStartPoint)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_spline != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_spline.pts.Length > 1)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 value = m_spline.pts[1];
 						if (m_lineStartPosUseGroundHeight)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value.y = Board.Get().BaselineHeight;
 						}
 						Sequence.SetAttribute(m_lineFx, "startPoint", value);
@@ -595,15 +330,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		Vector3 value2;
 		if (m_lineEndPosUseGroundHeight)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value2.y = Board.Get().BaselineHeight;
 		}
 		bool flag;
@@ -617,15 +343,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		flag = true;
 		if (m_lineAttachToHitTarget)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lineOnHitTargetAttachJoint.IsInitialized())
 			{
 				value2 = m_lineOnHitTargetAttachJoint.m_jointObject.transform.position;
@@ -634,26 +351,8 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (m_startJointToUse.m_jointObject != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_fx != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value2 = m_fx.transform.position;
 				goto IL_0273;
 			}
@@ -667,20 +366,10 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_lineDespawnTime > 0f)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					DestroyLine();
 					return;
 				}
@@ -699,15 +388,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_onProjAttachFx);
 			m_onProjAttachFx = null;
 			return;
@@ -727,15 +407,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_onProjAttachFx);
 			m_onProjAttachFx = null;
 			return;

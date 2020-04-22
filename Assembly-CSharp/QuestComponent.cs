@@ -142,10 +142,6 @@ public class QuestComponent
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -168,19 +164,6 @@ public class QuestComponent
 				{
 					SeasonItemRewardsGranted.Remove(num);
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			SeasonExperience[ActiveSeason].Level = value;
 		}
@@ -200,10 +183,6 @@ public class QuestComponent
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return 0;
 					}
 				}
@@ -221,10 +200,6 @@ public class QuestComponent
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -248,10 +223,6 @@ public class QuestComponent
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return num;
 					}
 				}
@@ -276,26 +247,8 @@ public class QuestComponent
 					int current = enumerator.Current;
 					if (current > num)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = current;
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num + 1;
@@ -311,10 +264,6 @@ public class QuestComponent
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -334,15 +283,6 @@ public class QuestComponent
 			}
 			if (!UnlockedSeasonChapters.ContainsKey(ActiveSeason))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnlockedSeasonChapters[ActiveSeason] = new List<int>();
 			}
 			UnlockedSeasonChapters[ActiveSeason].Clear();
@@ -402,10 +342,6 @@ public class QuestComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return CompletedSeasonChapters[season];
 				}
 			}
@@ -424,10 +360,6 @@ public class QuestComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return SeasonExperience[season];
 				}
 			}
@@ -439,19 +371,6 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
 			{
 				while (true)
@@ -473,19 +392,6 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
 			{
 				return value.RejectedCount;
@@ -498,19 +404,6 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
 			{
 				return value.AbandonedCount;
@@ -530,10 +423,6 @@ public class QuestComponent
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value.Weight;
 				}
 			}
@@ -545,19 +434,6 @@ public class QuestComponent
 	{
 		if (!QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = new QuestMetaData();
 			value.UtcCompletedTimes = new List<DateTime>();
 			QuestMetaDatas[questId] = value;
@@ -594,19 +470,6 @@ public class QuestComponent
 		QuestMetaData orCreateQuestMetaData = GetOrCreateQuestMetaData(questId);
 		if (orCreateQuestMetaData.UtcCompletedTimes == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			orCreateQuestMetaData.UtcCompletedTimes = new List<DateTime>();
 		}
 		orCreateQuestMetaData.UtcCompletedTimes.Add(utcTime);
@@ -625,43 +488,12 @@ public class QuestComponent
 				{
 					if (num2 >= seasons.Count)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					if (seasons[num2].Index == current.Key)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!seasons[num2].IsTutorial)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += current.Value.Level;
 						}
 						break;
@@ -686,19 +518,6 @@ public class QuestComponent
 	{
 		if (!SeasonItemRewardsGranted.ContainsKey(seasonLevel))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SeasonItemRewardsGranted.Add(seasonLevel, new List<int>());
 		}
 		SeasonItemRewardsGranted[seasonLevel].Add(itemTemplateId);

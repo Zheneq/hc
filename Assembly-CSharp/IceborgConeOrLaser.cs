@@ -44,19 +44,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		m_cachedTargetingRadiusPreview = 0f;
 		if (GetTargetSelectComp() is TargetSelect_ConeOrLaser)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TargetSelect_ConeOrLaser targetSelect_ConeOrLaser = GetTargetSelectComp() as TargetSelect_ConeOrLaser;
 			m_cachedTargetingRadiusPreview = targetSelect_ConeOrLaser.m_coneInfo.m_radiusInSquares;
 		}
@@ -72,19 +59,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		AddTokenInt(tokens, "CdrPerEnemyWithNovaCore", string.Empty, m_cdrPerEnemyWithNovaCore);
 		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
 		if (!(m_syncComp != null))
@@ -93,11 +67,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_syncComp.AddTooltipTokens(tokens);
 			return;
 		}
@@ -108,19 +77,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
 		}
 		else
@@ -135,19 +91,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
 		}
 		else
@@ -162,19 +105,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect);
 		}
 		else
@@ -189,19 +119,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_skipDelayedAoeEffectIfHasExistingMod.GetModifiedValue(m_skipDelayedAoeEffectIfHasExisting);
 		}
 		else
@@ -216,19 +133,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrPerEnemyWithNovaCoreMod.GetModifiedValue(m_cdrPerEnemyWithNovaCore);
 		}
 		else
@@ -246,15 +150,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
 			return;
 		}
@@ -273,26 +168,12 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(targetActor == caster))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				int num = 0;
 				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 				{
@@ -302,29 +183,11 @@ public class IceborgConeOrLaser : GenericAbility_Container
 						ActorData key = current.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.Value._0012)
 							{
 								num++;
 							}
 						}
-					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num <= 0)
@@ -333,11 +196,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					int num2 = shieldPerEnemyHit * num;
 					if (results.m_absorb >= 0)
 					{
@@ -358,19 +216,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		object result;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else

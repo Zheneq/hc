@@ -24,19 +24,6 @@ namespace TMPro.Examples
 		{
 			if (_001D == objectType._001D)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0012 = (GetComponent<TextMeshPro>() ?? base.gameObject.AddComponent<TextMeshPro>());
 			}
 			else
@@ -44,15 +31,6 @@ namespace TMPro.Examples
 				TextMeshProUGUI textMeshProUGUI = GetComponent<TextMeshProUGUI>();
 				if ((object)textMeshProUGUI == null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					textMeshProUGUI = base.gameObject.AddComponent<TextMeshProUGUI>();
 				}
 				_0012 = textMeshProUGUI;
@@ -73,15 +51,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0012.SetText("The count is <#0080ff>{0}</color>", _0016 % 1000);
 				_0016++;
 				return;

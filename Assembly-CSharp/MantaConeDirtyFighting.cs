@@ -52,19 +52,6 @@ public class MantaConeDirtyFighting : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Dirty Fighting Cone";
 		}
 		SetupTargeter();
@@ -85,19 +72,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardActorEffectData cachedDirtyFightingEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedDirtyFightingEffectData = m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(m_dirtyFightingEffectData);
 		}
 		else
@@ -108,15 +82,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo cachedEnemyHitEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffectData = m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData);
 		}
 		else
@@ -127,15 +92,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo cachedEffectOnTargetFromExplosion;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnTargetFromExplosion = m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(m_effectOnTargetFromExplosion);
 		}
 		else
@@ -151,19 +107,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneRangeMod.GetModifiedValue(m_coneRange);
 		}
 		else
@@ -178,19 +121,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneWidthMod.GetModifiedValue(m_coneWidth);
 		}
 		else
@@ -205,19 +135,6 @@ public class MantaConeDirtyFighting : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 		}
 		else
@@ -237,19 +154,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
 		}
 		else
@@ -264,19 +168,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount);
 		}
 		else
@@ -291,19 +182,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardActorEffectData result;
 		if (m_cachedDirtyFightingEffectData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedDirtyFightingEffectData;
 		}
 		else
@@ -318,19 +196,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffectData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffectData;
 		}
 		else
@@ -345,19 +210,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnTargetFromExplosion != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnTargetFromExplosion;
 		}
 		else
@@ -372,19 +224,6 @@ public class MantaConeDirtyFighting : Ability
 		object result;
 		if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect)
 			{
 				result = m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData;
@@ -402,19 +241,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage);
 		}
 		else
@@ -439,19 +265,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healPerExplosionMod.GetModifiedValue(m_healAmountPerExplosion);
 		}
 		else
@@ -469,15 +282,6 @@ public class MantaConeDirtyFighting : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_MantaConeDirtyFighting);
 			SetupTargeter();
 			return;

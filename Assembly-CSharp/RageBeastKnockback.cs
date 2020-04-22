@@ -37,19 +37,6 @@ public class RageBeastKnockback : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Upheaval";
 		}
 		SetupTargeter();
@@ -91,19 +78,6 @@ public class RageBeastKnockback : Ability
 		int val;
 		if ((bool)abilityMod_RageBeastKnockback)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -115,15 +89,6 @@ public class RageBeastKnockback : Ability
 		int val2;
 		if ((bool)abilityMod_RageBeastKnockback)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -144,10 +109,6 @@ public class RageBeastKnockback : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_RageBeastKnockback);
 					SetupTargeter();
 					return;
@@ -168,19 +129,6 @@ public class RageBeastKnockback : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxTargets;
 		}
 		else
@@ -200,19 +148,6 @@ public class RageBeastKnockback : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDistance;
 		}
 		else
@@ -227,19 +162,6 @@ public class RageBeastKnockback : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -281,10 +203,6 @@ public class RageBeastKnockback : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return num3;
 				}
 			}

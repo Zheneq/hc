@@ -63,15 +63,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_aoeConeWidthMod, "AoeConeWidth", string.Empty, mantaDashThroughWall.m_aoeConeWidth);
 			AbilityMod.AddToken(tokens, m_aoeConeLengthMod, "AoeConeLength", string.Empty, mantaDashThroughWall.m_aoeConeLength);
 			AbilityMod.AddToken(tokens, m_aoeThroughWallConeWidthMod, "AoeThroughWallConeWidth", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeWidth);
@@ -104,19 +95,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = mantaDashThroughWall.m_aoeConeLength;
 		}
 		else
@@ -130,15 +108,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaDashThroughWall.m_aoeThroughWallConeLength;
 		}
 		else
@@ -152,15 +121,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaDashThroughWall.m_maxRange;
 		}
 		else
@@ -173,15 +133,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaDashThroughWall.m_maxWidthOfWall;
 		}
 		else
@@ -194,15 +145,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaDashThroughWall.m_extraTotalDistanceIfThroughWalls;
 		}
 		else
@@ -215,15 +157,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (mantaDashThroughWall.m_clampConeToWall ? 1 : 0);
 		}
 		else
@@ -236,15 +169,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (mantaDashThroughWall.m_aoeWithMiss ? 1 : 0);
 		}
 		else
@@ -257,15 +181,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = mantaDashThroughWall.m_coneBackwardOffset;
 		}
 		else
@@ -278,15 +193,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = mantaDashThroughWall.m_directHitDamage;
 		}
 		else
@@ -300,15 +206,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (mantaDashThroughWall.m_directHitIgnoreCover ? 1 : 0);
 		}
 		else
@@ -321,15 +218,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = mantaDashThroughWall.m_aoeDamage;
 		}
 		else
@@ -343,15 +231,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		empty += PropDesc(m_additionalDirtyFightingExplosionEffect, "[ExtraDirtyFightingExplosionEffect]", flag);
 		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty += m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
 		return empty;

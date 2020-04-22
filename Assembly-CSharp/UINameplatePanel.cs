@@ -57,15 +57,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[actorData];
 			uINameplateItem.UpdateBriefcaseThreshold(percent);
 			return;
@@ -88,10 +79,6 @@ public class UINameplatePanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -106,15 +93,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_nameplateTextVisible = visible;
 			foreach (KeyValuePair<ActorData, UINameplateItem> nameplate in m_nameplates)
 			{
@@ -143,15 +121,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[actorData];
 			uINameplateItem.PlayCombatText(actorData, text, category, icon);
 			return;
@@ -176,10 +145,6 @@ public class UINameplatePanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -194,24 +159,10 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (DebugParameters.Get().GetParameterAsBool("DebugNameplates"))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					SetDebugNameplateTextValues();
 					return;
 				}
@@ -230,19 +181,6 @@ public class UINameplatePanel : MonoBehaviour
 		uINameplateItem.transform.localScale = new Vector3(1f, 1f, 1f);
 		if (uINameplateItem.transform as RectTransform != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			(uINameplateItem.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 		}
 		UIManager.SetGameObjectActive(uINameplateItem.m_parentTransform, false);
@@ -258,24 +196,10 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_nameplates.ContainsKey(theActor))
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					UINameplateItem uINameplateItem = m_nameplates[theActor];
 					uINameplateItem.NotifyFlagStatusChange(holdingFlag);
 					return;
@@ -293,15 +217,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[theActor];
 			if (gainedStatus)
 			{
@@ -339,15 +254,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[theActor];
 			uINameplateItem.UpdateCatalysts(cardAbilities);
 			return;
@@ -362,15 +268,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[theActor];
 			uINameplateItem.UpdateStatusDuration(status, newDuration);
 			return;
@@ -385,15 +282,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[targetingActor];
 			uINameplateItem.UpdateTargetingAbilityIndicator(ability, action, index);
 			return;
@@ -444,15 +332,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[theTargeted];
 			uINameplateItem.UpdateNameplateUntargeted(doInstantHide);
 			return;
@@ -467,15 +346,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UINameplateItem uINameplateItem = m_nameplates[actorData];
 			m_nameplates.Remove(actorData);
 			if (uINameplateItem != null)
@@ -495,15 +365,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_nameplates.Clear();
 			return;
 		}
@@ -515,19 +376,6 @@ public class UINameplatePanel : MonoBehaviour
 		bool flag = false;
 		if (orderedEnumerable.Count() != m_sortedActorIndexNameplates.Count())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = true;
 		}
 		else
@@ -536,15 +384,6 @@ public class UINameplatePanel : MonoBehaviour
 			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator2 = orderedEnumerable.GetEnumerator();
 			while (enumerator.MoveNext())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (enumerator2.MoveNext())
 				{
 					int current = enumerator.Current;
@@ -556,15 +395,6 @@ public class UINameplatePanel : MonoBehaviour
 					}
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
@@ -574,11 +404,6 @@ public class UINameplatePanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_sortedActorIndexNameplates.Clear();
 			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator3 = orderedEnumerable.GetEnumerator();
 			try

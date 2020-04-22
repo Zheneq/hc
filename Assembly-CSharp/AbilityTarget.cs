@@ -95,19 +95,6 @@ public class AbilityTarget
 		GridPos targetPos;
 		if (Board.Get().PlayerClampedSquare != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			targetPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
@@ -137,19 +124,6 @@ public class AbilityTarget
 		GridPos gridPos;
 		if (Board.Get().PlayerClampedSquare != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			gridPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
@@ -167,19 +141,6 @@ public class AbilityTarget
 		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
 		if (vector != Vector3.zero)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector.Normalize();
 		}
 		return new AbilityTarget(targetActor.GetGridPosWithIncrementedHeight(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
@@ -217,34 +178,12 @@ public class AbilityTarget
 		dir.y = 0f;
 		if (dir.magnitude > 0f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			dir.Normalize();
 		}
 		BoardSquare boardSquare = Board.Get()._0013(targetWorldPos.x, targetWorldPos.z);
 		GridPos targetPos;
 		if ((bool)boardSquare)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			targetPos = boardSquare.GetGridPos();
 		}
 		else
@@ -282,19 +221,6 @@ public class AbilityTarget
 		list.Add(item);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTarget item2 = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, -vector2);
 			list.Add(item2);
 		}
@@ -340,15 +266,6 @@ public class AbilityTarget
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -391,19 +308,6 @@ public class AbilityTarget
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.occupant != null)
 			{
 				result = boardSquareSafe.occupant.GetComponent<ActorData>();

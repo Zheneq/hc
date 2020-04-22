@@ -46,19 +46,6 @@ public class AuthTicket
 			long result;
 			if (AuthInfo == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = 0L;
 			}
 			else
@@ -76,19 +63,6 @@ public class AuthTicket
 			object result;
 			if (AuthInfo == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = null;
 			}
 			else
@@ -112,19 +86,6 @@ public class AuthTicket
 			object result;
 			if (AuthInfo == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = null;
 			}
 			else
@@ -142,30 +103,8 @@ public class AuthTicket
 			int result;
 			if (ChannelId != 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (AccountId != 0 && !UserName.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((!Handle.IsNullOrEmpty()) ? 1 : 0);
 					goto IL_0055;
 				}
@@ -194,44 +133,13 @@ public class AuthTicket
 		string xml;
 		if (ticketData.StartsWith("Signature: "))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = ticketData.IndexOf('\n');
 			if (num >= 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 1024)
 				{
 					xml = ticketData.Substring(num + 1);
 					goto IL_006a;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			throw new Exception("Could not parse signature for ticket");
@@ -245,15 +153,6 @@ public class AuthTicket
 		XmlNode xmlNode2 = xmlDocument.SelectSingleNode("authTicket/account");
 		if (xmlNode2 == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			xmlNode2 = xmlDocument.SelectSingleNode("authAccount/account");
 		}
 		if (xmlNode2 == null)
@@ -271,15 +170,6 @@ public class AuthTicket
 		}
 		if (xmlNode != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			authTicket.ChannelId = xmlNode.GetChildNodeAsInt64("channelId");
 		}
 		authTicket.AuthInfo = new AuthInfo();
@@ -298,15 +188,6 @@ public class AuthTicket
 			object obj;
 			if (authTicket.AuthInfo.UserName.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = "???";
 			}
 			else
@@ -316,15 +197,6 @@ public class AuthTicket
 			string text = (string)obj;
 			if (authTicket.AuthInfo.AccountId != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += $" ({authTicket.AuthInfo.AccountId})";
 			}
 			throw new Exception($"Malformed account node for {text}: {ex.Message}");
@@ -339,30 +211,12 @@ public class AuthTicket
 				string a = Convert.ToString(xmlNode3.SelectSingleNode("accountEntitlementStatus").InnerText);
 				if (a != "ACTIVE")
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					string lhs = Convert.ToString(xmlNode3.SelectSingleNode("channel").InnerText);
 					if (channelName != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!lhs.EqualsIgnoreCase(channelName))
 						{
 							continue;
@@ -376,15 +230,6 @@ public class AuthTicket
 					string childNodeAsString = xmlNode3.GetChildNodeAsString("modifiedDate", null);
 					if (!childNodeAsString.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						entitlement.modifiedDate = DateTimeOffset.Parse(childNodeAsString).UtcDateTime;
 					}
 					else
@@ -445,30 +290,8 @@ public class AuthTicket
 	{
 		if (authInfo.AccountId != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!authInfo.Handle.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!authInfo.UserName.IsNullOrEmpty())
 				{
 					AuthTicket authTicket = new AuthTicket();
@@ -476,15 +299,6 @@ public class AuthTicket
 					string ticketData = authInfo.TicketData;
 					authTicket.AddFakeEntitlements(ticketData);
 					return authTicket;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -498,19 +312,6 @@ public class AuthTicket
 		authTicket.AuthInfo.Type = AuthType.FakeTicket;
 		if (!resourceName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			userIndex = GetUserIndex(resourceName);
 		}
 		authTicket.AuthInfo.UserName = $"{userName}{userIndex + 1}";
@@ -542,42 +343,11 @@ public class AuthTicket
 		authTicket.AuthInfo.AccountCurrency = "USD";
 		if (!resourceName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!userName.Contains("+"))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int userIndex = GetUserIndex(resourceName);
 				if (userIndex != 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					authTicket.AuthInfo.UserName = userName.Replace("@", $"+{userIndex}@");
 				}
 			}
@@ -585,15 +355,6 @@ public class AuthTicket
 		int num = authTicket.AuthInfo.UserName.IndexOf('@');
 		if (num >= 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			authTicket.AuthInfo.Handle = authTicket.AuthInfo.UserName.Substring(0, num);
 		}
 		return authTicket;
@@ -604,44 +365,13 @@ public class AuthTicket
 		string text = Handle;
 		if (!text.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num = text.IndexOf('#');
 			if (num > -1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text2 = text.Substring(0, num);
 				string text3 = text.Substring(num, text.Length - num);
 				if (poundNumberFontSize > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text2 + "<size=" + poundNumberFontSize + ">" + text3 + "</size>";
 				}
 			}
@@ -662,22 +392,9 @@ public class AuthTicket
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int num = array[1].GetHashCode() % 900 + 100;
 					if (num < 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = -num;
 					}
 					return $"{array[0]}#{num}";
@@ -693,19 +410,6 @@ public class AuthTicket
 		m_entitlementsByAccountEntitlementId.Add(entitlement.accountEntitlementId, entitlement);
 		if (!m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out AuthEntitlement value))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = default(AuthEntitlement);
 			value.accountEntitlementId = entitlement.accountEntitlementId;
 			value.entitlementId = entitlement.entitlementId;
@@ -714,28 +418,10 @@ public class AuthTicket
 		value.entitlementAmount += entitlement.entitlementAmount;
 		if (value.expirationDate < entitlement.expirationDate)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value.expirationDate = entitlement.expirationDate;
 		}
 		if (value.modifiedDate < entitlement.modifiedDate)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value.modifiedDate = entitlement.modifiedDate;
 		}
 		m_entitlementsByCode[value.entitlementCode] = value;
@@ -760,19 +446,6 @@ public class AuthTicket
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AddFakeEntitlement(text);
 			}
 		}
@@ -799,10 +472,6 @@ public class AuthTicket
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return value;
 				}
 			}
@@ -826,10 +495,6 @@ public class AuthTicket
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_userIndex;
 				}
 			}
@@ -844,22 +509,12 @@ public class AuthTicket
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				s_userIndex = i;
 				return s_userIndex;
 			}
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			s_userIndex = -1;
 			return s_userIndex;
 		}

@@ -68,10 +68,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -89,15 +85,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_LayoutRebuildQueue.Count > 0)
 				{
 					m_LayoutRebuildQueue.Clear();
@@ -109,20 +96,10 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					if (m_GraphicRebuildQueue.Count > 0)
 					{
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							m_GraphicRebuildQueue.Clear();
 							m_GraphicQueueLookup.Clear();
 							return;

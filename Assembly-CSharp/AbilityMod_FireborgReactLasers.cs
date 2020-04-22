@@ -41,15 +41,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AddOnHitDataTokens(tokens, m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser);
 			AbilityMod.AddToken(tokens, m_extraShieldIfLowHealthMod, "ExtraShieldIfLowHealth", string.Empty, fireborgReactLasers.m_extraShieldIfLowHealth);
@@ -74,19 +65,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				baseVal = fireborgReactLasers.m_extraShieldIfLowHealth;
 			}
 			else
@@ -99,15 +77,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgReactLasers.m_lowHealthThresh;
 			}
 			else
@@ -120,15 +89,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgReactLasers.m_shieldPerHitReceivedForNextTurn;
 			}
 			else
@@ -141,15 +101,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = fireborgReactLasers.m_earlyDepleteShieldOnNextTurn;
 			}
 			else

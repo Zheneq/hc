@@ -86,19 +86,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			Vector3 vector;
 			if (UseGridPosSquarePosAsFreePos)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				vector = gameplayRefSquare.ToVector3();
 			}
 			else
@@ -126,10 +113,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Vector3 vector2D = m_customCenterPosDelegate(targetingActor, currentTarget);
 					return Board.Get().GetBoardSquare(vector2D);
 				}
@@ -139,15 +122,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		GridPos gridPos;
 		if (GetCurrentRangeInSquares() != 0f)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gridPos = currentTarget.GridPos;
 		}
 		else
@@ -179,19 +153,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResetSquareIndicatorIndexToUse();
 		}
 		BoardSquare gameplayRefSquare = GetGameplayRefSquare(currentTarget, targetingActor);
@@ -212,15 +173,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
@@ -233,27 +185,9 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			if (m_affectsCaster == AffectsActor.Possible)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool num;
 				if (m_affectCasterDelegate == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = flag2;
 				}
 				else
@@ -268,26 +202,8 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!actorData.IsVisibleToClient())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = null;
 				}
 			}
@@ -299,76 +215,22 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					HandleAddActorInShape(current, targetingActor, currentTarget, damageOrigin, actorData);
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_affectsCaster == AffectsActor.Always)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
 				if (abilityTooltipSubject == AbilityTooltipSubject.None)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityTooltipSubject = m_allyTooltipSubject;
 				}
 				AddActorInRange(targetingActor, damageOrigin, targetingActor, abilityTooltipSubject);
 			}
 			if (m_affectsBestTarget == AffectsActor.Always)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AddActorInRange(actorData, damageOrigin, targetingActor, m_allyTooltipSubject);
 					}
 					else
@@ -379,15 +241,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AreaEffectUtils.OperateOnSquaresInShape(m_indicatorHandler, m_shape, freePos, gameplayRefSquare, m_penetrateLoS, targetingActor);
 			}
 		}
@@ -397,11 +250,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			HideUnusedSquareIndicators();
 			return;
 		}
@@ -412,19 +260,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		int num;
 		if (!(potentialTarget != targetingActor))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((m_affectsCaster == AffectsActor.Possible) ? 1 : 0);
 		}
 		else
@@ -435,15 +270,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		bool flag2 = potentialTarget != bestTarget || m_affectsBestTarget == AffectsActor.Possible;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				while (true)
@@ -455,27 +281,9 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 					default:
 						if (potentialTarget == targetingActor)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityTooltipSubject abilityTooltipSubject = m_casterTooltipSubject;
 							if (abilityTooltipSubject == AbilityTooltipSubject.None)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								abilityTooltipSubject = m_allyTooltipSubject;
 							}
 							AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject);

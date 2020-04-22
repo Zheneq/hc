@@ -50,19 +50,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (m_powerupSpawnerRoot == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
 		}
 		return m_powerupSpawnerRoot;
@@ -72,19 +59,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (m_powerupSequencesRoot == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
 		}
 		return m_powerupSequencesRoot;
@@ -101,10 +75,6 @@ public class PowerUpManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -149,10 +119,6 @@ public class PowerUpManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_guidToPowerupDictionary.Add(guid, pup);
 					return;
 				}
@@ -175,34 +141,12 @@ public class PowerUpManager : MonoBehaviour
 		m_powerUpListeners = new List<PowerUp.IPowerUpListener>();
 		if (s_powerUpListenersTemp != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = s_powerUpListenersTemp.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					PowerUp.IPowerUpListener current = enumerator.Current;
 					AddListener(current);
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			s_powerUpListenersTemp.Clear();
@@ -217,19 +161,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (s_powerUpListenersTemp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_powerUpListenersTemp.Clear();
 		}
 		s_instance = null;
@@ -266,55 +197,15 @@ public class PowerUpManager : MonoBehaviour
 					{
 						if (num >= activePowerUps.Length)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							break;
 						}
 						if (activePowerUps[num] != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (activePowerUps[num].boardSquare != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GridPos gridPos2 = activePowerUps[num].boardSquare.GetGridPos();
 								if (gridPos2.x == gridPos.x)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gridPos2.y == gridPos.y)
 									{
 										result = activePowerUps[num];
@@ -347,68 +238,19 @@ public class PowerUpManager : MonoBehaviour
 		{
 			if (powerUpListener != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
 				for (int i = 0; i < activePowerUps.Length; i++)
 				{
 					if (activePowerUps[i] != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activePowerUps[i].boardSquare != null)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activePowerUps[i].boardSquare == square)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(activePowerUps[i]);
 							}
 						}
 					}
-				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -425,19 +267,6 @@ public class PowerUpManager : MonoBehaviour
 				PowerUp.IPowerUpListener current = enumerator.Current;
 				if (current != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (current.IsPowerUpSpawnPoint(square))
 					{
 						while (true)
@@ -483,19 +312,6 @@ public class PowerUpManager : MonoBehaviour
 		{
 			if (clientPowerUp.boardSquare == square)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(clientPowerUp);
 			}
 		}
@@ -517,10 +333,6 @@ public class PowerUpManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

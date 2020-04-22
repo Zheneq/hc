@@ -31,15 +31,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect);
 			return;
@@ -56,19 +47,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit;
 		}
 		else
@@ -82,15 +60,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		object baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlStickyBomb.m_bombInfo.onExplodeEffect;
 		}
 		else
@@ -100,26 +69,8 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		empty = str2 + AbilityModHelper.GetModPropertyDesc(enemyOnExplosionEffectOverride, "{ Enemy on Explode Effect }", flag, (StandardEffectInfo)baseVal2);
 		if (m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_cooldownAddAmount != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text = empty;
 				object[] obj = new object[7]
 				{
@@ -134,15 +85,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 				object obj2;
 				if (m_cooldownAddAmount < 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = "Reduces";
 				}
 				else

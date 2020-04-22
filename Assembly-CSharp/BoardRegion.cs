@@ -21,19 +21,6 @@ public class BoardRegion
 		{
 			if (boardQuad == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Log.Error("Null BoardQuad in BoardRegion; fix region coordinator's data.");
 			}
 			else
@@ -46,26 +33,8 @@ public class BoardRegion
 						BoardSquare current = enumerator.Current;
 						if (!m_squaresInRegion.Contains(current))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_squaresInRegion.Add(current);
 						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -88,19 +57,6 @@ public class BoardRegion
 	{
 		if (m_squaresInRegion == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Did not call CacheSquaresInRegion before calling GetSquaresInRegion.  This will cause slowdowns");
 			CacheSquaresInRegion();
 		}
@@ -123,19 +79,6 @@ public class BoardRegion
 					float num2 = current.HorizontalDistanceInSquaresTo(centerSquare);
 					if (num2 < num)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						num = num2;
 						result = current;
 					}
@@ -166,30 +109,8 @@ public class BoardRegion
 				ActorData occupantActor = current.OccupantActor;
 				if (occupantActor != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!list.Contains(occupantActor))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(occupantActor);
 					}
 				}
@@ -228,23 +149,10 @@ public class BoardRegion
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -255,48 +163,17 @@ public class BoardRegion
 		Vector3 zero = Vector3.zero;
 		if (m_quads.Length > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardQuad[] quads = m_quads;
 			foreach (BoardQuad boardQuad in quads)
 			{
 				if (boardQuad == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Null BoardQuad in BoardRegion; fix region coordinator's data.");
 				}
 				else
 				{
 					zero += (boardQuad.m_corner1.position + boardQuad.m_corner2.position) / 2f;
 				}
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			zero /= (float)m_quads.Length;
 		}
@@ -316,19 +193,6 @@ public class BoardRegion
 		{
 			if (item.x == x)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (item.y == y)
 				{
 					return true;
@@ -349,10 +213,6 @@ public class BoardRegion
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return 0f;
 				}
 			}
@@ -360,15 +220,6 @@ public class BoardRegion
 		List<BoardSquare> squaresInRegion = GetSquaresInRegion();
 		if (squaresInRegion != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (squaresInRegion.Count != 0)
 			{
 				BoardSquare boardSquare = null;
@@ -380,43 +231,16 @@ public class BoardRegion
 						BoardSquare boardSquare2 = squaresInRegion[num];
 						if (boardSquare2 == null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (_001D == boardSquare2)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = _001D;
 								break;
 							}
 							if (boardSquare == null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = boardSquare2;
 							}
 							else
@@ -425,30 +249,12 @@ public class BoardRegion
 								float num3 = boardSquare2.HorizontalDistanceOnBoardTo(_001D);
 								if (num3 < num2)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									boardSquare = boardSquare2;
 								}
 							}
 						}
 						num++;
 						continue;
-					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -479,19 +285,6 @@ public class BoardRegion
 		{
 			if (item.WorldBounds.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 center = item.WorldBounds.Value.center;
 				center.y += 0.1f;
 				Gizmos.DrawWireCube(center, item.WorldBounds.Value.extents * 2f);
@@ -516,10 +309,6 @@ public class BoardRegion
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return CaptureTheFlag.Get().m_turnInRegionIcon;
 				}
 			}

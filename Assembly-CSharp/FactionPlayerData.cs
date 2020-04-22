@@ -20,15 +20,6 @@ public class FactionPlayerData
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num -= FactionPlayerProgressInfo[num2].ExperienceToNextLevel;
 				num2++;
 				goto IL_003e;

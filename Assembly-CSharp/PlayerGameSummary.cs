@@ -193,19 +193,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		int result;
 		if (IsInTeamA())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 2;
 		}
 		else
@@ -245,19 +232,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		List<AbilityGameSummary> abilityGameSummaryList = AbilityGameSummaryList;
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache0 = ((AbilityGameSummary a) => a.TotalHealing);
 		}
 		return abilityGameSummaryList.Select(_003C_003Ef__am_0024cache0).Sum();
@@ -274,10 +248,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Math.Max(1f, NumDeaths + 1);
 				}
 			}
@@ -296,10 +266,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)TotalPlayerDamage / (float)TotalGameTurns;
 				}
 			}
@@ -318,10 +284,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)TeamExtraEnergyByEnergizedFromMe / (float)TotalGameTurns;
 				}
 			}
@@ -340,10 +302,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)GetTotalTeamDamageAdjustedByMe() / (float)TotalGameTurns;
 				}
 			}
@@ -372,10 +330,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)MyOutgoingExtraDamageFromEmpowered / (float)TotalGameTurns;
 				}
 			}
@@ -405,10 +359,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)(TotalPlayerDamageReceived + NetDamageAvoidedByEvades + MyIncomingDamageReducedByCover) / numLives.Value;
 				}
 			}
@@ -428,10 +378,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -453,10 +399,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -476,10 +418,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)TotalPlayerDamage / numLives.Value;
 				}
 			}
@@ -499,10 +437,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)NetDamageAvoidedByEvades / numLives.Value;
 				}
 			}
@@ -532,10 +466,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)Math.Max(1, TotalGameTurns) / numLives.Value;
 				}
 			}
@@ -554,10 +484,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return (float)TotalPlayerDamageReceived / (float)TotalGameTurns;
 				}
 			}
@@ -576,10 +502,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return MovementDeniedByMe / (float)TotalGameTurns;
 				}
 			}
@@ -602,10 +524,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return GetIncomingDamageMitigatedByCoverPerLife();
 				}
 			}
@@ -814,11 +732,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		case StatDisplaySettings.StatType.AvgLifeSpan:
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return GetAvgLifeSpan();
 			}
 		default:
@@ -830,19 +743,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (-1 < FreelancerStatIndex)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (FreelancerStatIndex < FreelancerStats.Count)
 			{
 				while (true)

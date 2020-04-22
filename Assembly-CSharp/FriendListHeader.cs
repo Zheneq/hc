@@ -48,26 +48,12 @@ public class FriendListHeader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int k = 0; k < m_btnStatusColorDisplays.Length; k++)
 			{
 				m_btnStatusColorDisplays[k].color = m_friendListColors[k];
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				m_closeBtn.spriteController.callback = CloseBtnClicked;
 				SetPlayerStatus(PlayerOnlineStatus.Online);
 				return;
@@ -83,15 +69,6 @@ public class FriendListHeader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIFrontEnd.Get().TogglePlayerFriendListVisibility();
 			return;
 		}
@@ -113,19 +90,6 @@ public class FriendListHeader : MonoBehaviour
 				m_statusLabels[i].text = StringUtil.TR("Busy", "NewFrontEndScene");
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (status == PlayerOnlineStatus.Away)
 			{
 				m_statusLabels[i].text = StringUtil.TR("Away", "NewFrontEndScene");
@@ -133,11 +97,6 @@ public class FriendListHeader : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (!(clientGameManager != null))
 			{
@@ -145,20 +104,10 @@ public class FriendListHeader : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (clientGameManager.IsConnectedToLobbyServer)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						clientGameManager.UpdatePlayerStatus(status.ToString());
 						return;
 					}
@@ -180,15 +129,6 @@ public class FriendListHeader : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (i == 0)
 				{
 					while (true)
@@ -221,11 +161,6 @@ public class FriendListHeader : MonoBehaviour
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						SetPlayerStatus(PlayerOnlineStatus.Away);
 						return;
 					}
@@ -252,31 +187,9 @@ public class FriendListHeader : MonoBehaviour
 		m_statusDropdownBtn.SetSelected(flag, false, string.Empty, string.Empty);
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_statusSelectBtns.Length; i++)
 			{
 				m_statusSelectBtns[i].spriteController.ForceSetPointerEntered(false);
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (m_currentStatus == PlayerOnlineStatus.Online)

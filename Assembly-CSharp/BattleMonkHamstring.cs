@@ -33,19 +33,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Hamstring";
 		}
 		SetupTargeter();
@@ -62,10 +49,6 @@ public class BattleMonkHamstring : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_LaserWithShape(this, GetExplodeShape(), GetLaserWidth(), GetLaserRange(), m_laserInfo.penetrateLos, GetMaxTargets(), m_laserInfo.affectsAllies, m_laserInfo.affectsCaster, m_laserInfo.affectsEnemies);
 					return;
 				}
@@ -101,19 +84,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(m_damageAfterFirstHit);
 		}
 		else
@@ -133,19 +103,6 @@ public class BattleMonkHamstring : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserInfo.range;
 		}
 		else
@@ -160,19 +117,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserInfo.maxTargets;
 		}
 		else
@@ -187,19 +131,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -214,19 +145,6 @@ public class BattleMonkHamstring : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0f;
 		}
 		else
@@ -241,19 +159,6 @@ public class BattleMonkHamstring : Ability
 		GameObject result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_projectileSequencePrefab;
 		}
 		else
@@ -268,19 +173,6 @@ public class BattleMonkHamstring : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_explodeOnActorHit;
 		}
 		else
@@ -295,19 +187,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_explosionDamageAmount;
 		}
 		else
@@ -322,19 +201,6 @@ public class BattleMonkHamstring : Ability
 		AbilityAreaShape result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_explodeShape;
 		}
 		else
@@ -349,19 +215,6 @@ public class BattleMonkHamstring : Ability
 		int damageAfterFirstHit = GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (hitOrder > 0)
 			{
 				while (true)
@@ -386,19 +239,6 @@ public class BattleMonkHamstring : Ability
 		m_laserHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
 		if (m_explodeOnActorHit)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, m_explosionDamageAmount);
 			m_explosionHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 		}
@@ -422,19 +262,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_LaserWithShape)
 			{
 				List<ActorData> lastLaserHitActors = (base.Targeter as AbilityUtil_Targeter_LaserWithShape).GetLastLaserHitActors();
@@ -442,15 +269,6 @@ public class BattleMonkHamstring : Ability
 				{
 					if (targetActor == lastLaserHitActors[i])
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage = CalcDamageForOrderIndex(i);
 						break;
 					}
@@ -458,15 +276,6 @@ public class BattleMonkHamstring : Ability
 			}
 			else if (base.Targeter is AbilityUtil_Targeter_BounceLaser)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
 				for (int j = 0; j < hitActorContext.Count; j++)
 				{
@@ -480,30 +289,12 @@ public class BattleMonkHamstring : Ability
 			}
 			else if (base.Targeter is AbilityUtil_Targeter_Laser)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext3 = (base.Targeter as AbilityUtil_Targeter_Laser).GetHitActorContext();
 				for (int k = 0; k < hitActorContext3.Count; k++)
 				{
 					AbilityUtil_Targeter_Laser.HitActorContext hitActorContext4 = hitActorContext3[k];
 					if (hitActorContext4.actor == targetActor)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage = CalcDamageForOrderIndex(k);
 						break;
 					}
@@ -512,15 +303,6 @@ public class BattleMonkHamstring : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = GetExplosionDamage();
 		}
 		return true;
@@ -539,22 +321,9 @@ public class BattleMonkHamstring : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Damage] = GetLaserDamage();
 					}
 					else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
@@ -576,19 +345,6 @@ public class BattleMonkHamstring : Ability
 		int val;
 		if ((bool)abilityMod_BattleMonkHamstring)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_BattleMonkHamstring.m_laserDamageMod.GetModifiedValue(m_laserDamageAmount);
 		}
 		else
@@ -599,26 +355,8 @@ public class BattleMonkHamstring : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_BattleMonkHamstring)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityMod_BattleMonkHamstring.m_useLaserHitEffectOverride)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				effectInfo = abilityMod_BattleMonkHamstring.m_laserHitEffectOverride;
 				goto IL_0086;
 			}
@@ -635,15 +373,6 @@ public class BattleMonkHamstring : Ability
 		int val2;
 		if ((bool)abilityMod_BattleMonkHamstring)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_BattleMonkHamstring.m_explosionDamageMod.GetModifiedValue(m_explosionDamageAmount);
 		}
 		else
@@ -653,15 +382,6 @@ public class BattleMonkHamstring : Ability
 		AddTokenInt(tokens, "ExplosionDamageAmount", empty2, val2);
 		if ((bool)abilityMod_BattleMonkHamstring)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityMod_BattleMonkHamstring.m_useExplosionHitEffectOverride)
 			{
 				effectInfo2 = abilityMod_BattleMonkHamstring.m_explosionHitEffectOverride;
@@ -683,10 +403,6 @@ public class BattleMonkHamstring : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_BattleMonkHamstring);
 					SetupTargeter();
 					return;

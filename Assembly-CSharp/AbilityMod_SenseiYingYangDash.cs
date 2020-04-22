@@ -55,15 +55,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_secondCastTurnsMod, "SecondCastTurns", string.Empty, senseiYingYangDash.m_secondCastTurns);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, senseiYingYangDash.m_damage);
 			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectMod, "EnemyHitEffect", senseiYingYangDash.m_enemyHitEffect);
@@ -90,19 +81,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (int)senseiYingYangDash.m_chooseDestShape;
 		}
 		else
@@ -115,15 +93,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiYingYangDash.m_secondCastTurns;
 		}
 		else
@@ -136,15 +105,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (senseiYingYangDash.m_secondDashAllowBothTeams ? 1 : 0);
 		}
 		else
@@ -157,15 +117,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiYingYangDash.m_damage;
 		}
 		else
@@ -178,15 +129,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiYingYangDash.m_enemyHitEffect;
 		}
 		else
@@ -199,15 +141,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiYingYangDash.m_extraDamageForDiffTeamSecondDash;
 		}
 		else
@@ -221,15 +154,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiYingYangDash.m_enemyLowHealthThresh;
 		}
 		else
@@ -242,15 +166,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (senseiYingYangDash.m_reverseHealthThreshForEnemy ? 1 : 0);
 		}
 		else
@@ -263,15 +178,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiYingYangDash.m_healOnAlly;
 		}
 		else
@@ -284,15 +190,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		object baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = senseiYingYangDash.m_allyHitEffect;
 		}
 		else
@@ -305,15 +202,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = senseiYingYangDash.m_extraHealOnAllyForDiffTeamSecondDash;
 		}
 		else
@@ -326,15 +214,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = senseiYingYangDash.m_extraHealOnAllyForLowHealth;
 		}
 		else
@@ -347,15 +226,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		float baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = senseiYingYangDash.m_allyLowHealthThresh;
 		}
 		else
@@ -368,15 +238,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = (senseiYingYangDash.m_reverseHealthThreshForAlly ? 1 : 0);
 		}
 		else
@@ -389,15 +250,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = senseiYingYangDash.m_cdrIfNoSecondDash;
 		}
 		else

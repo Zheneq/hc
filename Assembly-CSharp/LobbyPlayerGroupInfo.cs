@@ -35,19 +35,6 @@ public class LobbyPlayerGroupInfo
 		int num;
 		if (m_ChararacterInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((m_ChararacterInfo.CharacterType != newInfo.CharacterType) ? 1 : 0);
 		}
 		else
@@ -66,20 +53,10 @@ public class LobbyPlayerGroupInfo
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(GameManager.Get().GameplayOverrides, switchedChars, isFromServerResponse);
 					return;
 				}

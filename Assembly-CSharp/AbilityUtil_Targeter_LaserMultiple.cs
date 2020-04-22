@@ -31,33 +31,11 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 			{
 				goto IL_0084;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		m_highlights = new List<GameObject>();
 		for (int i = 0; i < m_laserCount; i++)
 		{
 			m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f));
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_0084;
 		IL_0084:
@@ -82,27 +60,9 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 					ActorData current = enumerator.Current;
 					AddActorInRange(current, laserCoords2.start, targetingActor, AbilityTooltipSubject.Primary, true);
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_affectsTargetingActor)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AddActorInRange(targetingActor, laserCoords2.start, targetingActor);
 			}
 			float magnitude = (laserCoords2.end - laserCoords2.start).magnitude;

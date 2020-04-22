@@ -34,15 +34,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			base.name += " [Prime]";
 			base.enabled = false;
 			return;
@@ -54,19 +45,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		GameEventManager.Get().RemoveAllListenersFrom(this);
 		if (m_allocatedStateTableParent != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_allocatedStateTableParent);
 			m_allocatedStateTableParent = null;
 		}
@@ -76,11 +54,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			fsm.DestroyAllStates();
 			return;
 		}
@@ -91,19 +64,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		int result;
 		if (fsm != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (fsm.CanTransistion(trans) ? 1 : 0);
 		}
 		else
@@ -121,15 +81,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			fsm.OnGameEvent(eventType, args);
 			return;
 		}
@@ -181,10 +132,6 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					yield return StartCoroutine(fsm.TakeTurn());
 					/*Error: Unable to find new state assignment for yield return*/;
 				}

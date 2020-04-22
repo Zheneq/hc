@@ -83,19 +83,6 @@ namespace TMPro
 			{
 				if (m_characterDictionary == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ReadFontDefinition();
 				}
 				return m_characterDictionary;
@@ -142,27 +129,9 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
 				if (_003C_003Ef__am_0024cache0 == null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache0 = ((TMP_Glyph s) => s.id);
 				}
 				m_glyphInfoList = glyphInfoList.OrderBy(_003C_003Ef__am_0024cache0).ToList();
@@ -191,41 +160,14 @@ namespace TMPro
 				}
 				if (tMP_Glyph.scale == 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					tMP_Glyph.scale = 1f;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				TMP_Glyph tMP_Glyph2 = new TMP_Glyph();
 				if (m_characterDictionary.ContainsKey(32))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterDictionary[32].width = m_characterDictionary[32].xAdvance;
 					m_characterDictionary[32].height = m_fontInfo.Ascender - m_fontInfo.Descender;
 					m_characterDictionary[32].yOffset = m_fontInfo.Ascender;
@@ -247,29 +189,11 @@ namespace TMPro
 				}
 				if (!m_characterDictionary.ContainsKey(160))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
 					m_characterDictionary.Add(160, tMP_Glyph2);
 				}
 				if (!m_characterDictionary.ContainsKey(8203))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
 					tMP_Glyph2.width = 0f;
 					tMP_Glyph2.xAdvance = 0f;
@@ -277,15 +201,6 @@ namespace TMPro
 				}
 				if (!m_characterDictionary.ContainsKey(8288))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tMP_Glyph2 = TMP_Glyph.Clone(m_characterDictionary[32]);
 					tMP_Glyph2.width = 0f;
 					tMP_Glyph2.xAdvance = 0f;
@@ -293,15 +208,6 @@ namespace TMPro
 				}
 				if (!m_characterDictionary.ContainsKey(10))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tMP_Glyph2 = new TMP_Glyph();
 					tMP_Glyph2.id = 10;
 					tMP_Glyph2.x = 0f;
@@ -315,29 +221,11 @@ namespace TMPro
 					m_characterDictionary.Add(10, tMP_Glyph2);
 					if (!m_characterDictionary.ContainsKey(13))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_characterDictionary.Add(13, tMP_Glyph2);
 					}
 				}
 				if (!m_characterDictionary.ContainsKey(9))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tMP_Glyph2 = new TMP_Glyph();
 					tMP_Glyph2.id = 9;
 					tMP_Glyph2.x = m_characterDictionary[32].x;
@@ -357,52 +245,16 @@ namespace TMPro
 				}
 				if (m_fontInfo.Scale == 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fontInfo.Scale = 1f;
 				}
 				if (m_fontInfo.strikethrough == 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_fontInfo.strikethrough = m_fontInfo.CapHeight / 2.5f;
 				}
 				if (m_fontInfo.Padding == 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (material.HasProperty(ShaderUtilities.ID_GradientScale))
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_fontInfo.Padding = material.GetFloat(ShaderUtilities.ID_GradientScale) - 1f;
 					}
 				}
@@ -414,28 +266,10 @@ namespace TMPro
 					KerningPairKey kerningPairKey = new KerningPairKey(kerningPair.AscII_Left, kerningPair.AscII_Right);
 					if (!m_kerningDictionary.ContainsKey(kerningPairKey.key))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_kerningDictionary.Add(kerningPairKey.key, kerningPair);
 					}
 					else if (!TMP_Settings.warningsDisabled)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.LogWarning("Kerning Key for [" + kerningPairKey.ascii_Left + "] and [" + kerningPairKey.ascii_Right + "] already exists.");
 					}
 				}
@@ -453,15 +287,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_glyphInfoList.Count == 0)
 				{
 					while (true)
@@ -478,15 +303,6 @@ namespace TMPro
 				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
 				if (_003C_003Ef__am_0024cache1 == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_003C_003Ef__am_0024cache1 = ((TMP_Glyph item) => item.id);
 				}
 				m_glyphInfoList = glyphInfoList.OrderBy(_003C_003Ef__am_0024cache1).ToList();
@@ -505,10 +321,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -531,10 +343,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -557,10 +365,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -571,26 +375,8 @@ namespace TMPro
 			}
 			if (searchFallbacks)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (fallbackFontAssets != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (fallbackFontAssets.Count > 0)
 					{
 						for (int i = 0; i < fallbackFontAssets.Count; i++)
@@ -601,37 +387,14 @@ namespace TMPro
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!fallbackFontAssets[i].characterDictionary.ContainsKey(character))
 								{
 									continue;
 								}
 								while (true)
 								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
 									return true;
 								}
-							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 						}
@@ -639,37 +402,10 @@ namespace TMPro
 				}
 				if (TMP_Settings.fallbackFontAssets != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.fallbackFontAssets.Count > 0)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int j = 0; j < TMP_Settings.fallbackFontAssets.Count; j++)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (TMP_Settings.fallbackFontAssets[j] != null)
 							{
 								if (TMP_Settings.fallbackFontAssets[j].characterDictionary != null && TMP_Settings.fallbackFontAssets[j].characterDictionary.ContainsKey(character))
@@ -677,15 +413,6 @@ namespace TMPro
 									return true;
 								}
 								continue;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 						}
@@ -707,29 +434,11 @@ namespace TMPro
 			{
 				if (!m_characterDictionary.ContainsKey(text[i]))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					missingCharacters.Add(text[i]);
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (missingCharacters.Count == 0)
 				{
 					while (true)
@@ -758,10 +467,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
@@ -774,21 +479,11 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return true;
 			}
 		}
@@ -802,15 +497,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return text;
 			}
 		}
@@ -824,15 +510,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return array;
 			}
 		}

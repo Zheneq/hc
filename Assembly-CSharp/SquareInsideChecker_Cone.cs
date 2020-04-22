@@ -50,19 +50,6 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 		int ignoreLoS;
 		if (!m_useLosPosOverride)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ignoreLoS = (m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -74,15 +61,6 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 		{
 			if (m_penetrateLos)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inLos = true;
 			}
 			else
@@ -99,26 +77,8 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 				}
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_useConeLosRulesForOverride)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inLos = AreaEffectUtils.SquareHasLosForCone(vector, boardSquare, square, m_caster);
 					}
 					else

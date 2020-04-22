@@ -28,15 +28,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, scoundrelBlindFire.m_coneWidthAngle);
 			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, scoundrelBlindFire.m_damageAmount);
 			AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargetsHit, "EffectOnTargetHit", null, false);
@@ -54,19 +45,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = scoundrelBlindFire.m_damageAmount;
 		}
 		else
@@ -80,15 +58,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (scoundrelBlindFire.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else

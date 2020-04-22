@@ -26,19 +26,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		m_modelAnimator = GetComponentInChildren<Animator>();
 		if (m_modelAnimator != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_modelAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 		}
 		if (!(m_persistentVfxPrefab != null))
@@ -47,21 +34,11 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_persistentVfxJoint.Initialize(base.gameObject);
 			if (m_persistentVfxJoint.m_jointObject != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_persistentVfxInstance = Object.Instantiate(m_persistentVfxPrefab);
 					m_persistentVfxInstance.transform.parent = m_persistentVfxJoint.m_jointObject.transform;
 					m_persistentVfxInstance.transform.localPosition = Vector3.zero;
@@ -83,19 +60,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		if (m_persistentVfxInstance != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_persistentVfxInstance);
 		}
 		OnTempSatelliteDestroy();
@@ -115,15 +79,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TempSatelliteAnimationEventReceiver tempSatelliteAnimationEventReceiver = gameObject2.AddComponent<TempSatelliteAnimationEventReceiver>();
 			tempSatelliteAnimationEventReceiver.Setup(this);
 			return;
@@ -146,10 +101,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_owningSequence.Caster;
 				}
 			}
@@ -178,24 +129,10 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hasSpawnAnim)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_modelAnimator.SetTrigger("Spawn");
 					return;
 				}
@@ -212,24 +149,10 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_hasDespawnAnim)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_modelAnimator.SetTrigger("Despawn");
 					return;
 				}
@@ -259,30 +182,8 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		int num;
 		if (m_onlyPassAnimEventsIfActorDead)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_owningSequence.Caster.IsModelAnimatorDisabled())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (m_owningSequence.Caster.IsDead() ? 1 : 0);
 				goto IL_0052;
 			}
@@ -297,11 +198,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (flag)
 			{
 				SequenceManager.Get().OnAnimationEvent(m_owningSequence.Caster, eventObject, base.gameObject, m_owningSequence.Source);

@@ -46,19 +46,6 @@ public class ControlPointCoordinator : MonoBehaviour
 	{
 		if (s_controlPointCoordinators == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_controlPointCoordinators = new List<ControlPointCoordinator>();
 		}
 		return s_controlPointCoordinators;
@@ -72,27 +59,9 @@ public class ControlPointCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_controlPointLocationInfo = new ControlPointLocationInfo[m_controlPointSpawnInfo.Length];
 			if (s_controlPointCoordinators == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				s_controlPointCoordinators = new List<ControlPointCoordinator>();
 			}
 			s_controlPointCoordinators.Add(this);
@@ -108,15 +77,6 @@ public class ControlPointCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (s_controlPointCoordinators.Contains(this))
 			{
 				s_controlPointCoordinators.Remove(this);
@@ -136,10 +96,6 @@ public class ControlPointCoordinator : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -150,11 +106,6 @@ public class ControlPointCoordinator : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			ControlPointSpawnInfo[] controlPointSpawnInfo = m_controlPointSpawnInfo;
 			foreach (ControlPointSpawnInfo controlPointSpawnInfo2 in controlPointSpawnInfo)
 			{
@@ -183,19 +134,6 @@ public class ControlPointCoordinator : MonoBehaviour
 		}
 		if (index >= 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (index < m_controlPointSpawnInfo.Length)
 			{
 				if (m_controlPointSpawnInfo[index] == null)
@@ -219,27 +157,9 @@ public class ControlPointCoordinator : MonoBehaviour
 				}
 				if (m_maxActivePoints != -1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_maxActivePoints <= GetNumActivePoints())
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Vector3 center = m_controlPointSpawnInfo[index].m_boardRegion.GetCenter();
@@ -265,15 +185,6 @@ public class ControlPointCoordinator : MonoBehaviour
 				NetworkServer.Spawn(gameObject);
 				return;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Log.Error($"Trying to spawn a controlPoint on coordinator {base.name}, but the index ({index}) is invalid.");
 	}
@@ -288,28 +199,10 @@ public class ControlPointCoordinator : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (num4 < num2)
 				{
 					if (m_controlPointLocationInfo[num3] != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!(m_controlPointLocationInfo[num3].m_controlPoint == null))
 						{
 							goto IL_0071;
@@ -319,11 +212,6 @@ public class ControlPointCoordinator : MonoBehaviour
 					{
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							SpawnControlPoint(num3);
 							return;
 						}
@@ -359,40 +247,13 @@ public class ControlPointCoordinator : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (controlPointLocationInfo.m_controlPoint != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return num;
 		}
 	}
@@ -402,43 +263,12 @@ public class ControlPointCoordinator : MonoBehaviour
 		int currentTurn = GameFlowData.Get().CurrentTurn;
 		if (currentTurn >= m_initialSpawnDelay)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_controlPointSpawnInfo.Length; i++)
 			{
 				if (m_controlPointLocationInfo[i] == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnControlPoint(i);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = 0; j < m_controlPointLocationInfo.Length; j++)
@@ -447,64 +277,23 @@ public class ControlPointCoordinator : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_controlPointLocationInfo[j].m_respawnTurn == -1)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_controlPointLocationInfo[j].m_respawnTurn <= currentTurn)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SpawnControlPoint(j);
 			}
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			List<ControlPoint> list = new List<ControlPoint>();
 			for (int k = 0; k < m_controlPointLocationInfo.Length; k++)
 			{
 				if (m_controlPointLocationInfo[k] == null)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (m_controlPointLocationInfo[k].m_controlPoint != null)
 				{
@@ -525,15 +314,6 @@ public class ControlPointCoordinator : MonoBehaviour
 					GameObject gameObject = current.gameObject;
 					NetworkServer.Destroy(gameObject);
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			int numActivePoints = GetNumActivePoints();
 			if (m_minActivePoints <= numActivePoints)
@@ -542,11 +322,6 @@ public class ControlPointCoordinator : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				int num = m_minActivePoints - numActivePoints;
 				for (int l = 0; l < num; l++)
 				{

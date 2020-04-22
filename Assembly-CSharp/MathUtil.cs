@@ -10,19 +10,6 @@ public static class MathUtil
 		}
 		if (value < minValue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = minValue;
 		}
 		return value;
@@ -32,32 +19,10 @@ public static class MathUtil
 	{
 		if (value > maxValue)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value = maxValue;
 		}
 		if (value < minValue)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value = minValue;
 		}
 		return value;

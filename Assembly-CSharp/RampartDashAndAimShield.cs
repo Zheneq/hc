@@ -74,19 +74,6 @@ public class RampartDashAndAimShield : Ability
 		}
 		if (GetNumTargets() != 2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("RampartDashAndAimShield: Expected 2 entries in Target Data");
 		}
 		SetupTargeter();
@@ -135,19 +122,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -158,15 +132,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedShieldFrontEnemyEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedShieldFrontEnemyEffect = m_abilityMod.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect);
 		}
 		else
@@ -177,15 +142,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -205,19 +161,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chargeRadiusMod.GetModifiedValue(m_chargeRadius);
 		}
 		else
@@ -237,19 +180,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_radiusAroundEndMod.GetModifiedValue(m_radiusAroundEnd);
 		}
 		else
@@ -264,19 +194,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_chargePenetrateLosMod.GetModifiedValue(m_chargePenetrateLos);
 		}
 		else
@@ -291,19 +208,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -318,19 +222,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (m_cachedEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEnemyHitEffect;
 		}
 		else
@@ -345,19 +236,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
@@ -372,19 +250,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (m_cachedAllyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedAllyHitEffect;
 		}
 		else
@@ -399,19 +264,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(m_allowAimAtDiagonals);
 		}
 		else
@@ -431,19 +283,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minCooldownMod.GetModifiedValue(m_minCooldown);
 		}
 		else
@@ -458,19 +297,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd);
 		}
 		else
@@ -485,19 +311,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_useEnergyForMoveDistanceMod.GetModifiedValue(m_useEnergyForMoveDistance);
 		}
 		else
@@ -512,19 +325,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast);
 		}
 		else
@@ -539,19 +339,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove);
 		}
 		else
@@ -571,19 +358,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_hitInFrontOfShieldMod.GetModifiedValue(m_hitInFrontOfShield);
 		}
 		else
@@ -598,19 +372,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_shieldFrontHitLengthMod.GetModifiedValue(m_shieldFrontHitLength);
 		}
 		else
@@ -625,19 +386,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageForShieldFrontMod.GetModifiedValue(m_damageForShieldFront);
 		}
 		else
@@ -652,19 +400,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (m_cachedShieldFrontEnemyEffect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedShieldFrontEnemyEffect;
 		}
 		else
@@ -687,19 +422,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_RampartDashAndAimShield.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -711,15 +433,6 @@ public class RampartDashAndAimShield : Ability
 		int val;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RampartDashAndAimShield.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
 		}
 		else
@@ -730,15 +443,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RampartDashAndAimShield.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -750,15 +454,6 @@ public class RampartDashAndAimShield : Ability
 		int val2;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RampartDashAndAimShield.m_minCooldownMod.GetModifiedValue(m_minCooldown);
 		}
 		else
@@ -770,15 +465,6 @@ public class RampartDashAndAimShield : Ability
 		int val3;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RampartDashAndAimShield.m_cooldownModifierAddMod.GetModifiedValue(m_cooldownModifierAdd);
 		}
 		else
@@ -790,15 +476,6 @@ public class RampartDashAndAimShield : Ability
 		int val4;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_RampartDashAndAimShield.m_minEnergyToCastMod.GetModifiedValue(m_minEnergyToCast);
 		}
 		else
@@ -810,15 +487,6 @@ public class RampartDashAndAimShield : Ability
 		int val5;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_RampartDashAndAimShield.m_energyPerMoveMod.GetModifiedValue(m_energyPerMove);
 		}
 		else
@@ -830,15 +498,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_RampartDashAndAimShield)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_RampartDashAndAimShield.m_shieldFrontEnemyEffectMod.GetModifiedValue(m_shieldFrontEnemyEffect);
 		}
 		else
@@ -857,19 +516,6 @@ public class RampartDashAndAimShield : Ability
 		GetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		if (m_passive != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref numbers);
 		}
 		return numbers;
@@ -883,66 +529,17 @@ public class RampartDashAndAimShield : Ability
 		dictionary[AbilityTooltipSymbol.Damage] = 0;
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy) && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] += GetDamageAmount();
 			}
 		}
 		if (tooltipSubjectTypes2 != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Primary))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary[AbilityTooltipSymbol.Damage] += GetDamageForShieldFront();
 				}
 			}
@@ -955,19 +552,6 @@ public class RampartDashAndAimShield : Ability
 		bool result = true;
 		if (UseEnergyForMoveDistance())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (caster.TechPoints >= GetMinEnergyToCast());
 		}
 		return result;
@@ -978,19 +562,6 @@ public class RampartDashAndAimShield : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
@@ -998,39 +569,12 @@ public class RampartDashAndAimShield : Ability
 					bool result = false;
 					if (targetIndex == 0)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe);
 						if (boardSquarePathInfo != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							if (UseEnergyForMoveDistance() && GetEnergyPerMove() > 0)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num = caster.TechPoints / GetEnergyPerMove();
 								int num2 = 0;
 								BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
@@ -1038,15 +582,6 @@ public class RampartDashAndAimShield : Ability
 								{
 									boardSquarePathInfo2 = boardSquarePathInfo2.next;
 									num2++;
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								result = (num2 <= num);
 							}
@@ -1059,15 +594,6 @@ public class RampartDashAndAimShield : Ability
 					}
 					return result;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		return false;
@@ -1077,19 +603,6 @@ public class RampartDashAndAimShield : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartDashAndAimShield))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_RampartDashAndAimShield);
 		}
 		SetupTargeter();

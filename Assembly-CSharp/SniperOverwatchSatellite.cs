@@ -28,19 +28,6 @@ public class SniperOverwatchSatellite : TempSatellite
 		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 		if (currentAnimatorStateInfo.IsTag("Despawn"))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentAnimatorStateInfo.normalizedTime >= 1f)
 			{
 				goto IL_006c;
@@ -48,15 +35,6 @@ public class SniperOverwatchSatellite : TempSatellite
 		}
 		if (m_timeDespawnTriggered > 0f && Time.time - m_timeDespawnTriggered >= 10f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			goto IL_006c;
 		}
 		if (!currentAnimatorStateInfo.IsTag("Attack"))
@@ -65,20 +43,10 @@ public class SniperOverwatchSatellite : TempSatellite
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_attackTarget != null)
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
 					return;
 				}

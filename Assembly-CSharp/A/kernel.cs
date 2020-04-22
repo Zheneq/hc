@@ -94,26 +94,12 @@ namespace A
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					staticFlag0015 = true;
 					return 0;
 				}
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				return 1;
 			}
 		}
@@ -136,15 +122,6 @@ namespace A
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				string arg = "Debugger";
 				throw new Exception(string.Format("{0} was found - this software cannot be executed under the {0}.", arg));
 			}
@@ -163,10 +140,6 @@ namespace A
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return true;
 						}
 					}

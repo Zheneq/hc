@@ -24,19 +24,6 @@ public class MyNetworkClientConnection : NetworkConnection
 			TimeSpan result;
 			if (m_gameClientInterface != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = m_gameClientInterface.HeartbeatTimeout;
 			}
 			else
@@ -53,15 +40,6 @@ public class MyNetworkClientConnection : NetworkConnection
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gameClientInterface.HeartbeatTimeout = value;
 				return;
 			}
@@ -86,19 +64,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		object obj;
 		if (m_myNetworkClient.UseSSL)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = "wss://";
 		}
 		else
@@ -131,10 +96,6 @@ public class MyNetworkClientConnection : NetworkConnection
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					clientGameManager.ReloginToGameServerInstantly(this);
 					return;
 				}
@@ -152,19 +113,6 @@ public class MyNetworkClientConnection : NetworkConnection
 			if (clientGameManager.ReconnectToGameServerInstantly(this))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		m_myNetworkClient.IsConnected = false;
@@ -207,19 +155,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		byte[] bytes2 = uNetMessage2.Serialize();
 		if (m_gameClientInterface != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gameClientInterface.SendMessage(bytes2);
 		}
 		OnSending(uNetMessage2);
@@ -242,10 +177,6 @@ public class MyNetworkClientConnection : NetworkConnection
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.SendBytes(bytes, numBytes, channelId);
 				}
 			}
@@ -264,10 +195,6 @@ public class MyNetworkClientConnection : NetworkConnection
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.SendWriter(writer, channelId);
 				}
 			}
@@ -291,15 +218,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gameClientInterface.Disconnect();
 			m_gameClientInterface.OnConnected -= HandleConnectedToGameServer;
 			m_gameClientInterface.OnDisconnected -= HandleDisconnectedFromGameServer;

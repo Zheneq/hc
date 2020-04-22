@@ -56,57 +56,17 @@ public class SimpleVerticalProjectileSequence : Sequence
 		m_impactDuration = Sequence.GetFXDuration(m_fxImpactPrefab);
 		if (!(m_startEvent == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_spawnFxOnStartIfCasterIsDead)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!(base.Caster != null))
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!base.Caster.IsDead())
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SpawnFX();
@@ -121,30 +81,12 @@ public class SimpleVerticalProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fx != null))
 			{
 				return;
 			}
 			if (m_fx.activeSelf)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = m_fx.transform.position + m_travelDir * m_projectileSpeed * GameTime.deltaTime;
 				Vector3 lhs = m_endPos - vector;
 				Vector3 rhs = m_startPos - vector;
@@ -153,15 +95,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 					m_fx.SetActive(false);
 					if (m_fxImpactPrefab != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SpawnImpactFX(m_endPos);
 					}
 					else
@@ -169,28 +102,10 @@ public class SimpleVerticalProjectileSequence : Sequence
 						base.Source.OnSequenceHit(this, base.TargetPos);
 						if (base.Targets != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData[] targets = base.Targets;
 							foreach (ActorData target in targets)
 							{
 								base.Source.OnSequenceHit(this, target, Sequence.CreateImpulseInfoWithObjectPose(m_fx));
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						MarkForRemoval();
@@ -207,15 +122,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 			}
 			if (m_impactDurationLeft > 0f)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_impactDurationLeft -= GameTime.deltaTime;
 			}
 			if (m_impactDurationLeft <= 0f)
@@ -230,33 +136,11 @@ public class SimpleVerticalProjectileSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx);
 			m_fx = null;
 		}
 		if (m_fxImpact != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_fxImpact);
 			m_fxImpact = null;
 		}
@@ -267,33 +151,11 @@ public class SimpleVerticalProjectileSequence : Sequence
 	{
 		if ((bool)m_fxImpactPrefab)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxImpact = InstantiateFX(m_fxImpactPrefab, impactPos, Quaternion.identity);
 			m_impactDurationLeft = m_impactDuration;
 		}
 		if (!string.IsNullOrEmpty(m_impactAudioEvent))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(m_impactAudioEvent, m_fx.gameObject);
 		}
 		CallHitSequenceOnTargets(impactPos);
@@ -316,62 +178,21 @@ public class SimpleVerticalProjectileSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_fxPrefab != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				Quaternion rotation = default(Quaternion);
 				if (m_travelingUp)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_startPos = m_fxJoint.m_jointObject.transform.position;
 					m_travelDir = Vector3.up;
 					if (m_useJointDirectionForProjectile)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!base.Caster.IsDead())
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_travelDir = m_fxJoint.m_jointObject.transform.forward;
 						}
 					}
@@ -390,15 +211,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 				m_fx = InstantiateFX(m_fxPrefab, m_startPos, rotation);
 				if (m_fx != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendlyEnemyVFXSelector component = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					if (component != null)
 					{
@@ -409,11 +221,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 						return;
 					}

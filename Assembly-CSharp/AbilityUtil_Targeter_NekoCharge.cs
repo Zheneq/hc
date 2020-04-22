@@ -25,10 +25,6 @@ public class AbilityUtil_Targeter_NekoCharge : AbilityUtil_Targeter_ChargeAoE
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return base.UseRadiusAroundEnd(currentTarget);
 					}
 				}

@@ -92,19 +92,6 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 			{
 				return false;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		if (targetActor.GetTeam() == caster.GetTeam())
 		{
@@ -124,40 +111,13 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 highlightGoalPos = GetHighlightGoalPos(currentTarget, targetingActor);
 			if (m_highlights != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_highlights.Count >= 2)
 				{
 					MoveHighlightsTowardPos(highlightGoalPos);
 					goto IL_00eb;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_highlights = new List<GameObject>();
@@ -171,15 +131,6 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (m_damageOriginType == DamageOriginType.CasterPos)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
@@ -189,15 +140,6 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 			ActorData occupantActor = gameplayRefSquare.OccupantActor;
 			if (occupantActor != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
 				{
 					List<ActorData> actors = AreaEffectUtils.GetActorsInShape(m_shape, currentTarget.FreePos, gameplayRefSquare, m_penetrateLoS, targetingActor, GetAffectedTeams(), null);
@@ -208,15 +150,6 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 						{
 							ActorData current = enumerator.Current;
 							HandleAddActorInShape(current, targetingActor, currentTarget, damageOrigin);
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					gameObject.SetActive(true);
@@ -240,44 +173,13 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 	{
 		if (!(potentialTarget != targetingActor))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_affectsCaster == AffectsActor.Never)
 			{
 				return false;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AddActorInRange(potentialTarget, damageOrigin, targetingActor, m_allyTooltipSubject);
 		}
 		else

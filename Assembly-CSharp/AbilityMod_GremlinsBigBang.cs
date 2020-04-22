@@ -41,15 +41,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_knockbackDistanceMod, "KnockbackDist", string.Empty, gremlinsBigBang.m_knockbackDistance);
 			AbilityMod.AddToken(tokens, m_knockbackDistanceIfSingleTarget, "KnockbackDist_SingleTarget", string.Empty, gremlinsBigBang.m_knockbackDistance);
 			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "Damage_ExtraPerTarget", string.Empty, 0);
@@ -72,19 +63,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		object obj;
 		if (gremlinsBigBang != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			obj = gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
@@ -99,15 +77,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (int)gremlinsBigBang.m_bombShape;
 		}
 		else
@@ -123,15 +92,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsBigBang.m_bombDamageAmount;
 		}
 		else
@@ -144,15 +104,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsBigBang.m_knockbackDistance;
 		}
 		else
@@ -165,15 +116,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
@@ -186,15 +128,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
@@ -208,15 +141,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = gremlinsLandMineInfoComponent.m_energyGainOnExplosion;
 		}
 		else

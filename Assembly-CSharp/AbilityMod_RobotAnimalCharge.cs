@@ -65,19 +65,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = robotAnimalCharge.m_lifeOnFirstHit;
 		}
 		else
@@ -88,15 +75,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		empty += AbilityModHelper.GetModPropertyDesc(m_lifePerHitMod, "[Life Per Hit Mod]", flag, (!flag) ? 0f : robotAnimalCharge.m_lifePerHit);
 		if (m_healOnNextTurnStartIfKilledTarget > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Heal on Next Turn Start If Killed Target] = " + m_healOnNextTurnStartIfKilledTarget + "\n";
 		}
@@ -104,15 +82,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfPerAdjacentAlly, "{ Effect on Self Per Adjacent Ally }", string.Empty, flag);
 		if (m_techPointsPerAdjacentAlly > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Tech Points Per Adjacent Ally] = " + m_techPointsPerAdjacentAlly + "\n";
 		}
@@ -121,15 +90,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (robotAnimalCharge.m_requireTargetActor ? 1 : 0);
 		}
 		else
@@ -142,15 +102,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (robotAnimalCharge.m_canIncludeEnemy ? 1 : 0);
 		}
 		else
@@ -164,15 +115,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = robotAnimalCharge.m_cdrOnHittingAlly;
 		}
 		else

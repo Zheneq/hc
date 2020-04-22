@@ -60,19 +60,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = thiefSmokeBomb.m_extraDamageOnCast;
 		}
 		else
@@ -85,15 +72,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (thiefSmokeBomb.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -108,15 +86,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefSmokeBomb.m_minDistanceBetweenBombs;
 		}
 		else
@@ -129,15 +98,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		object baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefSmokeBomb.m_bombHitEffectInfo;
 		}
 		else
@@ -151,15 +111,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = (thiefSmokeBomb.m_addBarriers ? 1 : 0);
 		}
 		else
@@ -172,15 +123,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefSmokeBomb.m_barrierSquareWidth;
 		}
 		else

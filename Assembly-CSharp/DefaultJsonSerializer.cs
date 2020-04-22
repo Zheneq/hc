@@ -10,19 +10,6 @@ public static class DefaultJsonSerializer
 	{
 		if (s_serializer == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_serializer = new JsonSerializer();
 			s_serializer.NullValueHandling = NullValueHandling.Ignore;
 			s_serializer.Converters.Add(new StringEnumConverter());

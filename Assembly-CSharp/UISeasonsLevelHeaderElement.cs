@@ -21,15 +21,6 @@ public class UISeasonsLevelHeaderElement : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -46,24 +37,10 @@ public class UISeasonsLevelHeaderElement : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (imageIndex < m_rewardImages.Length)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					m_rewardImages[imageIndex].sprite = rewardInfo.GetDisplaySprite();
 					infos[imageIndex] = rewardInfo;
 					return;
@@ -86,10 +63,6 @@ public class UISeasonsLevelHeaderElement : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((seasonRewardReference as SeasonItemReward).ItemReward.ItemTemplateId);
 					(tooltip as UIInventoryItemTooltip).Setup(itemTemplate);
 					return true;

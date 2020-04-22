@@ -7,41 +7,10 @@ public class AbilityCommon_LayeredRings
 	{
 		if (radiusToDataList != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (radiusToDataList.Count > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (testSquare != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < radiusToDataList.Count; i++)
 					{
 						T val = radiusToDataList[i];
@@ -64,11 +33,6 @@ public class AbilityCommon_LayeredRings
 						}
 						while (true)
 						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
 							return val;
 						}
 					}

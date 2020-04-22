@@ -33,19 +33,6 @@ public class SquareIndicators
 			GameObject gameObject = m_createIndicatorDelegate();
 			if (gameObject != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_indicators.Add(gameObject);
 			}
 		}
@@ -96,15 +83,6 @@ public class SquareIndicators
 					{
 						m_indicators.Add(m_createIndicatorDelegate());
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				Vector3 position = square.ToVector3();
 				position.y += m_heightOffset;
@@ -112,19 +90,6 @@ public class SquareIndicators
 				m_indicators[m_nextIndicatorIndex].SetActive(true);
 				m_nextIndicatorIndex++;
 				return m_nextIndicatorIndex;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		return m_nextIndicatorIndex;
@@ -141,34 +106,12 @@ public class SquareIndicators
 				{
 					if (!m_indicators[num].activeSelf)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						break;
 					}
 					m_indicators[num].SetActive(false);
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}

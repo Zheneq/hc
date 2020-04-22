@@ -28,19 +28,6 @@ public class NanoSmithBlastShield : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Blast Shield";
 		}
 		Setup();
@@ -52,19 +39,6 @@ public class NanoSmithBlastShield : Ability
 		int num;
 		if (GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = 2;
 		}
 		else
@@ -85,19 +59,6 @@ public class NanoSmithBlastShield : Ability
 		StandardEffectInfo cachedExtraEffectOnCasterIfTargetingAlly;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedExtraEffectOnCasterIfTargetingAlly = m_abilityMod.m_extraEffectOnCasterIfTargetingAllyMod.GetModifiedValue(m_extraEffectOnCasterIfTargetingAlly);
 		}
 		else
@@ -117,19 +78,6 @@ public class NanoSmithBlastShield : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_healOnEndIfHasRemainingAbsorb;
 		}
 		else
@@ -144,19 +92,6 @@ public class NanoSmithBlastShield : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_energyGainOnShieldTarget;
 		}
 		else
@@ -171,19 +106,6 @@ public class NanoSmithBlastShield : Ability
 		StandardEffectInfo result;
 		if (m_cachedExtraEffectOnCasterIfTargetingAlly != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedExtraEffectOnCasterIfTargetingAlly;
 		}
 		else
@@ -206,54 +128,14 @@ public class NanoSmithBlastShield : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ActorData actorData = base.ActorData;
 			if (actorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData == targetActor)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 					if (visibleActorsCountByTooltipSubject > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						dictionary[AbilityTooltipSymbol.Absorb] = GetExtraEffectOnCasterIfTargetingAlly().m_effectData.m_absorbAmount;
 					}
@@ -268,31 +150,9 @@ public class NanoSmithBlastShield : Ability
 		int energyGainOnShieldTarget = GetEnergyGainOnShieldTarget();
 		if (energyGainOnShieldTarget > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 			if (boardSquareSafe != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe.OccupantActor == caster)
 				{
 					while (true)
@@ -324,19 +184,6 @@ public class NanoSmithBlastShield : Ability
 		StandardActorEffectData standardActorEffectData;
 		if ((bool)abilityMod_NanoSmithBlastShield)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			standardActorEffectData = abilityMod_NanoSmithBlastShield.m_shieldEffectOverride.GetModifiedValue(m_shieldEffect);
 		}
 		else
@@ -349,15 +196,6 @@ public class NanoSmithBlastShield : Ability
 		int val;
 		if ((bool)abilityMod_NanoSmithBlastShield)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_NanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorbMod.GetModifiedValue(m_healOnEndIfHasRemainingAbsorb);
 		}
 		else
@@ -377,15 +215,6 @@ public class NanoSmithBlastShield : Ability
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NanoSmithBlastShield);
 			Setup();
 			return;

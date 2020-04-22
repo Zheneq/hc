@@ -15,19 +15,6 @@ public class NanoSmithChargeAndCreateBarrier : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Charge and Create Barrier";
 		}
 		base.Targeter = new AbilityUtil_Targeter_BarrierWithCharge(this, m_barrierData.m_width, m_snapToGrid);

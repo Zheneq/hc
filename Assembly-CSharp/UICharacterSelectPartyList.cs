@@ -48,19 +48,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		int num;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
 		}
 		else
@@ -97,15 +84,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 										{
 											if (!flag && characterResourceLink.m_isHidden)
 											{
-												while (true)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 											else
 											{
@@ -116,27 +94,9 @@ public class UICharacterSelectPartyList : MonoBehaviour
 													{
 														goto IL_0102;
 													}
-													while (true)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!characterConfig.IsHidden)
 													{
 														goto IL_0102;
-													}
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 											}
@@ -160,22 +120,8 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = ((CharacterType first, CharacterType second) => first.GetDisplayName().CompareTo(second.GetDisplayName()));
 			}
 			list.Sort(_003C_003Ef__am_0024cache0);
@@ -188,11 +134,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
 				m_visible = false;
 				return;
@@ -208,15 +149,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= OnAccountDataUpdated;
 			return;
 		}
@@ -238,10 +170,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -262,10 +190,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -276,11 +200,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_numAccountUpdatesToSkipForSwap--;
 					return;
 				}
@@ -302,10 +221,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClientGameManager.Get().UpdateRemoteCharacter(theChar.m_characterType, m_selectedPortraitIndex - 1);
 					UnselectPortraits();
 					return;
@@ -318,11 +233,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			ClientGameManager.Get().UpdateSelectedCharacter(theChar.m_characterType, m_selectedBotInfo.PlayerId);
 			UnselectPortraits();
 			return;
@@ -337,15 +247,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			clientGameManager.UpdateBotDifficulty(difficulty, difficulty, m_selectedBotInfo.PlayerId);
 			return;
@@ -358,19 +259,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		int num;
 		if (!gameManager.IsCharacterAllowedForBots(type))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (m_selectedBotInfo.IsRemoteControlled ? 1 : 0);
 		}
 		else
@@ -395,15 +283,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 							LobbyPlayerInfo current = enumerator.Current;
 							if (current.CharacterType == type)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.TeamId == m_selectedBotInfo.TeamId)
 								{
 									while (true)
@@ -442,33 +321,11 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		bool flag = ClientGameManager.Get().IsCharacterAvailable(charType, ClientGameManager.Get().GroupInfo.SelectedQueueType);
 		if (flag && !m_isDuplicateCharsAllowed)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UICharacterSelectPlayerPortrait[] allyPortraits = m_allyPortraits;
 			foreach (UICharacterSelectPlayerPortrait uICharacterSelectPlayerPortrait in allyPortraits)
 			{
 				if (uICharacterSelectPlayerPortrait.gameObject.activeSelf && uICharacterSelectPlayerPortrait.CharType == charType)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 					break;
 				}
@@ -482,19 +339,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		int num;
 		if (reveal)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = ((m_selectedBotInfo != null) ? 1 : 0);
 		}
 		else
@@ -509,24 +353,10 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			for (int i = 0; i < m_CharacterButtons.Count; i++)
 			{
 				if (GameManager.Get().IsCharacterVisible(m_CharacterButtons[i].m_characterType))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_CharacterButtons[i], true);
 					m_CharacterButtons[i].Setup(CanCharacterBeSelectedByBot(m_CharacterButtons[i].m_characterType));
 				}
@@ -550,26 +380,12 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_allyPortraits.Length; j++)
 			{
 				m_allyPortraits[j].SetArrowsSelected(false);
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				ShowBotCharacterSelect(false);
 				return;
 			}
@@ -581,19 +397,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		m_selectedBotInfo = null;
 		if (playerInfo != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (playerInfo.PlayerId == m_playerInfo.PlayerId)
 			{
 				while (true)
@@ -616,44 +419,13 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		bool reveal = false;
 		if (m_playerInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_playerInfo.IsGameOwner)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_selectedBotInfo = botInfo;
 				for (int i = 0; i < m_enemyPortraits.Length; i++)
 				{
 					if (m_enemyPortraits[i].SetArrowsSelected(ui_element == m_enemyPortraits[i]))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						reveal = true;
 					}
 				}
@@ -661,15 +433,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				{
 					if (m_allyPortraits[j].SetArrowsSelected(ui_element == m_allyPortraits[j]))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						reveal = true;
 					}
 				}
@@ -687,39 +450,16 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int j = 0; j < m_allyPortraits.Length; j++)
 			{
 				if (m_allyPortraits[j].SetArrowsSelected(ui_element == m_allyPortraits[j]))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					m_selectedPortraitIndex = j;
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.SetGameObjectActive(m_characterSelect, flag);
 				if (!flag)
 				{
@@ -739,11 +479,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_starsPanel, false);
 					UIManager.SetGameObjectActive(m_botSkillLabel, false);
 					return;
@@ -758,19 +493,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		{
 			if (m_containers[i] != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_containers[i], active);
 			}
 		}
@@ -790,19 +512,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 	{
 		if (visible == m_visible)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!force)
 			{
 				while (true)
@@ -820,15 +529,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		m_visible = visible;
 		if (m_animator == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_animator = GetComponent<Animator>();
 		}
 		if (m_visible)
@@ -862,37 +562,18 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (teamInfo == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (gameInfo == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (teamInfo.TeamPlayerInfo == null)
 					{
 						while (true)
@@ -910,15 +591,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 					Team team2 = Team.TeamB;
 					if (playerInfo.TeamId == Team.TeamA)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						team = Team.TeamA;
 						team2 = Team.TeamB;
 						num = gameInfo.GameConfig.TeamAPlayers;
@@ -926,15 +598,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 					}
 					else if (playerInfo.TeamId == Team.TeamB)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						team = Team.TeamB;
 						team2 = Team.TeamA;
 						num = gameInfo.GameConfig.TeamBPlayers;
@@ -947,15 +610,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 							LobbyPlayerInfo current = enumerator.Current;
 							if (current.PlayerId == m_playerInfo.PlayerId)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (current.TeamId == team)
 								{
 									m_allyPortraits[i].SetEnabled(true);
@@ -970,29 +624,11 @@ public class UICharacterSelectPartyList : MonoBehaviour
 								}
 							}
 						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					foreach (LobbyPlayerInfo item in teamInfo.TeamPlayerInfo)
 					{
 						if (item.PlayerId != m_playerInfo.PlayerId)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (item.TeamId == team)
 							{
 								m_allyPortraits[i].SetEnabled(true);
@@ -1011,15 +647,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 					{
 						if (j < num2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_enemyPortraits[j].SetEnabled(true);
 							m_enemyPortraits[j].Setup(null);
 						}
@@ -1027,15 +654,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 						{
 							m_enemyPortraits[j].SetEnabled(false);
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					for (; i < m_allyPortraits.Length; i++)
 					{
@@ -1074,15 +692,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 			m_allyPortraits[0].Setup(accountComponent.LastCharacter, true);
 			m_allyPortraits[0].SetEnabled(true);
@@ -1091,15 +700,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 				CharacterType charType = CharacterType.None;
 				if (j - 1 < accountComponent.LastRemoteCharacters.Count)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					charType = accountComponent.LastRemoteCharacters[j - 1];
 				}
 				m_allyPortraits[j].Setup(charType, false);
@@ -1107,22 +707,8 @@ public class UICharacterSelectPartyList : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!isDuplicateCharsAllowed)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<CharacterType> list = new List<CharacterType>();
 					List<int> list2 = new List<int>();
 					List<CharacterType> list3 = new List<CharacterType>();
@@ -1132,15 +718,6 @@ public class UICharacterSelectPartyList : MonoBehaviour
 						CharacterType item = accountComponent.LastRemoteCharacters[k];
 						if (list3.Contains(item))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int l = 0; l < accountComponent.FreeRotationCharacters.Length; l++)
 							{
 								item = accountComponent.FreeRotationCharacters[l];
@@ -1148,26 +725,8 @@ public class UICharacterSelectPartyList : MonoBehaviour
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!accountComponent.LastRemoteCharacters.Contains(item))
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 							}

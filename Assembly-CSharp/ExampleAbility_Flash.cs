@@ -31,19 +31,6 @@ public class ExampleAbility_Flash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Flash";
 		}
 		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
@@ -54,11 +41,6 @@ public class ExampleAbility_Flash : Ability
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (!m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
 				m_tags.Add(AbilityTags.UseTeleportUIEffect);
@@ -76,19 +58,6 @@ public class ExampleAbility_Flash : Ability
 	{
 		if (m_requireTargetNextToActor)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_dashToTargetSelectRange > 0f)
 			{
 				return true;
@@ -108,10 +77,6 @@ public class ExampleAbility_Flash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_dashToTargetSelectRange;
 				}
 			}
@@ -131,10 +96,6 @@ public class ExampleAbility_Flash : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_canDashNextToAllies, m_canDashNextToEnemies);
 					float num = m_dashToTargetSelectRange;
 					if (num <= 0f)
@@ -145,15 +106,6 @@ public class ExampleAbility_Flash : Ability
 					actors.Remove(caster);
 					if (NetworkClient.active)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 					}
 					else
@@ -174,64 +126,15 @@ public class ExampleAbility_Flash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_requireTargetNextToActor)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<ActorData> actorsVisibleToActor;
 						if (NetworkServer.active)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster);
 						}
 						else
@@ -242,15 +145,6 @@ public class ExampleAbility_Flash : Ability
 						Vector3 coneStart = caster.GetCurrentBoardSquare().ToVector3();
 						for (int i = 0; i < list.Count; i++)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData actorData;
 							if (!flag)
 							{
@@ -264,29 +158,11 @@ public class ExampleAbility_Flash : Ability
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster) : actorData.IsVisibleToClient();
 								bool flag4 = actorData.GetTeam() == caster.GetTeam();
 								if (!flag3 || !(actorData != caster))
 								{
 									continue;
-								}
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (!flag4)
 								{
@@ -294,39 +170,12 @@ public class ExampleAbility_Flash : Ability
 									{
 										goto IL_01b8;
 									}
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								if (!flag4 || !m_canDashNextToAllies)
 								{
 									continue;
 								}
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_01b8;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 							IL_01b8:

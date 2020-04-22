@@ -41,19 +41,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "MultiTargeter Apocolypse";
 		}
 		m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
@@ -75,19 +62,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_leaveLandmineOnEmptySquare;
 		}
 		else
@@ -102,19 +76,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		AbilityAreaShape result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_bombShape;
 		}
 		else
@@ -134,19 +95,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_maxAngleWithFirst;
 		}
 		else
@@ -161,19 +109,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		bool result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_penetrateLos;
 		}
 		else
@@ -188,19 +123,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_energyGainPerMissMod.GetModifiedValue(m_energyGainPerMiss);
 		}
 		else
@@ -214,32 +136,10 @@ public class GremlinsMultiTargeterApocolypse : Ability
 	{
 		if (m_bombInfoComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_bombInfoComp = GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		if (m_bombSubsequentDamageAmount < 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_bombSubsequentDamageAmount = 0;
 		}
 		if (GetExpectedNumberOfTargeters() > 1)
@@ -291,44 +191,13 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		{
 			if (i > 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
 				if (boardSquareSafe2 == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 == boardSquareSafe)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -336,11 +205,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return symbolToValue;
 		}
 	}
@@ -350,42 +214,11 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		int num = 0;
 		if (GetEnergyGainPerMiss() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Targeters != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
 				for (int i = 0; i <= currentTargeterIndex; i++)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i < base.Targeters.Count)
 					{
 						AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[i];
@@ -393,26 +226,8 @@ public class GremlinsMultiTargeterApocolypse : Ability
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(abilityUtil_Targeter.LastUpdatingGridPos);
 							if (boardSquareSafe2 == null)
 							{
@@ -420,41 +235,14 @@ public class GremlinsMultiTargeterApocolypse : Ability
 							}
 							if (boardSquareSafe2 == boardSquareSafe)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 						}
 						if (abilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += GetEnergyGainPerMiss();
 						}
 						continue;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					break;
 				}
@@ -473,19 +261,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				if (targetIndex > 0)
@@ -495,28 +270,10 @@ public class GremlinsMultiTargeterApocolypse : Ability
 					Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 					if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)GetMaxAngleWithFirstSegment())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 					if (flag)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = GetMinDistBetweenBombs() * Board.Get().squareSize;
 						int num2 = 0;
 						while (true)
@@ -529,29 +286,11 @@ public class GremlinsMultiTargeterApocolypse : Ability
 								float magnitude = vector.magnitude;
 								if (magnitude < num)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = false;
 									break;
 								}
 								num2++;
 								continue;
-							}
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							break;
 						}
@@ -570,19 +309,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		int num;
 		if ((bool)abilityMod_GremlinsMultiTargeterApocolypse)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = GetExpectedNumberOfTargeters();
 		}
 		else
@@ -595,15 +321,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		int val2;
 		if ((bool)abilityMod_GremlinsMultiTargeterApocolypse)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_GremlinsMultiTargeterApocolypse.m_damageMod.GetModifiedValue(m_bombDamageAmount);
 		}
 		else
@@ -615,15 +332,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		int val3;
 		if ((bool)abilityMod_GremlinsMultiTargeterApocolypse)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_GremlinsMultiTargeterApocolypse.m_subsequentDamageMod.GetModifiedValue(m_bombSubsequentDamageAmount);
 		}
 		else
@@ -642,15 +350,6 @@ public class GremlinsMultiTargeterApocolypse : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_GremlinsMultiTargeterApocolypse);
 			SetupTargeter();
 			return;

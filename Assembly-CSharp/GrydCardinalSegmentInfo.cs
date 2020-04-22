@@ -31,19 +31,6 @@ public class GrydCardinalSegmentInfo
 		int result;
 		if (m_endSquare != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_endSquare != m_startSquare) ? 1 : 0);
 		}
 		else
@@ -64,10 +51,6 @@ public class GrydCardinalSegmentInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -84,40 +67,13 @@ public class GrydCardinalSegmentInfo
 				bool flag = actorCover.IsInCoverWrt(segmentOrigin);
 				if (actorToHitContext.ContainsKey(key))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorToHitContext[key].m_numHits++;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitContext[key].m_numHitsFromCover++;
 					}
 					if (actorCover != null && !actorCover.IsInCoverWrt(actorToHitContext[key].m_hitOrigin) && actorCover.IsInCoverWrt(segmentOrigin))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitContext[key].m_hitOrigin = segmentOrigin;
 					}
 				}
@@ -128,15 +84,6 @@ public class GrydCardinalSegmentInfo
 					int numHitsFromCover;
 					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						numHitsFromCover = 1;
 					}
 					else
@@ -181,19 +128,6 @@ public class GrydCardinalSegmentInfo
 		int num2;
 		if (splitOnWall)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num2 = (flag ? 1 : 0);
 		}
 		else
@@ -204,15 +138,6 @@ public class GrydCardinalSegmentInfo
 		int num3;
 		if (continueAfterActorHit)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = -1;
 		}
 		else
@@ -230,26 +155,8 @@ public class GrydCardinalSegmentInfo
 		BoardSquare startSquare = boardSquare;
 		if (actorsInLaser.Count > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (splitOnActor)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				startSquare = actorsInLaser[0].GetCurrentBoardSquare();
 				flag2 = true;
 			}
@@ -263,15 +170,6 @@ public class GrydCardinalSegmentInfo
 			ActorData actorData = actorsInLaser[i];
 			if (!hitActorsMap.ContainsKey(actorData))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AreaEffectUtils.BouncingLaserInfo value = new AreaEffectUtils.BouncingLaserInfo(vector, segmentIndex);
 				hitActorsMap.Add(actorData, value);
 				actorsToExclude.Add(actorData);
@@ -280,26 +178,8 @@ public class GrydCardinalSegmentInfo
 		parentSegment.m_endSquare = boardSquare;
 		if (splitsRemaining > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 direction = Quaternion.AngleAxis(-90f, Vector3.up) * parentSegment.m_direction;
 				GrydCardinalSegmentInfo grydCardinalSegmentInfo = new GrydCardinalSegmentInfo(startSquare, direction);
 				CalculateSegmentInfo(grydCardinalSegmentInfo, maxBranchDistInSquares, maxBranchDistInSquares, splitsRemaining - 1, splitOnWall, splitOnActor, continueAfterActorHit, includeInvisibles, segmentIndex + 1, caster, relevantTeams, nonActorTargetInfo, hitActorsMap, actorsToExclude);
@@ -323,15 +203,6 @@ public class GrydCardinalSegmentInfo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GrydCardinalBombSequence.SegmentDataEntry segmentDataEntry = new GrydCardinalBombSequence.SegmentDataEntry();
 			segmentDataEntry.m_segmentIndex = (sbyte)parentSegment.m_segmentIndex;
 			segmentDataEntry.m_prevSegmentIndex = (sbyte)parentSegment.m_parentSegIndex;
@@ -354,15 +225,6 @@ public class GrydCardinalSegmentInfo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bound.Encapsulate(parentSegment.m_startSquare.ToVector3());
 			bound.Encapsulate(parentSegment.m_endSquare.ToVector3());
 			using (List<GrydCardinalSegmentInfo>.Enumerator enumerator = parentSegment.m_childSegments.GetEnumerator())
@@ -394,15 +256,6 @@ public class GrydCardinalSegmentInfo
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = parentSegment.m_startSquare.ToVector3();
 			Vector3 vector2 = parentSegment.m_endSquare.ToVector3() - vector;
 			vector2.y = 0f;
@@ -410,15 +263,6 @@ public class GrydCardinalSegmentInfo
 			GameObject gameObject = null;
 			if (highlights.Count <= nextHighlightIndex)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = HighlightUtils.Get().CreateRectangularCursor(1f, magnitude);
 				highlights.Add(gameObject);
 			}

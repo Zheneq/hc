@@ -32,30 +32,8 @@ public class DebugCommand_ToggleShaderKeyword : DebugCommand
 		string[] array = arguments.Split(" ".ToCharArray(), 2);
 		if (array.Count() == 2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (array[1].EqualsIgnoreCase("off"))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Shader.DisableKeyword(array[0]);
 			}
 			else

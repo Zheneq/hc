@@ -20,10 +20,6 @@ public class SlashCommand_ChatGeneral : SlashCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

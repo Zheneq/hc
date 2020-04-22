@@ -93,19 +93,6 @@ public class UILootMatrixContentViewer : UIScene
 		{
 			if (Templates[i] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (Templates[i].Type == InventoryItemType.Lockbox)
 				{
 					list.Add(Templates[i]);
@@ -131,26 +118,12 @@ public class UILootMatrixContentViewer : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Tables.Count == 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (Tables[0] == null)
 				{
 					return;
@@ -166,11 +139,6 @@ public class UILootMatrixContentViewer : UIScene
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					int num = 0;
 					int num2 = 0;
 					int num3 = 0;
@@ -180,66 +148,21 @@ public class UILootMatrixContentViewer : UIScene
 						UILockboxRewardItem uILockboxRewardItem = null;
 						if (InventoryItemRarity.Rare <= itemTemplate.Rarity)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (itemTemplate.Rarity <= InventoryItemRarity.Epic)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num < 12)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									while (num >= RareItemsListRowOne.Count)
 									{
 										UILockboxRewardItem uILockboxRewardItem2 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
 										UIManager.ReparentTransform(uILockboxRewardItem2.transform, m_RareItemLayoutGroupOne.transform);
 										RareItemsListRowOne.Add(uILockboxRewardItem2);
 									}
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									uILockboxRewardItem = RareItemsListRowOne[num];
 									num++;
 								}
 								else if (num2 < 12)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									while (num2 >= RareItemsListRowTwo.Count)
 									{
 										UILockboxRewardItem uILockboxRewardItem3 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
@@ -254,40 +177,13 @@ public class UILootMatrixContentViewer : UIScene
 						}
 						if (itemTemplate.Rarity == InventoryItemRarity.Legendary)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num3 < 12)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								while (num3 >= BonusItems.Count)
 								{
 									UILockboxRewardItem uILockboxRewardItem4 = UnityEngine.Object.Instantiate(m_LootMatrixRewardIconPrefab);
 									UIManager.ReparentTransform(uILockboxRewardItem4.transform, m_BonusItemLayoutGroup.transform);
 									BonusItems.Add(uILockboxRewardItem4);
-								}
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								uILockboxRewardItem = BonusItems[num3];
 								num3++;
@@ -297,61 +193,16 @@ public class UILootMatrixContentViewer : UIScene
 						IL_0291:
 						if (uILockboxRewardItem != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool isDuplicate = false;
 							if (ClientGameManager.Get() != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ClientGameManager.Get().GetPlayerAccountData() != null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ClientGameManager.Get().GetPlayerAccountData().InventoryComponent != null)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										int num5;
 										if (!ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.HasItem(list[num4]))
 										{
-											while (true)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num5 = (InventoryWideData.IsOwned(itemTemplate) ? 1 : 0);
 										}
 										else
@@ -366,15 +217,6 @@ public class UILootMatrixContentViewer : UIScene
 							uILockboxRewardItem.Setup(new InventoryItem(), itemTemplate, isDuplicate, -1);
 							if (uILockboxRewardItem.m_rewardFgs != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Sprite itemFg = InventoryWideData.GetItemFg(itemTemplate);
 								for (int k = 0; k < uILockboxRewardItem.m_rewardFgs.Length; k++)
 								{
@@ -390,22 +232,12 @@ public class UILootMatrixContentViewer : UIScene
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						for (int m = num2; m < RareItemsListRowTwo.Count; m++)
 						{
 							UIManager.SetGameObjectActive(RareItemsListRowTwo[m], false);
 						}
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							for (int n = num3; n < BonusItems.Count; n++)
 							{
 								UIManager.SetGameObjectActive(BonusItems[n], false);
@@ -433,31 +265,9 @@ public class UILootMatrixContentViewer : UIScene
 		bool doActive2 = true;
 		if (CurrentPage != -1)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (LootMatrixItemTemplates.Count != 0)
 			{
 				goto IL_003d;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		doActive = false;
@@ -466,28 +276,10 @@ public class UILootMatrixContentViewer : UIScene
 		IL_003d:
 		if (CurrentPage == 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = false;
 		}
 		if (CurrentPage == LootMatrixItemTemplates.Count - 1)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = false;
 		}
 		UIManager.SetGameObjectActive(m_previousPageBtn, doActive);
@@ -509,19 +301,6 @@ public class UILootMatrixContentViewer : UIScene
 		int num = Mathf.Clamp(pageIndex, 0, LootMatrixItemTemplates.Count);
 		if (num < LootMatrixItemTemplates.Count)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			CurrentPage = num;
 			LootTable lootTable = InventoryWideData.Get().GetLootTable(LootMatrixItemTemplates[num].TypeSpecificData[0]);
 			List<LootTable> list = new List<LootTable>();
@@ -534,15 +313,6 @@ public class UILootMatrixContentViewer : UIScene
 			{
 				if (items[i].TemplateId == LootMatrixItemTemplates[num].Index)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2.Add(items[i].Id);
 				}
 			}
@@ -560,15 +330,6 @@ public class UILootMatrixContentViewer : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			DisplayPage(0);
 			return;
 		}

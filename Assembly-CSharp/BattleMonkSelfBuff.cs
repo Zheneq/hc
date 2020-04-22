@@ -33,19 +33,6 @@ public class BattleMonkSelfBuff : Ability
 		int num;
 		if ((bool)abilityMod_BattleMonkSelfBuff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = abilityMod_BattleMonkSelfBuff.m_damageReturnMod.GetModifiedValue(m_damagePerHit);
 		}
 		else
@@ -56,15 +43,6 @@ public class BattleMonkSelfBuff : Ability
 		int num2;
 		if ((bool)abilityMod_BattleMonkSelfBuff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = abilityMod_BattleMonkSelfBuff.m_absorbMod.GetModifiedValue(m_standardActorEffectData.m_absorbAmount);
 		}
 		else
@@ -93,19 +71,6 @@ public class BattleMonkSelfBuff : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damagePerHit;
 		}
 		else
@@ -120,19 +85,6 @@ public class BattleMonkSelfBuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedReturnEffectOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedReturnEffectOnEnemy;
 		}
 		else
@@ -147,19 +99,6 @@ public class BattleMonkSelfBuff : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_standardActorEffectData.m_absorbAmount;
 		}
 		else
@@ -179,19 +118,6 @@ public class BattleMonkSelfBuff : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -206,19 +132,6 @@ public class BattleMonkSelfBuff : Ability
 		object result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = null;
 		}
 		else
@@ -233,19 +146,6 @@ public class BattleMonkSelfBuff : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -260,19 +160,6 @@ public class BattleMonkSelfBuff : Ability
 		int result;
 		if (GetSelfEffect() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (GetSelfEffect().m_applyEffect ? 1 : 0);
 		}
 		else
@@ -297,30 +184,8 @@ public class BattleMonkSelfBuff : Ability
 		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, absorbAmount);
 		if (CanTargetNearbyAllies())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_effectOnAllyHit.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_abilityMod.m_effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 			}
 		}
@@ -338,10 +203,6 @@ public class BattleMonkSelfBuff : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_BattleMonkSelfBuff);
 					Setup();
 					return;

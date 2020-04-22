@@ -77,10 +77,6 @@ public class EloValues : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					value2.Elo = Math.Max(1f, value);
 					value2.Count = Math.Max(0, value2.Count + countDelta);
 					return;
@@ -106,10 +102,6 @@ public class EloValues : ICloneable
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					value.Elo = Math.Max(1f, value.Elo + eloDelta);
 					value.Count = Math.Max(0, value.Count + countDelta);
 					return;

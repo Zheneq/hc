@@ -47,19 +47,6 @@ public class OverwatchScanSequence : Sequence
 			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Vector3 b = new Vector3(0f, m_heightOffset, 0f);
 				Vector3 a = extraParams2.endPos - extraParams2.startPos;
 				a.Normalize();
@@ -87,15 +74,6 @@ public class OverwatchScanSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -109,27 +87,9 @@ public class OverwatchScanSequence : Sequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ProcessSequenceVisibility();
 			if (m_fx != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
 					m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
@@ -137,57 +97,21 @@ public class OverwatchScanSequence : Sequence
 			}
 			if (m_fxCasterJoint.IsInitialized())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_fxAttributeForJoint == JointAttribute.StartPoint)
 				{
 					m_startPos = m_fxCasterJoint.m_jointObject.transform.position;
 				}
 				else if (m_fxAttributeForJoint == JointAttribute.EndPoint)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_endPos = m_fxCasterJoint.m_jointObject.transform.position;
 				}
 				else if (m_fxAttributeForJoint == JointAttribute.TopPoint)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(m_fx, "topPoint", m_fxCasterJoint.m_jointObject.transform.position);
 				}
 			}
 			if (m_syncHeightOfEndToStart)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_endPos.y = m_startPos.y;
 			}
 			Sequence.SetAttribute(m_fx, "endPoint", m_endPos);
@@ -200,45 +124,14 @@ public class OverwatchScanSequence : Sequence
 	{
 		if (m_fxPrefab != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 startPos = m_startPos;
 			m_fx = InstantiateFX(m_fxPrefab, startPos, default(Quaternion));
 		}
 		if (!m_fxCasterJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject referenceModel = GetReferenceModel(base.Caster, m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
@@ -246,15 +139,6 @@ public class OverwatchScanSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -265,20 +149,10 @@ public class OverwatchScanSequence : Sequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (!string.IsNullOrEmpty(m_audioEvent))
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
 					return;
 				}
@@ -295,15 +169,6 @@ public class OverwatchScanSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SpawnFX();
 			return;
 		}
@@ -317,15 +182,6 @@ public class OverwatchScanSequence : Sequence
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_fx.gameObject);
 			m_fx = null;
 			return;

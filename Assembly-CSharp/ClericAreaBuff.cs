@@ -88,19 +88,6 @@ public class ClericAreaBuff : Ability
 		int affectsCaster;
 		if (IncludeCaster())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			affectsCaster = 1;
 		}
 		else
@@ -133,19 +120,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo cachedEffectOnCaster;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnCaster = m_abilityMod.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster);
 		}
 		else
@@ -158,15 +132,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemies = m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(m_effectOnEnemies);
 		}
 		else
@@ -186,19 +151,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
 		}
 		else
@@ -213,19 +165,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_includeEnemiesMod.GetModifiedValue(m_includeEnemies);
 		}
 		else
@@ -245,19 +184,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_includeCasterMod.GetModifiedValue(m_includeCaster);
 		}
 		else
@@ -272,19 +198,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraTpCostPerTurnActiveMod.GetModifiedValue(m_extraTpCostPerTurnActive);
 		}
 		else
@@ -299,19 +212,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownWhenBuffLapsesMod.GetModifiedValue(m_cooldownWhenBuffLapses);
 		}
 		else
@@ -331,19 +231,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_healAmountMod.GetModifiedValue(m_healAmount);
 		}
 		else
@@ -358,19 +245,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnCaster != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnCaster;
 		}
 		else
@@ -384,30 +258,8 @@ public class ClericAreaBuff : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_turnsAreaBuffActive == 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_cachedFirstTurnEffectOnAllies != null && m_cachedFirstTurnEffectOnAllies.m_applyEffect)
 				{
 					while (true)
@@ -431,19 +283,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfShieldingOverrideMod.GetModifiedValue(m_selfShieldingOverride);
 		}
 		else
@@ -458,19 +297,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemies != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemies;
 		}
 		else
@@ -490,19 +316,6 @@ public class ClericAreaBuff : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_visionRadiusMod.GetModifiedValue(m_visionRadius);
 		}
 		else
@@ -527,19 +340,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraShieldsPerTurnActive.GetModifiedValue(0);
 		}
 		else
@@ -554,19 +354,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_allyTechPointGainPerTurnActive.GetModifiedValue(0);
 		}
 		else
@@ -581,19 +368,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraSelfShieldingPerEnemyInShape.GetModifiedValue(0);
 		}
 		else
@@ -608,19 +382,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraHealForPurifyOnBuffedAllies.GetModifiedValue(0);
 		}
 		else
@@ -637,72 +398,23 @@ public class ClericAreaBuff : Ability
 		{
 			if (GetSelfShieldingOverride() > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = GetSelfShieldingOverride();
 			}
 			else if (GetEffectOnCaster() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GetEffectOnCaster().m_applyEffect)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GetEffectOnCaster().m_effectData.m_absorbAmount;
 				}
 			}
 			if (GetExtraSelfShieldsPerEnemyInShape() != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetShape(), targetActor.GetTravelBoardSquareWorldPosition(), targetActor.GetCurrentBoardSquare(), true, targetActor, targetActor.GetOpposingTeam(), null);
 				num += actorsInShape.Count * GetExtraSelfShieldsPerEnemyInShape();
 			}
 		}
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GetExtraShieldsPerTurnActive() != 0)
 			{
 				num += GetExtraShieldsPerTurnActive() * m_syncComp.m_turnsAreaBuffActive;
@@ -721,19 +433,6 @@ public class ClericAreaBuff : Ability
 		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnAllies, "EffectOnAllies", m_effectOnAllies);
 		if (m_selfShieldingOverride >= 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AddTokenInt(tokens, "SelfShieldingOverride", string.Empty, m_selfShieldingOverride);
 		}
 		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemies, "EffectOnEnemies", m_effectOnEnemies);
@@ -748,19 +447,6 @@ public class ClericAreaBuff : Ability
 		{
 			if (m_selfShieldingOverride >= 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, m_selfShieldingOverride);
 			}
 			else
@@ -772,15 +458,6 @@ public class ClericAreaBuff : Ability
 		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, GetHealAmount()));
 		if (IncludeCaster())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, GetHealAmount()));
 		}
 		numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, 1));
@@ -799,19 +476,6 @@ public class ClericAreaBuff : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_turnsAreaBuffActive == 0)
 			{
 				return base.GetActionAnimType();
@@ -824,19 +488,6 @@ public class ClericAreaBuff : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_turnsAreaBuffActive > 0)
 			{
 				while (true)
@@ -878,19 +529,6 @@ public class ClericAreaBuff : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_turnsAreaBuffActive > 0)
 			{
 				while (true)
@@ -912,53 +550,13 @@ public class ClericAreaBuff : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_turnsAreaBuffActive > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData abilityData = base.ActorData.GetAbilityData();
 				if (abilityData != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityData.HasQueuedAction(m_buffActionType))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GetPerTurnTechPointCost() <= base.ActorData.TechPoints)
 						{
 							return true;
@@ -981,10 +579,6 @@ public class ClericAreaBuff : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return base.GetModdedCost();
 				}
 			}
@@ -997,19 +591,6 @@ public class ClericAreaBuff : Ability
 		int num = 0;
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_syncComp.m_turnsAreaBuffActive * m_extraTpCostPerTurnActive;
 		}
 		return base.GetModdedCost() + num;

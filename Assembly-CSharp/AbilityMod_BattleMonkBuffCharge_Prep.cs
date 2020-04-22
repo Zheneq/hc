@@ -39,15 +39,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_allySelectRadiusMod, "AllySelectRadius", string.Empty, battleMonkBuffCharge_Prep.m_allySelectRadius);
 			BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 			if (!(battleMonkBuffCharge_Prep != null))
@@ -56,22 +47,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability[] chainAbilities = battleMonkBuffCharge_Prep.m_chainAbilities;
 					foreach (Ability ability in chainAbilities)
 					{
@@ -86,11 +63,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, battleMonkBuffCharge_Dash.m_damage);
 						AbilityMod.AddToken_EffectMod(tokens, m_allyEffectOverride, "AllyBuff", battleMonkBuffCharge_Prep.m_allyBuff);
 						AbilityMod.AddToken_EffectMod(tokens, m_selfEffectOverride, "SelfBuff", battleMonkBuffCharge_Prep.m_selfBuff);
@@ -108,19 +80,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 		if (battleMonkBuffCharge_Prep != null && battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Ability[] chainAbilities = battleMonkBuffCharge_Prep.m_chainAbilities;
 			int num = 0;
 			while (true)
@@ -130,26 +89,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 					Ability ability = chainAbilities[num];
 					if (ability != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ability is BattleMonkBuffCharge_Dash)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							battleMonkBuffCharge_Dash = (ability as BattleMonkBuffCharge_Dash);
 							break;
 						}
@@ -157,30 +98,12 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 		}
 		int num2;
 		if (battleMonkBuffCharge_Prep != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = ((battleMonkBuffCharge_Dash != null) ? 1 : 0);
 		}
 		else
@@ -194,15 +117,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = (battleMonkBuffCharge_Prep.m_mustHitAllies ? 1 : 0);
 		}
 		else
@@ -216,15 +130,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (int)battleMonkBuffCharge_Prep.m_buffAlliesShape;
 		}
 		else
@@ -237,15 +142,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (int)battleMonkBuffCharge_Dash.m_damageEnemiesShape;
 		}
 		else
@@ -258,15 +154,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = battleMonkBuffCharge_Dash.m_damage;
 		}
 		else
@@ -279,15 +166,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = battleMonkBuffCharge_Prep.m_selfBuff;
 		}
 		else
@@ -300,15 +178,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = battleMonkBuffCharge_Prep.m_allyBuff;
 		}
 		else
@@ -331,39 +200,16 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityAsBase.GetType() != GetTargetAbilityType())
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				BattleMonkBuffCharge_Prep battleMonkBuffCharge_Prep = abilityAsBase as BattleMonkBuffCharge_Prep;
 				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 				if (battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Ability[] chainAbilities = battleMonkBuffCharge_Prep.m_chainAbilities;
 					foreach (Ability ability in chainAbilities)
 					{
@@ -371,26 +217,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ability is BattleMonkBuffCharge_Dash)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							battleMonkBuffCharge_Dash = (ability as BattleMonkBuffCharge_Dash);
 							break;
 						}
@@ -400,11 +228,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						numbers.Add(m_damageMod.GetModifiedValue(battleMonkBuffCharge_Dash.m_damage));
 						return;
 					}

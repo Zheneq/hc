@@ -59,19 +59,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -86,19 +73,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -118,19 +92,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist);
 		}
 		else
@@ -150,19 +111,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_destinationAngleDegWithBackMod.GetModifiedValue(m_destinationAngleDegWithBack);
 		}
 		else
@@ -182,29 +130,11 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_casterSquareValidForKnockback;
 				}
 			}
 			if (GetSquareRangeFromCaster() > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentBoardSquare.HorizontalDistanceInSquaresTo(boardSquareSafe) > GetSquareRangeFromCaster())
 				{
 					return false;
@@ -212,15 +142,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (m_destRequireLosFromCaster)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!currentBoardSquare._0013(boardSquareSafe.x, boardSquareSafe.y))
 				{
 					return false;
@@ -237,39 +158,12 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (NetworkClient.active)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = ability.Targeters[0].GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				if (visibleActorsInRangeByTooltipSubject.Count > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = false;
 					for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							break;

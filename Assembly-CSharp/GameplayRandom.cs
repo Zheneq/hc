@@ -35,15 +35,6 @@ internal static class GameplayRandom
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_z = v;
 			return;
 		}
@@ -64,19 +55,6 @@ internal static class GameplayRandom
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("GameplayRandom functions should only be called on the server. Results should be sent to clients");
 		}
 		m_z = 36969 * (m_z & 0xFFFF) + (m_z >> 16);
@@ -90,19 +68,6 @@ internal static class GameplayRandom
 		int result;
 		if (max <= min)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = min;
 		}
 		else
@@ -154,10 +119,6 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string paramName = $"Mean must be positive. Received {mean}.";
 					throw new ArgumentOutOfRangeException(paramName);
 				}
@@ -179,10 +140,6 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					double num = shape - 0.33333333333333331;
 					double num2 = 1.0 / Math.Sqrt(9.0 * num);
 					while (true)
@@ -208,15 +165,6 @@ internal static class GameplayRandom
 										if (!(Math.Log(uniform) < 0.5 * num4 + num * (1.0 - num3 + Math.Log(num3))))
 										{
 											goto IL_004e;
-										}
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									return scale * num * num3;
@@ -264,31 +212,9 @@ internal static class GameplayRandom
 	{
 		if (!(shape <= 0.0))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(scale <= 0.0))
 			{
 				return scale * Math.Pow(0.0 - Math.Log(GetUniform()), 1.0 / shape);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string paramName = $"Shape and scale parameters must be positive. Recieved shape {shape} and scale{scale}.";
@@ -307,10 +233,6 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string message = $"Scale must be positive. Received {scale}.";
 					throw new ArgumentException(message);
 				}
@@ -333,10 +255,6 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					string message = $"Degrees of freedom must be positive. Received {degreesOfFreedom}.";
 					throw new ArgumentException(message);
 				}
@@ -354,19 +272,6 @@ internal static class GameplayRandom
 		double result;
 		if (uniform < 0.5)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = mean + scale * Math.Log(2.0 * uniform);
 		}
 		else
@@ -385,19 +290,6 @@ internal static class GameplayRandom
 	{
 		if (!(a <= 0.0))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(b <= 0.0))
 			{
 				double gamma = GetGamma(a, 1.0);

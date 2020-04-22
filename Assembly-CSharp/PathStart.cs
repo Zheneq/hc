@@ -16,30 +16,8 @@ public class PathStart : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (meshRenderer.materials[0] != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				meshRenderer.materials[0].SetColor("_TintColor", newColor);
 			}
 		}

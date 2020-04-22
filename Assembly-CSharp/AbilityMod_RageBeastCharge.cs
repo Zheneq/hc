@@ -33,15 +33,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, rageBeastCharge.m_damageAmount);
 			AbilityMod.AddToken(tokens, m_damageNearChargeEndMod, "DamageNearChargeEnd", string.Empty, rageBeastCharge.m_damageNearChargeEnd);
 			AbilityMod.AddToken(tokens, m_chargeLineRadiusMod, "DamageRadius", string.Empty, rageBeastCharge.m_damageRadius);
@@ -61,19 +52,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rageBeastCharge.m_damageAmount;
 		}
 		else
@@ -86,15 +64,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastCharge.m_damageNearChargeEnd;
 		}
 		else
@@ -110,15 +79,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastCharge.m_enemyHitEffectNearChargeEnd;
 		}
 		else

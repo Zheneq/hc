@@ -20,33 +20,11 @@ public class UIMatchCameraViewportToRectTransform : MonoBehaviour
 	{
 		if (!(m_3dModelContainer == null))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_3DModelDisplayBox == null))
 			{
 				myCamera = GetComponent<Camera>();
 				canvasCamera = m_3DModelDisplayBox.GetComponentInParent<Canvas>().worldCamera;
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new MissingReferenceException("3d model container and display boxes MUST be set");
@@ -62,19 +40,6 @@ public class UIMatchCameraViewportToRectTransform : MonoBehaviour
 		float num2 = vector.y - vector2.y;
 		if (num == viewportWidth)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (num2 == viewportHeight)
 			{
 				while (true)

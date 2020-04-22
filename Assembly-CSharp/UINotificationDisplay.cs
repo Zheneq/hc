@@ -48,10 +48,6 @@ public class UINotificationDisplay : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -98,19 +94,6 @@ public class UINotificationDisplay : MonoBehaviour
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = (actorDied.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 		}
 		if (flag)

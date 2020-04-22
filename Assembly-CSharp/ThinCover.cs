@@ -30,15 +30,6 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.transform == null)
 			{
 				while (true)
@@ -114,10 +105,6 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (num5 > 0f)
 					{
 						board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_POS, m_coverType);
@@ -193,11 +180,6 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			board.SetThinCover(num3, num4 - 1, ActorCover.CoverDirections.Y_POS, m_coverType);
 			return;
 		}
@@ -214,10 +196,6 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -225,15 +203,6 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 		Gizmos.matrix = Matrix4x4.TRS(base.transform.position, base.transform.localRotation, Vector3.one);
 		if (m_coverType == CoverType.Half)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Gizmos.DrawWireCube(Vector3.zero, new Vector3(1.5f, 1f, 0.1f));
 		}
 		else

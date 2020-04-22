@@ -21,19 +21,6 @@ public class AppState_InGameResolve : AppStateInGame
 	{
 		if (UILoadingScreenPanel.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UILoadingScreenPanel.Get().SetVisible(false);
 		}
 		RegisterGameStoppedHandler();
@@ -57,10 +44,6 @@ public class AppState_InGameResolve : AppStateInGame
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AppState_InGameDecision.Get().Enter();
 					return;
 				}
@@ -72,11 +55,6 @@ public class AppState_InGameResolve : AppStateInGame
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			AppState_InGameEnding.Get().Enter();
 			return;
 		}

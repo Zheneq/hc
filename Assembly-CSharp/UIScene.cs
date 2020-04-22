@@ -56,15 +56,6 @@ public abstract class UIScene : MonoBehaviour, IUIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.Get().RegisterUIScene(this);
 			return;
 		}

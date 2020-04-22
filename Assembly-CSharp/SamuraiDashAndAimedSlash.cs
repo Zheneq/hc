@@ -42,19 +42,6 @@ public class SamuraiDashAndAimedSlash : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "SamuraiDashAndAimedSlash";
 		}
 		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
@@ -113,19 +100,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float num = Vector3.Angle(neutralDir, vector);
 		if (num > GetMaxAngleForLaser())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = Vector3.RotateTowards(vector, neutralDir, (num - GetMaxAngleForLaser()) * ((float)Math.PI / 180f), 0f);
 		}
 		return vector.normalized;
@@ -136,19 +110,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo cachedTargetEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedTargetEffect = m_abilityMod.m_targetEffectMod.GetModifiedValue(m_targetEffect);
 		}
 		else
@@ -159,15 +120,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -187,19 +139,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
 		}
 		else
@@ -214,19 +153,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -241,19 +167,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
 		}
 		else
@@ -273,19 +186,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(m_extraDamageIfSingleTarget);
 		}
 		else
@@ -305,19 +205,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -356,24 +243,11 @@ public class SamuraiDashAndAimedSlash : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 					{
 						results.m_damage = GetDamageAmount();
 						if (m_syncComponent != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							results.m_damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 						}
 						if (GetExtraDamageIfSingleTarget() > 0)
@@ -381,42 +255,15 @@ public class SamuraiDashAndAimedSlash : Ability
 							int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_DashAndAim.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 							if (visibleActorsCountByTooltipSubject == 1)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								results.m_damage += GetExtraDamageIfSingleTarget();
 							}
 						}
 					}
 					else if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int absorb;
 						if (GetEffectOnSelf().m_applyEffect)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							absorb = GetEffectOnSelf().m_effectData.m_absorbAmount;
 						}
 						else
@@ -440,15 +287,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_SamuraiDashAndAimedSlash);
 			Setup();
 			return;

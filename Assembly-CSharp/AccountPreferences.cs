@@ -63,19 +63,6 @@ public class AccountPreferences : MonoBehaviour
 		int result;
 		if (s_instance != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (s_instance.ApplicationHasFocus ? 1 : 0);
 		}
 		else
@@ -97,19 +84,6 @@ public class AccountPreferences : MonoBehaviour
 		{
 			if (!PlayerPrefs.HasKey(m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_preference.ToString()))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SetBool(m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_preference, m_defaultSettings[m_languageIndex].m_boolDefaults[i].m_value);
 			}
 		}
@@ -153,15 +127,6 @@ public class AccountPreferences : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_languageIndex = num;
 			return;
 		}
@@ -193,19 +158,6 @@ public class AccountPreferences : MonoBehaviour
 		int value2;
 		if (value)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			value2 = 1;
 		}
 		else

@@ -25,19 +25,6 @@ public class CharacterTaunt
 		int result = 0;
 		if (m_tauntUnlockData != null && m_tauntUnlockData.m_unlockData != null && m_tauntUnlockData.m_unlockData.UnlockConditions != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameBalanceVars.UnlockCondition[] unlockConditions = m_tauntUnlockData.m_unlockData.UnlockConditions;
 			foreach (GameBalanceVars.UnlockCondition unlockCondition in unlockConditions)
 			{
@@ -47,22 +34,8 @@ public class CharacterTaunt
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return unlockCondition.typeSpecificData2;
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -72,29 +45,11 @@ public class CharacterTaunt
 	{
 		if (m_tauntUnlockData != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			InventoryItemRarity rarity = m_tauntUnlockData.Rarity;
 			if (rarity == InventoryItemRarity.Uncommon)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					return 100;
 				}
 			}
@@ -106,11 +61,6 @@ public class CharacterTaunt
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					return 1200;
 				}
 			}
@@ -127,30 +77,8 @@ public class CharacterTaunt
 		int result;
 		if (_001D != InventoryItemRarity.Uncommon)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (_001D != InventoryItemRarity.Rare && _001D != InventoryItemRarity.Epic)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((_001D == InventoryItemRarity.Legendary) ? 1 : 0);
 				goto IL_0030;
 			}

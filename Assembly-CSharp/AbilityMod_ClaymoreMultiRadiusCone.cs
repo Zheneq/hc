@@ -88,19 +88,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = claymoreMultiRadiusCone.m_coneWidthAngle;
 		}
 		else
@@ -113,15 +100,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreMultiRadiusCone.m_coneLengthInner;
 		}
 		else
@@ -134,15 +112,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreMultiRadiusCone.m_coneLengthMiddle;
 		}
 		else
@@ -155,15 +124,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreMultiRadiusCone.m_coneLengthOuter;
 		}
 		else
@@ -178,15 +138,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreMultiRadiusCone.m_damageAmountMiddle;
 		}
 		else
@@ -199,15 +150,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreMultiRadiusCone.m_damageAmountOuter;
 		}
 		else
@@ -220,15 +162,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreMultiRadiusCone.m_bonusDamageIfEnemyLowHealth;
 		}
 		else
@@ -241,15 +174,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreMultiRadiusCone.m_enemyHealthThreshForBonus;
 		}
 		else
@@ -263,15 +187,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreMultiRadiusCone.m_casterHealthThreshForBonus;
 		}
 		else
@@ -281,15 +196,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		empty = str9 + PropDesc(casterHealthThreshForBonusMod, "[CasterHealthThreshForBonus]", flag, baseVal9);
 		if (m_applyBonusPerThresholdReached)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_casterHealthThreshForBonusMod.operation != 0 && m_bonusDamageIfCasterLowHealthMod.operation != 0)
 			{
 				empty += "\t{applied per [threshold]% below max hp}";
@@ -300,15 +206,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = claymoreMultiRadiusCone.m_tpGainInner;
 		}
 		else
@@ -322,15 +219,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = claymoreMultiRadiusCone.m_tpGainOuter;
 		}
 		else
@@ -344,15 +232,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		object baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = claymoreMultiRadiusCone.m_effectMiddle;
 		}
 		else
@@ -365,15 +244,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		object baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = claymoreMultiRadiusCone.m_effectOuter;
 		}
 		else

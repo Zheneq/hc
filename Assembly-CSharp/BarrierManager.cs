@@ -64,10 +64,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_suppressingAbilityBlocks = true;
 					return;
 				}
@@ -87,10 +83,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_suppressingAbilityBlocks = false;
 					return;
 				}
@@ -128,19 +120,6 @@ public class BarrierManager : NetworkBehaviour
 		int result;
 		if (team != 0 && team != Team.TeamB)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((team == Team.Objects) ? 1 : 0);
 		}
 		else
@@ -165,15 +144,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -186,51 +156,23 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_clientNeedMovementUpdate)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				for (int i = 0; i < 3; i++)
 				{
 					Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
 					if (m_movementStates[teamFromSyncIndex] != m_movementStatesSync[i])
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_movementStates[teamFromSyncIndex] = m_movementStatesSync[i];
 						ClientUpdateMovementOnSync(teamFromSyncIndex);
 					}
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_clientNeedMovementUpdate = false;
 					return;
 				}
@@ -243,19 +185,6 @@ public class BarrierManager : NetworkBehaviour
 		visionUpdaters = new List<ActorData>();
 		if (m_barriers.Contains(barrierToAdd))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Trying to add a barrier we've already added.");
 		}
 		else
@@ -263,28 +192,10 @@ public class BarrierManager : NetworkBehaviour
 			m_barriers.Add(barrierToAdd);
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_barrierIdSync.Add(barrierToAdd.m_guid);
 				CallRpcUpdateBarriers();
 				if (m_barrierIdSync.Count > 120)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("More than " + 120 + " barriers active?");
 				}
 			}
@@ -297,19 +208,6 @@ public class BarrierManager : NetworkBehaviour
 	{
 		if (!m_barriers.Contains(barrierToRemove))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Error("Trying to remove a barrier we don't have.");
 		}
 		else
@@ -317,15 +215,6 @@ public class BarrierManager : NetworkBehaviour
 			m_barriers.Remove(barrierToRemove);
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int num = m_barrierIdSync.Count - 1; num >= 0; num--)
 				{
 					if (m_barrierIdSync[num] == barrierToRemove.m_guid)
@@ -333,26 +222,8 @@ public class BarrierManager : NetworkBehaviour
 						m_barrierIdSync.RemoveAt(num);
 					}
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (doRpcUpdate)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CallRpcUpdateBarriers();
 				}
 			}
@@ -376,19 +247,6 @@ public class BarrierManager : NetworkBehaviour
 		{
 			if (m_clientBarrierInfo[num].m_guid == guid)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_clientBarrierInfo[num].m_clientSequenceStartAttempted)
 				{
 					Log.Error("Client did not attempt to spawn barrier sequences before it is removed");
@@ -421,19 +279,6 @@ public class BarrierManager : NetworkBehaviour
 				num2++;
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			break;
 		}
 		if (num2 < m_barriers.Count)
@@ -447,15 +292,6 @@ public class BarrierManager : NetworkBehaviour
 			}
 			else
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b = new Vector3(0f, 0f, Board.Get().squareSize * num);
 			}
 			Vector3 src = a + b;
@@ -466,26 +302,8 @@ public class BarrierManager : NetworkBehaviour
 			{
 				if (flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
@@ -494,37 +312,10 @@ public class BarrierManager : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (barrier2.CrossingBarrierForVision(src, dest2))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
@@ -532,26 +323,8 @@ public class BarrierManager : NetworkBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (barrier2.CrossingBarrierForVision(src2, dest3))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 			}
@@ -559,15 +332,6 @@ public class BarrierManager : NetworkBehaviour
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -589,10 +353,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return -1;
 				}
 			}
@@ -613,10 +373,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateVisionStateForTeam(Team)' called on client");
 					return;
 				}
@@ -666,19 +422,6 @@ public class BarrierManager : NetworkBehaviour
 		int num;
 		if (mover.GetActorStatus() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (mover.GetActorStatus().HasStatus(StatusType.Unstoppable) ? 1 : 0);
 		}
 		else
@@ -695,29 +438,11 @@ public class BarrierManager : NetworkBehaviour
 					Barrier barrier = m_barriers[num2];
 					if (!barrier.CanMoveThroughAfterCrossoverBy(mover) && barrier.CrossingBarrier(source.ToVector3(), dest.ToVector3()))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
 					num2++;
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -747,10 +472,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void BarrierManager::UpdateMovementStateForTeam(Team)' called on client");
 					return;
 				}
@@ -790,10 +511,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -821,29 +538,11 @@ public class BarrierManager : NetworkBehaviour
 				Barrier barrier = m_barriers[num];
 				if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(currentBoardSquare.ToVector3(), dest.ToVector3()))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -859,30 +558,8 @@ public class BarrierManager : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_barriers[i].BlocksAbilities != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hasAbilityBlockingBarriers = true;
 				break;
 			}
@@ -907,19 +584,6 @@ public class BarrierManager : NetworkBehaviour
 		int num;
 		if (nonActorTargetInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (NetworkServer.active ? 1 : 0);
 		}
 		else
@@ -937,27 +601,9 @@ public class BarrierManager : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (barrier2 == null)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!barrier2.CrossingBarrier(startPos, destPos))
 			{
@@ -965,15 +611,6 @@ public class BarrierManager : NetworkBehaviour
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 				break;
 			}
@@ -986,15 +623,6 @@ public class BarrierManager : NetworkBehaviour
 				{
 					goto IL_00d2;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			num2 = magnitude;
 			goto IL_00d2;
@@ -1003,15 +631,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		if (barrier != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return flag2;
 	}
@@ -1029,30 +648,8 @@ public class BarrierManager : NetworkBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (barrier2.CrossingBarrier(lineStart, vector))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = barrier2.GetIntersectionPoint(lineStart, vector);
 				collision = true;
 				collisionNormal = barrier2.GetCollisionNormal(currentEnd - lineStart);
@@ -1061,22 +658,8 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (barrier != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			return vector;
 		}
@@ -1090,26 +673,12 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(forActor != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 vector = centerSquare.ToVector3();
 				for (int i = 0; i < m_barriers.Count; i++)
 				{
@@ -1118,41 +687,14 @@ public class BarrierManager : NetworkBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (barrier.GetBarrierTeam() != forActor.GetTeam())
 					{
 						continue;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					for (int j = 0; j < cachedBarrierDirs.Length; j++)
 					{
 						if (!cachedBarrierDirs[j])
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 b = 1.5f * ActorCover.GetCoverOffsetStatic((ActorCover.CoverDirections)j);
 							bool flag = barrier.CrossingBarrier(vector + b, vector);
 							cachedBarrierDirs[j] = flag;
@@ -1219,48 +761,17 @@ public class BarrierManager : NetworkBehaviour
 			{
 				if (m_barriers[num].ConsiderAsCover)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					flag = true;
 					break;
 				}
 				num++;
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			break;
 		}
 		m_barriers.Clear();
 		if (m_barrierIdSync.Count > 50)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("More than 50 barriers active?");
 		}
 		for (int i = 0; i < m_barrierIdSync.Count; i++)
@@ -1271,15 +782,6 @@ public class BarrierManager : NetworkBehaviour
 				{
 					if (!enumerator.MoveNext())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					BarrierSerializeInfo current = enumerator.Current;
@@ -1316,11 +818,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			GameFlowData.Get().UpdateCoverFromBarriersForAllActors();
 			return;
 		}
@@ -1351,42 +848,15 @@ public class BarrierManager : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				for (int i = 0; i < 3; i++)
 				{
 					Team teamFromSyncIndex = GetTeamFromSyncIndex(i);
 					if (m_movementStatesSync[i] != m_movementStates[teamFromSyncIndex])
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_clientNeedMovementUpdate = true;
 					}
 					if (m_visionStatesSync[i] != m_visionStates[teamFromSyncIndex])
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_visionStates[teamFromSyncIndex] = m_visionStatesSync[i];
 						ClientUpdateVisionOnSync(teamFromSyncIndex);
 					}
@@ -1408,10 +878,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementOnSync(Team)' called on server");
 					return;
 				}
@@ -1424,20 +890,10 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (actorData.GetTeam() == team)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 					return;
 				}
@@ -1458,10 +914,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateVisionOnSync(Team)' called on server");
 					return;
 				}
@@ -1470,15 +922,6 @@ public class BarrierManager : NetworkBehaviour
 		object obj;
 		if (GameFlowData.Get() == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			obj = null;
 		}
 		else
@@ -1492,20 +935,10 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (actorData.GetTeam() == team)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					actorData.GetFogOfWar().MarkForRecalculateVisibility();
 					return;
 				}
@@ -1525,10 +958,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1539,11 +968,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			using (List<Barrier>.Enumerator enumerator = m_barriers.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -1592,10 +1016,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_movementStatesSync called on server.");
 					return;
 				}
@@ -1615,10 +1035,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_visionStatesSync called on server.");
 					return;
 				}
@@ -1650,10 +1066,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcUpdateBarriers called on client.");
 					return;
 				}
@@ -1678,10 +1090,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_barrierIdSync);
 					SyncListInt.WriteInstance(writer, m_movementStatesSync);
 					SyncListInt.WriteInstance(writer, m_visionStatesSync);
@@ -1694,15 +1102,6 @@ public class BarrierManager : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1712,15 +1111,6 @@ public class BarrierManager : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1728,26 +1118,8 @@ public class BarrierManager : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1755,15 +1127,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1780,10 +1143,6 @@ public class BarrierManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.ReadReference(reader, m_barrierIdSync);
 					SyncListInt.ReadReference(reader, m_movementStatesSync);
 					SyncListInt.ReadReference(reader, m_visionStatesSync);
@@ -1798,15 +1157,6 @@ public class BarrierManager : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, m_movementStatesSync);
 		}
 		if ((num & 4) != 0)

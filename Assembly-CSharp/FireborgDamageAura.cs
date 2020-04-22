@@ -73,19 +73,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		StandardEffectInfo cachedOnCastTargetAllyEffect;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedOnCastTargetAllyEffect = m_abilityMod.m_onCastTargetAllyEffectMod.GetModifiedValue(m_onCastTargetAllyEffect);
 		}
 		else
@@ -100,19 +87,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_excludeTargetedActorMod.GetModifiedValue(m_excludeTargetedActor);
 		}
 		else
@@ -127,19 +101,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_auraDurationMod.GetModifiedValue(m_auraDuration);
 		}
 		else
@@ -159,19 +120,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_igniteIfNormalMod.GetModifiedValue(m_igniteIfNormal);
 		}
 		else
@@ -186,19 +134,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_igniteIfSuperheatedMod.GetModifiedValue(m_igniteIfSuperheated);
 		}
 		else
@@ -218,19 +153,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		int result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnUltCastMod.GetModifiedValue(m_cdrOnUltCast);
 		}
 		else
@@ -256,15 +178,6 @@ public class FireborgDamageAura : GenericAbility_Container
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 				if (!(boardSquareSafe != null))
 				{
@@ -272,22 +185,12 @@ public class FireborgDamageAura : GenericAbility_Container
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					if (!(boardSquareSafe == targetActor.GetCurrentBoardSquare()))
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (results.m_absorb >= 0)
 						{
 							results.m_absorb += onCastTargetAllyEffect.m_effectData.m_absorbAmount;
@@ -307,11 +210,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 			if (!(boardSquareSafe2 != null))
 			{
@@ -319,20 +217,10 @@ public class FireborgDamageAura : GenericAbility_Container
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (boardSquareSafe2 == targetActor.GetCurrentBoardSquare())
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						results.m_damage = 0;
 						return;
 					}
@@ -346,42 +234,11 @@ public class FireborgDamageAura : GenericAbility_Container
 	{
 		if (m_excludeTargetedActor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (target.GetTeam() != caster.GetTeam())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 				if (boardSquareSafe != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == target.GetCurrentBoardSquare())
 					{
 						while (true)

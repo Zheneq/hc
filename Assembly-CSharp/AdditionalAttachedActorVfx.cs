@@ -40,15 +40,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_vfxToAttach.Length; i++)
 			{
 				JointToVfx jointToVfx = m_vfxToAttach[i];
@@ -57,42 +48,15 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 					AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 					if (attachedActorVFXInfo.HasVfxInstance())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 						m_spawnedVfxList.Add(attachedActorVFXInfo);
 					}
 				}
 				if (jointToVfx.m_vfxFriendlyOnlyPrefab != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(jointToVfx.m_vfxFriendlyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfxFriendly_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
 					if (attachedActorVFXInfo2.HasVfxInstance())
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 						m_spawnedVfxList.Add(attachedActorVFXInfo2);
 					}
@@ -101,27 +65,9 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AttachedActorVFXInfo attachedActorVFXInfo3 = new AttachedActorVFXInfo(jointToVfx.m_vfxEnemyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVFXEnemy_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
 				if (attachedActorVFXInfo3.HasVfxInstance())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					attachedActorVFXInfo3.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 					m_spawnedVfxList.Add(attachedActorVFXInfo3);
 				}
@@ -151,15 +97,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_spawnedVfxList.Clear();
 			return;
 		}
@@ -173,27 +110,9 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (m_actorData.IsVisibleToClient())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((m_actorData.GetActorModelDataRenderer() == null || m_actorData.GetActorModelDataRenderer().enabled) ? 1 : 0);
 			}
 			else
@@ -205,26 +124,8 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 			int num2;
 			if (GameFlowData.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((GameFlowData.Get().activeOwnedActorData.GetTeam() == m_actorData.GetTeam()) ? 1 : 0);
 					goto IL_00e1;
 				}
@@ -239,15 +140,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				int actorVisible;
 				if (flag)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible = ((!flag2) ? 1 : 0);
 				}
 				else

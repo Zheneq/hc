@@ -34,19 +34,6 @@ public class NetworkStats
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = new NetworkStats();
 			s_instance.Start();
 		}
@@ -84,37 +71,14 @@ public class NetworkStats
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(timeSpan.TotalSeconds > (double)m_outputRate))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (m_outputClient)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<NetworkConnection>.Enumerator enumerator = m_clientConnections.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -124,43 +88,16 @@ public class NetworkStats
 							int num = 0;
 							if (m_lastClientOutNumBytes.ContainsKey(current.connectionId))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = m_lastClientOutNumBytes[current.connectionId];
 							}
 							int num2 = 0;
 							if (m_lastClientOutNumMsgs.ContainsKey(current.connectionId))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = m_lastClientOutNumMsgs[current.connectionId];
 							}
 							Log.Info("NS: Client Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", current.connectionId, (int)timeSpan.TotalMilliseconds, numBytes - num, numBytes, numMsgs - num2, numMsgs, lastBufferedPerSecond, numBufferedMsgs);
 							m_lastClientOutNumBytes[current.connectionId] = numBytes;
 							m_lastClientOutNumMsgs[current.connectionId] = numMsgs;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -185,15 +122,6 @@ public class NetworkStats
 							Log.Info("NS: Server Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", current2.connectionId, (int)timeSpan.TotalMilliseconds, numBytes2 - num3, numBytes2, numMsgs2 - num4, numMsgs2, lastBufferedPerSecond2, numBufferedMsgs2);
 							m_lastServerOutNumBytes[current2.connectionId] = numBytes2;
 							m_lastServerOutNumMsgs[current2.connectionId] = numMsgs2;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

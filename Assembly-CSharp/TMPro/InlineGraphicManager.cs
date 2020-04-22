@@ -51,15 +51,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_inlineGraphic = value;
 					return;
 				}
@@ -74,19 +65,6 @@ namespace TMPro
 		{
 			if (!TMP_Settings.warningsDisabled)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Debug.LogWarning("InlineGraphicManager component is now Obsolete and has been removed from [" + base.gameObject.name + "] along with its InlineGraphic child.", this);
 			}
 			if (inlineGraphic.gameObject != null)
@@ -114,19 +92,6 @@ namespace TMPro
 		{
 			if (spriteAsset == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				spriteAsset = ((!(TMP_Settings.defaultSpriteAsset != null)) ? (Resources.Load("Sprite Assets/Default Sprite Asset") as TMP_SpriteAsset) : TMP_Settings.defaultSpriteAsset);
 			}
 			m_spriteAsset = spriteAsset;
@@ -137,11 +102,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_textComponent.havePropertiesChanged = true;
 				m_textComponent.SetVerticesDirty();
 				return;
@@ -159,10 +119,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -189,19 +145,6 @@ namespace TMPro
 			}
 			if (m_uiVertex == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_uiVertex = new UIVertex[4];
 			}
 			int num = size * 4;
@@ -211,11 +154,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				m_uiVertex = new UIVertex[Mathf.NextPowerOfTwo(num)];
 				return;
 			}
@@ -238,24 +176,10 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (uiVertex.Length > 0)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						Array.Clear(uiVertex, 0, uiVertex.Length);
 						m_inlineGraphicCanvasRenderer.Clear();
 						return;
@@ -284,19 +208,6 @@ namespace TMPro
 			}
 			if (m_spriteAsset.spriteInfoList != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (index <= m_spriteAsset.spriteInfoList.Count - 1)
 				{
 					return m_spriteAsset.spriteInfoList[index];
@@ -320,19 +231,6 @@ namespace TMPro
 		{
 			if (!(m_spriteAsset == null))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_spriteAsset.spriteInfoList != null)
 				{
 					return m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.id == index);

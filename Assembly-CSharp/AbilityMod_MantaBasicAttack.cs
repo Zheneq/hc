@@ -43,15 +43,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, mantaBasicAttack.m_coneWidthAngle);
 			AbilityMod.AddToken(tokens, m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, mantaBasicAttack.m_coneBackwardOffset);
 			AbilityMod.AddToken(tokens, m_coneLengthInnerMod, "ConeLengthInner", string.Empty, mantaBasicAttack.m_coneLengthInner);
@@ -76,19 +67,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = mantaBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -101,15 +79,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaBasicAttack.m_coneBackwardOffset;
 		}
 		else
@@ -122,15 +91,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaBasicAttack.m_coneLengthInner;
 		}
 		else
@@ -145,15 +105,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaBasicAttack.m_damageAmountThroughWalls;
 		}
 		else
@@ -168,15 +119,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaBasicAttack.m_effectOuter;
 		}
 		else

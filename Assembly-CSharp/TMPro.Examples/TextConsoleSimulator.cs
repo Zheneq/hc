@@ -42,19 +42,6 @@ namespace TMPro.Examples
 			int num = 0;
 			if (_000E)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				characterCount = textInfo.characterCount;
 				_000E = false;
 			}
@@ -91,45 +78,14 @@ namespace TMPro.Examples
 				num2 = num % (wordCount + 1);
 				if (num2 == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num3 = 0;
 				}
 				else if (num2 < wordCount)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = _001D.textInfo.wordInfo[num2 - 1].lastCharacterIndex + 1;
 				}
 				else if (num2 == wordCount)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = characterCount;
 				}
 				_001D.maxVisibleCharacters = num3;
@@ -142,11 +98,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				yield return new WaitForSeconds(1f);
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

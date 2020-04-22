@@ -22,19 +22,6 @@ public class MovementPathEnd : MonoBehaviour
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (meshRenderer.materials[0] != null)
 				{
 					meshRenderer.materials[0].SetColor("_TintColor", newColor);
@@ -47,19 +34,6 @@ public class MovementPathEnd : MonoBehaviour
 	{
 		if (!isChasing)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_IndicatorParent.SetActive(true);
 			m_animationController.Play("Initial");
 		}

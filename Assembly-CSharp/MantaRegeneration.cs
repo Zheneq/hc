@@ -58,19 +58,6 @@ public class MantaRegeneration : Ability
 		StandardActorEffectData cachedHealEffectData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedHealEffectData = m_abilityMod.m_healEffectDataMod.GetModifiedValue(m_healEffectData);
 		}
 		else
@@ -81,15 +68,6 @@ public class MantaRegeneration : Ability
 		StandardEffectInfo cachedOtherSelfEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedOtherSelfEffect = m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(m_otherSelfEffect);
 		}
 		else
@@ -104,19 +82,6 @@ public class MantaRegeneration : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxRegenerationMod.GetModifiedValue(m_maxRegeneration);
 		}
 		else
@@ -131,19 +96,6 @@ public class MantaRegeneration : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(m_turnsOfRegeneration);
 		}
 		else
@@ -158,19 +110,6 @@ public class MantaRegeneration : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(m_damageToHealRatio);
 		}
 		else
@@ -190,19 +129,6 @@ public class MantaRegeneration : Ability
 		object result;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownReductionsWhenNoHits;
 		}
 		else
@@ -230,15 +156,6 @@ public class MantaRegeneration : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_MantaRegeneration);
 			Setup();
 			return;

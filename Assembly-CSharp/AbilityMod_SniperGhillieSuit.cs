@@ -29,39 +29,12 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_healingOnSelf > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_IntDiff(tokens, "HealOnSelf", string.Empty, m_healingOnSelf, false, 0);
 			}
 			if (m_useStealthEffectDataOverride)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_stealthEffectDataOverride != null)
 				{
 					m_stealthEffectDataOverride.AddTooltipTokens(tokens, "EffectOnSelf", true, sniperGhillieSuit.m_standardActorEffectData);
@@ -79,48 +52,17 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		string text = string.Empty;
 		if (m_healingOnSelf > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text2 = text;
 			text = text2 + "[Healing on Self] = " + m_healingOnSelf + "\n";
 		}
 		if (m_useStealthEffectDataOverride)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str = text;
 			StandardActorEffectData stealthEffectDataOverride = m_stealthEffectDataOverride;
 			string empty = string.Empty;
 			object baseVal;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = sniperGhillieSuit.m_standardActorEffectData;
 			}
 			else

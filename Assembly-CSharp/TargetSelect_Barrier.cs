@@ -38,19 +38,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		float barrierWidth = m_barrierWidth;
 		if (ability.GetExpectedNumberOfTargeters() < 2)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, m_laserRangeFront, m_laserRangeBack, IgnoreLos(), m_laserRangeIgnoreLos));
 		}
 		else
@@ -80,15 +67,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 			if (!(boardSquareSafe != null))
 			{
@@ -96,23 +74,9 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				Vector3 freePos = targets[0].FreePos;
 				if (targets.Count > 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					freePos = targets[1].FreePos;
 				}
 				facing = VectorUtils.GetDirectionToClosestSide(boardSquareSafe, freePos);
@@ -129,19 +93,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		startPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		if (laserRangeFront > 0f)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 laserEndPos;
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, barrierFacing, laserRangeFront, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out laserEndPos, nonActorTargetInfo, null, true);
 			list.AddRange(actorsInLaser);
@@ -157,15 +108,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 					ActorData current = enumerator.Current;
 					if (!list.Contains(current))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(current);
 					}
 				}

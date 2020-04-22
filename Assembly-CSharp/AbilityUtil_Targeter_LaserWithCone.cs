@@ -108,19 +108,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		int result;
 		if (m_clampToCursorPos)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_snapToTargetSquareWhenClampRange ? 1 : 0);
 		}
 		else
@@ -178,15 +165,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 1; i < m_highlights.Count; i++)
 			{
 				m_highlights[i].SetActive(false);
@@ -210,19 +188,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -234,26 +199,8 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (SnapToTargetSquare() && boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = boardSquareSafe.ToVector3() - targetingActor.GetTravelBoardSquareWorldPosition();
 				vector2.y = 0f;
 				vector2.Normalize();
@@ -267,26 +214,8 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			float num2 = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetTravelBoardSquareWorldPosition(), b);
 			if (m_minRangeIfClampToCursor > 0f)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 < m_minRangeIfClampToCursor)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = m_minRangeIfClampToCursor;
 				}
 			}
@@ -303,15 +232,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		float magnitude = (end - travelBoardSquareWorldPositionForLos).magnitude;
 		if (base.Highlight == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Highlight = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude);
 		}
 		else
@@ -322,29 +242,11 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		base.Highlight.transform.rotation = Quaternion.LookRotation(vector2);
 		if (m_addLaserHitActorAsPrimary)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (ActorData item in actorsInLaser)
 			{
 				Vector3 vector3;
 				if (m_laserIgnoreCover)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector3 = item.GetTravelBoardSquareWorldPosition();
 				}
 				else
@@ -363,38 +265,11 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		{
 			goto IL_0336;
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_explodeOnEnvironmentHit)
 			{
 				goto IL_0336;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num4 = (actorsInLaser.Count > 0) ? 1 : 0;
@@ -406,15 +281,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			CreateConeHighlights(vector4, num3);
 			if (!m_explosionPenetrateLos)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector5 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(adjustedCoords.start, vector4);
 			}
 			List<ActorData> actors = AreaEffectUtils.GetActorsInCone(vector4, num3, GetConeWidthAngle(), GetConeRadius(), m_coneBackwardOffsetInSquares, m_explosionPenetrateLos, targetingActor, null, null, true, vector5);
@@ -429,15 +295,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 						Vector3 vector6;
 						if (m_explosionIgnoreCover)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector6 = current2.GetTravelBoardSquareWorldPosition();
 						}
 						else
@@ -447,15 +304,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 						Vector3 damageOrigin2 = vector6;
 						AddTargetedActor(current2, damageOrigin2, targetingActor, AbilityTooltipSubject.Secondary);
 					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -469,39 +317,16 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_laserChecker.UpdateBoxProperties(adjustedCoords.start, adjustedCoords.end, targetingActor);
 			m_coneChecker.UpdateConeProperties(vector4, GetConeWidthAngle(), GetConeRadius(), m_coneBackwardOffsetInSquares, num3, targetingActor);
 			if (!GetPenetrateLoS())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_coneChecker.SetLosPosOverride(true, vector5, true);
 			}
 			ResetSquareIndicatorIndexToUse();
 			bool flag3 = GetWidth() > 0f;
 			if (flag3)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				OperationOnSquare_TurnOnHiddenSquareIndicator indicatorHandler = m_indicatorHandler;
 				Vector3 start2 = adjustedCoords.start;
 				Vector3 end2 = adjustedCoords.end;
@@ -510,15 +335,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				object losCheckOverrides;
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					losCheckOverrides = m_squarePosCheckerList;
 				}
 				else
@@ -529,15 +345,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				OperationOnSquare_TurnOnHiddenSquareIndicator indicatorHandler2 = m_indicatorHandler;
 				float coneWidthAngle = GetConeWidthAngle();
 				float coneRadius = GetConeRadius();
@@ -546,15 +353,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				List<ISquareInsideChecker> losCheckOverrides2;
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					losCheckOverrides2 = m_squarePosCheckerList;
 				}
 				else
@@ -594,15 +392,6 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float radiusInWorld = (GetConeRadius() + m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, GetConeWidthAngle());
 			m_highlights.Add(item);
@@ -614,30 +403,8 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 	{
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count > 1)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_highlights[1] != null)
 				{
 					while (true)

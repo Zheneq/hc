@@ -30,35 +30,13 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameEventManager.PowerUpActivatedArgs powerUpActivatedArgs = args as GameEventManager.PowerUpActivatedArgs;
 					if (!(powerUpActivatedArgs.byActor == null))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(GameFlowData.Get().activeOwnedActorData != powerUpActivatedArgs.byActor))
 						{
 							if (m_requiredPowerupType != 0)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_requiredPowerupType != powerUpActivatedArgs.powerUp.m_chatterCategory)
 								{
 									while (true)
@@ -74,15 +52,6 @@ public class OnPowerUpChatter : ScriptableObject, IChatterData
 								}
 							}
 							return ChatterData.ShouldPlayChatter(this, eventType, args, component);
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;

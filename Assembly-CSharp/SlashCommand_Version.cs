@@ -13,31 +13,9 @@ public class SlashCommand_Version : SlashCommand
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.EnvironmentType == EnvironmentType.External)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!clientGameManager.HasDeveloperAccess())
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		WinUtils.SetClipboardText(BuildVersion.FullVersionString);

@@ -15,19 +15,6 @@ public static class GameStatusExtensions
 		int result;
 		if (value >= GameStatus.Launching)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((value <= GameStatus.Stopped) ? 1 : 0);
 		}
 		else

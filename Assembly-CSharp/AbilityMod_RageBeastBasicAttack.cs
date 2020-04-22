@@ -44,15 +44,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, rageBeastBasicAttack.m_coneWidthAngle);
 			AbilityMod.AddToken(tokens, m_coneInnerRadiusMod, "ConeLengthInner", string.Empty, rageBeastBasicAttack.m_coneLengthInner);
 			AbilityMod.AddToken(tokens, m_coneOuterRadiusMod, "ConeLengthOuter", string.Empty, rageBeastBasicAttack.m_coneLengthOuter);
@@ -76,19 +67,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = rageBeastBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -101,15 +79,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastBasicAttack.m_coneLengthInner;
 		}
 		else
@@ -122,15 +91,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastBasicAttack.m_coneLengthOuter;
 		}
 		else
@@ -143,15 +103,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rageBeastBasicAttack.m_damageAmountInner;
 		}
 		else
@@ -166,15 +117,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rageBeastBasicAttack.m_effectOuter;
 		}
 		else
@@ -188,15 +130,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rageBeastBasicAttack.m_tpGainOuter;
 		}
 		else
@@ -206,15 +139,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		empty = str6 + AbilityModHelper.GetModPropertyDesc(outerTpGain, "[Outer TechPoint Gain]", flag, baseVal6);
 		if (m_extraDamagePerAdjacentEnemy != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Extra Damage Per Adjacent Enemy] = " + m_extraDamagePerAdjacentEnemy + "\n";
 		}

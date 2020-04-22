@@ -36,56 +36,16 @@ public class MartyrLaserBase : Ability
 		MartyrLaserThreshold result = null;
 		if (GetSyncComponent() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetSyncComponent().IsBonusActive(caster))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<MartyrLaserThreshold> thresholdBasedCrystalBonusList = GetThresholdBasedCrystalBonusList();
 				int num = GetSyncComponent().SpentDamageCrystals(caster);
 				for (int i = 0; i < thresholdBasedCrystalBonusList.Count; i++)
 				{
 					if (num >= thresholdBasedCrystalBonusList[i].m_crystalThreshold)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = thresholdBasedCrystalBonusList[i];
 					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -98,19 +58,6 @@ public class MartyrLaserBase : Ability
 		float num;
 		if (currentPowerEntry != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = currentPowerEntry.m_additionalWidth;
 		}
 		else
@@ -127,19 +74,6 @@ public class MartyrLaserBase : Ability
 		float num;
 		if (currentPowerEntry != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = currentPowerEntry.m_additionalLength;
 		}
 		else
@@ -161,19 +95,6 @@ public class MartyrLaserBase : Ability
 		int num;
 		if (currentPowerEntry != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = currentPowerEntry.m_additionalTargets;
 		}
 		else

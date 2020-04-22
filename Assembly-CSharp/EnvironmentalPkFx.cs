@@ -19,15 +19,6 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_randEmitIntervalMax = m_randEmitIntervalMin;
 			return;
 		}
@@ -37,19 +28,6 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_fx == null)
 			{
 				m_fx = GetComponent<PKFxFX>();
@@ -71,44 +49,13 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 		}
 		if (!(VisualsLoader.Get() == null))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!VisualsLoader.Get().LevelLoaded())
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (m_fx == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_fx = GetComponent<PKFxFX>();
 		}
 		if (!(m_fx != null) || !m_fx.enabled)
@@ -117,11 +64,6 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (m_randEmitIntervalMin <= 0f)
 			{
 				while (true)
@@ -149,48 +91,24 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_randEmitIntervalMax > 0f))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!(m_fx != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (!m_fx.enabled)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						if (m_timeTillNextEmit < 0f)
 						{
 							while (true)
@@ -211,21 +129,11 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							m_timeTillNextEmit -= Time.deltaTime;
 							if (m_timeTillNextEmit <= 0f)
 							{
 								while (true)
 								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
 									m_fx.TerminateEffect();
 									m_fx.StartEffect();
 									m_timeTillNextEmit = Random.Range(m_randEmitIntervalMin, m_randEmitIntervalMax);

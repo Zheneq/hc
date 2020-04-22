@@ -34,15 +34,6 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_boardSquareSizeX > 0 && m_boardSquareSizeY > 0)
 			{
 				m_region = new BoardRegion();
@@ -68,41 +59,14 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
 		if (m_region != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!((m_lastGizmoPos - base.transform.position).sqrMagnitude > 0f))
 			{
 				goto IL_0081;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		CreateRegion();

@@ -15,10 +15,6 @@ public static class AsyncPumpExt
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					asyncPump.Post(callback, state, methodInfo);
 					return;
 				}

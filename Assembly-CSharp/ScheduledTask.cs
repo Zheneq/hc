@@ -39,10 +39,6 @@ public class ScheduledTask
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Timer.Elapsed -= TimerElapsed;
 					Timer = null;
 					if (TaskComplete != null)

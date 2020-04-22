@@ -85,19 +85,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_NanoSmithWeaponsOfWar.m_allyTargetEffectOverride.GetModifiedValue(m_targetAllyOnHitEffect);
 		}
 		else
@@ -109,15 +96,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int val;
 		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_NanoSmithWeaponsOfWar.m_sweepDamageMod.GetModifiedValue(m_sweepDamageAmount);
 		}
 		else
@@ -129,15 +107,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_NanoSmithWeaponsOfWar.m_enemySweepOnHitEffectOverride.GetModifiedValue(m_enemySweepOnHitEffect);
 		}
 		else
@@ -148,15 +117,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_NanoSmithWeaponsOfWar)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_NanoSmithWeaponsOfWar.m_allySweepOnHitEffectOverride.GetModifiedValue(m_allySweepOnHitEffect);
 		}
 		else
@@ -189,19 +149,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_sweepDamageAmount;
 		}
 		else
@@ -216,19 +163,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -243,19 +177,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetAllyOnHitEffect;
 		}
 		else
@@ -270,19 +191,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allySweepOnHitEffect;
 		}
 		else

@@ -30,15 +30,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ResizeWindowSize();
 			return;
 		}
@@ -63,15 +54,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numEntries = Mathf.FloorToInt(Random.value * 10f);
 			for (int j = 0; j < numEntries; j++)
 			{
@@ -85,11 +67,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				ResizeWindowSize();
 				return;
 			}

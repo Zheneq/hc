@@ -28,19 +28,6 @@ public class QuestMetaData
 			DateTime result;
 			if (UtcCompletedTimes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = DateTime.MinValue;
 			}
 			else
@@ -59,19 +46,6 @@ public class QuestMetaData
 			DateTime result;
 			if (UtcCompletedTimes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = DateTime.MinValue;
 			}
 			else

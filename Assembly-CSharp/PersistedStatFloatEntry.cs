@@ -59,31 +59,9 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 		NumGamesInSum++;
 		if (!(val > Max))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!flag)
 			{
 				goto IL_005c;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Max = val;
@@ -91,27 +69,9 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 		IL_005c:
 		if (!(val < Min))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Min = val;

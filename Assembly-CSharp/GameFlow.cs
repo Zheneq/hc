@@ -125,10 +125,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Client] function 'System.Void GameFlow::SendCastAbility(ActorData,AbilityData/ActionType,System.Collections.Generic.List`1<AbilityTarget>)' called on server");
 					return;
 				}
@@ -163,24 +159,10 @@ public class GameFlow : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get() != null)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					OnGameStateChanged(GameFlowData.Get().gameState);
 					return;
 				}
@@ -199,19 +181,6 @@ public class GameFlow : NetworkBehaviour
 		Client_OnDestroy();
 		if (EventManager.Instance != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
 		s_instance = null;
@@ -233,10 +202,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (newState != GameState.BothTeams_Resolve)
 					{
 						while (true)
@@ -283,15 +248,6 @@ public class GameFlow : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GameFlowData.Get().GetNumAvailableCharacterResourceLinks() != 1)
 			{
 			}
@@ -319,10 +275,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000c;
 				}
 			}
@@ -349,10 +301,6 @@ public class GameFlow : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.Value.m_handle;
 						}
 					}
@@ -389,10 +337,6 @@ public class GameFlow : NetworkBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return current.Value.m_handle;
 						}
 					}
@@ -416,71 +360,22 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (message.RestrictVisibiltyToTeam != Team.Invalid)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData != null))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (GameFlowData.Get().activeOwnedActorData.GetTeam() != message.RestrictVisibiltyToTeam)
 			{
 				return;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		string empty = string.Empty;
 		if (!message.Unlocalized.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty = message.Unlocalized;
 		}
 		else if (message.Token.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty = StringUtil.TR(message.Term, message.Context);
 		}
 		else
@@ -507,44 +402,13 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.syncVarDirtyBits == 0)
 			{
 				return false;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		NetworkWriterAdapter networkWriterAdapter = new NetworkWriterAdapter(writer);
@@ -552,15 +416,6 @@ public class GameFlow : NetworkBehaviour
 		networkWriterAdapter.Serialize(ref value);
 		if (value >= 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (value <= 20)
 			{
 				goto IL_009f;
@@ -579,27 +434,9 @@ public class GameFlow : NetworkBehaviour
 				PlayerDetails value2 = current.Value;
 				if (value2 != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					key.OnSerializeHelper(networkWriterAdapter);
 					value2.OnSerializeHelper(networkWriterAdapter);
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -610,19 +447,6 @@ public class GameFlow : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num == 0)
@@ -631,37 +455,14 @@ public class GameFlow : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			NetworkReaderAdapter networkReaderAdapter = new NetworkReaderAdapter(reader);
 			int value = m_playerDetails.Count;
 			networkReaderAdapter.Serialize(ref value);
 			if (value >= 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (value <= 20)
 				{
 					goto IL_0094;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Error("Invalid number of players: " + value);
@@ -679,15 +480,6 @@ public class GameFlow : NetworkBehaviour
 				m_playerDetails[key] = playerDetails;
 				if ((bool)GameFlowData.Get() && GameFlowData.Get().LocalPlayerData == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameFlowData.Get().SetLocalPlayerData();
 				}
 			}
@@ -719,10 +511,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcDisplayConsoleText called on server.");
 					return;
 				}
@@ -742,10 +530,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC RpcSetMatchTime called on server.");
 					return;
 				}
@@ -765,10 +549,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcDisplayConsoleText called on client.");
 					return;
 				}
@@ -794,10 +574,6 @@ public class GameFlow : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("RPC Function RpcSetMatchTime called on client.");
 					return;
 				}

@@ -27,31 +27,9 @@ public class DinoLayerCones : GenericAbility_Container
 		m_abilityData = GetComponent<AbilityData>();
 		if (m_abilityData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_dashOrShieldAbility = m_abilityData.GetAbilityOfType<DinoDashOrShield>();
 			if (m_dashOrShieldAbility != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_dashOrShieldActionType = m_abilityData.GetActionTypeOfAbility(m_dashOrShieldAbility);
 			}
 		}
@@ -68,11 +46,6 @@ public class DinoLayerCones : GenericAbility_Container
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			AbilityUtil_Targeter_LayerCones abilityUtil_Targeter_LayerCones = base.Targeter as AbilityUtil_Targeter_LayerCones;
 			abilityUtil_Targeter_LayerCones.m_delegateNumActiveLayers = GetNumLayersActive;
 			return;
@@ -89,19 +62,6 @@ public class DinoLayerCones : GenericAbility_Container
 		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
 		if (targetSelectComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targetSelectComp is TargetSelect_LayerCones)
 			{
 				while (true)
@@ -131,22 +91,9 @@ public class DinoLayerCones : GenericAbility_Container
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					bool flag = false;
 					if (m_dashOrShieldAbility != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_dashOrShieldAbility.FullyChargeUpLayerCone() && !m_dashOrShieldAbility.IsInReadyStance())
 						{
 							flag = m_abilityData.HasQueuedAction(m_dashOrShieldActionType);

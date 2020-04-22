@@ -72,30 +72,8 @@ public class CombatText : MonoBehaviour
 		ActorData component = GetComponent<ActorData>();
 		if (component.IsVisibleToClient())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ClientGameManager.Get().IsFastForward)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_combatTextPanel.QueueCombatText(component, combatText, category, icon);
 			}
 		}
@@ -105,11 +83,6 @@ public class CombatText : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			MatchLogger.Get().Log(logText);
 			return;
 		}

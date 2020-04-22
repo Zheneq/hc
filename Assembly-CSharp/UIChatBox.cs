@@ -38,10 +38,6 @@ public class UIChatBox : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Get().m_chatBox;
 				}
 			}
@@ -79,19 +75,6 @@ public class UIChatBox : UIScene
 			UIManager.ClientState? newClientGameState3 = newState.NewClientGameState;
 			if (newClientGameState3.Value == UIManager.ClientState.InFrontEnd)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_chatBox.transform.SetParent(m_FrontEndChatboxContainer.transform);
 				(m_chatBox.transform as RectTransform).anchoredPosition = m_frontEndPosition;
 				(m_chatBox.transform as RectTransform).sizeDelta = m_frontEndSize;
@@ -101,15 +84,6 @@ public class UIChatBox : UIScene
 				UIManager.ClientState? newClientGameState4 = newState.NewClientGameState;
 				if (newClientGameState4.Value == UIManager.ClientState.InGame)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_chatBox.transform.SetParent(m_InGameChatboxContainer.transform);
 					(m_chatBox.transform as RectTransform).anchoredPosition = m_inGamePosition;
 					(m_chatBox.transform as RectTransform).sizeDelta = m_inGameSize;

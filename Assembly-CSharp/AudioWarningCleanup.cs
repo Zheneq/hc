@@ -16,32 +16,10 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 		m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string[] warningsToIgnore = m_warningsToIgnore;
 			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.RegisterListener(this, eventName);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_registering = false;
@@ -56,19 +34,6 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 			foreach (string eventName in warningsToIgnore)
 			{
 				EventManager.Instance.UnregisterListener(this, eventName);
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 		}
 		m_registering = false;

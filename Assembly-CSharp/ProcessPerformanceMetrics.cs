@@ -121,19 +121,6 @@ public class ProcessPerformanceMetrics
 		string instanceName;
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			instanceName = Process.GetCurrentProcess().ProcessName;
 			WorkItemsCountersExist = false;
 			try
@@ -152,15 +139,6 @@ public class ProcessPerformanceMetrics
 			{
 				throw new Exception("Unrecognized OS");
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			instanceName = Process.GetCurrentProcess().Id.ToString();
 			m_workItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "Work Items Added/Sec", instanceName, true);
 			m_ioWorkItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "IO Work Items Added/Sec", instanceName, true);
@@ -173,11 +151,6 @@ public class ProcessPerformanceMetrics
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			m_gen0Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 0 Collections", instanceName, true);
 			m_gen1Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 1 Collections", instanceName, true);
 			m_gen2Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 2 Collections", instanceName, true);
@@ -200,10 +173,6 @@ public class ProcessPerformanceMetrics
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -213,15 +182,6 @@ public class ProcessPerformanceMetrics
 		double num = GetCpuUsageSeconds(false);
 		if (m_lastTotalCpuUsageSeconds != 0.0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			double num2 = num - m_lastTotalCpuUsageSeconds;
 			CpuUsedPercent = (float)(num2 * 100.0 / timeSpan.TotalSeconds);
 		}
@@ -229,15 +189,6 @@ public class ProcessPerformanceMetrics
 		double num3 = GetCpuUsageSeconds(true);
 		if (m_lastMainThreadTotalCpuUsageSeconds != 0.0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			double num4 = num3 - m_lastMainThreadTotalCpuUsageSeconds;
 			MainThreadCpuUsedPercent = (float)(num4 * 100.0 / timeSpan.TotalSeconds);
 		}
@@ -251,15 +202,6 @@ public class ProcessPerformanceMetrics
 		IOWorkerThreadsActive = completionPortThreads - completionPortThreads2;
 		if (WorkItemsCountersExist)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			WorkItemsAddedPerSec = m_workItemsAddedPerSec.NextValue();
 			IOWorkItemsAddedPerSec = m_ioWorkItemsAddedPerSec.NextValue();
 		}
@@ -269,23 +211,9 @@ public class ProcessPerformanceMetrics
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			float gen0Collections;
 			if (m_gen0Collections != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gen0Collections = m_gen0Collections.NextValue();
 			}
 			else
@@ -297,15 +225,6 @@ public class ProcessPerformanceMetrics
 			float gen2Collections;
 			if (m_gen2Collections != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gen2Collections = m_gen2Collections.NextValue();
 			}
 			else
@@ -316,15 +235,6 @@ public class ProcessPerformanceMetrics
 			float allocatedBytesPerSec;
 			if (m_allocatedBytesPerSec != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				allocatedBytesPerSec = m_allocatedBytesPerSec.NextValue();
 			}
 			else
@@ -349,10 +259,6 @@ public class ProcessPerformanceMetrics
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Process currentProcess = Process.GetCurrentProcess();
 					if (mainThread)
 					{
@@ -381,15 +287,6 @@ public class ProcessPerformanceMetrics
 			string path;
 			if (mainThread)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				path = string.Format("/proc/{0}/task/{0}/stat", id);
 			}
 			else
@@ -400,15 +297,6 @@ public class ProcessPerformanceMetrics
 			Match match = s_cpuRegex.Match(array[0]);
 			if (match.Groups[1].Success)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (match.Groups[2].Success)
 				{
 					while (true)

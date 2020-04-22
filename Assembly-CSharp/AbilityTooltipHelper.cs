@@ -18,15 +18,6 @@ public static class AbilityTooltipHelper
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, amount));
 			return;
 		}
@@ -48,15 +39,6 @@ public static class AbilityTooltipHelper
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, subject, amount));
 			return;
 		}

@@ -42,24 +42,10 @@ public class DebugCommand_ForceMatchmaking : DebugCommand
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (clientGameManager.LobbyInterface != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					clientGameManager._000E();
 					return;
 				}

@@ -45,31 +45,9 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, GetConeWidthAngle());
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 				if (component != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetConeObjectActive(false);
 				}
 			}
@@ -98,10 +76,6 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

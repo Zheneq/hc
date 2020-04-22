@@ -40,19 +40,6 @@ public static class KnockbackUtils
 			result = -result;
 			if (distance > 0f && result.magnitude > distance)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result.Normalize();
 				result *= distance;
 			}
@@ -66,15 +53,6 @@ public static class KnockbackUtils
 			result = new Vector2((sourcePos.x - travelBoardSquareWorldPosition.x) / squareSize, (sourcePos.z - travelBoardSquareWorldPosition.z) / squareSize);
 			if (distance > 0f && result.magnitude > distance)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result.Normalize();
 				result *= distance;
 			}
@@ -96,26 +74,8 @@ public static class KnockbackUtils
 			float num = magnitude;
 			if (distance > 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (magnitude > distance)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = distance;
 				}
 			}
@@ -156,19 +116,6 @@ public static class KnockbackUtils
 			currentSquare = boardSquare;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				boardSquare = null;
 			}
 			else
@@ -178,23 +125,9 @@ public static class KnockbackUtils
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			int num;
 			if (boardSquarePathInfo2.square != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (boardSquarePathInfo2.square.IsBaselineHeight() ? 1 : 0);
 			}
 			else
@@ -206,15 +139,6 @@ public static class KnockbackUtils
 			{
 				if (boardSquarePathInfo2.prev == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 				else
@@ -237,30 +161,8 @@ public static class KnockbackUtils
 		bool flag = false;
 		if (boardSquare != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (considerHalfHeightWallValid)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = boardSquare._0015();
 			}
 			else
@@ -270,26 +172,8 @@ public static class KnockbackUtils
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxDistance >= float.MaxValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = boardSquare;
 				goto IL_0136;
 			}
@@ -309,42 +193,15 @@ public static class KnockbackUtils
 					float num = boardSquare2.HorizontalDistanceInWorldTo(closestAdjacentSquareTo);
 					if (num > maxDistance)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					currentSquare = closestAdjacentSquareTo;
 					if ((!considerHalfHeightWallValid) ? currentSquare.IsBaselineHeight() : currentSquare._0015())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = currentSquare;
 					}
 					closestAdjacentSquareTo = GetClosestAdjacentSquareTo(currentSquare, boardSquare2, destination, passThroughInvalidSquares);
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -362,15 +219,6 @@ public static class KnockbackUtils
 		{
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				boardSquarePathInfo.next = new BoardSquarePathInfo();
 				boardSquarePathInfo.next.prev = boardSquarePathInfo;
 				boardSquarePathInfo.next.square = destination;
@@ -379,26 +227,8 @@ public static class KnockbackUtils
 		}
 		if (!(destination == null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!passThroughInvalidSquares)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!destination._0015())
 				{
 					goto IL_007a;
@@ -419,22 +249,8 @@ public static class KnockbackUtils
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (boardSquare != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare == destination)
 					{
 						while (true)
@@ -469,32 +285,10 @@ public static class KnockbackUtils
 		numSquaresInPath = 0;
 		if (!(destination == null))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(startSquare == null))
 			{
 				if (destination == startSquare)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					num = 2;
 				}
@@ -502,15 +296,6 @@ public static class KnockbackUtils
 				{
 					if (!(destination == null))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (passThroughInvalidSquares || destination._0015())
 						{
 							BoardSquare boardSquare = startSquare;
@@ -521,37 +306,10 @@ public static class KnockbackUtils
 								boardSquare = closestAdjacentSquareTo;
 								closestAdjacentSquareTo = GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquare == destination)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = true;
 									goto IL_00de;
 								}
@@ -582,10 +340,6 @@ public static class KnockbackUtils
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -609,19 +363,6 @@ public static class KnockbackUtils
 			{
 				if (i == 0)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (j == 0)
 					{
 						continue;
@@ -636,15 +377,6 @@ public static class KnockbackUtils
 				float magnitude2 = (destination - vector2).magnitude;
 				if (magnitude2 + 0.2f >= magnitude)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				Vector2 vector3 = vector2 - vector;
@@ -662,15 +394,6 @@ public static class KnockbackUtils
 				}
 				else if (magnitude3 < num)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num4 = Vector2.Angle(vector3, normalized);
 					num = magnitude3;
 					num2 = num4;
@@ -693,26 +416,8 @@ public static class KnockbackUtils
 		}
 		if (boardSquare != null && !passThroughInvalidSquares)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!CanForceMoveToAdjacentSquare(currentSquare, boardSquare))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = null;
 			}
 		}
@@ -729,15 +434,6 @@ public static class KnockbackUtils
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return false;
 			}
 		}
@@ -749,52 +445,16 @@ public static class KnockbackUtils
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
 			if (CanForceMoveToAdjacentSquare(src, boardSquare))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CanForceMoveToAdjacentSquare(boardSquare, dest))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					goto IL_00f7;
 				}
 			}
 			if (CanForceMoveToAdjacentSquare(src, boardSquare2))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CanForceMoveToAdjacentSquare(boardSquare2, dest))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					goto IL_00f7;
 				}
@@ -841,45 +501,14 @@ public static class KnockbackUtils
 		List<Vector3> list = new List<Vector3>();
 		if (path == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogError("Calling BuildDrawablePath with a null path.");
 		}
 		else if (path.square == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Calling BuildDrawablePath, but its first square is null.");
 		}
 		else if (Board.Get() == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Calling BuildDrawablePath, but Board is null.");
 		}
 		else
@@ -891,56 +520,20 @@ public static class KnockbackUtils
 			list.Add(item);
 			while (path.next != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (path.next.square != null)
 				{
 					path = path.next;
 					if (directLine)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (path.next != null)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					GridPos gridPos2 = path.square.GetGridPos();
 					Vector3 item2 = new Vector3(gridPos2.worldX, y, gridPos2.worldY);
 					list.Add(item2);
 					continue;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -962,30 +555,12 @@ public static class KnockbackUtils
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			GridPos gridPos2 = path.square.GetGridPos();
 			list.Add(gridPos2);
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}

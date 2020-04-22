@@ -28,19 +28,6 @@ public class UISeasonFactionEntryLevel : MonoBehaviour
 		LevelState levelState2;
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			levelState = m_completed;
 			levelState2 = m_notCompleted;
 			num = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;

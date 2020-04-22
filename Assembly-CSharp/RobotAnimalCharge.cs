@@ -58,19 +58,6 @@ public class RobotAnimalCharge : Ability
 			{
 				goto IL_0073;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		abilityUtil_Targeter_Charge.m_affectCasterDelegate = TargeterIncludeCaster;
@@ -95,19 +82,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else
@@ -122,19 +96,6 @@ public class RobotAnimalCharge : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_lifeOnFirstHit;
 		}
 		else
@@ -149,19 +110,6 @@ public class RobotAnimalCharge : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_lifePerHit;
 		}
 		else
@@ -176,19 +124,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -203,19 +138,6 @@ public class RobotAnimalCharge : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
@@ -230,19 +152,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 0;
 		}
 		else
@@ -257,19 +166,6 @@ public class RobotAnimalCharge : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_requireTargetActorMod.GetModifiedValue(m_requireTargetActor);
 		}
 		else
@@ -289,19 +185,6 @@ public class RobotAnimalCharge : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canIncludeAllyMod.GetModifiedValue(m_canIncludeAlly);
 		}
 		else
@@ -316,19 +199,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnHittingAllyMod.GetModifiedValue(m_cdrOnHittingAlly);
 		}
 		else
@@ -343,19 +213,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrOnHittingEnemyMod.GetModifiedValue(m_cdrOnHittingEnemy);
 		}
 		else
@@ -376,10 +233,6 @@ public class RobotAnimalCharge : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return HasTargetableActorsInDecision(caster, CanIncludeEnemy(), CanIncludeAlly(), false, ValidateCheckPath.CanBuildPath, true, false);
 				}
 			}
@@ -400,10 +253,6 @@ public class RobotAnimalCharge : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = false;
 					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, CanIncludeAlly(), CanIncludeEnemy());
 					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targetShape, target, m_targetShapePenetratesLoS, caster, relevantTeams, null);
@@ -476,22 +325,9 @@ public class RobotAnimalCharge : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 						int num = dictionary[AbilityTooltipSymbol.Healing] = GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
 					}
@@ -514,19 +350,6 @@ public class RobotAnimalCharge : Ability
 		int val;
 		if ((bool)abilityMod_RobotAnimalCharge)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_RobotAnimalCharge.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -556,10 +379,6 @@ public class RobotAnimalCharge : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_RobotAnimalCharge);
 					Setup();
 					return;
@@ -580,19 +399,6 @@ public class RobotAnimalCharge : Ability
 		float num = 0f;
 		if (hitCount > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ModdedLifeOnFirstHit() != 0f)
 			{
 				num += ModdedLifeOnFirstHit();
@@ -600,15 +406,6 @@ public class RobotAnimalCharge : Ability
 		}
 		if (ModdedLifePerHit() != 0f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += ModdedLifePerHit() * (float)hitCount;
 		}
 		return Mathf.RoundToInt(num);

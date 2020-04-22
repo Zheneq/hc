@@ -44,15 +44,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Sort((int first, int second) => characterLink.m_taunts[first].m_actionForTaunt - characterLink.m_taunts[second].m_actionForTaunt);
 			int num = 0;
 			for (int j = 0; j < componentsInChildren.Length; j++)
@@ -61,60 +52,15 @@ public class UICharacterTauntsPanel : MonoBehaviour
 				bool isUnlocked;
 				if (num < list.Count)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = list[num];
 					if (!characterLink.m_taunts[num2].m_isHidden)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (componentsInChildren.Length > j)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (playerCharacterData != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (playerCharacterData.CharacterComponent != null && playerCharacterData.CharacterComponent.Taunts != null && playerCharacterData.CharacterComponent.Taunts.Count > num2)
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									isUnlocked = playerCharacterData.CharacterComponent.Taunts[num2].Unlocked;
 									goto IL_0191;
 								}
@@ -170,15 +116,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_purchasePanel, false);
 			return;
 		}
@@ -205,10 +142,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -233,19 +166,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 			UITauntButton lastButtonClicked = m_activeTauntsPanels[i].m_lastButtonClicked;
 			if (lastButtonClicked != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (lastButtonClicked.m_tauntIndex == tauntIndex)
 				{
 					lastButtonClicked.SetUnlocked();
@@ -260,15 +180,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 				{
 					componentsInChildren[j].SetUnlocked();
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		while (true)
@@ -297,19 +208,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		}
 		if (newButton.GetIsoCost() > 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!newButton.IsUnlocked())
 			{
 				while (true)
@@ -327,15 +225,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 						m_purchasePanel.SetDisabled(!flag);
 						if (!flag)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!tauntUnlockData.PurchaseDescription.IsNullOrEmpty())
 							{
 								while (true)

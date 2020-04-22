@@ -11,19 +11,6 @@ public class SlashCommand_UserBlock : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager.Get().UpdateFriend(arguments, 0L, FriendOperation.Block, string.Empty, delegate(FriendUpdateResponse r)
@@ -41,19 +28,6 @@ public class SlashCommand_UserBlock : SlashCommand
 						}
 						else if (r.ErrorMessage.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 						}
 						empty = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
@@ -65,15 +39,6 @@ public class SlashCommand_UserBlock : SlashCommand
 					});
 				});
 				return;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

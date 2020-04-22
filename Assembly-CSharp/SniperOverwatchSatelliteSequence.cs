@@ -19,15 +19,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TriggerSpawn();
 			return;
 		}
@@ -37,33 +28,11 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 	{
 		if (!m_fxJoint.IsInitialized())
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		m_tempSatelliteInstance = InstantiateFX(m_tempSatellitePrefab, m_fxJoint.m_jointObject.transform.position, m_fxJoint.m_jointObject.transform.rotation);
 		if (!m_parentToSequence)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_tempSatelliteInstance.transform.parent = null;
 		}
 		m_tempSatelliteInstance.GetComponent<TempSatellite>().Setup(this);
@@ -78,15 +47,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ProcessSequenceVisibility();
 			return;
 		}
@@ -108,15 +68,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_tempSatelliteInstance.GetComponent<SniperOverwatchSatellite>().TriggerDespawn();
 			return;
 		}

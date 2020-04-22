@@ -55,19 +55,6 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ShouldSkipAudioEvents())
 			{
 				while (true)
@@ -82,15 +69,6 @@ public static class AudioManager
 						int result;
 						if (instance == null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = 0;
 						}
 						else
@@ -105,15 +83,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>");
 		}
 		return false;
@@ -123,19 +92,6 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ShouldSkipAudioEvents())
 			{
 				while (true)
@@ -150,15 +106,6 @@ public static class AudioManager
 						int result;
 						if (instance == null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = 0;
 						}
 						else
@@ -173,15 +120,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>");
 		}
 		return false;
@@ -191,19 +129,6 @@ public static class AudioManager
 	{
 		if (eventName != "_UnSet_")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!ShouldSkipAudioEvents())
 			{
 				while (true)
@@ -242,23 +167,10 @@ public static class AudioManager
 						break;
 					default:
 					{
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						EventManager instance = EventManager.Instance;
 						int result;
 						if (instance == null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = 0;
 						}
 						else
@@ -273,15 +185,6 @@ public static class AudioManager
 		}
 		else if (Application.isEditor)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("<color=white>    * AudioManager trying to post _UnSet_ event</color>");
 		}
 		return false;
@@ -301,30 +204,8 @@ public static class AudioManager
 		{
 			if (item._eventName == "start_music")
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!item.enabled)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					item.enabled = true;
 				}
 			}
@@ -343,19 +224,6 @@ public static class AudioManager
 				EventTrigger current = enumerator.Current;
 				if (current._eventName == "start_ambiance" && !current.enabled)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					current.enabled = true;
 				}
 			}
@@ -383,10 +251,6 @@ public static class AudioManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -431,10 +295,6 @@ public static class AudioManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -456,15 +316,6 @@ public static class AudioManager
 		AudioMixerGroup audioMixerGroup = null;
 		if (array != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioMixerGroup[] array2 = array;
 			foreach (AudioMixerGroup audioMixerGroup2 in array2)
 			{
@@ -472,15 +323,6 @@ public static class AudioManager
 				{
 					audioMixerGroup = audioMixerGroup2;
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (audioMixerGroup == null)
@@ -497,34 +339,12 @@ public static class AudioManager
 		{
 			if (ts.parent == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				T[] componentsInChildren = ts.GetComponentsInChildren<T>(true);
 				int num = 0;
 				if (num < componentsInChildren.Length)
 				{
 					yield return componentsInChildren[num];
 					/*Error: Unable to find new state assignment for yield return*/;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -560,10 +380,6 @@ public static class AudioManager
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					goto end_IL_000d;
 				}
 			}
@@ -595,15 +411,6 @@ public static class AudioManager
 				AudioSource current2 = enumerator2.Current;
 				if (StandardizeAudioLinkages_NeedsUpdate(current2.outputAudioMixerGroup))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					current2.outputAudioMixerGroup = StandardizeAudioLinkages_Update(current2.outputAudioMixerGroup);
 				}
 			}
@@ -650,15 +457,6 @@ public static class AudioManager
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AudioSource[] componentsInChildren2 = root.GetComponentsInChildren<AudioSource>();
 			foreach (AudioSource audioSource in componentsInChildren2)
 			{

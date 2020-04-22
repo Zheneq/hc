@@ -73,19 +73,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 			HitAreaExtraParams hitAreaExtraParams = extraSequenceParams as HitAreaExtraParams;
 			if (hitAreaExtraParams != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_didSetDataFromExtraParams = true;
 				m_fromPos = hitAreaExtraParams.fromPos;
 				m_toPos = hitAreaExtraParams.toPos;
@@ -110,19 +97,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		bool flag = false;
 		if (m_didSetDataFromExtraParams)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Vector3 vector = m_toPos - m_fromPos;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
@@ -143,15 +117,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 					List<ActorData> list2 = new List<ActorData>();
 					if (base.Targets != null)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int j = 0; j < base.Targets.Length; j++)
 						{
 							ActorData actorData = base.Targets[j];
@@ -159,28 +124,10 @@ public class SoldierProjectilesInLineSequence : Sequence
 							{
 								continue;
 							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector2;
 							rhs.y = 0f;
 							if (i != num4)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(Vector3.Dot(vector, rhs) <= 0f))
 								{
 									continue;
@@ -201,15 +148,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 					genericSequenceProjectileInfo.m_startDelay = Mathf.Clamp((float)i * m_timeBetweenSpawns + Random.Range(0f, m_timeMaxVariation), 0f, 3f);
 					if (i == num4)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						genericSequenceProjectileInfo.m_positionForSequenceHit = base.TargetPos;
 					}
 					m_projectilesList.Add(genericSequenceProjectileInfo);
@@ -218,28 +156,10 @@ public class SoldierProjectilesInLineSequence : Sequence
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CallHitSequenceOnTargets(base.TargetPos);
 		}
 		if (!(m_startEvent == null))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_ignoreStartEvent)
 			{
 				return;
@@ -254,19 +174,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		{
 			if (projectiles != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				projectiles.OnSequenceDisable();
 			}
 		}
@@ -280,15 +187,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_startProjectileUpdate = true;
 			return;
 		}
@@ -303,15 +201,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_projectilesList.Count; i++)
 			{
 				m_projectilesList[i].OnUpdate();

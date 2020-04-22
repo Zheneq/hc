@@ -108,19 +108,6 @@ public class ObjectivePoints : NetworkBehaviour
 			ref MatchState matchState = ref m_matchState;
 			if (NetworkServer.localClientActive)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -169,30 +156,12 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_displayedPoints[0] = m_points[0];
 			m_displayedPoints[1] = m_points[1];
 			m_respawningPlayers = new HashSet<ActorData>();
 			m_inSuddenDeath = false;
 			if (NetworkServer.active)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Networkm_matchState = MatchState.InMatch;
 			}
 			m_objectives = new List<MatchObjective>(base.gameObject.GetComponentsInChildren<MatchObjective>());
@@ -204,19 +173,6 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		if ((bool)m_objectivePointsPanel)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_objectivePointsPanel.gameObject);
 			m_objectivePointsPanel = null;
 		}
@@ -227,43 +183,12 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		if (GameFlowData.Get().IsInDecisionState())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_displayedPoints[0] != m_points[0])
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_displayedPoints[0] = m_points[0];
 			}
 			if (m_displayedPoints[1] != m_points[1])
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_displayedPoints[1] = m_points[1];
 			}
 		}
@@ -273,31 +198,16 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (!(m_objectivePointsPanel == null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (m_gameModePanelPrefab != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						RectTransform rectTransform = Object.Instantiate(m_gameModePanelPrefab);
 						m_objectivePointsPanel = rectTransform.GetComponent<UIObjectivePointsPanel>();
 						m_objectivePointsPanel.transform.SetParent(HUD_UI.Get().m_mainScreenPanel.m_gameSpecificRectDisplay.transform);
@@ -325,41 +235,14 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gameShutdownTime = Time.time + GameManager.Get().GameConfig.GameServerShutdownTime;
 			Team i = Team.TeamA;
 			Team i2 = Team.TeamB;
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeOwnedActorData.GetTeam() == Team.TeamB)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					i = Team.TeamB;
 					i2 = Team.TeamA;
 				}
@@ -409,10 +292,6 @@ public class ObjectivePoints : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -421,15 +300,6 @@ public class ObjectivePoints : NetworkBehaviour
 		int num;
 		if (activeOwnedActorData == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 0;
 		}
 		else
@@ -440,15 +310,6 @@ public class ObjectivePoints : NetworkBehaviour
 		int num2;
 		if (activeOwnedActorData == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = 1;
 		}
 		else
@@ -458,15 +319,6 @@ public class ObjectivePoints : NetworkBehaviour
 		Team team2 = (Team)num2;
 		if (activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (activeOwnedActorData.GetTeam() == Team.Spectator)
 			{
 				while (true)
@@ -505,15 +357,6 @@ public class ObjectivePoints : NetworkBehaviour
 						{
 							if (!m_inSuddenDeath)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameFlowData.Get().CurrentTurn < m_timeLimitTurns)
 								{
 									float num3 = m_timeLimitTurns - GameFlowData.Get().CurrentTurn;
@@ -525,42 +368,15 @@ public class ObjectivePoints : NetworkBehaviour
 						}
 						else if (team == Team.TeamA)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							victoryConditionString = ((!m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty()) ? StringUtil.TR(m_teamAVictoryCondition.m_conditionString) : string.Empty);
 							myTeamLabel = StringUtil.TR(m_teamAVictoryCondition.m_PointName);
 							myEnemyTeamLabel = StringUtil.TR(m_teamBVictoryCondition.m_PointName);
 						}
 						else if (team == Team.TeamB)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							string text;
 							if (m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty())
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								text = string.Empty;
 							}
 							else
@@ -578,63 +394,18 @@ public class ObjectivePoints : NetworkBehaviour
 					num4 = -1;
 					if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = 0;
 						phaseName = StringUtil.TR("Decision", "Global");
 					}
 					else if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Abilities)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIQueueListPanel.UIPhase uIPhaseFromAbilityPriority = UIQueueListPanel.GetUIPhaseFromAbilityPriority(ServerClientUtils.GetCurrentAbilityPhase());
 						if (uIPhaseFromAbilityPriority != 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -661,15 +432,6 @@ public class ObjectivePoints : NetworkBehaviour
 							if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.MovementChase)
 							{
 								goto IL_0368;
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						num4 = 4;
@@ -702,101 +464,29 @@ public class ObjectivePoints : NetworkBehaviour
 		bool flag2 = m_gameResult == GameResult.TeamBWon;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamA)
 			{
 				goto IL_0428;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_0428;
 			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamB)
 			{
 				goto IL_048e;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_048e;
 			}
 		}
@@ -820,44 +510,13 @@ public class ObjectivePoints : NetworkBehaviour
 		int num;
 		if (m_matchState == MatchState.InMatch)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string text3;
 			if (team == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);
 			}
 			else if (team == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = StringUtil.TR(m_teamAVictoryCondition.m_conditionString);
 			}
 			else
@@ -868,79 +527,25 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		else if (m_matchState == MatchState.MatchEnd)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (int)(m_gameShutdownTime - Time.time);
 			bool flag = m_gameResult == GameResult.TeamAWon;
 			bool flag2 = m_gameResult == GameResult.TeamBWon;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (team == Team.TeamA)
 				{
 					goto IL_018e;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (team == Team.TeamB)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_018e;
 				}
 			}
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (team == Team.TeamB)
 				{
 					goto IL_01c7;
@@ -971,49 +576,17 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_matchState != 0)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (GameplayUtils.IsPlayerControlled(actor))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 					if (spawnPointManager != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actor.NextRespawnTurn = actor.LastDeathTurn + spawnPointManager.m_respawnDelay;
 						Log.Info("ObjectivePoints: OnActorDeath " + actor.DisplayName + " turn " + GameFlowData.Get().CurrentTurn + " next respawn turn " + actor.NextRespawnTurn + " last death turn " + actor.LastDeathTurn + " respawn delay " + spawnPointManager.m_respawnDelay);
 					}
@@ -1049,30 +622,12 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<MatchObjective>.Enumerator enumerator = m_objectives.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					MatchObjective current = enumerator.Current;
 					current.Client_OnActorDeath(actor);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (!(actor != null))
@@ -1081,22 +636,12 @@ public class ObjectivePoints : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				if (!GameplayUtils.IsPlayerControlled(actor))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					int team = (int)actor.GetTeam();
 					if (team < 0)
 					{
@@ -1104,20 +649,10 @@ public class ObjectivePoints : NetworkBehaviour
 					}
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						if (team < m_clientNumDeathInTurn.Count)
 						{
 							while (true)
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
 								m_clientNumDeathInTurn[team]++;
 								return;
 							}
@@ -1133,19 +668,6 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		if (team >= Team.TeamA)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)team < m_clientNumDeathInTurn.Count)
 			{
 				while (true)
@@ -1206,10 +728,6 @@ public class ObjectivePoints : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::CheckForEndOfGame()' called on client");
 					return;
 				}
@@ -1221,49 +739,21 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			if (m_skipEndOfGameCheck)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.SkipEndOfGameCheck))
 				{
 					return;
 				}
 				if (DebugParameters.Get() != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (DebugParameters.Get().GetParameterAsBool("DisableGameEndCheck"))
 					{
 						return;
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				bool flag = m_timeLimitTurns == 0 || GameFlowData.Get().CurrentTurn >= m_timeLimitTurns;
@@ -1274,52 +764,16 @@ public class ObjectivePoints : NetworkBehaviour
 				int num3;
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag3)
 					{
 						num3 = 1;
 						goto IL_014a;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag3)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = ((m_timeLimitTurns > 0) ? 1 : 0);
 						goto IL_014a;
 					}
@@ -1332,15 +786,6 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					if (m_allowTies)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag4 = true;
 						Networkm_gameResult = GameResult.TieGame;
 						Log.Info("Tie because: " + m_teamAVictoryCondition.GetVictoryLogString(num, num2, flag, Team.TeamA) + " AND " + m_teamBVictoryCondition.GetVictoryLogString(num2, num, flag, Team.TeamB));
@@ -1349,27 +794,9 @@ public class ObjectivePoints : NetworkBehaviour
 					{
 						if (flag)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_inSuddenDeath = true;
 							if (m_disablePowerupsAfterTimeLimit)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								PowerUpManager.Get().SetSpawningEnabled(false);
 							}
 						}
@@ -1378,28 +805,10 @@ public class ObjectivePoints : NetworkBehaviour
 				}
 				else if (flag2)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = true;
 					Networkm_gameResult = GameResult.TeamAWon;
 					if (num + num2 > 0)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_gameResultFraction = (float)num / (float)(num + num2);
 					}
 					Log.Info("Team A won because: " + m_teamAVictoryCondition.GetVictoryLogString(num, num2, flag, Team.TeamA));
@@ -1410,15 +819,6 @@ public class ObjectivePoints : NetworkBehaviour
 					Networkm_gameResult = GameResult.TeamBWon;
 					if (num + num2 > 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_gameResultFraction = (float)num2 / (float)(num + num2);
 					}
 					Log.Info("Team B won because: " + m_teamAVictoryCondition.GetVictoryLogString(num2, num, flag, Team.TeamB));
@@ -1431,11 +831,6 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						EndGame();
 						return;
 					}
@@ -1454,15 +849,6 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::DebugEndGame(PlayerData,GameResult,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean)' called on client");
 			return;
 		}
@@ -1480,10 +866,6 @@ public class ObjectivePoints : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::EndGame()' called on client");
 					return;
 				}
@@ -1502,39 +884,12 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (teamToAdjust == Team.TeamA)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_points[0] += adjustAmount;
 			}
 			else if (teamToAdjust == Team.TeamB)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_points[1] += adjustAmount;
 			}
 			GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
@@ -1553,15 +908,6 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			switch (teamToAdjust)
 			{
 			default:
@@ -1574,11 +920,6 @@ public class ObjectivePoints : NetworkBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				m_displayedPoints[1] += adjustAmount;
 				return;
 			}
@@ -1590,31 +931,9 @@ public class ObjectivePoints : NetworkBehaviour
 		bool flag = false;
 		if (teamToAdjust == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = (m_points[0] != setAmount);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_points[0] = setAmount;
 			}
 		}
@@ -1623,15 +942,6 @@ public class ObjectivePoints : NetworkBehaviour
 			flag = (m_points[1] != setAmount);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_points[1] = setAmount;
 			}
 		}
@@ -1641,11 +951,6 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
 			matchObjectiveEventArgs.objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ObjectivePointsGained;
 			matchObjectiveEventArgs.team = teamToAdjust;
@@ -1658,31 +963,9 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		if (m_points != null && m_points.Count != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_points.Count > (int)t)
 			{
 				return m_points[(int)t];
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return 0;
@@ -1703,10 +986,6 @@ public class ObjectivePoints : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogError("SyncList m_points called on server.");
 					return;
 				}
@@ -1726,10 +1005,6 @@ public class ObjectivePoints : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SyncListInt.WriteInstance(writer, m_points);
 					writer.Write((int)m_gameResult);
 					writer.Write(m_minutesInMatchOnGameEnd);
@@ -1741,26 +1016,8 @@ public class ObjectivePoints : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1) != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1770,15 +1027,6 @@ public class ObjectivePoints : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1786,26 +1034,8 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4) != 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1813,26 +1043,8 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1858,45 +1070,14 @@ public class ObjectivePoints : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			SyncListInt.ReadReference(reader, m_points);
 		}
 		if ((num & 2) != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_gameResult = (GameResult)reader.ReadInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_minutesInMatchOnGameEnd = reader.ReadSingle();
 		}
 		if ((num & 8) != 0)

@@ -30,15 +30,6 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -57,34 +48,12 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 		}
 		if (m_selfEffectOverride != null && m_selfEffectOverride.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string str = empty;
 			StandardActorEffectData effectData = m_selfEffectOverride.m_effectData;
 			string empty2 = string.Empty;
 			object baseVal;
 			if (robotAnimalStealth != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = robotAnimalStealth.m_selfEffect;
 			}
 			else

@@ -23,30 +23,8 @@ public class TargetSelectModBase
 		string str = string.Empty;
 		if (m_overrideTargetDataOnTargetSelect)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_targetDataOverride != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = str + InEditorDescHelper.ColoredString("* Using TargetData Override *") + "\n";
 				TargetData[] targetDataOverride = m_targetDataOverride;
 				foreach (TargetData targetData in targetDataOverride)
@@ -65,15 +43,6 @@ public class TargetSelectModBase
 		str += GetModSpecificInEditorDesc(targetSelectBase, header);
 		if (str.Length > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = header + "\n" + str + "\n";
 		}
 		return str;

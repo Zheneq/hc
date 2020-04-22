@@ -10,32 +10,10 @@ namespace TMPro
 			string text = string.Empty;
 			for (int i = 0; i < chars.Length; i++)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (chars[i] != 0)
 				{
 					text += chars[i];
 					continue;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -54,25 +32,11 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return i;
 				}
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return -1;
 			}
 		}
@@ -82,41 +46,10 @@ namespace TMPro
 			int result;
 			if (a.r == b.r)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (a.g == b.g)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (a.b == b.b)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((a.a == b.a) ? 1 : 0);
 						goto IL_006a;
 					}
@@ -133,30 +66,8 @@ namespace TMPro
 			int result;
 			if (a.r == b.r)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (a.g == b.g)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((a.b == b.b) ? 1 : 0);
 					goto IL_0050;
 				}
@@ -172,30 +83,8 @@ namespace TMPro
 			int result;
 			if (a.r == b.r)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (a.g == b.g && a.b == b.b)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((a.a == b.a) ? 1 : 0);
 					goto IL_0060;
 				}
@@ -211,19 +100,6 @@ namespace TMPro
 			int result;
 			if (a.r == b.r && a.g == b.g)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = ((a.b == b.b) ? 1 : 0);
 			}
 			else
@@ -268,30 +144,8 @@ namespace TMPro
 			int result;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (flag2)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (flag3 ? 1 : 0);
 					goto IL_0072;
 				}
@@ -311,30 +165,8 @@ namespace TMPro
 			int result;
 			if (flag && flag2)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (flag4 ? 1 : 0);
 					goto IL_008e;
 				}

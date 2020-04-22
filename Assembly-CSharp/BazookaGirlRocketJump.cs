@@ -22,19 +22,6 @@ public class BazookaGirlRocketJump : Ability
 		int num;
 		if (moddedEffectForAllies != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = (moddedEffectForAllies.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -46,15 +33,6 @@ public class BazookaGirlRocketJump : Ability
 		int num2;
 		if (moddedEffectForSelf != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (moddedEffectForSelf.m_applyEffect ? 1 : 0);
 		}
 		else
@@ -79,19 +57,6 @@ public class BazookaGirlRocketJump : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
 				while (true)
@@ -120,19 +85,6 @@ public class BazookaGirlRocketJump : Ability
 		int val;
 		if ((bool)abilityMod_BazookaGirlRocketJump)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_BazookaGirlRocketJump.m_damageMod.GetModifiedValue(m_damageAmount);
 		}
 		else
@@ -158,10 +110,6 @@ public class BazookaGirlRocketJump : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_BazookaGirlRocketJump);
 					SetupTargeter();
 					return;
@@ -182,19 +130,6 @@ public class BazookaGirlRocketJump : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_damageAmount;
 		}
 		else

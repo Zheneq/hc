@@ -44,15 +44,6 @@ public class UINotificationPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			PlayNotification();
 			return;
 		}
@@ -72,56 +63,16 @@ public class UINotificationPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(this, true);
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_phaseDisplayRef == GamePhaseDisplay.Decision)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int currentTurn = GameFlowData.Get().CurrentTurn;
 				int num = ObjectivePoints.Get().m_timeLimitTurns - currentTurn;
 				if (!ObjectivePoints.Get().InSuddenDeath())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTurn < ObjectivePoints.Get().m_timeLimitTurns || ObjectivePoints.Get().m_timeLimitTurns <= 0)
 					{
 						if (0 < num && num < 6)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_TurnNumberLabel, true);
 							UIManager.SetGameObjectActive(m_TurnTextLabel, true);
 							m_TurnNumberLabel.text = num.ToString();
@@ -143,15 +94,6 @@ public class UINotificationPanel : MonoBehaviour
 							UIManager.SetGameObjectActive(m_lowTurnsLeftContainer, false);
 						}
 						goto IL_0241;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UIManager.SetGameObjectActive(m_TurnNumberLabel, false);
@@ -178,15 +120,6 @@ public class UINotificationPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (SinglePlayerManager.Get() != null && SinglePlayerManager.Get().GetNotificationPanelForceOff())
 			{
 				while (true)
@@ -204,27 +137,9 @@ public class UINotificationPanel : MonoBehaviour
 			m_phaseDisplayRefUpdated = true;
 			if (phase != GamePhaseDisplay.Resolving)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_turnCountUpdated || !m_phaseDisplayRefUpdated)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			PlayNotification();

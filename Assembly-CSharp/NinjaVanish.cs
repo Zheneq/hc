@@ -57,19 +57,6 @@ public class NinjaVanish : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "NinjaVanish";
 		}
 		Setup();
@@ -88,22 +75,9 @@ public class NinjaVanish : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					AbilityAreaShape shape = AbilityAreaShape.SingleSquare;
 					if (GetGroundEffectData() != null)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						shape = GetGroundEffectData().shape;
 					}
 					AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
@@ -130,19 +104,6 @@ public class NinjaVanish : Ability
 		int result;
 		if (!SkipEvade())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (base.CanShowTargetableRadiusPreview() ? 1 : 0);
 		}
 		else
@@ -163,10 +124,6 @@ public class NinjaVanish : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_noEvadeTargetData;
 				}
 			}
@@ -190,19 +147,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
 		}
 		else
@@ -213,15 +157,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedEffectOnEnemy;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemy = m_abilityMod.m_effectOnEnemyMod.GetModifiedValue(m_effectOnEnemy);
 		}
 		else
@@ -232,15 +167,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedSelfEffectOnNextTurn;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectOnNextTurn = m_abilityMod.m_selfEffectOnNextTurnMod.GetModifiedValue(m_selfEffectOnNextTurn);
 		}
 		else
@@ -251,15 +177,6 @@ public class NinjaVanish : Ability
 		StandardBarrierData cachedVisionBlockBarrierData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedVisionBlockBarrierData = m_abilityMod.m_visionBlockBarrierDataMod.GetModifiedValue(m_visionBlockBarrierData);
 		}
 		else
@@ -278,19 +195,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade);
 		}
 		else
@@ -305,19 +209,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_skipEvadeMod.GetModifiedValue(m_skipEvade);
 		}
 		else
@@ -332,19 +223,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnSelf != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnSelf;
 		}
 		else
@@ -364,19 +242,6 @@ public class NinjaVanish : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_selfHealOnTurnStartIfInFieldMod.GetModifiedValue(m_selfHealOnTurnStartIfInField);
 		}
 		else
@@ -391,19 +256,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectOnEnemy != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedEffectOnEnemy;
 		}
 		else
@@ -418,19 +270,6 @@ public class NinjaVanish : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_smokeFieldDurationMod.GetModifiedValue(m_smokeFieldDuration);
 		}
 		else
@@ -455,19 +294,6 @@ public class NinjaVanish : Ability
 		GroundEffectField result;
 		if (m_cachedGroundEffectData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedGroundEffectData;
 		}
 		else
@@ -487,19 +313,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cdrConsiderCatalystMod.GetModifiedValue(m_cdrConsiderCatalyst);
 		}
 		else
@@ -525,10 +338,6 @@ public class NinjaVanish : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return ActorData.MovementType.None;
 				}
 			}
@@ -541,19 +350,6 @@ public class NinjaVanish : Ability
 		int result;
 		if (CanQueueMoveAfterEvade())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!SkipEvade()) ? 1 : 0);
 		}
 		else
@@ -574,10 +370,6 @@ public class NinjaVanish : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -586,26 +378,8 @@ public class NinjaVanish : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -617,42 +391,11 @@ public class NinjaVanish : Ability
 		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
 		if (caster.GetActorTargeting() != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (GetRunPriority() > AbilityPriority.Evasion)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 				if (evadeDestinationForTargeter != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = evadeDestinationForTargeter.ToVector3();
 				}
 			}
@@ -673,15 +416,6 @@ public class NinjaVanish : Ability
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_NinjaVanish);
 			Setup();
 			return;

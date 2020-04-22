@@ -55,26 +55,8 @@ public class TargeterPart_Laser
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (applyStartOffset)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
 				startPos = VectorUtils.GetAdjustedStartPosWithOffset(startPos, endPos, laserInitialOffsetInSquares);
 			}

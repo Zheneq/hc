@@ -53,19 +53,6 @@ public static class UnityConsoleLog
 		s_stackTraceSeparator = "\n   at ";
 		if (Debug.isDebugBuild)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MinLevel = Log.Level.Info;
 		}
 		else
@@ -91,10 +78,6 @@ public static class UnityConsoleLog
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						InterceptHandler(args);
 						return;
 					}
@@ -167,19 +150,6 @@ public static class UnityConsoleLog
 		Log.AddLogHandler(HandleLogMessage);
 		if (_003C_003Ef__mg_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__mg_0024cache1 = HandleUnityLogMessage;
 		}
 		Application.logMessageReceived += _003C_003Ef__mg_0024cache1;
@@ -193,41 +163,14 @@ public static class UnityConsoleLog
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Started = false;
 			if (_003C_003Ef__mg_0024cache2 == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__mg_0024cache2 = HandleLogMessage;
 			}
 			Log.RemoveLogHandler(_003C_003Ef__mg_0024cache2);
 			if (_003C_003Ef__mg_0024cache3 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__mg_0024cache3 = HandleUnityLogMessage;
 			}
 			Application.logMessageReceived -= _003C_003Ef__mg_0024cache3;
@@ -262,19 +205,6 @@ public static class UnityConsoleLog
 		flag2 = false;
 		if (!s_isLogging)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			try
 			{
 				s_isLogging = true;
@@ -282,39 +212,12 @@ public static class UnityConsoleLog
 				int line = 0;
 				if (!stackTrace.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TryGetFileLineFromStack(stackTrace, out file, out line);
 				}
 				if (flag)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!stackTrace.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string arg = stackTrace.Replace("\n", s_stackTraceSeparator);
 						logString = $"{logString}{s_stackTraceSeparator}{arg}";
 					}
@@ -332,34 +235,15 @@ public static class UnityConsoleLog
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (TextConsole.Get() == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				int num;
 				if (type == LogType.Exception)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 8;
 				}
 				else
@@ -393,10 +277,6 @@ public static class UnityConsoleLog
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}

@@ -41,15 +41,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, sorceressHealingLaser.m_damageAmount);
 			AbilityMod.AddToken(tokens, m_minDamageMod, "MinDamageAmount", string.Empty, sorceressHealingLaser.m_minDamageAmount);
 			AbilityMod.AddToken(tokens, m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sorceressHealingLaser.m_damageChangePerHit);
@@ -72,19 +63,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = sorceressHealingLaser.m_selfHealAmount;
 		}
 		else
@@ -97,15 +75,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressHealingLaser.m_allyHealAmount;
 		}
 		else
@@ -119,15 +88,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressHealingLaser.m_healChangePerHit;
 		}
 		else
@@ -141,15 +101,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressHealingLaser.m_damageAmount;
 		}
 		else
@@ -162,15 +113,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sorceressHealingLaser.m_minDamageAmount;
 		}
 		else
@@ -183,15 +125,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = sorceressHealingLaser.m_damageChangePerHit;
 		}
 		else
@@ -204,15 +137,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = sorceressHealingLaser.m_width;
 		}
 		else
@@ -225,15 +149,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sorceressHealingLaser.m_distance;
 		}
 		else

@@ -30,19 +30,6 @@ public static class LobbyCompilerExtensions
 		int result;
 		if (team == Team.TeamA)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = 1;
 		}
 		else

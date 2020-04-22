@@ -18,10 +18,6 @@ public static class JsonUtil
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					IEnumerator<JProperty> enumerator = node.Children<JProperty>().GetEnumerator();
 					try
 					{
@@ -30,15 +26,6 @@ public static class JsonUtil
 							JProperty current = enumerator.Current;
 							if (propertyAction != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								propertyAction(current);
 							}
 							TraverseNode(current.Value, propertyAction);
@@ -82,11 +69,6 @@ public static class JsonUtil
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			IEnumerator<JToken> enumerator2 = node.Children().GetEnumerator();
 			try
 			{
@@ -125,19 +107,6 @@ public static class JsonUtil
 			JToken node = JToken.Parse(s);
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(JProperty prop)
 				{
 					if (prop.Value.Type == JTokenType.String)
@@ -150,10 +119,6 @@ public static class JsonUtil
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								string s2 = prop.Value.ToString();
 								if (s2.IsTimeSpanFormat())
 								{
@@ -210,19 +175,6 @@ public static class JsonUtil
 				string item;
 				if (jProperty != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					item = $"(UPDATED) {p2.ToString()} -> {jProperty.ToString()}";
 				}
 				else
@@ -230,15 +182,6 @@ public static class JsonUtil
 					item = $"(DELETED) {p2.ToString()}";
 				}
 				list.Add(item);
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<JProperty>.Enumerator enumerator2 = list3.GetEnumerator())

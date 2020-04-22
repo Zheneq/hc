@@ -81,19 +81,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (martyrAoeOnReactHit.m_canTargetEnemy ? 1 : 0);
 		}
 		else
@@ -106,15 +93,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (martyrAoeOnReactHit.m_canTargetAlly ? 1 : 0);
 		}
 		else
@@ -127,15 +105,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (martyrAoeOnReactHit.m_canTargetSelf ? 1 : 0);
 		}
 		else
@@ -148,15 +117,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (martyrAoeOnReactHit.m_targetingIgnoreLos ? 1 : 0);
 		}
 		else
@@ -169,15 +129,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrAoeOnReactHit.m_enemyBaseEffectData;
 		}
 		else
@@ -190,15 +141,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrAoeOnReactHit.m_allyBaseEffectData;
 		}
 		else
@@ -212,15 +154,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrAoeOnReactHit.m_reactBaseRadius;
 		}
 		else
@@ -233,15 +166,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrAoeOnReactHit.m_reactRadiusPerCrystal;
 		}
 		else
@@ -254,15 +178,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = (martyrAoeOnReactHit.m_reactOnlyOncePerTurn ? 1 : 0);
 		}
 		else
@@ -276,15 +191,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (martyrAoeOnReactHit.m_reactIncludeEffectTarget ? 1 : 0);
 		}
 		else
@@ -299,15 +205,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = martyrAoeOnReactHit.m_reactEnemyHitEffect;
 		}
 		else
@@ -320,15 +217,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = martyrAoeOnReactHit.m_reactHealOnTarget;
 		}
 		else
@@ -341,15 +229,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = martyrAoeOnReactHit.m_reactEnergyOnCasterPerReact;
 		}
 		else
@@ -362,15 +241,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = martyrAoeOnReactHit.m_cdrIfNoReactionTriggered;
 		}
 		else

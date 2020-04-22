@@ -33,15 +33,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle);
 			AbilityMod.AddToken(tokens, m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength);
 			AbilityMod.AddToken(tokens, m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount);
@@ -61,19 +52,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = battleMonkBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -86,15 +64,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = battleMonkBasicAttack.m_coneLength;
 		}
 		else
@@ -108,15 +77,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = battleMonkBasicAttack.m_healAmountPerTargetHit;
 		}
 		else

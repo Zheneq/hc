@@ -65,37 +65,14 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_loadedCharacters[0].instantiatedCharacter != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (m_characterLookAtLocation == null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterLookAtLocation = new GameObject();
 				}
 				Transform transform = m_characterLookAtLocation.transform;
@@ -125,37 +102,14 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(GetCharacterLookAtCamera() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (m_characterLookAtLocation == null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_characterLookAtLocation = new GameObject();
 				}
 				Transform transform = m_characterLookAtLocation.transform;
@@ -190,26 +144,8 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (isReady)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ringAnimations[index].PlayAnimation("ReadyIn");
 			}
 			else
@@ -238,19 +174,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		{
 			if (m_loadedCharacters[i].uiActorModelData != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num++;
 			}
 		}
@@ -263,19 +186,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		{
 			if (m_loadedCharacters[i].uiActorModelData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_loadedCharacters[i].uiActorModelData.SetReady(m_loadedCharacters[i].ready);
 			}
 		}
@@ -297,19 +207,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		{
 			if (m_loadedCharacters[i].uiActorModelData != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_loadedCharacters[i].uiActorModelData.SetSkin(m_loadedCharacters[i].skin);
 			}
 		}
@@ -333,19 +230,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			int doActive;
 			if (m_loadedCharacters[i].isInGame)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				doActive = ((!m_loadedCharacters[i].ready) ? 1 : 0);
 			}
 			else
@@ -356,11 +240,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = m_loadedCharacters.Length; j < m_ringAnimations.Length; j++)
 			{
 				UIManager.SetGameObjectActive(m_ringAnimations[j].m_isInGameAnimation, false);
@@ -377,15 +256,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -394,96 +264,29 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 	{
 		if (m_loadedCharacters[slotIndex].loadingTicket != -1)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_loadedCharacters[slotIndex].resourceLink.CancelLoad(m_loadedCharacters[slotIndex].skin, m_loadedCharacters[slotIndex].loadingTicket);
 		}
 		if (m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(m_loadedCharacters[slotIndex].instantiatedCharacter);
 			if (playAnimation)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_shuttingDown)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_ringAnimations[slotIndex].PlayAnimation("TransitionOut");
 				}
 			}
 		}
 		if (playAnimation)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_shuttingDown)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ringAnimations[slotIndex].PlayBaseObjectAnimation("SlotOUT");
 			}
 		}
 		m_loadedCharacters[slotIndex].Clear();
 		if (m_ringAnimations[slotIndex].m_isInGameAnimation != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(m_ringAnimations[slotIndex].m_isInGameAnimation, false);
 		}
 		if (!(m_ringAnimations[slotIndex].m_charSelectSpawnVFX != null))
@@ -492,11 +295,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			UIManager.SetGameObjectActive(m_ringAnimations[slotIndex].m_charSelectSpawnVFX, false);
 			return;
 		}
@@ -513,19 +311,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 				Transform transform = (Transform)enumerator.Current;
 				if (transform != trans.gameObject)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ChangeLayersRecursively(transform, name);
 				}
 			}
@@ -584,35 +369,16 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterLink.m_characterType != m_loadedCharacters[slotIndex].type)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						Animator componentInChildren = m_loadedCharacters[slotIndex].instantiatedCharacter.GetComponentInChildren<Animator>();
 						UIActorModelData.SetCharSelectTrigger(componentInChildren, false, false);
 						return;
@@ -644,15 +410,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 		bool preUnloadChar;
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (UICharacterSelectWorldObjects.Get() == null)
 			{
 				while (true)
@@ -668,26 +425,12 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			}
 			if (characterLink != null && characterLink.m_characterType == m_loadedCharacters[slotIndex].type)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (visualInfo.Equals(m_loadedCharacters[slotIndex].skin))
 				{
 					if (m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 					{
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							Animator componentInChildren = m_loadedCharacters[slotIndex].instantiatedCharacter.GetComponentInChildren<Animator>();
 							UIActorModelData.SetCharSelectTrigger(componentInChildren, false, false);
 							return;
@@ -698,26 +441,8 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			}
 			if (characterLink != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!characterLink.IsVisualInfoSelectionValid(visualInfo))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error($"Character {characterLink.m_displayName} could not find Actor Skin resource link for {visualInfo.ToString()}");
 					visualInfo = default(CharacterVisualInfo);
 				}
@@ -745,26 +470,8 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			ResetRotation = false;
 			if (slotIndex == 0)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterLink != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_loadedCharacters[slotIndex].type != characterLink.m_characterType)
 					{
 						ResetRotation = true;
@@ -774,40 +481,13 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			prevCharType = CharacterType.None;
 			if (m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prevCharType = m_loadedCharacters[slotIndex].type;
 			}
 			int num;
 			if (!(characterLink == null))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_loadedCharacters[slotIndex].type == characterLink.m_characterType)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((m_loadedCharacters[slotIndex].skin.skinIndex != visualInfo.skinIndex) ? 1 : 0);
 					goto IL_0390;
 				}
@@ -822,15 +502,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			}
 			if (characterLink == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_ringAnimations[slotIndex].PlayAnimation("ReadyOut");
 			}
 			if (!(characterLink != null))
@@ -839,11 +510,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				m_loadedCharacters[slotIndex].resourceLink = characterLink;
 				m_loadedCharacters[slotIndex].type = characterLink.m_characterType;
 				m_loadedCharacters[slotIndex].skin = visualInfo;
@@ -861,10 +527,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 								case 0:
 									break;
 								default:
-									if (1 == 0)
-									{
-										/*OpCode not supported: LdMemberToken*/;
-									}
 									if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 									{
 										while (true)
@@ -880,29 +542,11 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 									}
 									if (!preUnloadChar)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UICharacterWorldObjects uICharacterWorldObjects = this;
 										int slotIndex2 = slotIndex;
 										int playAnimation;
 										if (prevCharacterLoaded)
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											playAnimation = ((characterLink == null) ? 1 : 0);
 										}
 										else
@@ -918,15 +562,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 									m_loadedCharacters[slotIndex].loadingTicket = -1;
 									if (!m_characterIsLoading[slotIndex])
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UnloadCharacter(slotIndex, false);
 									}
 									m_characterIsLoading[slotIndex] = false;
@@ -966,41 +601,14 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																bool flag = false;
 																if (MasterSkinVfxData.Get() != null && MasterSkinVfxData.Get().m_addMasterSkinVfx)
 																{
-																	while (true)
-																	{
-																		switch (3)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (characterLink.IsVisualInfoSelectionValid(visualInfo))
 																	{
-																		while (true)
-																		{
-																			switch (3)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		CharacterColor characterColor = characterLink.GetCharacterColor(visualInfo);
 																		flag = (characterColor.m_styleLevel == StyleLevelType.Mastery);
 																	}
 																}
 																if (flag)
 																{
-																	while (true)
-																	{
-																		switch (2)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	MasterSkinVfxData.Get().AddMasterSkinVfxOnCharacterObject(component.gameObject, characterLink.m_characterType, characterLink.m_loadScreenScale);
 																}
 																component.EnableRagdoll(false);
@@ -1020,15 +628,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																}
 																if (slotIndex > 0)
 																{
-																	while (true)
-																	{
-																		switch (4)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	loadScreenPosition.y = Mathf.Min(loadScreenPosition.y, 0.15f);
 																}
 																gameObject.transform.localPosition = loadScreenPosition;
@@ -1038,15 +637,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																{
 																	if (m_loadedCharacters[slotIndex].ready)
 																	{
-																		while (true)
-																		{
-																			switch (5)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		m_ringAnimations[slotIndex].PlayAnimation("ReadyIn");
 																	}
 																	else
@@ -1057,40 +647,13 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
 																if (gameObject2.GetComponent<FrontEndAnimationEventReceiver>() == null)
 																{
-																	while (true)
-																	{
-																		switch (5)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	gameObject2.AddComponent<FrontEndAnimationEventReceiver>();
 																}
 																componentInChildren2 = gameObject.GetComponentInChildren<Animator>();
 																if (componentInChildren2 != null)
 																{
-																	while (true)
-																	{
-																		switch (7)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (componentInChildren2.isInitialized)
 																	{
-																		while (true)
-																		{
-																			switch (5)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		string name = componentInChildren2.name;
 																		if (componentInChildren2.runtimeAnimatorController != null)
 																		{
@@ -1098,15 +661,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																		}
 																		if (name == prevAnimInfoName)
 																		{
-																			while (true)
-																			{
-																				switch (4)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			if (prevAnimInCharSelState)
 																			{
 																				componentInChildren2.Play(prevAnimInfoStateHash, -1, prevAnimInfoNormalizedTime);
@@ -1117,15 +671,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																			if (prevAnimInCharSelState)
 																			{
 																				goto IL_058f;
-																			}
-																			while (true)
-																			{
-																				switch (6)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
 																			}
 																		}
 																		UIActorModelData.SetCharSelectTrigger(componentInChildren2, prevCharType != characterLink.m_characterType, true);
@@ -1142,15 +687,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 															}
 															if (ParamExists(componentInChildren2, "PatternIndex"))
 															{
-																while (true)
-																{
-																	switch (5)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																componentInChildren2.SetInteger("PatternIndex", visualInfo.patternIndex);
 															}
 															if (ParamExists(componentInChildren2, "ColorIndex"))
@@ -1161,53 +697,17 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 															IL_064a:
 															if (slotIndex == 0)
 															{
-																while (true)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (ResetRotation)
 																{
-																	while (true)
-																	{
-																		switch (3)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	UIFrontEnd.Get().ResetCharacterRotation();
 																}
 															}
 															if (m_loadedCharacters[0].instantiatedCharacter != null)
 															{
-																while (true)
-																{
-																	switch (3)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (GetCharacterLookAtCamera() != null)
 																{
 																	if (m_characterLookAtLocation == null)
 																	{
-																		while (true)
-																		{
-																			switch (3)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		m_characterLookAtLocation = new GameObject();
 																	}
 																	Transform transform = m_characterLookAtLocation.transform;
@@ -1249,15 +749,6 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																	{
 																		if (componentsInChildren3[k].name != "floor_collider")
 																		{
-																			while (true)
-																			{
-																				switch (7)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			componentsInChildren3[k].enabled = true;
 																		}
 																	}
@@ -1273,27 +764,9 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																			m_loadedCharacters[slotIndex].uiActorModelData.SetStateNameHashToNameMap(animatorStateNameHashToNameMap);
 																			if (characterLink.m_loadScreenDistTowardsCamera != 0f)
 																			{
-																				while (true)
-																				{
-																					switch (7)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				float num2 = characterLink.m_loadScreenDistTowardsCamera;
 																				if (slotIndex > 0)
 																				{
-																					while (true)
-																					{
-																						switch (4)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					num2 = Mathf.Min(0.85f, num2);
 																				}
 																				m_loadedCharacters[slotIndex].uiActorModelData.m_setOffsetTowardsCamera = true;
@@ -1357,25 +830,11 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}

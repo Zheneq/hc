@@ -26,19 +26,6 @@ public class HealPBAoE : Ability
 		float num;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_selfHitPointsPercentOfMax;
 		}
 		else
@@ -50,15 +37,6 @@ public class HealPBAoE : Ability
 		int num4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = m_selfHitPoints;
 		}
 		else

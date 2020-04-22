@@ -47,15 +47,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_targetingRadiusMod, "TargetingRadius", string.Empty, robotAnimalRoar.m_targetingRadius);
 			AbilityMod.AddToken(tokens, m_innerRadiusMod, "InnerRadius", string.Empty, robotAnimalRoar.m_innerRadius);
 			AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", robotAnimalRoar.m_enemyEffect);
@@ -63,15 +54,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 			int num;
 			if (robotAnimalRoar.m_innerShapeDamage < 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = robotAnimalRoar.m_damage;
 			}
 			else
@@ -94,19 +76,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (int)robotAnimalRoar.m_aoeShape;
 		}
 		else
@@ -120,15 +89,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalRoar.m_innerRadius;
 		}
 		else
@@ -141,15 +101,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (robotAnimalRoar.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
@@ -162,15 +113,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = robotAnimalRoar.m_damage;
 		}
 		else
@@ -185,15 +127,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = robotAnimalRoar.m_enemyEffect;
 		}
 		else
@@ -203,29 +136,11 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		empty = str5 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, "{ Effect Override on Enemy Hit}", empty2, flag, (StandardEffectInfo)baseVal5);
 		if (m_healAmountToTargetAllyOnHit > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Heals Targeted Ally on Hit] = " + m_healAmountToTargetAllyOnHit + "\n";
 		}
 		if (m_techPointGainToTargetAllyOnHit > 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			empty = text + "[Grants Tech Points To Targeted Ally on Hit] = " + m_techPointGainToTargetAllyOnHit + "\n";
 		}
@@ -235,15 +150,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = (int)robotAnimalRoar.m_innerShape;
 		}
 		else
@@ -256,15 +162,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = robotAnimalRoar.m_innerShapeDamage;
 		}
 		else

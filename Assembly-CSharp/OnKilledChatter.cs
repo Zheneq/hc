@@ -38,10 +38,6 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -49,15 +45,6 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 		ActorData actorData = null;
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.gameObject != null)
 			{
 				actorData = component.gameObject.GetComponent<ActorData>();
@@ -80,37 +67,10 @@ public class OnKilledChatter : ScriptableObject, IChatterData
 		TypeOfKill killType = m_KillType;
 		if (killType != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (killType != TypeOfKill.OnKilledOtherAny)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (killType != TypeOfKill.OnKilledSpecificCharacter)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{

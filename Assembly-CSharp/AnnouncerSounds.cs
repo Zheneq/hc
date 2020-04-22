@@ -185,19 +185,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (s_instance == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = this;
 		}
 		else
@@ -242,15 +229,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 				CharTypeToAudioCharName current = enumerator2.Current;
 				if (!string.IsNullOrEmpty(current.m_audioCharName))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_cachedCharTypeToName[current.m_charType] = current.m_audioCharName.ToLower();
 				}
 			}
@@ -281,15 +259,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lootVoAutioPrefab != null)
 			{
 				m_lootVoAudioInstance = UnityEngine.Object.Instantiate(m_lootVoAutioPrefab);
@@ -308,24 +277,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_onboardingVoAudioPrefab != null)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_onboardingVoAudioInstance = UnityEngine.Object.Instantiate(m_onboardingVoAudioPrefab);
 					UnityEngine.Object.DontDestroyOnLoad(m_onboardingVoAudioInstance);
 					AudioManager.StandardizeAudioLinkages(m_onboardingVoAudioInstance);
@@ -344,15 +299,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			s_instance = null;
 			return;
 		}
@@ -366,35 +312,16 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_delayedAnnouncementTimer > 0f))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_delayedAnnouncementTimer <= Time.time)
 				{
 					while (true)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
 						PlayDelayedAnnouncement();
 						return;
 					}
@@ -408,41 +335,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (ObjectivePoints.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ObjectivePoints.Get().m_matchState != ObjectivePoints.MatchState.MatchEnd)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AppState.GetCurrent() != AppState_InGameEnding.Get())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PlayAnnouncementByEnum(m_delayedAnnouncement);
 				}
 			}
@@ -459,25 +355,11 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AudioManager.PostEvent(eventName);
 			if (c_debugLoggingOn)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					Debug.Log("Playing announcement " + eventName + ".");
 					return;
 				}
@@ -494,31 +376,9 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		if (m_eventsToNotPlay != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_eventsToNotPlay.Contains(eventEnum))
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string audioEventOfAnnouncerEvent = GetAudioEventOfAnnouncerEvent(eventEnum);
@@ -529,11 +389,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			Debug.Log("Playing announcement enum " + eventEnum.ToString() + " with event string " + audioEventOfAnnouncerEvent + ".");
 			return;
 		}
@@ -558,24 +413,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_cachedCharTypeToName.ContainsKey(charType))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					string eventName = "vo/" + m_cachedCharTypeToName[charType] + "/loot_matrix_drop";
 					AudioManager.PostEvent(eventName);
 					return;
@@ -592,25 +433,11 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		case GameEventManager.EventType.PostCharacterDeath:
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				GameEventManager.CharacterDeathEventArgs characterDeathEventArgs = args as GameEventManager.CharacterDeathEventArgs;
 				if (characterDeathEventArgs != null && characterDeathEventArgs.deadCharacter == GameFlowData.Get().activeOwnedActorData)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						PlayAnnouncementByEnum(AnnouncerEvent.Death);
 						return;
 					}
@@ -626,20 +453,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (characterRespawnEventArgs.respawningCharacter == GameFlowData.Get().activeOwnedActorData)
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						PlayAnnouncementByEnum(AnnouncerEvent.Respawn);
 						return;
 					}
@@ -654,22 +471,12 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (!(GameFlowData.Get() != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (GameFlowData.Get().CurrentTurn == ObjectivePoints.Get().m_timeLimitTurns)
 					{
 						while (true)
@@ -745,11 +552,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 					}
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						m_delayedAnnouncement = AnnouncerEvent.TurnsRemaining_01;
 						return;
 					}
@@ -769,10 +571,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_audioEventSolo;
 				}
 			}
@@ -1101,11 +899,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		case AnnouncerEvent.Victory:
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return m_audioEventVictory;
 			}
 		case AnnouncerEvent.Defeat:
@@ -1120,19 +913,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (previousTimeRemaining > 10f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentTimeRemaining <= 10f)
 			{
 				while (true)
@@ -1150,15 +930,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		if (previousTimeRemaining > 9f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTimeRemaining <= 9f)
 			{
 				while (true)
@@ -1195,15 +966,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		if (previousTimeRemaining > 6f)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTimeRemaining <= 6f)
 			{
 				while (true)
@@ -1249,15 +1011,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		if (previousTimeRemaining > 3f)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTimeRemaining <= 3f)
 			{
 				while (true)
@@ -1275,15 +1028,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		if (previousTimeRemaining > 2f)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTimeRemaining <= 2f)
 			{
 				while (true)
@@ -1305,11 +1049,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			if (currentTimeRemaining <= 1f)
 			{
 				PlayAnnouncementByEnum(AnnouncerEvent.Countdown_01);

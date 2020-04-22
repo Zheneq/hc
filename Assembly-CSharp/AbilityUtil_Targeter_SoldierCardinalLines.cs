@@ -39,19 +39,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		int numDirs;
 		if (m_useBothCardinalDirs)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			numDirs = 2;
 		}
 		else
@@ -76,37 +63,18 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (targets == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (targets.Count <= 0)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					CreateHighlights();
 					float num = m_targetLineLengthInSquares * Board.Get().squareSize;
 					AbilityTarget target = targets[currentTargetIndex - 1];
@@ -121,27 +89,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					List<Vector3> list = new List<Vector3>();
 					if (m_useBothCardinalDirs)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float angle = 0f;
 						if (vec.x < 0f)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 180f;
 						}
 						list.Add(VectorUtils.AngleDegreesToVector(angle));
@@ -203,36 +153,17 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (!m_useAoeHits)
 						{
 							return;
 						}
 						while (true)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
 							int num3 = m_numDirs * 3;
 							foreach (KeyValuePair<ActorData, float> item2 in m_directHitActorToCenterDist)
 							{
 								if (m_highlights.Count <= num3)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(m_aoeShape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 								}
 								Vector3 travelBoardSquareWorldPosition = item2.Key.GetTravelBoardSquareWorldPosition();
@@ -266,31 +197,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 	{
 		if (m_highlights != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_highlights.Count >= 3 * m_numDirs)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_highlights = new List<GameObject>();
@@ -377,31 +286,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					float num3 = AreaEffectUtils.PointToLineDistance2D(current.GetTravelBoardSquareWorldPosition(), vector, vector2);
 					if (directHitActorToWorldDist.ContainsKey(current))
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (!(directHitActorToWorldDist[current] > num3))
 						{
 							goto IL_0205;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					directHitActorToWorldDist[current] = num3;
@@ -409,39 +296,12 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					IL_0205:
 					if (!actorToHitOrigin.ContainsKey(current))
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitOrigin[current] = vector;
 					}
 					else if (current.GetActorCover().IsInCoverWrt(actorToHitOrigin[current]))
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitOrigin[current] = vector;
 					}
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (m_useAoeHits)
@@ -460,26 +320,8 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 							actorsInDirsDirect[i].Add(current3);
 							if (!actorToHitOrigin.ContainsKey(current3))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actorToHitOrigin[current3] = vector;
 							}
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

@@ -34,19 +34,6 @@ public class LobbyTeamInfo
 		LobbyTeamInfo lobbyTeamInfo = null;
 		if (serverInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			lobbyTeamInfo = new LobbyTeamInfo();
 			if (serverInfo.TeamPlayerInfo != null)
 			{
@@ -96,10 +83,6 @@ public class LobbyTeamInfo
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return null;
 				}
 			}
@@ -112,21 +95,11 @@ public class LobbyTeamInfo
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				return TeamPlayerInfo[i];
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}

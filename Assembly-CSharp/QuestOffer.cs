@@ -71,43 +71,12 @@ public class QuestOffer : MonoBehaviour
 		int count3 = rewards.ItemRewards.Count;
 		if (count + count2 + count3 != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_questRewards.Length; i++)
 			{
 				if (i < count)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_questRewards[i].Setup(rewards.CurrencyRewards[i], m_rejectedCount + 1);
 				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_rejectedCount = -1;
@@ -118,57 +87,17 @@ public class QuestOffer : MonoBehaviour
 		bool result = false;
 		if (m_BonusAnimator == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_rejectedCount = -1;
 		}
 		if (m_rejectedCount > -1)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 				int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
 				float num = m_rejectedCount * questBonusPerRejection;
 				if (m_rejectedCount == 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(m_bonus, true);
 					UIManager.SetGameObjectActive(m_bonusArrowsMask, true);
 					IncreaseRejectBonusNumber();
@@ -177,15 +106,6 @@ public class QuestOffer : MonoBehaviour
 				}
 				else if (num < (float)questMaxRejectPercentage)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(m_BonusAnimator, "PickContractItemBonusOUT", RejectAnimDone, "PickContractItemBonusIDLE", 1);
 					result = true;
 				}
@@ -202,15 +122,6 @@ public class QuestOffer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_BonusAnimator.Play("PickContractItemSelectIN", 1, 0f);
 			ClientGameManager.Get().SelectDailyQuest(m_questId);
 			QuestOfferPanel.Get().NotifyOfferClicked(this);
@@ -226,15 +137,6 @@ public class QuestOffer : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			QuestListPanel.Get().HandleQuestAdded(m_questId);
 			return;
 		}
@@ -257,19 +159,6 @@ public class QuestOffer : MonoBehaviour
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
 		if ((bool)sprite)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_contractIcon.sprite = sprite;
 		}
 		else
@@ -315,15 +204,6 @@ public class QuestOffer : MonoBehaviour
 		{
 			if (i < count)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_questRewards[i], true);
 				m_questRewards[i].Setup(rewards.CurrencyRewards[i], rejectedCount);
 			}
@@ -334,15 +214,6 @@ public class QuestOffer : MonoBehaviour
 			}
 			else if (i - count - count2 < count3)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QuestItemReward questItemReward = rewards.ItemRewards[i - count - count2];
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
 				UIManager.SetGameObjectActive(m_questRewards[i], true);
@@ -351,15 +222,6 @@ public class QuestOffer : MonoBehaviour
 				int amount;
 				if (itemTemplate.Type == InventoryItemType.Experience)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					amount = itemTemplate.TypeSpecificData[0];
 				}
 				else

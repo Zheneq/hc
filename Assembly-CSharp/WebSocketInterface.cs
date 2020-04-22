@@ -56,15 +56,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.HeartbeatTimeout = value;
 				return;
 			}
@@ -86,15 +77,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.HeartbeatPeriod = value;
 				return;
 			}
@@ -116,15 +98,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.IsCompressed = value;
 				return;
 			}
@@ -146,15 +119,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.IsRaw = value;
 				return;
 			}
@@ -176,15 +140,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.IsBinary = value;
 				return;
 			}
@@ -238,15 +193,6 @@ public class WebSocketInterface
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_webSocket.MaxMessagesPerSecond = value;
 				return;
 			}
@@ -278,19 +224,6 @@ public class WebSocketInterface
 			int result;
 			if (m_webSocket != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (int)m_webSocket.State;
 			}
 			else
@@ -338,19 +271,6 @@ public class WebSocketInterface
 	{
 		if (serverAddress.IndexOf("://") == -1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			serverAddress = "ws://" + serverAddress;
 		}
 		Uri uri = new Uri(serverAddress);
@@ -360,26 +280,8 @@ public class WebSocketInterface
 		int port;
 		if (uri.Port > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!uri.IsDefaultPort)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				port = uri.Port;
 				goto IL_008e;
 			}
@@ -413,15 +315,6 @@ public class WebSocketInterface
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_webSocket.SetMinSocketLogLevel(level);
 			return;
 		}
@@ -431,19 +324,6 @@ public class WebSocketInterface
 	{
 		if (!m_overallConnectionTimer.IsRunning)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_overallConnectionTimer.Start();
 		}
 		if (State != WebSocket.SocketState.Closed)
@@ -452,11 +332,6 @@ public class WebSocketInterface
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			Logger.Info("Connecting to {0}", m_serverAddress);
 			m_webSocket.Connect();
 			return;
@@ -472,15 +347,6 @@ public class WebSocketInterface
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_webSocket.Close();
 			return;
 		}
@@ -496,56 +362,16 @@ public class WebSocketInterface
 	{
 		if (m_reconnectDelayTimer.IsRunning)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_reconnectDelayTimer.Elapsed >= TimeSpan.FromSeconds(1.0))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_reconnectDelayTimer.Reset();
 				Connect();
 			}
 		}
 		if (m_overallConnectionTimer.IsRunning)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_overallConnectionTimer.Elapsed >= TimeSpan.FromSeconds(ConnectionTimeout) && m_webSocket != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Logger.Error("Connection timed out to {0} (elapsed time: {1})", m_webSocket.ConnectionAddress, m_overallConnectionTimer.Elapsed);
 				m_webSocket.Close();
 				m_webSocket = null;
@@ -557,11 +383,6 @@ public class WebSocketInterface
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			m_webSocket.Update();
 			return;
 		}
@@ -575,32 +396,10 @@ public class WebSocketInterface
 	{
 		if (m_webSocket != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_webSocket.State == WebSocket.SocketState.Open)
 			{
 				m_webSocket.Send(message);
 				return true;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -610,19 +409,6 @@ public class WebSocketInterface
 	{
 		if (callback != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Action<ResponseHandlerType, ResponseType> messageDelegate = delegate(ResponseHandlerType r, ResponseType m)
 			{
 				callback(m);
@@ -672,10 +458,6 @@ public class WebSocketInterface
 							case 0:
 								break;
 							default:
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								throw new Exception(error);
 							}
 						}

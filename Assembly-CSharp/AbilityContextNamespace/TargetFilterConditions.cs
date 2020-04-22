@@ -21,15 +21,6 @@ namespace AbilityContextNamespace
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return targetFilterConditions;
 			}
 		}
@@ -50,24 +41,11 @@ namespace AbilityContextNamespace
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						{
 							foreach (NumericContextValueCompareCond numCompareCondition in m_numCompareConditions)
 							{
 								if (numCompareCondition.m_compareOp != 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									string text2 = text;
 									text = string.Concat(text2, _001D, InEditorDescHelper.ContextVarName(numCompareCondition.m_contextName, !numCompareCondition.m_nonActorSpecificContext), " is ", numCompareCondition.m_compareOp, " ", InEditorDescHelper.ColoredString(numCompareCondition.m_testValue), "\n");
 								}

@@ -56,15 +56,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnAlliesMod, "EffectOnAllies", fishManBubble.m_effectOnAllies);
 			AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemiesMod, "EffectOnEnemies", fishManBubble.m_effectOnEnemies);
 			AbilityMod.AddToken(tokens, m_initialHitHealingToAlliesMod, "InitialHitHealingToAllies", string.Empty, fishManBubble.m_initialHitHealingToAllies);
@@ -90,19 +81,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (fishManBubble.m_canTargetEnemies ? 1 : 0);
 		}
 		else
@@ -115,15 +93,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = (fishManBubble.m_canTargetAllies ? 1 : 0);
 		}
 		else
@@ -139,15 +108,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManBubble.m_initialHitHealingToAllies;
 		}
 		else
@@ -160,15 +120,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManBubble.m_initialHitDamageToEnemies;
 		}
 		else
@@ -181,15 +132,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = fishManBubble.m_numTurnsBeforeFirstExplosion;
 		}
 		else
@@ -202,15 +144,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = fishManBubble.m_numExplosionsBeforeEnding;
 		}
 		else
@@ -223,15 +156,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (int)fishManBubble.m_explosionShape;
 		}
 		else
@@ -244,15 +168,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (fishManBubble.m_explosionIgnoresLineOfSight ? 1 : 0);
 		}
 		else
@@ -265,15 +180,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = (fishManBubble.m_explosionCanAffectEffectHolder ? 1 : 0);
 		}
 		else
@@ -287,15 +193,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManBubble.m_explosionDamageToEnemies;
 		}
 		else
@@ -309,15 +206,6 @@ public class AbilityMod_FishManBubble : AbilityMod
 		object baseVal11;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = fishManBubble.m_explosionEffectToEnemies;
 		}
 		else

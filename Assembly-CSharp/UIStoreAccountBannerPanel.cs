@@ -34,15 +34,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnPlayerBannerChange -= OnPlayerBannerChange;
 			ClientGameManager.Get().OnPlayerTitleChange -= OnPlayerTitleChange;
 			return;
@@ -71,44 +62,13 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (m_charType != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (playerBanner.m_relatedCharacter != m_charType)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list2.Add(playerBanner);
 			}
 			else
@@ -121,27 +81,9 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (m_charType != 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerTitle.m_relatedCharacter != m_charType)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			list4.Add(playerTitle);
@@ -151,15 +93,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (m_charType == CharacterType.None)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list5.Add(item);
 			}
 		}
@@ -189,41 +122,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedBackgroundBannerID != item.ID)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedForegroundBannerID == item.ID) ? 1 : 0);
 					}
 					else
@@ -249,15 +151,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 					int result2;
 					if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result2 = ((ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedTitleID == item.ID) ? 1 : 0);
 					}
 					else
@@ -280,70 +173,25 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AccountComponent accountComponent;
 				bool flag;
 				int num;
 				if (!(ClientGameManager.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 					{
 						accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 						flag = false;
 						if (!m_titleToggle.isOn && !m_emblemToggle.isOn)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!m_backgroundToggle.isOn)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = ((!m_ribbonToggle.isOn) ? 1 : 0);
 								goto IL_00c0;
 							}
 						}
 						num = 0;
 						goto IL_00c0;
-					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return true;
@@ -352,27 +200,9 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 				int num2;
 				if (item is GameBalanceVars.PlayerBanner)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameBalanceVars.PlayerBanner playerBanner = item as GameBalanceVars.PlayerBanner;
 					if (accountComponent.UnlockedBannerIDs.Contains(playerBanner.ID))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_emblemToggle.isOn && playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Foreground)
 						{
 							goto IL_0138;
@@ -382,15 +212,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 							if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 							{
 								goto IL_0138;
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						num2 = (flag2 ? 1 : 0);
@@ -403,40 +224,13 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 				}
 				if (item is GameBalanceVars.PlayerTitle)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (accountComponent.UnlockedTitleIDs.Contains(item.ID) && (m_titleToggle.isOn || flag2));
 				}
 				else if (item is GameBalanceVars.PlayerRibbon)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3;
 					if (accountComponent.UnlockedRibbonIDs.Contains(item.ID))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = ((m_ribbonToggle.isOn || flag2) ? 1 : 0);
 					}
 					else
@@ -458,37 +252,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (!m_titleToggle.isOn)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_emblemToggle.isOn)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_backgroundToggle.isOn)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_ribbonToggle.isOn)
 					{
 						while (true)
@@ -508,15 +275,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		bool result = true;
 		if (m_titleToggle.isOn)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item is GameBalanceVars.PlayerTitle)
 			{
 				result = false;
@@ -524,53 +282,17 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (m_ribbonToggle.isOn && item is GameBalanceVars.PlayerRibbon)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		if (!m_backgroundToggle.isOn)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_emblemToggle.isOn)
 			{
 				goto IL_0319;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (item is GameBalanceVars.PlayerBanner)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerBanner playerBanner2 = item as GameBalanceVars.PlayerBanner;
 			if (m_backgroundToggle.isOn)
 			{
@@ -578,38 +300,11 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 				{
 					goto IL_0316;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (m_emblemToggle.isOn)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerBanner2.m_type == GameBalanceVars.PlayerBanner.BannerType.Foreground)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_0316;
 				}
 			}
@@ -633,10 +328,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -689,19 +380,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		string previewTitle;
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = GameBalanceVars.Get().GetTitle(item.ID, string.Empty);
 			previewTitle = StringUtil.TR("TitlePreview", "OverlayScreens");
 		}
@@ -716,11 +394,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					return false;
 				}
 			}
@@ -739,15 +412,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 		if (playerBanner2 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			playerBanner2 = GameBalanceVars.Get().GetBanner(accountComponent.SelectedForegroundBannerID);
 		}
 		if (playerBanner == null)
@@ -756,28 +420,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (text == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = GameBalanceVars.Get().GetTitle(accountComponent.SelectedTitleID, string.Empty);
 		}
 		if (playerRibbon == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			playerRibbon = GameBalanceVars.Get().GetRibbon(accountComponent.SelectedRibbonID);
 		}
 		UIBannerPreviewTooltip uIBannerPreviewTooltip = tooltip as UIBannerPreviewTooltip;
@@ -791,19 +437,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		int itemType;
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			itemType = 13;
 		}
 		else

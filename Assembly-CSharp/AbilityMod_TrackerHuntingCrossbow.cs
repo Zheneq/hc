@@ -41,28 +41,10 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_damageOnUntrackedMod, "Damage_Untracked", "damage on untracked targets", trackerHuntingCrossbow.m_laserDamageAmount);
 			AbilityMod.AddToken(tokens, m_damageOnTrackedMod, "Damage_Tracked", "damage on Tracked targets", trackerHuntingCrossbow.m_laserDamageAmount);
 			if (m_damageChangeOnSubsequentTargets != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tokens.Add(new TooltipTokenInt("DamageChangeOnSubsequent", "damage change after first hit, if piercing", Mathf.Abs(m_damageChangeOnSubsequentTargets)));
 			}
 			if (m_extraDamageWhenInBrush > 0)
@@ -71,15 +53,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 			}
 			if (m_additionalEnemyEffectWhenInBrush != null && m_additionalEnemyEffectWhenInBrush.m_applyEffect)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, m_additionalEnemyEffectWhenInBrush, "EffectOnTargetInBrush");
 			}
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", "laser width", trackerHuntingCrossbow.m_laserInfo.width);
@@ -99,19 +72,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = trackerHuntingCrossbow.m_laserDamageAmount;
 		}
 		else
@@ -127,15 +87,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		}
 		if (m_extraDamageWhenInBrush > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = empty;
 			object[] obj = new object[6]
 			{
@@ -149,15 +100,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 			object obj2;
 			if (m_requireFunctioningBrush)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj2 = "Functioning";
 			}
 			else
@@ -172,27 +114,9 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		}
 		if (m_additionalEnemyEffectWhenInBrush != null && m_additionalEnemyEffectWhenInBrush.m_applyEffect)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			object obj3;
 			if (m_requireFunctioningBrush)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj3 = "Functioning Brush";
 			}
 			else
@@ -207,15 +131,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerHuntingCrossbow.m_laserInfo.width;
 		}
 		else
@@ -230,15 +145,6 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerHuntingCrossbow.m_huntedEffectData;
 		}
 		else

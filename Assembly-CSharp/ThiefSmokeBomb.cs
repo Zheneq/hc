@@ -43,32 +43,10 @@ public class ThiefSmokeBomb : Ability
 	{
 		if (m_abilityName == "Base Ability")
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityName = "Smoke Bomb";
 		}
 		if (m_barrierSquareWidth <= 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("Thief Smoke Bomb, Barrier Data has 0 width, setting to 3");
 			m_barrierSquareWidth = 3f;
 		}
@@ -90,10 +68,6 @@ public class ThiefSmokeBomb : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClearTargeters();
 					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 					{
@@ -101,15 +75,6 @@ public class ThiefSmokeBomb : Ability
 						int affectsAllies;
 						if (fieldData.healAmount > 0)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							affectsAllies = ((!fieldData.ignoreNonCasterAllies) ? 1 : 0);
 						}
 						else
@@ -122,19 +87,6 @@ public class ThiefSmokeBomb : Ability
 							int result2;
 							if (fieldData.healAmount > 0)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								result2 = (casterInShape ? 1 : 0);
 							}
 							else
@@ -164,15 +116,6 @@ public class ThiefSmokeBomb : Ability
 		int affectsAllies2;
 		if (fieldData.healAmount > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsAllies2 = ((!fieldData.ignoreNonCasterAllies) ? 1 : 0);
 		}
 		else
@@ -185,19 +128,6 @@ public class ThiefSmokeBomb : Ability
 			int result;
 			if (fieldData.healAmount > 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (casterInShape ? 1 : 0);
 			}
 			else
@@ -219,19 +149,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo cachedBombHitEffectInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedBombHitEffectInfo = m_abilityMod.m_bombHitEffectInfoMod.GetModifiedValue(m_bombHitEffectInfo);
 		}
 		else
@@ -242,15 +159,6 @@ public class ThiefSmokeBomb : Ability
 		GroundEffectField cachedSmokeFieldInfo;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSmokeFieldInfo = m_abilityMod.m_smokeFieldInfoMod.GetModifiedValue(m_smokeFieldInfo);
 		}
 		else
@@ -261,15 +169,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData cachedBarrierData;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedBarrierData = m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 		}
 		else
@@ -284,19 +183,6 @@ public class ThiefSmokeBomb : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraDamageOnCastMod.GetModifiedValue(m_extraDamageOnCast);
 		}
 		else
@@ -311,19 +197,6 @@ public class ThiefSmokeBomb : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -343,19 +216,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxDistanceWithFirstMod.GetModifiedValue(m_maxDistanceWithFirst);
 		}
 		else
@@ -370,19 +230,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_minDistanceBetweenBombsMod.GetModifiedValue(m_minDistanceBetweenBombs);
 		}
 		else
@@ -397,19 +244,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo result;
 		if (m_cachedBombHitEffectInfo != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedBombHitEffectInfo;
 		}
 		else
@@ -424,19 +258,6 @@ public class ThiefSmokeBomb : Ability
 		GroundEffectField result;
 		if (m_cachedSmokeFieldInfo != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedSmokeFieldInfo;
 		}
 		else
@@ -456,19 +277,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_barrierSquareWidthMod.GetModifiedValue(m_barrierSquareWidth);
 		}
 		else
@@ -483,19 +291,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData result;
 		if (m_cachedBarrierData != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedBarrierData;
 		}
 		else
@@ -514,43 +309,12 @@ public class ThiefSmokeBomb : Ability
 		bool flag;
 		if (!(boardSquareSafe == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (targetIndex == 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == caster.GetCurrentBoardSquare())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_0066;
 					}
 				}
@@ -560,29 +324,11 @@ public class ThiefSmokeBomb : Ability
 				flag = true;
 				if (targetIndex > 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
 					to.y = 0f;
 					bool flag2 = true;
 					if (GetMaxAngleWithFirstSegment() > 0)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
 						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[0].FreePos, boardSquareSafe2);
 						Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
@@ -597,15 +343,6 @@ public class ThiefSmokeBomb : Ability
 					int num2;
 					if (!(GetMaxDistanceWithFirst() <= 0f))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = ((magnitude <= GetMaxDistanceWithFirst() * board.squareSize) ? 1 : 0);
 					}
 					else
@@ -615,27 +352,9 @@ public class ThiefSmokeBomb : Ability
 					bool flag3 = (byte)num2 != 0;
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag3)
 						{
 							goto IL_01f2;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					flag = false;
@@ -651,15 +370,6 @@ public class ThiefSmokeBomb : Ability
 			float minDistInWorld = GetMinDistanceBetweenBombs() * board.squareSize;
 			for (int i = 0; i < targetIndex; i++)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					BoardSquare boardSquareSafe3 = board.GetBoardSquareSafe(currentTargets[i].GridPos);
@@ -667,55 +377,19 @@ public class ThiefSmokeBomb : Ability
 					flag = CheckMinDistConstraint(centerOfShape3, boardSquareSafe, shape, shapeCenterMinDistInWorld, minDistInWorld);
 					continue;
 				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
 			if (flag && targetIndex < expectedNumberOfTargeters - 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> list = new List<AbilityTarget>();
 				for (int j = 0; j < expectedNumberOfTargeters; j++)
 				{
 					list.Add(target.GetCopy());
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int k = 0; k < targetIndex; k++)
 				{
 					list[k].SetPosAndDir(currentTargets[k].GridPos, currentTargets[k].FreePos, Vector3.forward);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				list[targetIndex].SetPosAndDir(boardSquareSafe.GetGridPos(), target.FreePos, Vector3.forward);
 				float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
@@ -738,10 +412,6 @@ public class ThiefSmokeBomb : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -758,28 +428,10 @@ public class ThiefSmokeBomb : Ability
 		bool flag = false;
 		for (int i = minX; i < maxX; i++)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				for (int j = minY; j < maxY; j++)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						BoardSquare boardSquare = board.GetBoardSquare(i, j);
@@ -787,53 +439,17 @@ public class ThiefSmokeBomb : Ability
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!boardSquare.IsBaselineHeight())
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (!currentBoardSquare._0013(boardSquare.x, boardSquare.y))
 						{
 							continue;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!abilityData.IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, currentBoardSquare, abilityMaxRange, 0f))
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						Vector3 vector = boardSquare.ToVector3();
 						bool flag2 = true;
@@ -841,15 +457,6 @@ public class ThiefSmokeBomb : Ability
 						int maxAngleWithFirstSegment = GetMaxAngleWithFirstSegment();
 						if (maxAngleWithFirstSegment > 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetEntries[0].GridPos);
 							if (numTargetsFromPlayerInput > 0)
 							{
@@ -863,15 +470,6 @@ public class ThiefSmokeBomb : Ability
 							{
 								for (int k = 0; k < 4; k++)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag2)
 									{
 										break;
@@ -885,15 +483,6 @@ public class ThiefSmokeBomb : Ability
 									int num3;
 									if (flag3)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num3 = ((num2 <= maxAngleWithFirstSegment) ? 1 : 0);
 									}
 									else
@@ -911,15 +500,6 @@ public class ThiefSmokeBomb : Ability
 						int num4;
 						if (!(GetMaxDistanceWithFirst() <= 0f))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = ((magnitude <= GetMaxDistanceWithFirst() * board.squareSize) ? 1 : 0);
 						}
 						else
@@ -933,26 +513,8 @@ public class ThiefSmokeBomb : Ability
 						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int l = 0; l <= lastSelectedTargetIndex; l++)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
 									BoardSquare boardSquareSafe2 = board.GetBoardSquareSafe(targetEntries[l].GridPos);
@@ -978,53 +540,17 @@ public class ThiefSmokeBomb : Ability
 											flag2 = CheckMinDistConstraint(centerOfShape5, boardSquare, shape, shapeCenterMinDistInWorld, minDistInWorld);
 											continue;
 										}
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									continue;
-								}
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								break;
 							}
 						}
 						if (flag2)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (lastSelectedTargetIndex < numClicks - 1)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								targetEntries[lastSelectedTargetIndex + 1].SetPosAndDir(boardSquare.GetGridPos(), vector, Vector3.forward);
 								flag2 = CanTargetFutureClicks(caster, firstSegEndPos, lastSelectedTargetIndex + 1, targetEntries, numTargetsFromPlayerInput, numClicks, abilityMaxRange);
 							}
@@ -1032,27 +558,9 @@ public class ThiefSmokeBomb : Ability
 						flag = flag2;
 						continue;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1076,59 +584,19 @@ public class ThiefSmokeBomb : Ability
 				float magnitude = vector2.magnitude;
 				if (!(magnitude < shapeCenterMinDistInWorld))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!(minDistInWorld > 0f))
 					{
 						goto IL_00a7;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(magnitude < minDistInWorld))
 					{
 						goto IL_00a7;
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = false;
 			}
 			else
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			break;
 			IL_00a7:
@@ -1156,44 +624,13 @@ public class ThiefSmokeBomb : Ability
 		{
 			if (i > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
 				if (boardSquareSafe2 == null)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 == boardSquareSafe)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
@@ -1201,11 +638,6 @@ public class ThiefSmokeBomb : Ability
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			return symbolToValue;
 		}
 	}
@@ -1217,19 +649,6 @@ public class ThiefSmokeBomb : Ability
 		int val;
 		if ((bool)abilityMod_ThiefSmokeBomb)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_ThiefSmokeBomb.m_extraDamageOnCastMod.GetModifiedValue(m_extraDamageOnCast);
 		}
 		else
@@ -1241,15 +660,6 @@ public class ThiefSmokeBomb : Ability
 		int val2;
 		if ((bool)abilityMod_ThiefSmokeBomb)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefSmokeBomb.m_maxAngleWithFirstSegmentMod.GetModifiedValue(m_maxAngleWithFirstSegment);
 		}
 		else
@@ -1260,15 +670,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_ThiefSmokeBomb)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ThiefSmokeBomb.m_bombHitEffectInfoMod.GetModifiedValue(m_bombHitEffectInfo);
 		}
 		else
@@ -1279,15 +680,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData standardBarrierData;
 		if ((bool)abilityMod_ThiefSmokeBomb)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardBarrierData = abilityMod_ThiefSmokeBomb.m_barrierDataMod.GetModifiedValue(m_barrierData);
 		}
 		else
@@ -1306,15 +698,6 @@ public class ThiefSmokeBomb : Ability
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_abilityMod = (abilityMod as AbilityMod_ThiefSmokeBomb);
 			Setup();
 			return;

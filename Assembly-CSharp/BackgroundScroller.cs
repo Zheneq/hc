@@ -34,15 +34,6 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			MakeNewVisibleBlock();
 			return;
 		}
@@ -60,10 +51,6 @@ public class BackgroundScroller : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Log.Error($"BackgroundScroller {base.name} does not have a collider");
 					return;
 				}
@@ -106,29 +93,11 @@ public class BackgroundScroller : MonoBehaviour
 				float num6 = num5 + size3.x * 0.5f;
 				if (num2 > num6)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.SetActive(false);
 					m_blocksToRetire.Add(gameObject);
 				}
 				if (i == m_visibleBlocks.Count - 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > num4)
 					{
 						flag = true;
@@ -147,11 +116,6 @@ public class BackgroundScroller : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				MakeNewVisibleBlock();
 				return;
 			}
@@ -188,10 +152,6 @@ public class BackgroundScroller : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return true;
 				}
 			}
@@ -225,15 +185,6 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		if (currentGraphicsQuality == GraphicsQuality.Low)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_hideAtLowQuality)
 			{
 				return true;
@@ -254,19 +205,6 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		else if (m_inVisibleBlocks.Count > 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int index2 = Random.Range(0, m_inVisibleBlocks.Count);
 			gameObject2 = m_inVisibleBlocks[index2];
 			m_inVisibleBlocks.RemoveAt(index2);
@@ -278,44 +216,17 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		if (gameObject != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject2 = Object.Instantiate(gameObject);
 			gameObject2.transform.SetParent(base.transform);
 			gameObject2.transform.localPosition = Vector3.zero;
 		}
 		if (gameObject2 != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject2.SetActive(IsVisibleWithCurrentSettings());
 			gameObject2.transform.localPosition = Vector3.zero;
 			gameObject2.transform.localRotation = Quaternion.identity;
 			if (m_randomRotation)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Random.value > 0.5f)
 				{
 					gameObject2.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);

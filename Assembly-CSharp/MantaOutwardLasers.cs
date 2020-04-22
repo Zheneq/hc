@@ -100,19 +100,6 @@ public class MantaOutwardLasers : Ability
 		StandardEffectInfo result;
 		if (m_cachedEffectData == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_effectOnEnemy;
 		}
 		else
@@ -127,19 +114,6 @@ public class MantaOutwardLasers : Ability
 		StandardEffectInfo result;
 		if (m_cachedMultiHitEffectData == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_effectForMultiHitsOnEnemy;
 		}
 		else
@@ -193,19 +167,6 @@ public class MantaOutwardLasers : Ability
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int bonusDamagePerBounce = GetBonusDamagePerBounce();
 			AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hitActorContext3 = hitActorContext[i];
 			int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
@@ -213,15 +174,6 @@ public class MantaOutwardLasers : Ability
 			int num2 = GetDamageForAdditionalHit() + num;
 			if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] += num2;
 			}
 			else
@@ -231,11 +183,6 @@ public class MantaOutwardLasers : Ability
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			return dictionary;
 		}
 	}
@@ -252,10 +199,6 @@ public class MantaOutwardLasers : Ability
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 					return m_techPointGainPerLaserHit * tooltipSubjectCountTotalWithDuplicates;
 				}
@@ -271,19 +214,6 @@ public class MantaOutwardLasers : Ability
 		int val;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = 0;
 		}
 		else
@@ -295,15 +225,6 @@ public class MantaOutwardLasers : Ability
 		int val2;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = 0;
 		}
 		else
@@ -315,15 +236,6 @@ public class MantaOutwardLasers : Ability
 		int val3;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = 0;
 		}
 		else
@@ -335,15 +247,6 @@ public class MantaOutwardLasers : Ability
 		int val4;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = 0;
 		}
 		else
@@ -355,15 +258,6 @@ public class MantaOutwardLasers : Ability
 		int val5;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = 0;
 		}
 		else
@@ -375,15 +269,6 @@ public class MantaOutwardLasers : Ability
 		int val6;
 		if ((bool)modAsBase)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = 0;
 		}
 		else

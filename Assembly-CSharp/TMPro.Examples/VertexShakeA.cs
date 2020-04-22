@@ -45,15 +45,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0013 = true;
 				return;
 			}
@@ -67,45 +58,14 @@ namespace TMPro.Examples
 			_0013 = true;
 			if (_0013)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (array.Length < textInfo.meshInfo.Length)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array = new Vector3[textInfo.meshInfo.Length][];
 				}
 				for (int i = 0; i < textInfo.meshInfo.Length; i++)
 				{
 					int num = textInfo.meshInfo[i].vertices.Length;
 					array[i] = new Vector3[num];
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				_0013 = false;
 			}
@@ -125,15 +85,6 @@ namespace TMPro.Examples
 				{
 					if (!textInfo.characterInfo[k].isVisible)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					int materialReferenceIndex = textInfo.characterInfo[k].materialReferenceIndex;
@@ -157,11 +108,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int l = 0; l < textInfo.meshInfo.Length; l++)
 				{
 					textInfo.meshInfo[l].mesh.vertices = array[l];
@@ -169,11 +115,6 @@ namespace TMPro.Examples
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					yield return new WaitForSeconds(0.1f);
 					/*Error: Unable to find new state assignment for yield return*/;
 				}

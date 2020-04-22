@@ -39,19 +39,6 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 		AbilityAreaShape result;
 		if (m_targetSelMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_targetSelMod.m_destShapeMod.GetModifiedValue(m_destShape);
 		}
 		else
@@ -66,19 +53,6 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				while (true)

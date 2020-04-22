@@ -89,19 +89,6 @@ public class UIInfoDialogPanel : MonoBehaviour
 	{
 		if (m_infoDialogEntries == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_infoDialogEntries = new Dictionary<int, InfoDialogEntry>();
 		}
 		myCanvasRect = (GetComponentInParent<Canvas>().transform as RectTransform);
@@ -118,44 +105,13 @@ public class UIInfoDialogPanel : MonoBehaviour
 					InfoDialogEntry current = enumerator.Current;
 					if (current.m_useLine)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (current.m_translate)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(current.m_lineObject, true);
 						}
 					}
 					if (!current.m_uiPts)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 originPt = current.m_originPt;
 						Vector2 vector = Camera.main.WorldToViewportPoint(originPt);
 						float x = vector.x;
@@ -226,19 +182,6 @@ public class UIInfoDialogPanel : MonoBehaviour
 	{
 		if (originPt == Vector3.zero)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!uiPts)
 			{
 				while (true)
@@ -255,30 +198,12 @@ public class UIInfoDialogPanel : MonoBehaviour
 		}
 		if (m_infoDialogEntries == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_infoDialogEntries = new Dictionary<int, InfoDialogEntry>();
 			myCanvasRect = (GetComponentInParent<Canvas>().transform as RectTransform);
 			UIManager.SetGameObjectActive(base.gameObject, true);
 		}
 		if (uiPts)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!translate)
 		{
@@ -292,15 +217,6 @@ public class UIInfoDialogPanel : MonoBehaviour
 		gameObject2.transform.SetParent(gameObject.transform);
 		if (useLine)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(gameObject2, !translate);
 		}
 		else
@@ -330,41 +246,14 @@ public class UIInfoDialogPanel : MonoBehaviour
 			{
 				if (pivot != Pivot.Right)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (pivot != Pivot.Left)
 					{
 						num3 = Mathf.Abs(Mathf.Min(width, height) * 0.5f / Mathf.Cos(num2));
 						goto IL_02d9;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				num3 = width * 0.5f;
 				goto IL_02d9;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num3 = height * 0.5f;

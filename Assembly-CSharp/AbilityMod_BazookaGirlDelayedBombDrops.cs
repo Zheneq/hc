@@ -46,25 +46,11 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int modifiedValue = m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
 			if (modifiedValue > 0)
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					int modifiedValue2 = m_extraDamagePerFewerAreaMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea);
 					int val = modifiedValue2 * (modifiedValue - 1);
 					AbilityMod.AddToken_IntDiff(tokens, "MaxExtraDamage_Diff", string.Empty, val, false, 0);
@@ -85,19 +71,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount;
 		}
 		else
@@ -110,15 +83,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlDelayedBombDrops.m_coneLength;
 		}
 		else
@@ -131,15 +95,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = bazookaGirlDelayedBombDrops.m_coneWidthAngle;
 		}
 		else
@@ -153,15 +108,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = (bazookaGirlDelayedBombDrops.m_penetrateLos ? 1 : 0);
 		}
 		else
@@ -175,15 +121,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea;
 		}
 		else

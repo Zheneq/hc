@@ -47,19 +47,6 @@ public class FriendListBannerMenu : UITooltipBase
 			FriendMenuButtonAction action = (FriendMenuButtonAction)i;
 			if (IsValidButtonAction(action, true))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, OnGroupChatMouseOver);
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerExit, OnGroupChatMouseExit);
 				UIEventTriggerUtils.AddListener(m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, OnGroupChatMouseClicked);
@@ -83,26 +70,8 @@ public class FriendListBannerMenu : UITooltipBase
 		{
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
 					{
 						while (true)
@@ -116,15 +85,6 @@ public class FriendListBannerMenu : UITooltipBase
 								int result;
 								if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = ((GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped) ? 1 : 0);
 								}
 								else
@@ -144,26 +104,8 @@ public class FriendListBannerMenu : UITooltipBase
 		{
 			if (GameManager.Get() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo.GameConfig != null)
 					{
 						while (true)
@@ -185,22 +127,8 @@ public class FriendListBannerMenu : UITooltipBase
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (GameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameplayOverrides != null)
 					{
 						while (true)
@@ -221,48 +149,12 @@ public class FriendListBannerMenu : UITooltipBase
 		int result2;
 		if (action != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (action != FriendMenuButtonAction.BlockPlayer)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (action != FriendMenuButtonAction.RemoveFriend)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (action != FriendMenuButtonAction.ReportPlayer)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result2 = ((action == FriendMenuButtonAction.AddNote) ? 1 : 0);
 						goto IL_01d4;
 					}
@@ -294,19 +186,6 @@ public class FriendListBannerMenu : UITooltipBase
 			if (!IsValidButtonAction((FriendMenuButtonAction)i))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
 			}
 			if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
 			{
@@ -357,30 +236,8 @@ public class FriendListBannerMenu : UITooltipBase
 			FriendMenuButtonAction action = (FriendMenuButtonAction)i;
 			if (IsValidButtonAction(action))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_menuButtons[i].m_icon.color = Color.white;
 					m_menuButtons[i].m_label.color = Color.white;
 				}

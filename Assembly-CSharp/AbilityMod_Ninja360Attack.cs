@@ -53,15 +53,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", ninja360Attack.m_laserInfo);
 			AbilityMod.AddToken_ConeInfo(tokens, m_coneInfoMod, "ConeInfo", ninja360Attack.m_coneInfo);
 			AbilityMod.AddToken(tokens, m_innerConeAngleMod, "InnerConeAngle", string.Empty, ninja360Attack.m_innerConeAngle);
@@ -85,19 +76,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (ninja360Attack.m_penetrateLineOfSight ? 1 : 0);
 		}
 		else
@@ -110,15 +88,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		object baseLaserInfo;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = ninja360Attack.m_laserInfo;
 		}
 		else
@@ -132,15 +101,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = ninja360Attack.m_innerConeAngle;
 		}
 		else
@@ -153,15 +113,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = (int)ninja360Attack.m_targeterShape;
 		}
 		else
@@ -174,15 +125,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninja360Attack.m_damageAmount;
 		}
 		else
@@ -195,15 +137,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninja360Attack.m_innerAreaDamage;
 		}
 		else
@@ -216,15 +149,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		object baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninja360Attack.m_enemyHitEffect;
 		}
 		else
@@ -237,15 +161,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = (ninja360Attack.m_useDifferentEffectForInnerCone ? 1 : 0);
 		}
 		else
@@ -259,15 +174,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninja360Attack.m_energyGainOnMarkedHit;
 		}
 		else
@@ -280,15 +186,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninja360Attack.m_selfHealOnMarkedHit;
 		}
 		else
@@ -301,15 +198,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = (ninja360Attack.m_applyDeathmarkEffect ? 1 : 0);
 		}
 		else

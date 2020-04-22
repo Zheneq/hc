@@ -23,15 +23,6 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_grayCharacterIcon.sprite = actorData.GetScreenIndicatorBWIcon();
 			return;
 		}
@@ -54,32 +45,10 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		{
 			if (!m_attachedToActor.IsDead())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!m_attachedToActor.IsModelAnimatorDisabled())
 				{
 					if (m_attachedToActor.IgnoreForAbilityHits)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 					}
 					else if (!(m_attachedToActor.ClientLastKnownPosSquare == null))
@@ -88,27 +57,9 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 					}
 					else
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 					}
 					goto IL_00ad;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = false;
@@ -117,37 +68,10 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		IL_00ad:
 		if (GameFlowData.Get() != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
 					MarkGrayoutForUpdate();
 				}

@@ -18,15 +18,6 @@ public class UITooltipHoverObject : UITooltipObject
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UITooltipManager.Get().ShowDisplayTooltip(this);
 			return;
 		}

@@ -67,10 +67,6 @@ public class NanoSmithChainLightning : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					base.Targeter = new AbilityUtil_Targeter_ChainLightningLaser(this, GetLaserWidth(), GetLaserRange(), m_penetrateLos, GetLaserMaxTargets(), false, GetChainMaxHits(), GetChainRadius());
 					return;
 				}
@@ -98,41 +94,10 @@ public class NanoSmithChainLightning : Ability
 		int result = 1;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_abilityMod.m_useTargetDataOverrides)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_abilityMod.m_targetDataOverrides.Length > 1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_abilityMod.m_targetDataOverrides.Length;
 				}
 			}
@@ -155,19 +120,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cachedLaserEnemyHitEffect = m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
 		}
 		else
@@ -183,19 +135,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_laserDamage;
 		}
 		else
@@ -210,19 +149,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo result;
 		if (m_cachedLaserEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -237,19 +163,6 @@ public class NanoSmithChainLightning : Ability
 		float result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
 		}
 		else
@@ -269,19 +182,6 @@ public class NanoSmithChainLightning : Ability
 		bool result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
 		}
 		else
@@ -296,19 +196,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_laserMaxHitsMod.GetModifiedValue(m_laserMaxHits);
 		}
 		else
@@ -323,19 +210,6 @@ public class NanoSmithChainLightning : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_chainRadius;
 		}
 		else
@@ -350,19 +224,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_chainMaxHits;
 		}
 		else
@@ -382,19 +243,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_energyGainPerChainHit;
 		}
 		else
@@ -409,19 +257,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo result;
 		if (m_cachedChainEnemyHitEffect != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedChainEnemyHitEffect;
 		}
 		else
@@ -441,19 +276,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_extraAbsorbPerHitForVacuumBombMod.GetModifiedValue(m_extraAbsorbPerHitForVacuumBomb);
 		}
 		else
@@ -468,19 +290,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if ((bool)m_abilityMod)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_maxExtraAbsorbForVacuumBombMod.GetModifiedValue(m_maxExtraAbsorbForVacuumBomb);
 		}
 		else
@@ -525,19 +334,6 @@ public class NanoSmithChainLightning : Ability
 		int val;
 		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			val = abilityMod_NanoSmithChainLightning.m_laserDamageMod.GetModifiedValue(m_laserDamage);
 		}
 		else
@@ -551,15 +347,6 @@ public class NanoSmithChainLightning : Ability
 		int val2;
 		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_NanoSmithChainLightning.m_chainMaxHitsMod.GetModifiedValue(m_chainMaxHits);
 		}
 		else
@@ -571,15 +358,6 @@ public class NanoSmithChainLightning : Ability
 		int val3;
 		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_NanoSmithChainLightning.m_chainDamageMod.GetModifiedValue(m_chainDamage);
 		}
 		else
@@ -592,15 +370,6 @@ public class NanoSmithChainLightning : Ability
 		int val4;
 		if ((bool)abilityMod_NanoSmithChainLightning)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_NanoSmithChainLightning.m_energyPerChainHitMod.GetModifiedValue(m_energyGainPerChainHit);
 		}
 		else
@@ -621,10 +390,6 @@ public class NanoSmithChainLightning : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_NanoSmithChainLightning);
 					SetupTargeter();
 					return;

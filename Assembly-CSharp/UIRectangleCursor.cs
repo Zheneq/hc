@@ -40,45 +40,14 @@ public class UIRectangleCursor : MonoBehaviour
 		m_worldLength = newWorldLength;
 		if (!(m_worldWidth <= 0f))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_worldLength <= 0f))
 			{
 				if (m_start != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_start.transform.localPosition = new Vector3(0f, m_heightOffset, m_distCasterToStart);
 				}
 				if (m_centerLine != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = m_distCasterToStart + m_distStartToCenterLine;
 					m_centerLine.transform.localPosition = new Vector3(0f, m_heightOffset, num);
 					float z = m_worldLength - num;
@@ -87,26 +56,8 @@ public class UIRectangleCursor : MonoBehaviour
 				float num2 = m_worldWidth / 2f;
 				if (m_lengthLine1 != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_lengthLine2 != null)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float z2 = m_worldLength - m_lengthPerCorner - m_distCasterToStart;
 						float z3 = m_worldLength - m_lengthPerCorner;
 						m_lengthLine1.transform.localScale = new Vector3(1f, 1f, z2);
@@ -117,29 +68,11 @@ public class UIRectangleCursor : MonoBehaviour
 				}
 				if (m_corner1 != null && m_corner2 != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_corner1.transform.localPosition = new Vector3(0f - num2, m_heightOffset, m_worldLength);
 					m_corner2.transform.localPosition = new Vector3(num2, m_heightOffset, m_worldLength);
 				}
 				if (m_endWidthLine != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float x = m_worldWidth - m_widthPerCorner * 2f;
 					m_endWidthLine.transform.localScale = new Vector3(x, 1f, 1f);
 					m_endWidthLine.transform.localPosition = new Vector3(0f, m_heightOffset, m_worldLength);
@@ -153,15 +86,6 @@ public class UIRectangleCursor : MonoBehaviour
 				}
 				base.gameObject.SetActive(true);
 				return;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		base.gameObject.SetActive(false);

@@ -151,10 +151,6 @@ public class DiscordClientInterface : MonoBehaviour
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							IEnumerator<RegistryKey> enumerator = (from keyName in key.GetSubKeyNames()
 								select key.OpenSubKey(keyName)).GetEnumerator();
 							try
@@ -220,30 +216,8 @@ public class DiscordClientInterface : MonoBehaviour
 			int result;
 			if (gameManager != null && gameManager.GameInfo != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (gameManager.GameInfo.GameStatus != GameStatus.Stopped && gameManager.GameInfo.GameConfig != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameManager.GameInfo.GameConfig.GameType.IsQueueable() || gameManager.GameInfo.IsCustomGame)
 					{
 						result = ((gameManager.PlayerInfo != null) ? 1 : 0);
@@ -266,19 +240,6 @@ public class DiscordClientInterface : MonoBehaviour
 			int result;
 			if (groupInfo != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (groupInfo.InAGroup ? 1 : 0);
 			}
 			else
@@ -296,19 +257,6 @@ public class DiscordClientInterface : MonoBehaviour
 			int result;
 			if (m_webSocket != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (m_webSocket.IsAlive ? 1 : 0);
 			}
 			else
@@ -332,19 +280,6 @@ public class DiscordClientInterface : MonoBehaviour
 			int result;
 			if (s_RpcPortOverride != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = s_RpcPortOverride;
 			}
 			else
@@ -362,19 +297,6 @@ public class DiscordClientInterface : MonoBehaviour
 			string result;
 			if (m_authInfo != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = m_authInfo.RpcOrigin;
 			}
 			else
@@ -401,15 +323,6 @@ public class DiscordClientInterface : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -425,15 +338,6 @@ public class DiscordClientInterface : MonoBehaviour
 			while ((object)action != action2);
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -443,19 +347,6 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (_003C_003Ef__am_0024cache1 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			_003C_003Ef__am_0024cache1 = delegate
 			{
 			};
@@ -463,15 +354,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnConnected = _003C_003Ef__am_0024cache1;
 		if (_003C_003Ef__am_0024cache2 == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache2 = delegate
 			{
 			};
@@ -479,15 +361,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnDisconnected = _003C_003Ef__am_0024cache2;
 		if (_003C_003Ef__am_0024cache3 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache3 = delegate
 			{
 			};
@@ -495,15 +368,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnAuthorized = _003C_003Ef__am_0024cache3;
 		if (_003C_003Ef__am_0024cache4 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache4 = delegate
 			{
 			};
@@ -511,15 +375,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnAuthenticated = _003C_003Ef__am_0024cache4;
 		if (_003C_003Ef__am_0024cache5 == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache5 = delegate
 			{
 			};
@@ -530,15 +385,6 @@ public class DiscordClientInterface : MonoBehaviour
 		};
 		if (_003C_003Ef__am_0024cache7 == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache7 = delegate
 			{
 			};
@@ -546,15 +392,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnUserJoined = _003C_003Ef__am_0024cache7;
 		if (_003C_003Ef__am_0024cache8 == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache8 = delegate
 			{
 			};
@@ -562,15 +399,6 @@ public class DiscordClientInterface : MonoBehaviour
 		OnUserLeft = _003C_003Ef__am_0024cache8;
 		if (_003C_003Ef__am_0024cache9 == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache9 = delegate
 			{
 			};
@@ -578,22 +406,13 @@ public class DiscordClientInterface : MonoBehaviour
 		OnUserSpeakingChanged = _003C_003Ef__am_0024cache9;
 		if (_003C_003Ef__am_0024cacheA == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cacheA = delegate
 			{
 			};
 		}
 		this.OnError = _003C_003Ef__am_0024cacheA;
 		m_discordChannelUsers = new List<DiscordUserInfo>();
-		base._002Ector();
+		
 	}
 
 	public static DiscordClientInterface Get()
@@ -631,15 +450,6 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string str = string.Format(_001D, _000E);
 			Log.Info("Discord | " + str);
 			if (SynchronizationContext.Current == null)
@@ -648,20 +458,10 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (TextConsole.Get() != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						TextConsole.Get().Write("Discord | " + str, ConsoleMessageType._001D);
 						return;
 					}
@@ -679,15 +479,6 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			string str = JsonConvert.SerializeObject(_001D, Formatting.Indented);
 			Log.Info("Discord | " + str);
 			return;
@@ -757,19 +548,6 @@ public class DiscordClientInterface : MonoBehaviour
 			object obj;
 			if (rpcResponse.data != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				obj = JObject.Parse(rpcResponse.data.ToString());
 			}
 			else
@@ -842,15 +620,6 @@ public class DiscordClientInterface : MonoBehaviour
 							_001D("Disconnected from discord");
 							if (m_authInfo != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								OnLeft();
 							}
 							Disconnect();
@@ -871,26 +640,8 @@ public class DiscordClientInterface : MonoBehaviour
 					default:
 						if (rpcResponse.evt == "READY")
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_authInfo != null)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_userInfo == null)
 								{
 									while (true)
@@ -909,15 +660,6 @@ public class DiscordClientInterface : MonoBehaviour
 						}
 						if (rpcResponse.evt == "CAPTURE_SHORTCUT_CHANGE")
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (jObject != null)
 							{
 								while (true)
@@ -934,15 +676,6 @@ public class DiscordClientInterface : MonoBehaviour
 										string text = jToken.SelectToken("name").ToString();
 										if (ClientGameManager.Get() != null)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											ClientGameManager.Get().SetPushToTalkKey(num, num2, text);
 										}
 										if (m_pushToTalkScanCallback != null)
@@ -959,15 +692,6 @@ public class DiscordClientInterface : MonoBehaviour
 						}
 						if (rpcResponse.evt == "VOICE_STATE_CREATE")
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (jObject != null)
 							{
 								bool flag = false;
@@ -977,28 +701,10 @@ public class DiscordClientInterface : MonoBehaviour
 								{
 									if (num4 >= m_discordChannelUsers.Count)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 									if (m_discordChannelUsers[num4].UserId == num3)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 										break;
 									}
@@ -1030,15 +736,6 @@ public class DiscordClientInterface : MonoBehaviour
 						}
 						if (rpcResponse.evt == "VOICE_STATE_DELETE")
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (jObject != null)
 							{
 								ulong num5 = ulong.Parse(jObject.SelectToken("user.id").ToString());
@@ -1080,15 +777,6 @@ public class DiscordClientInterface : MonoBehaviour
 							if (!(rpcResponse.evt == "SPEAKING_STOP"))
 							{
 								return;
-							}
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (jObject != null)
@@ -1264,19 +952,6 @@ public class DiscordClientInterface : MonoBehaviour
 		m_rpcPortOffset = portOffset;
 		if (IsSdkEnabled)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!s_sdkInitialized)
 			{
 				InitializeSdk();
@@ -1293,19 +968,6 @@ public class DiscordClientInterface : MonoBehaviour
 		Mutex mutex = new Mutex(true, name, out createdNew);
 		if (createdNew)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (mutex != null)
 			{
 				while (true)
@@ -1323,15 +985,6 @@ public class DiscordClientInterface : MonoBehaviour
 						GameBridge.SetErrorCallback(HandleSdkErrorCallback, UIntPtr.Zero);
 						if (_003C_003Ef__am_0024cache0 == null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_003C_003Ef__am_0024cache0 = delegate(uint type, string message, UIntPtr context)
 							{
 								_001D("[OUTPUT] {0}", message);
@@ -1381,19 +1034,6 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (m_webSocket != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_webSocket.IsAlive)
 			{
 				_001D("Already connected to discord");
@@ -1409,15 +1049,6 @@ public class DiscordClientInterface : MonoBehaviour
 		m_webSocket.OnClose += HandleOnClose;
 		if (s_debugOutput)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_webSocket.Logger.Level = LogLevel.Trace;
 		}
 		m_webSocket.Origin = RpcOrigin;
@@ -1455,15 +1086,6 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_channelInfo != null)
 			{
 				RpcRequest rpcRequest = new RpcRequest();
@@ -1506,26 +1128,12 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_webSocket.IsAlive)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_channelInfo == null)
 				{
 					while (true)
@@ -1562,15 +1170,6 @@ public class DiscordClientInterface : MonoBehaviour
 				object value;
 				if (options_UI.GetVoicePushToTalk())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = "PUSH_TO_TALK";
 				}
 				else
@@ -1580,15 +1179,6 @@ public class DiscordClientInterface : MonoBehaviour
 				dictionary["type"] = value;
 				if (ClientGameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 					{
 						AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
@@ -1614,30 +1204,8 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (m_webSocket != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_webSocket.IsAlive)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_channelInfo != null)
 				{
 					m_pushToTalkScanCallback = callback;
@@ -1648,15 +1216,6 @@ public class DiscordClientInterface : MonoBehaviour
 					object value;
 					if (start)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value = "START";
 					}
 					else

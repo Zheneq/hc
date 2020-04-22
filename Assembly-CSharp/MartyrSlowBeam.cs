@@ -50,19 +50,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		StandardEffectInfo result;
 		if (m_cachedLaserHitEffect != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_cachedLaserHitEffect;
 		}
 		else
@@ -93,19 +80,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		float num;
 		if (currentPowerEntry != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = currentPowerEntry.m_additionalWidth;
 		}
 		else
@@ -159,19 +133,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else

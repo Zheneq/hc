@@ -301,30 +301,12 @@ namespace TMPro
 				switch (platform)
 				{
 				default:
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (platform == RuntimePlatform.tvOS)
 					{
 						break;
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						return true;
 					}
 				case RuntimePlatform.IPhonePlayer:
@@ -355,19 +337,6 @@ namespace TMPro
 				m_Text = value;
 				if (m_Keyboard != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_Keyboard.text = m_Text;
 				}
 				if (m_StringPosition > m_Text.Length)
@@ -396,15 +365,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetCaretActive();
 					return;
 				}
@@ -425,15 +385,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					MarkGeometryAsDirty();
 					return;
 				}
@@ -486,19 +437,6 @@ namespace TMPro
 			{
 				if (m_VerticalScrollbar != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_VerticalScrollbar.onValueChanged.RemoveListener(OnScrollbarValueChange);
 				}
 				SetPropertyUtility.SetClass(ref m_VerticalScrollbar, value);
@@ -508,11 +446,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					m_VerticalScrollbar.onValueChanged.AddListener(OnScrollbarValueChange);
 					return;
 				}
@@ -533,15 +466,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					MarkGeometryAsDirty();
 					return;
 				}
@@ -555,19 +479,6 @@ namespace TMPro
 				Color result;
 				if (customCaretColor)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = m_CaretColor;
 				}
 				else
@@ -584,15 +495,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					MarkGeometryAsDirty();
 					return;
 				}
@@ -629,15 +531,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					MarkGeometryAsDirty();
 					return;
 				}
@@ -769,15 +662,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetGlobalPointSize(m_GlobalPointSize);
 					UpdateLabel();
 					return;
@@ -799,15 +683,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetGlobalFontAsset(m_GlobalFontAsset);
 					UpdateLabel();
 					return;
@@ -877,15 +752,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					EnforceContentType();
 					return;
 				}
@@ -922,15 +788,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetToCustom();
 					return;
 				}
@@ -951,15 +808,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetToCustom();
 					return;
 				}
@@ -995,15 +843,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SetToCustom(CharacterValidation.CustomValidator);
 					return;
 				}
@@ -1042,19 +881,6 @@ namespace TMPro
 				int result;
 				if (m_LineType != LineType.MultiLineNewline)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = ((lineType == LineType.MultiLineSubmit) ? 1 : 0);
 				}
 				else
@@ -1079,15 +905,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UpdateLabel();
 					return;
 				}
@@ -1181,10 +998,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1212,10 +1025,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1256,10 +1065,6 @@ namespace TMPro
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return;
 						}
 					}
@@ -1310,10 +1115,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						pos = 0;
 						return;
 					}
@@ -1325,11 +1126,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				pos = text.Length;
 				return;
 			}
@@ -1346,10 +1142,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						pos = 0;
 						return;
 					}
@@ -1361,11 +1153,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				pos = m_TextComponent.textInfo.characterCount - 1;
 				return;
 			}
@@ -1380,30 +1167,8 @@ namespace TMPro
 			}
 			if (Application.isPlaying)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_CachedInputRenderer == null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_TextComponent != null)
 					{
 						GameObject gameObject = new GameObject(base.transform.name + " Input Caret", typeof(RectTransform));
@@ -1423,43 +1188,16 @@ namespace TMPro
 			}
 			if (m_CachedInputRenderer != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_CachedInputRenderer.SetMaterial(Graphic.defaultGraphicMaterial, Texture2D.whiteTexture);
 			}
 			if (m_TextComponent != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_TextComponent.RegisterDirtyVerticesCallback(MarkGeometryAsDirty);
 				m_TextComponent.RegisterDirtyVerticesCallback(UpdateLabel);
 				m_TextComponent.ignoreRectMaskCulling = true;
 				m_DefaultTransformPosition = m_TextComponent.rectTransform.localPosition;
 				if (m_VerticalScrollbar != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_VerticalScrollbar.onValueChanged.AddListener(OnScrollbarValueChange);
 				}
 				UpdateLabel();
@@ -1473,60 +1211,20 @@ namespace TMPro
 			DeactivateInputField();
 			if (m_TextComponent != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_TextComponent.UnregisterDirtyVerticesCallback(MarkGeometryAsDirty);
 				m_TextComponent.UnregisterDirtyVerticesCallback(UpdateLabel);
 				if (m_VerticalScrollbar != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_VerticalScrollbar.onValueChanged.RemoveListener(OnScrollbarValueChange);
 				}
 			}
 			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 			if (m_CachedInputRenderer != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_CachedInputRenderer.Clear();
 			}
 			if (m_Mesh != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.DestroyImmediate(m_Mesh);
 			}
 			m_Mesh = null;
@@ -1542,24 +1240,10 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (Application.isPlaying)
 				{
 					while (true)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
 						caretPositionInternal = GetCaretPositionFromStringIndex(stringPositionInternal);
 						caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
 						return;
@@ -1587,10 +1271,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -1611,10 +1291,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -1640,15 +1316,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SelectAll();
 				return;
 			}
@@ -1665,31 +1332,9 @@ namespace TMPro
 		{
 			if (m_isRichTextEditingAllowed)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int length = text.Length;
 				if (shift)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringSelectPositionInternal = length;
 				}
 				else
@@ -1708,15 +1353,6 @@ namespace TMPro
 				}
 				else
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					caretSelectPositionInternal = num;
 					stringSelectPositionInternal = GetStringIndexFromCaretPosition(num);
 				}
@@ -1728,31 +1364,9 @@ namespace TMPro
 		{
 			if (m_isRichTextEditingAllowed)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				int num = 0;
 				if (shift)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringSelectPositionInternal = num;
 				}
 				else
@@ -1771,15 +1385,6 @@ namespace TMPro
 				}
 				else
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					caretSelectPositionInternal = num2;
 					stringSelectPositionInternal = GetStringIndexFromCaretPosition(num2);
 				}
@@ -1793,19 +1398,6 @@ namespace TMPro
 			int num;
 			if (ctrl)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = m_TextComponent.textInfo.characterCount - 1;
 			}
 			else
@@ -1816,15 +1408,6 @@ namespace TMPro
 			caretPosition = GetStringIndexFromCaretPosition(caretPosition);
 			if (shift)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringSelectPositionInternal = caretPosition;
 			}
 			else
@@ -1841,19 +1424,6 @@ namespace TMPro
 			int num;
 			if (ctrl)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = 0;
 			}
 			else
@@ -1864,15 +1434,6 @@ namespace TMPro
 			caretPosition = GetStringIndexFromCaretPosition(caretPosition);
 			if (shift)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringSelectPositionInternal = caretPosition;
 			}
 			else
@@ -1892,28 +1453,10 @@ namespace TMPro
 		{
 			if (m_ShouldActivateNextUpdate)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!isFocused)
 				{
 					while (true)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
 						ActivateInputFieldInternal();
 						m_ShouldActivateNextUpdate = false;
 						return;
@@ -1932,11 +1475,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (!isFocused)
 				{
 					while (true)
@@ -1958,15 +1496,6 @@ namespace TMPro
 						string text = m_Keyboard.text;
 						if (m_Text != text)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_ReadOnly)
 							{
 								m_Keyboard.text = m_Text;
@@ -1983,41 +1512,14 @@ namespace TMPro
 									}
 									if (onValidateInput != null)
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										c = onValidateInput(m_Text, m_Text.Length, c);
 									}
 									else if (characterValidation != 0)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										c = Validate(m_Text, m_Text.Length, c);
 									}
 									if (lineType == LineType.MultiLineSubmit)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c == '\n')
 										{
 											while (true)
@@ -2037,55 +1539,19 @@ namespace TMPro
 									}
 									if (c != 0)
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_Text += c;
 									}
 								}
 								if (characterLimit > 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_Text.Length > characterLimit)
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										m_Text = m_Text.Substring(0, characterLimit);
 									}
 								}
 								int num2 = stringPositionInternal = (stringSelectPositionInternal = m_Text.Length);
 								if (m_Text != text)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_Keyboard.text = m_Text;
 								}
 								SendOnValueChangedAndUpdateLabel();
@@ -2097,78 +1563,24 @@ namespace TMPro
 						}
 						if (m_Keyboard.wasCanceled)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_WasCanceled = true;
 						}
 						OnDeselect(null);
 						return;
 					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (m_Keyboard != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!m_ReadOnly)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.text = m_Keyboard.text;
 					}
 					if (m_Keyboard.wasCanceled)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_WasCanceled = true;
 					}
 					if (m_Keyboard.done)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						OnSubmit(null);
 					}
 				}
@@ -2182,52 +1594,12 @@ namespace TMPro
 			int result;
 			if (IsActive())
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (IsInteractable())
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (eventData.button == PointerEventData.InputButton.Left)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_TextComponent != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((m_Keyboard == null) ? 1 : 0);
 							goto IL_006b;
 						}
@@ -2251,10 +1623,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -2273,10 +1641,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -2285,15 +1649,6 @@ namespace TMPro
 			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(m_TextComponent, eventData.position, eventData.pressEventCamera, out cursor);
 			if (cursor == CaretPosition.Left)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition);
 			}
 			else if (cursor == CaretPosition.Right)
@@ -2305,15 +1660,6 @@ namespace TMPro
 			m_DragPositionOutOfBounds = !RectTransformUtility.RectangleContainsScreenPoint(textViewport, eventData.position, eventData.pressEventCamera);
 			if (m_DragPositionOutOfBounds && m_DragCoroutine == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_DragCoroutine = StartCoroutine(MouseDragOutsideRect(eventData));
 			}
 			eventData.Use();
@@ -2323,45 +1669,14 @@ namespace TMPro
 		{
 			if (m_UpdateDrag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_DragPositionOutOfBounds)
 				{
 					RectTransformUtility.ScreenPointToLocalPointInRectangle(textViewport, eventData.position, eventData.pressEventCamera, out Vector2 localMousePos);
 					Rect rect = textViewport.rect;
 					if (multiLine)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						if (localMousePos.y > rect.yMax)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							MoveUp(true, true);
 						}
 						else if (localMousePos.y < rect.yMin)
@@ -2371,43 +1686,16 @@ namespace TMPro
 					}
 					else if (localMousePos.x < rect.xMin)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						MoveLeft(true, false);
 					}
 					else if (localMousePos.x > rect.xMax)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						MoveRight(true, false);
 					}
 					UpdateLabel();
 					float num;
 					if (multiLine)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 0.1f;
 					}
 					else
@@ -2433,10 +1721,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -2450,15 +1734,6 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -2475,29 +1750,11 @@ namespace TMPro
 			float unscaledTime = Time.unscaledTime;
 			if (m_ClickStartTime + m_DoubleClickDelay > unscaledTime)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 			}
 			m_ClickStartTime = unscaledTime;
 			if (!allowInput)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_OnFocusSelectAll)
 				{
 					goto IL_02c3;
@@ -2507,66 +1764,21 @@ namespace TMPro
 			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(m_TextComponent, eventData.position, eventData.pressEventCamera, out cursor);
 			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (cursor == CaretPosition.Left)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition);
 				}
 				else if (cursor == CaretPosition.Right)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
 				}
 			}
 			else if (cursor == CaretPosition.Left)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = stringPositionInternal = (stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition));
 			}
 			else if (cursor == CaretPosition.Right)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = stringPositionInternal = (stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1);
 			}
 			if (!flag2)
@@ -2575,27 +1787,9 @@ namespace TMPro
 			}
 			else
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num6 = TMP_TextUtilities.FindIntersectingWord(m_TextComponent, eventData.position, eventData.pressEventCamera);
 				if (num6 != -1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					caretPositionInternal = m_TextComponent.textInfo.wordInfo[num6].firstCharacterIndex;
 					caretSelectPositionInternal = m_TextComponent.textInfo.wordInfo[num6].lastCharacterIndex + 1;
 					stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal);
@@ -2622,19 +1816,6 @@ namespace TMPro
 			int num;
 			if (platform != 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = ((platform == RuntimePlatform.OSXPlayer) ? 1 : 0);
 			}
 			else
@@ -2647,26 +1828,8 @@ namespace TMPro
 			int num2;
 			if (flag)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag3)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = ((!flag2) ? 1 : 0);
 					goto IL_0080;
 				}
@@ -2677,27 +1840,9 @@ namespace TMPro
 			char c;
 			if (c != '\r')
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (c != '\u0003')
 				{
 					goto IL_02de;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			c = '\n';
@@ -2708,37 +1853,10 @@ namespace TMPro
 			switch (keyCode)
 			{
 			default:
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (keyCode != KeyCode.Escape)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (keyCode != KeyCode.Delete)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					ForwardSpace();
@@ -2762,11 +1880,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					SelectAll();
 					return EditState.Continue;
 				}
@@ -2777,22 +1890,8 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					if (inputType != InputType.Password)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						clipboard = GetSelectedString();
 					}
 					else
@@ -2808,11 +1907,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					Append(clipboard);
 					return EditState.Continue;
 				}
@@ -2858,60 +1952,19 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					return EditState.Finish;
 				}
 			}
 			c = evt.character;
 			if (!multiLine)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (c != '\t')
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (c != '\r')
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (c != '\n')
 						{
 							goto IL_02bb;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -2921,28 +1974,10 @@ namespace TMPro
 			IL_02de:
 			if (IsValidChar(c))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Append(c);
 			}
 			if (c == '\0')
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.compositionString.Length > 0)
 				{
 					UpdateLabel();
@@ -2962,25 +1997,12 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return false;
 					}
 				}
 			}
 			if (c != '\t')
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (c != '\n')
 				{
 					return m_TextComponent.font.HasCharacter(c, true);
@@ -3005,10 +2027,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -3022,15 +2040,6 @@ namespace TMPro
 					EditState editState = KeyPressed(m_ProcessingEvent);
 					if (editState == EditState.Finish)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SendOnSubmit();
 						DeactivateInputField();
 						break;
@@ -3039,15 +2048,6 @@ namespace TMPro
 				EventType type = m_ProcessingEvent.type;
 				if (type != EventType.ValidateCommand)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (type != EventType.ExecuteCommand)
 					{
 						continue;
@@ -3058,26 +2058,8 @@ namespace TMPro
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(commandName == "SelectAll"))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -3103,10 +2085,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -3123,11 +2101,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				m_IsUpdatingScrollbarValues = true;
 				m_VerticalScrollbar.value = m_ScrollPosition;
 				return;
@@ -3145,10 +2118,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return string.Empty;
 					}
 				}
@@ -3157,15 +2126,6 @@ namespace TMPro
 			int num2 = stringSelectPositionInternal;
 			if (num > num2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num3 = num;
 				num = num2;
 				num2 = num3;
@@ -3184,10 +2144,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return text.Length;
 					}
 				}
@@ -3221,10 +2177,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						num3 = (stringPositionInternal = (stringSelectPositionInternal = Mathf.Max(stringPositionInternal, stringSelectPositionInternal)));
 						num3 = (caretPositionInternal = (caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal)));
 						return;
@@ -3238,15 +2190,6 @@ namespace TMPro
 			}
 			else
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num5 = FindtNextWordBegin();
 			}
 			if (shift)
@@ -3287,19 +2230,6 @@ namespace TMPro
 			int num3;
 			if (hasSelection)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!shift)
 				{
 					num3 = (stringPositionInternal = (stringSelectPositionInternal = Mathf.Min(stringPositionInternal, stringSelectPositionInternal)));
@@ -3310,28 +2240,10 @@ namespace TMPro
 			int num5;
 			if (ctrl)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num5 = FindtPrevWordBegin();
 			}
 			else if (m_isRichTextEditingAllowed)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num5 = stringSelectPositionInternal - 1;
 			}
 			else
@@ -3361,19 +2273,6 @@ namespace TMPro
 		{
 			if (originalPos >= m_TextComponent.textInfo.characterCount)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				originalPos--;
 			}
 			TMP_CharacterInfo tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[originalPos];
@@ -3402,15 +2301,6 @@ namespace TMPro
 				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
 				if (num6 >= 0f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num6 <= 1f)
 					{
 						while (true)
@@ -3441,15 +2331,6 @@ namespace TMPro
 				num5 = Mathf.Abs(num5);
 				if (num5 < num3)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = i;
 					num3 = num5;
 					num4 = num6;
@@ -3457,11 +2338,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (num2 == -1)
 				{
 					while (true)
@@ -3503,10 +2379,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_TextComponent.textInfo.characterCount - 1;
 					}
 				}
@@ -3518,15 +2390,6 @@ namespace TMPro
 				int result;
 				if (goToLastChar)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = m_TextComponent.textInfo.characterCount - 1;
 				}
 				else
@@ -3564,15 +2427,6 @@ namespace TMPro
 				num4 = Mathf.Abs(num4);
 				if (num4 < num2)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = i;
 					num2 = num4;
 					num3 = num5;
@@ -3580,11 +2434,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (num == -1)
 				{
 					return lastCharacterIndex;
@@ -3614,10 +2463,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return (!goToFirstChar) ? originalPos : 0;
 					}
 				}
@@ -3630,28 +2475,10 @@ namespace TMPro
 				{
 					if (m_TextComponent.textInfo.lineInfo[num].baseline > m_TextComponent.textInfo.lineInfo[lineNumber].baseline + height)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					num--;
 					continue;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -3666,15 +2493,6 @@ namespace TMPro
 				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
 				if (num6 >= 0f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num6 <= 1f)
 					{
 						while (true)
@@ -3705,15 +2523,6 @@ namespace TMPro
 				num5 = Mathf.Abs(num5);
 				if (num5 < num3)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = i;
 					num3 = num5;
 					num4 = num6;
@@ -3721,11 +2530,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (num2 == -1)
 				{
 					while (true)
@@ -3767,10 +2571,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return m_TextComponent.textInfo.characterCount - 1;
 					}
 				}
@@ -3803,15 +2603,6 @@ namespace TMPro
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			int lastCharacterIndex = m_TextComponent.textInfo.lineInfo[num].lastCharacterIndex;
@@ -3825,15 +2616,6 @@ namespace TMPro
 				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
 				if (num6 >= 0f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num6 <= 1f)
 					{
 						while (true)
@@ -3871,11 +2653,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (num2 == -1)
 				{
 					return lastCharacterIndex;
@@ -3897,19 +2674,6 @@ namespace TMPro
 		{
 			if (hasSelection)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!shift)
 				{
 					int num3 = caretPositionInternal = (caretSelectPositionInternal = Mathf.Max(caretPositionInternal, caretSelectPositionInternal));
@@ -3918,15 +2682,6 @@ namespace TMPro
 			int num4;
 			if (multiLine)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = LineDownCharacterPosition(caretSelectPositionInternal, goToLastChar);
 			}
 			else
@@ -3956,19 +2711,6 @@ namespace TMPro
 			int num3;
 			if (hasSelection && !shift)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num3 = (caretPositionInternal = (caretSelectPositionInternal = Mathf.Min(caretPositionInternal, caretSelectPositionInternal)));
 			}
 			int num4 = multiLine ? LineUpCharacterPosition(caretSelectPositionInternal, goToFirstChar) : 0;
@@ -4005,19 +2747,6 @@ namespace TMPro
 			int num4;
 			if (multiLine)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num4 = PageUpCharacterPosition(caretSelectPositionInternal, goToFirstChar);
 			}
 			else
@@ -4032,15 +2761,6 @@ namespace TMPro
 			}
 			else
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				caretSelectPositionInternal = num5;
 				stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
 			}
@@ -4050,11 +2770,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				float height = m_TextViewport.rect.height;
 				Vector3 position = m_TextComponent.rectTransform.position;
 				float y = position.y;
@@ -4079,45 +2794,14 @@ namespace TMPro
 		{
 			if (hasSelection)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!shift)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3 = caretPositionInternal = (caretSelectPositionInternal = Mathf.Max(caretPositionInternal, caretSelectPositionInternal));
 				}
 			}
 			int num4;
 			if (multiLine)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = PageDownCharacterPosition(caretSelectPositionInternal, goToLastChar);
 			}
 			else
@@ -4132,15 +2816,6 @@ namespace TMPro
 			}
 			else
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				caretSelectPositionInternal = num5;
 				stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
 			}
@@ -4150,11 +2825,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				float height = m_TextViewport.rect.height;
 				Vector3 position = m_TextComponent.rectTransform.position;
 				float y = position.y;
@@ -4165,15 +2835,6 @@ namespace TMPro
 				float num11;
 				if (num10 > num9 + height)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num11 = height;
 				}
 				else
@@ -4199,10 +2860,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4222,15 +2879,6 @@ namespace TMPro
 			}
 			if (!m_isRichTextEditingAllowed)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!m_isSelectAll)
 				{
 					stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal);
@@ -4249,15 +2897,6 @@ namespace TMPro
 						caretPositionInternal = caretSelectPositionInternal;
 					}
 					return;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (stringPositionInternal < stringSelectPositionInternal)
@@ -4284,10 +2923,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4332,11 +2967,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				int num2 = stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal));
 				m_Text = text.Remove(stringPositionInternal, 1);
 				SendOnValueChangedAndUpdateLabel();
@@ -4355,10 +2985,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4410,15 +3036,6 @@ namespace TMPro
 			}
 			if (caretPositionInternal > 0)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_Text = text.Remove(GetStringIndexFromCaretPosition(caretPositionInternal - 1), 1);
 				caretSelectPositionInternal = --caretPositionInternal;
 				int num2 = stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal));
@@ -4438,10 +3055,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4465,49 +3078,13 @@ namespace TMPro
 				char c = input[i];
 				if (c < ' ')
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (c != '\t')
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (c != '\r' && c != '\n')
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (c != '\n')
 							{
 								continue;
-							}
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -4527,10 +3104,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4558,11 +3131,6 @@ namespace TMPro
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						input = Validate(text, stringPositionInternal, input);
 						if (input == '\0')
 						{
@@ -4584,15 +3152,6 @@ namespace TMPro
 				}
 				if (characterValidation != 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					input = Validate(text, stringPositionInternal, input);
 				}
 			}
@@ -4623,10 +3182,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -4665,15 +3220,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onValueChanged.Invoke(text);
 				return;
 			}
@@ -4687,15 +3233,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onEndEdit.Invoke(m_Text);
 				return;
 			}
@@ -4709,15 +3246,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				onSubmit.Invoke(m_Text);
 				return;
 			}
@@ -4759,25 +3287,12 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
 			}
 			if (onEndTextSelection != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				onEndTextSelection.Invoke(m_Text, stringPositionInternal, stringSelectPositionInternal);
 			}
 			m_isSelected = false;
@@ -4791,27 +3306,9 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				string text;
 				if (Input.compositionString.Length > 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = this.text.Substring(0, m_StringPosition) + Input.compositionString + this.text.Substring(m_StringPosition);
 				}
 				else
@@ -4822,28 +3319,10 @@ namespace TMPro
 				bool flag = string.IsNullOrEmpty(text);
 				if (m_Placeholder != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_Placeholder.enabled = flag;
 				}
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SetCaretVisible();
 				}
 				m_TextComponent.text = str + "\u200b";
@@ -4861,15 +3340,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				float size = m_TextViewport.rect.height / m_TextComponent.preferredHeight;
 				m_IsUpdatingScrollbarValues = true;
 				m_VerticalScrollbar.size = size;
@@ -4894,15 +3364,6 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (value > 1f)
 					{
 						while (true)
@@ -4932,37 +3393,18 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (textInfo.lineInfo == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					if (textInfo.lineCount == 0)
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						if (textInfo.lineCount > textInfo.lineInfo.Length)
 						{
 							while (true)
@@ -4997,25 +3439,11 @@ namespace TMPro
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return i;
 				}
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				return characterCount;
 			}
 		}
@@ -5047,10 +3475,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -5077,10 +3501,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -5110,97 +3530,25 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!(caretRectTrans != null))
 				{
 					return;
 				}
 				if (!(caretRectTrans.localPosition != m_TextComponent.rectTransform.localPosition))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(caretRectTrans.localRotation != m_TextComponent.rectTransform.localRotation))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(caretRectTrans.localScale != m_TextComponent.rectTransform.localScale))
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(caretRectTrans.anchorMin != m_TextComponent.rectTransform.anchorMin))
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(caretRectTrans.anchorMax != m_TextComponent.rectTransform.anchorMax) && !(caretRectTrans.anchoredPosition != m_TextComponent.rectTransform.anchoredPosition))
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(caretRectTrans.sizeDelta != m_TextComponent.rectTransform.sizeDelta))
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!(caretRectTrans.pivot != m_TextComponent.rectTransform.pivot))
 										{
 											return;
-										}
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}
@@ -5227,19 +3575,6 @@ namespace TMPro
 			{
 				if (!isFocused)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (m_ResetOnDeActivation)
 					{
 						while (true)
@@ -5263,15 +3598,6 @@ namespace TMPro
 				}
 				if (!hasSelection)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GenerateCaret(vertexHelper, Vector2.zero);
 					SendOnEndTextSelection();
 				}
@@ -5308,29 +3634,11 @@ namespace TMPro
 			{
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
 			if (m_CursorVerts == null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CreateCursorVerts();
 			}
 			float num = m_CaretWidth;
@@ -5341,30 +3649,12 @@ namespace TMPro
 			TMP_CharacterInfo tMP_CharacterInfo;
 			if (caretPositionInternal == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[0];
 				vector = new Vector2(tMP_CharacterInfo.origin, tMP_CharacterInfo.descender);
 				num2 = tMP_CharacterInfo.ascender - tMP_CharacterInfo.descender;
 			}
 			else if (caretPositionInternal < characterCount)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[caretPositionInternal];
 				vector = new Vector2(tMP_CharacterInfo.origin, tMP_CharacterInfo.descender);
 				num2 = tMP_CharacterInfo.ascender - tMP_CharacterInfo.descender;
@@ -5377,27 +3667,9 @@ namespace TMPro
 			}
 			if (isFocused)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (vector != m_LastPosition)
 				{
 					goto IL_01a4;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (m_forceRectTransformAdjustment)
@@ -5436,15 +3708,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -5458,19 +3721,6 @@ namespace TMPro
 			Vector2 startPosition;
 			if (caretSelectPositionInternal < textInfo.characterCount)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				startPosition = new Vector2(textInfo.characterInfo[caretSelectPositionInternal].origin, textInfo.characterInfo[caretSelectPositionInternal].descender);
 				num = textInfo.characterInfo[caretSelectPositionInternal].ascender - textInfo.characterInfo[caretSelectPositionInternal].descender;
 			}
@@ -5484,15 +3734,6 @@ namespace TMPro
 			int num3 = Mathf.Max(0, caretSelectPositionInternal);
 			if (num2 > num3)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num4 = num2;
 				num2 = num3;
 				num3 = num4;
@@ -5505,15 +3746,6 @@ namespace TMPro
 			simpleVert.color = selectionColor;
 			for (int i = num2; i <= num3; i++)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i >= textInfo.characterCount)
 				{
 					break;
@@ -5524,29 +3756,11 @@ namespace TMPro
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				TMP_CharacterInfo tMP_CharacterInfo = textInfo.characterInfo[num2];
 				TMP_CharacterInfo tMP_CharacterInfo2 = textInfo.characterInfo[i];
 				if (i > 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tMP_CharacterInfo2.character == '\n' && textInfo.characterInfo[i - 1].character == '\r')
 					{
 						tMP_CharacterInfo2 = textInfo.characterInfo[i - 1];
@@ -5569,15 +3783,6 @@ namespace TMPro
 				num5++;
 				if (num5 < textInfo.lineCount)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lastCharacterIndex = textInfo.lineInfo[num5].lastCharacterIndex;
 				}
 			}
@@ -5594,54 +3799,14 @@ namespace TMPro
 			float num2 = xMax - (num + margin.z + (float)m_CaretWidth);
 			if (num2 < 0f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!multiLine)
 				{
 					goto IL_00c6;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (multiLine)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (isCharVisible)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_00c6;
 					}
 				}
@@ -5658,15 +3823,6 @@ namespace TMPro
 			float num4 = num3 - margin2.x - xMin;
 			if (num4 < 0f)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f - num4, 0f);
 				AssignPositioningIfNeeded();
 			}
@@ -5677,15 +3833,6 @@ namespace TMPro
 				float num5 = yMax - (anchoredPosition3.y + startPosition.y + height);
 				if (num5 < -0.0001f)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, num5);
 					AssignPositioningIfNeeded();
 					m_IsScrollbarUpdateRequired = true;
@@ -5694,15 +3841,6 @@ namespace TMPro
 				float num6 = anchoredPosition4.y + startPosition.y - m_TextViewport.rect.yMin;
 				if (num6 < 0f)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_TextComponent.rectTransform.anchoredPosition -= new Vector2(0f, num6);
 					AssignPositioningIfNeeded();
 					m_IsScrollbarUpdateRequired = true;
@@ -5721,26 +3859,8 @@ namespace TMPro
 				Vector2 anchoredPosition7 = m_TextComponent.rectTransform.anchoredPosition;
 				if (anchoredPosition7.x + startPosition.x <= xMin + 0.0001f)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 < xMin)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float x = Mathf.Min((xMax - xMin) / 2f, xMin - num8);
 						m_TextComponent.rectTransform.anchoredPosition += new Vector2(x, 0f);
 						AssignPositioningIfNeeded();
@@ -5748,26 +3868,8 @@ namespace TMPro
 				}
 				else if (num10 < xMax)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num8 < xMin)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float x2 = Mathf.Min(xMax - num10, xMin - num8);
 						m_TextComponent.rectTransform.anchoredPosition += new Vector2(x2, 0f);
 						AssignPositioningIfNeeded();
@@ -5783,56 +3885,16 @@ namespace TMPro
 			int num6;
 			if (characterValidation != 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (base.enabled)
 				{
 					if (characterValidation != CharacterValidation.Integer)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterValidation != CharacterValidation.Decimal)
 						{
 							if (characterValidation == CharacterValidation.Digit)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ch >= '0')
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= '9')
 									{
 										while (true)
@@ -5850,15 +3912,6 @@ namespace TMPro
 							}
 							else if (characterValidation == CharacterValidation.Alphanumeric)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ch >= 'A' && ch <= 'Z')
 								{
 									while (true)
@@ -5874,15 +3927,6 @@ namespace TMPro
 								}
 								if (ch >= 'a')
 								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= 'z')
 									{
 										return ch;
@@ -5890,15 +3934,6 @@ namespace TMPro
 								}
 								if (ch >= '0')
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= '9')
 									{
 										while (true)
@@ -5916,27 +3951,9 @@ namespace TMPro
 							}
 							else if (characterValidation == CharacterValidation.Name)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num;
 								if (text.Length > 0)
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num = text[Mathf.Clamp(pos, 0, text.Length - 1)];
 								}
 								else
@@ -5947,15 +3964,6 @@ namespace TMPro
 								int num2;
 								if (text.Length > 0)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
 								}
 								else
@@ -5967,15 +3975,6 @@ namespace TMPro
 								{
 									if (char.IsLower(ch))
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c == ' ')
 										{
 											while (true)
@@ -5992,15 +3991,6 @@ namespace TMPro
 									}
 									if (char.IsUpper(ch))
 									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c != ' ' && c != '\'')
 										{
 											while (true)
@@ -6019,48 +4009,12 @@ namespace TMPro
 								}
 								if (ch == '\'')
 								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (c != ' ')
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c != '\'')
 										{
-											while (true)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (c2 != '\'')
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!text.Contains("'"))
 												{
 													return ch;
@@ -6071,37 +4025,10 @@ namespace TMPro
 								}
 								else if (ch == ' ' && c != ' ')
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (c != '\'')
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c2 != ' ')
 										{
-											while (true)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (c2 != '\'')
 											{
 												while (true)
@@ -6121,26 +4048,8 @@ namespace TMPro
 							}
 							else if (characterValidation == CharacterValidation.EmailAddress)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ch >= 'A')
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= 'Z')
 									{
 										while (true)
@@ -6157,15 +4066,6 @@ namespace TMPro
 								}
 								if (ch >= 'a')
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= 'z')
 									{
 										while (true)
@@ -6182,15 +4082,6 @@ namespace TMPro
 								}
 								if (ch >= '0')
 								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ch <= '9')
 									{
 										while (true)
@@ -6207,15 +4098,6 @@ namespace TMPro
 								}
 								if (ch == '@')
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (text.IndexOf('@') == -1)
 									{
 										while (true)
@@ -6234,38 +4116,15 @@ namespace TMPro
 								{
 									while (true)
 									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
 										return ch;
 									}
 								}
 								if (ch == '.')
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									char c3 = (text.Length <= 0) ? ' ' : text[Mathf.Clamp(pos, 0, text.Length - 1)];
 									char c4 = (text.Length <= 0) ? '\n' : text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
 									if (c3 != '.')
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c4 != '.')
 										{
 											while (true)
@@ -6284,15 +4143,6 @@ namespace TMPro
 							}
 							else if (characterValidation == CharacterValidation.Regex)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (Regex.IsMatch(ch.ToString(), m_RegexValue))
 								{
 									while (true)
@@ -6309,15 +4159,6 @@ namespace TMPro
 							}
 							else if (characterValidation == CharacterValidation.CustomValidator)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_InputValidator != null)
 								{
 									while (true)
@@ -6339,38 +4180,11 @@ namespace TMPro
 							}
 							goto IL_053f;
 						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (pos == 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (text.Length > 0)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6 = ((text[0] == '-') ? 1 : 0);
 							goto IL_0090;
 						}
@@ -6378,40 +4192,13 @@ namespace TMPro
 					num6 = 0;
 					goto IL_0090;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			return ch;
 			IL_00f7:
 			if (ch == '.')
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterValidation == CharacterValidation.Decimal)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!text.Contains("."))
 					{
 						while (true)
@@ -6433,26 +4220,8 @@ namespace TMPro
 			bool flag2 = stringPositionInternal == 0 || stringSelectPositionInternal == 0;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ch >= '0')
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ch <= '9')
 					{
 						while (true)
@@ -6471,27 +4240,9 @@ namespace TMPro
 				{
 					if (pos != 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							goto IL_00f7;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return ch;
@@ -6511,37 +4262,18 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_TextComponent.font == null)
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					if (!IsActive())
 					{
 						return;
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (!IsInteractable())
 						{
 							while (true)
@@ -6557,37 +4289,10 @@ namespace TMPro
 						}
 						if (isFocused)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (m_Keyboard != null)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!m_Keyboard.active)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_Keyboard.active = true;
 									m_Keyboard.text = m_Text;
 								}
@@ -6611,63 +4316,23 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
 			}
 			if (EventSystem.current.currentSelectedGameObject != base.gameObject)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				EventSystem.current.SetSelectedGameObject(base.gameObject);
 			}
 			if (TouchScreenKeyboard.isSupported)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.touchSupported)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TouchScreenKeyboard.hideInput = shouldHideMobileInput;
 				}
 				TouchScreenKeyboard keyboard;
 				if (inputType == InputType.Password)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					keyboard = TouchScreenKeyboard.Open(m_Text, keyboardType, false, multiLine, true);
 				}
 				else
@@ -6718,98 +4383,31 @@ namespace TMPro
 			m_AllowInput = false;
 			if (m_Placeholder != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_Placeholder.enabled = string.IsNullOrEmpty(m_Text);
 			}
 			if (m_TextComponent != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsInteractable())
 				{
 					if (m_WasCanceled)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (m_RestoreOriginalTextOnEscape)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = m_OriginalText;
 						}
 					}
 					if (m_Keyboard != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_Keyboard.active = false;
 						m_Keyboard = null;
 					}
 					if (m_ResetOnDeActivation)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_StringPosition = (m_StringSelectPosition = 0);
 						m_CaretPosition = (m_CaretSelectPosition = 0);
 						m_TextComponent.rectTransform.localPosition = m_DefaultTransformPosition;
 						if (caretRectTrans != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							caretRectTrans.localPosition = Vector3.zero;
 						}
 					}
@@ -6837,15 +4435,6 @@ namespace TMPro
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (!IsInteractable())
 				{
 					while (true)
@@ -6945,10 +4534,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -6981,10 +4566,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -7003,10 +4584,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -7041,10 +4618,6 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -7067,32 +4640,10 @@ namespace TMPro
 		{
 			if (m_HasDoneFocusTransition)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				state = SelectionState.Highlighted;
 			}
 			else if (state == SelectionState.Pressed)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_HasDoneFocusTransition = true;
 			}
 			base.DoStateTransition(state, instant);
@@ -7113,19 +4664,6 @@ namespace TMPro
 			TMP_Text tMP_Text = m_Placeholder as TMP_Text;
 			if (tMP_Text != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				tMP_Text.font = fontAsset;
 			}
 			textComponent.font = fontAsset;

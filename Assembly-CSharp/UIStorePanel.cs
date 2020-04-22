@@ -88,45 +88,14 @@ public class UIStorePanel : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (i + 1 == empty.Length)
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			num = 0;
 			string text = (!localize) ? "," : StringUtil.TR("ThousandsSeparator", "Global");
 			if (text.Length > 1)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = ",";
 			}
 			empty = empty.Insert(i + 1, text);
@@ -134,11 +103,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return empty.Reverse();
 		}
 	}
@@ -153,73 +117,24 @@ public class UIStorePanel : UIScene
 		string text = num3.ToString();
 		if (num3 < 10)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = "0" + text;
 		}
 		string empty2 = string.Empty;
 		switch (currencyCode)
 		{
 		case "USD":
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty2 = "$";
 			break;
 		case "EUR":
 			empty2 = "€";
 			break;
 		case "GBP":
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty2 = "£";
 			break;
 		case "BRL":
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty2 = "R$";
 			break;
 		case "RUB":
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			empty2 = "RUB";
 			break;
 		default:
@@ -229,15 +144,6 @@ public class UIStorePanel : UIScene
 		string result;
 		if (num3 > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Format(StringUtil.TR("RealCurrencyDisplay", "Global"), empty2, arg, text);
 		}
 		else
@@ -309,10 +215,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_waitingForPurchaseRequest = false;
 					if (m_gamePurchaseDialogBox != null)
 					{
@@ -334,60 +236,15 @@ public class UIStorePanel : UIScene
 		}
 		if (resultMsg.Details.purchaseType != PurchaseType.LootMatrixPack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (resultMsg.Details.purchaseType != PurchaseType.Character)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (resultMsg.Details.purchaseType != PurchaseType.GGPack)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (resultMsg.Details.purchaseType != PurchaseType.Tint)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (resultMsg.Details.purchaseType != PurchaseType.InventoryItem)
 						{
 							return;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -408,15 +265,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_gamePurchaseDialogBox != null)
 			{
@@ -444,15 +292,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_cashPurchaseDialogBox != null)
 			{
@@ -467,19 +306,6 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseLootMatrixPack(pack.Index, paymentInfo.id, HandlePurchaseLootMatrixPackResponse);
@@ -493,38 +319,15 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_cashPurchaseDialogBox != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_cashPurchaseDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (m_charResponseCallback != null)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_charResponseCallback(response.Success, response.Result, response.CharacterType);
 					m_charResponseCallback = null;
 					return;
@@ -539,19 +342,6 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseCharacterForCash(link.m_characterType, paymentInfo.id, HandlePurchaseCharacterForCashResponse);
@@ -570,15 +360,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cashPurchaseDialogBox.NotifyPurchaseResponse(response.Success);
 			return;
 		}
@@ -589,19 +370,6 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseGGPack(ggPack.Index, paymentInfo.id, HandlePurchaseGGPackResponse);
@@ -615,38 +383,15 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					UICharacterSelectScreenController.Get().PurchaseCharacterSkinResponseHandler(response);
 					return;
 				}
@@ -668,15 +413,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			return;
 		}
@@ -691,19 +427,6 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = false;
 		if (m_itemDialogBox != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 		}
 		if (!(UICharacterSelectScreenController.Get() != null))
@@ -712,11 +435,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectScreenController.Get().PurchaseCharacterTintResponseHandler(response);
 			return;
 		}
@@ -730,15 +448,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_cashPurchaseDialogBox != null)
 			{
@@ -748,11 +457,6 @@ public class UIStorePanel : UIScene
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					UICharacterSelectScreenController.Get().PurchaseCharacterTintResponseHandler(response);
 					return;
 				}
@@ -766,19 +470,6 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseTintForCash(type, skin, texture, tint, paymentInfo.id, HandlePurchaseTintForCashResponse);
@@ -792,15 +483,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_cashPurchaseDialogBox != null)
 			{
@@ -828,38 +510,15 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (m_charResponseCallback != null)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_charResponseCallback(response.Success, response.Result, response.CharacterType);
 					m_charResponseCallback = null;
 					return;
@@ -877,25 +536,11 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
 				while (true)
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
 					m_itemDialogBox.NotifyTauntPurchaseResponse(response.Success);
 					return;
 				}
@@ -913,46 +558,15 @@ public class UIStorePanel : UIScene
 		m_waitingForPurchaseRequest = false;
 		if (m_itemDialogBox != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemDialogBox.NotifyPurchaseInventoryItemResponse(response.Success);
 		}
 		if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Skin)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Style)
 			{
 				if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Texture)
 				{
 					return;
-				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -962,11 +576,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectScreenController.Get().UpdateSkinsPanel();
 			return;
 		}
@@ -992,15 +601,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
@@ -1018,25 +618,11 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 					return;
 				}
@@ -1053,15 +639,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
@@ -1079,25 +656,11 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 					return;
 				}
@@ -1114,25 +677,11 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_waitingForPurchaseRequest = false;
 			if (m_itemDialogBox != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 					return;
 				}
@@ -1154,15 +703,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			return;
 		}
@@ -1250,19 +790,6 @@ public class UIStorePanel : UIScene
 	{
 		if (item.m_itemType == PurchaseItemType.Character)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_charResponseCallback = callback;
 		}
 		OpenPurchaseDialog(item);
@@ -1283,10 +810,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_gamePurchaseDialogBox = UIDialogPopupManager.OpenPurchaseGameDialog(item, m_paymentResponse);
 					ClientGameManager.Get().RequestPaymentMethods(Get().RefreshPayments);
 					return;
@@ -1295,139 +818,31 @@ public class UIStorePanel : UIScene
 		}
 		if (item.m_itemType != PurchaseItemType.LootMatrixPack)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.m_itemType != PurchaseItemType.GGBoost)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!item.m_purchaseForCash)
 				{
 					if (item.m_itemType != PurchaseItemType.Skin)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (item.m_itemType != PurchaseItemType.Texture)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (item.m_itemType != PurchaseItemType.Tint)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (item.m_itemType != PurchaseItemType.Character)
 								{
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (item.m_itemType != PurchaseItemType.Taunt && item.m_itemType != PurchaseItemType.InventoryItem)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (item.m_itemType != PurchaseItemType.Banner)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (item.m_itemType != PurchaseItemType.Title)
 											{
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (item.m_itemType != PurchaseItemType.Emoticon)
 												{
-													while (true)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (item.m_itemType != PurchaseItemType.AbilityVfx && item.m_itemType != PurchaseItemType.Overcon)
 													{
-														while (true)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (item.m_itemType != PurchaseItemType.LoadingScreenBackground)
 														{
 															return;
-														}
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 													}
 												}
@@ -1451,19 +866,6 @@ public class UIStorePanel : UIScene
 	{
 		if (m_gamePurchaseDialogBox != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gamePurchaseDialogBox.RefreshPayments(response);
 		}
 		if (m_cashPurchaseDialogBox != null)
@@ -1483,10 +885,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					CloseStore();
 					return;
 				}
@@ -1506,26 +904,12 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_panels.Length; i++)
 			{
 				UIManager.SetGameObjectActive(m_panels[i], false);
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				for (int j = 0; j < m_menuBtns.Length; j++)
 				{
 					if (m_menuBtns[j].IsSelected())
@@ -1557,19 +941,6 @@ public class UIStorePanel : UIScene
 		ClientGameManager.Get().OnDisconnectedFromLobbyServer += HandleDisconnected;
 		if (UIStoreViewHeroPage.Get().IsVisible())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIStoreViewHeroPage.Get().SetVisible(false);
 		}
 		ClientGameManager.Get().NotifyStoreOpened();
@@ -1577,15 +948,6 @@ public class UIStorePanel : UIScene
 		CommerceClient.Get().RequestPrices();
 		if (UICharacterSelectWorldObjects.Get().IsVisible())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterSelectWorldObjects.Get().SetVisible(false);
 		}
 		UINewUserFlowManager.OnDoneWithReadyButton();
@@ -1607,24 +969,10 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (uIStoreViewHeroPage.IsVisible())
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					uIStoreViewHeroPage.SetVisible(false);
 					m_isViewingHero = false;
 					return;
@@ -1643,19 +991,6 @@ public class UIStorePanel : UIScene
 		UIManager.SetGameObjectActive(m_secondaryNavContainer, false);
 		if (m_isViewingHero)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIStoreViewHeroPage.Get().NotifyLoseFocus();
 		}
 		else
@@ -1676,10 +1011,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -1687,15 +1018,6 @@ public class UIStorePanel : UIScene
 		UIManager.SetGameObjectActive(m_secondaryNavContainer, true);
 		if (m_isViewingHero)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStoreViewHeroPage.Get().NotifyGetFocus();
 		}
 		else
@@ -1723,15 +1045,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -1754,15 +1067,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_cashPurchaseDialogBox.HandleRequestPaymentResponse(m_paymentResponse);
 			return;
 		}
@@ -1779,10 +1083,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ScreenToSetVisible(StorePanelScreen.Freelancer);
 					return;
 				}
@@ -1811,19 +1111,6 @@ public class UIStorePanel : UIScene
 		{
 			if (m_menuBtns[i] == btnClicked)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_menuBtns[i].SetSelected(true);
 				SetScreenVisible(m_menuBtns[i]);
 			}
@@ -1834,31 +1121,16 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (!(UIStoreViewHeroPage.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (UIStoreViewHeroPage.Get().IsVisible())
 				{
 					while (true)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
 						UIStoreViewHeroPage.Get().SetVisible(false);
 						SetMainPanelVisibility(true);
 						return;
@@ -1880,10 +1152,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -1913,19 +1181,6 @@ public class UIStorePanel : UIScene
 		int result;
 		if (!(m_itemDialogBox != null) && !(m_gamePurchaseDialogBox != null))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((m_cashPurchaseDialogBox != null) ? 1 : 0);
 		}
 		else
@@ -1943,26 +1198,12 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_isOpen)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (m_waitingForPurchaseRequest)
 				{
 					while (true)
@@ -1996,20 +1237,10 @@ public class UIStorePanel : UIScene
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					if (UIStoreViewHeroPage.Get().IsVisible())
 					{
 						while (true)
 						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
 							UIStoreViewHeroPage.Get().GoBackToStore();
 							return;
 						}
@@ -2031,10 +1262,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_itemDialogBox.Close();
 					return;
 				}
@@ -2064,19 +1291,6 @@ public class UIStorePanel : UIScene
 	{
 		if (!IsStoreOpen())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OpenStore();
 		}
 		UIStoreBaseInventoryPanel uIStoreBaseInventoryPanel = null;
@@ -2086,11 +1300,6 @@ public class UIStorePanel : UIScene
 		default:
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (type != InventoryItemType.LoadingScreenBackground)
 				{
 					while (true)
@@ -2123,15 +1332,6 @@ public class UIStorePanel : UIScene
 			{
 				if (GameBalanceVars.Get().PlayerTitles[i].ID == template.TypeSpecificData[0])
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerTitle = GameBalanceVars.Get().PlayerTitles[i];
 					break;
 				}
@@ -2177,11 +1377,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			uIStoreBaseInventoryPanel.SelectItem(template);
 			return;
 		}
@@ -2198,10 +1393,6 @@ public class UIStorePanel : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					SelectItem(InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId));
 					return;
 				}
@@ -2233,29 +1424,11 @@ public class UIStorePanel : UIScene
 				{
 					if (GameBalanceVars.Get().PlayerTitles[num].ID == item.m_titleID)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						playerTitle = GameBalanceVars.Get().PlayerTitles[num];
 						break;
 					}
 					num++;
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				break;
 			}
@@ -2281,15 +1454,6 @@ public class UIStorePanel : UIScene
 		case PurchaseItemType.Tint:
 			if (item.m_charLink.m_characterType.IsValidForHumanGameplay())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uIStoreBaseInventoryPanel = OpenAndGetPanel(item.m_charLink.m_characterType, typeof(UIStoreFreelancerStylesPanel));
 			}
 			else
@@ -2315,11 +1479,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			uIStoreBaseInventoryPanel.SelectItem(item);
 			return;
 		}
@@ -2330,19 +1489,6 @@ public class UIStorePanel : UIScene
 		StorePanelData[] panels;
 		if (!charType.IsValidForHumanGameplay())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			NotifyNavBtnClicked(m_accountBtn);
 			panels = m_accountPanel.m_panels;
 		}
@@ -2360,15 +1506,6 @@ public class UIStorePanel : UIScene
 			}
 			if (!charType.IsValidForHumanGameplay())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_accountPanel.SelectPanel(panels[i].Button);
 				m_accountPanel.DisableInitialSelectPanel();
 			}
@@ -2380,11 +1517,6 @@ public class UIStorePanel : UIScene
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}

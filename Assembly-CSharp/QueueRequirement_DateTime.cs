@@ -24,10 +24,6 @@ public class QueueRequirement_DateTime : QueueRequirement
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (requirement != RequirementType.AfterDate)
 					{
 						while (true)
@@ -68,10 +64,6 @@ public class QueueRequirement_DateTime : QueueRequirement
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (requirement != RequirementType.AfterDate)
 					{
 						while (true)

@@ -119,10 +119,6 @@ public class BoardSquare : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						occupant = null;
 						return;
 					}
@@ -145,55 +141,15 @@ public class BoardSquare : MonoBehaviour
 			Bounds? internalCameraBounds = m_internalCameraBounds;
 			if (!internalCameraBounds.HasValue)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_vertices != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_vertices.Length > 1)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 zero = Vector3.zero;
 						Vector3[] vertices = m_vertices;
 						foreach (Vector3 vector in vertices)
 						{
 							zero += vector;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						zero /= (float)m_vertices.Length;
 						zero += Vector3.up;
@@ -213,30 +169,8 @@ public class BoardSquare : MonoBehaviour
 			Bounds? internalWorldBounds = m_internalWorldBounds;
 			if (!internalWorldBounds.HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (m_vertices != null && m_vertices.Length > 1)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = (m_vertices[0] + m_vertices[1]) / 2f;
 					Vector3 vector2 = m_vertices[0] - vector;
 					vector2 = new Vector3(Mathf.Abs(vector2.x), Mathf.Abs(vector2.y), Mathf.Abs(vector2.z));
@@ -244,15 +178,6 @@ public class BoardSquare : MonoBehaviour
 					for (int i = 2; i < m_vertices.Length; i++)
 					{
 						value.Encapsulate(m_vertices[i]);
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					m_internalWorldBounds = value;
 				}
@@ -282,15 +207,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return false;
 		}
 	}
@@ -305,25 +221,11 @@ public class BoardSquare : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return true;
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return false;
 		}
 	}
@@ -388,19 +290,6 @@ public class BoardSquare : MonoBehaviour
 			float sqrMagnitude = (point - m_vertices[i]).sqrMagnitude;
 			if (sqrMagnitude < num3)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num4 = num3;
 				num2 = num;
 				num3 = sqrMagnitude;
@@ -408,15 +297,6 @@ public class BoardSquare : MonoBehaviour
 			}
 			else if (sqrMagnitude < num4)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = sqrMagnitude;
 				num2 = i;
 			}
@@ -467,19 +347,6 @@ public class BoardSquare : MonoBehaviour
 		Bounds result = default(Bounds);
 		if ((side & SideFlags.Up) != 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.UpperLeft), GetVerticesAtCorner_zq(CornerType.UpperRight) + Vector3.up);
 		}
 		if ((side & SideFlags.Down) != 0)
@@ -492,15 +359,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		if ((side & SideFlags.Right) != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.SetMinMax(GetVerticesAtCorner_zq(CornerType.LowerRight), GetVerticesAtCorner_zq(CornerType.UpperRight) + Vector3.up);
 		}
 		return result;
@@ -516,19 +374,6 @@ public class BoardSquare : MonoBehaviour
 				BoardSquare boardSquare = board.GetBoardSquare(i, j);
 				if (boardSquare == this)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					array[i + j * board.GetMaxX()] = 1f;
 				}
 				else
@@ -558,31 +403,9 @@ public class BoardSquare : MonoBehaviour
 		bool result = false;
 		if (Board.Get().m_losLookup != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			int num;
 			if (Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, _001D, _000E) == 1f)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1;
 			}
 			else
@@ -599,19 +422,6 @@ public class BoardSquare : MonoBehaviour
 		float result = 0f;
 		if (Board.Get().m_losLookup != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = Board.Get().m_losLookup.GetLOSDistance(m_pos.x, m_pos.y, xDest, yDest);
 		}
 		return result;
@@ -627,15 +437,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			float x = (float)m_pos.x * board.squareSize;
 			float z = (float)m_pos.y * board.squareSize;
 			m_LOSHighlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -663,15 +464,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
 			m_LOSHighlightMesh = m_LOSHighlightObj.GetComponent<MeshFilter>().mesh;
 			return;
@@ -694,15 +486,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -717,19 +500,6 @@ public class BoardSquare : MonoBehaviour
 	{
 		if (m_gridPosProp == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_gridPosProp = new GridPosProp();
 		}
 		GridPosProp gridPosProp = m_gridPosProp;
@@ -793,30 +563,8 @@ public class BoardSquare : MonoBehaviour
 		Color result;
 		if (m_LOSHighlightMesh != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_LOSHighlightMesh.colors.Length > 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_LOSHighlightMesh.colors[0];
 				goto IL_005e;
 			}
@@ -835,15 +583,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			bool flag = (visibilityFlags & 8) != 0;
 			bool flag2 = (visibilityFlags & 4) != 0;
 			bool flag3 = (visibilityFlags & 1) != 0;
@@ -851,54 +590,18 @@ public class BoardSquare : MonoBehaviour
 			Color lhs;
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Board.Get().m_showLOS)
 				{
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = s_objectiveColor;
 					}
 					else if (flag3)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = s_visibleBySelfColor;
 					}
 					else if (flag4)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = s_visibleByTeamColor;
 					}
 					else
@@ -906,15 +609,6 @@ public class BoardSquare : MonoBehaviour
 						lhs = s_notVisibleColor;
 					}
 					goto IL_00c2;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			lhs = s_revealedColor;
@@ -929,15 +623,6 @@ public class BoardSquare : MonoBehaviour
 			bool flag6 = m_lastVisibleFlag != (sbyte)visibilityFlags;
 			if (flag5)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = (lhs != GetLOSHighlightMeshBaseColor());
 			}
 			if (!flag6)
@@ -946,22 +631,8 @@ public class BoardSquare : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				if (!flag5)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_lastVisibleFlag = (sbyte)visibilityFlags;
 				}
 				Mesh lOSHighlightMesh = m_LOSHighlightMesh;
@@ -1002,19 +673,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		else
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = new Color(ActorData.s_hostilePlayerColor.r, ActorData.s_hostilePlayerColor.g, ActorData.s_hostilePlayerColor.b);
 		}
 		float num;
@@ -1026,39 +684,12 @@ public class BoardSquare : MonoBehaviour
 		{
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag4)
 					{
 						num = 0.25f;
 						goto IL_0126;
-					}
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1090,19 +721,6 @@ public class BoardSquare : MonoBehaviour
 		Vector3 result = new Vector3(worldX, height, worldY);
 		if (Board.Get() != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result.y = Board.Get().BaselineHeight;
 		}
 		return result;
@@ -1120,10 +738,6 @@ public class BoardSquare : MonoBehaviour
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ActorData component = occupant.GetComponent<ActorData>();
 					if (component.GetTeam() == Team.TeamA)
 					{
@@ -1164,29 +778,11 @@ public class BoardSquare : MonoBehaviour
 		{
 			if (item.IsDead())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (GameplayUtils.IsPlayerControlled(item))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!_001D)
 					{
 						continue;
@@ -1207,26 +803,8 @@ public class BoardSquare : MonoBehaviour
 				{
 					if (GameplayUtils.IsPlayerControlled(current2))
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!_001D)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							continue;
 						}
 					}
@@ -1235,27 +813,9 @@ public class BoardSquare : MonoBehaviour
 					num2 = Mathf.Min(num2, b2);
 				}
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (num > num3)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 > num3)
 			{
 				while (true)
@@ -1304,19 +864,6 @@ public class BoardSquare : MonoBehaviour
 		string text;
 		if (_001D == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			text = "(null)";
 		}
 		else
@@ -1326,15 +873,6 @@ public class BoardSquare : MonoBehaviour
 			{
 				if (_001D.IsBaselineHeight())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "[valid]";
 				}
 				else

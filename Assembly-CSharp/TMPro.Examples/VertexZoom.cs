@@ -44,15 +44,6 @@ namespace TMPro.Examples
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				_0016 = true;
 				return;
 			}
@@ -70,19 +61,6 @@ namespace TMPro.Examples
 			{
 				if (_0016)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					array = textInfo.CopyMeshInfoVertexData();
 					_0016 = false;
 				}
@@ -98,15 +76,6 @@ namespace TMPro.Examples
 					TMP_CharacterInfo tMP_CharacterInfo = textInfo.characterInfo[i];
 					if (!tMP_CharacterInfo.isVisible)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 					int materialReferenceIndex = textInfo.characterInfo[i].materialReferenceIndex;
@@ -144,15 +113,6 @@ namespace TMPro.Examples
 					colors2[vertexIndex + 2] = colors[vertexIndex + 2];
 					colors2[vertexIndex + 3] = colors[vertexIndex + 3];
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < textInfo.meshInfo.Length; j++)
 				{
 					list2.Sort((int _001D, int _000E) => list[_001D].CompareTo(list[_000E]));
@@ -162,24 +122,10 @@ namespace TMPro.Examples
 					textInfo.meshInfo[j].mesh.colors32 = textInfo.meshInfo[j].colors32;
 					_0015.UpdateGeometry(textInfo.meshInfo[j].mesh, j);
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				yield return new WaitForSeconds(0.1f);
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				yield return new WaitForSeconds(0.25f);
 				/*Error: Unable to find new state assignment for yield return*/;
 			}

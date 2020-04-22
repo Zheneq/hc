@@ -216,15 +216,6 @@ public class HUD_UIResources : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return 0;
 		}
 	}
@@ -256,15 +247,6 @@ public class HUD_UIResources : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return texture2D;
 		}
 	}
@@ -276,19 +258,6 @@ public class HUD_UIResources : MonoBehaviour
 		int height = image.height;
 		if (horizontal)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
@@ -297,98 +266,35 @@ public class HUD_UIResources : MonoBehaviour
 					int k;
 					for (k = j; k < j + blurSize; k++)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k < width)
 						{
 							AddPixel(image.GetPixel(k, i));
 							continue;
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
 					k = j;
 					while (k > j - blurSize)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k > 0)
 						{
 							AddPixel(image.GetPixel(k, i));
 							k--;
 							continue;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					CalcPixel();
 					for (k = j; k < j + blurSize; k++)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k < width)
 						{
 							texture2D.SetPixel(k, i, new Color(avgR, avgG, avgB, alpha));
 							continue;
 						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -406,15 +312,6 @@ public class HUD_UIResources : MonoBehaviour
 							AddPixel(image.GetPixel(j, l));
 							continue;
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					l = i;
@@ -426,29 +323,11 @@ public class HUD_UIResources : MonoBehaviour
 							l--;
 							continue;
 						}
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 					CalcPixel();
 					for (l = i; l < i + blurSize; l++)
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (l >= height)
 						{
 							break;
@@ -519,10 +398,6 @@ public class HUD_UIResources : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -562,71 +437,22 @@ public class HUD_UIResources : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(Get().m_statusIconList[i].icon != null))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (Get().m_statusIconList[i].type != statusType)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.displayInStatusList = Get().m_statusIconList[i].displayInStatusList;
 			result = Get().m_statusIconList[i];
 			if (Get().m_statusIconList[i].popupText != string.Empty)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result.popupText = StringUtil.GetStatusIconPopupText(i + 1);
 			}
 			if (Get().m_statusIconList[i].buffDescription == string.Empty)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result.buffDescription = statusType.ToString() + "#NotLocalized";
 			}
 			else
@@ -635,15 +461,6 @@ public class HUD_UIResources : MonoBehaviour
 			}
 			if (Get().m_statusIconList[i].buffName == string.Empty)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result.buffName = statusType.ToString() + "#NotLocalized";
 			}
 			else
@@ -671,10 +488,6 @@ public class HUD_UIResources : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return Get().m_minScaleSizeOfCombatText;
 				}
 			}
@@ -694,10 +507,6 @@ public class HUD_UIResources : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_boostedDamageIconSprite;
 				}
 			}

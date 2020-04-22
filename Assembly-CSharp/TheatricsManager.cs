@@ -63,10 +63,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance.m_ragdollImpactForce;
 				}
 			}
@@ -85,10 +81,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return s_instance.m_ragdollApplyForceOnSingleJointOnly;
 				}
 			}
@@ -158,19 +150,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		m_playerConnectionIdsInUpdatePhase.Clear();
 		if (m_turn._000B(phaseIndex))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < GameFlow.Get().playerDetails.Count; i++)
 			{
 				Player key = GameFlow.Get().playerDetails.Keys.ElementAt(i);
@@ -179,54 +158,18 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!playerDetails.IsHumanControlled)
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!playerDetails.IsSpectator)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_playerConnectionIdsInUpdatePhase.Add(playerDetails.m_accountId);
 				}
 			}
 		}
 		else if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_playerConnectionIdsInUpdatePhase.Add(GameFlowData.Get().activeOwnedActorData.GetPlayerDetails().m_accountId);
 		}
 		m_numConnectionIdsAddedForPhase = m_playerConnectionIdsInUpdatePhase.Count;
@@ -246,30 +189,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int num = 5;
 		if (m_turn._000E.Count > num)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_turn._000E[num] != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = m_turn._000E[num]._001C(actor);
 			}
 		}
@@ -285,15 +206,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnServerDisconnect(UnityEngine.Networking.NetworkConnection)' called on client");
 			return;
 		}
@@ -311,10 +223,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Debug.LogWarning("[Server] function 'System.Void TheatricsManager::OnReplacedWithBots(Player)' called on client");
 					return;
 				}
@@ -349,19 +257,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 	{
 		if (!initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_serializeHelper.ShouldReturnImmediately(ref stream))
 			{
 				while (true)
@@ -385,42 +280,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		bool flag2 = m_phaseToUpdate != (AbilityPriority)value2;
 		if (!flag2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_00b8;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		m_phaseToUpdate = (AbilityPriority)value2;
 		m_phaseStartTime = Time.time;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_turn = new Turn();
 		}
 		goto IL_00b8;
@@ -428,15 +296,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		m_turn._0011(stream);
 		if (flag2)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_turn._0011(m_phaseToUpdate);
 		}
 		return m_serializeHelper.End(initialState, base.syncVarDirtyBits);
@@ -453,15 +312,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return;
 			}
 		}
@@ -469,20 +319,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (m_turnToUpdate > GameFlowData.Get().CurrentTurn)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						Debug.LogError("Theatrics: Turn to update is higher than current turn");
 						return;
 					}
@@ -492,37 +332,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		if (m_phaseToUpdate != AbilityPriority.INVALID && !m_turn._001A(m_phaseToUpdate))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m_lastPhaseEnded != m_phaseToUpdate)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().LocalPlayerData != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameFlowData.Get().LocalPlayerData.CallCmdTheatricsManagerUpdatePhaseEnded((int)m_phaseToUpdate, Time.time - m_phaseStartTime, Time.smoothDeltaTime);
 					m_lastPhaseEnded = m_phaseToUpdate;
 				}
@@ -536,15 +349,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			FogOfWar clientFog = FogOfWar.GetClientFog();
 			if (clientFog != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < actors.Count; i++)
 				{
 					ActorData actorData = actors[i];
@@ -552,28 +356,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag3 = clientFog.IsVisible(actorData.GetTravelBoardSquare());
 					int num;
 					if (!flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = ((!flag3) ? 1 : 0);
 					}
 					else
@@ -584,15 +370,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					int num2;
 					if (!flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (flag3 ? 1 : 0);
 					}
 					else
@@ -603,38 +380,11 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				}
 				if (flag && !flag2)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(SinglePlayerManager.Get() == null))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!SinglePlayerManager.Get().EnableHiddenMovementText())
 						{
 							goto IL_0230;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					InterfaceManager.Get().DisplayAlert(StringUtil.TR("HiddenMovement", "Global"), Color.white);
@@ -645,27 +395,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		IL_0230:
 		if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.Movement)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ServerClientUtils.GetCurrentActionPhase() != ActionBufferPhase.MovementWait)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SetAnimatorParamOnAllActors("DecisionPhase", true);
@@ -684,15 +416,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 			{
@@ -708,39 +431,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					current.ShowRespawnFlare(null, true);
 					if (localPlayerData.GetTeamViewing() != current.GetTeam())
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!FogOfWar.GetClientFog().IsVisible(current.CurrentBoardSquare))
 						{
 							goto IL_00d4;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					current.GetActorVFX().ShowOnRespawnVfx();
@@ -772,30 +468,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorData.GetModelAnimator() != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorData.GetModelAnimator().SetBool(paramName, value);
 			}
 		}
@@ -819,19 +493,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			ActorData actorData = actors[i];
 			if (actorData != null && actorData.GetModelAnimator() != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				actorData.GetModelAnimator().SetInteger(paramName, value);
 			}
 		}
@@ -864,15 +525,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_turn._0011(animatedActor, eventObject, sourceObject);
 			return;
 		}
@@ -887,19 +539,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int result;
 		if (m_turn != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = (m_turn._001A() ? 1 : 0);
 		}
 		else
@@ -914,74 +553,16 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int phaseToUpdate = (int)m_phaseToUpdate;
 		if (ability != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actor != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_turn != null)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_turn._000E != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (phaseToUpdate > 0)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (phaseToUpdate < m_turn._000E.Count)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Phase phase = m_turn._000E[phaseToUpdate];
 								for (int i = 0; i < phase.animations.Count; i++)
 								{
@@ -990,27 +571,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									{
 										continue;
 									}
-									while (true)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (actorAnimation.GetAbility().GetType() != ability.GetType())
 									{
 										continue;
-									}
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (!actorAnimation._0002_000E())
 									{
@@ -1018,22 +581,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									}
 									while (true)
 									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
 										return true;
 									}
-								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -1054,73 +603,27 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(clientFog != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				if (!(mover != null))
 				{
 					return;
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					for (BoardSquarePathInfo boardSquarePathInfo = path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 					{
 						if (!(activeOwnedActorData == null))
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activeOwnedActorData.GetTeam() != mover.GetTeam())
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!clientFog.IsVisible(boardSquarePathInfo.square))
 								{
 									continue;
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -1146,30 +649,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int result = -1;
 		if (m_turn != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)phase < m_turn._000E.Count)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Phase phase2 = m_turn._000E[(int)phase];
 				int num = 0;
 				while (true)
@@ -1185,15 +666,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 						num++;
 						continue;
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}
@@ -1206,30 +678,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		int num = -1;
 		if (m_turn != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if ((int)phase < m_turn._000E.Count)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Phase phase2 = m_turn._000E[(int)phase];
 				for (int i = 0; i < phase2.animations.Count; i++)
 				{
@@ -1238,42 +688,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorAnimation.HitActorsToDeltaHP.ContainsKey(actor) || actorAnimation.HitActorsToDeltaHP[actor] >= 0)
 					{
 						continue;
 					}
 					if (num >= 0)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorAnimation.playOrderIndex >= num)
 						{
 							continue;
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					num = actorAnimation.playOrderIndex;
@@ -1308,41 +731,14 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				text2 = text2 + "\t" + actorAnimation.ToString() + "\n";
 				if (!list.Contains(actorAnimation.Actor))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(actorAnimation.Actor);
 				}
 			}
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
 				if (text2.Length > 0)
 				{
 					text = arg;
@@ -1355,11 +751,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -1367,28 +758,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					ActorData current = enumerator.Current;
 					if (current != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorModelData actorModelData = current.GetActorModelData();
 						Animator modelAnimator = current.GetModelAnimator();
 						if (actorModelData != null)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (modelAnimator != null)
 							{
 								text = arg;

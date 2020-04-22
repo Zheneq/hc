@@ -36,19 +36,6 @@ public class BarrierSerializeInfo
 	{
 		if (info == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			info = new BarrierSerializeInfo();
 			if (stream.isWriting)
 			{

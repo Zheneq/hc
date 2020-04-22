@@ -80,19 +80,6 @@ public class UILockCancelButton : MonoBehaviour
 		UIManager.SetGameObjectActive(m_lockImage, false);
 		if (m_theButton != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerEnter, OnPointerEnter);
 			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerExit, OnPointerExit);
 			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerDown, OnPointerDown);
@@ -101,15 +88,6 @@ public class UILockCancelButton : MonoBehaviour
 		RectTransform rectTransform = GetComponent<Transform>() as RectTransform;
 		if (rectTransform != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_originalAnchoredPosition = rectTransform.anchoredPosition;
 		}
 		m_theButtonImage = m_theButton.GetComponent<Image>();
@@ -165,15 +143,6 @@ public class UILockCancelButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_mouseIsDown)
 			{
 				rectTransform.anchoredPosition = m_originalAnchoredPosition + new Vector2(0f, 0f - m_lockInContainer.rect.height * 0.05f);
@@ -207,15 +176,6 @@ public class UILockCancelButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIEventTriggerUtils.AddListener(m_theButton.gameObject, EventTriggerType.PointerClick, callback);
 			return;
 		}
@@ -231,30 +191,8 @@ public class UILockCancelButton : MonoBehaviour
 		int num;
 		if (isDead)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(SpawnPointManager.Get() == null))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!SpawnPointManager.Get().m_playersSelectRespawn) ? 1 : 0);
 			}
 			else
@@ -271,15 +209,6 @@ public class UILockCancelButton : MonoBehaviour
 		int doActive;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = ((!flag) ? 1 : 0);
 		}
 		else
@@ -291,15 +220,6 @@ public class UILockCancelButton : MonoBehaviour
 		int doActive2;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = ((!flag) ? 1 : 0);
 		}
 		else
@@ -311,15 +231,6 @@ public class UILockCancelButton : MonoBehaviour
 		int doActive3;
 		if (visible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive3 = (flag ? 1 : 0);
 		}
 		else
@@ -329,26 +240,8 @@ public class UILockCancelButton : MonoBehaviour
 		UIManager.SetGameObjectActive(playerDeadContainer, (byte)doActive3 != 0);
 		if (SinglePlayerManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseDisplayForceOff())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_phaseMarkerContainer, false);
 				goto IL_00f4;
 			}
@@ -358,15 +251,6 @@ public class UILockCancelButton : MonoBehaviour
 		IL_00f4:
 		if (SinglePlayerManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseTextForceOff())
 			{
 				while (true)
@@ -399,41 +283,10 @@ public class UILockCancelButton : MonoBehaviour
 			UIManager.SetGameObjectActive(m_movementIcon, false);
 			if (uIPhaseFromAbilityPriority != 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (uIPhaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -461,28 +314,10 @@ public class UILockCancelButton : MonoBehaviour
 		}
 		if (m_phaseText.text != text)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_phaseTextController.Play("PhaseTextIdle");
 			m_phaseTextController.Play("PhaseTextChange");
 			if (text != StringUtil.TR("MOVE", "Global"))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(uIPhaseFromAbilityPriority - 1);
 			}
 			else
@@ -499,11 +334,6 @@ public class UILockCancelButton : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_phaseIcon.sprite = m_phaseIcons[value];
 			return;
 		}
@@ -519,19 +349,6 @@ public class UILockCancelButton : MonoBehaviour
 		Unclicked();
 		if (!m_lockInShowing)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_lockInContainer, true);
 			UIManager.SetGameObjectActive(m_cancelContainer, false);
 			UIManager.SetGameObjectActive(m_lockImage, false);

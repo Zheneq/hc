@@ -51,19 +51,6 @@ public class ProximityMineGroundSequence : Sequence
 		bool active = CanShow();
 		if (m_explosionBorder != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_explosionBorder.SetActive(active);
 		}
 		m_mineArmed.SetActive(active);
@@ -76,30 +63,12 @@ public class ProximityMineGroundSequence : Sequence
 			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
 			if (extraParams2 != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_explosionRadius = extraParams2.explosionRadius;
 				m_visibleToEnemies = extraParams2.visibleToEnemies;
 			}
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			m_triggerBorder = null;
 			m_explosionBorder = null;
 			m_effectField = null;
@@ -119,10 +88,6 @@ public class ProximityMineGroundSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -132,15 +97,6 @@ public class ProximityMineGroundSequence : Sequence
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -161,10 +117,6 @@ public class ProximityMineGroundSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -172,15 +124,6 @@ public class ProximityMineGroundSequence : Sequence
 		int num;
 		if (!m_visibleToEnemies)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam()) ? 1 : 0);
 		}
 		else
@@ -192,15 +135,6 @@ public class ProximityMineGroundSequence : Sequence
 		int result;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (flag2 ? 1 : 0);
 		}
 		else
@@ -221,10 +155,6 @@ public class ProximityMineGroundSequence : Sequence
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -232,15 +162,6 @@ public class ProximityMineGroundSequence : Sequence
 		int result;
 		if (!m_visibleToEnemies)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam()) ? 1 : 0);
 		}
 		else
@@ -259,19 +180,6 @@ public class ProximityMineGroundSequence : Sequence
 	{
 		if (!m_createdVFX)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_initialized && GameFlowData.Get().LocalPlayerData != null)
 			{
 				while (true)
@@ -292,15 +200,6 @@ public class ProximityMineGroundSequence : Sequence
 						GameObject gameObject;
 						if (flag)
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							gameObject = m_nonEnemyBorderPrefab;
 						}
 						else
@@ -310,30 +209,12 @@ public class ProximityMineGroundSequence : Sequence
 						GameObject gameObject2 = gameObject;
 						if (gameObject2 != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_explosionBorder = InstantiateFX(gameObject2, position, Quaternion.identity);
 							HighlightUtils.SetParticleSystemScale(m_explosionBorder, m_explosionRadius);
 						}
 						m_mineArmed = InstantiateFX(m_mineArmedPrefab, position, Quaternion.identity);
 						if (m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>() != null)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 						AudioManager.PostEvent(m_audioEventArm, m_mineArmed.gameObject);
@@ -351,11 +232,6 @@ public class ProximityMineGroundSequence : Sequence
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			ShowVFXForState();
 			return;
 		}
@@ -370,33 +246,11 @@ public class ProximityMineGroundSequence : Sequence
 		}
 		if (m_explosionBorder != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_explosionBorder);
 			m_explosionBorder = null;
 		}
 		if (m_effectField != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Object.Destroy(m_effectField);
 			m_effectField = null;
 		}
@@ -406,11 +260,6 @@ public class ProximityMineGroundSequence : Sequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			Object.Destroy(m_mineArmed);
 			m_mineArmed = null;
 			return;

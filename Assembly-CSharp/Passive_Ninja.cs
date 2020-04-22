@@ -21,19 +21,6 @@ public class Passive_Ninja : Passive
 			int squareX;
 			if (square != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				squareX = square.x;
 			}
 			else
@@ -44,15 +31,6 @@ public class Passive_Ninja : Passive
 			int squareY;
 			if (square != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				squareY = square.y;
 			}
 			else
@@ -66,15 +44,6 @@ public class Passive_Ninja : Passive
 				int item;
 				if (abilityData != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					item = abilityData.GetCooldownRemaining((AbilityData.ActionType)i);
 				}
 				else

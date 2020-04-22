@@ -16,19 +16,6 @@ public class CountryPrices
 		int num;
 		if (Prices != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = Prices.Length;
 		}
 		else
@@ -43,11 +30,6 @@ public class CountryPrices
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				return Prices[i].Price;
 			}
 		}
@@ -66,10 +48,6 @@ public class CountryPrices
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -96,28 +74,10 @@ public class CountryPrices
 					num2--;
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list[num].Price > 0f)
 				{
 					while (true)
@@ -135,11 +95,6 @@ public class CountryPrices
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			bool flag2 = false;
 			int num3 = 0;
 			while (true)
@@ -154,30 +109,12 @@ public class CountryPrices
 					num3++;
 					continue;
 				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			for (int i = 0; i < list2.Count; i++)
 			{
 				if (list2[i].Price > 0f)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 					break;
 				}

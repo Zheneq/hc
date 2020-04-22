@@ -42,31 +42,9 @@ public class CardManagerData : MonoBehaviour
 		GameObject cardPrefab = GetCardPrefab(m_defaultPrepCardType);
 		if (!(cardPrefab == null))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (cardPrefab.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Prep)
 			{
 				goto IL_0057;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Debug.LogError("Did not find default Prep card or is in the wrong phase. Please check CardManagerData prefab");
@@ -87,15 +65,6 @@ public class CardManagerData : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.m_isHidden)
 			{
 				continue;
@@ -103,15 +72,6 @@ public class CardManagerData : MonoBehaviour
 			AbilityRunPhase abilityRunPhase = component.GetAbilityRunPhase();
 			if (m_phaseToCards.ContainsKey(abilityRunPhase))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_phaseToCards[abilityRunPhase].Add(component.m_cardType);
 			}
 		}
@@ -124,15 +84,6 @@ public class CardManagerData : MonoBehaviour
 			{
 				goto IL_0097;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Debug.LogError("Did not find default Dash card or is in the wrong phase. Please check CardManagerData prefab");
 		goto IL_0097;
@@ -143,15 +94,6 @@ public class CardManagerData : MonoBehaviour
 			if (cardPrefab3.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Combat)
 			{
 				goto IL_00d3;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Debug.LogError("Did not find default Combat card or is in the wrong phase. Please check CardManagerData prefab");
@@ -181,44 +123,13 @@ public class CardManagerData : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Card component = gameObject.GetComponent<Card>();
 			if (!(component != null) || component.GetAbilityRunPhase() != cardAbilityPhase)
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ignoreHidden)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.m_isHidden)
 				{
 					continue;
@@ -226,25 +137,11 @@ public class CardManagerData : MonoBehaviour
 			}
 			if (component.m_cardType != defaultCardType)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(component);
 			}
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}
@@ -263,32 +160,10 @@ public class CardManagerData : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Card component = gameObject.GetComponent<Card>();
 			if (!(component != null))
 			{
 				continue;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (component.m_cardType != (CardType)cardTypeInt)
 			{
@@ -296,21 +171,11 @@ public class CardManagerData : MonoBehaviour
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				return component;
 			}
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -322,19 +187,6 @@ public class CardManagerData : MonoBehaviour
 		{
 			if (gameObject != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				Card component = gameObject.GetComponent<Card>();
 				if (component.m_cardType == cardType)
 				{
@@ -344,11 +196,6 @@ public class CardManagerData : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			return null;
 		}
 	}
@@ -358,19 +205,6 @@ public class CardManagerData : MonoBehaviour
 		List<GameObject> list = new List<GameObject>();
 		if (cardInfo.PrepCard != CardType.None)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			list.Add(GetCardPrefab(cardInfo.PrepCard));
 		}
 		if (cardInfo.CombatCard != CardType.None)
@@ -379,15 +213,6 @@ public class CardManagerData : MonoBehaviour
 		}
 		if (cardInfo.DashCard != CardType.None)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(GetCardPrefab(cardInfo.DashCard));
 		}
 		return list;
@@ -419,10 +244,6 @@ public class CardManagerData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (phase != AbilityRunPhase.Dash)
 					{
 						while (true)
@@ -461,19 +282,6 @@ public class CardManagerData : MonoBehaviour
 		bool result = false;
 		if (m_phaseToCards.ContainsKey(cardPhase))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_phaseToCards[cardPhase].Contains(cardType);
 		}
 		return result;

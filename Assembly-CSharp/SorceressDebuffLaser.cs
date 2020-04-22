@@ -53,19 +53,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo;
 		if ((bool)abilityMod_SorceressDebuffLaser)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			effectInfo = abilityMod_SorceressDebuffLaser.m_enemyHitEffectOverride.GetModifiedValue(m_enemyHitEffect);
 		}
 		else
@@ -76,15 +63,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if ((bool)abilityMod_SorceressDebuffLaser)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_SorceressDebuffLaser.m_allyHitEffectOverride.GetModifiedValue(m_allyHitEffect);
 		}
 		else
@@ -95,15 +73,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo3;
 		if ((bool)abilityMod_SorceressDebuffLaser)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_SorceressDebuffLaser.m_casterHitEffectOverride.GetModifiedValue(m_casterHitEffect);
 		}
 		else
@@ -124,10 +93,6 @@ public class SorceressDebuffLaser : Ability
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_abilityMod = (abilityMod as AbilityMod_SorceressDebuffLaser);
 					SetupTargeter();
 					return;
@@ -148,19 +113,6 @@ public class SorceressDebuffLaser : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_width;
 		}
 		else
@@ -175,19 +127,6 @@ public class SorceressDebuffLaser : Ability
 		float result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_distance;
 		}
 		else
@@ -202,19 +141,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_enemyHitEffect;
 		}
 		else
@@ -229,19 +155,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_allyHitEffect;
 		}
 		else
@@ -256,19 +169,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (m_abilityMod == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_casterHitEffect;
 		}
 		else
@@ -288,19 +188,6 @@ public class SorceressDebuffLaser : Ability
 		int result = m_enemyHitEffect.m_effectData.m_duration;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_enemyEffectDurationMod.GetModifiedValue(GetEnemyHitEffect().m_effectData.m_duration);
 		}
 		return result;
@@ -321,19 +208,6 @@ public class SorceressDebuffLaser : Ability
 		int result = m_casterHitEffect.m_effectData.m_duration;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_casterEffectDurationMod.GetModifiedValue(GetCasterHitEffect().m_effectData.m_duration);
 		}
 		return result;
@@ -344,19 +218,6 @@ public class SorceressDebuffLaser : Ability
 		int result = 0;
 		if (m_abilityMod != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_abilityMod.m_cooldownReductionOnNumHit.GetModifiedValue(numHit);
 			result += m_abilityMod.m_cooldownFlatReduction;
 			result = Mathf.Clamp(result, 0, m_abilityMod.m_maxCooldownReduction);

@@ -132,26 +132,8 @@ public class GameOverStatTooltip : UITooltipBase
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_DataProviders.Contains(provider))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_DataProviders.Add(provider);
 			}
 			Refresh();
@@ -170,10 +152,6 @@ public class GameOverStatTooltip : UITooltipBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					while (displayIndex >= m_DisplayedStatComparers.Count)
 					{
 						GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
@@ -197,15 +175,6 @@ public class GameOverStatTooltip : UITooltipBase
 							}
 							else
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								arg = m_AboveAverageColorHex;
 							}
 							statDisplay.text = string.Format("{2}: <color=#{0}>{1}%</color>", arg, percentile.Value.ToString("g", CultureInfo.CurrentCulture), localizedString);
@@ -231,10 +200,6 @@ public class GameOverStatTooltip : UITooltipBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_AverageColorHex;
 				}
 			}
@@ -286,10 +251,6 @@ public class GameOverStatTooltip : UITooltipBase
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return "st";
 					}
 				}
@@ -336,10 +297,6 @@ public class GameOverStatTooltip : UITooltipBase
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					while (displayIndex >= m_DisplayedStatComparers.Count)
 					{
 						GameOverStatTooltipInfoLine gameOverStatTooltipInfoLine = Object.Instantiate(m_StatComparisonPrefab);
@@ -385,15 +342,6 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex], true);
 				UIManager.SetGameObjectActive(m_DisplayedStatComparers[displayIndex].m_Percentile, false);
 				m_DisplayedStatComparers[displayIndex].m_StatDisplay.text = errorDisplay;
@@ -429,100 +377,33 @@ public class GameOverStatTooltip : UITooltipBase
 		{
 			if (m_DataProviders[i] == null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_DataProviders.RemoveAt(i);
 				i--;
 				continue;
 			}
 			if (!m_DataProviders[i].GetStatName().IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StatName = m_DataProviders[i].GetStatName();
 			}
 			if (!m_DataProviders[i].GetStatDescription().IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StatDescription = m_DataProviders[i].GetStatDescription();
 			}
 			if (m_DataProviders[i].GetPersonalAverage().HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PersonalAverage = m_DataProviders[i].GetPersonalAverage().Value;
 				flag = true;
 			}
 			if (m_DataProviders[i].GetPreviousSeasonAverage().HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PreviousSeasonAverage = m_DataProviders[i].GetPreviousSeasonAverage().Value;
 			}
 			if (m_DataProviders[i].GetFriendsAverage().HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FriendsAverage = m_DataProviders[i].GetFriendsAverage().Value;
 			}
 			if (m_DataProviders[i].GetPeerMedian().HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SimilarMMRMedian = m_DataProviders[i].GetPeerMedian().Value;
 			}
 			if (m_DataProviders[i].GetFreelancerMedian().HasValue)
@@ -531,28 +412,10 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			if (m_DataProviders[i].GetRoleMedian().HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RoleMedian = m_DataProviders[i].GetRoleMedian().Value;
 			}
 			if (m_DataProviders[i].GetWorldMedian().HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				WorldMedian = m_DataProviders[i].GetWorldMedian().Value;
 			}
 			if (m_DataProviders[i].GetAgainstAllPercentile().HasValue)
@@ -561,15 +424,6 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			if (m_DataProviders[i].GetAgainstFreelancerPercentile().HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AgainstFreelancerPercentile = m_DataProviders[i].GetAgainstFreelancerPercentile().Value;
 			}
 			if (m_DataProviders[i].GetAgainstPeersPercentile().HasValue)
@@ -586,41 +440,14 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			if (m_DataProviders[i].CharacterRole.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_characterRole = m_DataProviders[i].CharacterRole.Value;
 			}
 			if (m_DataProviders[i].CharacterType.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_characterType = m_DataProviders[i].CharacterType.Value;
 			}
 			if (m_DataProviders[i].GetCurrentGameValue().HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = m_DataProviders[i].GetCurrentGameValue().Value;
 			}
 			if (m_DataProviders[i].GetStatUnitType().HasValue)
@@ -629,62 +456,21 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			if (m_DataProviders[i].GetNumTurns().HasValue)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = m_DataProviders[i].GetNumTurns().Value;
 			}
 			if (m_DataProviders[i].GetNumLives().HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = m_DataProviders[i].GetNumLives().Value;
 			}
 			StatDisplayType = m_DataProviders[i].GetStatDisplayType();
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			bool doActive = false;
 			if (statUnitType.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num.HasValue)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerTurn)
 					{
 						if (num2.HasValue)
@@ -696,26 +482,8 @@ public class GameOverStatTooltip : UITooltipBase
 					}
 					else if (statUnitType.Value == GameResultBadgeData.StatDescription.StatUnitType.PerLife)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num3.HasValue)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							doActive = true;
 							m_StatSum.text = string.Format(StringUtil.TR("TotalSum", "Global"), num.Value * (float)num3.Value);
 							m_StatNumDividedBy.text = string.Format(StringUtil.TR("NumberOfLives", "Global"), num3.Value);
@@ -728,15 +496,6 @@ public class GameOverStatTooltip : UITooltipBase
 			object text;
 			if (StatName.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Needs to be authored";
 			}
 			else
@@ -754,11 +513,6 @@ public class GameOverStatTooltip : UITooltipBase
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				if (flag)
 				{
 					UIManager.SetGameObjectActive(m_DisplayedStatComparers[num4], true);
@@ -776,63 +530,18 @@ public class GameOverStatTooltip : UITooltipBase
 				num4 = DisplayCompareAverage(FriendsAverage, null, num4, StringUtil.TR("FriendAverage", "Stats"), LowerIsBetter);
 				if (UIPlayerProgressPanel.Get() != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (StatDisplayType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!UIPlayerProgressPanel.Get().m_statsPanel.HasGlobalStatsToCompareTo)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, num4);
 							goto IL_0c3d;
 						}
 					}
 					if (StatDisplayType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!UIPlayerProgressPanel.Get().m_statsPanel.HasFreelancerStatsToCompareTo)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = DisplayNoStatsAvailable(UIPlayerProgressPanel.Get().m_statsPanel.StatCompareFailure, num4);
 						}
 					}
@@ -851,11 +560,6 @@ public class GameOverStatTooltip : UITooltipBase
 				}
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					RectTransform obj = base.gameObject.transform as RectTransform;
 					Vector2 sizeDelta = (base.gameObject.transform as RectTransform).sizeDelta;
 					obj.sizeDelta = new Vector2(sizeDelta.x, num5);

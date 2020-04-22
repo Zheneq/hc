@@ -36,15 +36,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_durationMod, "Duration", string.Empty, sorceressDamageField.m_duration);
 			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, sorceressDamageField.m_damage);
 			AbilityMod.AddToken(tokens, m_healingMod, "Healing", string.Empty, sorceressDamageField.m_healing);
@@ -64,19 +55,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = (int)sorceressDamageField.m_shape;
 		}
 		else
@@ -92,15 +70,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressDamageField.m_healing;
 		}
 		else
@@ -113,15 +82,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		object baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressDamageField.m_effectOnEnemies;
 		}
 		else

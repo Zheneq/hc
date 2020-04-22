@@ -44,15 +44,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_phaseToButtons[AbilityRunPhase.Prep] = m_prepButtons;
 			m_phaseToButtons[AbilityRunPhase.Dash] = m_dashButtons;
 			m_phaseToButtons[AbilityRunPhase.Combat] = m_combatButtons;
@@ -66,42 +57,15 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		{
 			if (m_prepButtons[i].IsSelected())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_prepButtons[i].SetSelectState(true);
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < m_dashButtons.Length; j++)
 			{
 				if (m_dashButtons[j].IsSelected())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_dashButtons[j].SetSelectState(true);
 				}
 			}
@@ -135,19 +99,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		Init();
 		if (ClientGameManager.Get().WaitingForCardSelectResponse != -1)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastCharType == type)
 			{
 				while (true)
@@ -164,15 +115,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		if (m_phaseToSelectedCard.Count >= 3)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!m_displayedCardInfo.HasEmptySelection() && m_displayedCardInfo.Equals(cards))
 			{
 				while (true)
@@ -197,15 +139,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		bool flag = false;
 		if (ShouldAssignDefault(cards.PrepCard, AbilityRunPhase.Prep))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 			cards.PrepCard = GetDefaultCard(AbilityRunPhase.Prep);
 		}
@@ -216,15 +149,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		if (ShouldAssignDefault(cards.CombatCard, AbilityRunPhase.Combat))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 			cards.CombatCard = GetDefaultCard(AbilityRunPhase.Combat);
 		}
@@ -237,11 +161,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			SaveCardSelection();
 			return;
 		}
@@ -252,19 +171,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		int result;
 		if (cardType > CardType.NoOverride)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = ((!IsCardAllowed(cardType, cardPhase)) ? 1 : 0);
 		}
 		else
@@ -279,67 +185,18 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		bool flag = true;
 		if (CardManagerData.Get() != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!CardManagerData.Get().IsCardTypePossibleInGame(cardType, cardPhase))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get() != null && GameManager.Get().GameplayOverrides != null && GameManager.Get().GameplayOverrides.EnableCards)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num;
 				if (GameManager.Get().GameplayOverrides.IsCardAllowed(cardType))
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = ((CardManagerData.Get().GetCardPrefab(cardType) != null) ? 1 : 0);
 				}
 				else
@@ -357,31 +214,9 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		CardType defaultCardType = CardManagerData.Get().GetDefaultCardType(phase);
 		if (defaultCardType != CardType.None)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (IsCardAllowed(defaultCardType, phase))
 			{
 				return defaultCardType;
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		List<Card> usableCardsByPhase = CardManagerData.Get().GetUsableCardsByPhase(phase);
@@ -422,70 +257,21 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		AbilityRunPhase phase = spellButton.GetPhase();
 		if (m_phaseToButtons.ContainsKey(phase))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UISpellsSelectButton[] array = m_phaseToButtons[phase];
 			foreach (UISpellsSelectButton uISpellsSelectButton in array)
 			{
 				if (uISpellsSelectButton == spellButton)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!uISpellsSelectButton.IsSelected())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (clickedFromUI)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndEquipCatalyst, null);
 						}
 						m_phaseToSelectedCard[phase] = spellButton.GetCard();
 					}
 				}
 				uISpellsSelectButton.SetSelected(uISpellsSelectButton == spellButton);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UICharacterScreen.Get().UpdateCatalystIcons(m_phaseToSelectedCard);
@@ -495,11 +281,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			SaveCardSelection();
 			return;
 		}
@@ -525,15 +306,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -552,93 +324,26 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		{
 			if (!(item == null))
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (i >= array.Length)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					bool flag2 = true;
 					if (GameManager.Get() != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameplayOverrides != null)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = GameManager.Get().GameplayOverrides.IsCardAllowed(item.m_cardType);
 						}
 					}
 					if (flag2)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array[i].Setup(item);
 						if (!m_phaseToSelectedCard.ContainsKey(phase))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (item.m_cardType == selectedCardType)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								m_phaseToSelectedCard[phase] = item;
 								SpellClicked(array[i], false);
@@ -651,26 +356,8 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((AbilityRunPhase)(-1) < phase - 1 && (int)(phase - 1) < m_bottomsButtonIcons.Length)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_bottomsButtonIcons[(int)(phase - 1)], false);
 			}
 		}
@@ -707,19 +394,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		if (m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Combat, out Card value2))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			cards.CombatCard = value2.m_cardType;
 		}
 		else
@@ -728,15 +402,6 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 		}
 		if (m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Dash, out Card value3))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cards.DashCard = value3.m_cardType;
 		}
 		else

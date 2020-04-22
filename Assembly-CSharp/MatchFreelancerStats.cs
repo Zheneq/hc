@@ -218,31 +218,9 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 			}
 			if (!(MMR.Value <= 0f))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (MMR.Value != 1500f)
 				{
 					return MMR;
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return null;
@@ -328,19 +306,6 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 			float? result;
 			if (freelancer3.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = freelancer3.Value;
 			}
 			else
@@ -357,24 +322,10 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 		case 2:
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				int? freelancer4 = Freelancer2;
 				float? result2;
 				if (freelancer4.HasValue)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result2 = freelancer4.Value;
 				}
 				else

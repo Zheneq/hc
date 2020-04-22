@@ -84,15 +84,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_expectedMessageHandlersState == MessageHandlersState.Registered)
 			{
 				while (true)
@@ -161,35 +152,16 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
 					while (true)
 					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
 						ClientGameManager.Get().Client.RegisterHandler(58, MsgStartResolutionPhase);
 						ClientGameManager.Get().Client.RegisterHandler(64, MsgSingleResolutionAction);
 						ClientGameManager.Get().Client.RegisterHandler(63, MsgRunResolutionActionsOutsideResolve);
@@ -211,35 +183,16 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(ClientGameManager.Get() != null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						ClientGameManager.Get().Client.UnregisterHandler(58);
 						ClientGameManager.Get().Client.UnregisterHandler(64);
 						ClientGameManager.Get().Client.UnregisterHandler(63);
@@ -261,15 +214,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentAbilityPhase = AbilityPriority.INVALID;
 			return;
 		}
@@ -284,35 +228,16 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_state == ClientResolutionManagerState.Resolving)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				if (m_state != 0)
 				{
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						m_waitingForAllMessages = true;
 						return;
 					}
@@ -352,15 +277,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return list;
 		}
 	}
@@ -392,30 +308,8 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionActionMessageData current = enumerator.Current;
 				if (current.m_phase == m_currentAbilityPhase && current.m_turnIndex == m_currentTurnIndex)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					list.Add(current);
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (list.Count < m_numResolutionActionsThisPhase)
@@ -424,22 +318,8 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			if (list.Count > m_numResolutionActionsThisPhase)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Somehow got more matching ClientResolutionActionMessageData messages (" + list.Count + ") than expected (" + m_numResolutionActionsThisPhase + ") for this turn (" + m_currentTurnIndex.ToString() + ") / phase (" + m_currentAbilityPhase.ToString() + ").");
 			}
 			m_resolutionActions.Clear();
@@ -453,27 +333,9 @@ public class ClientResolutionManager : MonoBehaviour
 					m_resolutionActions.Add(action);
 					if (action.ReactsToMovement())
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_movementActions.Add(action);
 					}
 					m_receivedMessages.Remove(current2);
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			m_movementActions.Sort();
@@ -492,57 +354,17 @@ public class ClientResolutionManager : MonoBehaviour
 		m_timeOfLastEvent = GameTime.time;
 		if (TheatricsManager.Get() != null && TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Damage)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnCombatPhasePlayDataReceived();
 		}
 		if (m_currentAbilityPhase == AbilityPriority.Combat_Knockback)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(m_resolutionActions);
 		}
 		if (!ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!ClientAbilityResults._000E)
 			{
 				goto IL_00dc;
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>OnReceivedLastResolutionAction</color> received for phase " + m_currentAbilityPhase.ToString() + ".  " + GetActionsDoneExecutingDebugStr());
@@ -552,15 +374,6 @@ public class ClientResolutionManager : MonoBehaviour
 		m_state = ClientResolutionManagerState.Resolving;
 		if ((bool)ClientGameManager.Get())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().IsFastForward)
 			{
 				while (true)
@@ -591,11 +404,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			GameEventManager.NormalMovementStartAgs normalMovementStartAgs = new GameEventManager.NormalMovementStartAgs();
 			normalMovementStartAgs.m_actorsBeingHitMidMovement = GetActorsWithMovementHits();
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.NormalMovementStart, normalMovementStartAgs);
@@ -614,30 +422,8 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!m_tempCombatPhaseDataReceivedActors.Contains(caster))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				caster.GetAbilityData().OnClientCombatPhasePlayDataReceived(m_resolutionActions);
 				m_tempCombatPhaseDataReceivedActors.Add(caster);
 			}
@@ -658,15 +444,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			using (List<ClientResolutionAction>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -707,19 +484,6 @@ public class ClientResolutionManager : MonoBehaviour
 			int num2 = reader.ReadInt32();
 			if (num2 != ActorData.s_invalidActorIndex)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(num2);
 				if (actorData != null)
 				{
@@ -730,11 +494,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			bool flag = false;
 			for (int j = 0; j < list.Count; j++)
 			{
@@ -756,15 +515,6 @@ public class ClientResolutionManager : MonoBehaviour
 						{
 							if (num == m_currentTurnIndex)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityPriority == m_currentAbilityPhase)
 								{
 									while (true)
@@ -824,37 +574,10 @@ public class ClientResolutionManager : MonoBehaviour
 							}
 							if (m_currentTurnIndex <= num)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (m_currentTurnIndex == num)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (m_currentAbilityPhase > abilityPriority)
 									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_0351;
 									}
 								}
@@ -891,10 +614,6 @@ public class ClientResolutionManager : MonoBehaviour
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return false;
 						}
 					}
@@ -924,33 +643,11 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction clientResolutionAction = m_resolutionActions[num];
 				if (clientResolutionAction.ContainsSequenceSource(sequenceSource))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					result = clientResolutionAction.CompletedAction();
 					break;
 				}
 				num++;
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -962,15 +659,6 @@ public class ClientResolutionManager : MonoBehaviour
 		bool flag = false;
 		for (int i = 0; i < m_resolutionActions.Count; i++)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				if (sequenceSourceToIgnore >= 0)
@@ -979,31 +667,9 @@ public class ClientResolutionManager : MonoBehaviour
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 				}
 				flag = m_resolutionActions[i].HasUnexecutedHitOnActor(targetActor);
 				continue;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -1019,30 +685,8 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!clientResolutionAction.CompletedAction())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string message = "Executing Unexecuted Action: " + clientResolutionAction.GetDebugDescription() + clientResolutionAction.GetUnexecutedHitsDebugStr(true) + SequenceManager.Get().GetSequenceHitsSeenDebugString(sequenceSource) + extraInfo;
 				Log.Error(message);
 				clientResolutionAction.ExecuteUnexecutedClientHitsInAction();
@@ -1059,30 +703,8 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (showAsError)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Executing Unexecuted Action: " + clientResolutionAction.GetDebugDescription() + clientResolutionAction.GetUnexecutedHitsDebugStr());
 			}
 			clientResolutionAction.ExecuteUnexecutedClientHitsInAction();
@@ -1110,32 +732,10 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction current = enumerator.Current;
 				if (!current.CompletedAction())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					num++;
 					string text2 = text;
 					text = text2 + "\n\t" + num + ". " + current.GetDebugDescription() + current.GetUnexecutedHitsDebugStr();
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return "Action not done: " + num + text;
@@ -1146,31 +746,9 @@ public class ClientResolutionManager : MonoBehaviour
 		VerifyMessageHandlerState();
 		if (m_state != ClientResolutionManagerState.Resolving)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_state != 0)
 			{
 				return;
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool flag = HitsDoneExecuting();
@@ -1179,15 +757,6 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			if (!(GameFlowData.Get() == null))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((!GameFlowData.Get().IsResolutionPaused()) ? 1 : 0);
 			}
 			else
@@ -1205,15 +774,6 @@ public class ClientResolutionManager : MonoBehaviour
 			if (m_state == ClientResolutionManagerState.Resolving)
 			{
 				goto IL_009f;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!flag2)
@@ -1277,10 +837,6 @@ public class ClientResolutionManager : MonoBehaviour
 					case 0:
 						break;
 					default:
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						return;
 					}
 				}
@@ -1292,19 +848,6 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (curPath.m_moverDiesHere)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			OnActorWillDie(mover);
 		}
 		foreach (ClientResolutionAction movementAction in m_movementActions)
@@ -1317,19 +860,6 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>ClientResolutionPhaseCompleted</color> message sent for phase " + abilityPhase.ToString() + " (failsafe = " + asFailsafe + ").");
 		}
 		using (List<ActorData>.Enumerator enumerator = GameFlowData.Get().m_ownedActorDatas.GetEnumerator())
@@ -1346,15 +876,6 @@ public class ClientResolutionManager : MonoBehaviour
 				networkWriter.FinishMessage();
 				ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
 			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Idle;
@@ -1369,19 +890,6 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.FinishMessage();
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.GetDebugName() + ", KnockedBackActor: " + knockbackedTarget.GetDebugName());
 		}
 		ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
@@ -1407,30 +915,8 @@ public class ClientResolutionManager : MonoBehaviour
 		int result;
 		if (m_state != 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_waitingForAllMessages)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ((m_state != ClientResolutionManagerState.Resolving) ? 1 : 0);
 			}
 			else
@@ -1463,19 +949,6 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction clientResolutionAction = m_resolutionActions[i];
 				clientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		if (!m_actorsToKillOnLastHitExecution.Contains(targetActor))
 		{
@@ -1483,20 +956,10 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (!HasUnexecutedHitsOnActor(targetActor))
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					m_actorsToKillOnLastHitExecution.Remove(targetActor);
 					Vector3 position = targetActor.transform.position;
 					Vector3 currentMovementDir = targetActor.GetActorMovement().GetCurrentMovementDir();
@@ -1521,40 +984,13 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!list.Contains(triggeringMovementActor))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(triggeringMovementActor);
 			}
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
 			return list;
 		}
 	}

@@ -21,15 +21,6 @@ public class SlashCommand_Friend : SlashCommand
 		long friendAccountId;
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (ClientGameManager.Get() == null)
 			{
 				return;
@@ -46,15 +37,6 @@ public class SlashCommand_Friend : SlashCommand
 			friendAccountId = 0L;
 			if (array[0] == StringUtil.TR("AddFriend", "SlashCommand"))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				friendOperation = FriendOperation.Add;
 				message = StringUtil.TR("AddFriendRequest", "SlashCommand");
 			}
@@ -70,43 +52,16 @@ public class SlashCommand_Friend : SlashCommand
 			}
 			else if (array[0] == StringUtil.TR("RejectFriend", "SlashCommand"))
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				friendOperation = FriendOperation.Reject;
 				message = StringUtil.TR("FriendRequestRejected", "SlashCommand");
 			}
 			else if (array[0] == StringUtil.TR("NoteFriend", "SlashCommand"))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				friendOperation = FriendOperation.Note;
 				message = StringUtil.TR("NoteRecorded", "SlashCommand");
 				for (int i = 2; i < array.Length; i++)
 				{
 					strData = strData + array[i] + " ";
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				strData = strData.Trim();
 				using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().FriendList.Friends.Values.GetEnumerator())
@@ -116,15 +71,6 @@ public class SlashCommand_Friend : SlashCommand
 						FriendInfo current = enumerator.Current;
 						if (current.FriendHandle.StartsWith(text))
 						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (friendAccountId > 0)
 							{
 								while (true)
@@ -145,15 +91,6 @@ public class SlashCommand_Friend : SlashCommand
 							}
 							friendAccountId = current.FriendAccountId;
 						}
-					}
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (friendAccountId == 0)
@@ -189,11 +126,6 @@ public class SlashCommand_Friend : SlashCommand
 			}
 			while (true)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
 				ClientGameManager.Get().UpdateFriend(text, friendAccountId, friendOperation, strData, delegate(FriendUpdateResponse r)
 				{
 					if (!r.Success)
@@ -204,34 +136,12 @@ public class SlashCommand_Friend : SlashCommand
 						}
 						else if (r.ErrorMessage.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 						}
 						message = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
 					}
 					else if (friendOperation == FriendOperation.Note)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (FriendInfo value in ClientGameManager.Get().FriendList.Friends.Values)
 						{
 							if (value.FriendAccountId == friendAccountId)

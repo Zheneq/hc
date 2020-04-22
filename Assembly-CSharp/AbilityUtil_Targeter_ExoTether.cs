@@ -22,10 +22,6 @@ public class AbilityUtil_Targeter_ExoTether : AbilityUtil_Targeter_Laser
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredLaserTargetingInfo.width;
 				}
 			}
@@ -44,10 +40,6 @@ public class AbilityUtil_Targeter_ExoTether : AbilityUtil_Targeter_Laser
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredLaserTargetingInfo.range;
 				}
 			}
@@ -66,10 +58,6 @@ public class AbilityUtil_Targeter_ExoTether : AbilityUtil_Targeter_Laser
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredLaserTargetingInfo.penetrateLos;
 				}
 			}
@@ -88,10 +76,6 @@ public class AbilityUtil_Targeter_ExoTether : AbilityUtil_Targeter_Laser
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_anchoredLaserTargetingInfo.maxTargets;
 				}
 			}

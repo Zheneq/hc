@@ -47,15 +47,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			AbilityMod.AddToken(tokens, m_laserLengthMod, "LaserLength", string.Empty, nekoHomingDisc.m_laserLength);
 			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nekoHomingDisc.m_laserWidth);
 			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, nekoHomingDisc.m_maxTargets);
@@ -81,19 +72,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = nekoHomingDisc.m_laserLength;
 		}
 		else
@@ -106,15 +84,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nekoHomingDisc.m_laserWidth;
 		}
 		else
@@ -127,15 +96,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nekoHomingDisc.m_maxTargets;
 		}
 		else
@@ -148,15 +108,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nekoHomingDisc.m_discReturnEndRadius;
 		}
 		else
@@ -169,15 +120,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		object baseVal5;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = nekoHomingDisc.m_onCastEnemyHitEffect;
 		}
 		else
@@ -190,15 +132,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nekoHomingDisc.m_targetDamage;
 		}
 		else
@@ -211,15 +144,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nekoHomingDisc.m_returnTripDamage;
 		}
 		else
@@ -232,15 +156,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = (nekoHomingDisc.m_returnTripIgnoreCover ? 1 : 0);
 		}
 		else
@@ -253,15 +168,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = nekoHomingDisc.m_extraReturnDamagePerDist;
 		}
 		else
@@ -275,15 +181,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = nekoHomingDisc.m_cdrIfHitNoOneOnCast;
 		}
 		else

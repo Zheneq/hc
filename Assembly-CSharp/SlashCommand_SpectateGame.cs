@@ -20,10 +20,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					TextConsole.Get().Write(StringUtil.TR("FriendGameSpectatingNotAvailable", "Frontend"));
 					return;
 				}
@@ -31,15 +27,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 		}
 		if (_003C_003Ef__am_0024cache0 == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_003C_003Ef__am_0024cache0 = delegate(GameSpectatorResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
@@ -53,10 +40,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							if (response.LocalizedFailure != null)
 							{
 								message.Text = response.LocalizedFailure.ToString();
@@ -79,15 +62,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 		Action<GameSpectatorResponse> onResponseCallback = _003C_003Ef__am_0024cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager.Get().SpectateGame(arguments, onResponseCallback);
@@ -101,15 +75,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 			{
 				if (!enumerator.MoveNext())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				KeyValuePair<long, FriendInfo> current = enumerator.Current;

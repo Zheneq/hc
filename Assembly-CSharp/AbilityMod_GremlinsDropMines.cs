@@ -27,25 +27,11 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GremlinsLandMineInfoComponent component = gremlinsDropMines.GetComponent<GremlinsLandMineInfoComponent>();
 			if (component != null)
 			{
 				while (true)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					AbilityMod.AddToken(tokens, m_mineDamageMod, "MineDamage", string.Empty, component.m_damageAmount);
 					AbilityMod.AddToken(tokens, m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration);
 					AbilityMod.AddToken_EffectMod(tokens, m_effectOnEnemyOverride, "EnemyHitEffect", component.m_enemyHitEffect);
@@ -68,19 +54,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			baseVal = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
@@ -93,15 +66,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
@@ -121,15 +85,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (abilityAsBase.GetType() == GetTargetAbilityType())
 			{
 				GremlinsDropMines gremlinsDropMines = abilityAsBase as GremlinsDropMines;
@@ -138,11 +93,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						numbers.Add(m_mineDamageMod.GetModifiedValue(component.m_damageAmount));
 						StandardEffectInfo modifiedValue = m_effectOnEnemyOverride.GetModifiedValue(component.m_enemyHitEffect);
 						AbilityModHelper.AddTooltipNumbersFromEffect(modifiedValue, numbers);

@@ -39,30 +39,8 @@ public class OnHitEffecField
 		int num;
 		if (diff)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (other != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = ((other.m_effect != null) ? 1 : 0);
 				goto IL_005a;
 			}
@@ -80,61 +58,21 @@ public class OnHitEffecField
 		int num;
 		if (m_effect != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_effect.m_applyEffect)
 			{
 				result = "- Effect to Apply -\n";
 				if (!string.IsNullOrEmpty(m_identifier))
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
 				}
 				result = result + "Conditions:\n" + m_conditions._001D("    ");
 				if (m_skipRemainingEffectEntriesIfMatch)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = result + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white") + "\n";
 				}
 				result += "Effect Data:\n";
 				if (diff)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (other != null)
 					{
 						num = ((other.m_effect != null) ? 1 : 0);
@@ -155,15 +93,6 @@ public class OnHitEffecField
 		object other2;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			other2 = other.m_effect.m_effectData;
 		}
 		else

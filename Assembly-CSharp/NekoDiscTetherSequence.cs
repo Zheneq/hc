@@ -47,37 +47,18 @@ public class NekoDiscTetherSequence : LineSequence
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(m_discAtStartFxInst == null))
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				m_discAtStartFxInst = InstantiateFX(m_discAtStartFxPrefab);
 				m_discFofSelector = m_discAtStartFxInst.GetComponent<FriendlyEnemyVFXSelector>();
 				if (m_enlargeDiscFxPrefab != null && m_enlargeDiscInst == null)
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						m_enlargeDiscInst = InstantiateFX(m_enlargeDiscFxPrefab);
 						m_enlargeDiscFofSelector = m_enlargeDiscInst.GetComponent<FriendlyEnemyVFXSelector>();
 						return;
@@ -93,19 +74,6 @@ public class NekoDiscTetherSequence : LineSequence
 		base.DestroyFx();
 		if (m_discAtStartFxInst != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			Object.Destroy(m_discAtStartFxInst);
 			m_discAtStartFxInst = null;
 			m_discFofSelector = null;
@@ -116,11 +84,6 @@ public class NekoDiscTetherSequence : LineSequence
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			Object.Destroy(m_enlargeDiscInst);
 			m_enlargeDiscInst = null;
 			m_enlargeDiscFofSelector = null;
@@ -140,19 +103,6 @@ public class NekoDiscTetherSequence : LineSequence
 		{
 			if (base.Target.GetCurrentBoardSquare() != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_fixedEndPos = base.Target.GetCurrentBoardSquare().ToVector3();
 			}
 			else if (base.Target.ClientLastKnownPosSquare != null)
@@ -172,30 +122,8 @@ public class NekoDiscTetherSequence : LineSequence
 		Vector3 vector = base.GetLineStartPos();
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Caster != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster.IsDead())
 				{
 					if (base.Caster.GetMostResetDeathSquare() != null)
@@ -205,42 +133,15 @@ public class NekoDiscTetherSequence : LineSequence
 				}
 				else if (base.Caster.IsModelAnimatorDisabled())
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = m_lastStartPos;
 				}
 				else if (!base.Caster.IsVisibleToClient())
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 lineEndPos = GetLineEndPos();
 					Vector3 a = base.Caster.transform.position - lineEndPos;
 					a.y = 0f;
 					if (a.magnitude > 1E-05f)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						a.Normalize();
 					}
 					else
@@ -286,52 +187,12 @@ public class NekoDiscTetherSequence : LineSequence
 		bool flag = true;
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (base.Caster != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!base.Caster.IsDead())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!base.Caster.IsVisibleToClient())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 				}
@@ -341,15 +202,6 @@ public class NekoDiscTetherSequence : LineSequence
 		m_discAtStartFxInst.transform.position = lastStartPos;
 		if (m_discFofSelector != null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_discFofSelector.Setup(base.Caster.GetTeam());
 		}
 		m_discAtStartFxInst.SetActiveIfNeeded(flag);
@@ -359,24 +211,10 @@ public class NekoDiscTetherSequence : LineSequence
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			bool desiredActive = ShouldShowEnlargeDiscFx(flag);
 			m_enlargeDiscInst.transform.position = lastStartPos;
 			if (m_enlargeDiscFofSelector != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_enlargeDiscFofSelector.Setup(base.Caster.GetTeam());
 			}
 			m_enlargeDiscInst.SetActiveIfNeeded(desiredActive);
@@ -388,30 +226,8 @@ public class NekoDiscTetherSequence : LineSequence
 	{
 		if (base.AgeInTurns > 0)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (discVisible)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_syncComp != null && GameFlowData.Get() != null)
 				{
 					while (true)

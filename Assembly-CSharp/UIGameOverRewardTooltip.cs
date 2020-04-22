@@ -79,33 +79,11 @@ public class UIGameOverRewardTooltip : UITooltipBase
 	{
 		if (tooltipType == RewardTooltipType.RankedPointsAmount)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_baseTypeLabel.text = StringUtil.TR("BaseRankedPoints", "GameOver");
 			m_totalTypeLabel.text = StringUtil.TR("TotalRankedPoints", "GameOver");
 		}
 		else if (tooltipType == RewardTooltipType.ISOAmount)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_baseTypeLabel.text = StringUtil.TR("BaseISO", "GameOver");
 			m_totalTypeLabel.text = StringUtil.TR("TotalISO", "GameOver");
 		}
@@ -249,19 +227,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		bool doActive12 = true;
 		if (tooltipType == RewardTooltipType.AccountInfo)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			flag = false;
 			doActive3 = false;
 			doActive8 = false;
@@ -293,15 +258,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		{
 			if (tooltipType != RewardTooltipType.ISOAmount)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipType != RewardTooltipType.FreelancerCurrencyAmount)
 				{
 					if (tooltipType == RewardTooltipType.FactionInfo)
@@ -334,15 +290,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		int doActive13;
 		if (flag)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive13 = (m_freelancerExpBonus ? 1 : 0);
 		}
 		else
@@ -379,52 +326,20 @@ public class UIGameOverRewardTooltip : UITooltipBase
 			}
 			if (!characterResourceLink.m_allowForPlayers)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			}
 			num2++;
 			if (!hasPurchasedGame)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().GetPlayerCharacterData(characterResourceLink.m_characterType).CharacterComponent.Unlocked)
 				{
 					continue;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num++;
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			m_freelancerOwnedLabel.text = string.Format(StringUtil.TR("FreelancersOwned", "HUDScene"), num, num2);
 			return;
 		}

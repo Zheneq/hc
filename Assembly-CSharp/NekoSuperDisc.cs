@@ -92,19 +92,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_superDiscActive)
 			{
 				return 0;
@@ -117,19 +104,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_superDiscActive)
 			{
 				return true;
@@ -142,19 +116,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_superDiscActive)
 			{
 				while (true)
@@ -176,19 +137,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_superDiscActive)
 			{
 				while (true)
@@ -215,19 +163,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null && m_syncComp.m_superDiscActive)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (animIndex == (int)base.GetActionAnimType())
 			{
 				while (true)
@@ -249,19 +184,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_syncComp.m_superDiscActive)
 			{
 				while (true)

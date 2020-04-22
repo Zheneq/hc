@@ -24,19 +24,6 @@ internal class SteamManager : MonoBehaviour
 			SteamManager steamManager = s_instance;
 			if ((object)steamManager == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				steamManager = new GameObject("SteamManager").AddComponent<SteamManager>();
 			}
 			return steamManager;
@@ -50,19 +37,6 @@ internal class SteamManager : MonoBehaviour
 			int result;
 			if (Instance.m_usingSteam && s_instance != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				result = (s_instance.m_bInitialized ? 1 : 0);
 			}
 			else
@@ -91,10 +65,6 @@ internal class SteamManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UnityEngine.Object.Destroy(base.gameObject);
 					return;
 				}
@@ -107,15 +77,6 @@ internal class SteamManager : MonoBehaviour
 		{
 			if (commandLineArgs[i].EqualsIgnoreCase("-Steam"))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_usingSteam = true;
 				break;
 			}
@@ -136,28 +97,10 @@ internal class SteamManager : MonoBehaviour
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		if (!Packsize.Test())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("[Steamworks.NET] Packsize Test returned false, the wrong version of Steamworks.NET is being run in this platform.", this);
 		}
 		if (!DllCheck.Test())
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("[Steamworks.NET] DllCheck Test returned false, One or more of the Steamworks binaries seems to be the wrong version.", this);
 		}
 		if (!m_usingSteam)
@@ -201,15 +144,6 @@ internal class SteamManager : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_SteamAPIWarningMessageHook = SteamAPIDebugTextHook;
 			SteamClient.SetWarningMessageHook(m_SteamAPIWarningMessageHook);
 			return;
@@ -227,10 +161,6 @@ internal class SteamManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}
@@ -263,10 +193,6 @@ internal class SteamManager : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return;
 				}
 			}

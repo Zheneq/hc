@@ -124,47 +124,16 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					Close();
 					UITakeoverManager.Get().ShowPurchaseGameTakeover();
 					bool flag = false;
 					if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameManager gameManager = GameManager.Get();
 						if (gameManager != null)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameManager.GameInfo != null)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameManager.GameInfo.GameConfig != null)
 								{
 									flag = gameManager.GameInfo.GameStatus.IsActiveStatus();
@@ -218,29 +187,11 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, processingPurchase);
 			UIManager.SetGameObjectActive(m_disableCloseBtn, processingPurchase);
 			UIManager.SetGameObjectActive(m_processingPurchaseContainer, processingPurchase);
 			if (processingPurchase)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_processStartTime = Time.time;
 			}
 			m_processingPayment = processingPurchase;
@@ -248,11 +199,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			{
 				while (true)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
 					UIManager.SetGameObjectActive(m_closeBtn.m_hoverImage, !m_processingPayment);
 					UIManager.SetGameObjectActive(m_closeBtn.m_pressedImage, !m_processingPayment);
 					m_closeBtn.SetClickable(!m_processingPayment);
@@ -271,24 +217,10 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_openedURL)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					m_openedURL = false;
 					ClientGameManager.Get().RequestPaymentMethods(UIStorePanel.Get().RefreshPayments);
 					return;
@@ -310,10 +242,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!UIStorePanel.Get().IsWaitingForSteamPurchaseResponse)
 					{
 						while (true)
@@ -365,20 +293,10 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			if (Time.time - m_processStartTime > 30f)
 			{
 				while (true)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					TimeOutPurchase();
 					UIStorePanel.Get().TimeOutPurchase();
 					return;
@@ -396,15 +314,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClearOldPaymentList();
 			HandleRequestPaymentResponse(response);
 			return;
@@ -422,52 +331,12 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		PaymentMethod paymentMethod = null;
 		if (response != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (response.Success && response.PaymentMethodList != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!response.PaymentMethodList.IsError)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (response.PaymentMethodList.PaymentMethods != null)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIStorePaymentMethodDropdownItem uIStorePaymentMethodDropdownItem;
 						for (int j = 0; j < response.PaymentMethodList.PaymentMethods.Count; m_dropdownItems.Add(uIStorePaymentMethodDropdownItem), i++, j++)
 						{
@@ -481,15 +350,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 							uIStorePaymentMethodDropdownItem.m_hitbox.callback = PaymentItemSelected;
 							if (paymentMethod2.isDefault)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (paymentMethod2.specificType != "Steam Wallet")
 								{
 									paymentMethod = paymentMethod2;
@@ -500,26 +360,8 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 							uIStorePaymentMethodDropdownItem.SetText(paymentMethod2.specificType + " " + paymentMethod2.maskedPaymentInfo);
 							if (paymentMethod2.specificType == "Steam Wallet")
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								paymentMethod = paymentMethod2;
 							}
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (!SteamManager.UsingSteam)
 						{
@@ -533,29 +375,11 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 							m_dropdownItems.Add(uIStorePaymentMethodDropdownItem2);
 							if (m_addOrUpdatePaymentInfoLabel != null)
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(m_addOrUpdatePaymentInfoLabel, true);
 							}
 						}
 						else if (m_addOrUpdatePaymentInfoLabel != null)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(m_addOrUpdatePaymentInfoLabel, false);
 						}
 					}
@@ -567,28 +391,10 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		string dropDownText = StringUtil.TR("None", "Global");
 		if (paymentMethod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			m_selectedPaymentMethod = paymentMethod;
 			string str = string.Empty;
 			if (m_selectedPaymentMethod.isDefault && m_selectedPaymentMethod.generalType != "Steam Wallet")
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = StringUtil.TR("DefaultPaymentMethod", "Store");
 			}
 			dropDownText = m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str;
@@ -605,15 +411,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -628,29 +425,11 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_selectedPaymentMethod = m_dropdownItems[i].GetPaymentMethod();
 				m_dropdownItems[i].m_hitbox.ForceSetPointerEntered(false);
 				string str = string.Empty;
 				if (m_selectedPaymentMethod.isDefault && m_selectedPaymentMethod.generalType != "Steam Wallet")
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = StringUtil.TR("DefaultPaymentMethod", "Store");
 				}
 				SetDropDownText(m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str);
@@ -690,19 +469,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		object term;
 		if (hasPurchasedGame)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			term = "PurchaseUpgrade";
 		}
 		else
@@ -714,15 +480,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 		float originalPrice;
 		if (hasPurchasedGame)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int highestPurchasedGamePack = ClientGameManager.Get().HighestPurchasedGamePack;
 			GamePackUpgrade gamePackUpgrade = null;
 			int num = 0;
@@ -732,43 +489,16 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				{
 					if (m_packReference.Upgrades[num].AlreadyOwnedGamePack == highestPurchasedGamePack)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gamePackUpgrade = m_packReference.Upgrades[num];
 						break;
 					}
 					num++;
 					continue;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (gamePackUpgrade == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("No upgrade path specified from " + highestPurchasedGamePack + " to " + m_packReference.Index);
 				num2 = 0f;
 			}

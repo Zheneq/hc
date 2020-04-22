@@ -32,25 +32,12 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 					break;
 				default:
 				{
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					ClearActorsInRange();
 					SetShowArcToShape(false);
 					Vector3 worldPositionForLoS = Board.Get().GetBoardSquareSafe(m_bombAbility.GetPlacedBomb()).GetWorldPositionForLoS();
 					Vector3 vector = currentTarget.FreePos - worldPositionForLoS;
 					if (m_lockToCardinalDirs)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
 					}
 					if (m_highlights != null && m_highlights.Count < 1)

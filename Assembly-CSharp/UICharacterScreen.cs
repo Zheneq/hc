@@ -93,41 +93,10 @@ public class UICharacterScreen : UIScene
 				GameManager gameManager = GameManager.Get();
 				if (gameManager != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (gameManager.GameStatus != GameStatus.Stopped)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameManager.GameStatus != 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameManager.GameInfo != null)
 							{
 								return gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots);
@@ -154,15 +123,6 @@ public class UICharacterScreen : UIScene
 							}
 						}
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return false;
 			}
@@ -174,19 +134,6 @@ public class UICharacterScreen : UIScene
 			{
 				if (CustomGamePartyListVisible.HasValue)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (CustomGamePartyListVisible.Value)
 					{
 						while (true)
@@ -218,10 +165,6 @@ public class UICharacterScreen : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return CustomGamePartyListHidden.Value;
 						}
 					}
@@ -236,19 +179,6 @@ public class UICharacterScreen : UIScene
 			{
 				if (UIGameSettingsPanel.Get() != null)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (UIGameSettingsPanel.Get().m_lastVisible)
 					{
 						while (true)
@@ -286,28 +216,10 @@ public class UICharacterScreen : UIScene
 			{
 				if (BotDifficultyViewTypeToDisplay == BotDifficultyViewType.Advanced)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (ClientRequestedAllyBotDifficulty.HasValue)
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							return ClientRequestedAllyBotDifficulty.Value;
 						}
 					}
@@ -322,11 +234,6 @@ public class UICharacterScreen : UIScene
 					{
 						while (true)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
 							return 3;
 						}
 					}
@@ -334,11 +241,6 @@ public class UICharacterScreen : UIScene
 					{
 						while (true)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
 							return 2;
 						}
 					}
@@ -366,19 +268,6 @@ public class UICharacterScreen : UIScene
 			{
 				if (BotDifficultyViewTypeToDisplay == BotDifficultyViewType.Advanced)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (ClientRequestedEnemyBotDifficulty.HasValue)
 					{
 						return ClientRequestedEnemyBotDifficulty.Value;
@@ -438,19 +327,6 @@ public class UICharacterScreen : UIScene
 						KeyValuePair<ushort, GameSubType> current = enumerator.Current;
 						if (current.Value.HasMod(GameSubType.SubTypeMods.Exclusive))
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							num = (ushort)(num | current.Key);
 						}
 					}
@@ -482,10 +358,6 @@ public class UICharacterScreen : UIScene
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameTypeToDisplay);
 							Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
 							Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
@@ -496,15 +368,6 @@ public class UICharacterScreen : UIScene
 									KeyValuePair<ushort, GameSubType> current = enumerator.Current;
 									if (current.Value.HasMod(GameSubType.SubTypeMods.ShowWithAITeammates))
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										dictionary2[current.Key] = current.Value;
 									}
 									else
@@ -512,28 +375,10 @@ public class UICharacterScreen : UIScene
 										dictionary[current.Key] = current.Value;
 									}
 								}
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							Dictionary<ushort, GameSubType> result;
 							if (DisplayAllyBotTeammates)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = dictionary2;
 							}
 							else
@@ -562,10 +407,6 @@ public class UICharacterScreen : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return false;
 						}
 					}
@@ -573,15 +414,6 @@ public class UICharacterScreen : UIScene
 				int result;
 				if (!ValidGameSubTypes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = ((ValidGameSubTypes.Count > 1) ? 1 : 0);
 				}
 				else
@@ -603,19 +435,6 @@ public class UICharacterScreen : UIScene
 					int? obj;
 					if (selectedSubTypeMask.HasValue)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (1 == 0)
-						{
-							/*OpCode not supported: LdMemberToken*/;
-						}
 						obj = selectedSubTypeMask.Value;
 					}
 					else
@@ -626,15 +445,6 @@ public class UICharacterScreen : UIScene
 					int? obj2;
 					if (num.HasValue)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj2 = (validGameSubType.Key & num.GetValueOrDefault());
 					}
 					else
@@ -645,15 +455,6 @@ public class UICharacterScreen : UIScene
 					int num3;
 					if (num2.GetValueOrDefault() == 0)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = ((!num2.HasValue) ? 1 : 0);
 					}
 					else
@@ -698,10 +499,6 @@ public class UICharacterScreen : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return ClientRequestedSimpleBotSettingValue.Value;
 						}
 					}
@@ -720,30 +517,8 @@ public class UICharacterScreen : UIScene
 			{
 				if (!SceneStateParameters.IsInGameLobby)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (!SceneStateParameters.IsInQueue)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (SceneStateParameters.IsGroupSubordinate)
 						{
 							return BotDifficultyViewType.Advanced;
@@ -779,19 +554,6 @@ public class UICharacterScreen : UIScene
 				GameType gameType;
 				if (ClientRequestedGameType.HasValue)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					GameType? clientRequestedGameType = ClientRequestedGameType;
 					gameType = clientRequestedGameType.Value;
 				}
@@ -800,15 +562,6 @@ public class UICharacterScreen : UIScene
 					object obj;
 					if (GameManager.Get() != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = GameManager.Get().GameConfig;
 					}
 					else
@@ -818,15 +571,6 @@ public class UICharacterScreen : UIScene
 					LobbyGameConfig lobbyGameConfig = (LobbyGameConfig)obj;
 					if (SceneStateParameters.IsInGameLobby && lobbyGameConfig != null)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameType = lobbyGameConfig.GameType;
 					}
 					else
@@ -834,15 +578,6 @@ public class UICharacterScreen : UIScene
 						if (ClientGameManager.Get().GroupInfo == null)
 						{
 							return GameType.None;
-						}
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						gameType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
 					}
@@ -852,37 +587,10 @@ public class UICharacterScreen : UIScene
 				List<MatchmakingQueueConfig.QueueEntryExperience> blockedExperienceEntries = clientGameManager.GameTypeAvailabilies[gameType].BlockedExperienceEntries;
 				if (blockedExperienceAlternativeGameType != GameType.None)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (clientGameManager.GetPlayerAccountData().ExperienceComponent.Matches < clientGameManager.NewPlayerPvPQueueDuration)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (blockedExperienceEntries != null)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (blockedExperienceEntries.Contains(MatchmakingQueueConfig.QueueEntryExperience.NewPlayer))
 							{
 								while (true)
@@ -916,10 +624,6 @@ public class UICharacterScreen : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return GameWideData.Get().GetCharacterResourceLink(CharacterTypeToDisplay);
 						}
 					}
@@ -934,19 +638,6 @@ public class UICharacterScreen : UIScene
 			{
 				if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if (SceneStateParameters.SelectedCharacterFromGameInfo.IsValidForHumanPreGameSelection())
 					{
 						while (true)
@@ -1023,36 +714,14 @@ public class UICharacterScreen : UIScene
 						case 0:
 							break;
 						default:
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							return ClientSelectedVisualInfo.Value;
 						}
 					}
 				}
 				if (ClientGameManager.Get() != null)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GroupInfo != null)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().GroupInfo.ChararacterInfo != null)
 						{
 							while (true)
@@ -1258,15 +927,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= OnLobbyGameplayOverridesUpdated;
 			ClientGameManager.Get().OnGroupUpdateNotification -= RefreshGameSubTypes;
 			return;
@@ -1297,19 +957,6 @@ public class UICharacterScreen : UIScene
 			m_filterButtons.Add(uICharacterSelectFactionFilter);
 			if (groupFilter.Characters != null)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list = list.Except(groupFilter.Characters).ToList();
 			}
 			uICharacterSelectFactionFilter.m_btn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -1320,24 +967,10 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
 			m_notOnAFactionFilter.Setup(list, ClickedOnFactionFilter);
 			UITooltipHoverObject component = m_notOnAFactionFilter.m_btn.spriteController.GetComponent<UITooltipHoverObject>();
 			if (_003C_003Ef__am_0024cache0 == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
 				{
 					(tooltip as UISimpleTooltip).Setup(StringUtil.TR("Wildcard", "Global"));
@@ -1358,30 +991,8 @@ public class UICharacterScreen : UIScene
 				UICharacterPanelSelectButton current = enumerator.Current;
 				if (!m_SelectWillFillBtns.Contains(current))
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UnityEngine.Object.Destroy(current.gameObject);
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		CharacterSelectButtons.Clear();
@@ -1416,15 +1027,6 @@ public class UICharacterScreen : UIScene
 										{
 											if (array[i] == CharacterType.None)
 											{
-												while (true)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 											}
 											else
 											{
@@ -1432,15 +1034,6 @@ public class UICharacterScreen : UIScene
 												if (flag)
 												{
 													goto IL_0131;
-												}
-												while (true)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 												if (!characterResourceLink.m_isHidden)
 												{
@@ -1452,28 +1045,10 @@ public class UICharacterScreen : UIScene
 										IL_0131:
 										if (characterResourceLink.m_characterRole == CharacterRole.Assassin)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											list.Add(array[i]);
 										}
 										if (characterResourceLink.m_characterRole == CharacterRole.Support)
 										{
-											while (true)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											list3.Add(array[i]);
 										}
 										if (characterResourceLink.m_characterRole == CharacterRole.Tank)
@@ -1506,11 +1081,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
 			list.Sort(CompareCharacterTypeName);
 			list2.Sort(CompareCharacterTypeName);
 			list3.Sort(CompareCharacterTypeName);
@@ -1531,11 +1101,6 @@ public class UICharacterScreen : UIScene
 			}
 			while (true)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
 				num4 = 0;
 				for (int k = 0; k < list2.Count; k++)
 				{
@@ -1550,11 +1115,6 @@ public class UICharacterScreen : UIScene
 				}
 				while (true)
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
 					num4 = 0;
 					for (int l = 0; l < list3.Count; l++)
 					{
@@ -1562,15 +1122,6 @@ public class UICharacterScreen : UIScene
 						uICharacterPanelSelectButton3.m_characterType = list3[l];
 						if (l - num4 * num3 >= num3)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4++;
 						}
 						UIManager.ReparentTransform(uICharacterPanelSelectButton3.gameObject.transform, m_SupportRows[num4].gameObject.transform);
@@ -1578,22 +1129,8 @@ public class UICharacterScreen : UIScene
 					}
 					while (true)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
 						if (!m_SelectWillFillBtns.IsNullOrEmpty())
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UICharacterPanelSelectButton[] selectWillFillBtns = m_SelectWillFillBtns;
 							foreach (UICharacterPanelSelectButton item in selectWillFillBtns)
 							{
@@ -1620,19 +1157,6 @@ public class UICharacterScreen : UIScene
 	{
 		if (m_currentState == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentState = new CharacterSelectSceneStateParameters();
 		}
 		return m_currentState;
@@ -1642,19 +1166,6 @@ public class UICharacterScreen : UIScene
 	{
 		if (m_currentState == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentState = new CharacterSelectSceneStateParameters();
 		}
 		return m_currentState;
@@ -1674,19 +1185,6 @@ public class UICharacterScreen : UIScene
 				KeyValuePair<int, RebuildDelegate> current = enumerator.Current;
 				if ((current.Key & RefreshBits) != 0)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					current.Value();
 				}
 			}
@@ -1709,19 +1207,6 @@ public class UICharacterScreen : UIScene
 		ushort num = 0;
 		if (characterSelectSceneStateParameters != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (characterSelectSceneStateParameters.ClientSelectedCharacter.HasValue)
 			{
 				m_currentState.ClientSelectedCharacter = characterSelectSceneStateParameters.ClientSelectedCharacter;
@@ -1731,56 +1216,20 @@ public class UICharacterScreen : UIScene
 			}
 			if (characterSelectSceneStateParameters.SideButtonsVisible.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.SideButtonsVisible = characterSelectSceneStateParameters.SideButtonsVisible;
 				num = (ushort)(num | 1);
 			}
 			if (characterSelectSceneStateParameters.SideButtonsClickable.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.SideButtonsClickable = characterSelectSceneStateParameters.SideButtonsClickable;
 				num = (ushort)(num | 2);
 			}
 			if (characterSelectSceneStateParameters.ClientSelectedVisualInfo.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.ClientSelectedVisualInfo = characterSelectSceneStateParameters.ClientSelectedVisualInfo;
 			}
 			if (characterSelectSceneStateParameters.ClientRequestToServerSelectCharacter.HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.ClientRequestToServerSelectCharacter = characterSelectSceneStateParameters.ClientRequestToServerSelectCharacter;
 				num = (ushort)(num | 4);
 				num = (ushort)(num | 8);
@@ -1792,15 +1241,6 @@ public class UICharacterScreen : UIScene
 			}
 			if (characterSelectSceneStateParameters.ClientRequestedGameType.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.ClientRequestedGameType = characterSelectSceneStateParameters.ClientRequestedGameType;
 				num = (ushort)(num | 0x20);
 				num = (ushort)(num | 0x40);
@@ -1809,72 +1249,27 @@ public class UICharacterScreen : UIScene
 			}
 			if (characterSelectSceneStateParameters.BotDifficultyView.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.BotDifficultyView = characterSelectSceneStateParameters.BotDifficultyView;
 				num = (ushort)(num | 0x80);
 			}
 			if (characterSelectSceneStateParameters.AllyBotTeammatesSelected.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.AllyBotTeammatesSelected = characterSelectSceneStateParameters.AllyBotTeammatesSelected;
 				num = (ushort)(num | 0x80);
 				num = (ushort)(num | 0x100);
 			}
 			if (characterSelectSceneStateParameters.AllyBotTeammatesClickable.HasValue)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.AllyBotTeammatesClickable = characterSelectSceneStateParameters.AllyBotTeammatesClickable;
 				num = (ushort)(num | 0x80);
 			}
 			if (characterSelectSceneStateParameters.BotsCanTauntCheckboxEnabled.HasValue)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.BotsCanTauntCheckboxEnabled = characterSelectSceneStateParameters.BotsCanTauntCheckboxEnabled;
 				num = (ushort)(num | 0x80);
 			}
 			if (characterSelectSceneStateParameters.SimpleBotSetting.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.SimpleBotSetting = characterSelectSceneStateParameters.SimpleBotSetting;
 				num = (ushort)(num | 0x80);
 			}
@@ -1885,44 +1280,17 @@ public class UICharacterScreen : UIScene
 			}
 			if (characterSelectSceneStateParameters.ClientRequestAllyBotTeammates.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.ClientRequestAllyBotTeammates = characterSelectSceneStateParameters.ClientRequestAllyBotTeammates;
 				num = (ushort)(num | 0x80);
 				num = (ushort)(num | 0x100);
 			}
 			if (characterSelectSceneStateParameters.SelectedAllyBotDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.SelectedAllyBotDifficulty = characterSelectSceneStateParameters.SelectedAllyBotDifficulty;
 				num = (ushort)(num | 0x80);
 			}
 			if (characterSelectSceneStateParameters.SelectedEnemyBotDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.SelectedEnemyBotDifficulty = characterSelectSceneStateParameters.SelectedEnemyBotDifficulty;
 				num = (ushort)(num | 0x80);
 			}
@@ -1933,43 +1301,16 @@ public class UICharacterScreen : UIScene
 			}
 			if (characterSelectSceneStateParameters.ClientRequestedEnemyBotDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.ClientRequestedEnemyBotDifficulty = characterSelectSceneStateParameters.ClientRequestedEnemyBotDifficulty;
 				num = (ushort)(num | 0x80);
 			}
 			if (characterSelectSceneStateParameters.CustomGamePartyListVisible.HasValue)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.CustomGamePartyListVisible = characterSelectSceneStateParameters.CustomGamePartyListVisible;
 				num = (ushort)(num | 0x200);
 			}
 			if (characterSelectSceneStateParameters.CustomGamePartyListHidden.HasValue)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_currentState.CustomGamePartyListHidden = characterSelectSceneStateParameters.CustomGamePartyListHidden;
 				num = (ushort)(num | 0x200);
 			}
@@ -1984,19 +1325,6 @@ public class UICharacterScreen : UIScene
 		{
 			if ((m_gameSubTypeBtns[i].SubTypeBit & subTypeMask) != 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_gameSubTypeBtns[i].btn.SetOn(true);
 			}
 			else
@@ -2012,41 +1340,10 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters Parameters = GetCurrentSpecificState();
 		if (Parameters.GameTypeToDisplay == GameType.Coop)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (Parameters.GameSubTypesVisible)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (oldMask != 0)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					newMask = ClientGameManager.Get().GenerateGameSubTypeMaskForToggledAntiSocial(Parameters.GameTypeToDisplay, oldMask);
 				}
 				else
@@ -2058,15 +1355,6 @@ public class UICharacterScreen : UIScene
 							newMask = (ushort)(m_gameSubTypeBtns[i].SubTypeBit | newMask);
 						}
 					}
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
@@ -2074,15 +1362,6 @@ public class UICharacterScreen : UIScene
 				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameType.Coop);
 				if (!gameTypeSubTypes.IsNullOrEmpty())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (KeyValuePair<ushort, GameSubType> item in gameTypeSubTypes)
 					{
 						bool? allyBotTeammatesSelected = Parameters.AllyBotTeammatesSelected;
@@ -2106,27 +1385,9 @@ public class UICharacterScreen : UIScene
 		}
 		else if (!Parameters.GameSubTypesVisible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Dictionary<ushort, GameSubType> gameTypeSubTypes2 = ClientGameManager.Get().GetGameTypeSubTypes(Parameters.GameTypeToDisplay);
 			if (!gameTypeSubTypes2.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<ushort, GameSubType>.Enumerator enumerator2 = gameTypeSubTypes2.GetEnumerator())
 				{
 					if (enumerator2.MoveNext())
@@ -2135,15 +1396,6 @@ public class UICharacterScreen : UIScene
 					}
 					else
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 			}
@@ -2152,15 +1404,6 @@ public class UICharacterScreen : UIScene
 		ushort num = 0;
 		if (exclusiveModBitsOfGameTypeToDisplay != 0)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			while (true)
 			{
@@ -2168,26 +1411,8 @@ public class UICharacterScreen : UIScene
 				{
 					if (m_gameSubTypeBtns[num2].btn.IsChecked())
 					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((exclusiveModBitsOfGameTypeToDisplay | m_gameSubTypeBtns[num2].SubTypeBit) != 0)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = m_gameSubTypeBtns[num2].SubTypeBit;
 							break;
 						}
@@ -2195,28 +1420,10 @@ public class UICharacterScreen : UIScene
 					num2++;
 					continue;
 				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (num != 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				newMask = num;
 			}
 		}
@@ -2226,26 +1433,8 @@ public class UICharacterScreen : UIScene
 			{
 				if (m_gameSubTypeBtns[j].btn.IsChecked())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					newMask = (ushort)(m_gameSubTypeBtns[j].SubTypeBit | newMask);
 				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		ushort num3 = 0;
@@ -2255,26 +1444,8 @@ public class UICharacterScreen : UIScene
 		}
 		if (num3 != 0)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((newMask & num3) == 0)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_gameSubTypeBtns[0].btn.SetOn(true);
 				newMask = m_gameSubTypeBtns[0].SubTypeBit;
 			}
@@ -2283,41 +1454,14 @@ public class UICharacterScreen : UIScene
 		UpdateSubTypeMaskChecks(newMask);
 		if (!sendMaskUpdate)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SentInitialSubTypes)
 			{
 				goto IL_04ee;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		SentInitialSubTypes = true;
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo.IsLeader)
 			{
 				ClientGameManager.Get().SetGameTypeSubMasks(Parameters.GameTypeToDisplay, newMask, delegate(SetGameSubTypeResponse r)
@@ -2332,22 +1476,9 @@ public class UICharacterScreen : UIScene
 								break;
 							default:
 							{
-								if (1 == 0)
-								{
-									/*OpCode not supported: LdMemberToken*/;
-								}
 								string arg;
 								if (r.LocalizedFailure == null)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									arg = r.ErrorMessage;
 								}
 								else
@@ -2382,10 +1513,6 @@ public class UICharacterScreen : UIScene
 							break;
 						default:
 						{
-							if (1 == 0)
-							{
-								/*OpCode not supported: LdMemberToken*/;
-							}
 							string text = $"Failed to select game modes: {((r.LocalizedFailure != null) ? r.LocalizedFailure.ToString() : r.ErrorMessage)}";
 							Log.Warning(text);
 							UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), text, StringUtil.TR("Ok", "Global"));
@@ -2413,30 +1540,8 @@ public class UICharacterScreen : UIScene
 	{
 		if (m_lastFilterBtnClicked != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_lastFilterBtnClicked != btn)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_lastFilterBtnClicked.m_btn.SetSelected(false, false, string.Empty, string.Empty);
 			}
 		}
@@ -2452,19 +1557,6 @@ public class UICharacterScreen : UIScene
 			{
 				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!(CharacterSelectButtons[i].GetComponent<CanvasGroup>() != null))
 			{
 				continue;
@@ -2472,47 +1564,15 @@ public class UICharacterScreen : UIScene
 			CanvasGroup component = CharacterSelectButtons[i].GetComponent<CanvasGroup>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.alpha = 1f;
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			if (m_lastFilterBtnClicked != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m_lastFilterBtnClicked.m_btn.IsSelected())
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int j = 0; j < CharacterSelectButtons.Count; j++)
 					{
 						if (!m_lastFilterBtnClicked.IsAvailable(CharacterSelectButtons[j].m_characterType))
@@ -2537,15 +1597,6 @@ public class UICharacterScreen : UIScene
 				{
 					continue;
 				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string displayName = characterResourceLink.GetDisplayName();
 				if (DoesSearchMatchDisplayName(m_searchInputField.text.ToLower(), displayName.ToLower()))
 				{
@@ -2554,15 +1605,6 @@ public class UICharacterScreen : UIScene
 				CanvasGroup component3 = CharacterSelectButtons[k].GetComponent<CanvasGroup>();
 				if (component3 != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component3.alpha = 0.3f;
 				}
 			}
@@ -2582,26 +1624,8 @@ public class UICharacterScreen : UIScene
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			break;
 		}
@@ -2633,52 +1657,20 @@ public class UICharacterScreen : UIScene
 		{
 			if (SkinSubButtons[i] != m_skinsBtn.spriteController)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				m_skinsBtn.spriteController.AddSubButton(SkinSubButtons[i]);
 			}
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
 			for (int j = 0; j < AbilitySubButtons.Length; j++)
 			{
 				if (AbilitySubButtons[j] != m_AbilitiesBtn.spriteController)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					m_AbilitiesBtn.spriteController.AddSubButton(AbilitySubButtons[j]);
 				}
 			}
 			while (true)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
 				for (int k = 0; k < CatalystSubButtons.Length; k++)
 				{
 					if (CatalystSubButtons[k] != m_CatalystBtn.spriteController)
@@ -2701,11 +1693,6 @@ public class UICharacterScreen : UIScene
 				}
 				while (true)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
 					for (int n = 0; n < m_CatalsytBtns.Length; n++)
 					{
 						m_CatalsytBtns[n].spriteController.callback = ClickedCatalystIcon;
@@ -2721,10 +1708,6 @@ public class UICharacterScreen : UIScene
 									case 0:
 										break;
 									default:
-										if (1 == 0)
-										{
-											/*OpCode not supported: LdMemberToken*/;
-										}
 										return SetupCatalystSideBtnTooltip(tooltip, SelectedCatalysts[phase]);
 									}
 								}
@@ -2734,15 +1717,6 @@ public class UICharacterScreen : UIScene
 					}
 					if (m_selectedSkinColorBtn != null)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_selectedSkinColorBtn.spriteController.callback = ClickedSkinIcon;
 						m_selectedSkinColorBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, SetupSkinTooltip);
 					}
@@ -2824,19 +1798,6 @@ public class UICharacterScreen : UIScene
 			CharacterVisualInfo value = clientSelectedVisualInfo.Value;
 			if (!(characterResourceLink == null))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (characterResourceLink.m_skins.Count > value.skinIndex && characterResourceLink.m_skins[value.skinIndex].m_patterns.Count > value.patternIndex)
 				{
 					if (characterResourceLink.m_skins[value.skinIndex].m_patterns[value.patternIndex].m_colors.Count > value.colorIndex)
@@ -2845,15 +1806,6 @@ public class UICharacterScreen : UIScene
 						UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 						uITitledTooltip.Setup(characterResourceLink.GetDisplayName(), string.Format(StringUtil.TR("SelectedStyle", "Global"), patternColorName), string.Empty);
 						return true;
-					}
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2873,10 +1825,6 @@ public class UICharacterScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -2884,15 +1832,6 @@ public class UICharacterScreen : UIScene
 		string text = card.GetDisplayName();
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = text2 + Environment.NewLine + "<i>" + card.m_useAbility.m_flavorText + "</i>";
 		}
@@ -2917,19 +1856,6 @@ public class UICharacterScreen : UIScene
 				uIAbilityTooltip.Setup(abilityEntry.ability, SelectedAbilityData[i].GetSelectedMod(), movieAssetName);
 				return true;
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 		}
 		return false;
 	}
@@ -2944,45 +1870,14 @@ public class UICharacterScreen : UIScene
 				Card value = enumerator.Current.Value;
 				if ((AbilityRunPhase)(-1) < value.GetAbilityRunPhase() - 1)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					if ((int)(value.GetAbilityRunPhase() - 1) < m_CatalystIcons.Length)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(m_CatalystIcons[(int)(value.GetAbilityRunPhase() - 1)], true);
 						m_CatalystIcons[(int)(value.GetAbilityRunPhase() - 1)].sprite = value.GetIconSprite();
 					}
 				}
 				if ((AbilityRunPhase)(-1) < value.GetAbilityRunPhase() - 1)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((int)(value.GetAbilityRunPhase() - 1) < m_CatalystHoverIcons.Length)
 					{
 						UIManager.SetGameObjectActive(m_CatalystHoverIcons[(int)(value.GetAbilityRunPhase() - 1)], true);
@@ -3014,43 +1909,12 @@ public class UICharacterScreen : UIScene
 			AbilityData.AbilityEntry abilityEntry = uIAbilityButtonModPanel.GetAbilityEntry();
 			if (abilityEntry != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (abilityEntry.ability != null)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uIPhase = UIQueueListPanel.GetUIPhaseFromAbilityPriority(abilityEntry.ability.RunPriority);
 				}
 				else if (m_currentState != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m_currentState.CharacterTypeToDisplay != CharacterType.PendingWillFill)
 					{
 						Log.Warning("Ability entry has no ability!");
@@ -3072,28 +1936,10 @@ public class UICharacterScreen : UIScene
 			}
 			else if (uIPhase == UIQueueListPanel.UIPhase.Combat)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = combatColor;
 			}
 			if (i < m_AbilityPhaseColors.Length)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_AbilityPhaseColors[i].color = color;
 			}
 			if (i < m_AbilityPhaseColorsGradient.Length)
@@ -3142,19 +1988,6 @@ public class UICharacterScreen : UIScene
 		{
 			if (m_AbilityMouseOverBtns[i].spriteController.gameObject == (data as PointerEventData).selectedObject)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				num = i;
 				break;
 			}
@@ -3167,11 +2000,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
 			UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.AbilityButtonSelected(num);
 			return;
 		}
@@ -3181,19 +2009,6 @@ public class UICharacterScreen : UIScene
 	{
 		if (btn == m_CatalystBtn)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!GameManager.Get().GameplayOverrides.EnableCards)
 			{
 				m_CatalystBtn.spriteController.SetClickable(false);
@@ -3216,19 +2031,6 @@ public class UICharacterScreen : UIScene
 		{
 			if (SkinSubButtons[i] != m_skinsBtn.spriteController)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				SkinSubButtons[i].SetClickable(true);
 			}
 		}
@@ -3255,15 +2057,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -3279,15 +2072,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -3298,19 +2082,6 @@ public class UICharacterScreen : UIScene
 		{
 			if (AbilitySubButtons[i] != m_AbilitiesBtn.spriteController)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				AbilitySubButtons[i].SetClickable(false);
 			}
 		}
@@ -3343,19 +2114,6 @@ public class UICharacterScreen : UIScene
 		{
 			if (CatalystSubButtons[i] != m_CatalystBtn.spriteController)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				CatalystSubButtons[i].SetClickable(false);
 			}
 		}
@@ -3410,26 +2168,12 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (response.CharacterInfo == null)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
 				{
 					ClientSelectedCharacter = response.CharacterInfo.CharacterType
@@ -3439,11 +2183,6 @@ public class UICharacterScreen : UIScene
 				{
 					while (true)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
 						uICharacterSelectScreenController.UpdatePrimaryCharacter(response.CharacterInfo);
 						return;
 					}
@@ -3460,53 +2199,17 @@ public class UICharacterScreen : UIScene
 		{
 			while (true)
 			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				return flag;
 			}
 		}
 		GameType gameTypeToDisplay = GetCurrentSpecificState().GameTypeToDisplay;
 		if (GameManager.Get() != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().IsValidForHumanPreGameSelection(characterType))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameType num;
 				if (GameManager.Get().GameConfig != null && GameManager.Get().GameStatus != GameStatus.Stopped)
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GameManager.Get().GameConfig.GameType;
 				}
 				else
@@ -3519,29 +2222,11 @@ public class UICharacterScreen : UIScene
 		}
 		if (flag)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
 			bool flag2 = playerCharacterData != null && playerCharacterData.CharacterComponent != null && playerCharacterData.CharacterComponent.Unlocked;
 			bool num2;
 			if (SceneStateParameters.IsInGameLobby)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = GameManager.Get().IsCharacterAllowedForPlayers(characterType);
 			}
 			else
@@ -3551,15 +2236,6 @@ public class UICharacterScreen : UIScene
 			int num3;
 			if (num2)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = (GameManager.Get().IsCharacterAllowedForGameType(characterType, gameTypeToDisplay, null, null) ? 1 : 0);
 			}
 			else
@@ -3574,15 +2250,6 @@ public class UICharacterScreen : UIScene
 				{
 					goto IL_017f;
 				}
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			flag = false;
 		}
@@ -3590,50 +2257,14 @@ public class UICharacterScreen : UIScene
 		IL_017f:
 		if (flag && SceneStateParameters.IsInGameLobby)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().TeamInfo != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameTypeToDisplay != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
 					Team team = playerInfo.TeamId;
 					if (team == Team.Spectator)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						team = Team.TeamA;
 					}
 					List<LobbyPlayerInfo> list = (from ti in GameManager.Get().TeamInfo.TeamInfo(team)
@@ -3646,48 +2277,12 @@ public class UICharacterScreen : UIScene
 						{
 							if (list[num4].PlayerId != playerInfo.PlayerId)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (list[num4].CharacterType == characterType)
 								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (GameManager.Get().IsFreelancerConflictPossible(list[num4].TeamId == playerInfo.TeamId))
 									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!list[num4].IsNPCBot)
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 											break;
 										}
@@ -3696,15 +2291,6 @@ public class UICharacterScreen : UIScene
 							}
 							num4++;
 							continue;
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						break;
 					}
@@ -3729,15 +2315,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			return;
 		}
 	}
@@ -3753,26 +2330,12 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (currentSpecificState.GameTypeToDisplay == GameType.Custom)
 			{
 				return;
 			}
 			while (true)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
 				bool isDuplicateCharsAllowed = false;
 				int num = -1;
 				using (Dictionary<ushort, GameSubType>.ValueCollection.Enumerator enumerator = currentSpecificState.SelectedGameSubTypes.Values.GetEnumerator())
@@ -3782,51 +2345,15 @@ public class UICharacterScreen : UIScene
 						GameSubType current = enumerator.Current;
 						if (current.HasMod(GameSubType.SubTypeMods.ControlAllBots))
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (current.TeamAPlayers > num)
 							{
-								while (true)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = current.TeamAPlayers;
 							}
 						}
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (num < 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
 					num = ClientGameManager.Get().GameTypeAvailabilies[selectedQueueType].TeamAPlayers;
 				}
@@ -3843,43 +2370,12 @@ public class UICharacterScreen : UIScene
 		bool sendMaskUpdate = false;
 		if (currentSpecificState.ClientRequestAllyBotTeammates.HasValue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			for (int i = 0; i < m_gameSubTypeBtns.Count; i++)
 			{
 				if (m_gameSubTypeBtns[i].btn.IsChecked())
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (ushort)(num | m_gameSubTypeBtns[i].SubTypeBit);
 				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			currentSpecificState.AllyBotTeammatesSelected = currentSpecificState.ClientRequestAllyBotTeammates.Value;
 			sendMaskUpdate = true;
@@ -3898,38 +2394,11 @@ public class UICharacterScreen : UIScene
 			Dictionary<ushort, GameSubType> validGameSubTypes = currentSpecificState.ValidGameSubTypes;
 			if (!validGameSubTypes.IsNullOrEmpty())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (validGameSubTypes.Count > 1)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ushort num2 = 0;
 					if (ClientGameManager.Get().GroupInfo.InAGroup && !ClientGameManager.Get().GroupInfo.IsLeader)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = ClientGameManager.Get().GroupInfo.SubTypeMask;
 					}
 					else
@@ -3945,28 +2414,10 @@ public class UICharacterScreen : UIScene
 							bool flag = IsGameSubTypeActive(gameTypeToDisplay, current.Value);
 							if (flag && current.Value.HasMod(GameSubType.SubTypeMods.NotAllowedForGroups))
 							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = !inAGroup;
 							}
 							if (flag && current.Value.HasMod(GameSubType.SubTypeMods.CanBeConsolidated))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 = (ushort)(num3 | current.Key);
 								continue;
 							}
@@ -3979,15 +2430,6 @@ public class UICharacterScreen : UIScene
 								toggleSwap.transform.localPosition = Vector3.zero;
 								m_gameTypeButtons.Add(toggleSwap);
 							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_gameSubTypeBtns.Add(new GameSubTypeState
 							{
 								btn = m_gameTypeButtons[j],
@@ -3999,26 +2441,8 @@ public class UICharacterScreen : UIScene
 							m_gameTypeButtons[j].changedNotify = SubTypeClicked;
 							if (flag)
 							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if ((num2 & current.Key) != 0)
 								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									m_gameTypeButtons[j].SetOn(true);
 									goto IL_03a8;
 								}
@@ -4027,15 +2451,6 @@ public class UICharacterScreen : UIScene
 							goto IL_03a8;
 							IL_03a8:
 							j++;
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (num3 != 0)
@@ -4049,15 +2464,6 @@ public class UICharacterScreen : UIScene
 							toggleSwap2.transform.localPosition = Vector3.zero;
 							m_gameTypeButtons.Add(toggleSwap2);
 						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						m_gameSubTypeBtns.Add(new GameSubTypeState
 						{
 							btn = m_gameTypeButtons[j],
@@ -4066,15 +2472,6 @@ public class UICharacterScreen : UIScene
 						UIManager.SetGameObjectActive(m_gameTypeButtons[j], true);
 						if ((num2 & num3) != 0)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							m_gameTypeButtons[j].SetOn(true);
 						}
 						else
@@ -4092,15 +2489,6 @@ public class UICharacterScreen : UIScene
 			{
 				UIManager.SetGameObjectActive(m_gameTypeButtons[j], false);
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		UIManager.SetGameObjectActive(m_GameTypeContainer, currentSpecificState.GameSubTypesVisible);
 		CheckSubTypeSelection(sendMaskUpdate, num);
@@ -4110,31 +2498,9 @@ public class UICharacterScreen : UIScene
 	{
 		if (GameManager.Get().TeamInfo != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!GameManager.Get().TeamInfo.TeamBPlayerInfo.IsNullOrEmpty())
 			{
 				goto IL_0095;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (GameManager.Get().QueueInfo != null)
@@ -4158,15 +2524,6 @@ public class UICharacterScreen : UIScene
 		IL_0095:
 		if (ClientGameManager.Get().GroupInfo != null && ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo.IsLeader)
 			{
 				while (true)
@@ -4188,11 +2545,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
 			using (IEnumerator<LobbyPlayerInfo> enumerator = GameManager.Get().TeamInfo.TeamBPlayerInfo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -4228,70 +2580,25 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_simpleCogBtn.spriteController.SetClickable(flag);
 			m_advancedCogBtn.spriteController.SetClickable(flag);
 			m_dropdownBtn.spriteController.SetClickable(flag);
 			if (!flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_DifficultyListDropdown, false);
 			}
 			bool displayAllyBotTeammates = currentSpecificState.DisplayAllyBotTeammates;
 			m_teamBotsToggle.SetOn(displayAllyBotTeammates);
 			if (gameTypeToDisplay != GameType.Solo)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameTypeToDisplay != GameType.Coop)
 				{
 					goto IL_0217;
-				}
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			object obj;
 			if (currentSpecificState.DisplayAllyBotTeammates)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				obj = "SoloEnemyDifficulty";
 			}
 			else
@@ -4304,15 +2611,6 @@ public class UICharacterScreen : UIScene
 			int? clientRequestedEnemyBotDifficulty = currentSpecificState.ClientRequestedEnemyBotDifficulty;
 			if (clientRequestedEnemyBotDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerPrefs.SetInt(key, enemyBotDifficultyToDisplay);
 				SendBotDifficultyUpdateToServer(null, (BotDifficulty)enemyBotDifficultyToDisplay);
 				currentSpecificState.SelectedEnemyBotDifficulty = currentSpecificState.ClientRequestedEnemyBotDifficulty;
@@ -4323,15 +2621,6 @@ public class UICharacterScreen : UIScene
 			int? clientRequestedAllyBotDifficulty = currentSpecificState.ClientRequestedAllyBotDifficulty;
 			if (clientRequestedAllyBotDifficulty.HasValue)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerPrefs.SetInt("SoloAllyDifficulty", allyBotDifficultyToDisplay);
 				SendBotDifficultyUpdateToServer((BotDifficulty)allyBotDifficultyToDisplay, null);
 				currentSpecificState.SelectedAllyBotDifficulty = currentSpecificState.ClientRequestedAllyBotDifficulty;
@@ -4344,15 +2633,6 @@ public class UICharacterScreen : UIScene
 			bool flag2 = currentSpecificState.BotDifficultyViewTypeToDisplay == CharacterSelectSceneStateParameters.BotDifficultyViewType.Simple;
 			if (flag2)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(m_simpleCogBtn, false);
 				UIManager.SetGameObjectActive(m_advancedCogBtn, true);
 				UIManager.SetGameObjectActive(m_dropdownBtn, true);
@@ -4363,37 +2643,10 @@ public class UICharacterScreen : UIScene
 				m_hardBtn.SetSelected(simpleBotSettingValueToDisplay == CharacterSelectSceneStateParameters.SimpleBotSettingValue.Hard, false, string.Empty, string.Empty);
 				if (simpleBotSettingValueToDisplay != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (simpleBotSettingValueToDisplay != CharacterSelectSceneStateParameters.SimpleBotSettingValue.Medium)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (simpleBotSettingValueToDisplay != CharacterSelectSceneStateParameters.SimpleBotSettingValue.Hard)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -4402,15 +2655,6 @@ public class UICharacterScreen : UIScene
 							m_teamBotStars.SetCurrentValue(2);
 							if (currentSpecificState.ClientRequestedSimpleBotSettingValue.HasValue)
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								SendBotDifficultyUpdateToServer(BotDifficulty.Easy, BotDifficulty.Hard);
 							}
 						}
@@ -4422,15 +2666,6 @@ public class UICharacterScreen : UIScene
 						m_teamBotStars.SetCurrentValue(3);
 						if (currentSpecificState.ClientRequestedSimpleBotSettingValue.HasValue)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							SendBotDifficultyUpdateToServer(BotDifficulty.Medium, BotDifficulty.Easy);
 						}
 					}
@@ -4442,29 +2677,11 @@ public class UICharacterScreen : UIScene
 					m_teamBotStars.SetCurrentValue(4);
 					if (currentSpecificState.ClientRequestedSimpleBotSettingValue.HasValue)
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SendBotDifficultyUpdateToServer(BotDifficulty.Hard, BotDifficulty.Stupid);
 					}
 				}
 				if (currentSpecificState.ClientRequestedSimpleBotSettingValue.HasValue)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentSpecificState.SimpleBotSetting = currentSpecificState.ClientRequestedSimpleBotSettingValue;
 					currentSpecificState.ClientRequestedSimpleBotSettingValue = null;
 				}
@@ -4481,15 +2698,6 @@ public class UICharacterScreen : UIScene
 			int doActive;
 			if (currentSpecificState.BotSkillPanelVisible)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = ((!flag2) ? 1 : 0);
 			}
 			else
@@ -4507,19 +2715,6 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		if (currentSpecificState.ClientRequestedGameType.HasValue)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			GameType? clientRequestedGameType = currentSpecificState.ClientRequestedGameType;
 			GameType value = clientRequestedGameType.Value;
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
@@ -4550,19 +2745,6 @@ public class UICharacterScreen : UIScene
 		int num;
 		if (ClientGameManager.Get().GameTypeAvailabilies.TryGetValue(currentSpecificState.GameTypeToDisplay, out GameTypeAvailability value))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = value.MaxWillFillPerTeam;
 		}
 		else
@@ -4577,26 +2759,8 @@ public class UICharacterScreen : UIScene
 				GameSubType current = enumerator.Current;
 				if (current.HasMod(GameSubType.SubTypeMods.ControlAllBots))
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = 0;
 				}
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, num2 > 0);
@@ -4606,20 +2770,10 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
 			{
 				while (true)
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
 					CharacterType characterType = ClientGameManager.Get().QueueRequirementApplicant.AvailableCharacters.Shuffled(new System.Random()).First();
 					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
 					UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
@@ -4639,19 +2793,6 @@ public class UICharacterScreen : UIScene
 		{
 			if (characterSelectButton.m_characterType == charTypeToMatch)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				characterSelectButton.SetSelected(true);
 				UICharacterSelectScreenController.Get().UpdateBuyButtons();
 			}
@@ -4669,19 +2810,6 @@ public class UICharacterScreen : UIScene
 			CharacterResourceLink characterResourceLink = characterSelectButton.GetCharacterResourceLink();
 			if (characterResourceLink == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 			}
 			else
 			{
@@ -4689,28 +2817,10 @@ public class UICharacterScreen : UIScene
 				bool flag = true;
 				if (!IsCharacterValidForSelection(characterType))
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else if (characterType == GetCurrentSpecificState().CharacterTypeToDisplay)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterSelectScreenController.Get().UpdateBuyButtons();
 				}
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
@@ -4718,15 +2828,6 @@ public class UICharacterScreen : UIScene
 				int num;
 				if (GameManager.Get().IsCharacterAllowedForPlayers(characterType))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (GameManager.Get().IsCharacterAllowedForGameType(characterType, GetCurrentSpecificState().GameTypeToDisplay, null, null) ? 1 : 0);
 				}
 				else
@@ -4737,26 +2838,8 @@ public class UICharacterScreen : UIScene
 				int enabled;
 				if (!flag)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (practiceGameTypeSelectedForQueue)
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						enabled = (flag2 ? 1 : 0);
 					}
 					else
@@ -4783,33 +2866,11 @@ public class UICharacterScreen : UIScene
 			CharacterType value = clientRequestToServerSelectCharacter.Value;
 			if (!IsCharacterValidForSelection(value))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (SceneStateParameters.IsInGameLobby)
 				{
 					GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
 					DoCharButtonSelection(currentSpecificState.CharacterTypeToDisplay);
 					return;
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			DoCharButtonSelection(value);
@@ -4833,10 +2894,6 @@ public class UICharacterScreen : UIScene
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					UIManager.SetGameObjectActive(m_characterSelectAnimController, true);
 					UIAnimationEventManager.Get().PlayAnimation(m_characterSelectAnimController, "CharacterSelectionIN", null, string.Empty, 0, 0f, true, true);
 					UICharacterSelectScreenController.Get().m_charSettingsPanel.SetVisible(false);
@@ -4849,15 +2906,6 @@ public class UICharacterScreen : UIScene
 		}
 		if (m_characterSelectAnimController.gameObject.activeSelf)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIAnimationEventManager.Get().PlayAnimation(m_characterSelectAnimController, "CharacterSelectionOUT", null, string.Empty, 0, 0f, true, true);
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectClose);
@@ -4875,33 +2923,11 @@ public class UICharacterScreen : UIScene
 		}
 		if (characterType != 0)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (!IsCharacterValidForSelection(characterType))
 			{
 				if (SceneStateParameters.IsInGameLobby)
 				{
 					goto IL_0136;
-				}
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
@@ -4934,15 +2960,6 @@ public class UICharacterScreen : UIScene
 			}
 			if (UILandingPageScreen.Get() != null && UILandingPageScreen.Get().CharacterInfoClicked.HasValue)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UILandingPageScreen.Get().CharacterInfoClicked.Value == characterType)
 				{
 					while (true)
@@ -5011,15 +3028,6 @@ public class UICharacterScreen : UIScene
 		}
 		while (true)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_bioBtn.spriteController.ResetMouseState();
 			m_skinsBtn.spriteController.ResetMouseState();
 			m_AbilitiesBtn.spriteController.ResetMouseState();
@@ -5038,19 +3046,6 @@ public class UICharacterScreen : UIScene
 	{
 		if (!gst.Requirements.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			foreach (QueueRequirement requirement in gst.Requirements)
 			{

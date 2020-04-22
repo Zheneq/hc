@@ -73,10 +73,6 @@ public class EffectSource
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return false;
 				}
 			}
@@ -87,15 +83,6 @@ public class EffectSource
 			{
 				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(Ability);
 				return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

@@ -70,32 +70,10 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			if (m_primaryLaserAffectsEnemies)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				list.Add(caster.GetOpposingTeam());
 			}
 			if (m_primaryLaserAffectsAllies)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetTeam());
 			}
 		}
@@ -107,43 +85,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (caster != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_splitLaserAffectsEnemies)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetOpposingTeam());
 			}
 			if (m_splitLaserAffectsAllies)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetTeam());
 			}
 		}
@@ -174,19 +121,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		SetupLaserHighlight(laserCoords, 0);
 		if (!m_alwaysSplit)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (actorsInLaser.Count <= 0)
 			{
 				for (int j = 1; j < m_highlights.Count; j++)
@@ -203,15 +137,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 						break;
 					}
 				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num = CalculateSplitAngleDegrees(currentTarget, targetingActor);
@@ -235,15 +160,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			{
 				if (actorsInLaser2[k].GetTeam() == targetingActor.GetTeam())
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list4.Add(actorsInLaser2[k]);
 				}
 				else
@@ -253,26 +169,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			}
 			while (true)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
 				List<ActorData> list5 = new List<ActorData>();
 				List<ActorData> list6 = new List<ActorData>();
 				for (int l = 0; l < actorsInLaser3.Count; l++)
 				{
 					if (actorsInLaser3[l].GetTeam() == targetingActor.GetTeam())
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list6.Add(actorsInLaser3[l]);
 					}
 					else
@@ -323,19 +225,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		float num;
 		if (primary)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			num = m_primaryLaserWidthInSquares;
 		}
 		else
@@ -350,22 +239,8 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		}
 		while (true)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
 			if (m_highlights[highlightIndex] == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				m_highlights[highlightIndex] = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude);
 			}
 			GameObject gameObject = m_highlights[highlightIndex];
@@ -397,10 +272,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					return m_minAngle;
 				}
 			}

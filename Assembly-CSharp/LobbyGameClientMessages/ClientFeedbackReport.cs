@@ -34,52 +34,12 @@ namespace LobbyGameClientMessages
 			int result;
 			if (Reason != FeedbackReason._0015)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
 				if (Reason != FeedbackReason._0016 && Reason != FeedbackReason._0018)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Reason != FeedbackReason._0019)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Reason != FeedbackReason._0011)
 						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = ((Reason == FeedbackReason._001A) ? 1 : 0);
 							goto IL_006c;
 						}

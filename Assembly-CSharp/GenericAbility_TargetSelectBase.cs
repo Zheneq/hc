@@ -83,43 +83,12 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (targetData.Length > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
 			if (num > 0f)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 15f)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (targetData2.m_targetingParadigm != Ability.TargetingParadigm.Direction)
 					{
 						return true;
@@ -146,10 +115,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
 					m_currentTargetSelectMod = modBase;
 					OnTargetSelModApplied(modBase);
 					return;
@@ -167,15 +132,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		}
 		while (true)
 		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			m_currentTargetSelectMod = null;
 			OnTargetSelModRemoved();
 			return;
@@ -197,19 +153,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(m_includeEnemies);
 		}
 		else
@@ -224,19 +167,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(m_includeAllies);
 		}
 		else
@@ -256,19 +186,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (m_currentTargetSelectMod != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			result = m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
 		}
 		else
@@ -282,19 +199,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (m_currentTargetSelectMod != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (1 == 0)
-			{
-				/*OpCode not supported: LdMemberToken*/;
-			}
 			if (m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
 			{
 				while (true)
