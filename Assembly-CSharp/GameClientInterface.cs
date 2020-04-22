@@ -124,7 +124,7 @@ public class GameClientInterface : WebSocketInterface
 		}
 	}
 
-	public GameClientInterface()
+	public GameClientInterface() : base(new WebSocketMessageFactory())
 	{
 		
 		this.OnConnectedHolder = delegate
@@ -141,7 +141,6 @@ public class GameClientInterface : WebSocketInterface
 		this.OnMessageHolder = delegate
 			{
 			};
-		base._002Ector(new WebSocketMessageFactory());
 		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
 		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);
 		base.IsRaw = true;

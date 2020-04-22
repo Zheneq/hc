@@ -1238,7 +1238,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
-	public LobbyGameClientInterface()
+	public LobbyGameClientInterface() : base(Factory.Get())
 	{
 		this.OnConnectedHolder = delegate
 		{
@@ -1385,7 +1385,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.OnLobbySeasonQuestDataNotificationHolder = delegate
 			{
 			};
-		base._002Ector(Factory.Get());
 		m_registered = false;
 		m_sessionInfo = new LobbySessionInfo();
 		base.ConnectionTimeout = 30f;

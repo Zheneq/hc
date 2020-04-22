@@ -8,17 +8,8 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 	private LaserTargetingInfo m_unanchoredLaserInfo;
 
 	public AbilityUtil_Targeter_SweepSingleClickCone(Ability ability, float minAngle, float maxAngle, float rangeInSquares, float coneBackwardOffset, float lineWidthInSquares, LaserTargetingInfo unanchoredLaserInfo, Exo_SyncComponent syncComponent)
+	: base(ability, minAngle, maxAngle, rangeInSquares, coneBackwardOffset, lineWidthInSquares, unanchoredLaserInfo?.penetrateLos ?? false, 0)
 	{
-		int penetrateLos;
-		if (unanchoredLaserInfo != null)
-		{
-			penetrateLos = (unanchoredLaserInfo.penetrateLos ? 1 : 0);
-		}
-		else
-		{
-			penetrateLos = 0;
-		}
-		base._002Ector(ability, minAngle, maxAngle, rangeInSquares, coneBackwardOffset, lineWidthInSquares, (byte)penetrateLos != 0, 0);
 		m_syncComponent = syncComponent;
 		m_unanchoredLaserInfo = unanchoredLaserInfo;
 		SetUseMultiTargetUpdate(m_unanchoredLaserInfo == null);
