@@ -101,11 +101,8 @@ public class SoldierDashAndOverwatch : Ability
 		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, 0f, GetOnCastAllyHitRadiusAroundDest(), 0f, -1, false, false);
 		abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(false, true, false);
 		abilityUtil_Targeter_ChargeAoE.ForceAddTargetingActor = GetSelfHitEffect().m_applyEffect;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability) => actorToConsider != caster);
-		}
-		abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = _003C_003Ef__am_0024cache0;
+		
+		abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = ((ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability) => actorToConsider != caster);
 		base.Targeters.Add(abilityUtil_Targeter_ChargeAoE);
 		AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = new AbilityUtil_Targeter_ConeOrLaser(this, GetConeInfo(), GetLaserInfo(), m_coneDistThreshold);
 		abilityUtil_Targeter_ConeOrLaser.SetUseMultiTargetUpdate(true);

@@ -176,40 +176,31 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(num, true);
 		UITooltipHoverObject component = m_freelancerCurrencyText.GetComponent<UITooltipHoverObject>();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
+		
+		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip3 = (UISimpleTooltip)tooltip;
 				uISimpleTooltip3.Setup(StringUtil.TR("FreelancerCurrencyDesc", "Global"));
 				return true;
-			};
-		}
-		component.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
+			});
 		m_isoText.text = "<sprite name=iso>" + UIStorePanel.FormatIntToString(value, true);
 		UITooltipHoverObject component2 = m_isoText.GetComponent<UITooltipHoverObject>();
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate(UITooltipBase tooltip)
+		
+		component2.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip2 = (UISimpleTooltip)tooltip;
 				uISimpleTooltip2.Setup(StringUtil.TR("ISODescription", "Global"));
 				return true;
-			};
-		}
-		component2.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache1);
+			});
 		m_prestigeText.text = "<sprite name=rankedCurrency>" + UIStorePanel.FormatIntToString(value2, true);
 		UITooltipHoverObject component3 = m_prestigeText.GetComponent<UITooltipHoverObject>();
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = delegate(UITooltipBase tooltip)
+		
+		component3.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
 				uISimpleTooltip.Setup(StringUtil.TR("RankedCurrencyDescription", "Global"));
 				return true;
-			};
-		}
-		component3.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache2);
+			});
 		if (num > 0)
 		{
 			UINewUserFlowManager.OnFreelancerCurrencyOwned();

@@ -126,30 +126,21 @@ public class GameClientInterface : WebSocketInterface
 
 	public GameClientInterface()
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.OnConnectedHolder = delegate
 			{
 			};
-		}
-		this.OnConnectedHolder = _003C_003Ef__am_0024cache0;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate
+		
+		this.OnDisconnectedHolder = delegate
 			{
 			};
-		}
-		this.OnDisconnectedHolder = _003C_003Ef__am_0024cache1;
 		this.OnConnectionErrorHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate
+		
+		this.OnMessageHolder = delegate
 			{
 			};
-		}
-		this.OnMessageHolder = _003C_003Ef__am_0024cache3;
 		base._002Ector(new WebSocketMessageFactory());
 		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
 		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);

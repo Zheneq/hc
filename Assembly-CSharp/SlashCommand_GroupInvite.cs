@@ -52,9 +52,8 @@ public class SlashCommand_GroupInvite : SlashCommand
 										{
 											ClientGameManager clientGameManager = ClientGameManager.Get();
 											string friendHandle = arguments;
-											if (_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache1 == null)
-											{
-												_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache1 = delegate(GroupJoinResponse response)
+											
+											clientGameManager.RequestToJoinGroup(friendHandle, delegate(GroupJoinResponse response)
 												{
 													if (response.Success)
 													{
@@ -87,17 +86,12 @@ public class SlashCommand_GroupInvite : SlashCommand
 														Text = text2,
 														MessageType = ConsoleMessageType.SystemMessage
 													});
-												};
-											}
-											clientGameManager.RequestToJoinGroup(friendHandle, _003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache1);
+												});
 										};
-										if (_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache0 == null)
-										{
-											_003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache0 = delegate
+										
+										UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, delegate
 											{
-											};
-										}
-										UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, _003COnSlashCommand_003Ec__AnonStorey0._003C_003Ef__am_0024cache0);
+											});
 										return;
 									}
 									}

@@ -441,11 +441,8 @@ public class UICashShopItemBtn : MonoBehaviour
 				goto IL_0089;
 				IL_0089:
 				List<InventoryItemTemplate> list2 = list;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = ((InventoryItemTemplate x) => x.TypeSpecificData.Length <= 1 || x.TypeSpecificData[1] != 1);
-				}
-				list2.RemoveAll(_003C_003Ef__am_0024cache0);
+				
+				list2.RemoveAll(((InventoryItemTemplate x) => x.TypeSpecificData.Length <= 1 || x.TypeSpecificData[1] != 1));
 				if (list == null)
 				{
 					return;

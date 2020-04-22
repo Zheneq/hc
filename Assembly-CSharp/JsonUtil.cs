@@ -105,9 +105,8 @@ public static class JsonUtil
 		try
 		{
 			JToken node = JToken.Parse(s);
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(JProperty prop)
+			
+			TraverseNode(node, delegate(JProperty prop)
 				{
 					if (prop.Value.Type == JTokenType.String)
 					{
@@ -146,9 +145,7 @@ public static class JsonUtil
 							}
 						}
 					}
-				};
-			}
-			TraverseNode(node, _003C_003Ef__am_0024cache0);
+				});
 			formatError = null;
 			return true;
 		}

@@ -120,11 +120,8 @@ public class UICharacterSelectPartyList : MonoBehaviour
 		}
 		while (true)
 		{
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((CharacterType first, CharacterType second) => first.GetDisplayName().CompareTo(second.GetDisplayName()));
-			}
-			list.Sort(_003C_003Ef__am_0024cache0);
+			
+			list.Sort(((CharacterType first, CharacterType second) => first.GetDisplayName().CompareTo(second.GetDisplayName())));
 			for (int j = 0; j < list.Count; j++)
 			{
 				UIPartyPanelCharacterSelect uIPartyPanelCharacterSelect = UnityEngine.Object.Instantiate(m_botCharacterPrefab);

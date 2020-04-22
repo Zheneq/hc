@@ -52,13 +52,10 @@ public class LogInstance
 
 	public LogInstance()
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.OnLogMessageHolder = delegate
 			{
 			};
-		}
-		this.OnLogMessageHolder = _003C_003Ef__am_0024cache0;
 		
 		m_lock = new object();
 	}

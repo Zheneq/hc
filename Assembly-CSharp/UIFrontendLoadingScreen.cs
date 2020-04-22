@@ -232,16 +232,10 @@ public class UIFrontendLoadingScreen : UIScene
 			}
 		}
 		Dictionary<int, bool> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((KeyValuePair<int, bool> x) => x.Value);
-		}
-		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(_003C_003Ef__am_0024cache0);
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((KeyValuePair<int, bool> x) => x.Key);
-		}
-		int[] array = source.Select(_003C_003Ef__am_0024cache1).ToArray();
+		
+		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(((KeyValuePair<int, bool> x) => x.Value));
+		
+		int[] array = source.Select(((KeyValuePair<int, bool> x) => x.Key)).ToArray();
 		if (array.Length == 0)
 		{
 			m_backgroundImage.sprite = null;

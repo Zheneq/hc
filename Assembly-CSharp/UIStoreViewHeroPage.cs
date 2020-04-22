@@ -88,16 +88,13 @@ public class UIStoreViewHeroPage : UIScene
 			UIStorePanel.Get().NotifyGetFocus();
 		};
 		_ButtonSwapSprite restrictedIsoUseBuyGameBtn = m_restrictedIsoUseBuyGameBtn;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		restrictedIsoUseBuyGameBtn.callback = delegate
 			{
 				Get().SetRestrictedISOUSePopVisible(false);
 				UIFrontEnd.Get().m_frontEndNavPanel.CashShopBtnClicked(null);
 				UICashShopPanel.Get().ButtonClicked(UICashShopPanel.Get().m_gameBtn);
 			};
-		}
-		restrictedIsoUseBuyGameBtn.callback = _003C_003Ef__am_0024cache0;
 		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerEnter, HighlightCharacter);
 		UIEventTriggerUtils.AddListener(m_modelHitbox.gameObject, EventTriggerType.PointerExit, UnhighlightCharacter);
 		m_backBtn.spriteController.callback = BackBtnClicked;

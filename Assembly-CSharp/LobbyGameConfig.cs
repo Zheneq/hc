@@ -42,11 +42,8 @@ public class LobbyGameConfig
 		get
 		{
 			List<GameSubType> subTypes = SubTypes;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((GameSubType p) => p.NeedsPreSelectedFreelancer);
-			}
-			return subTypes.Exists(_003C_003Ef__am_0024cache0);
+			
+			return subTypes.Exists(((GameSubType p) => p.NeedsPreSelectedFreelancer));
 		}
 	}
 

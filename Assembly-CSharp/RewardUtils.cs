@@ -369,11 +369,8 @@ public class RewardUtils
 								list.Add(rewardData6);
 							}
 						}
-						if (_003C_003Ef__am_0024cache0 == null)
-						{
-							_003C_003Ef__am_0024cache0 = ((RewardData first, RewardData second) => first.Level - second.Level);
-						}
-						list.Sort(_003C_003Ef__am_0024cache0);
+						
+						list.Sort(((RewardData first, RewardData second) => first.Level - second.Level));
 						return list;
 					}
 				}
@@ -737,11 +734,8 @@ public class RewardUtils
 							}
 						}
 						List<int> list2 = filterLevels;
-						if (_003C_003Ef__am_0024cache1 == null)
-						{
-							_003C_003Ef__am_0024cache1 = ((int x) => x == GameWideData.Get().AdvancedSkinUnlockLevel);
-						}
-						if (list2.Exists(_003C_003Ef__am_0024cache1))
+						
+						if (list2.Exists(((int x) => x == GameWideData.Get().AdvancedSkinUnlockLevel)))
 						{
 							RewardData rewardData9 = new RewardData();
 							rewardData9.Level = GameWideData.Get().AdvancedSkinUnlockLevel;
@@ -752,11 +746,8 @@ public class RewardUtils
 							list.Add(rewardData9);
 						}
 						List<int> list3 = filterLevels;
-						if (_003C_003Ef__am_0024cache2 == null)
-						{
-							_003C_003Ef__am_0024cache2 = ((int x) => x == GameWideData.Get().ExpertSkinUnlockLevel);
-						}
-						if (list3.Exists(_003C_003Ef__am_0024cache2))
+						
+						if (list3.Exists(((int x) => x == GameWideData.Get().ExpertSkinUnlockLevel)))
 						{
 							RewardData rewardData10 = new RewardData();
 							rewardData10.Level = GameWideData.Get().ExpertSkinUnlockLevel;
@@ -845,11 +836,8 @@ public class RewardUtils
 						}
 						while (true)
 						{
-							if (_003C_003Ef__am_0024cache4 == null)
-							{
-								_003C_003Ef__am_0024cache4 = ((RewardData first, RewardData second) => first.Level - second.Level);
-							}
-							list.Sort(_003C_003Ef__am_0024cache4);
+							
+							list.Sort(((RewardData first, RewardData second) => first.Level - second.Level));
 							return list;
 						}
 					}

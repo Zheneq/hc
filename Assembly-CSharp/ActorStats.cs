@@ -33,16 +33,10 @@ public class ActorStats : NetworkBehaviour
 
 	private void Awake()
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((StatType a, StatType b) => a == b);
-		}
-		Func<StatType, StatType, bool> equals = _003C_003Ef__am_0024cache0;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((StatType a) => (int)a);
-		}
-		FuncEqualityComparer<StatType> comparer = new FuncEqualityComparer<StatType>(equals, _003C_003Ef__am_0024cache1);
+		
+		Func<StatType, StatType, bool> equals = ((StatType a, StatType b) => a == b);
+		
+		FuncEqualityComparer<StatType> comparer = new FuncEqualityComparer<StatType>(equals, ((StatType a) => (int)a));
 		m_statMods = new Dictionary<StatType, List<StatMod>>(comparer);
 		for (int i = 0; i < 24; i++)
 		{
@@ -757,9 +751,8 @@ public class ActorStats : NetworkBehaviour
 					break;
 				default:
 				{
-					if (_003C_003Ef__am_0024cache2 == null)
-					{
-						_003C_003Ef__am_0024cache2 = delegate(StatMod statMod)
+					
+					StatModFilterDelegate filterDelegate = delegate(StatMod statMod)
 						{
 							bool flag = false;
 							if (statMod.mod == ModType.Multiplier)
@@ -772,8 +765,6 @@ public class ActorStats : NetworkBehaviour
 							}
 							return !flag;
 						};
-					}
-					StatModFilterDelegate filterDelegate = _003C_003Ef__am_0024cache2;
 					CalculateAdjustments(StatType.Movement_Horizontal, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers, filterDelegate);
 					return;
 				}

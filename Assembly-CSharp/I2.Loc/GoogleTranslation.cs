@@ -71,17 +71,11 @@ namespace I2.Loc
 				int num2 = html.IndexOf("';INPUT_TOOL_PATH", num);
 				string text = html.Substring(num, num2 - num);
 				string input = text;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber)));
-				}
-				text = Regex.Replace(input, "\\\\x([a-fA-F0-9]{2})", _003C_003Ef__am_0024cache0);
+				
+				text = Regex.Replace(input, "\\\\x([a-fA-F0-9]{2})", ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
 				string input2 = text;
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value)));
-				}
-				text = Regex.Replace(input2, "&#(\\d+);", _003C_003Ef__am_0024cache1);
+				
+				text = Regex.Replace(input2, "&#(\\d+);", ((Match match) => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value))));
 				text = text.Replace("<br>", "\n");
 				if (OriginalText.ToUpper() == OriginalText)
 				{

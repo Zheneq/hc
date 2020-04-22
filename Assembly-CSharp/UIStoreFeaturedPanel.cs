@@ -192,11 +192,8 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 				break;
 			}
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((ItemPair x, ItemPair y) => x.SortOrder - y.SortOrder);
-		}
-		list.Sort(_003C_003Ef__am_0024cache0);
+		
+		list.Sort(((ItemPair x, ItemPair y) => x.SortOrder - y.SortOrder));
 		List<UIPurchaseableItem> list4 = new List<UIPurchaseableItem>();
 		for (int m = 0; m < list.Count; m++)
 		{

@@ -346,72 +346,45 @@ public class DiscordClientInterface : MonoBehaviour
 
 	public DiscordClientInterface()
 	{
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate
+		
+		OnConnected = delegate
 			{
 			};
-		}
-		OnConnected = _003C_003Ef__am_0024cache1;
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = delegate
+		
+		OnDisconnected = delegate
 			{
 			};
-		}
-		OnDisconnected = _003C_003Ef__am_0024cache2;
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate
+		
+		OnAuthorized = delegate
 			{
 			};
-		}
-		OnAuthorized = _003C_003Ef__am_0024cache3;
-		if (_003C_003Ef__am_0024cache4 == null)
-		{
-			_003C_003Ef__am_0024cache4 = delegate
+		
+		OnAuthenticated = delegate
 			{
 			};
-		}
-		OnAuthenticated = _003C_003Ef__am_0024cache4;
-		if (_003C_003Ef__am_0024cache5 == null)
-		{
-			_003C_003Ef__am_0024cache5 = delegate
+		
+		OnJoined = delegate
 			{
 			};
-		}
-		OnJoined = _003C_003Ef__am_0024cache5;
 		OnLeft = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache7 == null)
-		{
-			_003C_003Ef__am_0024cache7 = delegate
+		
+		OnUserJoined = delegate
 			{
 			};
-		}
-		OnUserJoined = _003C_003Ef__am_0024cache7;
-		if (_003C_003Ef__am_0024cache8 == null)
-		{
-			_003C_003Ef__am_0024cache8 = delegate
+		
+		OnUserLeft = delegate
 			{
 			};
-		}
-		OnUserLeft = _003C_003Ef__am_0024cache8;
-		if (_003C_003Ef__am_0024cache9 == null)
-		{
-			_003C_003Ef__am_0024cache9 = delegate
+		
+		OnUserSpeakingChanged = delegate
 			{
 			};
-		}
-		OnUserSpeakingChanged = _003C_003Ef__am_0024cache9;
-		if (_003C_003Ef__am_0024cacheA == null)
-		{
-			_003C_003Ef__am_0024cacheA = delegate
+		
+		this.OnErrorHolder = delegate
 			{
 			};
-		}
-		this.OnErrorHolder = _003C_003Ef__am_0024cacheA;
 		m_discordChannelUsers = new List<DiscordUserInfo>();
 		
 	}
@@ -984,14 +957,11 @@ public class DiscordClientInterface : MonoBehaviour
 						GameBridge.SetReadyCallback(HandleSdkReadyCallback, UIntPtr.Zero);
 						GameBridge.SetUpdatingCallback(HandleSdkUpdatingCallback, UIntPtr.Zero);
 						GameBridge.SetErrorCallback(HandleSdkErrorCallback, UIntPtr.Zero);
-						if (_003C_003Ef__am_0024cache0 == null)
-						{
-							_003C_003Ef__am_0024cache0 = delegate(uint type, string message, UIntPtr context)
+						
+						GameBridge.CaptureOutput(delegate(uint type, string message, UIntPtr context)
 							{
 								_001D("[OUTPUT] {0}", message);
-							};
-						}
-						GameBridge.CaptureOutput(_003C_003Ef__am_0024cache0, UIntPtr.Zero);
+							}, UIntPtr.Zero);
 						GameBridge.Initialize(clientId, resourcePath);
 						s_sdkInitialized = true;
 						_001D("initialized Sdk");

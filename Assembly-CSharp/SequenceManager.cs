@@ -90,11 +90,8 @@ public class SequenceManager : MonoBehaviour
 			}
 		}
 		List<Sequence> sequences = m_sequences;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd);
-		}
-		List<Sequence> list = sequences.FindAll(_003C_003Ef__am_0024cache0);
+		
+		List<Sequence> list = sequences.FindAll(((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd));
 		HashSet<GameObject> objectsToDestroy = new HashSet<GameObject>();
 		using (List<Sequence>.Enumerator enumerator = list.GetEnumerator())
 		{

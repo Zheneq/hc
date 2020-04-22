@@ -82,9 +82,8 @@ public class AppState_JoinGame : AppState
 		}
 		s_joinPending = true;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(JoinGameResponse response)
+		
+		clientGameManager.JoinGame(gameInfo, asSpectator, delegate(JoinGameResponse response)
 			{
 				s_joinPending = false;
 				if (response.Success)
@@ -116,9 +115,7 @@ public class AppState_JoinGame : AppState
 					}
 				}
 				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
-			};
-		}
-		clientGameManager.JoinGame(gameInfo, asSpectator, _003C_003Ef__am_0024cache0);
+			});
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)

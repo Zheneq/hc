@@ -362,72 +362,45 @@ public class MyNetworkManager : NetworkManager
 		this.m_OnServerStartHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = delegate
+		
+		this.m_OnServerConnectHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerConnectHolder = _003C_003Ef__am_0024cache2;
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate
+		
+		this.m_OnServerDisconnectHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerDisconnectHolder = _003C_003Ef__am_0024cache3;
-		if (_003C_003Ef__am_0024cache4 == null)
-		{
-			_003C_003Ef__am_0024cache4 = delegate
+		
+		this.m_OnServerReadyHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerReadyHolder = _003C_003Ef__am_0024cache4;
-		if (_003C_003Ef__am_0024cache5 == null)
-		{
-			_003C_003Ef__am_0024cache5 = delegate
+		
+		this.m_OnServerAddPlayerHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerAddPlayerHolder = _003C_003Ef__am_0024cache5;
-		if (_003C_003Ef__am_0024cache6 == null)
-		{
-			_003C_003Ef__am_0024cache6 = delegate
+		
+		this.m_OnServerRemovePlayerHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerRemovePlayerHolder = _003C_003Ef__am_0024cache6;
-		if (_003C_003Ef__am_0024cache7 == null)
-		{
-			_003C_003Ef__am_0024cache7 = delegate
+		
+		this.m_OnServerErrorHolder = delegate
 			{
 			};
-		}
-		this.m_OnServerErrorHolder = _003C_003Ef__am_0024cache7;
-		if (_003C_003Ef__am_0024cache8 == null)
-		{
-			_003C_003Ef__am_0024cache8 = delegate
+		
+		this.m_OnClientConnectHolder = delegate
 			{
 			};
-		}
-		this.m_OnClientConnectHolder = _003C_003Ef__am_0024cache8;
 		this.m_OnClientDisconnectHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cacheA == null)
-		{
-			_003C_003Ef__am_0024cacheA = delegate
+		
+		this.m_OnClientNotReadyHolder = delegate
 			{
 			};
-		}
-		this.m_OnClientNotReadyHolder = _003C_003Ef__am_0024cacheA;
-		if (_003C_003Ef__am_0024cacheB == null)
-		{
-			_003C_003Ef__am_0024cacheB = delegate
+		
+		this.m_OnClientErrorHolder = delegate
 			{
 			};
-		}
-		this.m_OnClientErrorHolder = _003C_003Ef__am_0024cacheB;
 		m_nextPlayerChannelIndex = 6;
 		
 	}
@@ -488,9 +461,8 @@ public class MyNetworkManager : NetworkManager
 		{
 			base.client = new NetworkClient();
 			NetworkClient client = base.client;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(NetworkMessageDelegate networkMessageFunction, NetworkMessage data)
+			
+			client.messageDispatcher = delegate(NetworkMessageDelegate networkMessageFunction, NetworkMessage data)
 				{
 					NetworkMessage mirror = default(NetworkMessage);
 					if (AsyncPump.Current != null)
@@ -517,8 +489,6 @@ public class MyNetworkManager : NetworkManager
 					}
 					networkMessageFunction(data);
 				};
-			}
-			client.messageDispatcher = _003C_003Ef__am_0024cache0;
 		}
 		ConfigureClient();
 		UseExternalClient(base.client);

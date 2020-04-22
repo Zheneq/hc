@@ -130,11 +130,8 @@ namespace TMPro
 			while (true)
 			{
 				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = ((TMP_Glyph s) => s.id);
-				}
-				m_glyphInfoList = glyphInfoList.OrderBy(_003C_003Ef__am_0024cache0).ToList();
+				
+				m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph s) => s.id)).ToList();
 				return;
 			}
 		}
@@ -301,11 +298,8 @@ namespace TMPro
 					}
 				}
 				List<TMP_Glyph> glyphInfoList = m_glyphInfoList;
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((TMP_Glyph item) => item.id);
-				}
-				m_glyphInfoList = glyphInfoList.OrderBy(_003C_003Ef__am_0024cache1).ToList();
+				
+				m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph item) => item.id)).ToList();
 				return;
 			}
 		}

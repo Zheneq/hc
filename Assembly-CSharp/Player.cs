@@ -17,8 +17,8 @@ public struct Player
 	[CompilerGenerated]
 	private static Action<GameState> _003C_003Ef__mg_0024cache0;
 
-	[CompilerGenerated]
-	private static Action<GameState> _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static Action<GameState> OnGameStateChanged;
 
 	public bool WasEverHuman => m_accountId > 0;
 
@@ -38,11 +38,8 @@ public struct Player
 		m_connectionId = connectionId;
 		m_accountId = accountId;
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
-		if (_003C_003Ef__mg_0024cache1 == null)
-		{
-			_003C_003Ef__mg_0024cache1 = OnGameStateChanged;
-		}
-		GameFlowData.s_onGameStateChanged += _003C_003Ef__mg_0024cache1;
+		
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 	}
 
 	public override bool Equals(object obj)

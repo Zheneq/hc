@@ -254,11 +254,8 @@ public class ProfilingTimers
 			else
 			{
 				ParameterInfo[] parameters = method.GetParameters();
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = ((ParameterInfo p) => p.ParameterType.Name);
-				}
-				string arg3 = string.Join(",", parameters.Select(_003C_003Ef__am_0024cache0).ToArray());
+				
+				string arg3 = string.Join(",", parameters.Select(((ParameterInfo p) => p.ParameterType.Name)).ToArray());
 				arg2 = $"UnknownMethod({arg3})";
 			}
 		}

@@ -108,16 +108,10 @@ namespace TMPro
 			while (true)
 			{
 				List<KerningPair> source = kerningPairs;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = ((KerningPair s) => s.AscII_Left);
-				}
-				IOrderedEnumerable<KerningPair> source2 = source.OrderBy(_003C_003Ef__am_0024cache0);
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((KerningPair s) => s.AscII_Right);
-				}
-				kerningPairs = source2.ThenBy(_003C_003Ef__am_0024cache1).ToList();
+				
+				IOrderedEnumerable<KerningPair> source2 = source.OrderBy(((KerningPair s) => s.AscII_Left));
+				
+				kerningPairs = source2.ThenBy(((KerningPair s) => s.AscII_Right)).ToList();
 				return;
 			}
 		}

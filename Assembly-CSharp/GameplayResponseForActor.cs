@@ -97,11 +97,8 @@ public class GameplayResponseForActor
 			num = 0;
 		}
 		float otherVal = num;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((float f) => f != 0f);
-		}
-		text2 = str + InEditorDescHelper.AssembleFieldWithDiff("[ Credits ] = ", indent, otherSep, myVal, flag, otherVal, _003C_003Ef__am_0024cache0);
+		
+		text2 = str + InEditorDescHelper.AssembleFieldWithDiff("[ Credits ] = ", indent, otherSep, myVal, flag, otherVal, ((float f) => f != 0f));
 		string str2 = text2;
 		float myVal2 = m_healing;
 		int num2;
@@ -138,11 +135,8 @@ public class GameplayResponseForActor
 			num4 = 0;
 		}
 		float otherVal2 = num4;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((float f) => f != 0f);
-		}
-		text2 = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ TechPoints ] = ", indent, otherSep, myVal4, flag, otherVal2, _003C_003Ef__am_0024cache1);
+		
+		text2 = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ TechPoints ] = ", indent, otherSep, myVal4, flag, otherVal2, ((float f) => f != 0f));
 		string str5 = text2;
 		StandardEffectInfo effect = m_effect;
 		object baseVal;

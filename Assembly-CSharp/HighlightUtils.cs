@@ -831,11 +831,11 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	[CompilerGenerated]
 	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache0;
 
-	[CompilerGenerated]
-	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static SquareIndicators.CreateIndicatorDelegate CreateHiddenSquareIndicatorObject;
 
-	[CompilerGenerated]
-	private static SquareIndicators.CreateIndicatorDelegate _003C_003Ef__mg_0024cache2;
+	//[CompilerGenerated]
+	//private static SquareIndicators.CreateIndicatorDelegate CreateAffectedSquareIndicatorObject;
 
 	internal GameObject ClampedMouseOverCursor
 	{
@@ -924,16 +924,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public HighlightUtils()
 	{
-		if (_003C_003Ef__mg_0024cache1 == null)
-		{
-			_003C_003Ef__mg_0024cache1 = CreateHiddenSquareIndicatorObject;
-		}
-		m_hiddenSquareIndicators = new SquareIndicators(_003C_003Ef__mg_0024cache1, 15, 10, 0.09f);
-		if (_003C_003Ef__mg_0024cache2 == null)
-		{
-			_003C_003Ef__mg_0024cache2 = CreateAffectedSquareIndicatorObject;
-		}
-		m_affectedSquareIndicators = new SquareIndicators(_003C_003Ef__mg_0024cache2, 15, 10, 0.09f);
+		
+		m_hiddenSquareIndicators = new SquareIndicators(CreateHiddenSquareIndicatorObject, 15, 10, 0.09f);
+		
+		m_affectedSquareIndicators = new SquareIndicators(CreateAffectedSquareIndicatorObject, 15, 10, 0.09f);
 		m_rangeIndicatorMouseOverFlags = new List<bool>();
 		m_lastRangeIndicatorRadius = -1f;
 		

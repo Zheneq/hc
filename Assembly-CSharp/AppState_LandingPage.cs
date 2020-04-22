@@ -227,14 +227,11 @@ public class AppState_LandingPage : AppState
 											{
 												ConnectToLobbyServer();
 											};
-											if (_003C_003Ef__am_0024cache0 == null)
-											{
-												_003C_003Ef__am_0024cache0 = delegate
+											
+											m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, delegate
 												{
 													AppState_Shutdown.Get().Enter();
-												};
-											}
-											m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, _003C_003Ef__am_0024cache0);
+												});
 											return;
 										}
 										}
@@ -268,14 +265,11 @@ public class AppState_LandingPage : AppState
 						string empty2 = string.Empty;
 						string description2 = string.Format(StringUtil.TR("FailedToConnectToLobbyServer", "Global"), ex.Message);
 						string buttonLabelText = StringUtil.TR("Ok", "Global");
-						if (_003C_003Ef__am_0024cache3 == null)
-						{
-							_003C_003Ef__am_0024cache3 = delegate
+						
+						m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty2, description2, buttonLabelText, delegate
 							{
 								AppState_Shutdown.Get().Enter();
-							};
-						}
-						m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty2, description2, buttonLabelText, _003C_003Ef__am_0024cache3);
+							});
 					}
 					return;
 				}
@@ -331,14 +325,11 @@ public class AppState_LandingPage : AppState
 			string empty = string.Empty;
 			string description = text;
 			string buttonLabelText = StringUtil.TR("Ok", "Global");
-			if (_003C_003Ef__am_0024cache4 == null)
-			{
-				_003C_003Ef__am_0024cache4 = delegate
+			
+			m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty, description, buttonLabelText, delegate
 				{
 					AppState_Shutdown.Get().Enter();
-				};
-			}
-			m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty, description, buttonLabelText, _003C_003Ef__am_0024cache4);
+				});
 			return;
 		}
 	}

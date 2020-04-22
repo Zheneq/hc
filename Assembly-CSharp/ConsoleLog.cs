@@ -5,8 +5,8 @@ public static class ConsoleLog
 {
 	private static object s_lock;
 
-	[CompilerGenerated]
-	private static Action<Log.Message> _003C_003Ef__mg_0024cache0;
+	//[CompilerGenerated]
+	//private static Action<Log.Message> HandleLogMessage;
 
 	[CompilerGenerated]
 	private static Action<Log.Message> _003C_003Ef__mg_0024cache1;
@@ -117,11 +117,8 @@ public static class ConsoleLog
 		while (true)
 		{
 			Started = true;
-			if (_003C_003Ef__mg_0024cache0 == null)
-			{
-				_003C_003Ef__mg_0024cache0 = HandleLogMessage;
-			}
-			Log.AddLogHandler(_003C_003Ef__mg_0024cache0);
+			
+			Log.AddLogHandler(HandleLogMessage);
 			return;
 		}
 	}

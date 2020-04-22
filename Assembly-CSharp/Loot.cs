@@ -33,11 +33,8 @@ public class Loot
 	public IEnumerable<int> GetItemTemplateIds()
 	{
 		List<InventoryItem> items = Items;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((InventoryItem i) => i.TemplateId);
-		}
-		return items.Select(_003C_003Ef__am_0024cache0);
+		
+		return items.Select(((InventoryItem i) => i.TemplateId));
 	}
 
 	public void AddKarma(Karma karma)

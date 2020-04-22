@@ -25,9 +25,8 @@ public class SlashCommand_SpectateGame : SlashCommand
 				}
 			}
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(GameSpectatorResponse response)
+		
+		Action<GameSpectatorResponse> onResponseCallback = delegate(GameSpectatorResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
 				message.MessageType = ConsoleMessageType.SystemMessage;
@@ -58,8 +57,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 					}
 				}
 			};
-		}
-		Action<GameSpectatorResponse> onResponseCallback = _003C_003Ef__am_0024cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
 			if (!(ClientGameManager.Get() == null))

@@ -236,14 +236,11 @@ public class FriendListPanel : MonoBehaviour
 		HandleFriendStatusNotification(friendStatusNotification);
 		UpdateFriendListSize();
 		_ButtonSwapSprite spriteController = m_recruitButton.spriteController;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		spriteController.callback = delegate
 			{
 				UIFrontEnd.Get().m_frontEndNavPanel.ToggleReferAFriend();
 			};
-		}
-		spriteController.callback = _003C_003Ef__am_0024cache0;
 	}
 
 	private void OnAccountDataUpdated(PersistedAccountData accountData)

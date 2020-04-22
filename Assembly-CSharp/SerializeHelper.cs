@@ -247,14 +247,11 @@ public class SerializeHelper
 	public static void SerializeArray(IBitStream stream, ref Vector3[] toSerialize)
 	{
 		Vector3 zero = Vector3.zero;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate(IBitStream s, ref Vector3 value)
+		
+		SerializeArray_Base(stream, ref toSerialize, zero, delegate(IBitStream s, ref Vector3 value)
 			{
 				s.Serialize(ref value);
-			};
-		}
-		SerializeArray_Base(stream, ref toSerialize, zero, _003C_003Ef__am_0024cache1);
+			});
 	}
 
 	private static void SerializeArray_Base<T>(IBitStream stream, ref T[] toSerializeArray, T defaultValue, BitstreamSerializeDelegate<T> serializeDelegate)

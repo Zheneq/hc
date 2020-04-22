@@ -75,11 +75,8 @@ public class ClaymoreCharge : Ability
 		AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge = new AbilityUtil_Targeter_ClaymoreCharge(this, GetChargeWidth(), GetChargeRange(), GetAoeShape(), DirectHitIgnoreCover());
 		if (GetHealOnSelfPerTargetHit() > 0)
 		{
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
-			}
-			abilityUtil_Targeter_ClaymoreCharge.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
+			
+			abilityUtil_Targeter_ClaymoreCharge.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		}
 		base.Targeter = abilityUtil_Targeter_ClaymoreCharge;
 	}

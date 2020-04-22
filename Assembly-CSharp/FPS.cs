@@ -53,26 +53,20 @@ public class FPS
 
 	internal FPS()
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.m_OnFPSChangeHolder = delegate
 			{
 			};
-		}
-		this.m_OnFPSChangeHolder = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
 		
 	}
 
 	internal FPS(Action<float> onChange)
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.m_OnFPSChangeHolder = delegate
 			{
 			};
-		}
-		this.m_OnFPSChangeHolder = _003C_003Ef__am_0024cache0;
 		m_timeLeft = 0.5f;
 		
 		m_OnFPSChange += onChange;

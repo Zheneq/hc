@@ -138,9 +138,8 @@ public class FishManGeyser : Ability
 		AbilityUtil_Targeter_MultipleShapes abilityUtil_Targeter_MultipleShapes = new AbilityUtil_Targeter_MultipleShapes(this, list);
 		if (GetHealOnCasterPerEnemyHit() > 0)
 		{
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(ActorData caster, List<ActorData> actorsSoFar)
+			
+			abilityUtil_Targeter_MultipleShapes.m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar)
 				{
 					for (int j = 0; j < actorsSoFar.Count; j++)
 					{
@@ -169,8 +168,6 @@ public class FishManGeyser : Ability
 						}
 					}
 				};
-			}
-			abilityUtil_Targeter_MultipleShapes.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
 		}
 		else
 		{

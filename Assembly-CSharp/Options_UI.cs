@@ -1625,16 +1625,10 @@ public class Options_UI : UIScene, IGameEventListener
 		int num = 0;
 		int num2 = 1;
 		Resolution[] resolutions = Screen.resolutions;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((Resolution r) => r.width);
-		}
-		IOrderedEnumerable<Resolution> source = resolutions.OrderByDescending(_003C_003Ef__am_0024cache0);
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((Resolution r) => r.height);
-		}
-		Resolution[] array = source.ThenByDescending(_003C_003Ef__am_0024cache1).ToArray();
+		
+		IOrderedEnumerable<Resolution> source = resolutions.OrderByDescending(((Resolution r) => r.width));
+		
+		Resolution[] array = source.ThenByDescending(((Resolution r) => r.height)).ToArray();
 		bool flag = false;
 		Resolution[] array2 = array;
 		int num3 = 0;

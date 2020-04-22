@@ -1029,11 +1029,8 @@ namespace I2.Loc
 						where !string.IsNullOrEmpty(x)
 						select x).ToArray();
 					string[] source = Language2.Split("( )-/\\".ToCharArray());
-					if (_003C_003Ef__am_0024cache1 == null)
-					{
-						_003C_003Ef__am_0024cache1 = ((string x) => !string.IsNullOrEmpty(x));
-					}
-					string[] array2 = source.Where(_003C_003Ef__am_0024cache1).ToArray();
+					
+					string[] array2 = source.Where(((string x) => !string.IsNullOrEmpty(x))).ToArray();
 					int num = 0;
 					string[] array3 = array;
 					foreach (string value in array3)

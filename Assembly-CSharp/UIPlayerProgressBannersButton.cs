@@ -141,9 +141,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					{
 						ClientGameManager clientGameManager = ClientGameManager.Get();
 						int selectedID = m_selectedID;
-						if (_003C_003Ef__am_0024cache0 == null)
-						{
-							_003C_003Ef__am_0024cache0 = delegate(SelectTitleResponse response)
+						
+						clientGameManager.RequestTitleSelect(selectedID, delegate(SelectTitleResponse response)
 							{
 								if (!response.Success)
 								{
@@ -161,9 +160,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 										}
 									}
 								}
-							};
-						}
-						clientGameManager.RequestTitleSelect(selectedID, _003C_003Ef__am_0024cache0);
+							});
 						return;
 					}
 					}
@@ -200,9 +197,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			}
 			ClientGameManager clientGameManager2 = ClientGameManager.Get();
 			int selectedID2 = m_selectedID;
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate(SelectBannerResponse response)
+			
+			clientGameManager2.RequestBannerSelect(selectedID2, delegate(SelectBannerResponse response)
 				{
 					if (!response.Success)
 					{
@@ -210,9 +206,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 						ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 					}
-				};
-			}
-			clientGameManager2.RequestBannerSelect(selectedID2, _003C_003Ef__am_0024cache1);
+				});
 			return;
 		}
 	}

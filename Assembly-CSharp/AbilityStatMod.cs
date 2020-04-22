@@ -94,11 +94,8 @@ public class AbilityStatMod
 		{
 			otherVal = 0f;
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((float f) => f != 0f);
-		}
-		text2 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, flag, otherVal, _003C_003Ef__am_0024cache0);
+		
+		text2 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, flag, otherVal, ((float f) => f != 0f));
 		return text2 + text;
 	}
 }

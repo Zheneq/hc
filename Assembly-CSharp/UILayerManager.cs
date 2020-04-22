@@ -69,9 +69,8 @@ public class UILayerManager
 			{
 				if (list.Count > 1)
 				{
-					if (_003C_003Ef__am_0024cache0 == null)
-					{
-						_003C_003Ef__am_0024cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
+					
+					list.Sort(delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
 						{
 							if (keyA.Value > keyB.Value)
 							{
@@ -91,9 +90,7 @@ public class UILayerManager
 								}
 							}
 							return 0;
-						};
-					}
-					list.Sort(_003C_003Ef__am_0024cache0);
+						});
 					for (int j = 0; j < list.Count; j++)
 					{
 						CanvasLayers[list[j].Key].ScenesContainer.transform.SetAsLastSibling();

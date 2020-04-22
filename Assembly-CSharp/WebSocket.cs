@@ -237,13 +237,10 @@ public class WebSocket : IDisposable
 
 	private WebSocket(WebSocketMessageFactory factory)
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.OnMessageHolder = delegate
 			{
 			};
-		}
-		this.OnMessageHolder = _003C_003Ef__am_0024cache0;
 		
 		State = SocketState.Closed;
 		HeartbeatPeriod = TimeSpan.Zero;
@@ -1083,13 +1080,10 @@ public class WebSocket : IDisposable
 			}
 		}
 		Logger logger = m_webSocket.Logger;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate
+		
+		logger.Output = delegate
 			{
 			};
-		}
-		logger.Output = _003C_003Ef__am_0024cache1;
 	}
 
 	public void HandleLogMessage(LogData data, string unused)

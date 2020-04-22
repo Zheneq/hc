@@ -672,11 +672,8 @@ public class SpawnPointManager : MonoBehaviour
 				list = m_spawnRegionsTeamB.GetSquaresInRegion();
 			}
 			List<BoardSquare> list2 = list;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((BoardSquare s) => !s.IsBaselineHeight());
-			}
-			list2.RemoveAll(_003C_003Ef__am_0024cache0);
+			
+			list2.RemoveAll(((BoardSquare s) => !s.IsBaselineHeight()));
 		}
 		else if (team == Team.TeamA)
 		{

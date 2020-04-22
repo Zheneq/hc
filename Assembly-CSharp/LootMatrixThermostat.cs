@@ -18,15 +18,12 @@ public class LootMatrixThermostat : MonoBehaviour
 	private void Awake()
 	{
 		UITooltipHoverObject thermostatTooltipObj = m_thermostatTooltipObj;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
+		
+		thermostatTooltipObj.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				(tooltip as UISimpleTooltip).Setup(StringUtil.TR("ThermostatTooltip", "LootMatrixScene"));
 				return true;
-			};
-		}
-		thermostatTooltipObj.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
+			});
 	}
 
 	public void UpdateThermostat(InventoryComponent component, InventoryItem InvItem, InventoryItemTemplate InvItemTemplate, List<int> m_boxIds, bool GotLegendary = false)

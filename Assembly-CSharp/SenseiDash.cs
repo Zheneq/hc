@@ -52,9 +52,8 @@ public class SenseiDash : Ability
 			abilityUtil_Targeter = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundStartToHit(), GetRadiusAroundEndToHit(), 0.5f * GetChargeHitWidth(), -1, false, ChargeHitPenetrateLos());
 			abilityUtil_Targeter.SetAffectedGroups(CanHitEnemy(), CanHitAlly(), false);
 			AbilityUtil_Targeter_ChargeAoE obj = abilityUtil_Targeter as AbilityUtil_Targeter_ChargeAoE;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
+			
+			obj.m_shouldAddTargetDelegate = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
 				{
 					bool result = false;
 					SenseiDash senseiDash = ability as SenseiDash;
@@ -78,8 +77,6 @@ public class SenseiDash : Ability
 					}
 					return result;
 				};
-			}
-			obj.m_shouldAddTargetDelegate = _003C_003Ef__am_0024cache0;
 		}
 		else
 		{

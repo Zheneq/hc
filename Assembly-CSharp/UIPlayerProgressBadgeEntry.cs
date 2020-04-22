@@ -112,9 +112,8 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 							});
 						}
 					}
-					if (_003C_003Ef__am_0024cache0 == null)
-					{
-						_003C_003Ef__am_0024cache0 = delegate(BadgeGroupDisplayInfo x, BadgeGroupDisplayInfo y)
+					
+					list.Sort(delegate(BadgeGroupDisplayInfo x, BadgeGroupDisplayInfo y)
 						{
 							if (x.Quality != y.Quality)
 							{
@@ -130,9 +129,7 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 								return result;
 							}
 							return 0;
-						};
-					}
-					list.Sort(_003C_003Ef__am_0024cache0);
+						});
 					for (int j = 0; j < list.Count; j++)
 					{
 						text = text + "\n" + list[j].GetRequirementDescription();

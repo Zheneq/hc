@@ -82,11 +82,8 @@ public class LobbyInventoryItemTemplate
 			null
 		};
 		int[] typeSpecificData = TypeSpecificData;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((int p) => p.ToString());
-		}
-		obj[3] = string.Join(",", typeSpecificData.Select(_003C_003Ef__am_0024cache0).ToArray());
+		
+		obj[3] = string.Join(",", typeSpecificData.Select(((int p) => p.ToString())).ToArray());
 		return string.Format("[{0}] {1}, {2}, ({3})", obj);
 	}
 }

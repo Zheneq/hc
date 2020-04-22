@@ -2414,220 +2414,136 @@ public class ClientGameManager : MonoBehaviour
 
 	public ClientGameManager()
 	{
-		if (_003C_003Ef__am_0024cache9 == null)
-		{
-			_003C_003Ef__am_0024cache9 = delegate
+		
+		this.OnConnectedToLobbyServerHolder = delegate
 			{
 			};
-		}
-		this.OnConnectedToLobbyServerHolder = _003C_003Ef__am_0024cache9;
-		if (_003C_003Ef__am_0024cacheA == null)
-		{
-			_003C_003Ef__am_0024cacheA = delegate
+		
+		this.OnDisconnectedFromLobbyServerHolder = delegate
 			{
 			};
-		}
-		this.OnDisconnectedFromLobbyServerHolder = _003C_003Ef__am_0024cacheA;
-		if (_003C_003Ef__am_0024cacheB == null)
-		{
-			_003C_003Ef__am_0024cacheB = delegate
+		
+		this.OnLobbyServerReadyNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnLobbyServerReadyNotificationHolder = _003C_003Ef__am_0024cacheB;
-		if (_003C_003Ef__am_0024cacheC == null)
-		{
-			_003C_003Ef__am_0024cacheC = delegate
+		
+		this.OnLobbyStatusNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnLobbyStatusNotificationHolder = _003C_003Ef__am_0024cacheC;
-		if (_003C_003Ef__am_0024cacheD == null)
-		{
-			_003C_003Ef__am_0024cacheD = delegate
+		
+		this.OnLobbyCustomGamesNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnLobbyCustomGamesNotificationHolder = _003C_003Ef__am_0024cacheD;
 		this.OnQueueAssignmentNotificationHolder = delegate
 		{
 		};
 		this.OnQueueStatusNotificationHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache10 == null)
-		{
-			_003C_003Ef__am_0024cache10 = delegate
+		
+		this.OnQueueEnteredHolder = delegate
 			{
 			};
-		}
-		this.OnQueueEnteredHolder = _003C_003Ef__am_0024cache10;
-		if (_003C_003Ef__am_0024cache11 == null)
-		{
-			_003C_003Ef__am_0024cache11 = delegate
+		
+		this.OnQueueLeftHolder = delegate
 			{
 			};
-		}
-		this.OnQueueLeftHolder = _003C_003Ef__am_0024cache11;
-		if (_003C_003Ef__am_0024cache12 == null)
-		{
-			_003C_003Ef__am_0024cache12 = delegate
+		
+		this.OnGameAssignmentNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnGameAssignmentNotificationHolder = _003C_003Ef__am_0024cache12;
-		if (_003C_003Ef__am_0024cache13 == null)
-		{
-			_003C_003Ef__am_0024cache13 = delegate
+		
+		this.OnGameInfoNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnGameInfoNotificationHolder = _003C_003Ef__am_0024cache13;
-		if (_003C_003Ef__am_0024cache14 == null)
-		{
-			_003C_003Ef__am_0024cache14 = delegate
+		
+		this.OnLobbyServerLockStateChangeHolder = delegate
 			{
 			};
-		}
-		this.OnLobbyServerLockStateChangeHolder = _003C_003Ef__am_0024cache14;
-		if (_003C_003Ef__am_0024cache15 == null)
-		{
-			_003C_003Ef__am_0024cache15 = delegate
+		
+		this.OnLobbyServerClientAccessLevelChangeHolder = delegate
 			{
 			};
-		}
-		this.OnLobbyServerClientAccessLevelChangeHolder = _003C_003Ef__am_0024cache15;
 		this.OnLobbyGameplayOverridesChangeHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache17 == null)
-		{
-			_003C_003Ef__am_0024cache17 = delegate
+		
+		this.OnBankBalanceChangeHolder = delegate
 			{
 			};
-		}
-		this.OnBankBalanceChangeHolder = _003C_003Ef__am_0024cache17;
-		if (_003C_003Ef__am_0024cache18 == null)
-		{
-			_003C_003Ef__am_0024cache18 = delegate
+		
+		this.OnModUnlockedHolder = delegate
 			{
 			};
-		}
-		this.OnModUnlockedHolder = _003C_003Ef__am_0024cache18;
-		if (_003C_003Ef__am_0024cache19 == null)
-		{
-			_003C_003Ef__am_0024cache19 = delegate
+		
+		this.OnAccountDataUpdatedHolder = delegate
 			{
 			};
-		}
-		this.OnAccountDataUpdatedHolder = _003C_003Ef__am_0024cache19;
-		if (_003C_003Ef__am_0024cache1A == null)
-		{
-			_003C_003Ef__am_0024cache1A = delegate
+		
+		this.OnCharacterDataUpdatedHolder = delegate
 			{
 			};
-		}
-		this.OnCharacterDataUpdatedHolder = _003C_003Ef__am_0024cache1A;
-		if (_003C_003Ef__am_0024cache1B == null)
-		{
-			_003C_003Ef__am_0024cache1B = delegate
+		
+		this.OnInventoryComponentUpdatedHolder = delegate
 			{
 			};
-		}
-		this.OnInventoryComponentUpdatedHolder = _003C_003Ef__am_0024cache1B;
-		if (_003C_003Ef__am_0024cache1C == null)
-		{
-			_003C_003Ef__am_0024cache1C = delegate
+		
+		this.OnChatNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnChatNotificationHolder = _003C_003Ef__am_0024cache1C;
-		if (_003C_003Ef__am_0024cache1D == null)
-		{
-			_003C_003Ef__am_0024cache1D = delegate
+		
+		this.OnSetDevTagResponseHolder = delegate
 			{
 			};
-		}
-		this.OnSetDevTagResponseHolder = _003C_003Ef__am_0024cache1D;
 		this.OnUseOverconNotificationHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache1F == null)
-		{
-			_003C_003Ef__am_0024cache1F = delegate
+		
+		this.OnUseGGPackNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnUseGGPackNotificationHolder = _003C_003Ef__am_0024cache1F;
-		if (_003C_003Ef__am_0024cache20 == null)
-		{
-			_003C_003Ef__am_0024cache20 = delegate
+		
+		this.OnGroupUpdateNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnGroupUpdateNotificationHolder = _003C_003Ef__am_0024cache20;
-		if (_003C_003Ef__am_0024cache21 == null)
-		{
-			_003C_003Ef__am_0024cache21 = delegate
+		
+		this.OnFriendStatusNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnFriendStatusNotificationHolder = _003C_003Ef__am_0024cache21;
-		if (_003C_003Ef__am_0024cache22 == null)
-		{
-			_003C_003Ef__am_0024cache22 = delegate
+		
+		this.OnPlayerTitleChangeHolder = delegate
 			{
 			};
-		}
-		this.OnPlayerTitleChangeHolder = _003C_003Ef__am_0024cache22;
-		if (_003C_003Ef__am_0024cache23 == null)
-		{
-			_003C_003Ef__am_0024cache23 = delegate
+		
+		this.OnPlayerBannerChangeHolder = delegate
 			{
 			};
-		}
-		this.OnPlayerBannerChangeHolder = _003C_003Ef__am_0024cache23;
 		this.OnPlayerRibbonChangeHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache25 == null)
-		{
-			_003C_003Ef__am_0024cache25 = delegate
+		
+		this.OnLoadingScreenBackgroundToggledHolder = delegate
 			{
 			};
-		}
-		this.OnLoadingScreenBackgroundToggledHolder = _003C_003Ef__am_0024cache25;
 		this.OnQuestCompleteNotificationHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache27 == null)
-		{
-			_003C_003Ef__am_0024cache27 = delegate
+		
+		this.OnMatchResultsNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnMatchResultsNotificationHolder = _003C_003Ef__am_0024cache27;
-		if (_003C_003Ef__am_0024cache28 == null)
-		{
-			_003C_003Ef__am_0024cache28 = delegate
+		
+		this.OnChapterUnlockNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnChapterUnlockNotificationHolder = _003C_003Ef__am_0024cache28;
-		if (_003C_003Ef__am_0024cache29 == null)
-		{
-			_003C_003Ef__am_0024cache29 = delegate
+		
+		this.OnServerQueueConfigurationUpdateNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnServerQueueConfigurationUpdateNotificationHolder = _003C_003Ef__am_0024cache29;
-		if (_003C_003Ef__am_0024cache2A == null)
-		{
-			_003C_003Ef__am_0024cache2A = delegate
+		
+		this.OnSeasonCompleteNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnSeasonCompleteNotificationHolder = _003C_003Ef__am_0024cache2A;
 		this.OnChapterCompleteNotificationHolder = delegate
 		{
 		};
@@ -2637,23 +2553,17 @@ public class ClientGameManager : MonoBehaviour
 		this.OnTrustBoostUsedNotificationHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache2E == null)
-		{
-			_003C_003Ef__am_0024cache2E = delegate
+		
+		this.OnPlayerFactionContributionChangeNotificationHolder = delegate
 			{
 			};
-		}
-		this.OnPlayerFactionContributionChangeNotificationHolder = _003C_003Ef__am_0024cache2E;
 		this.OnFactionLoginRewardNotificationHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache30 == null)
-		{
-			_003C_003Ef__am_0024cache30 = delegate
+		
+		this.OnQuestProgressChangedHolder = delegate
 			{
 			};
-		}
-		this.OnQuestProgressChangedHolder = _003C_003Ef__am_0024cache30;
 		this.OnAlertMissionDataChangeHolder = delegate
 		{
 		};
@@ -6773,22 +6683,16 @@ public class ClientGameManager : MonoBehaviour
 			foreach (GameSubType subType in value.SubTypes)
 			{
 				List<GameMapConfig> gameMapConfigs = subType.GameMapConfigs;
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((GameMapConfig p) => p.IsActive);
-				}
-				if (!gameMapConfigs.Exists(_003C_003Ef__am_0024cache1))
+				
+				if (!gameMapConfigs.Exists(((GameMapConfig p) => p.IsActive)))
 				{
 					if (subType.Requirements == null)
 					{
 						subType.Requirements = RequirementCollection.Create();
 					}
 					RequirementCollection requirements = subType.Requirements;
-					if (_003C_003Ef__am_0024cache2 == null)
-					{
-						_003C_003Ef__am_0024cache2 = ((QueueRequirement p) => p is QueueRequirement_Never);
-					}
-					if (!requirements.Exists(_003C_003Ef__am_0024cache2))
+					
+					if (!requirements.Exists(((QueueRequirement p) => p is QueueRequirement_Never)))
 					{
 						subType.Requirements.Add(QueueRequirement_Never.Create(QueueRequirement.RequirementType.AdminDisabled, null));
 					}
@@ -7760,9 +7664,8 @@ public class ClientGameManager : MonoBehaviour
 			while (true)
 			{
 				LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
-				if (_003C_003Ef__am_0024cache3 == null)
-				{
-					_003C_003Ef__am_0024cache3 = delegate(DEBUG_ForceMatchmakingResponse response)
+				
+				lobbyGameClientInterface._001D(delegate(DEBUG_ForceMatchmakingResponse response)
 					{
 						string text = (!response.Success) ? $"Failed to force queue: {response.ErrorMessage}" : $"Forced queue {response.GameType}";
 						TextConsole.Get().Write(text);
@@ -7781,9 +7684,7 @@ public class ClientGameManager : MonoBehaviour
 							}
 						}
 						Log.Error(text);
-					};
-				}
-				lobbyGameClientInterface._001D(_003C_003Ef__am_0024cache3);
+					});
 				return;
 			}
 		}
@@ -7802,9 +7703,8 @@ public class ClientGameManager : MonoBehaviour
 				return;
 			}
 			LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
-			if (_003C_003Ef__am_0024cache4 == null)
-			{
-				_003C_003Ef__am_0024cache4 = delegate(DEBUG_TakeSnapshotResponse response)
+			
+			lobbyGameClientInterface._001D(delegate(DEBUG_TakeSnapshotResponse response)
 				{
 					string text;
 					if (response.Success)
@@ -7832,9 +7732,7 @@ public class ClientGameManager : MonoBehaviour
 						}
 					}
 					Log.Error(text2);
-				};
-			}
-			lobbyGameClientInterface._001D(_003C_003Ef__am_0024cache4);
+				});
 			return;
 		}
 	}
@@ -7951,9 +7849,8 @@ public class ClientGameManager : MonoBehaviour
 				m_discordConnecting = true;
 				m_discordJoinType = discordJoinType;
 				LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
-				if (_003C_003Ef__am_0024cache5 == null)
-				{
-					_003C_003Ef__am_0024cache5 = delegate(DiscordGetRpcTokenResponse response)
+				
+				lobbyGameClientInterface.SendDiscordGetRpcTokenRequest(delegate(DiscordGetRpcTokenResponse response)
 					{
 						if (response.Success)
 						{
@@ -7977,9 +7874,7 @@ public class ClientGameManager : MonoBehaviour
 								}
 							}
 						}
-					};
-				}
-				lobbyGameClientInterface.SendDiscordGetRpcTokenRequest(_003C_003Ef__am_0024cache5);
+					});
 				return;
 			}
 		}
@@ -8074,9 +7969,8 @@ public class ClientGameManager : MonoBehaviour
 		while (true)
 		{
 			LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
-			if (_003C_003Ef__am_0024cache6 == null)
-			{
-				_003C_003Ef__am_0024cache6 = delegate(DiscordGetAccessTokenResponse response)
+			
+			lobbyGameClientInterface.SendDiscordGetAccessTokenRequest(rpcCode, delegate(DiscordGetAccessTokenResponse response)
 				{
 					if (response.Success)
 					{
@@ -8098,9 +7992,7 @@ public class ClientGameManager : MonoBehaviour
 							}
 						}
 					}
-				};
-			}
-			lobbyGameClientInterface.SendDiscordGetAccessTokenRequest(rpcCode, _003C_003Ef__am_0024cache6);
+				});
 			return;
 		}
 	}
@@ -8641,17 +8533,14 @@ public class ClientGameManager : MonoBehaviour
 					break;
 				default:
 				{
-					if (_003C_003Ef__am_0024cache7 == null)
-					{
-						_003C_003Ef__am_0024cache7 = delegate(PlayerUpdateStatusResponse resonse)
+					
+					Action<PlayerUpdateStatusResponse> onResponseCallback = delegate(PlayerUpdateStatusResponse resonse)
 						{
 							if (!resonse.Success)
 							{
 								Log.Warning(resonse.ErrorMessage);
 							}
 						};
-					}
-					Action<PlayerUpdateStatusResponse> onResponseCallback = _003C_003Ef__am_0024cache7;
 					m_lobbyGameClientInterface.UpdatePlayerStatus(statusString, onResponseCallback);
 					return;
 				}
@@ -9101,13 +8990,10 @@ public class ClientGameManager : MonoBehaviour
 					default:
 						if (onResponseCallback == null)
 						{
-							if (_003C_003Ef__am_0024cache8 == null)
-							{
-								_003C_003Ef__am_0024cache8 = delegate
+							
+							onResponseCallback = delegate
 								{
 								};
-							}
-							onResponseCallback = _003C_003Ef__am_0024cache8;
 						}
 						m_lobbyGameClientInterface.CheckRAFStatus(getReferralCode, onResponseCallback);
 						return;

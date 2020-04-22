@@ -1041,11 +1041,8 @@ public class UILootMatrixScreen : UIScene
 			{
 				m_throwBoxException = false;
 				List<int> boxIds = m_boxIds;
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((int x) => x.ToString());
-				}
-				string text = string.Join(", ", boxIds.Select(_003C_003Ef__am_0024cache1).ToArray());
+				
+				string text = string.Join(", ", boxIds.Select(((int x) => x.ToString())).ToArray());
 				throw new Exception(string.Format("IssueOpeningLootMatrix {0} result={1}\nBoxIds:{2}\nInventory: {3}", m_boxIds[0], "ItemNotFound", text, m_inventoryItemStr));
 			}
 		}

@@ -145,11 +145,8 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				}
 			}
 			i = 0;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.Matches);
-			}
-			using (IEnumerator<PersistedCharacterData> enumerator = characterData.OrderByDescending(_003C_003Ef__am_0024cache0).Take(m_mostUsedHeroDisplays.Length).GetEnumerator())
+			
+			using (IEnumerator<PersistedCharacterData> enumerator = characterData.OrderByDescending(((PersistedCharacterData x) => x.ExperienceComponent.Matches)).Take(m_mostUsedHeroDisplays.Length).GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
@@ -560,9 +557,8 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 				}
 			}
 			List<UIFreelancerComparisonItem> freelancerComparisonList = m_freelancerComparisonList;
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate(UIFreelancerComparisonItem x, UIFreelancerComparisonItem y)
+			
+			freelancerComparisonList.Sort(delegate(UIFreelancerComparisonItem x, UIFreelancerComparisonItem y)
 				{
 					int num = x.GetValue().CompareTo(y.GetValue());
 					int result;
@@ -575,9 +571,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						result = num;
 					}
 					return result;
-				};
-			}
-			freelancerComparisonList.Sort(_003C_003Ef__am_0024cache1);
+				});
 			float value = m_freelancerComparisonList[m_freelancerComparisonList.Count - 1].GetValue();
 			for (int j = 0; j < m_freelancerComparisonList.Count; j++)
 			{

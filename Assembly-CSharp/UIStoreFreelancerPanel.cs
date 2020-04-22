@@ -308,11 +308,8 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		while (true)
 		{
 			List<CharacterData> visibleFreelancers = m_visibleFreelancers;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((CharacterData a, CharacterData b) => a.ResourceLink.GetDisplayName().CompareTo(b.ResourceLink.GetDisplayName()));
-			}
-			visibleFreelancers.Sort(_003C_003Ef__am_0024cache0);
+			
+			visibleFreelancers.Sort(((CharacterData a, CharacterData b) => a.ResourceLink.GetDisplayName().CompareTo(b.ResourceLink.GetDisplayName())));
 			m_numPages = Mathf.CeilToInt(m_visibleFreelancers.Count / m_freeLancerSlots.Count) + 1;
 			for (int j = 0; j < m_numPages; j++)
 			{
@@ -498,14 +495,11 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 		if (characterType == CharacterType.None)
 		{
 			List<CharacterData> visibleFreelancers = m_visibleFreelancers;
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate(CharacterData v)
+			
+			visibleFreelancers.ForEach(delegate(CharacterData v)
 				{
 					v.QueueProgressRefresh();
-				};
-			}
-			visibleFreelancers.ForEach(_003C_003Ef__am_0024cache1);
+				});
 		}
 		else
 		{

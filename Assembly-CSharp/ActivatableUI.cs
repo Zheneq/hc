@@ -248,14 +248,11 @@ public class ActivatableUI
 				}
 			}
 			UITutorialPanel uITutorialPanel = UITutorialPanel.Get();
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate
+			
+			uITutorialPanel.QueueAction(delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowCombatPhasePanel();
-				};
-			}
-			uITutorialPanel.QueueAction(_003C_003Ef__am_0024cache0);
+				});
 			break;
 		}
 		case UIElement.FullScreenDashPhaseTutorialPanel:
@@ -269,14 +266,11 @@ public class ActivatableUI
 				}
 			}
 			UITutorialPanel uITutorialPanel3 = UITutorialPanel.Get();
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate
+			
+			uITutorialPanel3.QueueAction(delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowDashPhasePanel();
-				};
-			}
-			uITutorialPanel3.QueueAction(_003C_003Ef__am_0024cache1);
+				});
 			break;
 		}
 		case UIElement.FullScreenPrepPhaseTutorialPanel:
@@ -290,14 +284,11 @@ public class ActivatableUI
 				}
 			}
 			UITutorialPanel uITutorialPanel2 = UITutorialPanel.Get();
-			if (_003C_003Ef__am_0024cache2 == null)
-			{
-				_003C_003Ef__am_0024cache2 = delegate
+			
+			uITutorialPanel2.QueueAction(delegate
 				{
 					UITutorialFullscreenPanel.Get().ShowPrepPhasePanel();
-				};
-			}
-			uITutorialPanel2.QueueAction(_003C_003Ef__am_0024cache2);
+				});
 			break;
 		}
 		case UIElement.FadeOutPanel:

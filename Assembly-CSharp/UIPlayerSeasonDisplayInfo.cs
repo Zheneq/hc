@@ -311,9 +311,8 @@ public class UIPlayerSeasonDisplayInfo
 					}
 				}
 				List<UISeasonRepeatingRewardInfo> repeatingRewards = RepeatingRewards;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = delegate(UISeasonRepeatingRewardInfo info1, UISeasonRepeatingRewardInfo info2)
+				
+				repeatingRewards.Sort(delegate(UISeasonRepeatingRewardInfo info1, UISeasonRepeatingRewardInfo info2)
 					{
 						if (info1 == null)
 						{
@@ -358,9 +357,7 @@ public class UIPlayerSeasonDisplayInfo
 							}
 						}
 						return info1.CompareTo(info2);
-					};
-				}
-				repeatingRewards.Sort(_003C_003Ef__am_0024cache0);
+					});
 				int num3 = Mathf.Max(seasonExperienceComponent.Level + 100, num2 + 1);
 				List<SeasonReward>[] array = new List<SeasonReward>[num3];
 				for (int l = 0; l < allRewards.Count; l++)

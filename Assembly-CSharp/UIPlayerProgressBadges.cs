@@ -234,11 +234,8 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		{
 			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.BadgesEarnedBySeason.Keys);
-		}
-		using (IEnumerator<int> enumerator = list.SelectMany(_003C_003Ef__am_0024cache0).Distinct().GetEnumerator())
+		
+		using (IEnumerator<int> enumerator = list.SelectMany(((PersistedCharacterData x) => x.ExperienceComponent.BadgesEarnedBySeason.Keys)).Distinct().GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{

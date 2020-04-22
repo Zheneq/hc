@@ -73,16 +73,10 @@ public class GameSubType
 			}
 			m_originalHasPivot = ((byte)originalHasPivot != 0);
 			List<GameMapConfig> gameMapConfigs = m_original.GameMapConfigs;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache0);
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = ((GameMapConfig p) => p.Map);
-			}
-			m_originalMaps = source.Select(_003C_003Ef__am_0024cache1).ToList();
+			
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
+			
+			m_originalMaps = source.Select(((GameMapConfig p) => p.Map)).ToList();
 		}
 
 		public int Compare(GameSubType left, GameSubType right)
@@ -181,28 +175,16 @@ public class GameSubType
 				}
 			}
 			List<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
-			if (_003C_003Ef__am_0024cache2 == null)
-			{
-				_003C_003Ef__am_0024cache2 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(_003C_003Ef__am_0024cache2);
-			if (_003C_003Ef__am_0024cache3 == null)
-			{
-				_003C_003Ef__am_0024cache3 = ((GameMapConfig p) => p.Map);
-			}
-			int num = source.Select(_003C_003Ef__am_0024cache3).ToList().Intersect(m_originalMaps)
+			
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
+			
+			int num = source.Select(((GameMapConfig p) => p.Map)).ToList().Intersect(m_originalMaps)
 				.Count();
 			List<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
-			if (_003C_003Ef__am_0024cache4 == null)
-			{
-				_003C_003Ef__am_0024cache4 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(_003C_003Ef__am_0024cache4);
-			if (_003C_003Ef__am_0024cache5 == null)
-			{
-				_003C_003Ef__am_0024cache5 = ((GameMapConfig p) => p.Map);
-			}
-			int num2 = source2.Select(_003C_003Ef__am_0024cache5).ToList().Intersect(m_originalMaps)
+			
+			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(((GameMapConfig p) => p.IsActive));
+			
+			int num2 = source2.Select(((GameMapConfig p) => p.Map)).ToList().Intersect(m_originalMaps)
 				.Count();
 			if (num != num2)
 			{

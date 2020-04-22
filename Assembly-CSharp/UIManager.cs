@@ -29,11 +29,11 @@ public class UIManager : MonoBehaviour
 
 	private List<UIScene.CloseObjectInfo> MouseObjectClickListeners = new List<UIScene.CloseObjectInfo>();
 
-	[CompilerGenerated]
-	private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam _003C_003Ef__mg_0024cache0;
+	//[CompilerGenerated]
+	//private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam AnimationDoneCallback;
 
-	[CompilerGenerated]
-	private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam _003C_003Ef__mg_0024cache1;
 
 	public bool DoneInitialLoading
 	{
@@ -290,11 +290,8 @@ public class UIManager : MonoBehaviour
 										string animationNameForDoneCallback = setGameObjectEnableInfo.m_AnimationNameForDoneCallback;
 										int animLayer = setGameObjectEnableInfo.m_AnimLayer;
 										float animStartTimeNormalized = setGameObjectEnableInfo.m_AnimStartTimeNormalized;
-										if (_003C_003Ef__mg_0024cache0 == null)
-										{
-											_003C_003Ef__mg_0024cache0 = AnimationDoneCallback;
-										}
-										uIAnimationEventManager.PlayAnimation(animator, animationNameToPlay, null, animationNameForDoneCallback, animLayer, animStartTimeNormalized, true, true, _003C_003Ef__mg_0024cache0, gObject);
+										
+										uIAnimationEventManager.PlayAnimation(animator, animationNameToPlay, null, animationNameForDoneCallback, animLayer, animStartTimeNormalized, true, true, AnimationDoneCallback, gObject);
 									}
 								}
 							}
@@ -369,9 +366,8 @@ public class UIManager : MonoBehaviour
 				}
 				while (true)
 				{
-					if (_003C_003Ef__am_0024cache0 == null)
-					{
-						_003C_003Ef__am_0024cache0 = delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
+					
+					list.Sort(delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
 						{
 							if (keyA.Value > keyB.Value)
 							{
@@ -391,9 +387,7 @@ public class UIManager : MonoBehaviour
 								}
 							}
 							return 0;
-						};
-					}
-					list.Sort(_003C_003Ef__am_0024cache0);
+						});
 					for (int j = 0; j < list.Count; j++)
 					{
 						LayerInfos[list[j].Key].CameraLayerContainer.transform.SetAsLastSibling();

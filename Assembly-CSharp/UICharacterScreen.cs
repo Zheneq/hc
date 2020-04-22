@@ -969,15 +969,12 @@ public class UICharacterScreen : UIScene
 		{
 			m_notOnAFactionFilter.Setup(list, ClickedOnFactionFilter);
 			UITooltipHoverObject component = m_notOnAFactionFilter.m_btn.spriteController.GetComponent<UITooltipHoverObject>();
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
+			
+			component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 				{
 					(tooltip as UISimpleTooltip).Setup(StringUtil.TR("Wildcard", "Global"));
 					return true;
-				};
-			}
-			component.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
+				});
 			return;
 		}
 	}

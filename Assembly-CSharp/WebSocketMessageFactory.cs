@@ -269,16 +269,10 @@ public class WebSocketMessageFactory
 	private static IEnumerable<FieldInfo> GetFieldInfos(Type type)
 	{
 		FieldInfo[] fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == 0);
-		}
-		IEnumerable<FieldInfo> source = fields.Where(_003C_003Ef__am_0024cache1);
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = ((FieldInfo f) => f.Name);
-		}
-		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(_003C_003Ef__am_0024cache2, StringComparer.Ordinal);
+		
+		IEnumerable<FieldInfo> source = fields.Where(((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == 0));
+		
+		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(((FieldInfo f) => f.Name), StringComparer.Ordinal);
 		if (type.BaseType == null)
 		{
 			while (true)

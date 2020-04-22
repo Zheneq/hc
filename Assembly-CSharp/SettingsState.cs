@@ -751,14 +751,11 @@ public class SettingsState : ICloneable
 		{
 			Options_UI.Get().SetWindowModeText(modeText);
 		};
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate(string resolutionText)
+		
+		UpdateModeResolution(thisWindowMode, thisResolutionWidth, thisResolutionHeight, setModeText, delegate(string resolutionText)
 			{
 				Options_UI.Get().SetResolutionText(resolutionText);
-			};
-		}
-		UpdateModeResolution(thisWindowMode, thisResolutionWidth, thisResolutionHeight, setModeText, _003C_003Ef__am_0024cache1);
+			});
 		WindowMode thisWindowMode2 = gameWindowMode;
 		int thisResolutionWidth2 = gameResolutionWidth;
 		int thisResolutionHeight2 = gameResolutionHeight;
@@ -766,14 +763,11 @@ public class SettingsState : ICloneable
 		{
 			Options_UI.Get().SetGameWindowModeText(modeText);
 		};
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate(string resolutionText)
+		
+		UpdateModeResolution(thisWindowMode2, thisResolutionWidth2, thisResolutionHeight2, setModeText2, delegate(string resolutionText)
 			{
 				Options_UI.Get().SetGameResolutionText(resolutionText);
-			};
-		}
-		UpdateModeResolution(thisWindowMode2, thisResolutionWidth2, thisResolutionHeight2, setModeText2, _003C_003Ef__am_0024cache3);
+			});
 		Region region = this.region;
 		if (region != 0)
 		{

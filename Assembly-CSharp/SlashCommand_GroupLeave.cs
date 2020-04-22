@@ -10,9 +10,8 @@ public class SlashCommand_GroupLeave : SlashCommand
 	public override void OnSlashCommand(string arguments)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(GroupLeaveResponse r)
+		
+		clientGameManager.LeaveGroup(delegate(GroupLeaveResponse r)
 			{
 				if (!r.Success)
 				{
@@ -56,8 +55,6 @@ public class SlashCommand_GroupLeave : SlashCommand
 						}
 					}
 				}
-			};
-		}
-		clientGameManager.LeaveGroup(_003C_003Ef__am_0024cache0);
+			});
 	}
 }

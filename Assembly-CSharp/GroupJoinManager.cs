@@ -30,14 +30,11 @@ internal class GroupJoinManager
 				list.Add(value);
 			}
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(GroupRequestWindow p)
+		
+		list.ForEach(delegate(GroupRequestWindow p)
 			{
 				p.CleanupWindow();
-			};
-		}
-		list.ForEach(_003C_003Ef__am_0024cache0);
+			});
 	}
 
 	internal void AddRequest(GroupConfirmationRequest request)

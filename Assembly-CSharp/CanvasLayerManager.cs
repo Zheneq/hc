@@ -228,11 +228,8 @@ public class CanvasLayerManager
 	public void AddCanvas(_CanvasLayerSorter newCanvas)
 	{
 		List<_CanvasLayerSorter> canvases = m_canvases;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((_CanvasLayerSorter item) => item == null);
-		}
-		canvases.RemoveAll(_003C_003Ef__am_0024cache1);
+		
+		canvases.RemoveAll(((_CanvasLayerSorter item) => item == null));
 		if (m_canvases.Contains(newCanvas))
 		{
 			return;

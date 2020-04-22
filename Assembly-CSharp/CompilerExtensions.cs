@@ -960,11 +960,8 @@ public static class CompilerExtensions
 	public static byte[] FromHexString(this string s)
 	{
 		IEnumerable<int> source = Enumerable.Range(0, s.Length);
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((int x) => x % 2 == 0);
-		}
-		return (from x in source.Where(_003C_003Ef__am_0024cache0)
+		
+		return (from x in source.Where(((int x) => x % 2 == 0))
 			select Convert.ToByte(s.Substring(x, 2), 16)).ToArray();
 	}
 

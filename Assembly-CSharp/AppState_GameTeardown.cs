@@ -78,14 +78,11 @@ public class AppState_GameTeardown : AppState
 					{
 						GoToFrontend();
 					};
-					if (_003C_003Ef__am_0024cache0 == null)
-					{
-						_003C_003Ef__am_0024cache0 = delegate
+					
+					m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, delegate
 						{
 							AppState_Shutdown.Get().Enter();
-						};
-					}
-					m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, _003C_003Ef__am_0024cache0);
+						});
 				}
 				else
 				{

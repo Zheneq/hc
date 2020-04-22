@@ -596,13 +596,10 @@ public class GameManager : MonoBehaviour
 
 	public GameManager()
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		this.OnGameAssemblingHolder = delegate
 			{
 			};
-		}
-		this.OnGameAssemblingHolder = _003C_003Ef__am_0024cache0;
 		this.OnGameSelectingHolder = delegate
 		{
 		};
@@ -615,23 +612,17 @@ public class GameManager : MonoBehaviour
 		this.OnGameLoadedHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache5 == null)
-		{
-			_003C_003Ef__am_0024cache5 = delegate
+		
+		this.OnGameStartedHolder = delegate
 			{
 			};
-		}
-		this.OnGameStartedHolder = _003C_003Ef__am_0024cache5;
 		this.OnGameStoppedHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache7 == null)
-		{
-			_003C_003Ef__am_0024cache7 = delegate
+		
+		this.OnGameStatusChangedHolder = delegate
 			{
 			};
-		}
-		this.OnGameStatusChangedHolder = _003C_003Ef__am_0024cache7;
 		
 	}
 

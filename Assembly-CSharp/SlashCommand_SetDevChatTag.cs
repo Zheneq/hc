@@ -31,14 +31,11 @@ public class SlashCommand_SetDevChatTag : SlashCommand
 					default:
 					{
 						ClientGameManager clientGameManager = ClientGameManager.Get();
-						if (_003C_003Ef__am_0024cache0 == null)
-						{
-							_003C_003Ef__am_0024cache0 = delegate(SetDevTagResponse response)
+						
+						clientGameManager.SendSetDevTagRequest(true, delegate(SetDevTagResponse response)
 							{
 								TextConsole.Get().HandleSetDevTagResponse(response);
-							};
-						}
-						clientGameManager.SendSetDevTagRequest(true, _003C_003Ef__am_0024cache0);
+							});
 						return;
 					}
 					}
@@ -49,14 +46,11 @@ public class SlashCommand_SetDevChatTag : SlashCommand
 				return;
 			}
 			ClientGameManager clientGameManager2 = ClientGameManager.Get();
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate(SetDevTagResponse response)
+			
+			clientGameManager2.SendSetDevTagRequest(false, delegate(SetDevTagResponse response)
 				{
 					TextConsole.Get().HandleSetDevTagResponse(response);
-				};
-			}
-			clientGameManager2.SendSetDevTagRequest(false, _003C_003Ef__am_0024cache1);
+				});
 			return;
 		}
 	}

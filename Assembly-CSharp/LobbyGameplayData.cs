@@ -132,9 +132,8 @@ public class LobbyGameplayData
 	{
 		CharacterCardInfo result = default(CharacterCardInfo);
 		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values = CardData.Values;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(LobbyCardGameplayData c)
+		
+		result.PrepCard = values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
 				int result4;
 				if (c.RunPhase == AbilityRunPhase.Prep)
@@ -146,13 +145,10 @@ public class LobbyGameplayData
 					result4 = 0;
 				}
 				return (byte)result4 != 0;
-			};
-		}
-		result.PrepCard = values.SingleOrDefault(_003C_003Ef__am_0024cache0).CardType;
+			}).CardType;
 		Dictionary<CardType, LobbyCardGameplayData>.ValueCollection values2 = CardData.Values;
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate(LobbyCardGameplayData c)
+		
+		result.CombatCard = values2.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
 				int result3;
 				if (c.RunPhase == AbilityRunPhase.Combat)
@@ -164,9 +160,7 @@ public class LobbyGameplayData
 					result3 = 0;
 				}
 				return (byte)result3 != 0;
-			};
-		}
-		result.CombatCard = values2.SingleOrDefault(_003C_003Ef__am_0024cache1).CardType;
+			}).CardType;
 		result.DashCard = CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 		{
 			int result2;

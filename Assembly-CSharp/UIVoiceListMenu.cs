@@ -89,9 +89,8 @@ public class UIVoiceListMenu : MonoBehaviour
 			OnDisconnected();
 		}
 		_ButtonSwapSprite spriteController = m_connectBtn.spriteController;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		spriteController.callback = delegate
 			{
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
@@ -105,8 +104,6 @@ public class UIVoiceListMenu : MonoBehaviour
 				ClientGameManager.Get().JoinDiscord();
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.Generic);
 			};
-		}
-		spriteController.callback = _003C_003Ef__am_0024cache0;
 		m_disconnectBtn.spriteController.callback = delegate
 		{
 			ClientGameManager.Get().LeaveDiscord();
@@ -253,9 +250,8 @@ public class UIVoiceListMenu : MonoBehaviour
 		});
 		m_voiceSlider.value = optionsUI.GetVoiceVolume();
 		GameObject gameObject = m_voiceSlider.gameObject;
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = delegate
+		
+		UIEventTriggerUtils.AddListener(gameObject, EventTriggerType.PointerUp, delegate
 			{
 				if (DiscordClientInterface.Get() != null)
 				{
@@ -271,9 +267,7 @@ public class UIVoiceListMenu : MonoBehaviour
 						}
 					}
 				}
-			};
-		}
-		UIEventTriggerUtils.AddListener(gameObject, EventTriggerType.PointerUp, _003C_003Ef__am_0024cache2);
+			});
 		m_micSlider.minValue = 0f;
 		m_micSlider.maxValue = 100f;
 		m_micSlider.onValueChanged.AddListener(delegate(float value)
@@ -297,9 +291,8 @@ public class UIVoiceListMenu : MonoBehaviour
 		});
 		m_micSlider.value = optionsUI.GetMicVolume();
 		GameObject gameObject2 = m_micSlider.gameObject;
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate
+		
+		UIEventTriggerUtils.AddListener(gameObject2, EventTriggerType.PointerUp, delegate
 			{
 				if (DiscordClientInterface.Get() != null)
 				{
@@ -315,9 +308,7 @@ public class UIVoiceListMenu : MonoBehaviour
 						}
 					}
 				}
-			};
-		}
-		UIEventTriggerUtils.AddListener(gameObject2, EventTriggerType.PointerUp, _003C_003Ef__am_0024cache3);
+			});
 		m_groupBtn.spriteController.callback = delegate
 		{
 			ChangeChatMode(SettingsState.VoiceChatMode.Group);

@@ -230,11 +230,8 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	public int GetTotalHealingFromAbility()
 	{
 		List<AbilityGameSummary> abilityGameSummaryList = AbilityGameSummaryList;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((AbilityGameSummary a) => a.TotalHealing);
-		}
-		return abilityGameSummaryList.Select(_003C_003Ef__am_0024cache0).Sum();
+		
+		return abilityGameSummaryList.Select(((AbilityGameSummary a) => a.TotalHealing)).Sum();
 	}
 
 	public float? GetNumLives()

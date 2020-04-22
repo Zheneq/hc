@@ -76,14 +76,11 @@ public class AppState_WaitingForGame : AppState
 		Log.Info("Clicked on cancel, leaving Queue");
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		LobbyGameClientInterface lobbyInterface = clientGameManager.LobbyInterface;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate
+		
+		lobbyInterface.LeaveQueue(delegate
 			{
 				AppState_GameTypeSelect.Get().Enter();
-			};
-		}
-		lobbyInterface.LeaveQueue(_003C_003Ef__am_0024cache0);
+			});
 	}
 
 	public void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)

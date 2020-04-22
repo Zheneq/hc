@@ -1642,11 +1642,8 @@ public class BestSolutions
 			}
 			else
 			{
-				if (_003C_003Ef__am_0024cache1 == null)
-				{
-					_003C_003Ef__am_0024cache1 = ((KeyValuePair<long, int> p) => p.Value);
-				}
-				num13 = dictionary2.Select(_003C_003Ef__am_0024cache1).Max();
+				
+				num13 = dictionary2.Select(((KeyValuePair<long, int> p) => p.Value)).Max();
 			}
 			int num14 = num13;
 			int maxGroupSizeImbalance = num12 - num14;
@@ -1657,11 +1654,8 @@ public class BestSolutions
 			}
 			else
 			{
-				if (_003C_003Ef__am_0024cache2 == null)
-				{
-					_003C_003Ef__am_0024cache2 = ((KeyValuePair<long, int> p) => p.Value);
-				}
-				num15 = dictionary.Select(_003C_003Ef__am_0024cache2).Sum();
+				
+				num15 = dictionary.Select(((KeyValuePair<long, int> p) => p.Value)).Sum();
 			}
 			int num16 = num15;
 			int num17 = dictionary2.IsNullOrEmpty() ? 1 : dictionary2.Select((KeyValuePair<long, int> p) => p.Value).Sum();
@@ -1704,16 +1698,10 @@ public class BestSolutions
 				}
 			}
 			GroupBreakage groupBreakage = GroupBreakage.NONE;
-			if (_003C_003Ef__am_0024cache4 == null)
-			{
-				_003C_003Ef__am_0024cache4 = ((KeyValuePair<long, ushort> p) => p.Value == 17);
-			}
-			IEnumerable<KeyValuePair<long, ushort>> source = dictionary3.Where(_003C_003Ef__am_0024cache4);
-			if (_003C_003Ef__am_0024cache5 == null)
-			{
-				_003C_003Ef__am_0024cache5 = ((KeyValuePair<long, ushort> p) => p.Key);
-			}
-			IEnumerable<long> source2 = source.Select(_003C_003Ef__am_0024cache5);
+			
+			IEnumerable<KeyValuePair<long, ushort>> source = dictionary3.Where(((KeyValuePair<long, ushort> p) => p.Value == 17));
+			
+			IEnumerable<long> source2 = source.Select(((KeyValuePair<long, ushort> p) => p.Key));
 			if (source2.Count() > 1)
 			{
 				groupBreakage = GroupBreakage.MULTIPLE_GROUPS;
@@ -1740,17 +1728,11 @@ public class BestSolutions
 				}
 				groupBreakage = GroupBreakage.ONE_GROUP;
 			}
-			if (_003C_003Ef__am_0024cache6 == null)
-			{
-				_003C_003Ef__am_0024cache6 = ((int p) => p == 1);
-			}
-			int playersOnTeam = 1 + potentialTeam.Count(_003C_003Ef__am_0024cache6);
+			
+			int playersOnTeam = 1 + potentialTeam.Count(((int p) => p == 1));
 			int num25 = ExcuseBucket.ComputeRolesPresent(playersOnTeam, dictionary8);
-			if (_003C_003Ef__am_0024cache7 == null)
-			{
-				_003C_003Ef__am_0024cache7 = ((int p) => p != 1);
-			}
-			int playersOnTeam2 = potentialTeam.Count(_003C_003Ef__am_0024cache7);
+			
+			int playersOnTeam2 = potentialTeam.Count(((int p) => p != 1));
 			int num26 = ExcuseBucket.ComputeRolesPresent(playersOnTeam2, dictionary9);
 			int roleImbalance = num25 - num26;
 			int num27 = num3;
@@ -1842,11 +1824,8 @@ public class BestSolutions
 			else
 			{
 				Dictionary<string, int>.ValueCollection values = dictionary6.Values;
-				if (_003C_003Ef__am_0024cache8 == null)
-				{
-					_003C_003Ef__am_0024cache8 = ((int p) => p > 1);
-				}
-				num32 = values.Where(_003C_003Ef__am_0024cache8).Sum();
+				
+				num32 = values.Where(((int p) => p > 1)).Sum();
 			}
 			int num33 = num32;
 			int num34;
@@ -1857,11 +1836,8 @@ public class BestSolutions
 			else
 			{
 				Dictionary<string, int>.ValueCollection values2 = dictionary7.Values;
-				if (_003C_003Ef__am_0024cache9 == null)
-				{
-					_003C_003Ef__am_0024cache9 = ((int p) => p > 1);
-				}
-				num34 = values2.Where(_003C_003Ef__am_0024cache9).Sum();
+				
+				num34 = values2.Where(((int p) => p > 1)).Sum();
 			}
 			int num35 = num34;
 			Solution solution = new Solution(aVbEloDifference, groupBreakage, potentialTeam, maxTeamDifference, maxGroupSizeImbalance, groupedMemberCountImbalance, num, num2, roleImbalance, hasAssassin, hasTank, hasSupport, hasNoobCollision, hasExpertCollision, num18, willFillImbalance, flag, num33 + num35, num33 - num35);

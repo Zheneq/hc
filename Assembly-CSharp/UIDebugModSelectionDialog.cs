@@ -128,14 +128,11 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			selectedAbilitiesModIndex = m_abilitiesPanel.m_modInfo.GetModForAbility(inAbilityIndex);
 			selectedY = 0f;
 			counter = 0;
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = delegate(UIModSelectionGridEntry x)
+			
+			list.ForEach(delegate(UIModSelectionGridEntry x)
 				{
 					Object.Destroy(x);
-				};
-			}
-			list.ForEach(_003C_003Ef__am_0024cache0);
+				});
 			availableModsForAbility.ForEach(delegate(AbilityMod x)
 			{
 				AbilityMod modForAbility = AbilityModHelper.GetModForAbility(inAbility.ability, selectedAbilitiesModIndex);
@@ -199,11 +196,8 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		List<UIModSelectionGridEntry> list2;
 		if (columnIndex == 0)
 		{
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = ((UIModSelectionGridEntry element) => element.m_ModName.text);
-			}
-			IOrderedEnumerable<UIModSelectionGridEntry> source = list.OrderBy(_003C_003Ef__am_0024cache1);
+			
+			IOrderedEnumerable<UIModSelectionGridEntry> source = list.OrderBy(((UIModSelectionGridEntry element) => element.m_ModName.text));
 			list2 = source.ToList();
 		}
 		else
@@ -217,11 +211,8 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			list2.Reverse();
 		}
 		List<bool> source3 = reverseSort;
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = ((bool x) => x = false);
-		}
-		source3.All(_003C_003Ef__am_0024cache3);
+		
+		source3.All(((bool x) => x = false));
 		reverseSort[columnIndex] = !flag;
 		foreach (UIModSelectionGridEntry item in list)
 		{

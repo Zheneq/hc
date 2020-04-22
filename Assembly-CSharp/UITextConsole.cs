@@ -160,17 +160,17 @@ public class UITextConsole : MonoBehaviour
 
 	private static List<string> m_whisperedPlayers = new List<string>();
 
-	[CompilerGenerated]
-	private static Action<FriendStatusNotification> _003C_003Ef__mg_0024cache0;
+	//[CompilerGenerated]
+	//private static Action<FriendStatusNotification> HandleFriendStatusNotification;
 
-	[CompilerGenerated]
-	private static Action _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static Action OnGroupUpdateNotification;
 
 	[CompilerGenerated]
 	private static Action<FriendStatusNotification> _003C_003Ef__mg_0024cache2;
 
-	[CompilerGenerated]
-	private static Action _003C_003Ef__mg_0024cache3;
+	//[CompilerGenerated]
+	//private static Action OnGroupUpdateNotification;
 
 	private bool m_changeChannelAlpha => UIManager.Get().CurrentState == UIManager.ClientState.InGame;
 
@@ -263,17 +263,11 @@ public class UITextConsole : MonoBehaviour
 			if (ClientGameManager.Get() != null)
 			{
 				ClientGameManager clientGameManager = ClientGameManager.Get();
-				if (_003C_003Ef__mg_0024cache0 == null)
-				{
-					_003C_003Ef__mg_0024cache0 = HandleFriendStatusNotification;
-				}
-				clientGameManager.OnFriendStatusNotification += _003C_003Ef__mg_0024cache0;
+				
+				clientGameManager.OnFriendStatusNotification += HandleFriendStatusNotification;
 				ClientGameManager clientGameManager2 = ClientGameManager.Get();
-				if (_003C_003Ef__mg_0024cache1 == null)
-				{
-					_003C_003Ef__mg_0024cache1 = OnGroupUpdateNotification;
-				}
-				clientGameManager2.OnGroupUpdateNotification += _003C_003Ef__mg_0024cache1;
+				
+				clientGameManager2.OnGroupUpdateNotification += OnGroupUpdateNotification;
 				ClientGameManager.Get().OnGameInfoNotification += OnGameInfoNotification;
 			}
 			RebuildLocalizedText();
@@ -735,11 +729,8 @@ public class UITextConsole : MonoBehaviour
 		}
 		ClientGameManager.Get().OnFriendStatusNotification -= HandleFriendStatusNotification;
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (_003C_003Ef__mg_0024cache3 == null)
-		{
-			_003C_003Ef__mg_0024cache3 = OnGroupUpdateNotification;
-		}
-		clientGameManager.OnGroupUpdateNotification -= _003C_003Ef__mg_0024cache3;
+		
+		clientGameManager.OnGroupUpdateNotification -= OnGroupUpdateNotification;
 		ClientGameManager.Get().OnGameInfoNotification -= OnGameInfoNotification;
 	}
 

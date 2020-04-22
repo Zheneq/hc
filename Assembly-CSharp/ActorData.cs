@@ -355,11 +355,11 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	private CharacterResourceLink m_characterResourceLink;
 
-	[CompilerGenerated]
-	private static Action<GameState> _003C_003Ef__mg_0024cache0;
+	//[CompilerGenerated]
+	//private static Action<GameState> OnGameStateChanged;
 
-	[CompilerGenerated]
-	private static Action<GameState> _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static Action<GameState> OnGameStateChanged;
 
 	[CompilerGenerated]
 	private static Action<GameState> _003C_003Ef__mg_0024cache2;
@@ -1553,20 +1553,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		this.OnAnimationEventDelegatesHolder = delegate
 		{
 		};
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = delegate
+		
+		this.OnSelectedAbilityChangedDelegatesHolder = delegate
 			{
 			};
-		}
-		this.OnSelectedAbilityChangedDelegatesHolder = _003C_003Ef__am_0024cache2;
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = delegate
+		
+		this.OnClientQueuedActionChangedDelegatesHolder = delegate
 			{
 			};
-		}
-		this.OnClientQueuedActionChangedDelegatesHolder = _003C_003Ef__am_0024cache3;
 		m_serializeHelper = new SerializeHelper();
 		m_forceShowOutlineCheckers = new List<IForceActorOutlineChecker>();
 		
@@ -2446,16 +2440,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	private void Awake()
 	{
-		if (_003C_003Ef__mg_0024cache0 == null)
-		{
-			_003C_003Ef__mg_0024cache0 = OnGameStateChanged;
-		}
-		GameFlowData.s_onGameStateChanged -= _003C_003Ef__mg_0024cache0;
-		if (_003C_003Ef__mg_0024cache1 == null)
-		{
-			_003C_003Ef__mg_0024cache1 = OnGameStateChanged;
-		}
-		GameFlowData.s_onGameStateChanged += _003C_003Ef__mg_0024cache1;
+		
+		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+		
+		GameFlowData.s_onGameStateChanged += OnGameStateChanged;
 		PlayerData = GetComponent<PlayerData>();
 		if (PlayerData == null)
 		{

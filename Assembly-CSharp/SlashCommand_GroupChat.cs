@@ -14,9 +14,8 @@ public class SlashCommand_GroupChat : SlashCommand
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager clientGameManager = ClientGameManager.Get();
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = delegate(GroupChatResponse r)
+				
+				clientGameManager.ChatToGroup(arguments, delegate(GroupChatResponse r)
 					{
 						if (!r.Success)
 						{
@@ -53,9 +52,7 @@ public class SlashCommand_GroupChat : SlashCommand
 								}
 							}
 						}
-					};
-				}
-				clientGameManager.ChatToGroup(arguments, _003C_003Ef__am_0024cache0);
+					});
 				return;
 			}
 		}

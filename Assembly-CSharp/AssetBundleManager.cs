@@ -139,11 +139,8 @@ public class AssetBundleManager : MonoBehaviour
 	public bool SceneExistsInBundle(string bundleName, string sceneName)
 	{
 		List<string> scenesInBundle = GetScenesInBundle(bundleName);
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((string s) => s.ToLower());
-		}
-		return scenesInBundle.Select(_003C_003Ef__am_0024cache0).Contains(sceneName.ToLower());
+		
+		return scenesInBundle.Select(((string s) => s.ToLower())).Contains(sceneName.ToLower());
 	}
 
 	public bool SceneAssetBundleExists(string bundleName)

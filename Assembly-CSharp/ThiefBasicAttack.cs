@@ -87,9 +87,8 @@ public class ThiefBasicAttack : Ability
 						abilityUtil_Targeter_ThiefFanLaser.SetUseMultiTargetUpdate(true);
 						if (flag)
 						{
-							if (_003C_003Ef__am_0024cache0 == null)
-							{
-								_003C_003Ef__am_0024cache0 = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
+							
+							abilityUtil_Targeter_ThiefFanLaser.m_affectCasterDelegate = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
 								{
 									int result2;
 									if (hitEnemy)
@@ -102,8 +101,6 @@ public class ThiefBasicAttack : Ability
 									}
 									return (byte)result2 != 0;
 								};
-							}
-							abilityUtil_Targeter_ThiefFanLaser.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
 						}
 						base.Targeters.Add(abilityUtil_Targeter_ThiefFanLaser);
 					}
@@ -124,9 +121,8 @@ public class ThiefBasicAttack : Ability
 		AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser2 = new AbilityUtil_Targeter_ThiefFanLaser(this, 0f, targeterMaxAngle, m_targeterMinInterpDistance, m_targeterMaxInterpDistance, GetLaserRange(), GetLaserWidth(), GetLaserMaxTargets(), GetLaserCount(), LaserPenetrateLos(), true, stopOnPowerUp, IncludeSpoilsPowerups(), IgnorePickupTeamRestriction(), c_maxPowerupPerLaser);
 		if (flag)
 		{
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
+			
+			abilityUtil_Targeter_ThiefFanLaser2.m_affectCasterDelegate = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
 				{
 					int result;
 					if (hitEnemy)
@@ -139,8 +135,6 @@ public class ThiefBasicAttack : Ability
 					}
 					return (byte)result != 0;
 				};
-			}
-			abilityUtil_Targeter_ThiefFanLaser2.m_affectCasterDelegate = _003C_003Ef__am_0024cache1;
 		}
 		base.Targeter = abilityUtil_Targeter_ThiefFanLaser2;
 	}

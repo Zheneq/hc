@@ -16,16 +16,13 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 		ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterUpdated;
 		ClientGameManager.Get().OnLoadingScreenBackgroundToggled += OnLoadingScreenBackgroundToggled;
 		UITooltipHoverObject component = m_ownedToggle.GetComponent<UITooltipHoverObject>();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(UITooltipBase tooltip)
+		
+		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uISimpleTooltip = (UISimpleTooltip)tooltip;
 				uISimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 				return true;
-			};
-		}
-		component.Setup(TooltipType.Simple, _003C_003Ef__am_0024cache0);
+			});
 	}
 
 	protected new void OnDestroy()

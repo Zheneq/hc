@@ -242,11 +242,8 @@ public class StandardBarrierData
 		{
 			otherVal3 = 0;
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((bool b) => b);
-		}
-		text = str5 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Enemy Moved Through = ", indent, otherSep, removeAtTurnEndIfEnemyMovedThrough, flag, (byte)otherVal3 != 0, _003C_003Ef__am_0024cache0);
+		
+		text = str5 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Enemy Moved Through = ", indent, otherSep, removeAtTurnEndIfEnemyMovedThrough, flag, (byte)otherVal3 != 0, ((bool b) => b));
 		string str6 = text;
 		bool removeAtTurnEndIfAllyMovedThrough = m_removeAtTurnEndIfAllyMovedThrough;
 		int otherVal4;
@@ -258,11 +255,8 @@ public class StandardBarrierData
 		{
 			otherVal4 = 0;
 		}
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((bool b) => b);
-		}
-		text = str6 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Ally Moved Through = ", indent, otherSep, removeAtTurnEndIfAllyMovedThrough, flag, (byte)otherVal4 != 0, _003C_003Ef__am_0024cache1);
+		
+		text = str6 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Ally Moved Through = ", indent, otherSep, removeAtTurnEndIfAllyMovedThrough, flag, (byte)otherVal4 != 0, ((bool b) => b));
 		string str7 = text;
 		bool removeAtPhaseEndIfEnemyMovedThrough = m_removeAtPhaseEndIfEnemyMovedThrough;
 		int otherVal5;
@@ -274,11 +268,8 @@ public class StandardBarrierData
 		{
 			otherVal5 = 0;
 		}
-		if (_003C_003Ef__am_0024cache2 == null)
-		{
-			_003C_003Ef__am_0024cache2 = ((bool b) => b);
-		}
-		text = str7 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Enemy Moved Through =", indent, otherSep, removeAtPhaseEndIfEnemyMovedThrough, flag, (byte)otherVal5 != 0, _003C_003Ef__am_0024cache2);
+		
+		text = str7 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Enemy Moved Through =", indent, otherSep, removeAtPhaseEndIfEnemyMovedThrough, flag, (byte)otherVal5 != 0, ((bool b) => b));
 		string str8 = text;
 		bool removeAtPhaseEndIfAllyMovedThrough = m_removeAtPhaseEndIfAllyMovedThrough;
 		int otherVal6;
@@ -290,11 +281,8 @@ public class StandardBarrierData
 		{
 			otherVal6 = 0;
 		}
-		if (_003C_003Ef__am_0024cache3 == null)
-		{
-			_003C_003Ef__am_0024cache3 = ((bool b) => b);
-		}
-		text = str8 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Ally Moved Through =", indent, otherSep, removeAtPhaseEndIfAllyMovedThrough, flag, (byte)otherVal6 != 0, _003C_003Ef__am_0024cache3);
+		
+		text = str8 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Ally Moved Through =", indent, otherSep, removeAtPhaseEndIfAllyMovedThrough, flag, (byte)otherVal6 != 0, ((bool b) => b));
 		if (m_onEnemyMovedThrough.HasResponse())
 		{
 			goto IL_03f2;

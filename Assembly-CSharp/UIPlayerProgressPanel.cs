@@ -638,11 +638,8 @@ public class UIPlayerProgressPanel : UIScene
 					}
 				}
 			}
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName()));
-			}
-			list.Sort(_003C_003Ef__am_0024cache0);
+			
+			list.Sort(((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName())));
 			using (List<CharacterResourceLink>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -662,21 +659,15 @@ public class UIPlayerProgressPanel : UIScene
 		if (withRoles)
 		{
 			UIPlayerProgressDropdownList freelancerDropdown = m_freelancerDropdown;
-			if (_003C_003Ef__am_0024cache1 == null)
-			{
-				_003C_003Ef__am_0024cache1 = ((int x) => true);
-			}
-			freelancerDropdown.CheckOptionDisplayState(_003C_003Ef__am_0024cache1);
+			
+			freelancerDropdown.CheckOptionDisplayState(((int x) => true));
 			num = ((role == CharacterRole.None) ? ((int)selectedFreelancer) : (0 - role));
 		}
 		else
 		{
 			UIPlayerProgressDropdownList freelancerDropdown2 = m_freelancerDropdown;
-			if (_003C_003Ef__am_0024cache2 == null)
-			{
-				_003C_003Ef__am_0024cache2 = ((int x) => x >= 0);
-			}
-			freelancerDropdown2.CheckOptionDisplayState(_003C_003Ef__am_0024cache2);
+			
+			freelancerDropdown2.CheckOptionDisplayState(((int x) => x >= 0));
 			num = (int)selectedFreelancer;
 		}
 		SetupDropdown(m_freelancerDropdown, num, callback, parentSlot);

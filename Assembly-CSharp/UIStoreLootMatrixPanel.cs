@@ -71,11 +71,8 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 		}
 		while (true)
 		{
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
-			}
-			list.Sort(_003C_003Ef__am_0024cache0);
+			
+			list.Sort(((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder));
 			return list.ToArray();
 		}
 	}

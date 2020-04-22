@@ -866,9 +866,8 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
 		Log.Info("Custom button Clicked, leaving queue");
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(LeaveMatchmakingQueueResponse r)
+		
+		clientGameManager.LeaveQueue(delegate(LeaveMatchmakingQueueResponse r)
 			{
 				if (!r.Success)
 				{
@@ -884,9 +883,7 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						}
 					}
 				}
-			};
-		}
-		clientGameManager.LeaveQueue(_003C_003Ef__am_0024cache0);
+			});
 		AppState_GameTypeSelect.Get().OnCustomClicked();
 		AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
 		SetVisible(false);

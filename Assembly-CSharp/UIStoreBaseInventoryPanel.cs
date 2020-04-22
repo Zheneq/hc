@@ -291,13 +291,10 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 
 	protected UIStoreBaseInventoryPanel()
 	{
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate
+		
+		this.OnCountsRefreshedHolder = delegate
 			{
 			};
-		}
-		this.OnCountsRefreshedHolder = _003C_003Ef__am_0024cache1;
 		
 	}
 
@@ -570,11 +567,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 		}
 		while (true)
 		{
-			if (_003C_003Ef__am_0024cache0 == null)
-			{
-				_003C_003Ef__am_0024cache0 = ((AdjustedPlayerUnlockable first, AdjustedPlayerUnlockable second) => first.AdjustedSortOrder.CompareTo(second.AdjustedSortOrder));
-			}
-			list.Sort(_003C_003Ef__am_0024cache0);
+			
+			list.Sort(((AdjustedPlayerUnlockable first, AdjustedPlayerUnlockable second) => first.AdjustedSortOrder.CompareTo(second.AdjustedSortOrder)));
 			List<GameBalanceVars.PlayerUnlockable> list2 = new List<GameBalanceVars.PlayerUnlockable>();
 			for (int j = 0; j < list.Count; j++)
 			{

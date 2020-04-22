@@ -11,9 +11,8 @@ public class SlashCommand_InviteToGame : SlashCommand
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(GameInvitationResponse response)
+		
+		Action<GameInvitationResponse> onResponseCallback = delegate(GameInvitationResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
 				message.MessageType = ConsoleMessageType.SystemMessage;
@@ -35,8 +34,6 @@ public class SlashCommand_InviteToGame : SlashCommand
 				}
 				TextConsole.Get().Write(message);
 			};
-		}
-		Action<GameInvitationResponse> onResponseCallback = _003C_003Ef__am_0024cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
 			if (!(ClientGameManager.Get() == null))

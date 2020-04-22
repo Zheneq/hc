@@ -15,14 +15,14 @@ public static class UnityConsoleLog
 	[CompilerGenerated]
 	private static Action<Log.Message> _003C_003Ef__mg_0024cache0;
 
-	[CompilerGenerated]
-	private static Application.LogCallback _003C_003Ef__mg_0024cache1;
+	//[CompilerGenerated]
+	//private static Application.LogCallback HandleUnityLogMessage;
 
-	[CompilerGenerated]
-	private static Action<Log.Message> _003C_003Ef__mg_0024cache2;
+	//[CompilerGenerated]
+	//private static Action<Log.Message> HandleLogMessage;
 
-	[CompilerGenerated]
-	private static Application.LogCallback _003C_003Ef__mg_0024cache3;
+	//[CompilerGenerated]
+	//private static Application.LogCallback HandleUnityLogMessage;
 
 	public static Log.Level MinLevel
 	{
@@ -148,11 +148,8 @@ public static class UnityConsoleLog
 		}
 		Started = true;
 		Log.AddLogHandler(HandleLogMessage);
-		if (_003C_003Ef__mg_0024cache1 == null)
-		{
-			_003C_003Ef__mg_0024cache1 = HandleUnityLogMessage;
-		}
-		Application.logMessageReceived += _003C_003Ef__mg_0024cache1;
+		
+		Application.logMessageReceived += HandleUnityLogMessage;
 	}
 
 	public static void Stop()
@@ -164,16 +161,10 @@ public static class UnityConsoleLog
 		while (true)
 		{
 			Started = false;
-			if (_003C_003Ef__mg_0024cache2 == null)
-			{
-				_003C_003Ef__mg_0024cache2 = HandleLogMessage;
-			}
-			Log.RemoveLogHandler(_003C_003Ef__mg_0024cache2);
-			if (_003C_003Ef__mg_0024cache3 == null)
-			{
-				_003C_003Ef__mg_0024cache3 = HandleUnityLogMessage;
-			}
-			Application.logMessageReceived -= _003C_003Ef__mg_0024cache3;
+			
+			Log.RemoveLogHandler(HandleLogMessage);
+			
+			Application.logMessageReceived -= HandleUnityLogMessage;
 			return;
 		}
 	}

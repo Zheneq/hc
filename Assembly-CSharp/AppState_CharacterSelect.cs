@@ -160,14 +160,11 @@ public class AppState_CharacterSelect : AppState
 					{
 						string message = (!GameManager.Get().PlayerInfo.IsGameOwner) ? StringUtil.TR("LeaderSelectedMapNoAccessTo", "Frontend") : StringUtil.TR("NoAccessToThisMap", "Frontend");
 						string empty = string.Empty;
-						if (_003C_003Ef__am_0024cache0 == null)
-						{
-							_003C_003Ef__am_0024cache0 = delegate
+						
+						uICharacterSelectScreenController.OpenOneButtonDialog(empty, message, delegate
 							{
 								AppState_GameTeardown.Get().Enter();
-							};
-						}
-						uICharacterSelectScreenController.OpenOneButtonDialog(empty, message, _003C_003Ef__am_0024cache0);
+							});
 					}
 					goto IL_011c;
 				}

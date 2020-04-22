@@ -1430,14 +1430,11 @@ public class UIGameOverScreen : UIScene
 	public void ShareFacebookButtonClicked(BaseEventData data)
 	{
 		FacebookClientInterface facebookClientInterface = FacebookClientInterface.Get();
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(Texture2D texture)
+		
+		facebookClientInterface.TakeScreenshot(delegate(Texture2D texture)
 			{
 				UILandingPageFullScreenMenus.Get().SetFacebookContainerVisible(true, texture);
-			};
-		}
-		facebookClientInterface.TakeScreenshot(_003C_003Ef__am_0024cache0);
+			});
 	}
 
 	public void NavButtonClicked(BaseEventData data)
@@ -2324,9 +2321,8 @@ public class UIGameOverScreen : UIScene
 												default:
 												{
 													List<BadgeInfo> badgesEarned = item.BadgesEarned;
-													if (_003C_003Ef__am_0024cache1 == null)
-													{
-														_003C_003Ef__am_0024cache1 = delegate(BadgeInfo x, BadgeInfo y)
+													
+													badgesEarned.Sort(delegate(BadgeInfo x, BadgeInfo y)
 														{
 															if (x == null && y == null)
 															{
@@ -2399,9 +2395,7 @@ public class UIGameOverScreen : UIScene
 																}
 															}
 															return (badgeInfo.Quality < badgeInfo2.Quality) ? 1 : 0;
-														};
-													}
-													badgesEarned.Sort(_003C_003Ef__am_0024cache1);
+														});
 													for (int i = 0; i < item.BadgesEarned.Count; i++)
 													{
 														UIGameOverBadgeWidget uIGameOverBadgeWidget = UnityEngine.Object.Instantiate(m_BadgePrefab);
@@ -2478,9 +2472,8 @@ public class UIGameOverScreen : UIScene
 					}
 					end_IL_0083:;
 				}
-				if (_003C_003Ef__am_0024cache2 == null)
-				{
-					_003C_003Ef__am_0024cache2 = delegate(TopParticipantSlot x, TopParticipantSlot y)
+				
+				list.Sort(delegate(TopParticipantSlot x, TopParticipantSlot y)
 					{
 						int num2 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(x);
 						int num3 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(y);
@@ -2498,9 +2491,7 @@ public class UIGameOverScreen : UIScene
 							return result;
 						}
 						return 0;
-					};
-				}
-				list.Sort(_003C_003Ef__am_0024cache2);
+					});
 				using (List<TopParticipantSlot>.Enumerator enumerator2 = list.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())

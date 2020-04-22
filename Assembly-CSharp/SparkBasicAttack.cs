@@ -89,11 +89,8 @@ public class SparkBasicAttack : Ability
 			affectsCaster = 0;
 		}
 		abilityUtil_Targeter_Laser.SetAffectedGroups(true, false, (byte)affectsCaster != 0);
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
-		}
-		abilityUtil_Targeter_Laser.m_affectCasterDelegate = _003C_003Ef__am_0024cache0;
+		
+		abilityUtil_Targeter_Laser.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		base.Targeter = abilityUtil_Targeter_Laser;
 	}
 

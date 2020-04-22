@@ -748,14 +748,11 @@ public class UILandingPageScreen : UIScene
 				UILandingPageFullScreenMenus uILandingPageFullScreenMenus = UILandingPageFullScreenMenus.Get();
 				string title = StringUtil.TR("ServerIsLocked", "Global");
 				string lockedReason = m_lockedReason;
-				if (_003C_003Ef__am_0024cache0 == null)
-				{
-					_003C_003Ef__am_0024cache0 = delegate
+				
+				uILandingPageFullScreenMenus.DisplayMessage(title, lockedReason, delegate
 					{
 						AppState_Shutdown.Get().Enter();
-					};
-				}
-				uILandingPageFullScreenMenus.DisplayMessage(title, lockedReason, _003C_003Ef__am_0024cache0);
+					});
 				return;
 			}
 		}

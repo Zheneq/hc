@@ -498,9 +498,8 @@ public static class GameplayUtils
 		}
 		matchResultsStatline.RibbonID = ribbonID;
 		AbilityData.AbilityEntry[] abilityEntries = abilityData.abilityEntries;
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = delegate(AbilityData.AbilityEntry entry)
+		
+		matchResultsStatline.AbilityEntries = abilityEntries.Select(delegate(AbilityData.AbilityEntry entry)
 			{
 				MatchResultsStatline.AbilityEntry result4 = default(MatchResultsStatline.AbilityEntry);
 				int abilityModId;
@@ -520,13 +519,10 @@ public static class GameplayUtils
 				IL_006e:
 				result4.AbilityModId = abilityModId;
 				return result4;
-			};
-		}
-		matchResultsStatline.AbilityEntries = abilityEntries.Select(_003C_003Ef__am_0024cache0).ToArray();
+			}).ToArray();
 		IEnumerable<Card> activeCards = abilityData.GetActiveCards();
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = delegate(Card card)
+		
+		matchResultsStatline.CatalystHasPrepPhase = activeCards.ContainsWhere(delegate(Card card)
 			{
 				int result3;
 				if (card != null)
@@ -538,9 +534,7 @@ public static class GameplayUtils
 					result3 = 0;
 				}
 				return (byte)result3 != 0;
-			};
-		}
-		matchResultsStatline.CatalystHasPrepPhase = activeCards.ContainsWhere(_003C_003Ef__am_0024cache1);
+			});
 		matchResultsStatline.CatalystHasDashPhase = abilityData.GetActiveCards().ContainsWhere(delegate(Card card)
 		{
 			int result2;
