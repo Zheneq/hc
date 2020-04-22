@@ -16,6 +16,9 @@ public class SpoilsSpawnData
 
 	public int m_duration;
 
+	[CompilerGenerated]
+	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> _003C_003Ef__mg_0024cache0;
+
 	public SpoilsSpawnData GetShallowCopy()
 	{
 		SpoilsSpawnData spoilsSpawnData = (SpoilsSpawnData)MemberwiseClone();
@@ -128,8 +131,11 @@ public class SpoilsSpawnData
 					{
 						otherObjList = null;
 					}
-					
-					return str6 + InEditorDescHelper.GetListDiffString("PowerupPrefabs:\t", indent, myObjList, flag, (GameObject[])otherObjList, InEditorDescHelper.GetGameObjectEntryStr);
+					if (_003C_003Ef__mg_0024cache0 == null)
+					{
+						_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
+					}
+					return str6 + InEditorDescHelper.GetListDiffString("PowerupPrefabs:\t", indent, myObjList, flag, (GameObject[])otherObjList, _003C_003Ef__mg_0024cache0);
 				}
 				}
 			}

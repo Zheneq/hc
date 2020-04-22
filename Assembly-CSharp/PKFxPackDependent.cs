@@ -82,10 +82,22 @@ public class PKFxPackDependent : MonoBehaviour
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
-			string fromPath = Application.streamingAssetsPath + "/";
-			string toPath = Application.persistentDataPath + "/";
-			List<KeyValuePair<string, string>> archiveContent = new List<KeyValuePair<string, string>>();
-			yield return new WWW(fromPath + "Index.txt");
+			while (true)
+			{
+				switch (1)
+				{
+				case 0:
+					break;
+				default:
+				{
+					string fromPath = Application.streamingAssetsPath + "/";
+					string toPath = Application.persistentDataPath + "/";
+					List<KeyValuePair<string, string>> archiveContent = new List<KeyValuePair<string, string>>();
+					yield return new WWW(fromPath + "Index.txt");
+					/*Error: Unable to find new state assignment for yield return*/;
+				}
+				}
+			}
 		}
 		PKFxManager.m_PackCopied = true;
 		yield return null;

@@ -248,7 +248,17 @@ public class EmoticonPanel : MonoBehaviour
 												{
 													if (activeEmoticon.GetEmoji().m_emojiName == chatEmoticon.Name)
 													{
-														flag3 = true;
+														while (true)
+														{
+															switch (7)
+															{
+															case 0:
+																break;
+															default:
+																flag3 = true;
+																goto end_IL_0131;
+															}
+														}
 													}
 												}
 												if (!flag3)

@@ -47,7 +47,17 @@ namespace TMPro.Examples
 			}
 			if (num > characterCount)
 			{
-				yield return new WaitForSeconds(1f);
+				while (true)
+				{
+					switch (2)
+					{
+					case 0:
+						break;
+					default:
+						yield return new WaitForSeconds(1f);
+						/*Error: Unable to find new state assignment for yield return*/;
+					}
+				}
 			}
 			_001D.maxVisibleCharacters = num;
 			num++;

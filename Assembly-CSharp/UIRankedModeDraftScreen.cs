@@ -1048,10 +1048,30 @@ public class UIRankedModeDraftScreen : UIScene
 						{
 							if (item.PlayerId == num3)
 							{
-								if (num < m_blueTeamMembers.Length)
+								while (true)
 								{
-									m_blueTeamMembers[num].Setup(item);
-									num++;
+									switch (6)
+									{
+									case 0:
+										break;
+									default:
+										if (num < m_blueTeamMembers.Length)
+										{
+											while (true)
+											{
+												switch (7)
+												{
+												case 0:
+													break;
+												default:
+													m_blueTeamMembers[num].Setup(item);
+													num++;
+													goto end_IL_00b6;
+												}
+											}
+										}
+										goto end_IL_00b6;
+									}
 								}
 							}
 						}

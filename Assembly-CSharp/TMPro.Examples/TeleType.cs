@@ -29,7 +29,17 @@ namespace TMPro.Examples
 			_0012.maxVisibleCharacters = num2;
 			if (num2 >= characterCount)
 			{
-				yield return new WaitForSeconds(1f);
+				while (true)
+				{
+					switch (4)
+					{
+					case 0:
+						break;
+					default:
+						yield return new WaitForSeconds(1f);
+						/*Error: Unable to find new state assignment for yield return*/;
+					}
+				}
 			}
 			num++;
 			yield return new WaitForSeconds(0.05f);

@@ -2743,7 +2743,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				else if (actorBehavior.Client_ActorDamagedOrDebuffedByActor(item))
 				{
-					list.Add(item);
+					while (true)
+					{
+						switch (4)
+						{
+						case 0:
+							break;
+						default:
+							list.Add(item);
+							goto end_IL_0041;
+						}
+					}
 				}
 			}
 			if (!onlyDirectDamagers)

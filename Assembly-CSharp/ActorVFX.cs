@@ -688,7 +688,17 @@ public class ActorVFX : NetworkBehaviour
 			{
 				if (item.GetTeam() != actorData.GetTeam())
 				{
-					flag5 = true;
+					while (true)
+					{
+						switch (5)
+						{
+						case 0:
+							break;
+						default:
+							flag5 = true;
+							goto end_IL_00ec;
+						}
+					}
 				}
 			}
 		}

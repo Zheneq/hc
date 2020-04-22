@@ -16,7 +16,17 @@ public class SlashCommand_Apropos : SlashCommand
 			{
 				if (alias.Contains(arguments))
 				{
-					flag = true;
+					while (true)
+					{
+						switch (2)
+						{
+						case 0:
+							break;
+						default:
+							flag = true;
+							goto end_IL_003c;
+						}
+					}
 				}
 			}
 		}

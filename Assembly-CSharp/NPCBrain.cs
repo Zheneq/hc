@@ -125,7 +125,17 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	{
 		if (fsm != null)
 		{
-			yield return StartCoroutine(fsm.TakeTurn());
+			while (true)
+			{
+				switch (4)
+				{
+				case 0:
+					break;
+				default:
+					yield return StartCoroutine(fsm.TakeTurn());
+					/*Error: Unable to find new state assignment for yield return*/;
+				}
+			}
 		}
 		yield return StartCoroutine(DecideTurn());
 		/*Error: Unable to find new state assignment for yield return*/;
