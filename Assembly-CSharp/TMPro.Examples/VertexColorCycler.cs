@@ -25,17 +25,7 @@ namespace TMPro.Examples
 			int characterCount = textInfo.characterCount;
 			if (characterCount == 0)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						yield return new WaitForSeconds(0.25f);
-						/*Error: Unable to find new state assignment for yield return*/;
-					}
-				}
+				yield return new WaitForSeconds(0.25f);
 			}
 			int materialReferenceIndex = textInfo.characterInfo[num].materialReferenceIndex;
 			Color32[] colors = textInfo.meshInfo[materialReferenceIndex].colors32;

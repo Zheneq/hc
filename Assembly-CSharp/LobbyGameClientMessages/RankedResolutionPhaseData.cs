@@ -26,12 +26,12 @@ namespace LobbyGameClientMessages
 
 		public bool _001D(int _001D)
 		{
-			return PlayersOnDeck.Exists(delegate(RankedResolutionPlayerState _001D)
+			return PlayersOnDeck.Exists(delegate(RankedResolutionPlayerState _001D_)
 			{
 				int result;
-				if (_001D.PlayerId == _001D)
+				if (_001D_.PlayerId == _001D)
 				{
-					result = ((_001D.OnDeckness == RankedResolutionPlayerState.ReadyState._0012) ? 1 : 0);
+					result = ((_001D_.OnDeckness == RankedResolutionPlayerState.ReadyState._0012) ? 1 : 0);
 				}
 				else
 				{

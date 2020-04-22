@@ -49,17 +49,7 @@ namespace TMPro.Examples
 					{
 						if (num2 == _0015)
 						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									yield return null;
-									/*Error: Unable to find new state assignment for yield return*/;
-								}
-							}
+							yield return null;
 						}
 					}
 				}

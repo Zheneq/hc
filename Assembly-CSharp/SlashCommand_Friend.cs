@@ -146,18 +146,8 @@ public class SlashCommand_Friend : SlashCommand
 						{
 							if (value.FriendAccountId == friendAccountId)
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										value.FriendNote = strData;
-										FriendListPanel.Get().UpdateFriendBannerNote(value);
-										goto end_IL_00ba;
-									}
-								}
+								value.FriendNote = strData;
+								FriendListPanel.Get().UpdateFriendBannerNote(value);
 							}
 						}
 					}

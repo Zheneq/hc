@@ -1543,17 +1543,7 @@ public class ActorCover : NetworkBehaviour
 			{
 				if (flag3)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							flag = true;
-							goto end_IL_002a;
-						}
-					}
+					flag = true;
 				}
 			}
 		}

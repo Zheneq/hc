@@ -248,17 +248,7 @@ public class ClientGameManager : MonoBehaviour
 						CharacterType ct = (CharacterType)enumerator.Current;
 						if (cgm.IsCharacterAvailable(ct, gameType))
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									break;
-								default:
-									yield return ct;
-									/*Error: Unable to find new state assignment for yield return*/;
-								}
-							}
+							yield return ct;
 						}
 					}
 					while (true)
@@ -6243,19 +6233,9 @@ public class ClientGameManager : MonoBehaviour
 				CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo2.CharacterInfo.CharacterType);
 				if (!m_loadingCharacterResources.Contains(characterResourceLink2))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							m_loadingCharacterResources.Add(characterResourceLink2);
-							characterResourceLink2.LoadAsync(teamPlayerInfo2.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
-							yield return new WaitForSeconds(delaySeconds);
-							/*Error: Unable to find new state assignment for yield return*/;
-						}
-					}
+					m_loadingCharacterResources.Add(characterResourceLink2);
+					characterResourceLink2.LoadAsync(teamPlayerInfo2.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
+					yield return new WaitForSeconds(delaySeconds);
 				}
 			}
 		}
@@ -6268,19 +6248,9 @@ public class ClientGameManager : MonoBehaviour
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo.CharacterInfo.CharacterType);
 				if (!m_loadingCharacterResources.Contains(characterResourceLink))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							m_loadingCharacterResources.Add(characterResourceLink);
-							characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
-							yield return new WaitForSeconds(delaySeconds);
-							/*Error: Unable to find new state assignment for yield return*/;
-						}
-					}
+					m_loadingCharacterResources.Add(characterResourceLink);
+					characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
+					yield return new WaitForSeconds(delaySeconds);
 				}
 			}
 		}
@@ -9885,17 +9855,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		finally
 		{
-			base._003C_003E__Finally0();
-			goto end_IL_018f;
-			IL_0192:
-			switch (2)
-			{
-			default:
-				goto end_IL_018f;
-			case 0:
-				goto IL_0192;
-			}
-			end_IL_018f:;
+			//base._003C_003E__Finally0();
 		}
 	}
 
@@ -10415,32 +10375,12 @@ public class ClientGameManager : MonoBehaviour
 													{
 														if (!current.AnyGroupMember)
 														{
-															while (true)
-															{
-																switch (5)
-																{
-																case 0:
-																	break;
-																default:
-																	result = false;
-																	goto end_IL_0119;
-																}
-															}
+															result = false;
 														}
 													}
 													else if (current.AnyGroupMember)
 													{
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																break;
-															default:
-																flag = false;
-																goto end_IL_0119;
-															}
-														}
+														flag = false;
 													}
 												}
 												if (flag)

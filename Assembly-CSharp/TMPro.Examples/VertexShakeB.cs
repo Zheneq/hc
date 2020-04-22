@@ -64,17 +64,7 @@ namespace TMPro.Examples
 			}
 			if (textInfo.characterCount == 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						yield return new WaitForSeconds(0.25f);
-						/*Error: Unable to find new state assignment for yield return*/;
-					}
-				}
+				yield return new WaitForSeconds(0.25f);
 			}
 			int lineCount = textInfo.lineCount;
 			for (int j = 0; j < lineCount; j++)

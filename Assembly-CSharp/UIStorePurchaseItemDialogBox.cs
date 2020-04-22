@@ -530,17 +530,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			{
 				if (item2.m_overconId == item.m_overconID)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							nameToOverconEntry = item2;
-							goto end_IL_0b15;
-						}
-					}
+					nameToOverconEntry = item2;
 				}
 			}
 			GameBalanceVars gameBalanceVars5 = GameBalanceVars.Get();

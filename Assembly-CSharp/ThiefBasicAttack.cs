@@ -598,17 +598,7 @@ public class ThiefBasicAttack : Ability
 						{
 							if (CanPowerupBeStolen(item, powerupsHitSoFar, ignoreTeamRestriction, caster))
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										break;
-									default:
-										powerUp = item;
-										goto end_IL_0102;
-									}
-								}
+								powerUp = item;
 							}
 						}
 					}

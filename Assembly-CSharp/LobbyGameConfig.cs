@@ -270,18 +270,8 @@ public class LobbyGameConfig
 		{
 			if ((bit & subTypeMask) != 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						bFoundSomething = true;
-						yield return gst;
-						/*Error: Unable to find new state assignment for yield return*/;
-					}
-				}
+				bFoundSomething = true;
+				yield return gst;
 			}
 			bit = (ushort)(bit << 1);
 		}

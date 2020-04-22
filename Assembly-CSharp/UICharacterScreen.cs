@@ -1364,17 +1364,7 @@ public class UICharacterScreen : UIScene
 						bool? allyBotTeammatesSelected = Parameters.AllyBotTeammatesSelected;
 						if (allyBotTeammatesSelected.GetValueOrDefault() == item.Value.HasMod(GameSubType.SubTypeMods.AntiSocial) && allyBotTeammatesSelected.HasValue)
 						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-									newMask = item.Key;
-									goto end_IL_0121;
-								}
-							}
+							newMask = item.Key;
 						}
 					}
 				}

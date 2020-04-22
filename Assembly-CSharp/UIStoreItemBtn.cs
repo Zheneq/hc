@@ -219,17 +219,7 @@ public class UIStoreItemBtn : MonoBehaviour
 				{
 					if (item2.m_overconId == item.ID)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								nameToOverconEntry = item2;
-								goto end_IL_0620;
-							}
-						}
+						nameToOverconEntry = item2;
 					}
 				}
 				text2 = ((nameToOverconEntry == null) ? $"#overcon{item.ID}" : nameToOverconEntry.GetDisplayName());

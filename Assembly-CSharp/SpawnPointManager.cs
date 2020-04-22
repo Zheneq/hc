@@ -928,17 +928,7 @@ public class SpawnPointManager : MonoBehaviour
 						{
 							if (CanSpawnOnSquare(spawner, item2))
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										break;
-									default:
-										boardSquare = item2;
-										goto end_IL_014a;
-									}
-								}
+								boardSquare = item2;
 							}
 						}
 						if (boardSquare != null)

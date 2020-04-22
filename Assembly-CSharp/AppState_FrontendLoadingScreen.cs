@@ -483,18 +483,8 @@ public class AppState_FrontendLoadingScreen : AppState
 			{
 				if (!(UIStorePanel.Get() == null))
 				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							AppState_GroupCharacterSelect.ShowScreen();
-							yield return 0;
-							/*Error: Unable to find new state assignment for yield return*/;
-						}
-					}
+					AppState_GroupCharacterSelect.ShowScreen();
+					yield return 0;
 				}
 			}
 			yield return null;

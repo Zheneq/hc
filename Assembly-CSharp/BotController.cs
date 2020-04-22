@@ -28,18 +28,8 @@ public class BotController : MonoBehaviour
 				}
 				else if (item.PlayerId == component.PlayerData.LookupDetails().m_lobbyPlayerInfoId)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							botDifficulty = item.Difficulty;
-							flag = item.BotCanTaunt;
-							goto end_IL_0027;
-						}
-					}
+					botDifficulty = item.Difficulty;
+					flag = item.BotCanTaunt;
 				}
 			}
 		}

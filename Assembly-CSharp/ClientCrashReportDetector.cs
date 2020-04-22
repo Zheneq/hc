@@ -222,17 +222,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 		}
 		finally
 		{
-			base._003C_003E__Finally0();
-			goto end_IL_0141;
-			IL_0144:
-			switch (1)
-			{
-			default:
-				goto end_IL_0141;
-			case 0:
-				goto IL_0144;
-			}
-			end_IL_0141:;
+			//base._003C_003E__Finally0();
 		}
 	}
 }

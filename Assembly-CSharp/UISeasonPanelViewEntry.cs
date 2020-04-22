@@ -345,18 +345,8 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(itemReward.ItemReward.ItemTemplateId);
 						if (!flag2)
 						{
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									break;
-								default:
-									m_factionRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
-									flag2 = true;
-									goto end_IL_0616;
-								}
-							}
+							m_factionRewardIcon.sprite = Resources.Load<Sprite>(InventoryWideData.GetSpritePath(itemTemplate));
+							flag2 = true;
 						}
 					}
 					if (!flag2)

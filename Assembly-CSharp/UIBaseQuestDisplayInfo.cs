@@ -117,31 +117,11 @@ public class UIBaseQuestDisplayInfo
 						{
 							if (!info.QuestProgressRef.ObjectiveProgress.ContainsKey(key))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_02a7;
-									}
-								}
+								flag2 = false;
 							}
 							if (info.QuestProgressRef.ObjectiveProgress[key] != QuestProgressRef.ObjectiveProgress[key])
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_02a7;
-									}
-								}
+								flag2 = false;
 							}
 						}
 					}

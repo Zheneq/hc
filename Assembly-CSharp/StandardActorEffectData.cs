@@ -77,9 +77,6 @@ public class StandardActorEffectData
 
 	public GameObject m_tickSequencePrefab;
 
-	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> _003C_003Ef__mg_0024cache0;
-
 	public void InitWithDefaultValues()
 	{
 		SetValues(string.Empty, 1, 0, 0, 0, ServerCombatManager.HealingType.Effect, 0, 0, new AbilityStatMod[0], new StatusType[0], StatusDelayMode.DefaultBehavior);
@@ -347,11 +344,8 @@ public class StandardActorEffectData
 		{
 			otherVal9 = 0;
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
-		{
-			_003C_003Ef__am_0024cache0 = ((bool b) => b);
-		}
-		str = str10 + InEditorDescHelper.AssembleFieldWithDiff("Remove Invisibility On End of Decision of Last Turn = ", text, text3, removeInvisibilityOnLastResolveStart, flag, (byte)otherVal9 != 0, _003C_003Ef__am_0024cache0);
+		
+		str = str10 + InEditorDescHelper.AssembleFieldWithDiff("Remove Invisibility On End of Decision of Last Turn = ", text, text3, removeInvisibilityOnLastResolveStart, flag, (byte)otherVal9 != 0, ((bool b) => b));
 		string str11 = str;
 		bool removeRevealedOnLastResolveStart = m_removeRevealedOnLastResolveStart;
 		int otherVal10;
@@ -363,11 +357,8 @@ public class StandardActorEffectData
 		{
 			otherVal10 = 0;
 		}
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((bool b) => b);
-		}
-		str = str11 + InEditorDescHelper.AssembleFieldWithDiff("Remove Revealed On End of Decision of Last Turn = ", text, text3, removeRevealedOnLastResolveStart, flag, (byte)otherVal10 != 0, _003C_003Ef__am_0024cache1);
+		
+		str = str11 + InEditorDescHelper.AssembleFieldWithDiff("Remove Revealed On End of Decision of Last Turn = ", text, text3, removeRevealedOnLastResolveStart, flag, (byte)otherVal10 != 0, ((bool b) => b));
 		string str12 = str;
 		int damagePerMoveSquare = m_damagePerMoveSquare;
 		int otherVal11;
@@ -468,11 +459,8 @@ public class StandardActorEffectData
 		{
 			otherObjList4 = null;
 		}
-		if (_003C_003Ef__mg_0024cache0 == null)
-		{
-			_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
-		}
-		str = str18 + InEditorDescHelper.GetListDiffString("Effect Sequence Prefabs:\t", text, sequencePrefabs, flag, (GameObject[])otherObjList4, _003C_003Ef__mg_0024cache0);
+		
+		str = str18 + InEditorDescHelper.GetListDiffString("Effect Sequence Prefabs:\t", text, sequencePrefabs, flag, (GameObject[])otherObjList4, InEditorDescHelper.GetGameObjectEntryStr);
 		string str19 = str;
 		GameObject tickSequencePrefab = m_tickSequencePrefab;
 		object otherVal13;
