@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,39 +17,26 @@ public class BotController : MonoBehaviour
 
 	private void Start()
 	{
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		BotDifficulty botDifficulty = BotDifficulty.Expert;
 		bool flag = false;
-		foreach (LobbyPlayerInfo item in GameManager.Get().TeamInfo.TeamPlayerInfo)
+		foreach (LobbyPlayerInfo lobbyPlayerInfo in GameManager.Get().TeamInfo.TeamPlayerInfo)
 		{
 			if (!(component.PlayerData == null))
 			{
 				if (component.PlayerData.LookupDetails() == null)
 				{
 				}
-				else if (item.PlayerId == component.PlayerData.LookupDetails().m_lobbyPlayerInfoId)
+				else if (lobbyPlayerInfo.PlayerId == component.PlayerData.LookupDetails().m_lobbyPlayerInfoId)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							botDifficulty = item.Difficulty;
-							flag = item.BotCanTaunt;
-							goto end_IL_0027;
-						}
-					}
+					botDifficulty = lobbyPlayerInfo.Difficulty;
+					flag = lobbyPlayerInfo.BotCanTaunt;
+					break;
 				}
 			}
 		}
-		previousBrainStack = new Stack<NPCBrain>();
-		if (!(GetComponent<NPCBrain>() == null))
-		{
-			return;
-		}
-		while (true)
+		this.previousBrainStack = new Stack<NPCBrain>();
+		if (base.GetComponent<NPCBrain>() == null)
 		{
 			if (!(component.GetName() == "Sniper") && !(component.GetName() == "RageBeast") && !(component.GetName() == "Scoundrel"))
 			{
@@ -104,7 +92,10 @@ public class BotController : MonoBehaviour
 																												{
 																													if (!(component.GetName() == "Fireborg"))
 																													{
-																														Log.Info("Using Generic AI for {0}", component.GetName());
+																														Log.Info("Using Generic AI for {0}", new object[]
+																														{
+																															component.GetName()
+																														});
 																														return;
 																													}
 																												}
@@ -134,23 +125,23 @@ public class BotController : MonoBehaviour
 				}
 			}
 			NPCBrain_Adaptive.Create(this, component.transform, botDifficulty, flag);
-			Log.Info("Making Adaptive AI for {0} at difficulty {1}, can taunt: {2}", component.GetName(), botDifficulty.ToString(), flag);
-			if (IAmTheOnlyBotOnATwoPlayerTeam(component))
+			Log.Info("Making Adaptive AI for {0} at difficulty {1}, can taunt: {2}", new object[]
 			{
-				while (true)
-				{
-					component.GetComponent<NPCBrain_Adaptive>().SendDecisionToTeamChat(true);
-					return;
-				}
+				component.GetName(),
+				botDifficulty.ToString(),
+				flag
+			});
+			if (this.IAmTheOnlyBotOnATwoPlayerTeam(component))
+			{
+				component.GetComponent<NPCBrain_Adaptive>().SendDecisionToTeamChat(true);
 			}
-			return;
 		}
 	}
 
-	public BoardSquare GetClosestEnemyPlayerSquare(bool includeInvisibles, out int numEnemiesInRange)
+	public unsafe BoardSquare GetClosestEnemyPlayerSquare(bool includeInvisibles, out int numEnemiesInRange)
 	{
 		numEnemiesInRange = 0;
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
 		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		BoardSquare boardSquare = null;
@@ -158,9 +149,9 @@ public class BotController : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData current = enumerator.Current;
-				BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
-				if (!current.IsDead())
+				ActorData actorData = enumerator.Current;
+				BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+				if (!actorData.IsDead())
 				{
 					if (currentBoardSquare2 == null)
 					{
@@ -168,7 +159,7 @@ public class BotController : MonoBehaviour
 					else
 					{
 						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
-						if (num <= m_combatRange)
+						if (num <= this.m_combatRange)
 						{
 							numEnemiesInRange++;
 						}
@@ -194,22 +185,13 @@ public class BotController : MonoBehaviour
 					}
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return boardSquare;
-				}
-			}
 		}
+		return boardSquare;
 	}
 
 	public BoardSquare GetRetreatSquare()
 	{
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
 		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		Vector3 a = new Vector3(0f, 0f, 0f);
@@ -217,9 +199,9 @@ public class BotController : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData current = enumerator.Current;
-				BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
-				if (!current.IsDead())
+				ActorData actorData = enumerator.Current;
+				BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+				if (!actorData.IsDead())
 				{
 					if (currentBoardSquare2 == null)
 					{
@@ -227,11 +209,11 @@ public class BotController : MonoBehaviour
 					else
 					{
 						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
-						if (num <= m_retreatFromRange)
+						if (num <= this.m_retreatFromRange)
 						{
-							Vector3 vector = currentBoardSquare2.ToVector3() - currentBoardSquare.ToVector3();
-							vector.Normalize();
-							a += vector;
+							Vector3 b = currentBoardSquare2.ToVector3() - currentBoardSquare.ToVector3();
+							b.Normalize();
+							a += b;
 						}
 					}
 				}
@@ -239,99 +221,85 @@ public class BotController : MonoBehaviour
 		}
 		Vector3 a2 = -a;
 		a2.Normalize();
-		Vector3 vector2 = currentBoardSquare.ToVector3() + a2 * m_retreatFromRange;
-		return Board.Get()._0013(vector2.x, vector2.z);
+		Vector3 vector = currentBoardSquare.ToVector3() + a2 * this.m_retreatFromRange;
+		return Board.Get()._0013(vector.x, vector.z);
 	}
 
 	public BoardSquare GetAdvanceSquare()
 	{
-		int numEnemiesInRange;
-		BoardSquare closestEnemyPlayerSquare = GetClosestEnemyPlayerSquare(true, out numEnemiesInRange);
+		int num;
+		BoardSquare closestEnemyPlayerSquare = this.GetClosestEnemyPlayerSquare(true, out num);
 		if (closestEnemyPlayerSquare == null)
 		{
 			return null;
 		}
 		Vector3 a = closestEnemyPlayerSquare.ToVector3();
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		Vector3 vector = currentBoardSquare.ToVector3();
-		Vector3 b = a - vector;
-		if (numEnemiesInRange > 1)
+		Vector3 vector2 = a - vector;
+		if (num > 1)
 		{
-			float magnitude = b.magnitude;
-			if (magnitude > m_idealRange)
+			float magnitude = vector2.magnitude;
+			if (magnitude > this.m_idealRange)
 			{
-				b.Normalize();
-				b *= m_idealRange;
+				vector2.Normalize();
+				vector2 *= this.m_idealRange;
 			}
 		}
-		Vector3 zero = Vector3.zero;
+		Vector3 vector3 = Vector3.zero;
 		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetTeam());
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				ActorData current = enumerator.Current;
-				if (!current.IsDead() || current == component)
+				ActorData actorData = enumerator.Current;
+				if (!actorData.IsDead() || actorData == component)
 				{
-					BoardSquare currentBoardSquare2 = current.GetCurrentBoardSquare();
-					if (currentBoardSquare2 != null && currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2) < m_idealRange)
+					BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+					if (currentBoardSquare2 != null && currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2) < this.m_idealRange)
 					{
 						Vector3 a2 = currentBoardSquare2.ToVector3() - vector;
 						a2.Normalize();
-						zero -= a2 * 1.5f;
+						vector3 -= a2 * 1.5f;
 					}
 				}
 			}
 		}
-		Vector3 vector2 = vector + b + zero;
-		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector2.x, vector2.z);
-		return Board.Get()._0018(boardSquareUnsafe);
+		Vector3 vector4 = vector + vector2 + vector3;
+		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector4.x, vector4.z);
+		return Board.Get()._0018(boardSquareUnsafe, null);
 	}
 
 	public void SelectBotAbilityMods()
 	{
-		NPCBrain component = GetComponent<NPCBrain>();
+		NPCBrain component = base.GetComponent<NPCBrain>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					component.SelectBotAbilityMods();
-					return;
-				}
-			}
+			component.SelectBotAbilityMods();
 		}
-		SelectBotAbilityMods_Brainless();
+		else
+		{
+			this.SelectBotAbilityMods_Brainless();
+		}
 	}
 
 	public void SelectBotCards()
 	{
-		NPCBrain component = GetComponent<NPCBrain>();
+		NPCBrain component = base.GetComponent<NPCBrain>();
 		if (component != null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					component.SelectBotCards();
-					return;
-				}
-			}
+			component.SelectBotCards();
 		}
-		SelectBotCards_Brainless();
+		else
+		{
+			this.SelectBotCards_Brainless();
+		}
 	}
 
 	public void SelectBotAbilityMods_Brainless()
 	{
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		AbilityData abilityData = component.GetAbilityData();
 		List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
 		CharacterModInfo selectedMods = default(CharacterModInfo);
@@ -340,8 +308,8 @@ public class BotController : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				Ability current = enumerator.Current;
-				AbilityMod defaultModForAbility = AbilityModManager.Get().GetDefaultModForAbility(current);
+				Ability ability = enumerator.Current;
+				AbilityMod defaultModForAbility = AbilityModManager.Get().GetDefaultModForAbility(ability);
 				int num2;
 				if (defaultModForAbility != null)
 				{
@@ -361,12 +329,12 @@ public class BotController : MonoBehaviour
 
 	public void SelectBotCards_Brainless()
 	{
-		ActorData component = GetComponent<ActorData>();
+		ActorData component = base.GetComponent<ActorData>();
 		CharacterCardInfo cardInfo = default(CharacterCardInfo);
 		cardInfo.PrepCard = CardManagerData.Get().GetDefaultPrepCardType();
 		cardInfo.CombatCard = CardManagerData.Get().GetDefaultCombatCardType();
 		cardInfo.DashCard = CardManagerData.Get().GetDefaultDashCardType();
-		CardManager.Get().SetDeckAndGiveCards(component, cardInfo);
+		CardManager.Get().SetDeckAndGiveCards(component, cardInfo, false);
 	}
 
 	public bool IAmTheOnlyBotOnATwoPlayerTeam(ActorData actorData)
@@ -374,56 +342,29 @@ public class BotController : MonoBehaviour
 		PlayerDetails playerDetails = actorData.PlayerData.LookupDetails();
 		if (playerDetails == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
 		bool flag = false;
 		using (List<LobbyPlayerInfo>.Enumerator enumerator = GameManager.Get().TeamInfo.TeamPlayerInfo.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				LobbyPlayerInfo current = enumerator.Current;
-				if (current.TeamId != actorData.GetTeam())
+				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
+				if (lobbyPlayerInfo.TeamId != actorData.GetTeam())
 				{
 				}
-				else if (current.PlayerId == playerDetails.m_lobbyPlayerInfoId)
+				else if (lobbyPlayerInfo.PlayerId == playerDetails.m_lobbyPlayerInfoId)
 				{
 				}
 				else
 				{
 					if (flag)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return false;
-							}
-						}
+						return false;
 					}
-					if (current.IsAIControlled)
+					if (lobbyPlayerInfo.IsAIControlled)
 					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								return false;
-							}
-						}
+						return false;
 					}
 					flag = true;
 				}

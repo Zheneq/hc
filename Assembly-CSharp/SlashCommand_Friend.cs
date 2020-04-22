@@ -1,172 +1,131 @@
-using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using LobbyGameClientMessages;
 
 public class SlashCommand_Friend : SlashCommand
 {
-	public SlashCommand_Friend()
-		: base("/friend", SlashCommandType.Everywhere)
+	public SlashCommand_Friend() : base("/friend", SlashCommandType.Everywhere)
 	{
 	}
 
 	public override void OnSlashCommand(string arguments)
 	{
-		if (arguments.IsNullOrEmpty())
+		if (!arguments.IsNullOrEmpty())
 		{
-			return;
-		}
-		FriendOperation friendOperation;
-		string message;
-		string strData;
-		long friendAccountId;
-		while (true)
-		{
-			if (ClientGameManager.Get() == null)
+			if (!(ClientGameManager.Get() == null))
 			{
-				return;
-			}
-			string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
-			if (array.Length < 2)
-			{
-				return;
-			}
-			string text = array[1];
-			friendOperation = FriendOperation.Unknown;
-			message = string.Empty;
-			strData = string.Empty;
-			friendAccountId = 0L;
-			if (array[0] == StringUtil.TR("AddFriend", "SlashCommand"))
-			{
-				friendOperation = FriendOperation.Add;
-				message = StringUtil.TR("AddFriendRequest", "SlashCommand");
-			}
-			else if (array[0] == StringUtil.TR("AcceptFriend", "SlashCommand"))
-			{
-				friendOperation = FriendOperation.Accept;
-				message = StringUtil.TR("AcceptFriendRequest", "SlashCommand");
-			}
-			else if (array[0] == StringUtil.TR("RemoveFriend", "SlashCommand"))
-			{
-				friendOperation = FriendOperation.Remove;
-				message = StringUtil.TR("FriendRemoved", "SlashCommand");
-			}
-			else if (array[0] == StringUtil.TR("RejectFriend", "SlashCommand"))
-			{
-				friendOperation = FriendOperation.Reject;
-				message = StringUtil.TR("FriendRequestRejected", "SlashCommand");
-			}
-			else if (array[0] == StringUtil.TR("NoteFriend", "SlashCommand"))
-			{
-				friendOperation = FriendOperation.Note;
-				message = StringUtil.TR("NoteRecorded", "SlashCommand");
-				for (int i = 2; i < array.Length; i++)
+				string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
+				if (array.Length < 2)
 				{
-					strData = strData + array[i] + " ";
+					return;
 				}
-				strData = strData.Trim();
-				using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().FriendList.Friends.Values.GetEnumerator())
+				string text = array[1];
+				FriendOperation friendOperation = FriendOperation.Unknown;
+				string message = string.Empty;
+				string strData = string.Empty;
+				long friendAccountId = 0L;
+				if (array[0] == StringUtil.TR("AddFriend", "SlashCommand"))
 				{
-					while (enumerator.MoveNext())
+					friendOperation = FriendOperation.Add;
+					message = StringUtil.TR("AddFriendRequest", "SlashCommand");
+				}
+				else if (array[0] == StringUtil.TR("AcceptFriend", "SlashCommand"))
+				{
+					friendOperation = FriendOperation.Accept;
+					message = StringUtil.TR("AcceptFriendRequest", "SlashCommand");
+				}
+				else if (array[0] == StringUtil.TR("RemoveFriend", "SlashCommand"))
+				{
+					friendOperation = FriendOperation.Remove;
+					message = StringUtil.TR("FriendRemoved", "SlashCommand");
+				}
+				else if (array[0] == StringUtil.TR("RejectFriend", "SlashCommand"))
+				{
+					friendOperation = FriendOperation.Reject;
+					message = StringUtil.TR("FriendRequestRejected", "SlashCommand");
+				}
+				else if (array[0] == StringUtil.TR("NoteFriend", "SlashCommand"))
+				{
+					friendOperation = FriendOperation.Note;
+					message = StringUtil.TR("NoteRecorded", "SlashCommand");
+					for (int i = 2; i < array.Length; i++)
 					{
-						FriendInfo current = enumerator.Current;
-						if (current.FriendHandle.StartsWith(text))
+						strData = strData + array[i] + " ";
+					}
+					strData = strData.Trim();
+					using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().FriendList.Friends.Values.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
 						{
-							if (friendAccountId > 0)
+							FriendInfo friendInfo = enumerator.Current;
+							if (friendInfo.FriendHandle.StartsWith(text))
 							{
-								while (true)
+								if (friendAccountId > 0L)
 								{
-									switch (5)
+									TextConsole.Get().Write(new TextConsole.Message
 									{
-									case 0:
-										break;
-									default:
-										TextConsole.Get().Write(new TextConsole.Message
-										{
-											Text = StringUtil.TR("AmbiguousFriendName", "SlashCommand"),
-											MessageType = ConsoleMessageType.SystemMessage
-										});
-										return;
-									}
+										Text = StringUtil.TR("AmbiguousFriendName", "SlashCommand"),
+										MessageType = ConsoleMessageType.SystemMessage
+									}, null);
+									return;
 								}
-							}
-							friendAccountId = current.FriendAccountId;
-						}
-					}
-				}
-				if (friendAccountId == 0)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							TextConsole.Get().Write(new TextConsole.Message
-							{
-								Text = StringUtil.TR("YouAreNotFriends", "SlashCommand"),
-								MessageType = ConsoleMessageType.SystemMessage
-							});
-							return;
-						}
-					}
-				}
-			}
-			else
-			{
-				TextConsole.Get().Write(new TextConsole.Message
-				{
-					Text = StringUtil.TR("FriendSyntax", "SlashCommand"),
-					MessageType = ConsoleMessageType.SystemMessage
-				});
-			}
-			if (friendOperation == FriendOperation.Unknown)
-			{
-				return;
-			}
-			while (true)
-			{
-				ClientGameManager.Get().UpdateFriend(text, friendAccountId, friendOperation, strData, delegate(FriendUpdateResponse r)
-				{
-					if (!r.Success)
-					{
-						if (r.LocalizedFailure != null)
-						{
-							r.ErrorMessage = r.LocalizedFailure.ToString();
-						}
-						else if (r.ErrorMessage.IsNullOrEmpty())
-						{
-							r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
-						}
-						message = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
-					}
-					else if (friendOperation == FriendOperation.Note)
-					{
-						foreach (FriendInfo value in ClientGameManager.Get().FriendList.Friends.Values)
-						{
-							if (value.FriendAccountId == friendAccountId)
-							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										value.FriendNote = strData;
-										FriendListPanel.Get().UpdateFriendBannerNote(value);
-										goto end_IL_00ba;
-									}
-								}
+								friendAccountId = friendInfo.FriendAccountId;
 							}
 						}
 					}
+					if (friendAccountId == 0L)
+					{
+						TextConsole.Get().Write(new TextConsole.Message
+						{
+							Text = StringUtil.TR("YouAreNotFriends", "SlashCommand"),
+							MessageType = ConsoleMessageType.SystemMessage
+						}, null);
+						return;
+					}
+				}
+				else
+				{
 					TextConsole.Get().Write(new TextConsole.Message
 					{
-						Text = message,
+						Text = StringUtil.TR("FriendSyntax", "SlashCommand"),
 						MessageType = ConsoleMessageType.SystemMessage
+					}, null);
+				}
+				if (friendOperation != FriendOperation.Unknown)
+				{
+					ClientGameManager.Get().UpdateFriend(text, friendAccountId, friendOperation, strData, delegate(FriendUpdateResponse r)
+					{
+						if (!r.Success)
+						{
+							if (r.LocalizedFailure != null)
+							{
+								r.ErrorMessage = r.LocalizedFailure.ToString();
+							}
+							else if (r.ErrorMessage.IsNullOrEmpty())
+							{
+								r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
+							}
+							message = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
+						}
+						else if (friendOperation == FriendOperation.Note)
+						{
+							foreach (FriendInfo friendInfo2 in ClientGameManager.Get().FriendList.Friends.Values)
+							{
+								if (friendInfo2.FriendAccountId == friendAccountId)
+								{
+									friendInfo2.FriendNote = strData;
+									FriendListPanel.Get().UpdateFriendBannerNote(friendInfo2);
+									break;
+								}
+							}
+						}
+						TextConsole.Get().Write(new TextConsole.Message
+						{
+							Text = message,
+							MessageType = ConsoleMessageType.SystemMessage
+						}, null);
 					});
-				});
+				}
 				return;
 			}
 		}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,24 +37,19 @@ public class EmoticonPanel : MonoBehaviour
 
 	private void Awake()
 	{
-		activeEmoticons = new List<EmoticonSelectBtn>();
-		inactiveEmoticons = new List<EmoticonSelectBtn>();
-		m_emoticonBtn.spriteController.callback = EmoticonIconBtnClicked;
-		Init();
-		DoPanelOpen(false);
-		ClientGameManager.Get().OnAccountDataUpdated += HandleAccountDataUpdated;
+		this.activeEmoticons = new List<EmoticonSelectBtn>();
+		this.inactiveEmoticons = new List<EmoticonSelectBtn>();
+		this.m_emoticonBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.EmoticonIconBtnClicked);
+		this.Init();
+		this.DoPanelOpen(false);
+		ClientGameManager.Get().OnAccountDataUpdated += this.HandleAccountDataUpdated;
 	}
 
 	private void OnDestroy()
 	{
-		if (!(ClientGameManager.Get() != null))
+		if (ClientGameManager.Get() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			ClientGameManager.Get().OnAccountDataUpdated -= HandleAccountDataUpdated;
-			return;
+			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 		}
 	}
 
@@ -67,51 +63,27 @@ public class EmoticonPanel : MonoBehaviour
 			{
 				if (!(second == null))
 				{
-					if (chatEmojiIndexByName2 != -1)
+					if (chatEmojiIndexByName2 == -1)
+					{
+					}
+					else
 					{
 						if (first == null)
 						{
 							if (second == null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										return 0;
-									}
-								}
+								return 0;
 							}
 						}
 						GameBalanceVars.ChatEmoticon chatEmoticon = GameBalanceVars.Get().ChatEmojis[chatEmojiIndexByName];
 						GameBalanceVars.ChatEmoticon chatEmoticon2 = GameBalanceVars.Get().ChatEmojis[chatEmojiIndexByName2];
 						if (chatEmoticon.m_sortOrder < chatEmoticon2.m_sortOrder)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									break;
-								default:
-									return -1;
-								}
-							}
+							return -1;
 						}
 						if (chatEmoticon.m_sortOrder > chatEmoticon2.m_sortOrder)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									break;
-								default:
-									return 1;
-								}
-							}
+							return 1;
 						}
 						return 0;
 					}
@@ -148,399 +120,288 @@ public class EmoticonPanel : MonoBehaviour
 
 	private void SortDisplayList()
 	{
-		activeEmoticons.Sort(CompareEmoticonButton);
-		inactiveEmoticons.Sort(CompareEmoticonButton);
-		for (int i = 0; i < activeEmoticons.Count; i++)
+		this.activeEmoticons.Sort(new Comparison<EmoticonSelectBtn>(this.CompareEmoticonButton));
+		this.inactiveEmoticons.Sort(new Comparison<EmoticonSelectBtn>(this.CompareEmoticonButton));
+		for (int i = 0; i < this.activeEmoticons.Count; i++)
 		{
-			EmoticonSelectBtn emoticonSelectBtn = activeEmoticons[i];
+			EmoticonSelectBtn emoticonSelectBtn = this.activeEmoticons[i];
 			if (emoticonSelectBtn.transform.GetSiblingIndex() != i)
 			{
 				emoticonSelectBtn.transform.SetSiblingIndex(i);
 			}
 		}
-		while (true)
+		for (int j = 0; j < this.inactiveEmoticons.Count; j++)
 		{
-			for (int j = 0; j < inactiveEmoticons.Count; j++)
+			EmoticonSelectBtn emoticonSelectBtn2 = this.inactiveEmoticons[j];
+			if (emoticonSelectBtn2.transform.GetSiblingIndex() != j + this.activeEmoticons.Count)
 			{
-				EmoticonSelectBtn emoticonSelectBtn2 = inactiveEmoticons[j];
-				if (emoticonSelectBtn2.transform.GetSiblingIndex() != j + activeEmoticons.Count)
-				{
-					emoticonSelectBtn2.transform.SetSiblingIndex(j + activeEmoticons.Count);
-				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+				emoticonSelectBtn2.transform.SetSiblingIndex(j + this.activeEmoticons.Count);
 			}
 		}
 	}
 
 	public void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
-		if (GameBalanceVars.Get() == null)
+		if (GameBalanceVars.Get() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (ChatEmojiManager.Get() == null)
+			if (!(ChatEmojiManager.Get() == null))
 			{
-				return;
-			}
-			Init();
-			int num;
-			if (GameManager.Get() != null)
-			{
-				num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
-			}
-			else
-			{
-				num = 0;
-			}
-			bool flag = (byte)num != 0;
-			GameBalanceVars.ChatEmoticon[] chatEmojis = GameBalanceVars.Get().ChatEmojis;
-			foreach (GameBalanceVars.ChatEmoticon chatEmoticon in chatEmojis)
-			{
-				bool flag2 = chatEmoticon.m_isHidden || !GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon);
-				if (!flag)
+				this.Init();
+				bool flag;
+				if (GameManager.Get() != null)
 				{
+					flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
+				}
+				else
+				{
+					flag = false;
+				}
+				bool flag2 = flag;
+				GameBalanceVars.ChatEmoticon[] chatEmojis = GameBalanceVars.Get().ChatEmojis;
+				int i = 0;
+				while (i < chatEmojis.Length)
+				{
+					GameBalanceVars.ChatEmoticon chatEmoticon = chatEmojis[i];
+					bool flag3 = chatEmoticon.m_isHidden || !GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon);
 					if (flag2)
 					{
-						continue;
+						goto IL_B2;
 					}
-				}
-				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
-				{
-					while (true)
+					if (!flag3)
 					{
-						if (!enumerator.MoveNext())
+						for (;;)
 						{
-							break;
-						}
-						ChatEmojiManager.ChatEmoji current = enumerator.Current;
-						if (chatEmoticon.Name == current.m_emojiName)
-						{
-							while (true)
+							switch (5)
 							{
-								switch (4)
+							case 0:
+								continue;
+							}
+							goto IL_B2;
+						}
+					}
+					IL_2AF:
+					i++;
+					continue;
+					IL_B2:
+					using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
+					{
+						while (enumerator.MoveNext())
+						{
+							ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
+							if (chatEmoticon.Name == chatEmoji.m_emojiName)
+							{
+								if (accountData != null && accountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
 								{
-								case 0:
-									break;
-								default:
-									if (accountData != null && accountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
+									bool flag4 = false;
+									foreach (EmoticonSelectBtn emoticonSelectBtn in this.activeEmoticons)
 									{
-										while (true)
+										if (emoticonSelectBtn.GetEmoji().m_emojiName == chatEmoticon.Name)
 										{
-											switch (1)
-											{
-											case 0:
-												break;
-											default:
-											{
-												bool flag3 = false;
-												foreach (EmoticonSelectBtn activeEmoticon in activeEmoticons)
-												{
-													if (activeEmoticon.GetEmoji().m_emojiName == chatEmoticon.Name)
-													{
-														while (true)
-														{
-															switch (7)
-															{
-															case 0:
-																break;
-															default:
-																flag3 = true;
-																goto end_IL_0131;
-															}
-														}
-													}
-												}
-												if (!flag3)
-												{
-													while (true)
-													{
-														switch (2)
-														{
-														case 0:
-															break;
-														default:
-														{
-															for (int j = 0; j < inactiveEmoticons.Count; j++)
-															{
-																if (inactiveEmoticons[j].GetEmoji().m_emojiName == chatEmoticon.Name)
-																{
-																	Object.Destroy(inactiveEmoticons[j].gameObject);
-																	inactiveEmoticons.RemoveAt(j);
-																	break;
-																}
-															}
-															EmoticonSelectBtn emoticonSelectBtn = CreateNewEmoticonBtn(current, m_activePrefab, true);
-															int siblingIndex = 0;
-															if (activeEmoticons.Count > 0)
-															{
-																siblingIndex = activeEmoticons[activeEmoticons.Count - 1].transform.GetSiblingIndex() + 1;
-															}
-															emoticonSelectBtn.transform.SetSiblingIndex(siblingIndex);
-															activeEmoticons.Add(emoticonSelectBtn);
-															goto end_IL_00c7;
-														}
-														}
-													}
-												}
-												goto end_IL_00c7;
-											}
-											}
+											flag4 = true;
+											break;
 										}
 									}
-									goto end_IL_00c7;
+									if (!flag4)
+									{
+										for (int j = 0; j < this.inactiveEmoticons.Count; j++)
+										{
+											if (this.inactiveEmoticons[j].GetEmoji().m_emojiName == chatEmoticon.Name)
+											{
+												UnityEngine.Object.Destroy(this.inactiveEmoticons[j].gameObject);
+												this.inactiveEmoticons.RemoveAt(j);
+												break;
+											}
+										}
+										EmoticonSelectBtn emoticonSelectBtn2 = this.CreateNewEmoticonBtn(chatEmoji, this.m_activePrefab, true);
+										int siblingIndex = 0;
+										if (this.activeEmoticons.Count > 0)
+										{
+											siblingIndex = this.activeEmoticons[this.activeEmoticons.Count - 1].transform.GetSiblingIndex() + 1;
+										}
+										emoticonSelectBtn2.transform.SetSiblingIndex(siblingIndex);
+										this.activeEmoticons.Add(emoticonSelectBtn2);
+									}
 								}
+								goto IL_2AF;
 							}
 						}
 					}
-					end_IL_00c7:;
+					goto IL_2AF;
 				}
+				this.SortDisplayList();
+				return;
 			}
-			SortDisplayList();
-			return;
 		}
 	}
 
 	private void Init()
 	{
-		if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
+		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_initialized)
+			if (!this.m_initialized)
 			{
-				while (true)
+				this.m_initialized = true;
+				this.m_scrollRect = base.GetComponentInChildren<ScrollRect>();
+				PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
+				List<ChatEmojiManager.ChatEmoji> list = new List<ChatEmojiManager.ChatEmoji>();
+				List<ChatEmojiManager.ChatEmoji> list2 = new List<ChatEmojiManager.ChatEmoji>();
+				bool flag;
+				if (GameManager.Get() != null)
 				{
-					switch (2)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
+					flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 				}
-			}
-			m_initialized = true;
-			m_scrollRect = GetComponentInChildren<ScrollRect>();
-			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
-			List<ChatEmojiManager.ChatEmoji> list = new List<ChatEmojiManager.ChatEmoji>();
-			List<ChatEmojiManager.ChatEmoji> list2 = new List<ChatEmojiManager.ChatEmoji>();
-			int num;
-			if (GameManager.Get() != null)
-			{
-				num = (GameManager.Get().GameplayOverrides.EnableHiddenCharacters ? 1 : 0);
-			}
-			else
-			{
-				num = 0;
-			}
-			bool flag = (byte)num != 0;
-			GameBalanceVars.ChatEmoticon[] chatEmojis = GameBalanceVars.Get().ChatEmojis;
-			foreach (GameBalanceVars.ChatEmoticon chatEmoticon in chatEmojis)
-			{
-				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
+				else
 				{
-					while (true)
+					flag = false;
+				}
+				bool flag2 = flag;
+				foreach (GameBalanceVars.ChatEmoticon chatEmoticon in GameBalanceVars.Get().ChatEmojis)
+				{
+					using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator = ChatEmojiManager.Get().m_emojiList.GetEnumerator())
 					{
-						if (!enumerator.MoveNext())
+						while (enumerator.MoveNext())
 						{
-							break;
-						}
-						ChatEmojiManager.ChatEmoji current = enumerator.Current;
-						if (chatEmoticon.Name == current.m_emojiName)
-						{
-							while (true)
+							ChatEmojiManager.ChatEmoji chatEmoji = enumerator.Current;
+							if (chatEmoticon.Name == chatEmoji.m_emojiName)
 							{
-								switch (5)
+								if (playerAccountData != null)
 								{
-								case 0:
-									break;
-								default:
+									if (playerAccountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
 									{
-										if (playerAccountData != null)
-										{
-											if (playerAccountData.AccountComponent.IsChatEmojiUnlocked(chatEmoticon))
-											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														break;
-													default:
-														list.Add(current);
-														goto end_IL_00c4;
-													}
-												}
-											}
-										}
-										int num2;
-										if (!chatEmoticon.m_isHidden)
-										{
-											num2 = ((!GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon)) ? 1 : 0);
-										}
-										else
-										{
-											num2 = 1;
-										}
-										bool flag2 = (byte)num2 != 0;
-										if (flag)
-										{
-											goto IL_0169;
-										}
-										if (!flag2)
-										{
-											goto IL_0169;
-										}
-										goto end_IL_00c4;
+										list.Add(chatEmoji);
+										goto IL_171;
 									}
-									IL_0169:
-									list2.Add(current);
-									goto end_IL_00c4;
 								}
+								bool flag3;
+								if (!chatEmoticon.m_isHidden)
+								{
+									flag3 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(chatEmoticon);
+								}
+								else
+								{
+									flag3 = true;
+								}
+								bool flag4 = flag3;
+								if (!flag2)
+								{
+									if (flag4)
+									{
+										goto IL_171;
+									}
+								}
+								list2.Add(chatEmoji);
+								IL_171:
+								goto IL_199;
 							}
 						}
 					}
-					end_IL_00c4:;
+					IL_199:;
 				}
-			}
-			using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator2 = list.GetEnumerator())
-			{
-				while (enumerator2.MoveNext())
+				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator2 = list.GetEnumerator())
 				{
-					ChatEmojiManager.ChatEmoji current2 = enumerator2.Current;
-					activeEmoticons.Add(CreateNewEmoticonBtn(current2, m_activePrefab, true));
+					while (enumerator2.MoveNext())
+					{
+						ChatEmojiManager.ChatEmoji emoji = enumerator2.Current;
+						this.activeEmoticons.Add(this.CreateNewEmoticonBtn(emoji, this.m_activePrefab, true));
+					}
 				}
-			}
-			using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator3 = list2.GetEnumerator())
-			{
-				while (enumerator3.MoveNext())
+				using (List<ChatEmojiManager.ChatEmoji>.Enumerator enumerator3 = list2.GetEnumerator())
 				{
-					ChatEmojiManager.ChatEmoji current3 = enumerator3.Current;
-					inactiveEmoticons.Add(CreateNewEmoticonBtn(current3, m_inactivePrefab, false));
+					while (enumerator3.MoveNext())
+					{
+						ChatEmojiManager.ChatEmoji emoji2 = enumerator3.Current;
+						this.inactiveEmoticons.Add(this.CreateNewEmoticonBtn(emoji2, this.m_inactivePrefab, false));
+					}
 				}
+				this.SortDisplayList();
+				return;
 			}
-			SortDisplayList();
-			return;
 		}
 	}
 
 	private EmoticonSelectBtn CreateNewEmoticonBtn(ChatEmojiManager.ChatEmoji emoji, EmoticonSelectBtn btnPrefab, bool unlocked)
 	{
-		EmoticonSelectBtn emoticonSelectBtn = Object.Instantiate(btnPrefab);
-		emoticonSelectBtn.transform.SetParent(m_gridlayout.transform);
+		EmoticonSelectBtn emoticonSelectBtn = UnityEngine.Object.Instantiate<EmoticonSelectBtn>(btnPrefab);
+		emoticonSelectBtn.transform.SetParent(this.m_gridlayout.transform);
 		emoticonSelectBtn.transform.localPosition = Vector3.zero;
 		emoticonSelectBtn.transform.localEulerAngles = Vector3.zero;
 		emoticonSelectBtn.transform.localScale = Vector3.one;
 		emoticonSelectBtn.Setup(emoji, unlocked);
-		if (m_scrollRect != null)
+		if (this.m_scrollRect != null)
 		{
-			emoticonSelectBtn.m_theBtn.spriteController.RegisterScrollListener(OnScroll);
+			emoticonSelectBtn.m_theBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 		}
 		return emoticonSelectBtn;
 	}
 
 	private void OnScroll(BaseEventData data)
 	{
-		m_scrollRect.OnScroll((PointerEventData)data);
+		this.m_scrollRect.OnScroll((PointerEventData)data);
 	}
 
 	private void OnEnable()
 	{
-		if (m_panelOpen)
+		if (!this.m_panelOpen)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
-			return;
+			this.m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 		}
 	}
 
 	private void DoPanelOpen(bool open)
 	{
-		m_panelOpen = open;
-		m_emoticonBtn.SetSelected(m_panelOpen, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(m_emoticonPanel.gameObject, true);
-		m_panelCanvasGroup.interactable = m_panelOpen;
-		m_panelCanvasGroup.blocksRaycasts = m_panelOpen;
-		if (m_panelOpen)
+		this.m_panelOpen = open;
+		this.m_emoticonBtn.SetSelected(this.m_panelOpen, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(this.m_emoticonPanel.gameObject, true, null);
+		this.m_panelCanvasGroup.interactable = this.m_panelOpen;
+		this.m_panelCanvasGroup.blocksRaycasts = this.m_panelOpen;
+		if (!this.m_panelOpen)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
-			return;
+			this.m_emoticonPanelAnimController.Play("EmoticonPanelDefaultOUT");
 		}
 	}
 
 	public void EmoticonIconBtnClicked(BaseEventData data)
 	{
-		SetPanelOpen(!m_panelOpen);
+		this.SetPanelOpen(!this.m_panelOpen);
 	}
 
 	public void SetPanelOpen(bool open)
 	{
-		if (m_panelOpen == open)
+		if (this.m_panelOpen != open)
 		{
-			return;
-		}
-		while (true)
-		{
-			DoPanelOpen(open);
-			return;
+			this.DoPanelOpen(open);
 		}
 	}
 
 	public bool IsPanelOpen()
 	{
-		return m_panelOpen;
+		return this.m_panelOpen;
 	}
 
 	private void Update()
 	{
-		if (!Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0))
 		{
-			return;
-		}
-		bool flag = true;
-		if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
-		{
-			StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
-			if (component != null)
+			bool flag = true;
+			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
+				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
+				if (component != null)
 				{
-					EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
-					if (componentInParent != null)
+					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						flag = false;
+						EmoticonPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<EmoticonPanel>();
+						if (componentInParent != null)
+						{
+							flag = false;
+						}
 					}
 				}
 			}
-		}
-		if (!flag)
-		{
-			return;
-		}
-		while (true)
-		{
-			SetPanelOpen(false);
-			return;
+			if (flag)
+			{
+				this.SetPanelOpen(false);
+			}
 		}
 	}
 }

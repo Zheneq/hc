@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,92 +14,69 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 	private GameObject m_allocatedStateTableParent;
 
 	[HideInInspector]
-	public FSMSystem fsm
-	{
-		get;
-		private set;
-	}
+	public FSMSystem fsm { get; private set; }
 
 	[HideInInspector]
-	public NPCBrain NextBrain
-	{
-		get;
-		internal set;
-	}
+	public NPCBrain NextBrain { get; internal set; }
 
 	private void Start()
 	{
-		if (!(GetComponent<BotController>() == null))
-		{
-			return;
-		}
-		while (true)
+		if (base.GetComponent<BotController>() == null)
 		{
 			base.name += " [Prime]";
 			base.enabled = false;
-			return;
 		}
 	}
 
 	public void OnDestroy()
 	{
 		GameEventManager.Get().RemoveAllListenersFrom(this);
-		if (m_allocatedStateTableParent != null)
+		if (this.m_allocatedStateTableParent != null)
 		{
-			Object.Destroy(m_allocatedStateTableParent);
-			m_allocatedStateTableParent = null;
+			UnityEngine.Object.Destroy(this.m_allocatedStateTableParent);
+			this.m_allocatedStateTableParent = null;
 		}
-		if (fsm == null)
+		if (this.fsm != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			fsm.DestroyAllStates();
-			return;
+			this.fsm.DestroyAllStates();
 		}
 	}
 
 	public bool CanTransistion(Transition trans)
 	{
-		int result;
-		if (fsm != null)
+		bool result;
+		if (this.fsm != null)
 		{
-			result = (fsm.CanTransistion(trans) ? 1 : 0);
+			result = this.fsm.CanTransistion(trans);
 		}
 		else
 		{
-			result = 0;
+			result = false;
 		}
-		return (byte)result != 0;
+		return result;
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (!(this != null) || fsm == null || !base.enabled)
+		if (this != null && this.fsm != null && base.enabled)
 		{
-			return;
-		}
-		while (true)
-		{
-			fsm.OnGameEvent(eventType, args);
-			return;
+			this.fsm.OnGameEvent(eventType, args);
 		}
 	}
 
 	public void SetTransition(Transition t)
 	{
-		fsm.PerformTransition(t, this);
+		this.fsm.PerformTransition(t, this);
 	}
 
 	public void SetPendingTransition(Transition t)
 	{
-		fsm.SetPendingTransition(t);
+		this.fsm.SetPendingTransition(t);
 	}
 
 	public Transition GetPendingTransition()
 	{
-		return fsm.GetPendingTransition();
+		return this.fsm.GetPendingTransition();
 	}
 
 	public virtual NPCBrain Create(BotController bot, Transform destination)
@@ -113,32 +91,25 @@ public class NPCBrain : MonoBehaviour, IGameEventListener
 
 	public virtual void SelectBotAbilityMods()
 	{
-		GetComponent<BotController>().SelectBotAbilityMods_Brainless();
+		base.GetComponent<BotController>().SelectBotAbilityMods_Brainless();
 	}
 
 	public virtual void SelectBotCards()
 	{
-		GetComponent<BotController>().SelectBotCards_Brainless();
+		base.GetComponent<BotController>().SelectBotCards_Brainless();
 	}
 
 	public IEnumerator FSMTakeTurn()
 	{
-		if (fsm != null)
+		if (this.fsm != null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					yield return StartCoroutine(fsm.TakeTurn());
-					/*Error: Unable to find new state assignment for yield return*/;
-				}
-			}
+			yield return base.StartCoroutine(this.fsm.TakeTurn());
 		}
-		yield return StartCoroutine(DecideTurn());
-		/*Error: Unable to find new state assignment for yield return*/;
+		else
+		{
+			yield return base.StartCoroutine(this.DecideTurn());
+		}
+		yield break;
 	}
 
 	protected virtual void MakeFSM(NPCBrain brainInstance)

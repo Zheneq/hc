@@ -1,28 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class PKFxPackDependent : MonoBehaviour
 {
 	private IEnumerator _WaitForPack()
 	{
-		yield return null;
-		/*Error: Unable to find new state assignment for yield return*/;
+		do
+		{
+			yield return null;
+		}
+		while (!PKFxManager.m_PackCopied);
+		yield break;
 	}
 
 	private IEnumerator _WaitForPackLoaded()
 	{
-		yield return null;
-		/*Error: Unable to find new state assignment for yield return*/;
+		do
+		{
+			yield return null;
+		}
+		while (!PKFxManager.m_PackLoaded);
+		yield break;
 	}
 
 	public Coroutine WaitForPack(bool isLoaded)
 	{
 		if (isLoaded)
 		{
-			return StartCoroutine("_WaitForPack");
+			return base.StartCoroutine("_WaitForPack");
 		}
-		return StartCoroutine("_WaitForPackLoaded");
+		return base.StartCoroutine("_WaitForPackLoaded");
 	}
 
 	private bool checkHash(KeyValuePair<string, string> entry, List<KeyValuePair<string, string>> deviceContent)
@@ -31,19 +42,10 @@ public class PKFxPackDependent : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<string, string> current = enumerator.Current;
-				if (current.Key == entry.Key)
+				KeyValuePair<string, string> keyValuePair = enumerator.Current;
+				if (keyValuePair.Key == entry.Key)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return current.Value == entry.Value;
-						}
-					}
+					return keyValuePair.Value == entry.Value;
 				}
 			}
 		}
@@ -52,15 +54,11 @@ public class PKFxPackDependent : MonoBehaviour
 
 	public virtual void BaseInitialize()
 	{
-		if (PKFxManager.m_PackLoaded)
-		{
-			return;
-		}
-		while (true)
+		if (!PKFxManager.m_PackLoaded)
 		{
 			PKFxManager.Startup();
-			StartCoroutine("CopyPackAsyncOnAndroid");
-			WaitForPack(false);
+			base.StartCoroutine("CopyPackAsyncOnAndroid");
+			this.WaitForPack(false);
 			if (Application.platform != RuntimePlatform.Android)
 			{
 				if (!PKFxManager.TryLoadPackRelative())
@@ -69,37 +67,17 @@ public class PKFxPackDependent : MonoBehaviour
 				}
 			}
 			PKFxManager.m_PackLoaded = true;
-			return;
 		}
 	}
 
 	private void Start()
 	{
-		BaseInitialize();
+		this.BaseInitialize();
 	}
 
 	private IEnumerator CopyPackAsyncOnAndroid()
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					string fromPath = Application.streamingAssetsPath + "/";
-					string toPath = Application.persistentDataPath + "/";
-					List<KeyValuePair<string, string>> archiveContent = new List<KeyValuePair<string, string>>();
-					yield return new WWW(fromPath + "Index.txt");
-					/*Error: Unable to find new state assignment for yield return*/;
-				}
-				}
-			}
-		}
-		PKFxManager.m_PackCopied = true;
-		yield return null;
+		// TODO DECOMP looked completely broken
+		yield break;
 	}
 }

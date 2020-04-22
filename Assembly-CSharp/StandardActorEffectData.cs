@@ -6,19 +6,6 @@ using UnityEngine;
 [Serializable]
 public class StandardActorEffectData
 {
-	public enum InvisibilityBreakMode
-	{
-		RemoveInvisAndEndEarly,
-		SuppressOnly
-	}
-
-	public enum StatusDelayMode
-	{
-		DefaultBehavior,
-		AllStatusesDelayToTurnStart,
-		NoStatusesDelayToTurnStart
-	}
-
 	public string m_effectName;
 
 	public int m_duration = 1;
@@ -58,7 +45,7 @@ public class StandardActorEffectData
 
 	public int m_techPointLossPerTurn;
 
-	public InvisibilityBreakMode m_invisBreakMode;
+	public StandardActorEffectData.InvisibilityBreakMode m_invisBreakMode;
 
 	public bool m_removeInvisibilityOnLastResolveStart;
 
@@ -69,7 +56,7 @@ public class StandardActorEffectData
 
 	public StatusType[] m_statusChanges;
 
-	public StatusDelayMode m_statusDelayMode;
+	public StandardActorEffectData.StatusDelayMode m_statusDelayMode;
 
 	public EffectEndTag[] m_endTriggers;
 
@@ -78,40 +65,35 @@ public class StandardActorEffectData
 	public GameObject m_tickSequencePrefab;
 
 	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> _003C_003Ef__mg_0024cache0;
+	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> f__mg_cache0;
 
 	public void InitWithDefaultValues()
 	{
-		SetValues(string.Empty, 1, 0, 0, 0, ServerCombatManager.HealingType.Effect, 0, 0, new AbilityStatMod[0], new StatusType[0], StatusDelayMode.DefaultBehavior);
+		this.SetValues(string.Empty, 1, 0, 0, 0, ServerCombatManager.HealingType.Effect, 0, 0, new AbilityStatMod[0], new StatusType[0], StandardActorEffectData.StatusDelayMode.DefaultBehavior);
 	}
 
-	public void SetValues(string effectName, int duration, int maxStackSize, int damagePerTurn, int healingPerTurn, ServerCombatManager.HealingType healingType, int perTurnHitDelayTurns, int absorbAmount, AbilityStatMod[] statMods, StatusType[] statusChanges, StatusDelayMode statusDelayMode)
+	public void SetValues(string effectName, int duration, int maxStackSize, int damagePerTurn, int healingPerTurn, ServerCombatManager.HealingType healingType, int perTurnHitDelayTurns, int absorbAmount, AbilityStatMod[] statMods, StatusType[] statusChanges, StandardActorEffectData.StatusDelayMode statusDelayMode)
 	{
-		m_effectName = effectName;
-		m_duration = duration;
-		m_maxStackSize = maxStackSize;
-		m_damagePerTurn = damagePerTurn;
-		m_healingPerTurn = healingPerTurn;
-		m_healingType = healingType;
-		m_perTurnHitDelayTurns = perTurnHitDelayTurns;
-		m_absorbAmount = absorbAmount;
-		m_statMods = statMods;
-		m_statusChanges = statusChanges;
-		m_statusDelayMode = statusDelayMode;
-		m_endTriggers = new EffectEndTag[0];
-		m_sequencePrefabs = new GameObject[0];
+		this.m_effectName = effectName;
+		this.m_duration = duration;
+		this.m_maxStackSize = maxStackSize;
+		this.m_damagePerTurn = damagePerTurn;
+		this.m_healingPerTurn = healingPerTurn;
+		this.m_healingType = healingType;
+		this.m_perTurnHitDelayTurns = perTurnHitDelayTurns;
+		this.m_absorbAmount = absorbAmount;
+		this.m_statMods = statMods;
+		this.m_statusChanges = statusChanges;
+		this.m_statusDelayMode = statusDelayMode;
+		this.m_endTriggers = new EffectEndTag[0];
+		this.m_sequencePrefabs = new GameObject[0];
 	}
 
-	public virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
+	public unsafe virtual void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject subject)
 	{
-		if (m_absorbAmount == 0)
+		if (this.m_absorbAmount != 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, m_absorbAmount));
-			return;
+			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, this.m_absorbAmount));
 		}
 	}
 
@@ -120,7 +102,8 @@ public class StandardActorEffectData
 		bool flag = addCompare && other != null;
 		string name2 = name + "_Duration";
 		string desc = "duration of " + name;
-		int duration = m_duration;
+		int duration = this.m_duration;
+		bool addDiff = flag;
 		int otherVal;
 		if (flag)
 		{
@@ -130,13 +113,15 @@ public class StandardActorEffectData
 		{
 			otherVal = 0;
 		}
-		AbilityMod.AddToken_IntDiff(entries, name2, desc, duration, flag, otherVal);
-		if (m_duration > 1)
+		AbilityMod.AddToken_IntDiff(entries, name2, desc, duration, addDiff, otherVal);
+		if (this.m_duration > 1)
 		{
-			AbilityMod.AddToken_IntDiff(entries, name + "_Duration_MinusOne", "duration - 1", m_duration - 1, false, 0);
+			AbilityMod.AddToken_IntDiff(entries, name + "_Duration_MinusOne", "duration - 1", this.m_duration - 1, false, 0);
 		}
 		string name3 = name + "_Shield";
-		int absorbAmount = m_absorbAmount;
+		string desc2 = "shield amount";
+		int absorbAmount = this.m_absorbAmount;
+		bool addDiff2 = flag;
 		int otherVal2;
 		if (flag)
 		{
@@ -146,10 +131,12 @@ public class StandardActorEffectData
 		{
 			otherVal2 = 0;
 		}
-		AbilityMod.AddToken_IntDiff(entries, name3, "shield amount", absorbAmount, flag, otherVal2);
-		AbilityMod.AddToken_IntDiff(entries, name + "_Delayed_Shield", "delayed shield amount", m_nextTurnAbsorbAmount, flag, flag ? other.m_nextTurnAbsorbAmount : 0);
+		AbilityMod.AddToken_IntDiff(entries, name3, desc2, absorbAmount, addDiff2, otherVal2);
+		AbilityMod.AddToken_IntDiff(entries, name + "_Delayed_Shield", "delayed shield amount", this.m_nextTurnAbsorbAmount, flag, (!flag) ? 0 : other.m_nextTurnAbsorbAmount);
 		string name4 = name + "_HealPerTurn";
-		int healingPerTurn = m_healingPerTurn;
+		string desc3 = "healing per turn";
+		int healingPerTurn = this.m_healingPerTurn;
+		bool addDiff3 = flag;
 		int otherVal3;
 		if (flag)
 		{
@@ -159,9 +146,11 @@ public class StandardActorEffectData
 		{
 			otherVal3 = 0;
 		}
-		AbilityMod.AddToken_IntDiff(entries, name4, "healing per turn", healingPerTurn, flag, otherVal3);
+		AbilityMod.AddToken_IntDiff(entries, name4, desc3, healingPerTurn, addDiff3, otherVal3);
 		string name5 = name + "_DamagePerTurn";
-		int damagePerTurn = m_damagePerTurn;
+		string desc4 = "damage per turn";
+		int damagePerTurn = this.m_damagePerTurn;
+		bool addDiff4 = flag;
 		int otherVal4;
 		if (flag)
 		{
@@ -171,78 +160,77 @@ public class StandardActorEffectData
 		{
 			otherVal4 = 0;
 		}
-		AbilityMod.AddToken_IntDiff(entries, name5, "damage per turn", damagePerTurn, flag, otherVal4);
+		AbilityMod.AddToken_IntDiff(entries, name5, desc4, damagePerTurn, addDiff4, otherVal4);
 	}
 
 	public StandardActorEffectData GetShallowCopy()
 	{
-		return (StandardActorEffectData)MemberwiseClone();
+		return (StandardActorEffectData)base.MemberwiseClone();
 	}
 
 	public string GetEffectName()
 	{
-		object result;
-		if (m_effectName != null)
+		if (this.m_effectName != null)
 		{
-			if (m_effectName.Length > 0)
+			if (this.m_effectName.Length > 0)
 			{
-				result = m_effectName;
-				goto IL_0040;
+				return this.m_effectName;
 			}
 		}
-		result = "No_Name";
-		goto IL_0040;
-		IL_0040:
-		return (string)result;
+		return "No_Name";
 	}
 
 	public string GetInEditorDescription(string initialIndent = "", bool showDivider = true, bool diff = false, StandardActorEffectData other = null)
 	{
-		int num;
+		bool flag;
 		if (diff)
 		{
-			num = ((other != null) ? 1 : 0);
+			flag = (other != null);
 		}
 		else
 		{
-			num = 0;
+			flag = false;
 		}
-		bool flag = (byte)num != 0;
+		bool flag2 = flag;
 		string text = initialIndent + "    ";
 		string text2 = "\n";
 		string text3 = "\t        \t | in base  =";
-		string effectName = GetEffectName();
-		string str = initialIndent + "Effect [ " + effectName + " ]";
-		if (flag)
+		string effectName = this.GetEffectName();
+		string text4 = initialIndent + "Effect [ " + effectName + " ]";
+		if (flag2)
 		{
 			if (effectName != other.GetEffectName())
 			{
-				str += DiffColorStr(text3 + "Effect [ " + other.GetEffectName() + " ]");
+				text4 += this.DiffColorStr(text3 + "Effect [ " + other.GetEffectName() + " ]");
 			}
 		}
-		str += text2;
-		object obj;
-		if (m_duration > 0)
+		text4 += text2;
+		string text5;
+		if (this.m_duration > 0)
 		{
-			obj = "Duration: " + InEditorDescHelper.ColoredString(m_duration.ToString()) + " turn(s).";
+			text5 = "Duration: " + InEditorDescHelper.ColoredString(this.m_duration.ToString(), "cyan", false) + " turn(s).";
 		}
 		else
 		{
-			obj = "<color=white>WARNING: IS PERMANENT on Target (duration <= 0). Woof Woof Woof Woof</color>";
+			text5 = "<color=white>WARNING: IS PERMANENT on Target (duration <= 0). Woof Woof Woof Woof</color>";
 		}
-		string text4 = (string)obj;
-		if (flag)
+		string text6 = text5;
+		if (flag2)
 		{
-			if (m_duration != other.m_duration)
+			if (this.m_duration != other.m_duration)
 			{
-				text4 += DiffColorStr(text3 + other.m_duration);
+				text6 += this.DiffColorStr(text3 + other.m_duration);
 			}
 		}
-		str = str + text + text4 + text2;
-		string str2 = str;
-		int maxStackSize = m_maxStackSize;
+		text4 = text4 + text + text6 + text2;
+		string str = text4;
+		string header = "Max Sack Size = ";
+		string indent = text;
+		string otherSep = text3;
+		int maxStackSize = this.m_maxStackSize;
+		bool showOther = flag2;
 		int otherVal;
-		if (flag)
+		if (flag2)
 		{
 			otherVal = other.m_maxStackSize;
 		}
@@ -250,11 +238,15 @@ public class StandardActorEffectData
 		{
 			otherVal = 0;
 		}
-		str = str2 + AssembleFieldWithDiff("Max Sack Size = ", text, text3, maxStackSize, flag, otherVal);
-		string str3 = str;
-		int damagePerTurn = m_damagePerTurn;
+		text4 = str + this.AssembleFieldWithDiff(header, indent, otherSep, maxStackSize, showOther, otherVal);
+		string str2 = text4;
+		string header2 = "Damage Per Turn (start of Combat) = ";
+		string indent2 = text;
+		string otherSep2 = text3;
+		int damagePerTurn = this.m_damagePerTurn;
+		bool showOther2 = flag2;
 		int otherVal2;
-		if (flag)
+		if (flag2)
 		{
 			otherVal2 = other.m_damagePerTurn;
 		}
@@ -262,11 +254,15 @@ public class StandardActorEffectData
 		{
 			otherVal2 = 0;
 		}
-		str = str3 + AssembleFieldWithDiff("Damage Per Turn (start of Combat) = ", text, text3, damagePerTurn, flag, otherVal2);
-		string str4 = str;
-		int healingPerTurn = m_healingPerTurn;
+		text4 = str2 + this.AssembleFieldWithDiff(header2, indent2, otherSep2, damagePerTurn, showOther2, otherVal2);
+		string str3 = text4;
+		string header3 = "Healing Per Turn (start of Combat) = ";
+		string indent3 = text;
+		string otherSep3 = text3;
+		int healingPerTurn = this.m_healingPerTurn;
+		bool showOther3 = flag2;
 		int otherVal3;
-		if (flag)
+		if (flag2)
 		{
 			otherVal3 = other.m_healingPerTurn;
 		}
@@ -274,11 +270,15 @@ public class StandardActorEffectData
 		{
 			otherVal3 = 0;
 		}
-		str = str4 + AssembleFieldWithDiff("Healing Per Turn (start of Combat) = ", text, text3, healingPerTurn, flag, otherVal3);
-		string str5 = str;
-		int perTurnHitDelayTurns = m_perTurnHitDelayTurns;
+		text4 = str3 + this.AssembleFieldWithDiff(header3, indent3, otherSep3, healingPerTurn, showOther3, otherVal3);
+		string str4 = text4;
+		string header4 = "Damage/Healing Per Turn Delay = ";
+		string indent4 = text;
+		string otherSep4 = text3;
+		int perTurnHitDelayTurns = this.m_perTurnHitDelayTurns;
+		bool showOther4 = flag2;
 		int otherVal4;
-		if (flag)
+		if (flag2)
 		{
 			otherVal4 = other.m_perTurnHitDelayTurns;
 		}
@@ -286,11 +286,15 @@ public class StandardActorEffectData
 		{
 			otherVal4 = 0;
 		}
-		str = str5 + AssembleFieldWithDiff("Damage/Healing Per Turn Delay = ", text, text3, perTurnHitDelayTurns, flag, otherVal4);
-		string str6 = str;
-		int absorbAmount = m_absorbAmount;
+		text4 = str4 + this.AssembleFieldWithDiff(header4, indent4, otherSep4, perTurnHitDelayTurns, showOther4, otherVal4);
+		string str5 = text4;
+		string header5 = "Absorb(shield) = ";
+		string indent5 = text;
+		string otherSep5 = text3;
+		int absorbAmount = this.m_absorbAmount;
+		bool showOther5 = flag2;
 		int otherVal5;
-		if (flag)
+		if (flag2)
 		{
 			otherVal5 = other.m_absorbAmount;
 		}
@@ -298,11 +302,15 @@ public class StandardActorEffectData
 		{
 			otherVal5 = 0;
 		}
-		str = str6 + AssembleFieldWithDiff("Absorb(shield) = ", text, text3, absorbAmount, flag, otherVal5);
-		string str7 = str;
-		int nextTurnAbsorbAmount = m_nextTurnAbsorbAmount;
+		text4 = str5 + this.AssembleFieldWithDiff(header5, indent5, otherSep5, absorbAmount, showOther5, otherVal5);
+		string str6 = text4;
+		string header6 = "Absorb(shield) applied next turn = ";
+		string indent6 = text;
+		string otherSep6 = text3;
+		int nextTurnAbsorbAmount = this.m_nextTurnAbsorbAmount;
+		bool showOther6 = flag2;
 		int otherVal6;
-		if (flag)
+		if (flag2)
 		{
 			otherVal6 = other.m_nextTurnAbsorbAmount;
 		}
@@ -310,11 +318,15 @@ public class StandardActorEffectData
 		{
 			otherVal6 = 0;
 		}
-		str = str7 + AssembleFieldWithDiff("Absorb(shield) applied next turn = ", text, text3, nextTurnAbsorbAmount, flag, otherVal6);
-		string str8 = str;
-		int techPointChangeOnStart = m_techPointChangeOnStart;
+		text4 = str6 + this.AssembleFieldWithDiff(header6, indent6, otherSep6, nextTurnAbsorbAmount, showOther6, otherVal6);
+		string str7 = text4;
+		string header7 = "TechPoint Change on Apply = ";
+		string indent7 = text;
+		string otherSep7 = text3;
+		int techPointChangeOnStart = this.m_techPointChangeOnStart;
+		bool showOther7 = flag2;
 		int otherVal7;
-		if (flag)
+		if (flag2)
 		{
 			otherVal7 = other.m_techPointChangeOnStart;
 		}
@@ -322,11 +334,15 @@ public class StandardActorEffectData
 		{
 			otherVal7 = 0;
 		}
-		str = str8 + AssembleFieldWithDiff("TechPoint Change on Apply = ", text, text3, techPointChangeOnStart, flag, otherVal7);
-		string str9 = str;
-		int techPointGainPerTurn = m_techPointGainPerTurn;
+		text4 = str7 + this.AssembleFieldWithDiff(header7, indent7, otherSep7, techPointChangeOnStart, showOther7, otherVal7);
+		string str8 = text4;
+		string header8 = "TechPoint Gain Per Turn = ";
+		string indent8 = text;
+		string otherSep8 = text3;
+		int techPointGainPerTurn = this.m_techPointGainPerTurn;
+		bool showOther8 = flag2;
 		int otherVal8;
-		if (flag)
+		if (flag2)
 		{
 			otherVal8 = other.m_techPointGainPerTurn;
 		}
@@ -334,44 +350,50 @@ public class StandardActorEffectData
 		{
 			otherVal8 = 0;
 		}
-		str = str9 + AssembleFieldWithDiff("TechPoint Gain Per Turn = ", text, text3, techPointGainPerTurn, flag, otherVal8);
-		str += AssembleFieldWithDiff("TechPoint Loss Per Turn = ", text, text3, m_techPointLossPerTurn, flag, flag ? other.m_techPointLossPerTurn : 0);
-		string str10 = str;
-		bool removeInvisibilityOnLastResolveStart = m_removeInvisibilityOnLastResolveStart;
-		int otherVal9;
-		if (flag)
+		text4 = str8 + this.AssembleFieldWithDiff(header8, indent8, otherSep8, techPointGainPerTurn, showOther8, otherVal8);
+		text4 += this.AssembleFieldWithDiff("TechPoint Loss Per Turn = ", text, text3, this.m_techPointLossPerTurn, flag2, (!flag2) ? 0 : other.m_techPointLossPerTurn);
+		string str9 = text4;
+		string header9 = "Remove Invisibility On End of Decision of Last Turn = ";
+		string indent9 = text;
+		string otherSep9 = text3;
+		bool removeInvisibilityOnLastResolveStart = this.m_removeInvisibilityOnLastResolveStart;
+		bool showOther9 = flag2;
+		bool otherVal9;
+		if (flag2)
 		{
-			otherVal9 = (other.m_removeInvisibilityOnLastResolveStart ? 1 : 0);
+			otherVal9 = other.m_removeInvisibilityOnLastResolveStart;
 		}
 		else
 		{
-			otherVal9 = 0;
+			otherVal9 = false;
 		}
-		if (_003C_003Ef__am_0024cache0 == null)
+		
+		text4 = str9 + InEditorDescHelper.AssembleFieldWithDiff(header9, indent9, otherSep9, removeInvisibilityOnLastResolveStart, showOther9, otherVal9, ((bool b) => b));
+		string str10 = text4;
+		string header10 = "Remove Revealed On End of Decision of Last Turn = ";
+		string indent10 = text;
+		string otherSep10 = text3;
+		bool removeRevealedOnLastResolveStart = this.m_removeRevealedOnLastResolveStart;
+		bool showOther10 = flag2;
+		bool otherVal10;
+		if (flag2)
 		{
-			_003C_003Ef__am_0024cache0 = ((bool b) => b);
-		}
-		str = str10 + InEditorDescHelper.AssembleFieldWithDiff("Remove Invisibility On End of Decision of Last Turn = ", text, text3, removeInvisibilityOnLastResolveStart, flag, (byte)otherVal9 != 0, _003C_003Ef__am_0024cache0);
-		string str11 = str;
-		bool removeRevealedOnLastResolveStart = m_removeRevealedOnLastResolveStart;
-		int otherVal10;
-		if (flag)
-		{
-			otherVal10 = (other.m_removeRevealedOnLastResolveStart ? 1 : 0);
+			otherVal10 = other.m_removeRevealedOnLastResolveStart;
 		}
 		else
 		{
-			otherVal10 = 0;
+			otherVal10 = false;
 		}
-		if (_003C_003Ef__am_0024cache1 == null)
-		{
-			_003C_003Ef__am_0024cache1 = ((bool b) => b);
-		}
-		str = str11 + InEditorDescHelper.AssembleFieldWithDiff("Remove Revealed On End of Decision of Last Turn = ", text, text3, removeRevealedOnLastResolveStart, flag, (byte)otherVal10 != 0, _003C_003Ef__am_0024cache1);
-		string str12 = str;
-		int damagePerMoveSquare = m_damagePerMoveSquare;
+		
+		text4 = str10 + InEditorDescHelper.AssembleFieldWithDiff(header10, indent10, otherSep10, removeRevealedOnLastResolveStart, showOther10, otherVal10, ((bool b) => b));
+		string str11 = text4;
+		string header11 = "Damage Per Movement Square = ";
+		string indent11 = text;
+		string otherSep11 = text3;
+		int damagePerMoveSquare = this.m_damagePerMoveSquare;
+		bool showOther11 = flag2;
 		int otherVal11;
-		if (flag)
+		if (flag2)
 		{
 			otherVal11 = other.m_damagePerMoveSquare;
 		}
@@ -379,13 +401,17 @@ public class StandardActorEffectData
 		{
 			otherVal11 = 0;
 		}
-		str = str12 + AssembleFieldWithDiff("Damage Per Movement Square = ", text, text3, damagePerMoveSquare, flag, otherVal11);
-		str += AssembleFieldWithDiff("Healing Per Movement Square = ", text, text3, m_healPerMoveSquare, flag, flag ? other.m_healPerMoveSquare : 0);
-		str += AssembleFieldWithDiff("Tech Point Loss Per Movement Square = ", text, text3, m_techPointLossPerMoveSquare, flag, flag ? other.m_techPointLossPerMoveSquare : 0);
-		string str13 = str;
-		int techPointGainPerMoveSquare = m_techPointGainPerMoveSquare;
+		text4 = str11 + this.AssembleFieldWithDiff(header11, indent11, otherSep11, damagePerMoveSquare, showOther11, otherVal11);
+		text4 += this.AssembleFieldWithDiff("Healing Per Movement Square = ", text, text3, this.m_healPerMoveSquare, flag2, (!flag2) ? 0 : other.m_healPerMoveSquare);
+		text4 += this.AssembleFieldWithDiff("Tech Point Loss Per Movement Square = ", text, text3, this.m_techPointLossPerMoveSquare, flag2, (!flag2) ? 0 : other.m_techPointLossPerMoveSquare);
+		string str12 = text4;
+		string header12 = "Tech Point Gain Per Movement Square = ";
+		string indent12 = text;
+		string otherSep12 = text3;
+		int techPointGainPerMoveSquare = this.m_techPointGainPerMoveSquare;
+		bool showOther12 = flag2;
 		int otherVal12;
-		if (flag)
+		if (flag2)
 		{
 			otherVal12 = other.m_techPointGainPerMoveSquare;
 		}
@@ -393,11 +419,14 @@ public class StandardActorEffectData
 		{
 			otherVal12 = 0;
 		}
-		str = str13 + AssembleFieldWithDiff("Tech Point Gain Per Movement Square = ", text, text3, techPointGainPerMoveSquare, flag, otherVal12);
-		string str14 = str;
-		AbilityStatMod[] statMods = m_statMods;
-		object otherObjList;
-		if (flag)
+		text4 = str12 + this.AssembleFieldWithDiff(header12, indent12, otherSep12, techPointGainPerMoveSquare, showOther12, otherVal12);
+		string str13 = text4;
+		string header13 = "Stat Mods:";
+		string indent13 = text;
+		AbilityStatMod[] statMods = this.m_statMods;
+		bool showDiff = flag2;
+		AbilityStatMod[] otherObjList;
+		if (flag2)
 		{
 			otherObjList = other.m_statMods;
 		}
@@ -405,11 +434,14 @@ public class StandardActorEffectData
 		{
 			otherObjList = null;
 		}
-		str = str14 + InEditorDescHelper.GetListDiffString("Stat Mods:", text, statMods, flag, (AbilityStatMod[])otherObjList);
-		string str15 = str;
-		StatusType[] statusChanges = m_statusChanges;
-		object otherObjList2;
-		if (flag)
+		text4 = str13 + InEditorDescHelper.GetListDiffString<AbilityStatMod>(header13, indent13, statMods, showDiff, otherObjList, null);
+		string str14 = text4;
+		string header14 = "Status Changes:";
+		string indent14 = text;
+		StatusType[] statusChanges = this.m_statusChanges;
+		bool showDiff2 = flag2;
+		StatusType[] otherObjList2;
+		if (flag2)
 		{
 			otherObjList2 = other.m_statusChanges;
 		}
@@ -417,38 +449,43 @@ public class StandardActorEffectData
 		{
 			otherObjList2 = null;
 		}
-		str = str15 + InEditorDescHelper.GetListDiffString("Status Changes:", text, statusChanges, flag, (StatusType[])otherObjList2);
-		if (flag)
+		text4 = str14 + InEditorDescHelper.GetListDiffString<StatusType>(header14, indent14, statusChanges, showDiff2, otherObjList2, null);
+		if (flag2)
 		{
-			if (m_statusDelayMode != other.m_statusDelayMode)
+			if (this.m_statusDelayMode != other.m_statusDelayMode)
 			{
-				goto IL_0572;
+				goto IL_572;
 			}
 		}
-		if (m_statusDelayMode != 0)
+		if (this.m_statusDelayMode == StandardActorEffectData.StatusDelayMode.DefaultBehavior)
 		{
-			goto IL_0572;
+			goto IL_5B4;
 		}
-		goto IL_05b4;
-		IL_0572:
-		string str16 = str;
-		object myVal = m_statusDelayMode;
-		StatusDelayMode statusDelayMode;
-		if (flag)
+		IL_572:
+		string str15 = text4;
+		string header15 = "Status Delay: ";
+		string indent15 = text;
+		string otherSep13 = text3;
+		Enum myVal = this.m_statusDelayMode;
+		bool showOther13 = flag2;
+		StandardActorEffectData.StatusDelayMode statusDelayMode;
+		if (flag2)
 		{
 			statusDelayMode = other.m_statusDelayMode;
 		}
 		else
 		{
-			statusDelayMode = m_statusDelayMode;
+			statusDelayMode = this.m_statusDelayMode;
 		}
-		str = str16 + InEditorDescHelper.AssembleFieldWithDiff("Status Delay: ", text, text3, (Enum)myVal, flag, statusDelayMode);
-		goto IL_05b4;
-		IL_05b4:
-		string str17 = str;
-		EffectEndTag[] endTriggers = m_endTriggers;
-		object otherObjList3;
-		if (flag)
+		text4 = str15 + InEditorDescHelper.AssembleFieldWithDiff(header15, indent15, otherSep13, myVal, showOther13, statusDelayMode);
+		IL_5B4:
+		string str16 = text4;
+		string header16 = "End Triggers:";
+		string indent16 = text;
+		EffectEndTag[] endTriggers = this.m_endTriggers;
+		bool showDiff3 = flag2;
+		EffectEndTag[] otherObjList3;
+		if (flag2)
 		{
 			otherObjList3 = other.m_endTriggers;
 		}
@@ -456,11 +493,14 @@ public class StandardActorEffectData
 		{
 			otherObjList3 = null;
 		}
-		str = str17 + InEditorDescHelper.GetListDiffString("End Triggers:", text, endTriggers, flag, (EffectEndTag[])otherObjList3);
-		string str18 = str;
-		GameObject[] sequencePrefabs = m_sequencePrefabs;
-		object otherObjList4;
-		if (flag)
+		text4 = str16 + InEditorDescHelper.GetListDiffString<EffectEndTag>(header16, indent16, endTriggers, showDiff3, otherObjList3, null);
+		string str17 = text4;
+		string header17 = "Effect Sequence Prefabs:\t";
+		string indent17 = text;
+		GameObject[] sequencePrefabs = this.m_sequencePrefabs;
+		bool showDiff4 = flag2;
+		GameObject[] otherObjList4;
+		if (flag2)
 		{
 			otherObjList4 = other.m_sequencePrefabs;
 		}
@@ -468,15 +508,16 @@ public class StandardActorEffectData
 		{
 			otherObjList4 = null;
 		}
-		if (_003C_003Ef__mg_0024cache0 == null)
-		{
-			_003C_003Ef__mg_0024cache0 = InEditorDescHelper.GetGameObjectEntryStr;
-		}
-		str = str18 + InEditorDescHelper.GetListDiffString("Effect Sequence Prefabs:\t", text, sequencePrefabs, flag, (GameObject[])otherObjList4, _003C_003Ef__mg_0024cache0);
-		string str19 = str;
-		GameObject tickSequencePrefab = m_tickSequencePrefab;
-		object otherVal13;
-		if (flag)
+		
+		text4 = str17 + InEditorDescHelper.GetListDiffString<GameObject>(header17, indent17, sequencePrefabs, showDiff4, otherObjList4, new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr));
+		string str18 = text4;
+		string header18 = "Tick Sequence Prefab:";
+		string indent18 = text;
+		string otherSep14 = text3;
+		GameObject tickSequencePrefab = this.m_tickSequencePrefab;
+		bool showOther14 = flag2;
+		GameObject otherVal13;
+		if (flag2)
 		{
 			otherVal13 = other.m_tickSequencePrefab;
 		}
@@ -484,21 +525,34 @@ public class StandardActorEffectData
 		{
 			otherVal13 = null;
 		}
-		str = str19 + InEditorDescHelper.AssembleFieldWithDiff("Tick Sequence Prefab:", text, text3, tickSequencePrefab, flag, (GameObject)otherVal13);
+		text4 = str18 + InEditorDescHelper.AssembleFieldWithDiff(header18, indent18, otherSep14, tickSequencePrefab, showOther14, otherVal13);
 		if (showDivider)
 		{
-			str = str + initialIndent + "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n";
+			text4 = text4 + initialIndent + "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n";
 		}
-		return str;
+		return text4;
 	}
 
 	private string DiffColorStr(string input)
 	{
-		return InEditorDescHelper.ColoredString(input, "orange");
+		return InEditorDescHelper.ColoredString(input, "orange", false);
 	}
 
 	private string AssembleFieldWithDiff(string header, string indent, string otherSep, int myVal, bool showOther, int otherVal)
 	{
-		return InEditorDescHelper.AssembleFieldWithDiff(header, indent, otherSep, myVal, showOther, otherVal);
+		return InEditorDescHelper.AssembleFieldWithDiff(header, indent, otherSep, (float)myVal, showOther, (float)otherVal, null);
+	}
+
+	public enum InvisibilityBreakMode
+	{
+		RemoveInvisAndEndEarly,
+		SuppressOnly
+	}
+
+	public enum StatusDelayMode
+	{
+		DefaultBehavior,
+		AllStatusesDelayToTurnStart,
+		NoStatusesDelayToTurnStart
 	}
 }

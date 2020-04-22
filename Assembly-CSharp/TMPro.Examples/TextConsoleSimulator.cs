@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,27 +12,27 @@ namespace TMPro.Examples
 
 		private void _0012()
 		{
-			_001D = base.gameObject.GetComponent<TMP_Text>();
+			this._001D = base.gameObject.GetComponent<TMP_Text>();
 		}
 
 		private void _0015()
 		{
-			StartCoroutine(_0012(_001D));
+			base.StartCoroutine(this._0012(this._001D));
 		}
 
 		private void _0016()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(_0012);
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this._0012));
 		}
 
 		private void _0013()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(_0012);
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this._0012));
 		}
 
-		private void _0012(Object _001D)
+		private void _0012(UnityEngine.Object _001D)
 		{
-			_000E = true;
+			this._000E = true;
 		}
 
 		private IEnumerator _0012(TMP_Text _001D)
@@ -40,29 +41,23 @@ namespace TMPro.Examples
 			TMP_TextInfo textInfo = _001D.textInfo;
 			int characterCount = textInfo.characterCount;
 			int num = 0;
-			if (_000E)
+			for (;;)
 			{
-				characterCount = textInfo.characterCount;
-				_000E = false;
-			}
-			if (num > characterCount)
-			{
-				while (true)
+				if (this._000E)
 				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						yield return new WaitForSeconds(1f);
-						/*Error: Unable to find new state assignment for yield return*/;
-					}
+					characterCount = textInfo.characterCount;
+					this._000E = false;
 				}
+				if (num > characterCount)
+				{
+					yield return new WaitForSeconds(1f);
+					num = 0;
+				}
+				_001D.maxVisibleCharacters = num;
+				num++;
+				yield return new WaitForSeconds(0f);
 			}
-			_001D.maxVisibleCharacters = num;
-			num++;
-			yield return new WaitForSeconds(0f);
-			/*Error: Unable to find new state assignment for yield return*/;
+			yield break;
 		}
 
 		private IEnumerator _0015(TMP_Text _001D)
@@ -73,7 +68,7 @@ namespace TMPro.Examples
 			int num = 0;
 			int num2 = 0;
 			int num3 = 0;
-			while (true)
+			for (;;)
 			{
 				num2 = num % (wordCount + 1);
 				if (num2 == 0)
@@ -91,16 +86,12 @@ namespace TMPro.Examples
 				_001D.maxVisibleCharacters = num3;
 				if (num3 >= characterCount)
 				{
-					break;
+					yield return new WaitForSeconds(1f);
 				}
 				num++;
 				yield return new WaitForSeconds(0.1f);
 			}
-			while (true)
-			{
-				yield return new WaitForSeconds(1f);
-				/*Error: Unable to find new state assignment for yield return*/;
-			}
+			yield break;
 		}
 	}
 }

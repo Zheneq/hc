@@ -24,388 +24,276 @@ public class UIBaseQuestDisplayInfo
 
 	public override bool Equals(object obj)
 	{
+		// TODO DECOMP this one was tricky
+
 		if (!(obj is UIBaseQuestDisplayInfo))
 		{
-			while (true)
-			{
-				return false;
-			}
+			return false;
 		}
 		UIBaseQuestDisplayInfo info = (UIBaseQuestDisplayInfo)obj;
 		bool flag = false;
-		if (QuestProgressRef == null)
+		if (this.QuestProgressRef == null)
 		{
 			if (info.QuestProgressRef == null)
 			{
 				flag = true;
-				goto IL_039f;
+				goto IL_39F;
 			}
 		}
-		bool flag2;
-		if (QuestProgressRef != null && info.QuestProgressRef != null)
+		if (this.QuestProgressRef != null && info.QuestProgressRef != null)
 		{
-			flag2 = true;
-			if (QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
+			bool flag2 = true;
+			if (this.QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
-				if (QuestProgressRef.ObjectiveProgressLastDate.Count != info.QuestProgressRef.ObjectiveProgressLastDate.Count)
+				if (this.QuestProgressRef.ObjectiveProgressLastDate.Count != info.QuestProgressRef.ObjectiveProgressLastDate.Count)
 				{
 					flag2 = false;
 				}
 				else
 				{
-					using (Dictionary<int, DateTime>.KeyCollection.Enumerator enumerator = QuestProgressRef.ObjectiveProgressLastDate.Keys.GetEnumerator())
+					using (Dictionary<int, DateTime>.KeyCollection.Enumerator enumerator = this.QuestProgressRef.ObjectiveProgressLastDate.Keys.GetEnumerator())
 					{
-						while (true)
+						while (enumerator.MoveNext())
 						{
-							if (!enumerator.MoveNext())
+							int key = enumerator.Current;
+							if (!info.QuestProgressRef.ObjectiveProgressLastDate.ContainsKey(key))
 							{
-								break;
+								flag2 = false;
 							}
-							int current = enumerator.Current;
-							if (!info.QuestProgressRef.ObjectiveProgressLastDate.ContainsKey(current))
+							else
 							{
-								while (true)
+								if (!(info.QuestProgressRef.ObjectiveProgressLastDate[key] != this.QuestProgressRef.ObjectiveProgressLastDate[key]))
 								{
-									switch (4)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_010a;
-									}
+									continue;
 								}
+								flag2 = false;
 							}
-							if (info.QuestProgressRef.ObjectiveProgressLastDate[current] != QuestProgressRef.ObjectiveProgressLastDate[current])
-							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_010a;
-									}
-								}
-							}
+							goto IL_1AF;
 						}
-						end_IL_010a:;
 					}
 				}
+				IL_1AF:;
 			}
-			else if (QuestProgressRef.ObjectiveProgressLastDate == null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
+			else if (this.QuestProgressRef.ObjectiveProgressLastDate == null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
 				flag2 = false;
 			}
-			else if (QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate == null)
+			else if (this.QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate == null)
 			{
 				flag2 = false;
 			}
-			if (QuestProgressRef.ObjectiveProgress != null)
+			if (this.QuestProgressRef.ObjectiveProgress != null)
 			{
 				if (info.QuestProgressRef.ObjectiveProgress != null)
 				{
-					if (QuestProgressRef.ObjectiveProgress.Count != info.QuestProgressRef.ObjectiveProgress.Count)
+					if (this.QuestProgressRef.ObjectiveProgress.Count != info.QuestProgressRef.ObjectiveProgress.Count)
 					{
 						flag2 = false;
 					}
 					else
 					{
-						foreach (int key in QuestProgressRef.ObjectiveProgress.Keys)
+						foreach (int key2 in this.QuestProgressRef.ObjectiveProgress.Keys)
 						{
-							if (!info.QuestProgressRef.ObjectiveProgress.ContainsKey(key))
+							if (!info.QuestProgressRef.ObjectiveProgress.ContainsKey(key2))
 							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_02a7;
-									}
-								}
+								flag2 = false;
+								break;
 							}
-							if (info.QuestProgressRef.ObjectiveProgress[key] != QuestProgressRef.ObjectiveProgress[key])
+							if (info.QuestProgressRef.ObjectiveProgress[key2] != this.QuestProgressRef.ObjectiveProgress[key2])
 							{
-								while (true)
-								{
-									switch (3)
-									{
-									case 0:
-										break;
-									default:
-										flag2 = false;
-										goto end_IL_02a7;
-									}
-								}
+								flag2 = false;
+								break;
 							}
 						}
 					}
-					goto IL_039d;
+					goto IL_39D;
 				}
 			}
-			if (QuestProgressRef.ObjectiveProgress == null)
+			if (this.QuestProgressRef.ObjectiveProgress == null)
 			{
 				if (info.QuestProgressRef.ObjectiveProgress != null)
 				{
 					flag2 = false;
-					goto IL_039d;
+					goto IL_39D;
 				}
 			}
-			if (QuestProgressRef.ObjectiveProgress != null && info.QuestProgressRef.ObjectiveProgress == null)
+			if (this.QuestProgressRef.ObjectiveProgress != null && info.QuestProgressRef.ObjectiveProgress == null)
 			{
 				flag2 = false;
 			}
-			goto IL_039d;
+			IL_39D:
+			flag = flag2;
 		}
-		goto IL_039f;
-		IL_068d:
-		int result;
-		return (byte)result != 0;
-		IL_039f:
+		IL_39F:
 		bool flag3 = false;
 		if (info.QuestTemplateRef != null)
 		{
-			if (QuestTemplateRef != null)
+			if (this.QuestTemplateRef != null)
 			{
-				flag3 = (QuestTemplateRef.Index == info.QuestTemplateRef.Index);
+				flag3 = (this.QuestTemplateRef.Index == info.QuestTemplateRef.Index);
 			}
 		}
 		bool flag4 = false;
-		if (info.QuestRewardsRef != null)
+		if (info.QuestRewardsRef != null && this.QuestRewardsRef != null &&
+			info.QuestRewardsRef.CurrencyRewards.Count == this.QuestRewardsRef.CurrencyRewards.Count &&
+			info.QuestRewardsRef.ItemRewards.Count == this.QuestRewardsRef.ItemRewards.Count &&
+			info.QuestRewardsRef.UnlockRewards.Count == this.QuestRewardsRef.UnlockRewards.Count)
 		{
-			if (QuestRewardsRef != null)
+			flag4 = true;
+			
+			for (int i = 0; i < info.QuestRewardsRef.CurrencyRewards.Count; i++)
 			{
-				if (info.QuestRewardsRef.CurrencyRewards.Count == QuestRewardsRef.CurrencyRewards.Count)
+				if (!this.QuestRewardsRef.CurrencyRewards.ContainsWhere(delegate(QuestCurrencyReward reward)
 				{
-					if (info.QuestRewardsRef.ItemRewards.Count == QuestRewardsRef.ItemRewards.Count)
+					bool result;
+					if (reward.Type == info.QuestRewardsRef.CurrencyRewards[i].Type)
 					{
-						if (info.QuestRewardsRef.UnlockRewards.Count == QuestRewardsRef.UnlockRewards.Count)
+						result = (reward.Amount == info.QuestRewardsRef.CurrencyRewards[i].Amount);
+					}
+					else
+					{
+						result = false;
+					}
+					return result;
+				}))
+				{
+					flag4 = false;
+					break;
+
+				}
+			}
+			if (flag4)
+			{
+				for (int ik = 0; ik < info.QuestRewardsRef.ItemRewards.Count; ik++)
+				{
+					if (!this.QuestRewardsRef.ItemRewards.ContainsWhere(delegate (QuestItemReward reward)
+					{
+						bool result;
+						if (reward.ItemTemplateId == info.QuestRewardsRef.ItemRewards[ik].ItemTemplateId)
 						{
-							flag4 = true;
-							int j = 0;
-							while (true)
+							result = (reward.Amount == info.QuestRewardsRef.ItemRewards[ik].Amount);
+						}
+						else
+						{
+							result = false;
+						}
+						return result;
+					}))
+					{
+						flag4 = false;
+						break;
+					}
+				}
+				if (flag4)
+				{
+					int ii;
+					for (ii = 0; ii < info.QuestRewardsRef.UnlockRewards.Count; ii++)
+					{
+						if (!this.QuestRewardsRef.UnlockRewards.ContainsWhere(delegate (QuestUnlockReward reward)
+						{
+							if (reward.purchaseType == info.QuestRewardsRef.UnlockRewards[ii].purchaseType &&
+								reward.typeSpecificData.Length == info.QuestRewardsRef.UnlockRewards[ii].typeSpecificData.Length)
 							{
-								if (j < info.QuestRewardsRef.CurrencyRewards.Count)
+								for (int ij = 0; ij < reward.typeSpecificData.Length; ij++)
 								{
-									if (!QuestRewardsRef.CurrencyRewards.ContainsWhere(delegate(QuestCurrencyReward reward)
+									if (reward.typeSpecificData[ij] != info.QuestRewardsRef.UnlockRewards[ii].typeSpecificData[ij])
 									{
-										int result3;
-										if (reward.Type == info.QuestRewardsRef.CurrencyRewards[j].Type)
-										{
-											result3 = ((reward.Amount == info.QuestRewardsRef.CurrencyRewards[j].Amount) ? 1 : 0);
-										}
-										else
-										{
-											result3 = 0;
-										}
-										return (byte)result3 != 0;
-									}))
-									{
-										flag4 = false;
-										break;
+										return false;
 									}
-									j++;
-									continue;
 								}
-								break;
+								return true;
 							}
-							if (flag4)
-							{
-								int k = 0;
-								while (true)
-								{
-									if (k < info.QuestRewardsRef.ItemRewards.Count)
-									{
-										if (!QuestRewardsRef.ItemRewards.ContainsWhere(delegate(QuestItemReward reward)
-										{
-											int result2;
-											if (reward.ItemTemplateId == info.QuestRewardsRef.ItemRewards[k].ItemTemplateId)
-											{
-												result2 = ((reward.Amount == info.QuestRewardsRef.ItemRewards[k].Amount) ? 1 : 0);
-											}
-											else
-											{
-												result2 = 0;
-											}
-											return (byte)result2 != 0;
-										}))
-										{
-											flag4 = false;
-											break;
-										}
-										k++;
-										continue;
-									}
-									break;
-								}
-								if (flag4)
-								{
-									int i = 0;
-									while (true)
-									{
-										if (i < info.QuestRewardsRef.UnlockRewards.Count)
-										{
-											if (!QuestRewardsRef.UnlockRewards.ContainsWhere(delegate(QuestUnlockReward reward)
-											{
-												if (reward.purchaseType == info.QuestRewardsRef.UnlockRewards[i].purchaseType)
-												{
-													if (reward.typeSpecificData.Length == info.QuestRewardsRef.UnlockRewards[i].typeSpecificData.Length)
-													{
-														for (int l = 0; l < reward.typeSpecificData.Length; l++)
-														{
-															if (reward.typeSpecificData[l] != info.QuestRewardsRef.UnlockRewards[i].typeSpecificData[l])
-															{
-																return false;
-															}
-														}
-														while (true)
-														{
-															switch (5)
-															{
-															case 0:
-																break;
-															default:
-																return true;
-															}
-														}
-													}
-												}
-												return false;
-											}))
-											{
-												flag4 = false;
-												break;
-											}
-											i++;
-											continue;
-										}
-										break;
-									}
-								}
-							}
+							return false;
+						}))
+						{
+							flag4 = false;
+							break;
 						}
 					}
 				}
 			}
 		}
-		if (Completed == info.Completed)
+		if (this.Completed == info.Completed)
 		{
 			if (flag && flag3)
 			{
-				result = (flag4 ? 1 : 0);
-				goto IL_068d;
+				return flag4;
 			}
 		}
-		result = 0;
-		goto IL_068d;
-		IL_039d:
-		flag = flag2;
-		goto IL_039f;
+		return false;
 	}
 
 	public override int GetHashCode()
 	{
-		if (QuestProgressRef != null)
+		if (this.QuestProgressRef != null)
 		{
-			if (QuestProgressRef.ObjectiveProgressLastDate != null && QuestProgressRef.ObjectiveProgress != null)
+			if (this.QuestProgressRef.ObjectiveProgressLastDate != null && this.QuestProgressRef.ObjectiveProgress != null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return Completed.GetHashCode() ^ QuestProgressRef.ObjectiveProgressLastDate.GetHashCode() ^ QuestProgressRef.ObjectiveProgress.GetHashCode();
-					}
-				}
+				return this.Completed.GetHashCode() ^ this.QuestProgressRef.ObjectiveProgressLastDate.GetHashCode() ^ this.QuestProgressRef.ObjectiveProgress.GetHashCode();
 			}
 		}
-		return Completed.GetHashCode();
+		return this.Completed.GetHashCode();
 	}
 
 	public virtual void Setup(int QuestIndex)
 	{
-		Reward = string.Format(StringUtil.TR("NewReward", "Seasons"), Mathf.FloorToInt(UnityEngine.Random.value * 100f));
-		QuestDescription = string.Format(StringUtil.TR("DoActionToComplete", "Seasons"), Mathf.FloorToInt(UnityEngine.Random.value * 100f));
+		this.Reward = string.Format(StringUtil.TR("NewReward", "Seasons"), Mathf.FloorToInt(UnityEngine.Random.value * 100f));
+		this.QuestDescription = string.Format(StringUtil.TR("DoActionToComplete", "Seasons"), Mathf.FloorToInt(UnityEngine.Random.value * 100f));
 		PersistedAccountData persistedAccountData = null;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
 			persistedAccountData = ClientGameManager.Get().GetPlayerAccountData();
 		}
-		QuestTemplateRef = null;
+		this.QuestTemplateRef = null;
 		if (-1 < QuestIndex - 1)
 		{
 			if (QuestIndex - 1 < QuestWideData.Get().m_quests.Count)
 			{
-				QuestTemplateRef = QuestWideData.Get().m_quests[QuestIndex - 1];
+				this.QuestTemplateRef = QuestWideData.Get().m_quests[QuestIndex - 1];
 			}
 		}
-		if (QuestTemplateRef != null)
+		if (this.QuestTemplateRef != null)
 		{
-			QuestDescription = StringUtil.TR_QuestDescription(QuestIndex);
-			LongQuestDescription = StringUtil.TR_QuestLongDescription(QuestIndex);
-			TypeDisplayName = StringUtil.TR_QuestTypeDisplayName(QuestIndex);
-			QuestRewardsRef = new QuestRewards();
-			QuestRewardsRef.CurrencyRewards = new List<QuestCurrencyReward>(QuestTemplateRef.Rewards.CurrencyRewards);
-			QuestRewardsRef.ItemRewards = new List<QuestItemReward>(QuestTemplateRef.Rewards.ItemRewards);
-			QuestRewardsRef.UnlockRewards = new List<QuestUnlockReward>(QuestTemplateRef.Rewards.UnlockRewards);
-			if (QuestTemplateRef.ConditionalRewards != null)
+			this.QuestDescription = StringUtil.TR_QuestDescription(QuestIndex);
+			this.LongQuestDescription = StringUtil.TR_QuestLongDescription(QuestIndex);
+			this.TypeDisplayName = StringUtil.TR_QuestTypeDisplayName(QuestIndex);
+			this.QuestRewardsRef = new QuestRewards();
+			this.QuestRewardsRef.CurrencyRewards = new List<QuestCurrencyReward>(this.QuestTemplateRef.Rewards.CurrencyRewards);
+			this.QuestRewardsRef.ItemRewards = new List<QuestItemReward>(this.QuestTemplateRef.Rewards.ItemRewards);
+			this.QuestRewardsRef.UnlockRewards = new List<QuestUnlockReward>(this.QuestTemplateRef.Rewards.UnlockRewards);
+			if (this.QuestTemplateRef.ConditionalRewards != null)
 			{
-				for (int i = 0; i < QuestTemplateRef.ConditionalRewards.Length; i++)
+				for (int i = 0; i < this.QuestTemplateRef.ConditionalRewards.Length; i++)
 				{
-					if (QuestWideData.AreConditionsMet(QuestTemplateRef.ConditionalRewards[i].Prerequisites.Conditions, QuestTemplateRef.ConditionalRewards[i].Prerequisites.LogicStatement))
+					if (QuestWideData.AreConditionsMet(this.QuestTemplateRef.ConditionalRewards[i].Prerequisites.Conditions, this.QuestTemplateRef.ConditionalRewards[i].Prerequisites.LogicStatement, false))
 					{
-						QuestRewardsRef.CurrencyRewards.AddRange(QuestTemplateRef.ConditionalRewards[i].CurrencyRewards);
-						QuestRewardsRef.ItemRewards.AddRange(QuestTemplateRef.ConditionalRewards[i].ItemRewards);
-						QuestRewardsRef.UnlockRewards.AddRange(QuestTemplateRef.ConditionalRewards[i].UnlockRewards);
+						this.QuestRewardsRef.CurrencyRewards.AddRange(this.QuestTemplateRef.ConditionalRewards[i].CurrencyRewards);
+						this.QuestRewardsRef.ItemRewards.AddRange(this.QuestTemplateRef.ConditionalRewards[i].ItemRewards);
+						this.QuestRewardsRef.UnlockRewards.AddRange(this.QuestTemplateRef.ConditionalRewards[i].UnlockRewards);
 					}
 				}
 			}
 			if (persistedAccountData != null)
 			{
-				if (persistedAccountData.QuestComponent.Progress.ContainsKey(QuestTemplateRef.Index))
+				if (persistedAccountData.QuestComponent.Progress.ContainsKey(this.QuestTemplateRef.Index))
 				{
-					QuestProgressRef = persistedAccountData.QuestComponent.Progress[QuestTemplateRef.Index];
+					this.QuestProgressRef = persistedAccountData.QuestComponent.Progress[this.QuestTemplateRef.Index];
 				}
-				Completed = (persistedAccountData.QuestComponent.GetCompletedCount(QuestTemplateRef.Index) > 0);
+				this.Completed = (persistedAccountData.QuestComponent.GetCompletedCount(this.QuestTemplateRef.Index) > 0);
 			}
-			QuestAbandonDate = DateTime.MinValue;
-			if (!QuestTemplateRef.AbandonDateTime.IsNullOrEmpty())
+			this.QuestAbandonDate = DateTime.MinValue;
+			if (!this.QuestTemplateRef.AbandonDateTime.IsNullOrEmpty())
 			{
-				while (true)
+				DateTime.TryParse(this.QuestTemplateRef.AbandonDateTime, out this.QuestAbandonDate);
+			}
+			else if (persistedAccountData != null)
+			{
+				if (persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate != null)
 				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						DateTime.TryParse(QuestTemplateRef.AbandonDateTime, out QuestAbandonDate);
-						return;
-					}
+					this.QuestAbandonDate = persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate.Value;
 				}
 			}
-			if (persistedAccountData == null)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate.HasValue)
-				{
-					while (true)
-					{
-						QuestAbandonDate = persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate.Value;
-						return;
-					}
-				}
-				return;
-			}
+			return;
 		}
 		throw new Exception("could not find quest");
 	}

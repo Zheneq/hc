@@ -24,21 +24,16 @@ namespace LobbyGameClientMessages
 
 		public List<int> PlayerIdByImporance;
 
-		public bool _001D(int _001D)
+		public bool _001D(int input)
 		{
-			return PlayersOnDeck.Exists(delegate(RankedResolutionPlayerState _001D)
+			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(delegate (RankedResolutionPlayerState check)
 			{
-				int result;
-				if (_001D.PlayerId == _001D)
+				if (check.PlayerId == input)
 				{
-					result = ((_001D.OnDeckness == RankedResolutionPlayerState.ReadyState._0012) ? 1 : 0);
+					return (check.OnDeckness == RankedResolutionPlayerState.ReadyState._0012);
 				}
-				else
-				{
-					result = 0;
-				}
-				return (byte)result != 0;
-			});
+				return false;
+			}));
 		}
 	}
 }
