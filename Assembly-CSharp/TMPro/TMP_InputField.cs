@@ -7131,10 +7131,11 @@ namespace TMPro
 			textComponent.font = fontAsset;
 		}
 
-		Transform ICanvasElement.get_transform()
-		{
-			return base.transform;
-		}
+		// TODO DECOMP illegal override
+		//Transform ICanvasElement.get_transform()
+		//{
+		//	return base.transform;
+		//}
 
 		bool ICanvasElement.IsDestroyed()
 		{

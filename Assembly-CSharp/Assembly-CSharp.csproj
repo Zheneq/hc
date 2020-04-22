@@ -1063,13 +1063,6 @@
     <Compile Include="HUD_UI.cs" />
     <Compile Include="HUD_UIResources.cs" />
     <Compile Include="HydrogenConfig.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSON.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONArray.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONBinaryTag.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONClass.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONData.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONLazyCreator.cs" />
-    <Compile Include="I2.Loc.SimpleJSON\JSONNode.cs" />
     <Compile Include="I2.Loc\CallbackNotification.cs" />
     <Compile Include="I2.Loc\CoroutineManager.cs" />
     <Compile Include="I2.Loc\dfSetLanguage.cs" />

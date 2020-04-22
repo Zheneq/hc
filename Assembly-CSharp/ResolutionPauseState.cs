@@ -1,4 +1,4 @@
-internal enum ResolutionPauseState
+public enum ResolutionPauseState
 {
 	Unpaused,
 	UnpausedUntilNextAbilityOrPhase,
