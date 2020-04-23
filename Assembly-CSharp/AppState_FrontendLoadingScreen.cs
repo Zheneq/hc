@@ -362,15 +362,8 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			yield return 1;
 		}
-		for (;;)
+		while (UIFrontEnd.Get() == null || UIStorePanel.Get() == null)
 		{
-			if (!(UIFrontEnd.Get() == null))
-			{
-				if (!(UIStorePanel.Get() == null))
-				{
-					break;
-				}
-			}
 			yield return null;
 		}
 		AppState_GroupCharacterSelect.ShowScreen();
