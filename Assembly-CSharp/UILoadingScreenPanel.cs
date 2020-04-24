@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -8,20 +8,6 @@ using UnityEngine.UI;
 
 public class UILoadingScreenPanel : UIScene
 {
-	public enum UIInstructionDisplayTipType
-	{
-		Default,
-		GeneralGameSpecific
-	}
-
-	[Serializable]
-	public class InstructionPair
-	{
-		public UIInstructionDisplayTipType m_InstructionsType;
-
-		public RectTransform m_container;
-	}
-
 	public TextMeshProUGUI m_gameMode;
 
 	public TextMeshProUGUI m_gameSubType;
@@ -44,7 +30,7 @@ public class UILoadingScreenPanel : UIScene
 
 	public UILoadscreenProfile[] m_enemyTeamPlayers;
 
-	public InstructionPair[] m_instructionPairs;
+	public UILoadingScreenPanel.InstructionPair[] m_instructionPairs;
 
 	public LoadingScreenSubtypeTooltip[] m_tooltips;
 
@@ -67,127 +53,113 @@ public class UILoadingScreenPanel : UIScene
 
 	public override void Awake()
 	{
-		s_instance = this;
-		m_timeStart = 0f;
-		if (m_tipTimerFill != null)
+		UILoadingScreenPanel.s_instance = this;
+		this.m_timeStart = 0f;
+		if (this.m_tipTimerFill != null)
 		{
-			m_tipTimerFill.fillAmount = 0f;
+			this.m_tipTimerFill.fillAmount = 0f;
 		}
-		if (m_nextTip != null)
+		if (this.m_nextTip != null)
 		{
-			m_nextTip.callback = NextTipClicked;
+			this.m_nextTip.callback = new _ButtonSwapSprite.ButtonClickCallback(this.NextTipClicked);
 		}
-		if (m_previousTip != null)
+		if (this.m_previousTip != null)
 		{
-			m_previousTip.callback = PrevTipClicked;
+			this.m_previousTip.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PrevTipClicked);
 		}
-		m_visibleStartTime = Time.time;
-		m_tipIndex = UnityEngine.Random.Range(0, GameWideData.Get().m_loadingTips.Length);
+		this.m_visibleStartTime = Time.time;
+		this.m_tipIndex = UnityEngine.Random.Range(0, GameWideData.Get().m_loadingTips.Length);
 		base.Awake();
-		SetVisible(false);
+		this.SetVisible(false);
 	}
 
 	private void OnDestroy()
 	{
-		s_instance = null;
+		UILoadingScreenPanel.s_instance = null;
 	}
 
 	public static UILoadingScreenPanel Get()
 	{
-		return s_instance;
+		return UILoadingScreenPanel.s_instance;
 	}
 
 	public void SetVisible(bool visible)
 	{
-		bool activeSelf = m_container.gameObject.activeSelf;
+		bool activeSelf = this.m_container.gameObject.activeSelf;
 		if (activeSelf != visible)
 		{
-			UIManager.SetGameObjectActive(m_container, visible);
+			UIManager.SetGameObjectActive(this.m_container, visible, null);
 			if (visible)
 			{
-				m_visibleStartTime = Time.time;
+				this.m_visibleStartTime = Time.time;
 			}
 			else
 			{
-				Log.Info(Log.Category.Loading, "Loading screen displayed for {0} seconds.", (Time.time - m_visibleStartTime).ToString("F1"));
-				if (m_timeStart != 0f)
+				Log.Info(Log.Category.Loading, "Loading screen displayed for {0} seconds.", new object[]
 				{
-					m_tipIndex++;
-					m_timeStart = 0f;
+					(Time.time - this.m_visibleStartTime).ToString("F1")
+				});
+				if (this.m_timeStart != 0f)
+				{
+					this.m_tipIndex++;
+					this.m_timeStart = 0f;
 				}
 			}
 		}
-		if (!visible || !(UIMainMenu.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (visible && UIMainMenu.Get() != null)
 		{
 			if (UIMainMenu.Get().IsOpen())
 			{
-				while (true)
-				{
-					UIMainMenu.Get().SetMenuVisible(false);
-					return;
-				}
+				UIMainMenu.Get().SetMenuVisible(false, false);
 			}
-			return;
 		}
 	}
 
 	private void NextTipClicked(BaseEventData data)
 	{
-		m_tipIndex++;
-		SetTutorialTip();
+		this.m_tipIndex++;
+		this.SetTutorialTip();
 	}
 
 	private void PrevTipClicked(BaseEventData data)
 	{
-		m_tipIndex--;
-		SetTutorialTip();
+		this.m_tipIndex--;
+		this.SetTutorialTip();
 	}
 
 	private void SetTutorialTip()
 	{
-		if (m_tipIndex < 0)
+		if (this.m_tipIndex < 0)
 		{
-			m_tipIndex = GameWideData.Get().m_loadingTips.Length - 1;
+			this.m_tipIndex = GameWideData.Get().m_loadingTips.Length - 1;
 		}
-		else if (m_tipIndex >= GameWideData.Get().m_loadingTips.Length)
+		else if (this.m_tipIndex >= GameWideData.Get().m_loadingTips.Length)
 		{
-			m_tipIndex = 0;
+			this.m_tipIndex = 0;
 		}
-		m_tipText.text = GameWideData.Get().GetLoadingScreenTip(m_tipIndex);
-		StartTimer();
+		this.m_tipText.text = GameWideData.Get().GetLoadingScreenTip(this.m_tipIndex);
+		this.StartTimer();
 	}
 
 	private UILoadscreenProfile GetProfile(int playerId)
 	{
-		if (m_allyTeamPlayers != null)
+		if (this.m_allyTeamPlayers != null)
 		{
-			for (int i = 0; i < m_allyTeamPlayers.Length; i++)
+			for (int i = 0; i < this.m_allyTeamPlayers.Length; i++)
 			{
-				if (m_allyTeamPlayers[i].m_playerId != playerId)
+				if (this.m_allyTeamPlayers[i].m_playerId == playerId)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return m_allyTeamPlayers[i];
+					return this.m_allyTeamPlayers[i];
 				}
 			}
 		}
-		if (m_enemyTeamPlayers != null)
+		if (this.m_enemyTeamPlayers != null)
 		{
-			for (int j = 0; j < m_enemyTeamPlayers.Length; j++)
+			for (int j = 0; j < this.m_enemyTeamPlayers.Length; j++)
 			{
-				if (m_enemyTeamPlayers[j].m_playerId != playerId)
+				if (this.m_enemyTeamPlayers[j].m_playerId == playerId)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return m_enemyTeamPlayers[j];
+					return this.m_enemyTeamPlayers[j];
 				}
 			}
 		}
@@ -196,27 +168,23 @@ public class UILoadingScreenPanel : UIScene
 
 	private UILoadscreenProfile GetProfile(LobbyPlayerInfo playerInfo)
 	{
-		if (m_allyTeamPlayers != null)
+		if (this.m_allyTeamPlayers != null)
 		{
-			for (int i = 0; i < m_allyTeamPlayers.Length; i++)
+			for (int i = 0; i < this.m_allyTeamPlayers.Length; i++)
 			{
-				if (m_allyTeamPlayers[i].GetPlayerInfo() != playerInfo)
+				if (this.m_allyTeamPlayers[i].GetPlayerInfo() == playerInfo)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return m_allyTeamPlayers[i];
+					return this.m_allyTeamPlayers[i];
 				}
 			}
 		}
-		if (m_enemyTeamPlayers != null)
+		if (this.m_enemyTeamPlayers != null)
 		{
-			for (int j = 0; j < m_enemyTeamPlayers.Length; j++)
+			for (int j = 0; j < this.m_enemyTeamPlayers.Length; j++)
 			{
-				if (m_enemyTeamPlayers[j].GetPlayerInfo() == playerInfo)
+				if (this.m_enemyTeamPlayers[j].GetPlayerInfo() == playerInfo)
 				{
-					return m_enemyTeamPlayers[j];
+					return this.m_enemyTeamPlayers[j];
 				}
 			}
 		}
@@ -225,82 +193,55 @@ public class UILoadingScreenPanel : UIScene
 
 	private IEnumerable<UILoadscreenProfile> GetBotsMasqueradeAsHumansProfiles()
 	{
-		if (m_allyTeamPlayers != null)
+		if (this.m_allyTeamPlayers != null)
 		{
-			for (int j = 0; j < m_allyTeamPlayers.Length; j++)
+			for (int i = 0; i < this.m_allyTeamPlayers.Length; i++)
 			{
-				LobbyPlayerInfo playerInfo2 = m_allyTeamPlayers[j].GetPlayerInfo();
-				if (playerInfo2 == null)
+				LobbyPlayerInfo playerInfo = this.m_allyTeamPlayers[i].GetPlayerInfo();
+				if (playerInfo != null)
 				{
-					continue;
-				}
-				if (!playerInfo2.IsNPCBot)
-				{
-					continue;
-				}
-				if (!playerInfo2.BotsMasqueradeAsHumans)
-				{
-					continue;
-				}
-				while (true)
-				{
-					yield return m_allyTeamPlayers[j];
-					/*Error: Unable to find new state assignment for yield return*/;
+					if (playerInfo.IsNPCBot)
+					{
+						if (playerInfo.BotsMasqueradeAsHumans)
+						{
+							yield return this.m_allyTeamPlayers[i];
+						}
+					}
 				}
 			}
 		}
-		if (m_enemyTeamPlayers == null)
+		if (this.m_enemyTeamPlayers != null)
 		{
-			yield break;
-		}
-		for (int i = 0; i < m_enemyTeamPlayers.Length; i++)
-		{
-			LobbyPlayerInfo playerInfo = m_enemyTeamPlayers[i].GetPlayerInfo();
-			if (playerInfo == null || !playerInfo.IsNPCBot)
+			for (int j = 0; j < this.m_enemyTeamPlayers.Length; j++)
 			{
-				continue;
-			}
-			if (!playerInfo.BotsMasqueradeAsHumans)
-			{
-				continue;
-			}
-			while (true)
-			{
-				yield return m_enemyTeamPlayers[i];
-				/*Error: Unable to find new state assignment for yield return*/;
+				LobbyPlayerInfo playerInfo2 = this.m_enemyTeamPlayers[j].GetPlayerInfo();
+				if (playerInfo2 != null && playerInfo2.IsNPCBot)
+				{
+					if (playerInfo2.BotsMasqueradeAsHumans)
+					{
+						yield return this.m_enemyTeamPlayers[j];
+					}
+				}
 			}
 		}
-		while (true)
-		{
-			switch (4)
-			{
-			default:
-				yield break;
-			case 0:
-				break;
-			}
-		}
+		yield break;
 	}
 
 	public void SetLoadingProgress(int playerId, float loadingProgress, bool isLocal)
 	{
-		UILoadscreenProfile profile = GetProfile(playerId);
-		SetLoadingProgress(profile, loadingProgress, isLocal);
+		UILoadscreenProfile profile = this.GetProfile(playerId);
+		this.SetLoadingProgress(profile, loadingProgress, isLocal);
 	}
 
 	public void SetLoadingProgress(LobbyPlayerInfo playerInfo, float loadingProgress, bool isLocal)
 	{
-		UILoadscreenProfile profile = GetProfile(playerInfo);
-		SetLoadingProgress(profile, loadingProgress, isLocal);
+		UILoadscreenProfile profile = this.GetProfile(playerInfo);
+		this.SetLoadingProgress(profile, loadingProgress, isLocal);
 	}
 
 	public void SetLoadingProgress(UILoadscreenProfile profile, float loadingProgress, bool isLocal)
 	{
-		if (!(profile != null))
-		{
-			return;
-		}
-		while (true)
+		if (profile != null)
 		{
 			profile.m_slider.fillAmount = Mathf.Max(profile.m_slider.fillAmount, loadingProgress);
 			if (isLocal)
@@ -308,123 +249,77 @@ public class UILoadingScreenPanel : UIScene
 				LobbyPlayerInfo playerInfo = profile.GetPlayerInfo();
 				if (playerInfo.BotsMasqueradeAsHumans)
 				{
-					while (true)
+					IEnumerable<UILoadscreenProfile> botsMasqueradeAsHumansProfiles = this.GetBotsMasqueradeAsHumansProfiles();
+					IEnumerator<UILoadscreenProfile> enumerator = botsMasqueradeAsHumansProfiles.GetEnumerator();
+					try
 					{
-						IEnumerable<UILoadscreenProfile> botsMasqueradeAsHumansProfiles = GetBotsMasqueradeAsHumansProfiles();
-						IEnumerator<UILoadscreenProfile> enumerator = botsMasqueradeAsHumansProfiles.GetEnumerator();
-						try
+						while (enumerator.MoveNext())
 						{
-							while (enumerator.MoveNext())
-							{
-								UILoadscreenProfile current = enumerator.Current;
-								current.m_slider.fillAmount = Mathf.Max(current.m_slider.fillAmount, loadingProgress);
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
+							UILoadscreenProfile uiloadscreenProfile = enumerator.Current;
+							uiloadscreenProfile.m_slider.fillAmount = Mathf.Max(uiloadscreenProfile.m_slider.fillAmount, loadingProgress);
 						}
-						finally
+					}
+					finally
+					{
+						if (enumerator != null)
 						{
-							if (enumerator != null)
-							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										break;
-									default:
-										enumerator.Dispose();
-										goto end_IL_00b1;
-									}
-								}
-							}
-							end_IL_00b1:;
+							enumerator.Dispose();
 						}
 					}
 				}
-				return;
 			}
-			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (!m_container.gameObject.activeSelf)
+		if (this.m_container.gameObject.activeSelf)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_timeStart == 0f)
+			if (this.m_timeStart != 0f)
 			{
-				return;
-			}
-			float num = 10f - (Time.time - m_timeStart);
-			if (m_tipTimerFill != null)
-			{
-				m_tipTimerFill.fillAmount = num / 10f;
-			}
-			if (num <= 0f)
-			{
-				while (true)
+				float num = 10f - (Time.time - this.m_timeStart);
+				if (this.m_tipTimerFill != null)
 				{
-					m_tipIndex++;
-					SetTutorialTip();
-					return;
+					this.m_tipTimerFill.fillAmount = num / 10f;
+				}
+				if (num <= 0f)
+				{
+					this.m_tipIndex++;
+					this.SetTutorialTip();
 				}
 			}
-			return;
 		}
 	}
 
 	public void StartTimer()
 	{
-		m_timeStart = Time.time;
-		if (!(m_tipTimerFill != null))
+		this.m_timeStart = Time.time;
+		if (this.m_tipTimerFill != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_tipTimerFill.fillAmount = 0f;
-			return;
+			this.m_tipTimerFill.fillAmount = 0f;
 		}
 	}
 
-	private bool DoInstructionTypesMatch(UIInstructionDisplayTipType UIDisplayType, GameSubType.GameLoadScreenInstructions GameTypeInstructions)
+	private bool DoInstructionTypesMatch(UILoadingScreenPanel.UIInstructionDisplayTipType UIDisplayType, GameSubType.GameLoadScreenInstructions GameTypeInstructions)
 	{
-		switch (UIDisplayType)
+		if (UIDisplayType == UILoadingScreenPanel.UIInstructionDisplayTipType.Default)
 		{
-		case UIInstructionDisplayTipType.Default:
-			while (true)
-			{
-				return GameTypeInstructions == GameSubType.GameLoadScreenInstructions.Default;
-			}
-		case UIInstructionDisplayTipType.GeneralGameSpecific:
+			return GameTypeInstructions == GameSubType.GameLoadScreenInstructions.Default;
+		}
+		if (UIDisplayType == UILoadingScreenPanel.UIInstructionDisplayTipType.GeneralGameSpecific)
 		{
-			int result;
+			bool result;
 			if (GameTypeInstructions != GameSubType.GameLoadScreenInstructions.Extraction && GameTypeInstructions != GameSubType.GameLoadScreenInstructions.OverpoweredUp)
 			{
-				result = ((GameTypeInstructions == GameSubType.GameLoadScreenInstructions.LightsOut) ? 1 : 0);
+				result = (GameTypeInstructions == GameSubType.GameLoadScreenInstructions.LightsOut);
 			}
 			else
 			{
-				result = 1;
+				result = true;
 			}
-			return (byte)result != 0;
+			return result;
 		}
-		default:
-			return false;
-		}
+		return false;
 	}
 
 	public void ShowTeams()
@@ -433,235 +328,169 @@ public class UILoadingScreenPanel : UIScene
 		LobbyPlayerInfo playerInfo = gameManager.PlayerInfo;
 		LobbyGameInfo gameInfo = gameManager.GameInfo;
 		LobbyTeamInfo teamInfo = gameManager.TeamInfo;
-		if (teamInfo == null)
+		if (teamInfo != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (playerInfo == null)
+			if (playerInfo != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (gameInfo == null)
+				if (gameInfo != null)
 				{
-					while (true)
+					IEnumerable<LobbyPlayerInfo> enumerable;
+					IEnumerable<LobbyPlayerInfo> enumerable2;
+					if (playerInfo.TeamId == Team.TeamB)
 					{
-						switch (5)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
-				IEnumerable<LobbyPlayerInfo> enumerable;
-				IEnumerable<LobbyPlayerInfo> enumerable2;
-				if (playerInfo.TeamId == Team.TeamB)
-				{
-					enumerable = teamInfo.TeamBPlayerInfo;
-					enumerable2 = teamInfo.TeamAPlayerInfo;
-				}
-				else
-				{
-					enumerable = teamInfo.TeamAPlayerInfo;
-					enumerable2 = teamInfo.TeamBPlayerInfo;
-				}
-				int num = enumerable.Count();
-				int num2 = enumerable2.Count();
-				int i = 0;
-				IEnumerator<LobbyPlayerInfo> enumerator = enumerable.GetEnumerator();
-				try
-				{
-					while (enumerator.MoveNext())
-					{
-						LobbyPlayerInfo current = enumerator.Current;
-						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterType);
-						m_allyTeamPlayers[i].Setup(characterResourceLink, current, false);
-						if (current.AccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
-						{
-							if (i > 0)
-							{
-								CharacterType charType = m_allyTeamPlayers[0].GetCharType();
-								LobbyPlayerInfo playerInfo2 = m_allyTeamPlayers[0].GetPlayerInfo();
-								m_allyTeamPlayers[0].Setup(GameWideData.Get().GetCharacterResourceLink(m_allyTeamPlayers[i].GetCharType()), m_allyTeamPlayers[i].GetPlayerInfo(), false);
-								m_allyTeamPlayers[i].Setup(GameWideData.Get().GetCharacterResourceLink(charType), playerInfo2, false);
-							}
-						}
-						i++;
-						if (i >= num)
-						{
-							break;
-						}
-					}
-				}
-				finally
-				{
-					if (enumerator != null)
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								enumerator.Dispose();
-								goto end_IL_01c8;
-							}
-						}
-					}
-					end_IL_01c8:;
-				}
-				for (; i < m_allyTeamPlayers.Length; i++)
-				{
-					UIManager.SetGameObjectActive(m_allyTeamPlayers[i], false);
-				}
-				int j = 0;
-				IEnumerator<LobbyPlayerInfo> enumerator2 = enumerable2.GetEnumerator();
-				try
-				{
-					do
-					{
-						if (!enumerator2.MoveNext())
-						{
-							break;
-						}
-						LobbyPlayerInfo current2 = enumerator2.Current;
-						CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(current2.CharacterType);
-						m_enemyTeamPlayers[j].Setup(characterResourceLink2, current2, true);
-						j++;
-					}
-					while (j < num2);
-				}
-				finally
-				{
-					if (enumerator2 != null)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								enumerator2.Dispose();
-								goto end_IL_026b;
-							}
-						}
-					}
-					end_IL_026b:;
-				}
-				for (; j < m_enemyTeamPlayers.Length; j++)
-				{
-					UIManager.SetGameObjectActive(m_enemyTeamPlayers[j], false);
-				}
-				while (true)
-				{
-					MapData mapData = GameWideData.Get().GetMapData(gameInfo.GameConfig.Map);
-					if (mapData != null)
-					{
-						m_mapLoadingImage.sprite = (Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite);
+						enumerable = teamInfo.TeamBPlayerInfo;
+						enumerable2 = teamInfo.TeamAPlayerInfo;
 					}
 					else
 					{
-						m_mapLoadingImage.sprite = (Resources.Load("Stages/information_stage_image", typeof(Sprite)) as Sprite);
+						enumerable = teamInfo.TeamAPlayerInfo;
+						enumerable2 = teamInfo.TeamBPlayerInfo;
 					}
-					m_mapName.text = "- " + GameWideData.Get().GetMapDisplayName(gameInfo.GameConfig.Map) + " -";
-					SetTutorialTip();
-					m_gameMode.text = gameInfo.GameConfig.GameType.GetDisplayName();
+					int num = enumerable.Count<LobbyPlayerInfo>();
+					int num2 = enumerable2.Count<LobbyPlayerInfo>();
+					int i = 0;
+					IEnumerator<LobbyPlayerInfo> enumerator = enumerable.GetEnumerator();
+					try
+					{
+						while (enumerator.MoveNext())
+						{
+							LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
+							CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType);
+							this.m_allyTeamPlayers[i].Setup(characterResourceLink, lobbyPlayerInfo, false, false);
+							if (lobbyPlayerInfo.AccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
+							{
+								if (i > 0)
+								{
+									CharacterType charType = this.m_allyTeamPlayers[0].GetCharType();
+									LobbyPlayerInfo playerInfo2 = this.m_allyTeamPlayers[0].GetPlayerInfo();
+									this.m_allyTeamPlayers[0].Setup(GameWideData.Get().GetCharacterResourceLink(this.m_allyTeamPlayers[i].GetCharType()), this.m_allyTeamPlayers[i].GetPlayerInfo(), false, false);
+									this.m_allyTeamPlayers[i].Setup(GameWideData.Get().GetCharacterResourceLink(charType), playerInfo2, false, false);
+								}
+							}
+							i++;
+							if (i >= num)
+							{
+								break;
+							}
+						}
+					}
+					finally
+					{
+						if (enumerator != null)
+						{
+							enumerator.Dispose();
+						}
+					}
+					while (i < this.m_allyTeamPlayers.Length)
+					{
+						UIManager.SetGameObjectActive(this.m_allyTeamPlayers[i], false, null);
+						i++;
+					}
+					int j = 0;
+					IEnumerator<LobbyPlayerInfo> enumerator2 = enumerable2.GetEnumerator();
+					try
+					{
+						while (enumerator2.MoveNext())
+						{
+							LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
+							CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo2.CharacterType);
+							this.m_enemyTeamPlayers[j].Setup(characterResourceLink2, lobbyPlayerInfo2, true, false);
+							j++;
+							if (j >= num2)
+							{
+								goto IL_281;
+							}
+						}
+					}
+					finally
+					{
+						if (enumerator2 != null)
+						{
+							enumerator2.Dispose();
+						}
+					}
+					IL_281:
+					while (j < this.m_enemyTeamPlayers.Length)
+					{
+						UIManager.SetGameObjectActive(this.m_enemyTeamPlayers[j], false, null);
+						j++;
+					}
+					MapData mapData = GameWideData.Get().GetMapData(gameInfo.GameConfig.Map);
+					if (mapData != null)
+					{
+						this.m_mapLoadingImage.sprite = (Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite);
+					}
+					else
+					{
+						this.m_mapLoadingImage.sprite = (Resources.Load("Stages/information_stage_image", typeof(Sprite)) as Sprite);
+					}
+					this.m_mapName.text = "- " + GameWideData.Get().GetMapDisplayName(gameInfo.GameConfig.Map) + " -";
+					this.SetTutorialTip();
+					this.m_gameMode.text = gameInfo.GameConfig.GameType.GetDisplayName();
 					GameSubType.GameLoadScreenInstructions instructionsToDisplay = gameInfo.GameConfig.InstanceSubType.InstructionsToDisplay;
 					if (instructionsToDisplay == GameSubType.GameLoadScreenInstructions.Default)
 					{
-						while (true)
+						UIManager.SetGameObjectActive(this.m_instructionPairs[0].m_container, true, null);
+						for (int k = 1; k < this.m_instructionPairs.Length; k++)
 						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-							{
-								UIManager.SetGameObjectActive(m_instructionPairs[0].m_container, true);
-								for (int k = 1; k < m_instructionPairs.Length; k++)
-								{
-									UIManager.SetGameObjectActive(m_instructionPairs[k].m_container, false);
-								}
-								UIManager.SetGameObjectActive(m_gameSubType, false);
-								return;
-							}
-							}
+							UIManager.SetGameObjectActive(this.m_instructionPairs[k].m_container, false, null);
 						}
+						UIManager.SetGameObjectActive(this.m_gameSubType, false, null);
 					}
-					bool flag = false;
-					for (int num3 = m_instructionPairs.Length - 1; num3 > 0; num3--)
+					else
 					{
-						if (DoInstructionTypesMatch(m_instructionPairs[num3].m_InstructionsType, instructionsToDisplay))
+						bool flag = false;
+						for (int l = this.m_instructionPairs.Length - 1; l > 0; l--)
 						{
-							UIManager.SetGameObjectActive(m_instructionPairs[num3].m_container, true);
-							flag = true;
+							if (this.DoInstructionTypesMatch(this.m_instructionPairs[l].m_InstructionsType, instructionsToDisplay))
+							{
+								UIManager.SetGameObjectActive(this.m_instructionPairs[l].m_container, true, null);
+								flag = true;
+							}
+							else
+							{
+								UIManager.SetGameObjectActive(this.m_instructionPairs[l].m_container, false, null);
+							}
 						}
-						else
-						{
-							UIManager.SetGameObjectActive(m_instructionPairs[num3].m_container, false);
-						}
-					}
-					while (true)
-					{
-						RectTransform container = m_instructionPairs[0].m_container;
-						int doActive;
+						Component container = this.m_instructionPairs[0].m_container;
+						bool doActive;
 						if (flag)
 						{
-							doActive = ((instructionsToDisplay == GameSubType.GameLoadScreenInstructions.Default) ? 1 : 0);
+							doActive = (instructionsToDisplay == GameSubType.GameLoadScreenInstructions.Default);
 						}
 						else
 						{
-							doActive = 1;
+							doActive = true;
 						}
-						UIManager.SetGameObjectActive(container, (byte)doActive != 0);
-						UIManager.SetGameObjectActive(m_gameSubType, true);
+						UIManager.SetGameObjectActive(container, doActive, null);
+						UIManager.SetGameObjectActive(this.m_gameSubType, true, null);
 						if (gameInfo.GameConfig.InstanceSubType.LocalizedName != null)
 						{
-							m_gameSubType.text = StringUtil.TR(gameInfo.GameConfig.InstanceSubType.LocalizedName);
+							this.m_gameSubType.text = StringUtil.TR(gameInfo.GameConfig.InstanceSubType.LocalizedName);
 						}
 						else
 						{
-							m_gameSubType.text = string.Empty;
+							this.m_gameSubType.text = string.Empty;
 						}
-						m_tooltipSubtypeName.text = StringUtil.TR(gameInfo.GameConfig.InstanceSubType.LocalizedName);
+						this.m_tooltipSubtypeName.text = StringUtil.TR(gameInfo.GameConfig.InstanceSubType.LocalizedName);
 						GameSubTypeData.GameSubTypeInstructions instructionSet = GameSubTypeData.Get().GetInstructionSet(instructionsToDisplay);
-						if (instructionSet == null)
+						if (instructionSet != null)
 						{
-							return;
-						}
-						while (true)
-						{
-							for (int l = 0; l < m_tooltips.Length; l++)
+							for (int m = 0; m < this.m_tooltips.Length; m++)
 							{
-								if (l < instructionSet.DisplayInfos.Length)
+								if (m < instructionSet.DisplayInfos.Length)
 								{
-									UIManager.SetGameObjectActive(m_tooltips[l], true);
-									m_tooltips[l].Setup(instructionSet.DisplayInfos[l]);
+									UIManager.SetGameObjectActive(this.m_tooltips[m], true, null);
+									this.m_tooltips[m].Setup(instructionSet.DisplayInfos[m]);
 								}
 								else
 								{
-									UIManager.SetGameObjectActive(m_tooltips[l], false);
-								}
-							}
-							while (true)
-							{
-								switch (4)
-								{
-								default:
-									return;
-								case 0:
-									break;
+									UIManager.SetGameObjectActive(this.m_tooltips[m], false, null);
 								}
 							}
 						}
 					}
+					return;
 				}
 			}
 		}
@@ -669,6 +498,20 @@ public class UILoadingScreenPanel : UIScene
 
 	public void SetTipIndex(int index)
 	{
-		m_tipIndex = index;
+		this.m_tipIndex = index;
+	}
+
+	public enum UIInstructionDisplayTipType
+	{
+		Default,
+		GeneralGameSpecific
+	}
+
+	[Serializable]
+	public class InstructionPair
+	{
+		public UILoadingScreenPanel.UIInstructionDisplayTipType m_InstructionsType;
+
+		public RectTransform m_container;
 	}
 }

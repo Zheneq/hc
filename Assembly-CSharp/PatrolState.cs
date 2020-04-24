@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ public class PatrolState : FSMState
 
 	private void Start()
 	{
-		m_PatrolPath.Initialze();
-		stateID = StateID.Patrol;
+		this.m_PatrolPath.Initialze();
+		this.stateID = StateID.Patrol;
 	}
 
 	public override void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
@@ -22,70 +23,48 @@ public class PatrolState : FSMState
 	public override void OnEnter(NPCBrain thisBrain, StateID previousState)
 	{
 		base.OnEnter(thisBrain, previousState);
-		m_PatrolPath.WaypointsVisitedThisCycle = 0;
-		m_PatrolPath.PatrolCyclesCompleted = 0;
-		if (!(m_PatrolPath.m_currentWayPoint == null))
+		this.m_PatrolPath.WaypointsVisitedThisCycle = 0;
+		this.m_PatrolPath.PatrolCyclesCompleted = 0;
+		if (this.m_PatrolPath.m_currentWayPoint == null)
 		{
-			return;
+			this.m_PatrolPath.m_currentWayPoint = this.m_PatrolPath.GetInitalWaypoint();
+			if (this.m_PatrolPath.m_currentWayPoint == null)
+			{
+				Log.Error("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC " + base.MyBrain.name, new object[0]);
+			}
+			GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, this.m_PatrolPath.m_currentWayPoint, this.m_PatrolPath.mWayPoints.IndexOf(this.m_PatrolPath.m_currentWayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
 		}
-		m_PatrolPath.m_currentWayPoint = m_PatrolPath.GetInitalWaypoint();
-		if (m_PatrolPath.m_currentWayPoint == null)
-		{
-			Log.Error("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC " + base.MyBrain.name);
-		}
-		GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, m_PatrolPath.m_currentWayPoint, m_PatrolPath.mWayPoints.IndexOf(m_PatrolPath.m_currentWayPoint), m_PatrolPath, m_PatrolPath.m_AlternateDestination == null);
-		GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
 	}
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		while (true)
+		NPCBrain_StateMachine npcbrain_StateMachine = thisBrain as NPCBrain_StateMachine;
+		AbilityData component = thisBrain.GetComponent<AbilityData>();
+		ActorData component2 = npcbrain_StateMachine.GetComponent<ActorData>();
+		ActorTurnSM component3 = npcbrain_StateMachine.GetComponent<ActorTurnSM>();
+		BotController component4 = npcbrain_StateMachine.GetComponent<BotController>();
+		if (component)
 		{
-			NPCBrain_StateMachine nPCBrain_StateMachine = thisBrain as NPCBrain_StateMachine;
-			AbilityData component = thisBrain.GetComponent<AbilityData>();
-			ActorData component2 = nPCBrain_StateMachine.GetComponent<ActorData>();
-			ActorTurnSM component3 = nPCBrain_StateMachine.GetComponent<ActorTurnSM>();
-			BotController component4 = nPCBrain_StateMachine.GetComponent<BotController>();
-			if (!component)
+			if (component2 && component3 && component4)
 			{
-				yield break;
-			}
-			while (true)
-			{
-				if (!component2 || !component3 || !component4)
+				if (this.m_PatrolPath == null)
 				{
 					yield break;
 				}
-				if (m_PatrolPath == null)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						default:
-							yield break;
-						case 0:
-							break;
-						}
-					}
-				}
-				WayPoint currentWayPoint = m_PatrolPath.m_currentWayPoint;
-				Board board = Board.Get();
-				Vector3 position = currentWayPoint.transform.position;
-				float x2 = position.x;
-				Vector3 position2 = currentWayPoint.transform.position;
-				BoardSquare boardSquare = board.GetBoardSquareSafe(x2, position2.z);
+				WayPoint wayPoint = this.m_PatrolPath.m_currentWayPoint;
+				BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(wayPoint.transform.position.x, wayPoint.transform.position.z);
 				BoardSquare currentBoardSquare = component2.GetCurrentBoardSquare();
-				int num = 10;
+				int num = 0xA;
 				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());
 				float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
-				if (!currentWayPoint.MustArriveAtWayPointToContinue && currentBoardSquare != boardSquare)
+				if (!wayPoint.MustArriveAtWayPointToContinue && currentBoardSquare != boardSquare)
 				{
 					if (num2 < remainingHorizontalMovement)
 					{
-						if (m_PatrolPath.m_AlternateDestination == null)
+						if (this.m_PatrolPath.m_AlternateDestination == null)
 						{
-							while (true)
+							for (;;)
 							{
 								if (!(boardSquare.OccupantActor != null))
 								{
@@ -99,76 +78,63 @@ public class PatrolState : FSMState
 									break;
 								}
 								boardSquare = Board.Get()._0018(boardSquare, boardSquare);
-								m_PatrolPath.m_AlternateDestination = boardSquare;
+								this.m_PatrolPath.m_AlternateDestination = boardSquare;
 							}
 						}
 					}
 				}
 				if (!(currentBoardSquare == boardSquare))
 				{
-					if (!(currentBoardSquare == m_PatrolPath.m_AlternateDestination))
+					if (!(currentBoardSquare == this.m_PatrolPath.m_AlternateDestination))
 					{
 						component3.SelectMovementSquareForMovement(boardSquare);
 						yield break;
 					}
 				}
-				if (turnsToDelayRemaining == -1)
+				if (this.turnsToDelayRemaining == -1)
 				{
 					Debug.Log("Arrived at point: " + boardSquare);
-					GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.PointReached, base.MyActorData, currentWayPoint, m_PatrolPath.mWayPoints.IndexOf(currentWayPoint), m_PatrolPath, m_PatrolPath.m_AlternateDestination == null);
+					GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.PointReached, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
-					turnsToDelayRemaining = currentWayPoint.TurnsToDelay;
+					this.turnsToDelayRemaining = wayPoint.TurnsToDelay;
 				}
-				if (turnsToDelayRemaining <= 0)
+				if (this.turnsToDelayRemaining <= 0)
 				{
-					turnsToDelayRemaining = -1;
-					currentWayPoint = (m_PatrolPath.m_currentWayPoint = m_PatrolPath.IncremementWayPoint(delegate(PatrolPath.IncrementWaypointResult x)
+					this.turnsToDelayRemaining = -1;
+					wayPoint = (this.m_PatrolPath.m_currentWayPoint = this.m_PatrolPath.IncremementWayPoint(delegate(PatrolPath.IncrementWaypointResult x)
 					{
-						switch (x)
+						if (x == PatrolPath.IncrementWaypointResult.Incremented)
 						{
-						case PatrolPath.IncrementWaypointResult.Incremented:
-							while (true)
-							{
-								switch (1)
-								{
-								case 0:
-									break;
-								default:
-									m_PatrolPath.WaypointsVisitedThisCycle++;
-									return;
-								}
-							}
-						case PatrolPath.IncrementWaypointResult.CycleCompleted:
-							m_PatrolPath.PatrolCyclesCompleted++;
-							m_PatrolPath.WaypointsVisitedThisCycle = 0;
-							break;
+							this.m_PatrolPath.WaypointsVisitedThisCycle++;
+						}
+						else if (x == PatrolPath.IncrementWaypointResult.CycleCompleted)
+						{
+							this.m_PatrolPath.PatrolCyclesCompleted++;
+							this.m_PatrolPath.WaypointsVisitedThisCycle = 0;
 						}
 					}));
-					GameEventManager.PatrolPointArgs args2 = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, currentWayPoint, m_PatrolPath.mWayPoints.IndexOf(currentWayPoint), m_PatrolPath, m_PatrolPath.m_AlternateDestination == null);
+					GameEventManager.PatrolPointArgs args2 = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args2);
-					m_PatrolPath.m_AlternateDestination = null;
-					Board board2 = Board.Get();
-					Vector3 position3 = currentWayPoint.transform.position;
-					float x3 = position3.x;
-					Vector3 position4 = currentWayPoint.transform.position;
-					BoardSquare boardSquare2 = board2._0013(x3, position4.z);
+					this.m_PatrolPath.m_AlternateDestination = null;
+					BoardSquare boardSquare2 = Board.Get()._0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
 					Debug.Log("Traveling to: " + boardSquare2);
 					component3.SelectMovementSquareForMovement(boardSquare2);
 				}
 				else
 				{
-					turnsToDelayRemaining--;
-					Debug.Log("Delayed - Turns remaining:  " + turnsToDelayRemaining);
+					this.turnsToDelayRemaining--;
+					Debug.Log("Delayed - Turns remaining:  " + this.turnsToDelayRemaining);
 				}
 				yield break;
 			}
 		}
+		yield break;
 	}
 
 	public override void OnExit(NPCBrain thisBrain, StateID nextState)
 	{
-		turnsToDelayRemaining = -1;
-		m_PatrolPath.m_AlternateDestination = null;
+		this.turnsToDelayRemaining = -1;
+		this.m_PatrolPath.m_AlternateDestination = null;
 		base.OnExit(thisBrain, nextState);
 	}
 }

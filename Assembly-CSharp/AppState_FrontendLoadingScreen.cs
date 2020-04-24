@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -362,8 +362,15 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			yield return 1;
 		}
-		while (UIFrontEnd.Get() == null || UIStorePanel.Get() == null)
+		for (;;)
 		{
+			if (!(UIFrontEnd.Get() == null))
+			{
+				if (!(UIStorePanel.Get() == null))
+				{
+					break;
+				}
+			}
 			yield return null;
 		}
 		AppState_GroupCharacterSelect.ShowScreen();

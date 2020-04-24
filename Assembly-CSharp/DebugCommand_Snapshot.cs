@@ -10,9 +10,9 @@ public class DebugCommand_Snapshot : DebugCommand
 		return "/snapshot";
 	}
 
-	public override bool OnSlashCommand(string arguments)
-	{
-		ClientGameManager.Get()._0012();
-		return true;
-	}
+  public override bool OnSlashCommand(string arguments)
+  {
+    ClientGameManager.Get().symbol_0012();
+    return true;
+  }
 }

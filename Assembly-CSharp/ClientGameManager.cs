@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -5708,18 +5708,18 @@ public class ClientGameManager : MonoBehaviour
 		Log.Error("Not connected to lobby server.", new object[0]);
 	}
 
-	public void _001D(string _001D, string _000E)
+	public void symbol_001D(string symbol_001D, string symbol_000E)
 	{
 		if (this.m_lobbyGameClientInterface != null)
 		{
 			if (this.m_lobbyGameClientInterface.IsConnected)
 			{
-				this.m_lobbyGameClientInterface._001D(_001D, _000E);
+				this.m_lobbyGameClientInterface._001D(symbol_001D, symbol_000E);
 			}
 		}
 	}
 
-	public void _000E()
+	public void symbol_000E()
 	{
 		if (this.m_lobbyGameClientInterface != null)
 		{
@@ -5744,7 +5744,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	public void _0012()
+	public void symbol_0012()
 	{
 		if (this.m_lobbyGameClientInterface != null)
 		{

@@ -1,3 +1,4 @@
+﻿using System;
 using System.Net;
 using System.Net.Security;
 using System.Runtime.CompilerServices;
@@ -5,45 +6,36 @@ using System.Security.Cryptography.X509Certificates;
 
 public static class SslValidator
 {
-	private static SslPolicyErrors m_acceptedSslPolicyErrors;
+	private static SslPolicyErrors m_acceptedSslPolicyErrors = SslPolicyErrors.None;
 
 	[CompilerGenerated]
-	private static RemoteCertificateValidationCallback _003C_003Ef__mg_0024cache0;
+	private static RemoteCertificateValidationCallback f__mg_cache0;
 
 	public static SslPolicyErrors AcceptableSslPolicyErrors
 	{
 		get
 		{
-			return m_acceptedSslPolicyErrors;
+			return SslValidator.m_acceptedSslPolicyErrors;
 		}
 		set
 		{
-			m_acceptedSslPolicyErrors = value;
-			ServicePointManager.ServerCertificateValidationCallback = SslCallback;
+			SslValidator.m_acceptedSslPolicyErrors = value;
+			
+			ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(SslValidator.SslCallback);
 		}
-	}
-
-	static SslValidator()
-	{
-		m_acceptedSslPolicyErrors = SslPolicyErrors.None;
 	}
 
 	private static bool SslCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
 	{
-		if ((sslPolicyErrors & m_acceptedSslPolicyErrors) == sslPolicyErrors)
+		if ((sslPolicyErrors & SslValidator.m_acceptedSslPolicyErrors) == sslPolicyErrors)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
-		Log.Error("Certificate {0} has errors: {1}", certificate.Subject, sslPolicyErrors.ToString());
+		Log.Error("Certificate {0} has errors: {1}", new object[]
+		{
+			certificate.Subject,
+			sslPolicyErrors.ToString()
+		});
 		return false;
 	}
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -8,18 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-	public enum ClientState
-	{
-		InFrontEnd,
-		InGame
-	}
-
 	public UICameraLayerInfo[] LayerInfos;
 
 	[HideInInspector]
-	public ClientState CurrentState;
+	public UIManager.ClientState CurrentState;
 
-	public int testValue = 100;
+	public int testValue = 0x64;
 
 	private static UIManager s_instance;
 
@@ -29,24 +23,20 @@ public class UIManager : MonoBehaviour
 
 	private List<UIScene.CloseObjectInfo> MouseObjectClickListeners = new List<UIScene.CloseObjectInfo>();
 
-	//[CompilerGenerated]
-	//private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam AnimationDoneCallback;
+	[CompilerGenerated]
+	private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam f__mg_cache0;
 
-	//[CompilerGenerated]
-	//private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam _003C_003Ef__mg_0024cache1;
+	[CompilerGenerated]
+	private static UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam f__mg_cache1;
 
-	public bool DoneInitialLoading
-	{
-		get;
-		private set;
-	}
+	public bool DoneInitialLoading { get; private set; }
 
 	public void Awake()
 	{
 		Debug.Log("UIManager Awake");
-		s_instance = this;
+		UIManager.s_instance = this;
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
-		Initialize();
+		this.Initialize();
 	}
 
 	private void Start()
@@ -55,71 +45,66 @@ public class UIManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Log.Info("UIManager OnDestroy");
+		Log.Info("UIManager OnDestroy", new object[0]);
 	}
 
 	public static UIManager Get()
 	{
-		return s_instance;
+		return UIManager.s_instance;
 	}
 
 	public Camera GetCamera(CameraLayerName layerName)
 	{
-		for (int i = 0; i < LayerInfos.Length; i++)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			if (LayerInfos[i].LayerType == layerName)
+			if (this.LayerInfos[i].LayerType == layerName)
 			{
-				return LayerInfos[i].ActiveCamera;
+				return this.LayerInfos[i].ActiveCamera;
 			}
 		}
-		while (true)
-		{
-			return null;
-		}
+		return null;
 	}
 
 	public Camera GetEnvirontmentCamera()
 	{
-		for (int i = 0; i < LayerInfos.Length; i++)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			if (LayerInfos[i].LayerType == CameraLayerName.EnvironmentLayer)
+			if (this.LayerInfos[i].LayerType == CameraLayerName.EnvironmentLayer)
 			{
-				return LayerInfos[i].ActiveCamera;
+				return this.LayerInfos[i].ActiveCamera;
 			}
 		}
-		while (true)
-		{
-			return null;
-		}
+		return null;
 	}
 
 	public Canvas GetDefaultCanvas(IUIScene theScene)
 	{
 		Canvas canvas = null;
-		int num = 0;
-		while (true)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			if (num < LayerInfos.Length)
+			canvas = this.LayerInfos[i].GetDefaultCanvas(theScene);
+			if (canvas != null)
 			{
-				canvas = LayerInfos[num].GetDefaultCanvas(theScene);
-				if (canvas != null)
-				{
-					break;
-				}
-				num++;
+				return canvas;
+			}
+		}
+		for (;;)
+		{
+			switch (4)
+			{
+			case 0:
 				continue;
 			}
-			break;
+			return canvas;
 		}
-		return canvas;
 	}
 
 	public Canvas GetDefaultCanvas(SceneType theScene)
 	{
 		Canvas canvas = null;
-		for (int i = 0; i < LayerInfos.Length; i++)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			canvas = LayerInfos[i].GetDefaultCanvas(theScene);
+			canvas = this.LayerInfos[i].GetDefaultCanvas(theScene);
 			if (canvas != null)
 			{
 				break;
@@ -131,41 +116,35 @@ public class UIManager : MonoBehaviour
 	public Canvas GetBatchCanvas(IUIScene theScene, CanvasBatchType type)
 	{
 		Canvas canvas = null;
-		int num = 0;
-		while (true)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			if (num < LayerInfos.Length)
+			canvas = this.LayerInfos[i].GetBatchCanvas(theScene, type);
+			if (canvas != null)
 			{
-				canvas = LayerInfos[num].GetBatchCanvas(theScene, type);
-				if (canvas != null)
-				{
-					break;
-				}
-				num++;
+				return canvas;
+			}
+		}
+		for (;;)
+		{
+			switch (3)
+			{
+			case 0:
 				continue;
 			}
-			break;
+			return canvas;
 		}
-		return canvas;
 	}
 
 	public int GetNameplateCanvasLayer()
 	{
 		int num = -1;
-		int num2 = 0;
-		while (true)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			if (num2 < LayerInfos.Length)
+			num = this.LayerInfos[i].GetNameplateCanvasLayer();
+			if (num != -1)
 			{
-				num = LayerInfos[num2].GetNameplateCanvasLayer();
-				if (num != -1)
-				{
-					break;
-				}
-				num2++;
-				continue;
+				return num;
 			}
-			break;
 		}
 		return num;
 	}
@@ -178,10 +157,11 @@ public class UIManager : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				Transform transform = (Transform)enumerator.Current;
+				object obj = enumerator.Current;
+				Transform transform = (Transform)obj;
 				if (transform != trans.gameObject)
 				{
-					ChangeLayersRecursively(transform, name);
+					UIManager.ChangeLayersRecursively(transform, name);
 				}
 			}
 		}
@@ -197,202 +177,175 @@ public class UIManager : MonoBehaviour
 
 	public static void ReparentTransform(Transform child, Transform newParent)
 	{
-		ReparentTransform(child, newParent, Vector3.one);
+		UIManager.ReparentTransform(child, newParent, Vector3.one);
 	}
 
 	public static void ReparentTransform(Transform child, Transform newParent, Vector3 newScale)
 	{
-		if (child == null)
+		if (!(child == null))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (newParent == null)
+			if (!(newParent == null))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				child.SetParent(newParent);
+				child.localEulerAngles = Vector3.zero;
+				child.localPosition = Vector3.zero;
+				child.localScale = newScale;
+				return;
 			}
-			child.SetParent(newParent);
-			child.localEulerAngles = Vector3.zero;
-			child.localPosition = Vector3.zero;
-			child.localScale = newScale;
-			return;
 		}
 	}
 
 	public static void SetGameObjectActive(Component component, bool doActive, DisableGameObjectWithAnimOutInfo overrideAnimInfo = null)
 	{
-		if (!(component == null))
+		if (component == null)
 		{
-			SetGameObjectActive(component.gameObject, doActive, overrideAnimInfo);
+			return;
 		}
+		UIManager.SetGameObjectActive(component.gameObject, doActive, overrideAnimInfo);
 	}
 
 	public static void AnimationDoneCallback(GameObject gameObject)
 	{
-		if (!(gameObject != null))
-		{
-			return;
-		}
-		while (true)
+		if (gameObject != null)
 		{
 			gameObject.SetActive(true);
-			return;
 		}
 	}
 
 	public static void SetGameObjectActive(GameObject gObject, bool doActive, DisableGameObjectWithAnimOutInfo overrideAnimInfo = null)
 	{
-		if (gObject == null)
+		if (!(gObject == null))
 		{
-			return;
-		}
-		if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds != null)
-		{
-			if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds.Contains(gObject.GetInstanceID()))
+			if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds != null)
 			{
-				DisableGameObjectWithAnimOutInfo disableGameObjectWithAnimOutInfo = overrideAnimInfo;
-				if (disableGameObjectWithAnimOutInfo == null)
+				if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds.Contains(gObject.GetInstanceID()))
 				{
-					disableGameObjectWithAnimOutInfo = gObject.GetComponent<DisableGameObjectWithAnimOutInfo>();
-				}
-				if (!(disableGameObjectWithAnimOutInfo == null))
-				{
-					if (!(disableGameObjectWithAnimOutInfo.m_animator == null))
+					DisableGameObjectWithAnimOutInfo disableGameObjectWithAnimOutInfo = overrideAnimInfo;
+					if (disableGameObjectWithAnimOutInfo == null)
 					{
-						if (doActive)
-						{
-							bool flag = false;
-							if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo != null)
-							{
-								if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length > 0)
-								{
-									for (int i = 0; i < disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length; i++)
-									{
-										DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo = disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo[i];
-										if (setGameObjectEnableInfo.m_AnimationNameToPlay.IsNullOrEmpty())
-										{
-											continue;
-										}
-										flag = true;
-										UIAnimationEventManager uIAnimationEventManager = UIAnimationEventManager.Get();
-										Animator animator = disableGameObjectWithAnimOutInfo.m_animator;
-										string animationNameToPlay = setGameObjectEnableInfo.m_AnimationNameToPlay;
-										string animationNameForDoneCallback = setGameObjectEnableInfo.m_AnimationNameForDoneCallback;
-										int animLayer = setGameObjectEnableInfo.m_AnimLayer;
-										float animStartTimeNormalized = setGameObjectEnableInfo.m_AnimStartTimeNormalized;
-										
-										uIAnimationEventManager.PlayAnimation(animator, animationNameToPlay, null, animationNameForDoneCallback, animLayer, animStartTimeNormalized, true, true, AnimationDoneCallback, gObject);
-									}
-								}
-							}
-							if (flag)
-							{
-								return;
-							}
-							while (true)
-							{
-								gObject.SetActive(true);
-								return;
-							}
-						}
-						bool flag2 = false;
-						if (gObject.activeInHierarchy)
-						{
-							if (disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo != null && disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length > 0)
-							{
-								for (int j = 0; j < disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length; j++)
-								{
-									DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo2 = disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo[j];
-									if (!setGameObjectEnableInfo2.m_AnimationNameToPlay.IsNullOrEmpty())
-									{
-										flag2 = true;
-										UIAnimationEventManager.Get().PlayAnimation(disableGameObjectWithAnimOutInfo.m_animator, setGameObjectEnableInfo2.m_AnimationNameToPlay, null, setGameObjectEnableInfo2.m_AnimationNameForDoneCallback, setGameObjectEnableInfo2.m_AnimLayer, setGameObjectEnableInfo2.m_AnimStartTimeNormalized, true, true, AnimationDoneCallback, gObject);
-									}
-								}
-							}
-						}
-						if (!flag2)
-						{
-							gObject.SetActive(false);
-						}
-						return;
+						disableGameObjectWithAnimOutInfo = gObject.GetComponent<DisableGameObjectWithAnimOutInfo>();
 					}
+					if (!(disableGameObjectWithAnimOutInfo == null))
+					{
+						if (disableGameObjectWithAnimOutInfo.m_animator == null)
+						{
+						}
+						else
+						{
+							if (doActive)
+							{
+								bool flag = false;
+								if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo != null)
+								{
+									if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length > 0)
+									{
+										for (int i = 0; i < disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length; i++)
+										{
+											DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo = disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo[i];
+											if (!setGameObjectEnableInfo.m_AnimationNameToPlay.IsNullOrEmpty())
+											{
+												flag = true;
+												UIAnimationEventManager uianimationEventManager = UIAnimationEventManager.Get();
+												Animator animator = disableGameObjectWithAnimOutInfo.m_animator;
+												string animationNameToPlay = setGameObjectEnableInfo.m_AnimationNameToPlay;
+												UIAnimationEventManager.AnimationDoneCallback callbackOnDone = null;
+												string animationNameForDoneCallback = setGameObjectEnableInfo.m_AnimationNameForDoneCallback;
+												int animLayer = setGameObjectEnableInfo.m_AnimLayer;
+												float animStartTimeNormalized = setGameObjectEnableInfo.m_AnimStartTimeNormalized;
+												bool setAnimatorGameObjectActive = true;
+												bool checkCurrentState = true;
+												
+												uianimationEventManager.PlayAnimation(animator, animationNameToPlay, callbackOnDone, animationNameForDoneCallback, animLayer, animStartTimeNormalized, setAnimatorGameObjectActive, checkCurrentState, new UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam(UIManager.AnimationDoneCallback), gObject);
+											}
+										}
+									}
+								}
+								if (!flag)
+								{
+									gObject.SetActive(true);
+								}
+								return;
+							}
+							bool flag2 = false;
+							if (gObject.activeInHierarchy)
+							{
+								if (disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo != null && disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length > 0)
+								{
+									for (int j = 0; j < disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length; j++)
+									{
+										DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo2 = disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo[j];
+										if (!setGameObjectEnableInfo2.m_AnimationNameToPlay.IsNullOrEmpty())
+										{
+											flag2 = true;
+											UIAnimationEventManager uianimationEventManager2 = UIAnimationEventManager.Get();
+											Animator animator2 = disableGameObjectWithAnimOutInfo.m_animator;
+											string animationNameToPlay2 = setGameObjectEnableInfo2.m_AnimationNameToPlay;
+											UIAnimationEventManager.AnimationDoneCallback callbackOnDone2 = null;
+											string animationNameForDoneCallback2 = setGameObjectEnableInfo2.m_AnimationNameForDoneCallback;
+											int animLayer2 = setGameObjectEnableInfo2.m_AnimLayer;
+											float animStartTimeNormalized2 = setGameObjectEnableInfo2.m_AnimStartTimeNormalized;
+											bool setAnimatorGameObjectActive2 = true;
+											bool checkCurrentState2 = true;
+											
+											uianimationEventManager2.PlayAnimation(animator2, animationNameToPlay2, callbackOnDone2, animationNameForDoneCallback2, animLayer2, animStartTimeNormalized2, setAnimatorGameObjectActive2, checkCurrentState2, new UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam(UIManager.AnimationDoneCallback), gObject);
+										}
+									}
+								}
+							}
+							if (!flag2)
+							{
+								gObject.SetActive(false);
+								return;
+							}
+							return;
+						}
+					}
+					gObject.SetActive(doActive);
+					return;
 				}
-				gObject.SetActive(doActive);
-				return;
 			}
-		}
-		if (gObject.activeSelf != doActive)
-		{
-			gObject.SetActive(doActive);
+			if (gObject.activeSelf != doActive)
+			{
+				gObject.SetActive(doActive);
+			}
 		}
 	}
 
 	public void Initialize()
 	{
-		if (init)
+		if (!this.init)
 		{
-			return;
-		}
-		while (true)
-		{
-			init = true;
+			this.init = true;
 			base.gameObject.AddComponent<UIAnimationEventManager>();
 			List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
-			for (int i = 0; i < LayerInfos.Length; i++)
+			for (int i = 0; i < this.LayerInfos.Length; i++)
 			{
-				LayerInfos[i].CameraLayerContainer = new GameObject();
-				LayerInfos[i].CameraLayerContainer.name = "(Camera)" + LayerInfos[i].LayerName;
-				ReparentTransform(LayerInfos[i].CameraLayerContainer.transform, base.gameObject.transform);
-				LayerInfos[i].Init();
-				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, LayerInfos[i].Priority);
+				this.LayerInfos[i].CameraLayerContainer = new GameObject();
+				this.LayerInfos[i].CameraLayerContainer.name = "(Camera)" + this.LayerInfos[i].LayerName;
+				UIManager.ReparentTransform(this.LayerInfos[i].CameraLayerContainer.transform, base.gameObject.transform);
+				this.LayerInfos[i].Init();
+				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, this.LayerInfos[i].Priority);
 				list.Add(item);
 			}
-			while (true)
+			if (list.Count > 1)
 			{
-				if (list.Count <= 1)
-				{
-					return;
-				}
-				while (true)
-				{
-					
-					list.Sort(delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
-						{
-							if (keyA.Value > keyB.Value)
-							{
-								return 1;
-							}
-							if (keyA.Value < keyB.Value)
-							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-										return -1;
-									}
-								}
-							}
-							return 0;
-						});
-					for (int j = 0; j < list.Count; j++)
+				List<KeyValuePair<int, int>> list2 = list;
+				
+				list2.Sort(delegate(KeyValuePair<int, int> keyA, KeyValuePair<int, int> keyB)
 					{
-						LayerInfos[list[j].Key].CameraLayerContainer.transform.SetAsLastSibling();
-					}
-					return;
+						if (keyA.Value > keyB.Value)
+						{
+							return 1;
+						}
+						if (keyA.Value < keyB.Value)
+						{
+							return -1;
+						}
+						return 0;
+					});
+				for (int j = 0; j < list.Count; j++)
+				{
+					this.LayerInfos[list[j].Key].CameraLayerContainer.transform.SetAsLastSibling();
 				}
 			}
 		}
@@ -400,37 +353,24 @@ public class UIManager : MonoBehaviour
 
 	public RuntimeSceneInfo RegisterUIScene(UIScene scene)
 	{
-		if ((object)scene == null)
+		if (scene == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("UIScene did not implement ui scene interface");
-					return null;
-				}
-			}
+			Debug.LogError("UIScene did not implement ui scene interface");
+			return null;
 		}
-		for (int i = 0; i < LayerInfos.Length; i++)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			RuntimeSceneInfo runtimeSceneInfo = LayerInfos[i].RegisterUIScene(scene);
-			if (runtimeSceneInfo == null)
+			RuntimeSceneInfo runtimeSceneInfo = this.LayerInfos[i].RegisterUIScene(scene);
+			if (runtimeSceneInfo != null)
 			{
-				continue;
-			}
-			while (true)
-			{
-				RunTimeScenes.Add(runtimeSceneInfo);
+				this.RunTimeScenes.Add(runtimeSceneInfo);
 				((IUIScene)scene).NotifyGameStateChange(new SceneStateParameters
 				{
-					NewClientGameState = CurrentState
+					NewClientGameState = new UIManager.ClientState?(this.CurrentState)
 				});
 				if (scene.GetMouseClickObjects() != null)
 				{
-					MouseObjectClickListeners.AddRange(scene.GetMouseClickObjects());
+					this.MouseObjectClickListeners.AddRange(scene.GetMouseClickObjects());
 				}
 				return runtimeSceneInfo;
 			}
@@ -446,7 +386,7 @@ public class UIManager : MonoBehaviour
 
 	public bool SetSceneVisible(SceneType aScene, bool visible, SceneVisibilityParameters parameters)
 	{
-		return SetSceneVisible(new SceneType[1]
+		return this.SetSceneVisible(new SceneType[]
 		{
 			aScene
 		}, visible, parameters);
@@ -456,17 +396,14 @@ public class UIManager : MonoBehaviour
 	{
 		int num = 0;
 		List<SceneType> list = new List<SceneType>(aScenes);
-		for (int i = 0; i < LayerInfos.Length; i++)
+		for (int i = 0; i < this.LayerInfos.Length; i++)
 		{
-			num += LayerInfos[i].SetSceneVisible(aScenes, visible, parameters);
+			num += this.LayerInfos[i].SetSceneVisible(aScenes, visible, parameters);
 		}
-		while (true)
+		if (list.Count != num)
 		{
-			if (list.Count != num)
-			{
-			}
-			return num == list.Count;
 		}
+		return num == list.Count;
 	}
 
 	public IEnumerator LoadSceneAsync(List<UISceneDisplayInfo> scenesToLoad)
@@ -479,39 +416,21 @@ public class UIManager : MonoBehaviour
 				{
 					if (infoA.SceneLoadPriority == infoB.SceneLoadPriority)
 					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								return 0;
-							}
-						}
+						return 0;
 					}
 					if (infoA.SceneLoadPriority < infoB.SceneLoadPriority)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return -1;
-							}
-						}
+						return -1;
 					}
 					return 1;
 				}
 			}
-			Log.Error("Attempting to load empty scene");
+			Log.Error("Attempting to load empty scene", new object[0]);
 			return 0;
 		});
 		for (int i = 0; i < scenesToLoad.Count; i++)
 		{
-			if (!DoesSceneExist(scenesToLoad[i].m_SceneType))
+			if (!this.DoesSceneExist(scenesToLoad[i].m_SceneType))
 			{
 				if (!scenesToLoad[i].UnitySceneLoadName.IsNullOrEmpty())
 				{
@@ -519,208 +438,207 @@ public class UIManager : MonoBehaviour
 				}
 			}
 		}
-		while (true)
-		{
-			DoneInitialLoading = true;
-			yield break;
-		}
+		this.DoneInitialLoading = true;
+		yield break;
 	}
 
 	public void HandleNewSceneStateParameter(SceneStateParameters newParameters)
 	{
-		for (int i = 0; i < RunTimeScenes.Count; i++)
+		for (int i = 0; i < this.RunTimeScenes.Count; i++)
 		{
-			if (RunTimeScenes[i].RuntimeScene.DoesHandleParameter(newParameters))
+			if (this.RunTimeScenes[i].RuntimeScene.DoesHandleParameter(newParameters))
 			{
-				RunTimeScenes[i].RuntimeScene.HandleNewSceneStateParameter(newParameters);
+				this.RunTimeScenes[i].RuntimeScene.HandleNewSceneStateParameter(newParameters);
 			}
 		}
 	}
 
 	private bool DoesSceneExist(SceneType sceneType)
 	{
-		for (int i = 0; i < RunTimeScenes.Count; i++)
+		for (int i = 0; i < this.RunTimeScenes.Count; i++)
 		{
-			if (RunTimeScenes[i].DisplayInfo.m_SceneType != sceneType)
-			{
-				continue;
-			}
-			while (true)
+			if (this.RunTimeScenes[i].DisplayInfo.m_SceneType == sceneType)
 			{
 				return true;
 			}
 		}
-		while (true)
-		{
-			return false;
-		}
+		return false;
 	}
 
-	public void SetGameState(ClientState newState)
+	public void SetGameState(UIManager.ClientState newState)
 	{
-		CurrentState = newState;
-		for (int i = 0; i < RunTimeScenes.Count; i++)
+		this.CurrentState = newState;
+		int i = 0;
+		while (i < this.RunTimeScenes.Count)
 		{
-			if (newState == ClientState.InFrontEnd)
+			if (newState != UIManager.ClientState.InFrontEnd)
 			{
-				if (!RunTimeScenes[i].DisplayInfo.m_InFrontEnd)
-				{
-					goto IL_0080;
-				}
+				goto IL_48;
 			}
-			if (newState == ClientState.InGame)
+			if (!this.RunTimeScenes[i].DisplayInfo.m_InFrontEnd)
 			{
-				if (!RunTimeScenes[i].DisplayInfo.m_InGame)
-				{
-					goto IL_0080;
-				}
+				goto IL_80;
 			}
-			RunTimeScenes[i].RuntimeScene.NotifyGameStateChange(new SceneStateParameters
+			for (;;)
 			{
-				NewClientGameState = newState
-			});
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				goto IL_48;
+			}
+			IL_30C:
+			i++;
 			continue;
-			IL_0080:
-			for (int j = 0; j < RunTimeScenes[i].RuntimeSceneContainer.transform.childCount; j++)
+			IL_80:
+			for (int j = 0; j < this.RunTimeScenes[i].RuntimeSceneContainer.transform.childCount; j++)
 			{
-				UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeSceneContainer.transform.GetChild(j).gameObject);
+				UnityEngine.Object.Destroy(this.RunTimeScenes[i].RuntimeSceneContainer.transform.GetChild(j).gameObject);
 			}
-			if (RunTimeScenes[i].RuntimeStaticSceneContainer != null)
+			if (this.RunTimeScenes[i].RuntimeStaticSceneContainer != null)
 			{
-				for (int k = 0; k < RunTimeScenes[i].RuntimeStaticSceneContainer.transform.childCount; k++)
+				for (int k = 0; k < this.RunTimeScenes[i].RuntimeStaticSceneContainer.transform.childCount; k++)
 				{
-					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeStaticSceneContainer.transform.GetChild(k).gameObject);
+					UnityEngine.Object.Destroy(this.RunTimeScenes[i].RuntimeStaticSceneContainer.transform.GetChild(k).gameObject);
 				}
 			}
-			if (RunTimeScenes[i].RuntimeSemiStaticSceneContainer != null)
+			if (this.RunTimeScenes[i].RuntimeSemiStaticSceneContainer != null)
 			{
-				for (int l = 0; l < RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.childCount; l++)
+				for (int l = 0; l < this.RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.childCount; l++)
 				{
-					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.GetChild(l).gameObject);
+					UnityEngine.Object.Destroy(this.RunTimeScenes[i].RuntimeSemiStaticSceneContainer.transform.GetChild(l).gameObject);
 				}
 			}
-			if (RunTimeScenes[i].RuntimeCameraMovementSceneContainer != null)
+			if (this.RunTimeScenes[i].RuntimeCameraMovementSceneContainer != null)
 			{
-				for (int m = 0; m < RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.childCount; m++)
+				for (int m = 0; m < this.RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.childCount; m++)
 				{
-					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.GetChild(m).gameObject);
+					UnityEngine.Object.Destroy(this.RunTimeScenes[i].RuntimeCameraMovementSceneContainer.transform.GetChild(m).gameObject);
 				}
 			}
-			if (RunTimeScenes[i].RuntimePerFrameSceneContainer != null)
+			if (this.RunTimeScenes[i].RuntimePerFrameSceneContainer != null)
 			{
-				for (int n = 0; n < RunTimeScenes[i].RuntimePerFrameSceneContainer.transform.childCount; n++)
+				for (int n = 0; n < this.RunTimeScenes[i].RuntimePerFrameSceneContainer.transform.childCount; n++)
 				{
-					UnityEngine.Object.Destroy(RunTimeScenes[i].RuntimePerFrameSceneContainer.transform.GetChild(n).gameObject);
+					UnityEngine.Object.Destroy(this.RunTimeScenes[i].RuntimePerFrameSceneContainer.transform.GetChild(n).gameObject);
 				}
 			}
-			RunTimeScenes.RemoveAt(i);
+			this.RunTimeScenes.RemoveAt(i);
 			i--;
+			goto IL_30C;
+			IL_48:
+			if (newState == UIManager.ClientState.InGame)
+			{
+				if (!this.RunTimeScenes[i].DisplayInfo.m_InGame)
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						goto IL_80;
+					}
+				}
+			}
+			this.RunTimeScenes[i].RuntimeScene.NotifyGameStateChange(new SceneStateParameters
+			{
+				NewClientGameState = new UIManager.ClientState?(newState)
+			});
+			goto IL_30C;
 		}
-		while (true)
+		List<UISceneDisplayInfo> list = new List<UISceneDisplayInfo>();
+		for (int num = 0; num < this.LayerInfos.Length; num++)
 		{
-			List<UISceneDisplayInfo> list = new List<UISceneDisplayInfo>();
-			for (int num = 0; num < LayerInfos.Length; num++)
-			{
-				list.AddRange(LayerInfos[num].SetGameState(newState));
-			}
-			while (true)
-			{
-				DoneInitialLoading = false;
-				StartCoroutine("LoadSceneAsync", list);
-				return;
-			}
+			list.AddRange(this.LayerInfos[num].SetGameState(newState));
 		}
+		this.DoneInitialLoading = false;
+		base.StartCoroutine("LoadSceneAsync", list);
 	}
 
 	private void Update()
 	{
-		if (!Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0))
 		{
-			return;
-		}
-		while (true)
-		{
-			for (int i = 0; i < MouseObjectClickListeners.Count; i++)
+			for (int i = 0; i < this.MouseObjectClickListeners.Count; i++)
 			{
 				bool flag = true;
-				UIScene.CloseObjectInfo closeObjectInfo = MouseObjectClickListeners[i];
+				UIScene.CloseObjectInfo closeObjectInfo = this.MouseObjectClickListeners[i];
 				if (closeObjectInfo.m_SceneReference != null)
 				{
-					if (!(EventSystem.current != null))
+					if (EventSystem.current != null)
 					{
-						continue;
-					}
-					if (!EventSystem.current.IsPointerOverGameObject(-1))
-					{
-						continue;
-					}
-					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
-					if (component != null)
-					{
-						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
+						if (EventSystem.current.IsPointerOverGameObject(-1))
 						{
-							Transform transform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform;
-							if (transform != null)
+							StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
+							if (component != null)
 							{
-								int num = 0;
-								while (true)
+								if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 								{
-									if (num < closeObjectInfo.m_GameObjectsToIgnoreCloseCall.Length)
-									{
-										if (closeObjectInfo.m_GameObjectsToIgnoreCloseCall[num] == transform.gameObject)
-										{
-											flag = false;
-											break;
-										}
-										num++;
-										continue;
-									}
-									break;
-								}
-							}
-							if (closeObjectInfo.m_checkParentObjectsOfClickedObject)
-							{
-								if (flag)
-								{
-									while (transform != null)
+									Transform transform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform;
+									if (transform != null)
 									{
 										for (int j = 0; j < closeObjectInfo.m_GameObjectsToIgnoreCloseCall.Length; j++)
 										{
 											if (closeObjectInfo.m_GameObjectsToIgnoreCloseCall[j] == transform.gameObject)
 											{
 												flag = false;
-												break;
+												goto IL_147;
 											}
 										}
-										transform = transform.parent;
 									}
+									IL_147:
+									if (closeObjectInfo.m_checkParentObjectsOfClickedObject)
+									{
+										if (flag)
+										{
+											while (transform != null)
+											{
+												for (int k = 0; k < closeObjectInfo.m_GameObjectsToIgnoreCloseCall.Length; k++)
+												{
+													if (closeObjectInfo.m_GameObjectsToIgnoreCloseCall[k] == transform.gameObject)
+													{
+														flag = false;
+														break;
+													}
+												}
+												transform = transform.parent;
+											}
+										}
+									}
+								}
+							}
+							if (flag)
+							{
+								if (closeObjectInfo.m_GameObjectsToDisableOnClick != null)
+								{
+									for (int l = 0; l < closeObjectInfo.m_GameObjectsToDisableOnClick.Length; l++)
+									{
+										UIManager.SetGameObjectActive(closeObjectInfo.m_GameObjectsToDisableOnClick[l], false, null);
+									}
+								}
+								if (closeObjectInfo.m_AnimatorToClose != null)
+								{
+									UIAnimationEventManager.Get().PlayAnimation(closeObjectInfo.m_AnimatorToClose, closeObjectInfo.m_animationToPlay, null, string.Empty, 0, 0f, true, false, null, null);
 								}
 							}
 						}
 					}
-					if (!flag)
-					{
-						continue;
-					}
-					if (closeObjectInfo.m_GameObjectsToDisableOnClick != null)
-					{
-						for (int k = 0; k < closeObjectInfo.m_GameObjectsToDisableOnClick.Length; k++)
-						{
-							SetGameObjectActive(closeObjectInfo.m_GameObjectsToDisableOnClick[k], false);
-						}
-					}
-					if (closeObjectInfo.m_AnimatorToClose != null)
-					{
-						UIAnimationEventManager.Get().PlayAnimation(closeObjectInfo.m_AnimatorToClose, closeObjectInfo.m_animationToPlay, null, string.Empty);
-					}
 				}
 				else
 				{
-					MouseObjectClickListeners.RemoveAt(i);
+					this.MouseObjectClickListeners.RemoveAt(i);
 					i--;
 				}
 			}
-			return;
 		}
+	}
+
+	public enum ClientState
+	{
+		InFrontEnd,
+		InGame
 	}
 }

@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -41,152 +42,125 @@ public class UIModSelectionGridEntry : MonoBehaviour
 
 	public void Setup(AbilityMod inAbility, bool isSelected, bool isUnlocked, UnityAction<bool> callDelegate = null)
 	{
-		bool isSelected2 = isSelected;
-		associatedAbilityMod = inAbility;
+		this.associatedAbilityMod = inAbility;
 		bool flag = true;
-		m_ModEnabled.enabled = flag;
+		this.m_ModEnabled.enabled = flag;
 		flag = flag;
-		m_ModName.enabled = flag;
+		this.m_ModName.enabled = flag;
 		flag = flag;
-		m_ModPoints.enabled = flag;
+		this.m_ModPoints.enabled = flag;
 		base.enabled = flag;
-		m_ModName.text = associatedAbilityMod.GetName();
-		m_ModPoints.text = associatedAbilityMod.m_equipCost.ToString();
-		m_isUnLocked = isUnlocked;
-		m_ModEnabled.isOn = isSelected2;
-		UIManager.SetGameObjectActive(m_ModName, true);
-		bool selected = isSelected2;
-		Text modName = m_ModName;
+		this.m_ModName.text = this.associatedAbilityMod.GetName();
+		this.m_ModPoints.text = this.associatedAbilityMod.m_equipCost.ToString();
+		this.m_isUnLocked = isUnlocked;
+		this.m_ModEnabled.isOn = isSelected;
+		UIManager.SetGameObjectActive(this.m_ModName, true, null);
+		bool isSelected2 = isSelected;
+		bool isHighlighted = false;
+		Text modName = this.m_ModName;
 		Color color;
-		if (!m_isUnLocked)
+		if (!this.m_isUnLocked)
 		{
-			color = m_LockedColor;
+			color = this.m_LockedColor;
 		}
-		else if (isSelected2)
+		else if (isSelected)
 		{
-			color = m_SelectedColor;
+			color = this.m_SelectedColor;
 		}
 		else
 		{
-			color = m_NotSelectedColor;
+			color = this.m_NotSelectedColor;
 		}
-		setColor(selected, false, modName, color);
-		bool selected2 = isSelected2;
-		Text modPoints = m_ModPoints;
+		this.setColor(isSelected2, isHighlighted, modName, color);
+		bool isSelected3 = isSelected;
+		bool isHighlighted2 = false;
+		Text modPoints = this.m_ModPoints;
 		Color color2;
-		if (!m_isUnLocked)
+		if (!this.m_isUnLocked)
 		{
-			color2 = m_LockedColor;
+			color2 = this.m_LockedColor;
 		}
-		else if (isSelected2)
+		else if (isSelected)
 		{
-			color2 = m_SelectedColor;
+			color2 = this.m_SelectedColor;
 		}
 		else
 		{
-			color2 = m_NotSelectedColor;
+			color2 = this.m_NotSelectedColor;
 		}
-		setColor(selected2, false, modPoints, color2);
-		if (m_lockIcon != null)
+		this.setColor(isSelected3, isHighlighted2, modPoints, color2);
+		if (this.m_lockIcon != null)
 		{
-			m_lockIcon.enabled = !isUnlocked;
+			this.m_lockIcon.enabled = !isUnlocked;
 		}
-		m_ModPoints.text = associatedAbilityMod.m_equipCost.ToString();
-		thisDelegate = callDelegate;
+		this.m_ModPoints.text = this.associatedAbilityMod.m_equipCost.ToString();
+		this.thisDelegate = callDelegate;
 		if (!isUnlocked)
 		{
-			while (true)
+			this.m_ModEnabled.enabled = false;
+			if (this.m_lockBackground != null)
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_ModEnabled.enabled = false;
-					if (m_lockBackground != null)
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								m_lockBackground.color = Color.gray;
-								return;
-							}
-						}
-					}
-					return;
-				}
+				this.m_lockBackground.color = Color.gray;
 			}
 		}
-		m_ModEnabled.onValueChanged.AddListener(delegate(bool x)
+		else
 		{
-			if (isUnlocked)
+			this.m_ModEnabled.onValueChanged.AddListener(delegate(bool x)
 			{
-				if (m_lockBackground != null)
+				if (isUnlocked)
 				{
-					m_lockBackground.color = Color.white;
-				}
-				isSelected2 = x;
-				UIModSelectionGridEntry uIModSelectionGridEntry = this;
-				bool selected3 = isSelected2;
-				Text modName2 = m_ModName;
-				Color color3;
-				if (isSelected2)
-				{
-					color3 = m_SelectedColor;
-				}
-				else
-				{
-					color3 = m_NotSelectedColor;
-				}
-				uIModSelectionGridEntry.setColor(selected3, false, modName2, color3);
-				UIModSelectionGridEntry uIModSelectionGridEntry2 = this;
-				bool selected4 = isSelected2;
-				Text modPoints2 = m_ModPoints;
-				Color color4;
-				if (isSelected2)
-				{
-					color4 = m_SelectedColor;
-				}
-				else
-				{
-					color4 = m_NotSelectedColor;
-				}
-				uIModSelectionGridEntry2.setColor(selected4, false, modPoints2, color4);
-				justSet = x;
-				if (thisDelegate != null)
-				{
-					while (true)
+					if (this.m_lockBackground != null)
 					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							thisDelegate(x);
-							return;
-						}
+						this.m_lockBackground.color = Color.white;
+					}
+					isSelected = x;
+					UIModSelectionGridEntry _this = this;
+					bool isSelected4 = isSelected;
+					bool isHighlighted3 = false;
+					Text modName2 = this.m_ModName;
+					Color color3;
+					if (isSelected)
+					{
+						color3 = this.m_SelectedColor;
+					}
+					else
+					{
+						color3 = this.m_NotSelectedColor;
+					}
+					_this.setColor(isSelected4, isHighlighted3, modName2, color3);
+					UIModSelectionGridEntry _this2 = this;
+					bool isSelected5 = isSelected;
+					bool isHighlighted4 = false;
+					Text modPoints2 = this.m_ModPoints;
+					Color color4;
+					if (isSelected)
+					{
+						color4 = this.m_SelectedColor;
+					}
+					else
+					{
+						color4 = this.m_NotSelectedColor;
+					}
+					_this2.setColor(isSelected5, isHighlighted4, modPoints2, color4);
+					this.justSet = x;
+					if (this.thisDelegate != null)
+					{
+						this.thisDelegate(x);
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	private void setColor(bool selected, bool isHighlighted, Text text, Color color)
 	{
-		float r = color.r;
-		float g = color.g;
-		float b = color.b;
-		Color color2 = text.color;
-		text.color = new Color(r, g, b, color2.a);
-		text.fontSize = ((!selected) ? notSelectedSize : selectedSize);
-		Outline component = m_ModPoints.GetComponent<Outline>();
+		text.color = new Color(color.r, color.g, color.b, text.color.a);
+		text.fontSize = ((!selected) ? this.notSelectedSize : this.selectedSize);
+		Outline component = this.m_ModPoints.GetComponent<Outline>();
 		if (component != null)
 		{
 			component.effectColor = Color.black;
+			Shadow shadow = component;
 			Vector2 effectDistance;
 			if (selected)
 			{
@@ -196,40 +170,35 @@ public class UIModSelectionGridEntry : MonoBehaviour
 			{
 				effectDistance = new Vector2(2f, -2f);
 			}
-			component.effectDistance = effectDistance;
+			shadow.effectDistance = effectDistance;
 		}
-		Shadow component2 = m_ModPoints.GetComponent<Shadow>();
-		if (!(component2 != null))
-		{
-			return;
-		}
-		while (true)
+		Shadow component2 = this.m_ModPoints.GetComponent<Shadow>();
+		if (component2 != null)
 		{
 			component2.effectColor = Color.black;
-			return;
 		}
 	}
 
 	public void Disable()
 	{
-		associatedAbilityMod = null;
+		this.associatedAbilityMod = null;
 		base.enabled = false;
-		Text modPoints = m_ModPoints;
+		Text modPoints = this.m_ModPoints;
 		string empty = string.Empty;
-		m_ModName.text = empty;
+		this.m_ModName.text = empty;
 		modPoints.text = empty;
-		Text modPoints2 = m_ModPoints;
-		Color notSelectedColor = m_NotSelectedColor;
-		m_ModName.color = notSelectedColor;
+		Graphic modPoints2 = this.m_ModPoints;
+		Color notSelectedColor = this.m_NotSelectedColor;
+		this.m_ModName.color = notSelectedColor;
 		modPoints2.color = notSelectedColor;
-		Text modPoints3 = m_ModPoints;
+		Behaviour modPoints3 = this.m_ModPoints;
 		bool flag = false;
-		m_ModEnabled.enabled = flag;
+		this.m_ModEnabled.enabled = flag;
 		flag = flag;
-		m_ModName.enabled = flag;
+		this.m_ModName.enabled = flag;
 		modPoints3.enabled = flag;
-		m_ModEnabled.onValueChanged.RemoveAllListeners();
-		thisDelegate = null;
-		justSet = false;
+		this.m_ModEnabled.onValueChanged.RemoveAllListeners();
+		this.thisDelegate = null;
+		this.justSet = false;
 	}
 }

@@ -1,74 +1,17 @@
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using WebSocketSharp;
 
 public class DiscordClientInterface : MonoBehaviour
 {
-	internal struct RpcWebSocketEnvelope
-	{
-		public string JsonMessage;
-
-		public MethodInfo MethodInfo;
-
-		public Action<string> InvokerDelegate;
-	}
-
-	internal class RpcRequest
-	{
-		public string nonce
-		{
-			get;
-			set;
-		}
-
-		public Dictionary<object, object> args
-		{
-			get;
-			set;
-		}
-
-		public string cmd
-		{
-			get;
-			set;
-		}
-	}
-
-	internal class RpcResponse
-	{
-		public string cmd
-		{
-			get;
-			set;
-		}
-
-		public object data
-		{
-			get;
-			set;
-		}
-
-		public string evt
-		{
-			get;
-			set;
-		}
-
-		public string nonce
-		{
-			get;
-			set;
-		}
-	}
-
 	public Action<bool> OnConnected;
 
 	public Action OnDisconnected;
@@ -117,197 +60,63 @@ public class DiscordClientInterface : MonoBehaviour
 
 	private Scheduler m_rpcScheduler;
 
-	private static readonly int RPC_PORT_BEGIN = 6463;
+	private static readonly int RPC_PORT_BEGIN = 0x193F;
 
-	private static readonly int RPC_PORT_END = 6473;
+	private static readonly int RPC_PORT_END = 0x1949;
 
 	private static readonly int RPC_COMMAND_TIMEOUT_SEC = 5;
 
-	public SynchronizationContext SynchronizationContext
+	public DiscordClientInterface()
 	{
-		get;
-		set;
-	}
-
-	public static bool IsEnabled => false;
-
-	public static bool IsSdkEnabled => false;
-
-	public static bool IsInstalled
-	{
-		get
+		
+		this.OnConnected = delegate(bool A_0)
+			{
+			};
+		
+		this.OnDisconnected = delegate()
+			{
+			};
+		
+		this.OnAuthorized = delegate(string A_0)
+			{
+			};
+		
+		this.OnAuthenticated = delegate(DiscordUserInfo A_0)
+			{
+			};
+		
+		this.OnJoined = delegate()
+			{
+			};
+		this.OnLeft = delegate()
 		{
-			try
+		};
+		
+		this.OnUserJoined = delegate(DiscordUserInfo A_0)
 			{
-				string name = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
-				RegistryKey key = Registry.CurrentUser.OpenSubKey(name);
-				if (key != null)
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-						{
-							IEnumerator<RegistryKey> enumerator = (from keyName in key.GetSubKeyNames()
-								select key.OpenSubKey(keyName)).GetEnumerator();
-							try
-							{
-								while (enumerator.MoveNext())
-								{
-									RegistryKey current = enumerator.Current;
-									string text = current.GetValue("DisplayName") as string;
-									if (text != null && text.Contains("Discord"))
-									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												break;
-											default:
-												return true;
-											}
-										}
-									}
-								}
-							}
-							finally
-							{
-								if (enumerator != null)
-								{
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											break;
-										default:
-											enumerator.Dispose();
-											goto end_IL_00b1;
-										}
-									}
-								}
-								end_IL_00b1:;
-							}
-							key.Close();
-							goto end_IL_0000;
-						}
-						}
-					}
-				}
-				end_IL_0000:;
-			}
-			catch (Exception ex)
+			};
+		
+		this.OnUserLeft = delegate(DiscordUserInfo A_0)
 			{
-				Log.Error("Failed to check Discord installation in registry. {0}", ex);
-			}
-			return false;
-		}
+			};
+		
+		this.OnUserSpeakingChanged = delegate(DiscordUserInfo A_0)
+			{
+			};
+		
+		this.OnErrorHolder = delegate(ErrorEventArgs A_0)
+			{
+			};
+		this.m_discordChannelUsers = new List<DiscordUserInfo>();
+		
 	}
 
-	public static bool CanJoinTeamChat
+	public SynchronizationContext SynchronizationContext { get; set; }
+
+	public static DiscordClientInterface Get()
 	{
-		get
-		{
-			GameManager gameManager = GameManager.Get();
-			int result;
-			if (gameManager != null && gameManager.GameInfo != null)
-			{
-				if (gameManager.GameInfo.GameStatus != GameStatus.Stopped && gameManager.GameInfo.GameConfig != null)
-				{
-					if (gameManager.GameInfo.GameConfig.GameType.IsQueueable() || gameManager.GameInfo.IsCustomGame)
-					{
-						result = ((gameManager.PlayerInfo != null) ? 1 : 0);
-						goto IL_0099;
-					}
-				}
-			}
-			result = 0;
-			goto IL_0099;
-			IL_0099:
-			return (byte)result != 0;
-		}
+		return DiscordClientInterface.s_instance;
 	}
-
-	public static bool CanJoinGroupChat
-	{
-		get
-		{
-			LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
-			int result;
-			if (groupInfo != null)
-			{
-				result = (groupInfo.InAGroup ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
-		}
-	}
-
-	public bool IsConnected
-	{
-		get
-		{
-			int result;
-			if (m_webSocket != null)
-			{
-				result = (m_webSocket.IsAlive ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
-		}
-	}
-
-	public DiscordChannelInfo ChannelInfo => m_channelInfo;
-
-	public DiscordUserInfo UserInfo => m_userInfo;
-
-	public List<DiscordUserInfo> ChannelUsers => m_discordChannelUsers;
-
-	private int RpcPort
-	{
-		get
-		{
-			int result;
-			if (s_RpcPortOverride != 0)
-			{
-				result = s_RpcPortOverride;
-			}
-			else
-			{
-				result = RPC_PORT_BEGIN + m_rpcPortOffset;
-			}
-			return result;
-		}
-	}
-
-	private string RpcOrigin
-	{
-		get
-		{
-			string result;
-			if (m_authInfo != null)
-			{
-				result = m_authInfo.RpcOrigin;
-			}
-			else
-			{
-				result = string.Empty;
-			}
-			return result;
-		}
-	}
-
-	private string ClientId => (m_authInfo == null) ? string.Empty : m_authInfo.ClientId;
 
 	private Action<ErrorEventArgs> OnErrorHolder;
 	public event Action<ErrorEventArgs> OnError
@@ -319,13 +128,9 @@ public class DiscordClientInterface : MonoBehaviour
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -334,183 +139,293 @@ public class DiscordClientInterface : MonoBehaviour
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
-	public DiscordClientInterface()
+	public static bool IsEnabled
 	{
-		
-		OnConnected = delegate
-			{
-			};
-		
-		OnDisconnected = delegate
-			{
-			};
-		
-		OnAuthorized = delegate
-			{
-			};
-		
-		OnAuthenticated = delegate
-			{
-			};
-		
-		OnJoined = delegate
-			{
-			};
-		OnLeft = delegate
+		get
 		{
-		};
-		
-		OnUserJoined = delegate
-			{
-			};
-		
-		OnUserLeft = delegate
-			{
-			};
-		
-		OnUserSpeakingChanged = delegate
-			{
-			};
-		
-		this.OnErrorHolder = delegate
-			{
-			};
-		m_discordChannelUsers = new List<DiscordUserInfo>();
-		
+			return false;
+		}
 	}
 
-	public static DiscordClientInterface Get()
+	public static bool IsSdkEnabled
 	{
-		return s_instance;
+		get
+		{
+			return false;
+		}
+	}
+
+	public static bool IsInstalled
+	{
+		get
+		{
+			try
+			{
+				string name = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
+				RegistryKey key = Registry.CurrentUser.OpenSubKey(name);
+				if (key != null)
+				{
+					IEnumerator<RegistryKey> enumerator = (from keyName in key.GetSubKeyNames()
+					select key.OpenSubKey(keyName)).GetEnumerator();
+					try
+					{
+						while (enumerator.MoveNext())
+						{
+							RegistryKey registryKey = enumerator.Current;
+							string text = registryKey.GetValue("DisplayName") as string;
+							if (text != null && text.Contains("Discord"))
+							{
+								return true;
+							}
+						}
+					}
+					finally
+					{
+						if (enumerator != null)
+						{
+							enumerator.Dispose();
+						}
+					}
+					key.Close();
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Failed to check Discord installation in registry. {0}", new object[]
+				{
+					ex
+				});
+			}
+			return false;
+		}
+	}
+
+	public static bool CanJoinTeamChat
+	{
+		get
+		{
+			GameManager gameManager = GameManager.Get();
+			if (gameManager != null && gameManager.GameInfo != null)
+			{
+				if (gameManager.GameInfo.GameStatus != GameStatus.Stopped && gameManager.GameInfo.GameConfig != null)
+				{
+					if (gameManager.GameInfo.GameConfig.GameType.IsQueueable() || gameManager.GameInfo.IsCustomGame)
+					{
+						return gameManager.PlayerInfo != null;
+					}
+				}
+			}
+			return false;
+		}
+	}
+
+	public static bool CanJoinGroupChat
+	{
+		get
+		{
+			LobbyPlayerGroupInfo groupInfo = ClientGameManager.Get().GroupInfo;
+			bool result;
+			if (groupInfo != null)
+			{
+				result = groupInfo.InAGroup;
+			}
+			else
+			{
+				result = false;
+			}
+			return result;
+		}
+	}
+
+	public bool IsConnected
+	{
+		get
+		{
+			bool result;
+			if (this.m_webSocket != null)
+			{
+				result = this.m_webSocket.IsAlive;
+			}
+			else
+			{
+				result = false;
+			}
+			return result;
+		}
+	}
+
+	public DiscordChannelInfo ChannelInfo
+	{
+		get
+		{
+			return this.m_channelInfo;
+		}
+	}
+
+	public DiscordUserInfo UserInfo
+	{
+		get
+		{
+			return this.m_userInfo;
+		}
+	}
+
+	public List<DiscordUserInfo> ChannelUsers
+	{
+		get
+		{
+			return this.m_discordChannelUsers;
+		}
+	}
+
+	private int RpcPort
+	{
+		get
+		{
+			int result;
+			if (DiscordClientInterface.s_RpcPortOverride != 0)
+			{
+				result = DiscordClientInterface.s_RpcPortOverride;
+			}
+			else
+			{
+				result = DiscordClientInterface.RPC_PORT_BEGIN + this.m_rpcPortOffset;
+			}
+			return result;
+		}
+	}
+
+	private string RpcOrigin
+	{
+		get
+		{
+			string result;
+			if (this.m_authInfo != null)
+			{
+				result = this.m_authInfo.RpcOrigin;
+			}
+			else
+			{
+				result = string.Empty;
+			}
+			return result;
+		}
+	}
+
+	private string ClientId
+	{
+		get
+		{
+			return (this.m_authInfo == null) ? string.Empty : this.m_authInfo.ClientId;
+		}
 	}
 
 	private void Awake()
 	{
-		s_instance = this;
+		DiscordClientInterface.s_instance = this;
 	}
 
 	private void Start()
 	{
-		m_jsonDateFormatSettings = new JsonSerializerSettings
+		this.m_jsonDateFormatSettings = new JsonSerializerSettings
 		{
 			DateFormatHandling = DateFormatHandling.IsoDateFormat,
 			DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
 		};
-		m_rpcScheduler = new Scheduler();
-		m_rpcPortOffset = 0;
-		s_RpcPortOverride = 0;
-		SynchronizationContext = SynchronizationContext.Current;
+		this.m_rpcScheduler = new Scheduler();
+		this.m_rpcPortOffset = 0;
+		DiscordClientInterface.s_RpcPortOverride = 0;
+		this.SynchronizationContext = SynchronizationContext.Current;
 	}
 
 	private void Update()
 	{
 	}
 
-	private static void _001D(string _001D, params object[] _000E)
+	private static void symbol_001D(string symbol_001D, params object[] symbol_000E)
 	{
-		if (!s_debugOutput)
+		if (DiscordClientInterface.s_debugOutput)
 		{
-			return;
-		}
-		while (true)
-		{
-			string str = string.Format(_001D, _000E);
-			Log.Info("Discord | " + str);
-			if (SynchronizationContext.Current == null)
-			{
-				return;
-			}
-			while (true)
+			string str = string.Format(symbol_001D, symbol_000E);
+			Log.Info("Discord | " + str, new object[0]);
+			if (SynchronizationContext.Current != null)
 			{
 				if (TextConsole.Get() != null)
 				{
-					while (true)
-					{
-						TextConsole.Get().Write("Discord | " + str, ConsoleMessageType._001D);
-						return;
-					}
+					TextConsole.Get().Write("Discord | " + str, ConsoleMessageType._001D);
 				}
-				return;
 			}
 		}
 	}
 
-	private static void _001D(RpcResponse _001D)
+	private static void symbol_001D(DiscordClientInterface.RpcResponse symbol_001D)
 	{
-		if (!s_debugOutput)
+		if (DiscordClientInterface.s_debugOutput)
 		{
-			return;
-		}
-		while (true)
-		{
-			string str = JsonConvert.SerializeObject(_001D, Formatting.Indented);
-			Log.Info("Discord | " + str);
-			return;
+			string str = JsonConvert.SerializeObject(symbol_001D, Formatting.Indented);
+			Log.Info("Discord | " + str, new object[0]);
 		}
 	}
 
 	private void Authorize()
 	{
-		RpcRequest rpcRequest = new RpcRequest();
+		DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
 		rpcRequest.nonce = Guid.NewGuid().ToString();
 		rpcRequest.args = new Dictionary<object, object>();
-		rpcRequest.args["client_id"] = m_authInfo.ClientId;
+		rpcRequest.args["client_id"] = this.m_authInfo.ClientId;
 		List<string> list = new List<string>();
 		list.Add("rpc");
 		list.Add("rpc.api");
 		list.Add("guilds.join");
 		rpcRequest.args["scopes"] = list;
-		rpcRequest.args["rpc_token"] = m_authInfo.RpcToken;
+		rpcRequest.args["rpc_token"] = this.m_authInfo.RpcToken;
 		rpcRequest.cmd = "AUTHORIZE";
 		string data = JsonConvert.SerializeObject(rpcRequest);
-		m_webSocket.Send(data);
+		this.m_webSocket.Send(data);
 	}
 
 	public void Authenticate(DiscordUserInfo userInfo)
 	{
-		m_userInfo = userInfo;
-		RpcRequest rpcRequest = new RpcRequest();
+		this.m_userInfo = userInfo;
+		DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
 		rpcRequest.nonce = Guid.NewGuid().ToString();
 		rpcRequest.args = new Dictionary<object, object>();
-		rpcRequest.args["access_token"] = m_userInfo.AccessToken;
+		rpcRequest.args["access_token"] = this.m_userInfo.AccessToken;
 		rpcRequest.cmd = "AUTHENTICATE";
 		string data = JsonConvert.SerializeObject(rpcRequest);
-		m_webSocket.Send(data);
+		this.m_webSocket.Send(data);
 	}
 
 	private void Invoke(string jsonMessage)
 	{
-		RpcWebSocketEnvelope rpcWebSocketEnvelope = default(RpcWebSocketEnvelope);
+		DiscordClientInterface.RpcWebSocketEnvelope rpcWebSocketEnvelope = default(DiscordClientInterface.RpcWebSocketEnvelope);
 		rpcWebSocketEnvelope.JsonMessage = jsonMessage;
-		Action<string> messageDelegate = Dispatch;
-		Action<string> action = rpcWebSocketEnvelope.InvokerDelegate = delegate(string msg)
+		Action<string> messageDelegate = new Action<string>(this.Dispatch);
+		Action<string> invokerDelegate = delegate(string msg)
 		{
 			messageDelegate(msg);
 		};
+		rpcWebSocketEnvelope.InvokerDelegate = invokerDelegate;
 		rpcWebSocketEnvelope.MethodInfo = messageDelegate.Method;
-		if (SynchronizationContext != null)
+		if (this.SynchronizationContext != null)
 		{
-			SynchronizationContext.Post(InvokeAsync, rpcWebSocketEnvelope, rpcWebSocketEnvelope.MethodInfo);
+			this.SynchronizationContext.Post(new SendOrPostCallback(this.InvokeAsync), rpcWebSocketEnvelope, rpcWebSocketEnvelope.MethodInfo);
 		}
 		else
 		{
-			InvokeAsync(rpcWebSocketEnvelope);
+			this.InvokeAsync(rpcWebSocketEnvelope);
 		}
 	}
 
 	private void InvokeAsync(object _envelope)
 	{
-		RpcWebSocketEnvelope rpcWebSocketEnvelope = (RpcWebSocketEnvelope)_envelope;
+		DiscordClientInterface.RpcWebSocketEnvelope rpcWebSocketEnvelope = (DiscordClientInterface.RpcWebSocketEnvelope)_envelope;
 		rpcWebSocketEnvelope.InvokerDelegate(rpcWebSocketEnvelope.JsonMessage);
 	}
 
@@ -518,672 +433,514 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		try
 		{
-			RpcResponse rpcResponse = JsonConvert.DeserializeObject<RpcResponse>(jsonMessage, m_jsonDateFormatSettings);
-			object obj;
+			DiscordClientInterface.RpcResponse rpcResponse = JsonConvert.DeserializeObject<DiscordClientInterface.RpcResponse>(jsonMessage, this.m_jsonDateFormatSettings);
+			JObject jobject;
 			if (rpcResponse.data != null)
 			{
-				obj = JObject.Parse(rpcResponse.data.ToString());
+				jobject = JObject.Parse(rpcResponse.data.ToString());
 			}
 			else
 			{
-				obj = null;
+				jobject = null;
 			}
-			JObject jObject = (JObject)obj;
-			_001D(rpcResponse);
+			JObject jobject2 = jobject;
+			DiscordClientInterface.symbol_001D(rpcResponse);
 			if (rpcResponse.cmd == "CONNECTION_OPEN")
 			{
-				while (true)
+				DiscordClientInterface.symbol_001D("Connected to 127.0.0.1:{0}", new object[]
 				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-					{
-						_001D("Connected to 127.0.0.1:{0}", RpcPort);
-						bool obj2 = m_authInfo == null;
-						OnConnected(obj2);
-						m_retryToConnect = false;
-						m_rpcPortOffset = 0;
-						return;
-					}
-					}
-				}
+					this.RpcPort
+				});
+				bool obj = this.m_authInfo == null;
+				this.OnConnected(obj);
+				this.m_retryToConnect = false;
+				this.m_rpcPortOffset = 0;
 			}
-			if (rpcResponse.cmd == "CONNECTION_ERROR")
+			else if (rpcResponse.cmd == "CONNECTION_ERROR")
 			{
-				while (true)
+				DiscordClientInterface.symbol_001D("Connection error to 127.0.0.1:{0}", new object[]
 				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						_001D("Connection error to 127.0.0.1:{0}", RpcPort);
-						return;
-					}
-				}
+					this.RpcPort
+				});
 			}
-			if (rpcResponse.cmd == "CONNECTION_CLOSE")
+			else if (rpcResponse.cmd == "CONNECTION_CLOSE")
 			{
-				while (true)
+				if (this.m_retryToConnect)
 				{
-					switch (5)
+					this.m_rpcPortOffset++;
+					if (DiscordClientInterface.RPC_PORT_BEGIN + this.m_rpcPortOffset > DiscordClientInterface.RPC_PORT_END)
 					{
-					case 0:
-						break;
-					default:
-						if (m_retryToConnect)
-						{
-							m_rpcPortOffset++;
-							if (RPC_PORT_BEGIN + m_rpcPortOffset > RPC_PORT_END)
-							{
-								_001D("Failed to connect to discord");
-								Disconnect();
-								OnDisconnected();
-							}
-							else
-							{
-								m_webSocket.Close();
-								m_webSocket = null;
-								TryConnect();
-							}
-						}
-						else
-						{
-							_001D("Disconnected from discord");
-							if (m_authInfo != null)
-							{
-								OnLeft();
-							}
-							Disconnect();
-							OnDisconnected();
-						}
-						return;
+						DiscordClientInterface.symbol_001D("Failed to connect to discord", new object[0]);
+						this.Disconnect();
+						this.OnDisconnected();
 					}
-				}
-			}
-			if (rpcResponse.cmd == "DISPATCH")
-			{
-				while (true)
-				{
-					switch (5)
+					else
 					{
-					case 0:
-						break;
-					default:
-						if (rpcResponse.evt == "READY")
-						{
-							if (m_authInfo != null)
-							{
-								if (m_userInfo == null)
-								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											break;
-										default:
-											Authorize();
-											return;
-										}
-									}
-								}
-							}
-						}
-						if (rpcResponse.evt == "CAPTURE_SHORTCUT_CHANGE")
-						{
-							if (jObject != null)
-							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-									{
-										JToken jToken = jObject.SelectToken("shortcut").ElementAt(0);
-										int num = Convert.ToInt32(jToken.SelectToken("type").ToString());
-										int num2 = Convert.ToInt32(jToken.SelectToken("code").ToString());
-										string text = jToken.SelectToken("name").ToString();
-										if (ClientGameManager.Get() != null)
-										{
-											ClientGameManager.Get().SetPushToTalkKey(num, num2, text);
-										}
-										if (m_pushToTalkScanCallback != null)
-										{
-											m_pushToTalkScanCallback(num, num2, text);
-										}
-										ScanPushToTalkKey(false, null);
-										RefreshSettings();
-										return;
-									}
-									}
-								}
-							}
-						}
-						if (rpcResponse.evt == "VOICE_STATE_CREATE")
-						{
-							if (jObject != null)
-							{
-								bool flag = false;
-								ulong num3 = ulong.Parse(jObject.SelectToken("user.id").ToString());
-								int num4 = 0;
-								while (true)
-								{
-									if (num4 >= m_discordChannelUsers.Count)
-									{
-										break;
-									}
-									if (m_discordChannelUsers[num4].UserId == num3)
-									{
-										flag = true;
-										break;
-									}
-									num4++;
-								}
-								if (!flag)
-								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											break;
-										default:
-										{
-											DiscordUserInfo discordUserInfo = new DiscordUserInfo();
-											discordUserInfo.UserId = num3;
-											discordUserInfo.UserName = jObject.SelectToken("user.username").ToString();
-											discordUserInfo.Discriminator = jObject.SelectToken("user.discriminator").ToString();
-											m_discordChannelUsers.Add(discordUserInfo);
-											OnUserJoined(discordUserInfo);
-											return;
-										}
-										}
-									}
-								}
-								return;
-							}
-						}
-						if (rpcResponse.evt == "VOICE_STATE_DELETE")
-						{
-							if (jObject != null)
-							{
-								ulong num5 = ulong.Parse(jObject.SelectToken("user.id").ToString());
-								for (int i = 0; i < m_discordChannelUsers.Count; i++)
-								{
-									if (m_discordChannelUsers[i].UserId == num5)
-									{
-										while (true)
-										{
-											switch (3)
-											{
-											case 0:
-												break;
-											default:
-											{
-												DiscordUserInfo obj3 = m_discordChannelUsers[i];
-												m_discordChannelUsers.RemoveAt(i);
-												OnUserLeft(obj3);
-												return;
-											}
-											}
-										}
-									}
-								}
-								while (true)
-								{
-									switch (3)
-									{
-									default:
-										return;
-									case 0:
-										break;
-									}
-								}
-							}
-						}
-						if (!(rpcResponse.evt == "SPEAKING_START"))
-						{
-							if (!(rpcResponse.evt == "SPEAKING_STOP"))
-							{
-								return;
-							}
-						}
-						if (jObject != null)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-								{
-									ulong num6 = ulong.Parse(jObject.SelectToken("user_id").ToString());
-									int num7 = 0;
-									while (true)
-									{
-										if (num7 >= m_discordChannelUsers.Count)
-										{
-											return;
-										}
-										if (m_discordChannelUsers[num7].UserId == num6)
-										{
-											break;
-										}
-										num7++;
-									}
-									while (true)
-									{
-										switch (5)
-										{
-										case 0:
-											break;
-										default:
-											m_discordChannelUsers[num7].IsSpeaking = (rpcResponse.evt == "SPEAKING_START");
-											OnUserSpeakingChanged(m_discordChannelUsers[num7]);
-											return;
-										}
-									}
-								}
-								}
-							}
-						}
-						return;
+						this.m_webSocket.Close();
+						this.m_webSocket = null;
+						this.TryConnect();
 					}
-				}
-			}
-			if (rpcResponse.cmd == "AUTHORIZE")
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-					{
-						string obj4 = jObject.SelectToken("code").ToString();
-						OnAuthorized(obj4);
-						return;
-					}
-					}
-				}
-			}
-			if (rpcResponse.cmd == "AUTHENTICATE")
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						if (rpcResponse.evt.IsNullOrEmpty())
-						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-								{
-									JToken jToken2 = jObject.SelectToken("user.id");
-									m_userInfo.UserId = ulong.Parse(jToken2.ToString());
-									OnAuthenticated(m_userInfo);
-									return;
-								}
-								}
-							}
-						}
-						_001D("Failed to authenticate RPC connection {0}", jObject);
-						return;
-					}
-				}
-			}
-			if (rpcResponse.cmd == "TRY_SELECT_VOICE_CHANNEL")
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-					{
-						JToken jToken3 = jObject.SelectToken("code");
-						int num8 = int.Parse(jToken3.ToString());
-						bool force = num8 == 5003;
-						TrySelectVoiceChannel(force);
-						return;
-					}
-					}
-				}
-			}
-			if (rpcResponse.cmd == "SELECT_VOICE_CHANNEL")
-			{
-				if (rpcResponse.evt.IsNullOrEmpty())
-				{
-					_001D("Connected to voice channel {0}", m_channelInfo.VoiceChannelId);
-					OnJoined();
 				}
 				else
 				{
-					_001D("Failed to connect to voice channel {0} {1}. Retrying", m_channelInfo.VoiceChannelId, jObject);
-					RetrySelectVoiceChannel(jObject);
+					DiscordClientInterface.symbol_001D("Disconnected from discord", new object[0]);
+					if (this.m_authInfo != null)
+					{
+						this.OnLeft();
+					}
+					this.Disconnect();
+					this.OnDisconnected();
+				}
+			}
+			else if (rpcResponse.cmd == "DISPATCH")
+			{
+				if (rpcResponse.evt == "READY")
+				{
+					if (this.m_authInfo != null)
+					{
+						if (this.m_userInfo == null)
+						{
+							this.Authorize();
+							goto IL_5C4;
+						}
+					}
+				}
+				if (rpcResponse.evt == "CAPTURE_SHORTCUT_CHANGE")
+				{
+					if (jobject2 != null)
+					{
+						JToken jtoken = jobject2.SelectToken("shortcut").ElementAt(0);
+						int num = Convert.ToInt32(jtoken.SelectToken("type").ToString());
+						int num2 = Convert.ToInt32(jtoken.SelectToken("code").ToString());
+						string text = jtoken.SelectToken("name").ToString();
+						if (ClientGameManager.Get() != null)
+						{
+							ClientGameManager.Get().SetPushToTalkKey(num, num2, text);
+						}
+						if (this.m_pushToTalkScanCallback != null)
+						{
+							this.m_pushToTalkScanCallback(num, num2, text);
+						}
+						this.ScanPushToTalkKey(false, null);
+						this.RefreshSettings();
+						goto IL_5C4;
+					}
+				}
+				if (rpcResponse.evt == "VOICE_STATE_CREATE")
+				{
+					if (jobject2 != null)
+					{
+						bool flag = false;
+						ulong num3 = ulong.Parse(jobject2.SelectToken("user.id").ToString());
+						for (int i = 0; i < this.m_discordChannelUsers.Count; i++)
+						{
+							if (this.m_discordChannelUsers[i].UserId == num3)
+							{
+								flag = true;
+								break;
+							}
+						}
+						if (!flag)
+						{
+							DiscordUserInfo discordUserInfo = new DiscordUserInfo();
+							discordUserInfo.UserId = num3;
+							discordUserInfo.UserName = jobject2.SelectToken("user.username").ToString();
+							discordUserInfo.Discriminator = jobject2.SelectToken("user.discriminator").ToString();
+							this.m_discordChannelUsers.Add(discordUserInfo);
+							this.OnUserJoined(discordUserInfo);
+						}
+						goto IL_5C4;
+
+					}
+				}
+				if (rpcResponse.evt == "VOICE_STATE_DELETE")
+				{
+					if (jobject2 != null)
+					{
+						ulong num4 = ulong.Parse(jobject2.SelectToken("user.id").ToString());
+						for (int j = 0; j < this.m_discordChannelUsers.Count; j++)
+						{
+							if (this.m_discordChannelUsers[j].UserId == num4)
+							{
+								DiscordUserInfo obj2 = this.m_discordChannelUsers[j];
+								this.m_discordChannelUsers.RemoveAt(j);
+								this.OnUserLeft(obj2);
+								break;
+							}
+						}
+						goto IL_5C4;
+
+					}
+				}
+				if (!(rpcResponse.evt == "SPEAKING_START"))
+				{
+					if (!(rpcResponse.evt == "SPEAKING_STOP"))
+					{
+						goto IL_5C4;
+					}
+				}
+				if (jobject2 != null)
+				{
+					ulong num5 = ulong.Parse(jobject2.SelectToken("user_id").ToString());
+					for (int k = 0; k < this.m_discordChannelUsers.Count; k++)
+					{
+						if (this.m_discordChannelUsers[k].UserId == num5)
+						{
+							this.m_discordChannelUsers[k].IsSpeaking = (rpcResponse.evt == "SPEAKING_START");
+							this.OnUserSpeakingChanged(this.m_discordChannelUsers[k]);
+							break;
+						}
+					}
+				}
+				IL_5C4:;
+			}
+			else if (rpcResponse.cmd == "AUTHORIZE")
+			{
+				string obj3 = jobject2.SelectToken("code").ToString();
+				this.OnAuthorized(obj3);
+			}
+			else if (rpcResponse.cmd == "AUTHENTICATE")
+			{
+				if (rpcResponse.evt.IsNullOrEmpty())
+				{
+					JToken jtoken2 = jobject2.SelectToken("user.id");
+					this.m_userInfo.UserId = ulong.Parse(jtoken2.ToString());
+					this.OnAuthenticated(this.m_userInfo);
+				}
+				else
+				{
+					DiscordClientInterface.symbol_001D("Failed to authenticate RPC connection {0}", new object[]
+					{
+						jobject2
+					});
+				}
+			}
+			else if (rpcResponse.cmd == "TRY_SELECT_VOICE_CHANNEL")
+			{
+				JToken jtoken3 = jobject2.SelectToken("code");
+				int num6 = int.Parse(jtoken3.ToString());
+				bool force = num6 == 0x138B;
+				this.TrySelectVoiceChannel(force);
+			}
+			else if (rpcResponse.cmd == "SELECT_VOICE_CHANNEL")
+			{
+				if (rpcResponse.evt.IsNullOrEmpty())
+				{
+					DiscordClientInterface.symbol_001D("Connected to voice channel {0}", new object[]
+					{
+						this.m_channelInfo.VoiceChannelId
+					});
+					this.OnJoined();
+				}
+				else
+				{
+					DiscordClientInterface.symbol_001D("Failed to connect to voice channel {0} {1}. Retrying", new object[]
+					{
+						this.m_channelInfo.VoiceChannelId,
+						jobject2
+					});
+					this.RetrySelectVoiceChannel(jobject2);
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			Log.Error("DISCORD | exception {0}", ex);
+			Log.Error("DISCORD | exception {0}", new object[]
+			{
+				ex
+			});
 		}
 	}
 
 	private void HandleOnOpen(object sender, EventArgs e)
 	{
-		RpcResponse rpcResponse = new RpcResponse();
-		rpcResponse.cmd = "CONNECTION_OPEN";
-		RpcResponse value = rpcResponse;
+		DiscordClientInterface.RpcResponse value = new DiscordClientInterface.RpcResponse
+		{
+			cmd = "CONNECTION_OPEN"
+		};
 		string jsonMessage = JsonConvert.SerializeObject(value);
-		Invoke(jsonMessage);
+		this.Invoke(jsonMessage);
 	}
 
 	private void HandleOnMessage(object sender, MessageEventArgs e)
 	{
 		string data = e.Data;
-		Invoke(data);
+		this.Invoke(data);
 	}
 
 	private void HandleOnError(object sender, ErrorEventArgs e)
 	{
-		RpcResponse rpcResponse = new RpcResponse();
-		rpcResponse.cmd = "CONNECTION_ERROR";
-		rpcResponse.evt = e.Exception.Message;
-		RpcResponse value = rpcResponse;
+		DiscordClientInterface.RpcResponse value = new DiscordClientInterface.RpcResponse
+		{
+			cmd = "CONNECTION_ERROR",
+			evt = e.Exception.Message
+		};
 		string jsonMessage = JsonConvert.SerializeObject(value);
-		Invoke(jsonMessage);
+		this.Invoke(jsonMessage);
 	}
 
 	private void HandleOnClose(object sender, CloseEventArgs e)
 	{
-		RpcResponse rpcResponse = new RpcResponse();
-		rpcResponse.cmd = "CONNECTION_CLOSE";
-		rpcResponse.evt = e.Reason;
-		RpcResponse value = rpcResponse;
+		DiscordClientInterface.RpcResponse value = new DiscordClientInterface.RpcResponse
+		{
+			cmd = "CONNECTION_CLOSE",
+			evt = e.Reason
+		};
 		string jsonMessage = JsonConvert.SerializeObject(value);
-		Invoke(jsonMessage);
+		this.Invoke(jsonMessage);
 	}
 
 	public void Connect(DiscordAuthInfo authInfo, int portOffset = 0)
 	{
-		m_authInfo = authInfo;
-		m_rpcPortOffset = portOffset;
-		if (IsSdkEnabled)
+		this.m_authInfo = authInfo;
+		this.m_rpcPortOffset = portOffset;
+		if (DiscordClientInterface.IsSdkEnabled)
 		{
-			if (!s_sdkInitialized)
+			if (!DiscordClientInterface.s_sdkInitialized)
 			{
-				InitializeSdk();
+				this.InitializeSdk();
 				return;
 			}
 		}
-		TryConnect();
+		this.TryConnect();
 	}
 
 	private void InitializeSdk()
 	{
 		string name = "Hydrogen.DiscordSdk";
-		bool createdNew;
-		Mutex mutex = new Mutex(true, name, out createdNew);
-		if (createdNew)
+		Mutex mutex = new Mutex(true, name, out bool flag);
+		if (flag)
 		{
 			if (mutex != null)
 			{
-				while (true)
-				{
-					switch (1)
+				string clientId = this.m_authInfo.ClientId;
+				string resourcePath = Application.dataPath + "/../";
+				GameBridge.SetReadyCallback(new GameBridge.ReadyCallback(this.HandleSdkReadyCallback), UIntPtr.Zero);
+				GameBridge.SetUpdatingCallback(new GameBridge.UpdatingCallback(this.HandleSdkUpdatingCallback), UIntPtr.Zero);
+				GameBridge.SetErrorCallback(new GameBridge.ErrorCallback(this.HandleSdkErrorCallback), UIntPtr.Zero);
+				
+				GameBridge.CaptureOutput(delegate(uint type, string message, UIntPtr context)
 					{
-					case 0:
-						break;
-					default:
-					{
-						string clientId = m_authInfo.ClientId;
-						string resourcePath = Application.dataPath + "/../";
-						GameBridge.SetReadyCallback(HandleSdkReadyCallback, UIntPtr.Zero);
-						GameBridge.SetUpdatingCallback(HandleSdkUpdatingCallback, UIntPtr.Zero);
-						GameBridge.SetErrorCallback(HandleSdkErrorCallback, UIntPtr.Zero);
-						
-						GameBridge.CaptureOutput(delegate(uint type, string message, UIntPtr context)
-							{
-								_001D("[OUTPUT] {0}", message);
-							}, UIntPtr.Zero);
-						GameBridge.Initialize(clientId, resourcePath);
-						s_sdkInitialized = true;
-						_001D("initialized Sdk");
-						return;
-					}
-					}
-				}
+						DiscordClientInterface.symbol_001D("[OUTPUT] {0}", new object[]
+						{
+							message
+						});
+					}, UIntPtr.Zero);
+				GameBridge.Initialize(clientId, resourcePath);
+				DiscordClientInterface.s_sdkInitialized = true;
+				DiscordClientInterface.symbol_001D("initialized Sdk", new object[0]);
+				return;
 			}
 		}
-		_001D("failed to initialize Sdk. Discord does not support launching multiple Sdk processes on the same computer at one time.");
+		DiscordClientInterface.symbol_001D("failed to initialize Sdk. Discord does not support launching multiple Sdk processes on the same computer at one time.", new object[0]);
 	}
 
 	public static void Shutdown()
 	{
-		if (s_sdkInitialized)
+		if (DiscordClientInterface.s_sdkInitialized)
 		{
 			GameBridge.Shutdown();
-			s_sdkInitialized = false;
-			_001D("shut down Sdk");
+			DiscordClientInterface.s_sdkInitialized = false;
+			DiscordClientInterface.symbol_001D("shut down Sdk", new object[0]);
 		}
 	}
 
 	private void HandleSdkReadyCallback(ushort port, UIntPtr context)
 	{
-		_001D("SdkReadyCallback {0}", port);
-		s_RpcPortOverride = port;
-		TryConnect();
+		DiscordClientInterface.symbol_001D("SdkReadyCallback {0}", new object[]
+		{
+			port
+		});
+		DiscordClientInterface.s_RpcPortOverride = (int)port;
+		this.TryConnect();
 	}
 
 	private void HandleSdkUpdatingCallback(uint progress, UIntPtr context)
 	{
-		_001D("SdkUpdatingCallback {0}", progress);
+		DiscordClientInterface.symbol_001D("SdkUpdatingCallback {0}", new object[]
+		{
+			progress
+		});
 	}
 
 	private void HandleSdkErrorCallback(uint code, [MarshalAs(UnmanagedType.LPStr)] string message, UIntPtr context)
 	{
-		_001D("SdkErrorCallback {0} {1}", code, message);
+		DiscordClientInterface.symbol_001D("SdkErrorCallback {0} {1}", new object[]
+		{
+			code,
+			message
+		});
 	}
 
 	private void TryConnect()
 	{
-		if (m_webSocket != null)
+		if (this.m_webSocket != null)
 		{
-			if (m_webSocket.IsAlive)
+			if (this.m_webSocket.IsAlive)
 			{
-				_001D("Already connected to discord");
+				DiscordClientInterface.symbol_001D("Already connected to discord", new object[0]);
 				return;
 			}
 		}
-		m_rpcUrl = $"ws://127.0.0.1:{RpcPort}/?v=1&client_id={ClientId}&encoding=json";
-		_001D("Connecting to 127.0.0.1:{0}", RpcPort);
-		m_webSocket = new WebSocketSharp.WebSocket(m_rpcUrl);
-		m_webSocket.OnOpen += HandleOnOpen;
-		m_webSocket.OnMessage += HandleOnMessage;
-		m_webSocket.OnError += HandleOnError;
-		m_webSocket.OnClose += HandleOnClose;
-		if (s_debugOutput)
+		this.m_rpcUrl = string.Format("ws://127.0.0.1:{0}/?v=1&client_id={1}&encoding=json", this.RpcPort, this.ClientId);
+		DiscordClientInterface.symbol_001D("Connecting to 127.0.0.1:{0}", new object[]
 		{
-			m_webSocket.Logger.Level = LogLevel.Trace;
+			this.RpcPort
+		});
+		this.m_webSocket = new WebSocketSharp.WebSocket(this.m_rpcUrl, new string[0]);
+		this.m_webSocket.OnOpen += this.HandleOnOpen;
+		this.m_webSocket.OnMessage += this.HandleOnMessage;
+		this.m_webSocket.OnError += this.HandleOnError;
+		this.m_webSocket.OnClose += this.HandleOnClose;
+		if (DiscordClientInterface.s_debugOutput)
+		{
+			this.m_webSocket.Logger.Level = LogLevel.Trace;
 		}
-		m_webSocket.Origin = RpcOrigin;
-		m_webSocket.WaitTime = TimeSpan.FromMilliseconds(100.0);
-		m_webSocket.ConnectAsync();
-		m_retryToConnect = true;
+		this.m_webSocket.Origin = this.RpcOrigin;
+		this.m_webSocket.WaitTime = TimeSpan.FromMilliseconds(100.0);
+		this.m_webSocket.ConnectAsync();
+		this.m_retryToConnect = true;
 	}
 
 	public void Disconnect()
 	{
-		if (m_webSocket != null)
+		if (this.m_webSocket != null)
 		{
-			m_webSocket.Close();
-			m_webSocket = null;
+			this.m_webSocket.Close();
+			this.m_webSocket = null;
 		}
-		m_retryToConnect = false;
-		m_rpcPortOffset = 0;
-		m_authInfo = null;
-		m_userInfo = null;
-		m_channelInfo = null;
-		m_discordChannelUsers.Clear();
+		this.m_retryToConnect = false;
+		this.m_rpcPortOffset = 0;
+		this.m_authInfo = null;
+		this.m_userInfo = null;
+		this.m_channelInfo = null;
+		this.m_discordChannelUsers.Clear();
 	}
 
 	public void SelectVoiceChannel(DiscordChannelInfo channelInfo)
 	{
-		m_channelInfo = channelInfo;
-		TrySelectVoiceChannel();
+		this.m_channelInfo = channelInfo;
+		this.TrySelectVoiceChannel(false);
 	}
 
 	private void TrySelectVoiceChannel(bool force = false)
 	{
-		if (m_webSocket == null || !m_webSocket.IsAlive)
+		if (this.m_webSocket != null && this.m_webSocket.IsAlive)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_channelInfo != null)
+			if (this.m_channelInfo != null)
 			{
-				RpcRequest rpcRequest = new RpcRequest();
+				DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
 				rpcRequest.nonce = Guid.NewGuid().ToString();
 				rpcRequest.args = new Dictionary<object, object>();
-				rpcRequest.args["channel_id"] = m_channelInfo.VoiceChannelId.ToString();
-				rpcRequest.args["timeout"] = RPC_COMMAND_TIMEOUT_SEC;
+				rpcRequest.args["channel_id"] = this.m_channelInfo.VoiceChannelId.ToString();
+				rpcRequest.args["timeout"] = DiscordClientInterface.RPC_COMMAND_TIMEOUT_SEC;
 				if (force)
 				{
 					rpcRequest.args["force"] = force;
 				}
 				rpcRequest.cmd = "SELECT_VOICE_CHANNEL";
 				string data = JsonConvert.SerializeObject(rpcRequest);
-				m_webSocket.Send(data);
+				this.m_webSocket.Send(data);
 			}
-			return;
 		}
 	}
 
 	private void RetrySelectVoiceChannel(object responseData = null)
 	{
-		Action action = delegate
+		Action action = delegate()
 		{
-			RpcResponse value = new RpcResponse
+			DiscordClientInterface.RpcResponse value = new DiscordClientInterface.RpcResponse
 			{
 				cmd = "TRY_SELECT_VOICE_CHANNEL",
 				data = responseData
 			};
 			string jsonMessage = JsonConvert.SerializeObject(value);
-			Invoke(jsonMessage);
+			this.Invoke(jsonMessage);
 		};
-		m_rpcScheduler.AddTask(action, (int)TimeSpan.FromSeconds(2.0).TotalMilliseconds);
+		this.m_rpcScheduler.AddTask(action, (int)TimeSpan.FromSeconds(2.0).TotalMilliseconds, true);
 	}
 
 	public void RefreshSettings()
 	{
-		if (m_webSocket == null)
+		if (this.m_webSocket != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!m_webSocket.IsAlive)
+			if (this.m_webSocket.IsAlive)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (m_channelInfo == null)
+				if (this.m_channelInfo == null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
-				Options_UI options_UI = Options_UI.Get();
-				if (options_UI != null)
-				{
-					return;
-				}
-				RpcRequest rpcRequest = new RpcRequest();
-				rpcRequest.nonce = Guid.NewGuid().ToString();
-				rpcRequest.args = new Dictionary<object, object>();
-				rpcRequest.args["input"] = new
-				{
-					volume = options_UI.GetVoiceVolume()
-				};
-				rpcRequest.args["output"] = new
-				{
-					volume = options_UI.GetMicVolume()
-				};
-				rpcRequest.args["mute"] = options_UI.GetVoiceMute();
-				rpcRequest.cmd = "SET_VOICE_SETTINGS";
-				Dictionary<object, object> dictionary = new Dictionary<object, object>();
-				rpcRequest.args["mode"] = dictionary;
-				object value;
-				if (options_UI.GetVoicePushToTalk())
-				{
-					value = "PUSH_TO_TALK";
 				}
 				else
 				{
-					value = "VOICE_ACTIVITY";
-				}
-				dictionary["type"] = value;
-				if (ClientGameManager.Get() != null)
-				{
-					if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+					Options_UI options_UI = Options_UI.Get();
+					if (options_UI != null)
 					{
-						AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
-						dictionary["shortcut"] = new object[1]
-						{
-							new
-							{
-								type = accountComponent.PushToTalkKeyType,
-								code = accountComponent.PushToTalkKeyCode,
-								name = accountComponent.PushToTalkKeyName
-							}
-						};
+						return;
 					}
+					DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
+					rpcRequest.nonce = Guid.NewGuid().ToString();
+					rpcRequest.args = new Dictionary<object, object>();
+					rpcRequest.args["input"] = new
+					{
+						volume = options_UI.GetVoiceVolume()
+					};
+					rpcRequest.args["output"] = new
+					{
+						volume = options_UI.GetMicVolume()
+					};
+					rpcRequest.args["mute"] = options_UI.GetVoiceMute();
+					rpcRequest.cmd = "SET_VOICE_SETTINGS";
+					Dictionary<object, object> dictionary = new Dictionary<object, object>();
+					rpcRequest.args["mode"] = dictionary;
+					Dictionary<object, object> dictionary2 = dictionary;
+					object key = "type";
+					object value;
+					if (options_UI.GetVoicePushToTalk())
+					{
+						value = "PUSH_TO_TALK";
+					}
+					else
+					{
+						value = "VOICE_ACTIVITY";
+					}
+					dictionary2[key] = value;
+					if (ClientGameManager.Get() != null)
+					{
+						if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
+						{
+							AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
+							dictionary["shortcut"] = new object[]
+							{
+								new
+								{
+									type = accountComponent.PushToTalkKeyType,
+									code = accountComponent.PushToTalkKeyCode,
+									name = accountComponent.PushToTalkKeyName
+								}
+							};
+						}
+					}
+					string data = JsonConvert.SerializeObject(rpcRequest);
+					this.m_webSocket.Send(data);
+					return;
 				}
-				string data = JsonConvert.SerializeObject(rpcRequest);
-				m_webSocket.Send(data);
-				return;
 			}
 		}
 	}
 
 	public bool ScanPushToTalkKey(bool start, Action<int, int, string> callback)
 	{
-		if (m_webSocket != null)
+		if (this.m_webSocket != null)
 		{
-			if (m_webSocket.IsAlive)
+			if (this.m_webSocket.IsAlive)
 			{
-				if (m_channelInfo != null)
+				if (this.m_channelInfo != null)
 				{
-					m_pushToTalkScanCallback = callback;
-					RpcRequest rpcRequest = new RpcRequest();
+					this.m_pushToTalkScanCallback = callback;
+					DiscordClientInterface.RpcRequest rpcRequest = new DiscordClientInterface.RpcRequest();
 					rpcRequest.nonce = Guid.NewGuid().ToString();
 					rpcRequest.args = new Dictionary<object, object>();
 					Dictionary<object, object> args = rpcRequest.args;
+					object key = "action";
 					object value;
 					if (start)
 					{
@@ -1193,14 +950,43 @@ public class DiscordClientInterface : MonoBehaviour
 					{
 						value = "STOP";
 					}
-					args["action"] = value;
+					args[key] = value;
 					rpcRequest.cmd = "CAPTURE_SHORTCUT";
 					string data = JsonConvert.SerializeObject(rpcRequest);
-					m_webSocket.Send(data);
+					this.m_webSocket.Send(data);
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	internal struct RpcWebSocketEnvelope
+	{
+		public string JsonMessage;
+
+		public MethodInfo MethodInfo;
+
+		public Action<string> InvokerDelegate;
+	}
+
+	internal class RpcRequest
+	{
+		public string nonce { get; set; }
+
+		public Dictionary<object, object> args { get; set; }
+
+		public string cmd { get; set; }
+	}
+
+	internal class RpcResponse
+	{
+		public string cmd { get; set; }
+
+		public object data { get; set; }
+
+		public string evt { get; set; }
+
+		public string nonce { get; set; }
 	}
 }

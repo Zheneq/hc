@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	protected StateID stateID;
 
 	[Tooltip("Turn on to enable logging (OnEnter, OnExit, OnTurn) for this state")]
-	public bool _001D;
+	public bool symbol_001D;
 
 	protected Dictionary<Transition, TransitionTable> transitionTableMap = new Dictionary<Transition, TransitionTable>();
 
@@ -17,26 +18,32 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	private NPCBrain _myBrainCached;
 
-	public StateID StateID => stateID;
+	public StateID StateID
+	{
+		get
+		{
+			return this.stateID;
+		}
+	}
 
 	internal FSMSystem MyFSM
 	{
 		get
 		{
-			if (!_myBrainCached.enabled)
+			if (!this._myBrainCached.enabled)
 			{
 				int num = 0;
 				num++;
-				if (MyFSMBrain.fsm == _myFSMCached)
+				if (this.MyFSMBrain.fsm == this._myFSMCached)
 				{
 					num++;
 				}
 			}
-			return _myFSMCached;
+			return this._myFSMCached;
 		}
 		private set
 		{
-			_myFSMCached = value;
+			this._myFSMCached = value;
 		}
 	}
 
@@ -44,74 +51,81 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		get
 		{
-			if (!_myBrainCached.enabled)
+			if (!this._myBrainCached.enabled)
 			{
-				if ((bool)base.transform)
+				if (base.transform)
 				{
-					if ((bool)base.transform.gameObject)
+					if (base.transform.gameObject)
 					{
 						NPCBrain[] components = base.transform.gameObject.GetComponents<NPCBrain>();
 						if (components != null)
 						{
-							NPCBrain[] array = components;
-							foreach (NPCBrain nPCBrain in array)
+							foreach (NPCBrain npcbrain in components)
 							{
-								if (!nPCBrain.enabled)
+								if (npcbrain.enabled)
 								{
-									continue;
-								}
-								while (true)
-								{
-									return nPCBrain;
+									return npcbrain;
 								}
 							}
 						}
 					}
 				}
 			}
-			return _myBrainCached;
+			return this._myBrainCached;
 		}
 		private set
 		{
-			_myBrainCached = value;
+			this._myBrainCached = value;
 		}
 	}
 
-	internal NPCBrain_StateMachine MyFSMBrain => MyBrain as NPCBrain_StateMachine;
+	internal NPCBrain_StateMachine MyFSMBrain
+	{
+		get
+		{
+			return this.MyBrain as NPCBrain_StateMachine;
+		}
+	}
 
 	internal AbilityData MyAbilityData
 	{
 		get
 		{
-			object result;
-			if ((bool)MyBrain)
+			AbilityData result;
+			if (this.MyBrain)
 			{
-				result = MyBrain.GetComponent<AbilityData>();
+				result = this.MyBrain.GetComponent<AbilityData>();
 			}
 			else
 			{
 				result = null;
 			}
-			return (AbilityData)result;
+			return result;
 		}
 	}
 
-	internal ActorData MyActorData => (!MyBrain) ? null : MyBrain.GetComponent<ActorData>();
+	internal ActorData MyActorData
+	{
+		get
+		{
+			return (!this.MyBrain) ? null : this.MyBrain.GetComponent<ActorData>();
+		}
+	}
 
 	internal ActorTurnSM MyActorTurnSM
 	{
 		get
 		{
-			object result;
-			if ((bool)MyBrain)
+			ActorTurnSM result;
+			if (this.MyBrain)
 			{
-				result = MyBrain.GetComponent<ActorTurnSM>();
+				result = this.MyBrain.GetComponent<ActorTurnSM>();
 			}
 			else
 			{
 				result = null;
 			}
-			return (ActorTurnSM)result;
+			return result;
 		}
 	}
 
@@ -119,16 +133,16 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		get
 		{
-			object result;
-			if ((bool)MyBrain)
+			BotController result;
+			if (this.MyBrain)
 			{
-				result = MyBrain.GetComponent<BotController>();
+				result = this.MyBrain.GetComponent<BotController>();
 			}
 			else
 			{
 				result = null;
 			}
-			return (BotController)result;
+			return result;
 		}
 	}
 
@@ -138,64 +152,64 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	internal void Initalize(NPCBrain assoicatedBrain, FSMSystem associatedFSM)
 	{
-		MyBrain = assoicatedBrain;
-		MyFSM = associatedFSM;
+		this.MyBrain = assoicatedBrain;
+		this.MyFSM = associatedFSM;
 	}
 
 	public virtual void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType != GameEventManager.EventType.ScriptCommunication)
+		if (eventType == GameEventManager.EventType.ScriptCommunication)
 		{
-			return;
-		}
-		GameEventManager.ScriptCommunicationArgs scriptCommunicationArgs = args as GameEventManager.ScriptCommunicationArgs;
-		if (!(scriptCommunicationArgs.NextBrain != null))
-		{
-			if (!scriptCommunicationArgs.popBrain)
+			GameEventManager.ScriptCommunicationArgs scriptCommunicationArgs = args as GameEventManager.ScriptCommunicationArgs;
+			if (!(scriptCommunicationArgs.NextBrain != null))
 			{
-				if (scriptCommunicationArgs.TransistionMessage == Transition.NullTransition)
+				if (scriptCommunicationArgs.popBrain)
 				{
-					return;
 				}
-				while (true)
+				else
 				{
-					SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
-					return;
+					if (scriptCommunicationArgs.TransistionMessage != Transition.NullTransition)
+					{
+						this.SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
+						goto IL_6F;
+					}
+					goto IL_6F;
 				}
 			}
+			this.MyBrain.NextBrain = scriptCommunicationArgs.NextBrain;
+			IL_6F:;
 		}
-		MyBrain.NextBrain = scriptCommunicationArgs.NextBrain;
 	}
 
 	public bool SetPendingTransition(Transition trans)
 	{
-		if (MyFSM.CanTransistion(trans))
+		if (this.MyFSM.CanTransistion(trans))
 		{
-			while (true)
+			Transition pendingTransition = this.MyFSM.GetPendingTransition();
+			if (pendingTransition != Transition.NullTransition && pendingTransition != trans)
 			{
-				switch (6)
+				Debug.Log(string.Concat(new object[]
 				{
-				case 0:
-					break;
-				default:
-				{
-					Transition pendingTransition = MyFSM.GetPendingTransition();
-					if (pendingTransition != 0 && pendingTransition != trans)
-					{
-						Debug.Log(string.Concat("NPC: ", MyBrain.name, " in state ", StateID, " already has a pending transition of ", pendingTransition, " but received a transition request of: ", trans, ". Overwriting!"));
-					}
-					MyBrain.SetPendingTransition(trans);
-					return true;
-				}
-				}
+					"NPC: ",
+					this.MyBrain.name,
+					" in state ",
+					this.StateID,
+					" already has a pending transition of ",
+					pendingTransition,
+					" but received a transition request of: ",
+					trans,
+					". Overwriting!"
+				}));
 			}
+			this.MyBrain.SetPendingTransition(trans);
+			return true;
 		}
 		return false;
 	}
 
 	public void AddTransition(Transition trans, TransitionTable inTable)
 	{
-		if (trans != 0)
+		if (trans != Transition.NullTransition)
 		{
 			if (inTable != null)
 			{
@@ -203,29 +217,34 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				{
 					if (!inTable.PopBrain)
 					{
-						goto IL_0057;
-					}
-				}
-				if (transitionTableMap.ContainsKey(trans))
-				{
-					while (true)
-					{
-						switch (3)
+						for (;;)
 						{
-						case 0:
-							break;
-						default:
-							Debug.LogError("FSMState ERROR: Assign State - State " + inTable.StateID.ToString() + " already has transition " + trans.ToString() + " - Impossible to assign to another state/brain to that transition");
-							return;
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							goto IL_57;
 						}
 					}
 				}
-				transitionTableMap.Add(trans, inTable);
+				if (this.transitionTableMap.ContainsKey(trans))
+				{
+					Debug.LogError(string.Concat(new string[]
+					{
+						"FSMState ERROR: Assign State - State ",
+						inTable.StateID.ToString(),
+						" already has transition ",
+						trans.ToString(),
+						" - Impossible to assign to another state/brain to that transition"
+					}));
+					return;
+				}
+				this.transitionTableMap.Add(trans, inTable);
 				return;
 			}
 		}
-		goto IL_0057;
-		IL_0057:
+		IL_57:
 		Debug.LogError("FSMState ERROR: Either the Transistion is NULL or you didnt specific a state/brain to pop/push for transition: " + trans);
 	}
 
@@ -233,108 +252,80 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (trans == Transition.NullTransition)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
-					return;
-				}
-			}
+			Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
+			return;
 		}
-		if (MyFSM.GetPendingTransition() == trans)
+		if (this.MyFSM.GetPendingTransition() == trans)
 		{
-			Debug.LogWarning(string.Concat("Ack - tried to remove a transition of ", trans, " that I have a pending change to. Deleting pending transition"));
-			MyFSM.SetPendingTransition(Transition.NullTransition);
+			Debug.LogWarning("Ack - tried to remove a transition of " + trans + " that I have a pending change to. Deleting pending transition");
+			this.MyFSM.SetPendingTransition(Transition.NullTransition);
 		}
-		transitionTableMap.Remove(trans);
+		this.transitionTableMap.Remove(trans);
 	}
 
 	public StateID GetOutputState(Transition trans)
 	{
-		if (transitionTableMap.ContainsKey(trans))
+		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return transitionTableMap[trans].StateID;
-				}
-			}
+			return this.transitionTableMap[trans].StateID;
 		}
 		return StateID.NullStateID;
 	}
 
 	public NPCBrain GetOutputBrain(Transition trans)
 	{
-		if (transitionTableMap.ContainsKey(trans))
+		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return transitionTableMap[trans].BrainToPush;
-				}
-			}
+			return this.transitionTableMap[trans].BrainToPush;
 		}
 		return null;
 	}
 
 	public bool? GetPopBrain(Transition trans)
 	{
-		if (transitionTableMap.ContainsKey(trans))
+		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return transitionTableMap[trans].PopBrain;
-				}
-			}
+			return new bool?(this.transitionTableMap[trans].PopBrain);
 		}
 		return null;
 	}
 
 	public virtual FSMState DeepCopy()
 	{
-		return Object.Instantiate(this);
+		return UnityEngine.Object.Instantiate<FSMState>(this);
 	}
 
 	public virtual void OnEnter(NPCBrain npc, StateID previousState)
 	{
-		if (!_001D)
+		if (this.symbol_001D)
 		{
-			return;
-		}
-		while (true)
-		{
-			Log.Info(string.Concat("OnEnter(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", previousState, "'"));
-			return;
+			Log.Info(string.Concat(new object[]
+			{
+				"OnEnter(): '",
+				npc.name,
+				"' NewState: '",
+				this.StateID,
+				"' PreviousState: '",
+				previousState,
+				"'"
+			}), new object[0]);
 		}
 	}
 
 	public virtual void OnExit(NPCBrain npc, StateID nextState)
 	{
-		if (!_001D)
+		if (this.symbol_001D)
 		{
-			return;
-		}
-		while (true)
-		{
-			Log.Info(string.Concat("OnExit(): '", npc.name, "' NewState: '", StateID, "' PreviousState: '", nextState, "'"));
-			return;
+			Log.Info(string.Concat(new object[]
+			{
+				"OnExit(): '",
+				npc.name,
+				"' NewState: '",
+				this.StateID,
+				"' PreviousState: '",
+				nextState,
+				"'"
+			}), new object[0]);
 		}
 	}
 

@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,18 +13,19 @@ public class EnvMapAnimator : MonoBehaviour
 
 	private void Awake()
 	{
-		m_textMeshPro = GetComponent<TMP_Text>();
-		m_material = m_textMeshPro.fontSharedMaterial;
+		this.m_textMeshPro = base.GetComponent<TMP_Text>();
+		this.m_material = this.m_textMeshPro.fontSharedMaterial;
 	}
 
 	private IEnumerator Start()
 	{
 		Matrix4x4 matrix = default(Matrix4x4);
-		while (true)
+		for (;;)
 		{
-			matrix.SetTRS(Vector3.zero, Quaternion.Euler(Time.time * RotationSpeeds.x, Time.time * RotationSpeeds.y, Time.time * RotationSpeeds.z), Vector3.one);
-			m_material.SetMatrix("_EnvMatrix", matrix);
+			matrix.SetTRS(Vector3.zero, Quaternion.Euler(Time.time * this.RotationSpeeds.x, Time.time * this.RotationSpeeds.y, Time.time * this.RotationSpeeds.z), Vector3.one);
+			this.m_material.SetMatrix("_EnvMatrix", matrix);
 			yield return null;
 		}
+		yield break;
 	}
 }

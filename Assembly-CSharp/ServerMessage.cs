@@ -1,126 +1,57 @@
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class ServerMessage
 {
-	public string EN
-	{
-		get;
-		set;
-	}
-
-	public string FR
-	{
-		get;
-		set;
-	}
-
-	public string DE
-	{
-		get;
-		set;
-	}
-
-	public string RU
-	{
-		get;
-		set;
-	}
-
-	public string ES
-	{
-		get;
-		set;
-	}
-
-	public string IT
-	{
-		get;
-		set;
-	}
-
-	public string PL
-	{
-		get;
-		set;
-	}
-
-	public string PT
-	{
-		get;
-		set;
-	}
-
-	public string KO
-	{
-		get;
-		set;
-	}
-
-	public string ZH
-	{
-		get;
-		set;
-	}
-
-	[JsonIgnore]
-	public IEnumerable<string> Languages
-	{
-		get
-		{
-			using (IEnumerator<ServerMessageLanguage> enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					ServerMessageLanguage language = enumerator.Current;
-					if (!GetValue(language).IsNullOrEmpty())
-					{
-						yield return language.ToString();
-						/*Error: Unable to find new state assignment for yield return*/;
-					}
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						yield break;
-					case 0:
-						break;
-					}
-				}
-			}
-		}
-	}
-
 	public static implicit operator ServerMessage(string value)
 	{
-		ServerMessage serverMessage = new ServerMessage();
-		serverMessage.EN = value;
-		serverMessage.FR = value;
-		serverMessage.DE = value;
-		serverMessage.RU = value;
-		serverMessage.ES = value;
-		serverMessage.IT = value;
-		serverMessage.PL = value;
-		serverMessage.PT = value;
-		serverMessage.KO = value;
-		serverMessage.ZH = value;
-		return serverMessage;
+		return new ServerMessage
+		{
+			EN = value,
+			FR = value,
+			DE = value,
+			RU = value,
+			ES = value,
+			IT = value,
+			PL = value,
+			PT = value,
+			KO = value,
+			ZH = value
+		};
 	}
+
+	public string EN { get; set; }
+
+	public string FR { get; set; }
+
+	public string DE { get; set; }
+
+	public string RU { get; set; }
+
+	public string ES { get; set; }
+
+	public string IT { get; set; }
+
+	public string PL { get; set; }
+
+	public string PT { get; set; }
+
+	public string KO { get; set; }
+
+	public string ZH { get; set; }
 
 	public string GetValue(ServerMessageLanguage language)
 	{
-		return (string)GetType().GetProperty(language.ToString()).GetValue(this, null);
+		return (string)base.GetType().GetProperty(language.ToString()).GetValue(this, null);
 	}
 
 	public string GetValue(string languageCode)
 	{
 		ServerMessageLanguage language = (ServerMessageLanguage)Enum.Parse(typeof(ServerMessageLanguage), languageCode, true);
-		return GetValue(language);
+		return this.GetValue(language);
 	}
 
 	public Dictionary<string, string> GetAllLanguageValues()
@@ -131,42 +62,65 @@ public class ServerMessage
 		{
 			while (enumerator.MoveNext())
 			{
-				ServerMessageLanguage current = enumerator.Current;
-				if (!GetValue(current).IsNullOrEmpty())
+				ServerMessageLanguage language = enumerator.Current;
+				if (!this.GetValue(language).IsNullOrEmpty())
 				{
-					dictionary[current.ToString().ToLower()] = GetValue(current);
+					dictionary[language.ToString().ToLower()] = this.GetValue(language);
 				}
 			}
-			return dictionary;
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						enumerator.Dispose();
-						goto end_IL_0083;
-					}
-				}
+				enumerator.Dispose();
 			}
-			end_IL_0083:;
 		}
+		return dictionary;
 	}
 
 	public void SetValue(ServerMessageLanguage language, string value)
 	{
-		GetType().GetProperty(language.ToString()).SetValue(this, value, null);
+		base.GetType().GetProperty(language.ToString()).SetValue(this, value, null);
 	}
 
 	public void SetValue(string languageCode, string value)
 	{
 		ServerMessageLanguage language = (ServerMessageLanguage)Enum.Parse(typeof(ServerMessageLanguage), languageCode, true);
-		SetValue(language, value);
+		this.SetValue(language, value);
+	}
+
+	[JsonIgnore]
+	public IEnumerable<string> Languages
+	{
+		get
+		{
+			bool flag = false;
+			IEnumerator<ServerMessageLanguage> enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator();
+
+			try
+			{
+				while (enumerator.MoveNext())
+				{
+					ServerMessageLanguage language = enumerator.Current;
+					if (!this.GetValue(language).IsNullOrEmpty())
+					{
+						yield return language.ToString();
+						flag = true;
+					}
+				}
+			}
+			finally
+			{
+				if (flag)
+				{
+				}
+				else if (enumerator != null)
+				{
+					enumerator.Dispose();
+				}
+			}
+			yield break;
+		}
 	}
 }
