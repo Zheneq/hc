@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
@@ -32,18 +33,18 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	internal static ClientPerformanceCollector Get()
 	{
-		return s_instance;
+		return ClientPerformanceCollector.s_instance;
 	}
 
 	private void Start()
 	{
-		s_instance = this;
-		m_performanceInfo = new LobbyGameClientPerformanceInfo();
-		m_lastFrameCount = Time.frameCount;
-		m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
-		m_cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-		m_ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-		m_collectCoroutine = CollectInternal();
+		ClientPerformanceCollector.s_instance = this;
+		this.m_performanceInfo = new LobbyGameClientPerformanceInfo();
+		this.m_lastFrameCount = Time.frameCount;
+		this.m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
+		this.m_cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+		this.m_ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+		this.m_collectCoroutine = this.CollectInternal();
 	}
 
 	private void OnDestroy()
@@ -52,52 +53,44 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	public void StartCollecting()
 	{
-		if (!m_collect)
+		if (!this.m_collect)
 		{
-			m_collect = true;
-			StartCoroutine(m_collectCoroutine);
+			this.m_collect = true;
+			base.StartCoroutine(this.m_collectCoroutine);
 		}
 	}
 
 	public void StopCollecting()
 	{
-		if (!m_collect)
+		if (this.m_collect)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_collect = false;
-			StopCoroutine(m_collectCoroutine);
-			return;
+			this.m_collect = false;
+			base.StopCoroutine(this.m_collectCoroutine);
 		}
 	}
 
 	private IEnumerator CollectInternal()
 	{
-		while (m_collect)
+		while (this.m_collect)
 		{
-			yield return new WaitForSeconds(c_collectFrequency);
-			int frameCount = Time.frameCount - m_lastFrameCount;
-			float timeSpan = Time.realtimeSinceStartup - m_lastRealtimeSinceStartup;
-			m_lastFrameCount = Time.frameCount;
-			m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
-			m_performanceInfo.AvgFPS = Mathf.RoundToInt((float)frameCount / timeSpan);
-			m_performanceInfo.CurrentFPS = Mathf.RoundToInt((float)Time.frameCount / Time.time);
-			m_performanceInfo.CurrentCpuUsage = m_cpuCounter.NextValue();
-			m_performanceInfo.CurrentMemoryUsage = m_ramCounter.NextValue();
-			m_performanceInfo.AvgCpuUsage = GetAverage(m_performanceInfo.AvgCpuUsage, m_cpuCounterSamples++, m_performanceInfo.CurrentCpuUsage);
-			m_performanceInfo.AvgMemoryUsage = GetAverage(m_performanceInfo.AvgMemoryUsage, m_ramCounterSamples++, m_performanceInfo.CurrentMemoryUsage);
-			if (m_observedWebSocket != null)
+			yield return new WaitForSeconds(ClientPerformanceCollector.c_collectFrequency);
+			int frameCount = Time.frameCount - this.m_lastFrameCount;
+			float timeSpan = Time.realtimeSinceStartup - this.m_lastRealtimeSinceStartup;
+			this.m_lastFrameCount = Time.frameCount;
+			this.m_lastRealtimeSinceStartup = Time.realtimeSinceStartup;
+			this.m_performanceInfo.AvgFPS = (float)Mathf.RoundToInt((float)frameCount / timeSpan);
+			this.m_performanceInfo.CurrentFPS = (float)Mathf.RoundToInt((float)Time.frameCount / Time.time);
+			this.m_performanceInfo.CurrentCpuUsage = this.m_cpuCounter.NextValue();
+			this.m_performanceInfo.CurrentMemoryUsage = this.m_ramCounter.NextValue();
+			this.m_performanceInfo.AvgCpuUsage = this.GetAverage(this.m_performanceInfo.AvgCpuUsage, this.m_cpuCounterSamples++, this.m_performanceInfo.CurrentCpuUsage);
+			this.m_performanceInfo.AvgMemoryUsage = this.GetAverage(this.m_performanceInfo.AvgMemoryUsage, this.m_ramCounterSamples++, this.m_performanceInfo.CurrentMemoryUsage);
+			if (this.m_observedWebSocket != null)
 			{
-				m_performanceInfo.CurrentLatency = m_observedWebSocket.RoundtripTime;
-				m_performanceInfo.AvgLatency = GetAverage(m_performanceInfo.AvgLatency, m_roundtripSamples++, m_performanceInfo.CurrentLatency);
+				this.m_performanceInfo.CurrentLatency = (float)this.m_observedWebSocket.RoundtripTime;
+				this.m_performanceInfo.AvgLatency = this.GetAverage(this.m_performanceInfo.AvgLatency, this.m_roundtripSamples++, this.m_performanceInfo.CurrentLatency);
 			}
 		}
-		while (true)
-		{
-			yield break;
-		}
+		yield break;
 	}
 
 	private float GetAverage(float prevAvg, int prevTotalSamples, float newSampleVal)
@@ -107,26 +100,17 @@ public class ClientPerformanceCollector : MonoBehaviour
 
 	public void ObserveRTT(WebSocket webSocket)
 	{
-		m_observedWebSocket = webSocket;
+		this.m_observedWebSocket = webSocket;
 	}
 
 	public LobbyGameClientPerformanceInfo Collect()
 	{
-		if (m_collect)
+		if (this.m_collect)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_cpuCounterSamples = 0;
-					m_ramCounterSamples = 0;
-					m_roundtripSamples = 0;
-					return m_performanceInfo;
-				}
-			}
+			this.m_cpuCounterSamples = 0;
+			this.m_ramCounterSamples = 0;
+			this.m_roundtripSamples = 0;
+			return this.m_performanceInfo;
 		}
 		return null;
 	}

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -8,81 +8,12 @@ using UnityEngine.UI;
 
 namespace TMPro
 {
-	[AddComponentMenu("UI/TextMeshPro - Input Field", 11)]
+	[AddComponentMenu("UI/TextMeshPro - Input Field", 0xB)]
 	public class TMP_InputField : Selectable, IUpdateSelectedHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, ISubmitHandler, ICanvasElement, IScrollHandler, IEventSystemHandler
 	{
-		public enum ContentType
-		{
-			Standard,
-			Autocorrected,
-			IntegerNumber,
-			DecimalNumber,
-			Alphanumeric,
-			Name,
-			EmailAddress,
-			Password,
-			Pin,
-			Custom
-		}
-
-		public enum InputType
-		{
-			Standard,
-			AutoCorrect,
-			Password
-		}
-
-		public enum CharacterValidation
-		{
-			None,
-			Digit,
-			Integer,
-			Decimal,
-			Alphanumeric,
-			Name,
-			Regex,
-			EmailAddress,
-			CustomValidator
-		}
-
-		public enum LineType
-		{
-			SingleLine,
-			MultiLineSubmit,
-			MultiLineNewline
-		}
-
-		public delegate char OnValidateInput(string text, int charIndex, char addedChar);
-
-		[Serializable]
-		public class SubmitEvent : UnityEvent<string>
-		{
-		}
-
-		[Serializable]
-		public class OnChangeEvent : UnityEvent<string>
-		{
-		}
-
-		[Serializable]
-		public class SelectionEvent : UnityEvent<string>
-		{
-		}
-
-		[Serializable]
-		public class TextSelectionEvent : UnityEvent<string, int, int>
-		{
-		}
-
-		protected enum EditState
-		{
-			Continue,
-			Finish
-		}
-
 		protected TouchScreenKeyboard m_Keyboard;
 
-		private static readonly char[] kSeparators = new char[6]
+		private static readonly char[] kSeparators = new char[]
 		{
 			' ',
 			'.',
@@ -115,10 +46,10 @@ namespace TMPro
 		protected float m_ScrollSensitivity = 1f;
 
 		[SerializeField]
-		private ContentType m_ContentType;
+		private TMP_InputField.ContentType m_ContentType;
 
 		[SerializeField]
-		private InputType m_InputType;
+		private TMP_InputField.InputType m_InputType;
 
 		[SerializeField]
 		private char m_AsteriskChar = '*';
@@ -127,13 +58,13 @@ namespace TMPro
 		private TouchScreenKeyboardType m_KeyboardType;
 
 		[SerializeField]
-		private LineType m_LineType;
+		private TMP_InputField.LineType m_LineType;
 
 		[SerializeField]
 		private bool m_HideMobileInput;
 
 		[SerializeField]
-		private CharacterValidation m_CharacterValidation;
+		private TMP_InputField.CharacterValidation m_CharacterValidation;
 
 		[SerializeField]
 		private string m_RegexValue = string.Empty;
@@ -145,37 +76,37 @@ namespace TMPro
 		private int m_CharacterLimit;
 
 		[SerializeField]
-		private SubmitEvent m_OnEndEdit = new SubmitEvent();
+		private TMP_InputField.SubmitEvent m_OnEndEdit = new TMP_InputField.SubmitEvent();
 
 		[SerializeField]
-		private SubmitEvent m_OnSubmit = new SubmitEvent();
+		private TMP_InputField.SubmitEvent m_OnSubmit = new TMP_InputField.SubmitEvent();
 
 		[SerializeField]
-		private SelectionEvent m_OnSelect = new SelectionEvent();
+		private TMP_InputField.SelectionEvent m_OnSelect = new TMP_InputField.SelectionEvent();
 
 		[SerializeField]
-		private SelectionEvent m_OnDeselect = new SelectionEvent();
+		private TMP_InputField.SelectionEvent m_OnDeselect = new TMP_InputField.SelectionEvent();
 
 		[SerializeField]
-		private TextSelectionEvent m_OnTextSelection = new TextSelectionEvent();
+		private TMP_InputField.TextSelectionEvent m_OnTextSelection = new TMP_InputField.TextSelectionEvent();
 
 		[SerializeField]
-		private TextSelectionEvent m_OnEndTextSelection = new TextSelectionEvent();
+		private TMP_InputField.TextSelectionEvent m_OnEndTextSelection = new TMP_InputField.TextSelectionEvent();
 
 		[SerializeField]
-		private OnChangeEvent m_OnValueChanged = new OnChangeEvent();
+		private TMP_InputField.OnChangeEvent m_OnValueChanged = new TMP_InputField.OnChangeEvent();
 
 		[SerializeField]
-		private OnValidateInput m_OnValidateInput;
+		private TMP_InputField.OnValidateInput m_OnValidateInput;
 
 		[SerializeField]
-		private Color m_CaretColor = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
+		private Color m_CaretColor = new Color(0.196078435f, 0.196078435f, 0.196078435f, 1f);
 
 		[SerializeField]
 		private bool m_CustomCaretColor;
 
 		[SerializeField]
-		private Color m_SelectionColor = new Color(56f / 85f, 206f / 255f, 1f, 64f / 85f);
+		private Color m_SelectionColor = new Color(0.65882355f, 0.807843149f, 1f, 0.7529412f);
 
 		[SerializeField]
 		protected string m_Text = string.Empty;
@@ -281,15 +212,19 @@ namespace TMPro
 
 		private Event m_ProcessingEvent = new Event();
 
+		protected TMP_InputField()
+		{
+		}
+
 		protected Mesh mesh
 		{
 			get
 			{
-				if (m_Mesh == null)
+				if (this.m_Mesh == null)
 				{
-					m_Mesh = new Mesh();
+					this.m_Mesh = new Mesh();
 				}
-				return m_Mesh;
+				return this.m_Mesh;
 			}
 		}
 
@@ -300,25 +235,24 @@ namespace TMPro
 				RuntimePlatform platform = Application.platform;
 				switch (platform)
 				{
-				default:
-					if (platform == RuntimePlatform.tvOS)
-					{
-						break;
-					}
-					while (true)
-					{
-						return true;
-					}
 				case RuntimePlatform.IPhonePlayer:
 				case RuntimePlatform.Android:
-				case RuntimePlatform.TizenPlayer:
+					break;
+				default:
+					if (platform != RuntimePlatform.TizenPlayer)
+					{
+						if (platform != RuntimePlatform.tvOS)
+						{
+							return true;
+						}
+					}
 					break;
 				}
-				return m_HideMobileInput;
+				return this.m_HideMobileInput;
 			}
 			set
 			{
-				SetPropertyUtility.SetStruct(ref m_HideMobileInput, value);
+				SetPropertyUtility.SetStruct<bool>(ref this.m_HideMobileInput, value);
 			}
 		}
 
@@ -326,47 +260,48 @@ namespace TMPro
 		{
 			get
 			{
-				return m_Text;
+				return this.m_Text;
 			}
 			set
 			{
-				if (text == value)
+				if (this.text == value)
 				{
 					return;
 				}
-				m_Text = value;
-				if (m_Keyboard != null)
+				this.m_Text = value;
+				if (this.m_Keyboard != null)
 				{
-					m_Keyboard.text = m_Text;
+					this.m_Keyboard.text = this.m_Text;
 				}
-				if (m_StringPosition > m_Text.Length)
+				if (this.m_StringPosition > this.m_Text.Length)
 				{
-					m_StringPosition = (m_StringSelectPosition = m_Text.Length);
+					this.m_StringPosition = (this.m_StringSelectPosition = this.m_Text.Length);
 				}
-				AdjustTextPositionRelativeToViewport(0f);
-				m_forceRectTransformAdjustment = true;
-				SendOnValueChangedAndUpdateLabel();
+				this.AdjustTextPositionRelativeToViewport(0f);
+				this.m_forceRectTransformAdjustment = true;
+				this.SendOnValueChangedAndUpdateLabel();
 			}
 		}
 
-		public bool isFocused => m_AllowInput;
+		public bool isFocused
+		{
+			get
+			{
+				return this.m_AllowInput;
+			}
+		}
 
 		public float caretBlinkRate
 		{
 			get
 			{
-				return m_CaretBlinkRate;
+				return this.m_CaretBlinkRate;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_CaretBlinkRate, value) || !m_AllowInput)
+				if (SetPropertyUtility.SetStruct<float>(ref this.m_CaretBlinkRate, value) && this.m_AllowInput)
 				{
-					return;
-				}
-				while (true)
-				{
-					SetCaretActive();
-					return;
+					this.SetCaretActive();
 				}
 			}
 		}
@@ -375,18 +310,13 @@ namespace TMPro
 		{
 			get
 			{
-				return m_CaretWidth;
+				return this.m_CaretWidth;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_CaretWidth, value))
+				if (SetPropertyUtility.SetStruct<int>(ref this.m_CaretWidth, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					MarkGeometryAsDirty();
-					return;
+					this.MarkGeometryAsDirty();
 				}
 			}
 		}
@@ -395,11 +325,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_TextViewport;
+				return this.m_TextViewport;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_TextViewport, value);
+				SetPropertyUtility.SetClass<RectTransform>(ref this.m_TextViewport, value);
 			}
 		}
 
@@ -407,11 +337,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_TextComponent;
+				return this.m_TextComponent;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_TextComponent, value);
+				SetPropertyUtility.SetClass<TMP_Text>(ref this.m_TextComponent, value);
 			}
 		}
 
@@ -419,11 +349,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_Placeholder;
+				return this.m_Placeholder;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_Placeholder, value);
+				SetPropertyUtility.SetClass<Graphic>(ref this.m_Placeholder, value);
 			}
 		}
 
@@ -431,23 +361,18 @@ namespace TMPro
 		{
 			get
 			{
-				return m_VerticalScrollbar;
+				return this.m_VerticalScrollbar;
 			}
 			set
 			{
-				if (m_VerticalScrollbar != null)
+				if (this.m_VerticalScrollbar != null)
 				{
-					m_VerticalScrollbar.onValueChanged.RemoveListener(OnScrollbarValueChange);
+					this.m_VerticalScrollbar.onValueChanged.RemoveListener(new UnityAction<float>(this.OnScrollbarValueChange));
 				}
-				SetPropertyUtility.SetClass(ref m_VerticalScrollbar, value);
-				if (!m_VerticalScrollbar)
+				SetPropertyUtility.SetClass<Scrollbar>(ref this.m_VerticalScrollbar, value);
+				if (this.m_VerticalScrollbar)
 				{
-					return;
-				}
-				while (true)
-				{
-					m_VerticalScrollbar.onValueChanged.AddListener(OnScrollbarValueChange);
-					return;
+					this.m_VerticalScrollbar.onValueChanged.AddListener(new UnityAction<float>(this.OnScrollbarValueChange));
 				}
 			}
 		}
@@ -456,18 +381,13 @@ namespace TMPro
 		{
 			get
 			{
-				return m_ScrollSensitivity;
+				return this.m_ScrollSensitivity;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_ScrollSensitivity, value))
+				if (SetPropertyUtility.SetStruct<float>(ref this.m_ScrollSensitivity, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					MarkGeometryAsDirty();
-					return;
+					this.MarkGeometryAsDirty();
 				}
 			}
 		}
@@ -477,26 +397,21 @@ namespace TMPro
 			get
 			{
 				Color result;
-				if (customCaretColor)
+				if (this.customCaretColor)
 				{
-					result = m_CaretColor;
+					result = this.m_CaretColor;
 				}
 				else
 				{
-					result = textComponent.color;
+					result = this.textComponent.color;
 				}
 				return result;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetColor(ref m_CaretColor, value))
+				if (SetPropertyUtility.SetColor(ref this.m_CaretColor, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					MarkGeometryAsDirty();
-					return;
+					this.MarkGeometryAsDirty();
 				}
 			}
 		}
@@ -505,14 +420,14 @@ namespace TMPro
 		{
 			get
 			{
-				return m_CustomCaretColor;
+				return this.m_CustomCaretColor;
 			}
 			set
 			{
-				if (m_CustomCaretColor != value)
+				if (this.m_CustomCaretColor != value)
 				{
-					m_CustomCaretColor = value;
-					MarkGeometryAsDirty();
+					this.m_CustomCaretColor = value;
+					this.MarkGeometryAsDirty();
 				}
 			}
 		}
@@ -521,115 +436,110 @@ namespace TMPro
 		{
 			get
 			{
-				return m_SelectionColor;
+				return this.m_SelectionColor;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetColor(ref m_SelectionColor, value))
+				if (SetPropertyUtility.SetColor(ref this.m_SelectionColor, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					MarkGeometryAsDirty();
-					return;
+					this.MarkGeometryAsDirty();
 				}
 			}
 		}
 
-		public SubmitEvent onEndEdit
+		public TMP_InputField.SubmitEvent onEndEdit
 		{
 			get
 			{
-				return m_OnEndEdit;
+				return this.m_OnEndEdit;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnEndEdit, value);
+				SetPropertyUtility.SetClass<TMP_InputField.SubmitEvent>(ref this.m_OnEndEdit, value);
 			}
 		}
 
-		public SubmitEvent onSubmit
+		public TMP_InputField.SubmitEvent onSubmit
 		{
 			get
 			{
-				return m_OnSubmit;
+				return this.m_OnSubmit;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnSubmit, value);
+				SetPropertyUtility.SetClass<TMP_InputField.SubmitEvent>(ref this.m_OnSubmit, value);
 			}
 		}
 
-		public SelectionEvent onSelect
+		public TMP_InputField.SelectionEvent onSelect
 		{
 			get
 			{
-				return m_OnSelect;
+				return this.m_OnSelect;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnSelect, value);
+				SetPropertyUtility.SetClass<TMP_InputField.SelectionEvent>(ref this.m_OnSelect, value);
 			}
 		}
 
-		public SelectionEvent onDeselect
+		public TMP_InputField.SelectionEvent onDeselect
 		{
 			get
 			{
-				return m_OnDeselect;
+				return this.m_OnDeselect;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnDeselect, value);
+				SetPropertyUtility.SetClass<TMP_InputField.SelectionEvent>(ref this.m_OnDeselect, value);
 			}
 		}
 
-		public TextSelectionEvent onTextSelection
+		public TMP_InputField.TextSelectionEvent onTextSelection
 		{
 			get
 			{
-				return m_OnTextSelection;
+				return this.m_OnTextSelection;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnTextSelection, value);
+				SetPropertyUtility.SetClass<TMP_InputField.TextSelectionEvent>(ref this.m_OnTextSelection, value);
 			}
 		}
 
-		public TextSelectionEvent onEndTextSelection
+		public TMP_InputField.TextSelectionEvent onEndTextSelection
 		{
 			get
 			{
-				return m_OnEndTextSelection;
+				return this.m_OnEndTextSelection;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnEndTextSelection, value);
+				SetPropertyUtility.SetClass<TMP_InputField.TextSelectionEvent>(ref this.m_OnEndTextSelection, value);
 			}
 		}
 
-		public OnChangeEvent onValueChanged
+		public TMP_InputField.OnChangeEvent onValueChanged
 		{
 			get
 			{
-				return m_OnValueChanged;
+				return this.m_OnValueChanged;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnValueChanged, value);
+				SetPropertyUtility.SetClass<TMP_InputField.OnChangeEvent>(ref this.m_OnValueChanged, value);
 			}
 		}
 
-		public OnValidateInput onValidateInput
+		public TMP_InputField.OnValidateInput onValidateInput
 		{
 			get
 			{
-				return m_OnValidateInput;
+				return this.m_OnValidateInput;
 			}
 			set
 			{
-				SetPropertyUtility.SetClass(ref m_OnValidateInput, value);
+				SetPropertyUtility.SetClass<TMP_InputField.OnValidateInput>(ref this.m_OnValidateInput, value);
 			}
 		}
 
@@ -637,13 +547,13 @@ namespace TMPro
 		{
 			get
 			{
-				return m_CharacterLimit;
+				return this.m_CharacterLimit;
 			}
 			set
 			{
-				if (SetPropertyUtility.SetStruct(ref m_CharacterLimit, Math.Max(0, value)))
+				if (SetPropertyUtility.SetStruct<int>(ref this.m_CharacterLimit, Math.Max(0, value)))
 				{
-					UpdateLabel();
+					this.UpdateLabel();
 				}
 			}
 		}
@@ -652,19 +562,14 @@ namespace TMPro
 		{
 			get
 			{
-				return m_GlobalPointSize;
+				return this.m_GlobalPointSize;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_GlobalPointSize, Math.Max(0f, value)))
+				if (SetPropertyUtility.SetStruct<float>(ref this.m_GlobalPointSize, Math.Max(0f, value)))
 				{
-					return;
-				}
-				while (true)
-				{
-					SetGlobalPointSize(m_GlobalPointSize);
-					UpdateLabel();
-					return;
+					this.SetGlobalPointSize(this.m_GlobalPointSize);
+					this.UpdateLabel();
 				}
 			}
 		}
@@ -673,19 +578,14 @@ namespace TMPro
 		{
 			get
 			{
-				return m_GlobalFontAsset;
+				return this.m_GlobalFontAsset;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetClass(ref m_GlobalFontAsset, value))
+				if (SetPropertyUtility.SetClass<TMP_FontAsset>(ref this.m_GlobalFontAsset, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					SetGlobalFontAsset(m_GlobalFontAsset);
-					UpdateLabel();
-					return;
+					this.SetGlobalFontAsset(this.m_GlobalFontAsset);
+					this.UpdateLabel();
 				}
 			}
 		}
@@ -694,11 +594,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_OnFocusSelectAll;
+				return this.m_OnFocusSelectAll;
 			}
 			set
 			{
-				m_OnFocusSelectAll = value;
+				this.m_OnFocusSelectAll = value;
 			}
 		}
 
@@ -706,11 +606,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_ResetOnDeActivation;
+				return this.m_ResetOnDeActivation;
 			}
 			set
 			{
-				m_ResetOnDeActivation = value;
+				this.m_ResetOnDeActivation = value;
 			}
 		}
 
@@ -718,11 +618,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_RestoreOriginalTextOnEscape;
+				return this.m_RestoreOriginalTextOnEscape;
 			}
 			set
 			{
-				m_RestoreOriginalTextOnEscape = value;
+				this.m_RestoreOriginalTextOnEscape = value;
 			}
 		}
 
@@ -730,66 +630,60 @@ namespace TMPro
 		{
 			get
 			{
-				return m_isRichTextEditingAllowed;
+				return this.m_isRichTextEditingAllowed;
 			}
 			set
 			{
-				m_isRichTextEditingAllowed = value;
+				this.m_isRichTextEditingAllowed = value;
 			}
 		}
 
-		public ContentType contentType
+		public TMP_InputField.ContentType contentType
 		{
 			get
 			{
-				return m_ContentType;
+				return this.m_ContentType;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_ContentType, value))
+				if (SetPropertyUtility.SetStruct<TMP_InputField.ContentType>(ref this.m_ContentType, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					EnforceContentType();
-					return;
+					this.EnforceContentType();
 				}
 			}
 		}
 
-		public LineType lineType
+		public TMP_InputField.LineType lineType
 		{
 			get
 			{
-				return m_LineType;
+				return this.m_LineType;
 			}
 			set
 			{
-				if (SetPropertyUtility.SetStruct(ref m_LineType, value))
+				if (SetPropertyUtility.SetStruct<TMP_InputField.LineType>(ref this.m_LineType, value))
 				{
-					SetTextComponentWrapMode();
+					this.SetTextComponentWrapMode();
 				}
-				SetToCustomIfContentTypeIsNot(ContentType.Standard, ContentType.Autocorrected);
+				this.SetToCustomIfContentTypeIsNot(new TMP_InputField.ContentType[]
+				{
+					TMP_InputField.ContentType.Standard,
+					TMP_InputField.ContentType.Autocorrected
+				});
 			}
 		}
 
-		public InputType inputType
+		public TMP_InputField.InputType inputType
 		{
 			get
 			{
-				return m_InputType;
+				return this.m_InputType;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_InputType, value))
+				if (SetPropertyUtility.SetStruct<TMP_InputField.InputType>(ref this.m_InputType, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					SetToCustom();
-					return;
+					this.SetToCustom();
 				}
 			}
 		}
@@ -798,33 +692,28 @@ namespace TMPro
 		{
 			get
 			{
-				return m_KeyboardType;
+				return this.m_KeyboardType;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_KeyboardType, value))
+				if (SetPropertyUtility.SetStruct<TouchScreenKeyboardType>(ref this.m_KeyboardType, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					SetToCustom();
-					return;
+					this.SetToCustom();
 				}
 			}
 		}
 
-		public CharacterValidation characterValidation
+		public TMP_InputField.CharacterValidation characterValidation
 		{
 			get
 			{
-				return m_CharacterValidation;
+				return this.m_CharacterValidation;
 			}
 			set
 			{
-				if (SetPropertyUtility.SetStruct(ref m_CharacterValidation, value))
+				if (SetPropertyUtility.SetStruct<TMP_InputField.CharacterValidation>(ref this.m_CharacterValidation, value))
 				{
-					SetToCustom();
+					this.SetToCustom();
 				}
 			}
 		}
@@ -833,18 +722,13 @@ namespace TMPro
 		{
 			get
 			{
-				return m_InputValidator;
+				return this.m_InputValidator;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetClass(ref m_InputValidator, value))
+				if (SetPropertyUtility.SetClass<TMP_InputValidator>(ref this.m_InputValidator, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					SetToCustom(CharacterValidation.CustomValidator);
-					return;
+					this.SetToCustom(TMP_InputField.CharacterValidation.CustomValidator);
 				}
 			}
 		}
@@ -853,11 +737,11 @@ namespace TMPro
 		{
 			get
 			{
-				return m_ReadOnly;
+				return this.m_ReadOnly;
 			}
 			set
 			{
-				m_ReadOnly = value;
+				this.m_ReadOnly = value;
 			}
 		}
 
@@ -865,12 +749,12 @@ namespace TMPro
 		{
 			get
 			{
-				return m_RichText;
+				return this.m_RichText;
 			}
 			set
 			{
-				m_RichText = value;
-				SetTextComponentRichTextMode();
+				this.m_RichText = value;
+				this.SetTextComponentRichTextMode();
 			}
 		}
 
@@ -878,16 +762,16 @@ namespace TMPro
 		{
 			get
 			{
-				int result;
-				if (m_LineType != LineType.MultiLineNewline)
+				bool result;
+				if (this.m_LineType != TMP_InputField.LineType.MultiLineNewline)
 				{
-					result = ((lineType == LineType.MultiLineSubmit) ? 1 : 0);
+					result = (this.lineType == TMP_InputField.LineType.MultiLineSubmit);
 				}
 				else
 				{
-					result = 1;
+					result = true;
 				}
-				return (byte)result != 0;
+				return result;
 			}
 		}
 
@@ -895,34 +779,59 @@ namespace TMPro
 		{
 			get
 			{
-				return m_AsteriskChar;
+				return this.m_AsteriskChar;
 			}
 			set
 			{
-				if (!SetPropertyUtility.SetStruct(ref m_AsteriskChar, value))
+				if (SetPropertyUtility.SetStruct<char>(ref this.m_AsteriskChar, value))
 				{
-					return;
-				}
-				while (true)
-				{
-					UpdateLabel();
-					return;
+					this.UpdateLabel();
 				}
 			}
 		}
 
-		public bool wasCanceled => m_WasCanceled;
+		public bool wasCanceled
+		{
+			get
+			{
+				return this.m_WasCanceled;
+			}
+		}
+
+		protected unsafe void ClampStringPos(ref int pos)
+		{
+			if (pos < 0)
+			{
+				pos = 0;
+			}
+			else if (pos > this.text.Length)
+			{
+				pos = this.text.Length;
+			}
+		}
+
+		protected unsafe void ClampCaretPos(ref int pos)
+		{
+			if (pos < 0)
+			{
+				pos = 0;
+			}
+			else if (pos > this.m_TextComponent.textInfo.characterCount - 1)
+			{
+				pos = this.m_TextComponent.textInfo.characterCount - 1;
+			}
+		}
 
 		protected int caretPositionInternal
 		{
 			get
 			{
-				return m_CaretPosition + Input.compositionString.Length;
+				return this.m_CaretPosition + Input.compositionString.Length;
 			}
 			set
 			{
-				m_CaretPosition = value;
-				ClampCaretPos(ref m_CaretPosition);
+				this.m_CaretPosition = value;
+				this.ClampCaretPos(ref this.m_CaretPosition);
 			}
 		}
 
@@ -930,12 +839,12 @@ namespace TMPro
 		{
 			get
 			{
-				return m_StringPosition + Input.compositionString.Length;
+				return this.m_StringPosition + Input.compositionString.Length;
 			}
 			set
 			{
-				m_StringPosition = value;
-				ClampStringPos(ref m_StringPosition);
+				this.m_StringPosition = value;
+				this.ClampStringPos(ref this.m_StringPosition);
 			}
 		}
 
@@ -943,12 +852,12 @@ namespace TMPro
 		{
 			get
 			{
-				return m_CaretSelectPosition + Input.compositionString.Length;
+				return this.m_CaretSelectPosition + Input.compositionString.Length;
 			}
 			set
 			{
-				m_CaretSelectPosition = value;
-				ClampCaretPos(ref m_CaretSelectPosition);
+				this.m_CaretSelectPosition = value;
+				this.ClampCaretPos(ref this.m_CaretSelectPosition);
 			}
 		}
 
@@ -956,28 +865,34 @@ namespace TMPro
 		{
 			get
 			{
-				return m_StringSelectPosition + Input.compositionString.Length;
+				return this.m_StringSelectPosition + Input.compositionString.Length;
 			}
 			set
 			{
-				m_StringSelectPosition = value;
-				ClampStringPos(ref m_StringSelectPosition);
+				this.m_StringSelectPosition = value;
+				this.ClampStringPos(ref this.m_StringSelectPosition);
 			}
 		}
 
-		private bool hasSelection => stringPositionInternal != stringSelectPositionInternal;
+		private bool hasSelection
+		{
+			get
+			{
+				return this.stringPositionInternal != this.stringSelectPositionInternal;
+			}
+		}
 
 		public int caretPosition
 		{
 			get
 			{
-				return m_StringSelectPosition + Input.compositionString.Length;
+				return this.m_StringSelectPosition + Input.compositionString.Length;
 			}
 			set
 			{
-				selectionAnchorPosition = value;
-				selectionFocusPosition = value;
-				isStringPositionDirty = true;
+				this.selectionAnchorPosition = value;
+				this.selectionFocusPosition = value;
+				this.isStringPositionDirty = true;
 			}
 		}
 
@@ -985,26 +900,17 @@ namespace TMPro
 		{
 			get
 			{
-				return m_StringPosition + Input.compositionString.Length;
+				return this.m_StringPosition + Input.compositionString.Length;
 			}
 			set
 			{
 				if (Input.compositionString.Length != 0)
 				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return;
-						}
-					}
+					return;
 				}
-				caretPositionInternal = value;
-				stringPositionInternal = value;
-				isStringPositionDirty = true;
+				this.caretPositionInternal = value;
+				this.stringPositionInternal = value;
+				this.isStringPositionDirty = true;
 			}
 		}
 
@@ -1012,26 +918,17 @@ namespace TMPro
 		{
 			get
 			{
-				return m_StringSelectPosition + Input.compositionString.Length;
+				return this.m_StringSelectPosition + Input.compositionString.Length;
 			}
 			set
 			{
 				if (Input.compositionString.Length != 0)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return;
-						}
-					}
+					return;
 				}
-				caretSelectPositionInternal = value;
-				stringSelectPositionInternal = value;
-				isStringPositionDirty = true;
+				this.caretSelectPositionInternal = value;
+				this.stringSelectPositionInternal = value;
+				this.isStringPositionDirty = true;
 			}
 		}
 
@@ -1039,12 +936,12 @@ namespace TMPro
 		{
 			get
 			{
-				return stringSelectPositionInternal;
+				return this.stringSelectPositionInternal;
 			}
 			set
 			{
-				selectionStringAnchorPosition = value;
-				selectionStringFocusPosition = value;
+				this.selectionStringAnchorPosition = value;
+				this.selectionStringFocusPosition = value;
 			}
 		}
 
@@ -1052,24 +949,15 @@ namespace TMPro
 		{
 			get
 			{
-				return stringPositionInternal;
+				return this.stringPositionInternal;
 			}
 			set
 			{
 				if (Input.compositionString.Length != 0)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							return;
-						}
-					}
+					return;
 				}
-				stringPositionInternal = value;
+				this.stringPositionInternal = value;
 			}
 		}
 
@@ -1077,15 +965,296 @@ namespace TMPro
 		{
 			get
 			{
-				return stringSelectPositionInternal;
+				return this.stringSelectPositionInternal;
 			}
 			set
 			{
-				if (Input.compositionString.Length == 0)
+				if (Input.compositionString.Length != 0)
 				{
-					stringSelectPositionInternal = value;
+					return;
+				}
+				this.stringSelectPositionInternal = value;
+			}
+		}
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			if (this.m_Text == null)
+			{
+				this.m_Text = string.Empty;
+			}
+			if (Application.isPlaying)
+			{
+				if (this.m_CachedInputRenderer == null)
+				{
+					if (this.m_TextComponent != null)
+					{
+						GameObject gameObject = new GameObject(base.transform.name + " Input Caret", new Type[]
+						{
+							typeof(RectTransform)
+						});
+						TMP_SelectionCaret tmp_SelectionCaret = gameObject.AddComponent<TMP_SelectionCaret>();
+						tmp_SelectionCaret.color = Color.clear;
+						gameObject.hideFlags = HideFlags.DontSave;
+						gameObject.transform.SetParent(this.m_TextComponent.transform.parent);
+						gameObject.transform.SetAsFirstSibling();
+						gameObject.layer = base.gameObject.layer;
+						this.caretRectTrans = gameObject.GetComponent<RectTransform>();
+						this.m_CachedInputRenderer = gameObject.GetComponent<CanvasRenderer>();
+						this.m_CachedInputRenderer.SetMaterial(Graphic.defaultGraphicMaterial, Texture2D.whiteTexture);
+						gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+						this.AssignPositioningIfNeeded();
+					}
 				}
 			}
+			if (this.m_CachedInputRenderer != null)
+			{
+				this.m_CachedInputRenderer.SetMaterial(Graphic.defaultGraphicMaterial, Texture2D.whiteTexture);
+			}
+			if (this.m_TextComponent != null)
+			{
+				this.m_TextComponent.RegisterDirtyVerticesCallback(new UnityAction(this.MarkGeometryAsDirty));
+				this.m_TextComponent.RegisterDirtyVerticesCallback(new UnityAction(this.UpdateLabel));
+				this.m_TextComponent.ignoreRectMaskCulling = true;
+				this.m_DefaultTransformPosition = this.m_TextComponent.rectTransform.localPosition;
+				if (this.m_VerticalScrollbar != null)
+				{
+					this.m_VerticalScrollbar.onValueChanged.AddListener(new UnityAction<float>(this.OnScrollbarValueChange));
+				}
+				this.UpdateLabel();
+			}
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.ON_TEXT_CHANGED));
+		}
+
+		protected override void OnDisable()
+		{
+			this.m_BlinkCoroutine = null;
+			this.DeactivateInputField();
+			if (this.m_TextComponent != null)
+			{
+				this.m_TextComponent.UnregisterDirtyVerticesCallback(new UnityAction(this.MarkGeometryAsDirty));
+				this.m_TextComponent.UnregisterDirtyVerticesCallback(new UnityAction(this.UpdateLabel));
+				if (this.m_VerticalScrollbar != null)
+				{
+					this.m_VerticalScrollbar.onValueChanged.RemoveListener(new UnityAction<float>(this.OnScrollbarValueChange));
+				}
+			}
+			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
+			if (this.m_CachedInputRenderer != null)
+			{
+				this.m_CachedInputRenderer.Clear();
+			}
+			if (this.m_Mesh != null)
+			{
+				UnityEngine.Object.DestroyImmediate(this.m_Mesh);
+			}
+			this.m_Mesh = null;
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.ON_TEXT_CHANGED));
+			base.OnDisable();
+		}
+
+		private void ON_TEXT_CHANGED(UnityEngine.Object obj)
+		{
+			if (obj == this.m_TextComponent)
+			{
+				if (Application.isPlaying)
+				{
+					this.caretPositionInternal = this.GetCaretPositionFromStringIndex(this.stringPositionInternal);
+					this.caretSelectPositionInternal = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+				}
+			}
+		}
+
+		private IEnumerator CaretBlink()
+		{
+			this.m_CaretVisible = true;
+			yield return null;
+			while (this.m_CaretBlinkRate > 0f)
+			{
+				float blinkPeriod = 1f / this.m_CaretBlinkRate;
+				bool blinkState = (Time.unscaledTime - this.m_BlinkStartTime) % blinkPeriod < blinkPeriod / 2f;
+				if (this.m_CaretVisible != blinkState)
+				{
+					this.m_CaretVisible = blinkState;
+					if (!this.hasSelection)
+					{
+						this.MarkGeometryAsDirty();
+					}
+				}
+				yield return null;
+			}
+			this.m_BlinkCoroutine = null;
+			yield break;
+		}
+
+		private void SetCaretVisible()
+		{
+			if (!this.m_AllowInput)
+			{
+				return;
+			}
+			this.m_CaretVisible = true;
+			this.m_BlinkStartTime = Time.unscaledTime;
+			this.SetCaretActive();
+		}
+
+		private void SetCaretActive()
+		{
+			if (!this.m_AllowInput)
+			{
+				return;
+			}
+			if (this.m_CaretBlinkRate > 0f)
+			{
+				if (this.m_BlinkCoroutine == null)
+				{
+					this.m_BlinkCoroutine = base.StartCoroutine(this.CaretBlink());
+				}
+			}
+			else
+			{
+				this.m_CaretVisible = true;
+			}
+		}
+
+		protected void OnFocus()
+		{
+			if (this.m_OnFocusSelectAll)
+			{
+				this.SelectAll();
+			}
+		}
+
+		protected void SelectAll()
+		{
+			this.m_isSelectAll = true;
+			this.stringPositionInternal = this.text.Length;
+			this.stringSelectPositionInternal = 0;
+		}
+
+		public void MoveTextEnd(bool shift)
+		{
+			if (this.m_isRichTextEditingAllowed)
+			{
+				int length = this.text.Length;
+				if (shift)
+				{
+					this.stringSelectPositionInternal = length;
+				}
+				else
+				{
+					this.stringPositionInternal = length;
+					this.stringSelectPositionInternal = this.stringPositionInternal;
+				}
+			}
+			else
+			{
+				int num = this.m_TextComponent.textInfo.characterCount - 1;
+				if (shift)
+				{
+					this.caretSelectPositionInternal = num;
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(num);
+				}
+				else
+				{
+					int num2 = num;
+					this.caretSelectPositionInternal = num2;
+					this.caretPositionInternal = num2;
+					num2 = this.GetStringIndexFromCaretPosition(num);
+					this.stringPositionInternal = num2;
+					this.stringSelectPositionInternal = num2;
+				}
+			}
+			this.UpdateLabel();
+		}
+
+		public void MoveTextStart(bool shift)
+		{
+			if (this.m_isRichTextEditingAllowed)
+			{
+				int num = 0;
+				if (shift)
+				{
+					this.stringSelectPositionInternal = num;
+				}
+				else
+				{
+					this.stringPositionInternal = num;
+					this.stringSelectPositionInternal = this.stringPositionInternal;
+				}
+			}
+			else
+			{
+				int num2 = 0;
+				if (shift)
+				{
+					this.caretSelectPositionInternal = num2;
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(num2);
+				}
+				else
+				{
+					int num3 = num2;
+					this.caretSelectPositionInternal = num3;
+					this.caretPositionInternal = num3;
+					num3 = this.GetStringIndexFromCaretPosition(num2);
+					this.stringPositionInternal = num3;
+					this.stringSelectPositionInternal = num3;
+				}
+			}
+			this.UpdateLabel();
+		}
+
+		public void MoveToEndOfLine(bool shift, bool ctrl)
+		{
+			int lineNumber = (int)this.m_TextComponent.textInfo.characterInfo[this.caretPositionInternal].lineNumber;
+			int num;
+			if (ctrl)
+			{
+				num = this.m_TextComponent.textInfo.characterCount - 1;
+			}
+			else
+			{
+				num = this.m_TextComponent.textInfo.lineInfo[lineNumber].lastCharacterIndex;
+			}
+			int num2 = num;
+			num2 = this.GetStringIndexFromCaretPosition(num2);
+			if (shift)
+			{
+				this.stringSelectPositionInternal = num2;
+			}
+			else
+			{
+				this.stringPositionInternal = num2;
+				this.stringSelectPositionInternal = this.stringPositionInternal;
+			}
+			this.UpdateLabel();
+		}
+
+		public void MoveToStartOfLine(bool shift, bool ctrl)
+		{
+			int lineNumber = (int)this.m_TextComponent.textInfo.characterInfo[this.caretPositionInternal].lineNumber;
+			int num;
+			if (ctrl)
+			{
+				num = 0;
+			}
+			else
+			{
+				num = this.m_TextComponent.textInfo.lineInfo[lineNumber].firstCharacterIndex;
+			}
+			int num2 = num;
+			num2 = this.GetStringIndexFromCaretPosition(num2);
+			if (shift)
+			{
+				this.stringSelectPositionInternal = num2;
+			}
+			else
+			{
+				this.stringPositionInternal = num2;
+				this.stringSelectPositionInternal = this.stringPositionInternal;
+			}
+			this.UpdateLabel();
 		}
 
 		private static string clipboard
@@ -1100,350 +1269,6 @@ namespace TMPro
 			}
 		}
 
-		protected TMP_InputField()
-		{
-		}
-
-		protected void ClampStringPos(ref int pos)
-		{
-			if (pos < 0)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						pos = 0;
-						return;
-					}
-				}
-			}
-			if (pos <= text.Length)
-			{
-				return;
-			}
-			while (true)
-			{
-				pos = text.Length;
-				return;
-			}
-		}
-
-		protected void ClampCaretPos(ref int pos)
-		{
-			if (pos < 0)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						pos = 0;
-						return;
-					}
-				}
-			}
-			if (pos <= m_TextComponent.textInfo.characterCount - 1)
-			{
-				return;
-			}
-			while (true)
-			{
-				pos = m_TextComponent.textInfo.characterCount - 1;
-				return;
-			}
-		}
-
-		protected override void OnEnable()
-		{
-			base.OnEnable();
-			if (m_Text == null)
-			{
-				m_Text = string.Empty;
-			}
-			if (Application.isPlaying)
-			{
-				if (m_CachedInputRenderer == null)
-				{
-					if (m_TextComponent != null)
-					{
-						GameObject gameObject = new GameObject(base.transform.name + " Input Caret", typeof(RectTransform));
-						TMP_SelectionCaret tMP_SelectionCaret = gameObject.AddComponent<TMP_SelectionCaret>();
-						tMP_SelectionCaret.color = Color.clear;
-						gameObject.hideFlags = HideFlags.DontSave;
-						gameObject.transform.SetParent(m_TextComponent.transform.parent);
-						gameObject.transform.SetAsFirstSibling();
-						gameObject.layer = base.gameObject.layer;
-						caretRectTrans = gameObject.GetComponent<RectTransform>();
-						m_CachedInputRenderer = gameObject.GetComponent<CanvasRenderer>();
-						m_CachedInputRenderer.SetMaterial(Graphic.defaultGraphicMaterial, Texture2D.whiteTexture);
-						gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-						AssignPositioningIfNeeded();
-					}
-				}
-			}
-			if (m_CachedInputRenderer != null)
-			{
-				m_CachedInputRenderer.SetMaterial(Graphic.defaultGraphicMaterial, Texture2D.whiteTexture);
-			}
-			if (m_TextComponent != null)
-			{
-				m_TextComponent.RegisterDirtyVerticesCallback(MarkGeometryAsDirty);
-				m_TextComponent.RegisterDirtyVerticesCallback(UpdateLabel);
-				m_TextComponent.ignoreRectMaskCulling = true;
-				m_DefaultTransformPosition = m_TextComponent.rectTransform.localPosition;
-				if (m_VerticalScrollbar != null)
-				{
-					m_VerticalScrollbar.onValueChanged.AddListener(OnScrollbarValueChange);
-				}
-				UpdateLabel();
-			}
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
-		}
-
-		protected override void OnDisable()
-		{
-			m_BlinkCoroutine = null;
-			DeactivateInputField();
-			if (m_TextComponent != null)
-			{
-				m_TextComponent.UnregisterDirtyVerticesCallback(MarkGeometryAsDirty);
-				m_TextComponent.UnregisterDirtyVerticesCallback(UpdateLabel);
-				if (m_VerticalScrollbar != null)
-				{
-					m_VerticalScrollbar.onValueChanged.RemoveListener(OnScrollbarValueChange);
-				}
-			}
-			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
-			if (m_CachedInputRenderer != null)
-			{
-				m_CachedInputRenderer.Clear();
-			}
-			if (m_Mesh != null)
-			{
-				UnityEngine.Object.DestroyImmediate(m_Mesh);
-			}
-			m_Mesh = null;
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
-			base.OnDisable();
-		}
-
-		private void ON_TEXT_CHANGED(UnityEngine.Object obj)
-		{
-			if (!(obj == m_TextComponent))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (Application.isPlaying)
-				{
-					while (true)
-					{
-						caretPositionInternal = GetCaretPositionFromStringIndex(stringPositionInternal);
-						caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
-						return;
-					}
-				}
-				return;
-			}
-		}
-
-		private IEnumerator CaretBlink()
-		{
-			m_CaretVisible = true;
-			yield return null;
-			/*Error: Unable to find new state assignment for yield return*/;
-		}
-
-		private void SetCaretVisible()
-		{
-			if (!m_AllowInput)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
-			}
-			m_CaretVisible = true;
-			m_BlinkStartTime = Time.unscaledTime;
-			SetCaretActive();
-		}
-
-		private void SetCaretActive()
-		{
-			if (!m_AllowInput)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
-			}
-			if (m_CaretBlinkRate > 0f)
-			{
-				if (m_BlinkCoroutine == null)
-				{
-					m_BlinkCoroutine = StartCoroutine(CaretBlink());
-				}
-			}
-			else
-			{
-				m_CaretVisible = true;
-			}
-		}
-
-		protected void OnFocus()
-		{
-			if (!m_OnFocusSelectAll)
-			{
-				return;
-			}
-			while (true)
-			{
-				SelectAll();
-				return;
-			}
-		}
-
-		protected void SelectAll()
-		{
-			m_isSelectAll = true;
-			stringPositionInternal = text.Length;
-			stringSelectPositionInternal = 0;
-		}
-
-		public void MoveTextEnd(bool shift)
-		{
-			if (m_isRichTextEditingAllowed)
-			{
-				int length = text.Length;
-				if (shift)
-				{
-					stringSelectPositionInternal = length;
-				}
-				else
-				{
-					stringPositionInternal = length;
-					stringSelectPositionInternal = stringPositionInternal;
-				}
-			}
-			else
-			{
-				int num = m_TextComponent.textInfo.characterCount - 1;
-				if (!shift)
-				{
-					int num4 = caretPositionInternal = (caretSelectPositionInternal = num);
-					num4 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(num)));
-				}
-				else
-				{
-					caretSelectPositionInternal = num;
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(num);
-				}
-			}
-			UpdateLabel();
-		}
-
-		public void MoveTextStart(bool shift)
-		{
-			if (m_isRichTextEditingAllowed)
-			{
-				int num = 0;
-				if (shift)
-				{
-					stringSelectPositionInternal = num;
-				}
-				else
-				{
-					stringPositionInternal = num;
-					stringSelectPositionInternal = stringPositionInternal;
-				}
-			}
-			else
-			{
-				int num2 = 0;
-				if (!shift)
-				{
-					int num5 = caretPositionInternal = (caretSelectPositionInternal = num2);
-					num5 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(num2)));
-				}
-				else
-				{
-					caretSelectPositionInternal = num2;
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(num2);
-				}
-			}
-			UpdateLabel();
-		}
-
-		public void MoveToEndOfLine(bool shift, bool ctrl)
-		{
-			int lineNumber = m_TextComponent.textInfo.characterInfo[caretPositionInternal].lineNumber;
-			int num;
-			if (ctrl)
-			{
-				num = m_TextComponent.textInfo.characterCount - 1;
-			}
-			else
-			{
-				num = m_TextComponent.textInfo.lineInfo[lineNumber].lastCharacterIndex;
-			}
-			int caretPosition = num;
-			caretPosition = GetStringIndexFromCaretPosition(caretPosition);
-			if (shift)
-			{
-				stringSelectPositionInternal = caretPosition;
-			}
-			else
-			{
-				stringPositionInternal = caretPosition;
-				stringSelectPositionInternal = stringPositionInternal;
-			}
-			UpdateLabel();
-		}
-
-		public void MoveToStartOfLine(bool shift, bool ctrl)
-		{
-			int lineNumber = m_TextComponent.textInfo.characterInfo[caretPositionInternal].lineNumber;
-			int num;
-			if (ctrl)
-			{
-				num = 0;
-			}
-			else
-			{
-				num = m_TextComponent.textInfo.lineInfo[lineNumber].firstCharacterIndex;
-			}
-			int caretPosition = num;
-			caretPosition = GetStringIndexFromCaretPosition(caretPosition);
-			if (shift)
-			{
-				stringSelectPositionInternal = caretPosition;
-			}
-			else
-			{
-				stringPositionInternal = caretPosition;
-				stringSelectPositionInternal = stringPositionInternal;
-			}
-			UpdateLabel();
-		}
-
 		private bool InPlaceEditing()
 		{
 			return !TouchScreenKeyboard.isSupported;
@@ -1451,512 +1276,452 @@ namespace TMPro
 
 		protected virtual void LateUpdate()
 		{
-			if (m_ShouldActivateNextUpdate)
+			if (this.m_ShouldActivateNextUpdate)
 			{
-				if (!isFocused)
+				if (!this.isFocused)
 				{
-					while (true)
-					{
-						ActivateInputFieldInternal();
-						m_ShouldActivateNextUpdate = false;
-						return;
-					}
+					this.ActivateInputFieldInternal();
+					this.m_ShouldActivateNextUpdate = false;
+					return;
 				}
-				m_ShouldActivateNextUpdate = false;
+				this.m_ShouldActivateNextUpdate = false;
 			}
-			if (m_IsScrollbarUpdateRequired)
+			if (this.m_IsScrollbarUpdateRequired)
 			{
-				UpdateScrollbar();
-				m_IsScrollbarUpdateRequired = false;
+				this.UpdateScrollbar();
+				this.m_IsScrollbarUpdateRequired = false;
 			}
-			if (InPlaceEditing())
+			if (!this.InPlaceEditing())
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!isFocused)
+				if (this.isFocused)
 				{
-					while (true)
+					this.AssignPositioningIfNeeded();
+					if (this.m_Keyboard != null)
 					{
-						switch (3)
+						if (this.m_Keyboard.active)
 						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
-				AssignPositioningIfNeeded();
-				if (m_Keyboard != null)
-				{
-					if (m_Keyboard.active)
-					{
-						string text = m_Keyboard.text;
-						if (m_Text != text)
-						{
-							if (m_ReadOnly)
+							string text = this.m_Keyboard.text;
+							if (this.m_Text != text)
 							{
-								m_Keyboard.text = m_Text;
-							}
-							else
-							{
-								m_Text = string.Empty;
-								for (int i = 0; i < text.Length; i++)
+								if (this.m_ReadOnly)
 								{
-									char c = text[i];
-									if (c == '\r' || c == '\u0003')
+									this.m_Keyboard.text = this.m_Text;
+								}
+								else
+								{
+									this.m_Text = string.Empty;
+									foreach (char _c in text)
 									{
-										c = '\n';
-									}
-									if (onValidateInput != null)
-									{
-										c = onValidateInput(m_Text, m_Text.Length, c);
-									}
-									else if (characterValidation != 0)
-									{
-										c = Validate(m_Text, m_Text.Length, c);
-									}
-									if (lineType == LineType.MultiLineSubmit)
-									{
-										if (c == '\n')
+										char c = _c;
+										if (c == '\r' || c == '\u0003')
 										{
-											while (true)
+											c = '\n';
+										}
+										if (this.onValidateInput != null)
+										{
+											c = this.onValidateInput(this.m_Text, this.m_Text.Length, c);
+										}
+										else if (this.characterValidation != TMP_InputField.CharacterValidation.None)
+										{
+											c = this.Validate(this.m_Text, this.m_Text.Length, c);
+										}
+										if (this.lineType == TMP_InputField.LineType.MultiLineSubmit)
+										{
+											if (c == '\n')
 											{
-												switch (1)
-												{
-												case 0:
-													break;
-												default:
-													m_Keyboard.text = m_Text;
-													OnSubmit(null);
-													OnDeselect(null);
-													return;
-												}
+												this.m_Keyboard.text = this.m_Text;
+												this.OnSubmit(null);
+												this.OnDeselect(null);
+												return;
 											}
 										}
+										if (c != '\0')
+										{
+											this.m_Text += c;
+										}
 									}
-									if (c != 0)
+									if (this.characterLimit > 0)
 									{
-										m_Text += c;
+										if (this.m_Text.Length > this.characterLimit)
+										{
+											this.m_Text = this.m_Text.Substring(0, this.characterLimit);
+										}
 									}
-								}
-								if (characterLimit > 0)
-								{
-									if (m_Text.Length > characterLimit)
+									int length = this.m_Text.Length;
+									this.stringSelectPositionInternal = length;
+									this.stringPositionInternal = length;
+									if (this.m_Text != text)
 									{
-										m_Text = m_Text.Substring(0, characterLimit);
+										this.m_Keyboard.text = this.m_Text;
 									}
+									this.SendOnValueChangedAndUpdateLabel();
 								}
-								int num2 = stringPositionInternal = (stringSelectPositionInternal = m_Text.Length);
-								if (m_Text != text)
-								{
-									m_Keyboard.text = m_Text;
-								}
-								SendOnValueChangedAndUpdateLabel();
 							}
-						}
-						if (!m_Keyboard.done)
-						{
+							if (this.m_Keyboard.done)
+							{
+								if (this.m_Keyboard.wasCanceled)
+								{
+									this.m_WasCanceled = true;
+								}
+								this.OnDeselect(null);
+							}
 							return;
 						}
-						if (m_Keyboard.wasCanceled)
+					}
+					if (this.m_Keyboard != null)
+					{
+						if (!this.m_ReadOnly)
 						{
-							m_WasCanceled = true;
+							this.text = this.m_Keyboard.text;
 						}
-						OnDeselect(null);
-						return;
+						if (this.m_Keyboard.wasCanceled)
+						{
+							this.m_WasCanceled = true;
+						}
+						if (this.m_Keyboard.done)
+						{
+							this.OnSubmit(null);
+						}
 					}
+					this.OnDeselect(null);
+					return;
 				}
-				if (m_Keyboard != null)
-				{
-					if (!m_ReadOnly)
-					{
-						this.text = m_Keyboard.text;
-					}
-					if (m_Keyboard.wasCanceled)
-					{
-						m_WasCanceled = true;
-					}
-					if (m_Keyboard.done)
-					{
-						OnSubmit(null);
-					}
-				}
-				OnDeselect(null);
-				return;
 			}
 		}
 
 		private bool MayDrag(PointerEventData eventData)
 		{
-			int result;
-			if (IsActive())
+			if (this.IsActive())
 			{
-				if (IsInteractable())
+				if (this.IsInteractable())
 				{
 					if (eventData.button == PointerEventData.InputButton.Left)
 					{
-						if (m_TextComponent != null)
+						if (this.m_TextComponent != null)
 						{
-							result = ((m_Keyboard == null) ? 1 : 0);
-							goto IL_006b;
+							return this.m_Keyboard == null;
 						}
 					}
 				}
 			}
-			result = 0;
-			goto IL_006b;
-			IL_006b:
-			return (byte)result != 0;
+			return false;
 		}
 
 		public virtual void OnBeginDrag(PointerEventData eventData)
 		{
-			if (!MayDrag(eventData))
+			if (!this.MayDrag(eventData))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			m_UpdateDrag = true;
+			this.m_UpdateDrag = true;
 		}
 
 		public virtual void OnDrag(PointerEventData eventData)
 		{
-			if (!MayDrag(eventData))
+			if (!this.MayDrag(eventData))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			CaretPosition cursor;
-			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(m_TextComponent, eventData.position, eventData.pressEventCamera, out cursor);
-			if (cursor == CaretPosition.Left)
+			CaretPosition caretPosition;
+			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(this.m_TextComponent, eventData.position, eventData.pressEventCamera, out caretPosition);
+			if (caretPosition == CaretPosition.Left)
 			{
-				stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition);
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition);
 			}
-			else if (cursor == CaretPosition.Right)
+			else if (caretPosition == CaretPosition.Right)
 			{
-				stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
 			}
-			caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
-			MarkGeometryAsDirty();
-			m_DragPositionOutOfBounds = !RectTransformUtility.RectangleContainsScreenPoint(textViewport, eventData.position, eventData.pressEventCamera);
-			if (m_DragPositionOutOfBounds && m_DragCoroutine == null)
+			this.caretSelectPositionInternal = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+			this.MarkGeometryAsDirty();
+			this.m_DragPositionOutOfBounds = !RectTransformUtility.RectangleContainsScreenPoint(this.textViewport, eventData.position, eventData.pressEventCamera);
+			if (this.m_DragPositionOutOfBounds && this.m_DragCoroutine == null)
 			{
-				m_DragCoroutine = StartCoroutine(MouseDragOutsideRect(eventData));
+				this.m_DragCoroutine = base.StartCoroutine(this.MouseDragOutsideRect(eventData));
 			}
 			eventData.Use();
 		}
 
 		private IEnumerator MouseDragOutsideRect(PointerEventData eventData)
 		{
-			if (m_UpdateDrag)
+			while (this.m_UpdateDrag)
 			{
-				if (m_DragPositionOutOfBounds)
+				if (!this.m_DragPositionOutOfBounds)
 				{
-					RectTransformUtility.ScreenPointToLocalPointInRectangle(textViewport, eventData.position, eventData.pressEventCamera, out Vector2 localMousePos);
-					Rect rect = textViewport.rect;
-					if (multiLine)
-					{
-						if (localMousePos.y > rect.yMax)
-						{
-							MoveUp(true, true);
-						}
-						else if (localMousePos.y < rect.yMin)
-						{
-							MoveDown(true, true);
-						}
-					}
-					else if (localMousePos.x < rect.xMin)
-					{
-						MoveLeft(true, false);
-					}
-					else if (localMousePos.x > rect.xMax)
-					{
-						MoveRight(true, false);
-					}
-					UpdateLabel();
-					float num;
-					if (multiLine)
-					{
-						num = 0.1f;
-					}
-					else
-					{
-						num = 0.05f;
-					}
-					float delay = num;
-					yield return new WaitForSeconds(delay);
-					/*Error: Unable to find new state assignment for yield return*/;
+					break;
 				}
+				Vector2 localMousePos;
+				RectTransformUtility.ScreenPointToLocalPointInRectangle(this.textViewport, eventData.position, eventData.pressEventCamera, out localMousePos);
+				Rect rect = this.textViewport.rect;
+				if (this.multiLine)
+				{
+					if (localMousePos.y > rect.yMax)
+					{
+						this.MoveUp(true, true);
+					}
+					else if (localMousePos.y < rect.yMin)
+					{
+						this.MoveDown(true, true);
+					}
+				}
+				else if (localMousePos.x < rect.xMin)
+				{
+					this.MoveLeft(true, false);
+				}
+				else if (localMousePos.x > rect.xMax)
+				{
+					this.MoveRight(true, false);
+				}
+				this.UpdateLabel();
+				float num;
+				if (this.multiLine)
+				{
+					num = 0.1f;
+				}
+				else
+				{
+					num = 0.05f;
+				}
+				float delay = num;
+				yield return new WaitForSeconds(delay);
 			}
-			m_DragCoroutine = null;
+			this.m_DragCoroutine = null;
+			yield break;
 		}
 
 		public virtual void OnEndDrag(PointerEventData eventData)
 		{
-			if (!MayDrag(eventData))
+			if (!this.MayDrag(eventData))
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			m_UpdateDrag = false;
+			this.m_UpdateDrag = false;
 		}
 
 		public override void OnPointerDown(PointerEventData eventData)
 		{
-			if (!MayDrag(eventData))
+			if (!this.MayDrag(eventData))
 			{
-				while (true)
-				{
-					return;
-				}
+				return;
 			}
 			EventSystem.current.SetSelectedGameObject(base.gameObject, eventData);
-			bool allowInput = m_AllowInput;
+			bool allowInput = this.m_AllowInput;
 			base.OnPointerDown(eventData);
-			if (!InPlaceEditing() && (m_Keyboard == null || !m_Keyboard.active))
+			if (!this.InPlaceEditing() && (this.m_Keyboard == null || !this.m_Keyboard.active))
 			{
-				OnSelect(eventData);
+				this.OnSelect(eventData);
 				return;
 			}
 			bool flag = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 			bool flag2 = false;
 			float unscaledTime = Time.unscaledTime;
-			if (m_ClickStartTime + m_DoubleClickDelay > unscaledTime)
+			if (this.m_ClickStartTime + this.m_DoubleClickDelay > unscaledTime)
 			{
 				flag2 = true;
 			}
-			m_ClickStartTime = unscaledTime;
+			this.m_ClickStartTime = unscaledTime;
 			if (!allowInput)
 			{
-				if (m_OnFocusSelectAll)
+				if (this.m_OnFocusSelectAll)
 				{
-					goto IL_02c3;
+					goto IL_2C3;
 				}
 			}
-			CaretPosition cursor;
-			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(m_TextComponent, eventData.position, eventData.pressEventCamera, out cursor);
+			CaretPosition caretPosition;
+			int cursorIndexFromPosition = TMP_TextUtilities.GetCursorIndexFromPosition(this.m_TextComponent, eventData.position, eventData.pressEventCamera, out caretPosition);
 			if (flag)
 			{
-				if (cursor == CaretPosition.Left)
+				if (caretPosition == CaretPosition.Left)
 				{
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition);
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition);
 				}
-				else if (cursor == CaretPosition.Right)
+				else if (caretPosition == CaretPosition.Right)
 				{
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
 				}
 			}
-			else if (cursor == CaretPosition.Left)
+			else if (caretPosition == CaretPosition.Left)
 			{
-				int num2 = stringPositionInternal = (stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition));
+				int num = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition);
+				this.stringSelectPositionInternal = num;
+				this.stringPositionInternal = num;
 			}
-			else if (cursor == CaretPosition.Right)
+			else if (caretPosition == CaretPosition.Right)
 			{
-				int num2 = stringPositionInternal = (stringSelectPositionInternal = GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1);
+				int num = this.GetStringIndexFromCaretPosition(cursorIndexFromPosition) + 1;
+				this.stringSelectPositionInternal = num;
+				this.stringPositionInternal = num;
 			}
-			if (!flag2)
+			if (flag2)
 			{
-				int num2 = caretPositionInternal = (caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringPositionInternal));
-			}
-			else
-			{
-				int num6 = TMP_TextUtilities.FindIntersectingWord(m_TextComponent, eventData.position, eventData.pressEventCamera);
-				if (num6 != -1)
+				int num2 = TMP_TextUtilities.FindIntersectingWord(this.m_TextComponent, eventData.position, eventData.pressEventCamera);
+				if (num2 != -1)
 				{
-					caretPositionInternal = m_TextComponent.textInfo.wordInfo[num6].firstCharacterIndex;
-					caretSelectPositionInternal = m_TextComponent.textInfo.wordInfo[num6].lastCharacterIndex + 1;
-					stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal);
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
+					this.caretPositionInternal = this.m_TextComponent.textInfo.wordInfo[num2].firstCharacterIndex;
+					this.caretSelectPositionInternal = this.m_TextComponent.textInfo.wordInfo[num2].lastCharacterIndex + 1;
+					this.stringPositionInternal = this.GetStringIndexFromCaretPosition(this.caretPositionInternal);
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 				}
 				else
 				{
-					caretPositionInternal = GetCaretPositionFromStringIndex(stringPositionInternal);
-					stringSelectPositionInternal++;
-					caretSelectPositionInternal = caretPositionInternal + 1;
-					caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
+					this.caretPositionInternal = this.GetCaretPositionFromStringIndex(this.stringPositionInternal);
+					this.stringSelectPositionInternal++;
+					this.caretSelectPositionInternal = this.caretPositionInternal + 1;
+					this.caretSelectPositionInternal = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
 				}
-			}
-			goto IL_02c3;
-			IL_02c3:
-			UpdateLabel();
-			eventData.Use();
-		}
-
-		protected EditState KeyPressed(Event evt)
-		{
-			EventModifiers modifiers = evt.modifiers;
-			RuntimePlatform platform = Application.platform;
-			int num;
-			if (platform != 0)
-			{
-				num = ((platform == RuntimePlatform.OSXPlayer) ? 1 : 0);
 			}
 			else
 			{
-				num = 1;
+				int num = this.GetCaretPositionFromStringIndex(this.stringPositionInternal);
+				this.caretSelectPositionInternal = num;
+				this.caretPositionInternal = num;
 			}
-			bool flag = (num == 0) ? ((modifiers & EventModifiers.Control) != 0) : ((modifiers & EventModifiers.Command) != 0);
-			bool flag2 = (modifiers & EventModifiers.Shift) != 0;
-			bool flag3 = (modifiers & EventModifiers.Alt) != 0;
-			int num2;
-			if (flag)
+			IL_2C3:
+			this.UpdateLabel();
+			eventData.Use();
+		}
+
+		protected TMP_InputField.EditState KeyPressed(Event evt)
+		{
+			EventModifiers modifiers = evt.modifiers;
+			RuntimePlatform platform = Application.platform;
+			bool flag;
+			if (platform != RuntimePlatform.OSXEditor)
 			{
-				if (!flag3)
+				flag = (platform == RuntimePlatform.OSXPlayer);
+			}
+			else
+			{
+				flag = true;
+			}
+			bool flag2 = flag;
+			bool flag3 = (!flag2) ? ((modifiers & EventModifiers.Control) != EventModifiers.None) : ((modifiers & EventModifiers.Command) != EventModifiers.None);
+			bool flag4 = (modifiers & EventModifiers.Shift) != EventModifiers.None;
+			bool flag5 = (modifiers & EventModifiers.Alt) != EventModifiers.None;
+			bool flag6;
+			if (flag3)
+			{
+				if (!flag5)
 				{
-					num2 = ((!flag2) ? 1 : 0);
-					goto IL_0080;
+					flag6 = !flag4;
+					goto IL_80;
 				}
 			}
-			num2 = 0;
-			goto IL_0080;
-			IL_02bb:
-			char c;
-			if (c != '\r')
-			{
-				if (c != '\u0003')
-				{
-					goto IL_02de;
-				}
-			}
-			c = '\n';
-			goto IL_02de;
-			IL_0080:
-			bool flag4 = (byte)num2 != 0;
+			flag6 = false;
+			IL_80:
+			bool flag7 = flag6;
 			KeyCode keyCode = evt.keyCode;
 			switch (keyCode)
 			{
+			case KeyCode.KeypadEnter:
+				break;
 			default:
-				if (keyCode != KeyCode.Escape)
+				switch (keyCode)
 				{
-					if (keyCode != KeyCode.Delete)
+				case KeyCode.A:
+					if (flag7)
 					{
+						this.SelectAll();
+						return TMP_InputField.EditState.Continue;
+					}
+					goto IL_26D;
+				default:
+					switch (keyCode)
+					{
+					case KeyCode.V:
+						if (flag7)
+						{
+							this.Append(TMP_InputField.clipboard);
+							return TMP_InputField.EditState.Continue;
+						}
+						goto IL_26D;
+					default:
+						if (keyCode == KeyCode.Backspace)
+						{
+							this.Backspace();
+							return TMP_InputField.EditState.Continue;
+						}
+						if (keyCode != KeyCode.Return)
+						{
+							if (keyCode == KeyCode.Escape)
+							{
+								this.m_WasCanceled = true;
+								return TMP_InputField.EditState.Finish;
+							}
+							if (keyCode != KeyCode.Delete)
+							{
+								goto IL_26D;
+							}
+							this.ForwardSpace();
+							return TMP_InputField.EditState.Continue;
+						}
 						break;
+					case KeyCode.X:
+						if (flag7)
+						{
+							if (this.inputType != TMP_InputField.InputType.Password)
+							{
+								TMP_InputField.clipboard = this.GetSelectedString();
+							}
+							else
+							{
+								TMP_InputField.clipboard = string.Empty;
+							}
+							this.Delete();
+							this.SendOnValueChangedAndUpdateLabel();
+							return TMP_InputField.EditState.Continue;
+						}
+						goto IL_26D;
 					}
-					ForwardSpace();
-					return EditState.Continue;
-				}
-				m_WasCanceled = true;
-				return EditState.Finish;
-			case KeyCode.Backspace:
-				Backspace();
-				return EditState.Continue;
-			case KeyCode.Home:
-				MoveToStartOfLine(flag2, flag);
-				return EditState.Continue;
-			case KeyCode.End:
-				MoveToEndOfLine(flag2, flag);
-				return EditState.Continue;
-			case KeyCode.A:
-				if (!flag4)
-				{
 					break;
-				}
-				while (true)
-				{
-					SelectAll();
-					return EditState.Continue;
-				}
-			case KeyCode.C:
-				if (!flag4)
-				{
-					break;
-				}
-				while (true)
-				{
-					if (inputType != InputType.Password)
+				case KeyCode.C:
+					if (flag7)
 					{
-						clipboard = GetSelectedString();
+						if (this.inputType != TMP_InputField.InputType.Password)
+						{
+							TMP_InputField.clipboard = this.GetSelectedString();
+						}
+						else
+						{
+							TMP_InputField.clipboard = string.Empty;
+						}
+						return TMP_InputField.EditState.Continue;
 					}
-					else
-					{
-						clipboard = string.Empty;
-					}
-					return EditState.Continue;
-				}
-			case KeyCode.V:
-				if (!flag4)
-				{
-					break;
-				}
-				while (true)
-				{
-					Append(clipboard);
-					return EditState.Continue;
-				}
-			case KeyCode.X:
-				if (flag4)
-				{
-					if (inputType != InputType.Password)
-					{
-						clipboard = GetSelectedString();
-					}
-					else
-					{
-						clipboard = string.Empty;
-					}
-					Delete();
-					SendOnValueChangedAndUpdateLabel();
-					return EditState.Continue;
+					goto IL_26D;
 				}
 				break;
-			case KeyCode.LeftArrow:
-				MoveLeft(flag2, flag);
-				return EditState.Continue;
-			case KeyCode.RightArrow:
-				MoveRight(flag2, flag);
-				return EditState.Continue;
 			case KeyCode.UpArrow:
-				MoveUp(flag2);
-				return EditState.Continue;
+				this.MoveUp(flag4);
+				return TMP_InputField.EditState.Continue;
 			case KeyCode.DownArrow:
-				MoveDown(flag2);
-				return EditState.Continue;
+				this.MoveDown(flag4);
+				return TMP_InputField.EditState.Continue;
+			case KeyCode.RightArrow:
+				this.MoveRight(flag4, flag3);
+				return TMP_InputField.EditState.Continue;
+			case KeyCode.LeftArrow:
+				this.MoveLeft(flag4, flag3);
+				return TMP_InputField.EditState.Continue;
+			case KeyCode.Home:
+				this.MoveToStartOfLine(flag4, flag3);
+				return TMP_InputField.EditState.Continue;
+			case KeyCode.End:
+				this.MoveToEndOfLine(flag4, flag3);
+				return TMP_InputField.EditState.Continue;
 			case KeyCode.PageUp:
-				MovePageUp(flag2);
-				return EditState.Continue;
+				this.MovePageUp(flag4);
+				return TMP_InputField.EditState.Continue;
 			case KeyCode.PageDown:
-				MovePageDown(flag2);
-				return EditState.Continue;
-			case KeyCode.Return:
-			case KeyCode.KeypadEnter:
-				if (lineType == LineType.MultiLineNewline)
-				{
-					break;
-				}
-				while (true)
-				{
-					return EditState.Finish;
-				}
+				this.MovePageDown(flag4);
+				return TMP_InputField.EditState.Continue;
 			}
-			c = evt.character;
-			if (!multiLine)
+			if (this.lineType != TMP_InputField.LineType.MultiLineNewline)
+			{
+				return TMP_InputField.EditState.Finish;
+			}
+			IL_26D:
+			char c = evt.character;
+			if (!this.multiLine)
 			{
 				if (c != '\t')
 				{
@@ -1964,48 +1729,47 @@ namespace TMPro
 					{
 						if (c != '\n')
 						{
-							goto IL_02bb;
+							goto IL_2BB;
 						}
 					}
 				}
-				return EditState.Continue;
+				return TMP_InputField.EditState.Continue;
 			}
-			goto IL_02bb;
-			IL_02de:
-			if (IsValidChar(c))
+			IL_2BB:
+			if (c != '\r')
 			{
-				Append(c);
+				if (c != '\u0003')
+				{
+					goto IL_2DE;
+				}
+			}
+			c = '\n';
+			IL_2DE:
+			if (this.IsValidChar(c))
+			{
+				this.Append(c);
 			}
 			if (c == '\0')
 			{
 				if (Input.compositionString.Length > 0)
 				{
-					UpdateLabel();
+					this.UpdateLabel();
 				}
 			}
-			return EditState.Continue;
+			return TMP_InputField.EditState.Continue;
 		}
 
 		private bool IsValidChar(char c)
 		{
 			if (c == '\u007f')
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
+				return false;
 			}
 			if (c != '\t')
 			{
 				if (c != '\n')
 				{
-					return m_TextComponent.font.HasCharacter(c, true);
+					return this.m_TextComponent.font.HasCharacter(c, true);
 				}
 			}
 			return true;
@@ -2013,39 +1777,30 @@ namespace TMPro
 
 		public void ProcessEvent(Event e)
 		{
-			KeyPressed(e);
+			this.KeyPressed(e);
 		}
 
 		public virtual void OnUpdateSelected(BaseEventData eventData)
 		{
-			if (!isFocused)
+			if (!this.isFocused)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			bool flag = false;
-			while (Event.PopEvent(m_ProcessingEvent))
+			while (Event.PopEvent(this.m_ProcessingEvent))
 			{
-				if (m_ProcessingEvent.rawType == EventType.KeyDown)
+				if (this.m_ProcessingEvent.rawType == EventType.KeyDown)
 				{
 					flag = true;
-					EditState editState = KeyPressed(m_ProcessingEvent);
-					if (editState == EditState.Finish)
+					TMP_InputField.EditState editState = this.KeyPressed(this.m_ProcessingEvent);
+					if (editState == TMP_InputField.EditState.Finish)
 					{
-						SendOnSubmit();
-						DeactivateInputField();
+						this.SendOnSubmit();
+						this.DeactivateInputField();
 						break;
 					}
 				}
-				EventType type = m_ProcessingEvent.type;
+				EventType type = this.m_ProcessingEvent.type;
 				if (type != EventType.ValidateCommand)
 				{
 					if (type != EventType.ExecuteCommand)
@@ -2053,279 +1808,212 @@ namespace TMPro
 						continue;
 					}
 				}
-				string commandName = m_ProcessingEvent.commandName;
-				if (commandName == null)
+				string commandName = this.m_ProcessingEvent.commandName;
+				if (commandName != null)
 				{
-					continue;
-				}
-				if (!(commandName == "SelectAll"))
-				{
-				}
-				else
-				{
-					SelectAll();
-					flag = true;
+					if (!(commandName == "SelectAll"))
+					{
+					}
+					else
+					{
+						this.SelectAll();
+						flag = true;
+					}
 				}
 			}
 			if (flag)
 			{
-				UpdateLabel();
+				this.UpdateLabel();
 			}
 			eventData.Use();
 		}
 
 		public virtual void OnScroll(PointerEventData eventData)
 		{
-			if (m_TextComponent.preferredHeight < m_TextViewport.rect.height)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
-			}
-			Vector2 scrollDelta = eventData.scrollDelta;
-			float num = 0f - scrollDelta.y;
-			m_ScrollPosition += 1f / (float)m_TextComponent.textInfo.lineCount * num * m_ScrollSensitivity;
-			m_ScrollPosition = Mathf.Clamp01(m_ScrollPosition);
-			AdjustTextPositionRelativeToViewport(m_ScrollPosition);
-			m_AllowInput = false;
-			if (!m_VerticalScrollbar)
+			if (this.m_TextComponent.preferredHeight < this.m_TextViewport.rect.height)
 			{
 				return;
 			}
-			while (true)
+			float num = -eventData.scrollDelta.y;
+			this.m_ScrollPosition += 1f / (float)this.m_TextComponent.textInfo.lineCount * num * this.m_ScrollSensitivity;
+			this.m_ScrollPosition = Mathf.Clamp01(this.m_ScrollPosition);
+			this.AdjustTextPositionRelativeToViewport(this.m_ScrollPosition);
+			this.m_AllowInput = false;
+			if (this.m_VerticalScrollbar)
 			{
-				m_IsUpdatingScrollbarValues = true;
-				m_VerticalScrollbar.value = m_ScrollPosition;
-				return;
+				this.m_IsUpdatingScrollbarValues = true;
+				this.m_VerticalScrollbar.value = this.m_ScrollPosition;
 			}
 		}
 
 		private string GetSelectedString()
 		{
-			if (!hasSelection)
+			if (!this.hasSelection)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return string.Empty;
-					}
-				}
+				return string.Empty;
 			}
-			int num = stringPositionInternal;
-			int num2 = stringSelectPositionInternal;
+			int num = this.stringPositionInternal;
+			int num2 = this.stringSelectPositionInternal;
 			if (num > num2)
 			{
 				int num3 = num;
 				num = num2;
 				num2 = num3;
 			}
-			return text.Substring(num, num2 - num);
+			return this.text.Substring(num, num2 - num);
 		}
 
 		private int FindtNextWordBegin()
 		{
-			if (stringSelectPositionInternal + 1 >= text.Length)
+			if (this.stringSelectPositionInternal + 1 >= this.text.Length)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return text.Length;
-					}
-				}
+				return this.text.Length;
 			}
-			int num = text.IndexOfAny(kSeparators, stringSelectPositionInternal + 1);
+			int num = this.text.IndexOfAny(TMP_InputField.kSeparators, this.stringSelectPositionInternal + 1);
 			if (num == -1)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return text.Length;
-					}
-				}
+				num = this.text.Length;
 			}
-			return num + 1;
+			else
+			{
+				num++;
+			}
+			return num;
 		}
 
 		private void MoveRight(bool shift, bool ctrl)
 		{
-			int num3;
-			if (hasSelection && !shift)
+			if (this.hasSelection && !shift)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						num3 = (stringPositionInternal = (stringSelectPositionInternal = Mathf.Max(stringPositionInternal, stringSelectPositionInternal)));
-						num3 = (caretPositionInternal = (caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal)));
-						return;
-					}
-				}
+				int num = Mathf.Max(this.stringPositionInternal, this.stringSelectPositionInternal);
+				this.stringSelectPositionInternal = num;
+				this.stringPositionInternal = num;
+				num = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+				this.caretSelectPositionInternal = num;
+				this.caretPositionInternal = num;
+				return;
 			}
-			int num5;
-			if (!ctrl)
+			int num2;
+			if (ctrl)
 			{
-				num5 = ((!m_isRichTextEditingAllowed) ? GetStringIndexFromCaretPosition(caretSelectPositionInternal + 1) : (stringSelectPositionInternal + 1));
+				num2 = this.FindtNextWordBegin();
+			}
+			else if (this.m_isRichTextEditingAllowed)
+			{
+				num2 = this.stringSelectPositionInternal + 1;
 			}
 			else
 			{
-				num5 = FindtNextWordBegin();
+				num2 = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal + 1);
 			}
 			if (shift)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						stringSelectPositionInternal = num5;
-						caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
-						return;
-					}
-				}
+				this.stringSelectPositionInternal = num2;
+				this.caretSelectPositionInternal = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
 			}
-			num3 = (stringSelectPositionInternal = (stringPositionInternal = num5));
-			num3 = (caretSelectPositionInternal = (caretPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal)));
+			else
+			{
+				int num = num2;
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
+				num = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+			}
 		}
 
 		private int FindtPrevWordBegin()
 		{
-			if (stringSelectPositionInternal - 2 < 0)
+			if (this.stringSelectPositionInternal - 2 < 0)
 			{
 				return 0;
 			}
-			int num = text.LastIndexOfAny(kSeparators, stringSelectPositionInternal - 2);
+			int num = this.text.LastIndexOfAny(TMP_InputField.kSeparators, this.stringSelectPositionInternal - 2);
 			if (num == -1)
 			{
-				return 0;
+				num = 0;
 			}
-			return num + 1;
+			else
+			{
+				num++;
+			}
+			return num;
 		}
 
 		private void MoveLeft(bool shift, bool ctrl)
 		{
-			int num3;
-			if (hasSelection)
+			if (this.hasSelection)
 			{
 				if (!shift)
 				{
-					num3 = (stringPositionInternal = (stringSelectPositionInternal = Mathf.Min(stringPositionInternal, stringSelectPositionInternal)));
-					num3 = (caretPositionInternal = (caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal)));
+					int num = Mathf.Min(this.stringPositionInternal, this.stringSelectPositionInternal);
+					this.stringSelectPositionInternal = num;
+					this.stringPositionInternal = num;
+					num = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+					this.caretSelectPositionInternal = num;
+					this.caretPositionInternal = num;
 					return;
 				}
 			}
-			int num5;
+			int num2;
 			if (ctrl)
 			{
-				num5 = FindtPrevWordBegin();
+				num2 = this.FindtPrevWordBegin();
 			}
-			else if (m_isRichTextEditingAllowed)
+			else if (this.m_isRichTextEditingAllowed)
 			{
-				num5 = stringSelectPositionInternal - 1;
+				num2 = this.stringSelectPositionInternal - 1;
 			}
 			else
 			{
-				num5 = GetStringIndexFromCaretPosition(caretSelectPositionInternal - 1);
+				num2 = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal - 1);
 			}
 			if (shift)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						stringSelectPositionInternal = num5;
-						caretSelectPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal);
-						return;
-					}
-				}
+				this.stringSelectPositionInternal = num2;
+				this.caretSelectPositionInternal = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
 			}
-			num3 = (stringSelectPositionInternal = (stringPositionInternal = num5));
-			num3 = (caretSelectPositionInternal = (caretPositionInternal = GetCaretPositionFromStringIndex(stringSelectPositionInternal)));
+			else
+			{
+				int num = num2;
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
+				num = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal);
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+			}
 		}
 
 		private int LineUpCharacterPosition(int originalPos, bool goToFirstChar)
 		{
-			if (originalPos >= m_TextComponent.textInfo.characterCount)
+			if (originalPos >= this.m_TextComponent.textInfo.characterCount)
 			{
 				originalPos--;
 			}
-			TMP_CharacterInfo tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[originalPos];
-			int lineNumber = tMP_CharacterInfo.lineNumber;
+			TMP_CharacterInfo tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[originalPos];
+			int lineNumber = (int)tmp_CharacterInfo.lineNumber;
 			if (lineNumber - 1 < 0)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return (!goToFirstChar) ? originalPos : 0;
-					}
-				}
+				return (!goToFirstChar) ? originalPos : 0;
 			}
-			int num = m_TextComponent.textInfo.lineInfo[lineNumber].firstCharacterIndex - 1;
+			int num = this.m_TextComponent.textInfo.lineInfo[lineNumber].firstCharacterIndex - 1;
 			int num2 = -1;
 			float num3 = 32767f;
 			float num4 = 0f;
-			for (int i = m_TextComponent.textInfo.lineInfo[lineNumber - 1].firstCharacterIndex; i < num; i++)
+			for (int i = this.m_TextComponent.textInfo.lineInfo[lineNumber - 1].firstCharacterIndex; i < num; i++)
 			{
-				TMP_CharacterInfo tMP_CharacterInfo2 = m_TextComponent.textInfo.characterInfo[i];
-				float num5 = tMP_CharacterInfo.origin - tMP_CharacterInfo2.origin;
-				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
+				TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[i];
+				float num5 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
+				float num6 = num5 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
 				if (num6 >= 0f)
 				{
 					if (num6 <= 1f)
 					{
-						while (true)
+						if (num6 < 0.5f)
 						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								if (num6 < 0.5f)
-								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											break;
-										default:
-											return i;
-										}
-									}
-								}
-								return i + 1;
-							}
+							return i;
 						}
+						return i + 1;
 					}
 				}
 				num5 = Mathf.Abs(num5);
@@ -2336,61 +2024,31 @@ namespace TMPro
 					num4 = num6;
 				}
 			}
-			while (true)
+			if (num2 == -1)
 			{
-				if (num2 == -1)
-				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							return num;
-						}
-					}
-				}
-				if (num4 < 0.5f)
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							return num2;
-						}
-					}
-				}
-				return num2 + 1;
+				return num;
 			}
+			if (num4 < 0.5f)
+			{
+				return num2;
+			}
+			return num2 + 1;
 		}
 
 		private int LineDownCharacterPosition(int originalPos, bool goToLastChar)
 		{
-			if (originalPos >= m_TextComponent.textInfo.characterCount)
+			if (originalPos >= this.m_TextComponent.textInfo.characterCount)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return m_TextComponent.textInfo.characterCount - 1;
-					}
-				}
+				return this.m_TextComponent.textInfo.characterCount - 1;
 			}
-			TMP_CharacterInfo tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[originalPos];
-			int lineNumber = tMP_CharacterInfo.lineNumber;
-			if (lineNumber + 1 >= m_TextComponent.textInfo.lineCount)
+			TMP_CharacterInfo tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[originalPos];
+			int lineNumber = (int)tmp_CharacterInfo.lineNumber;
+			if (lineNumber + 1 >= this.m_TextComponent.textInfo.lineCount)
 			{
 				int result;
 				if (goToLastChar)
 				{
-					result = m_TextComponent.textInfo.characterCount - 1;
+					result = this.m_TextComponent.textInfo.characterCount - 1;
 				}
 				else
 				{
@@ -2398,987 +2056,704 @@ namespace TMPro
 				}
 				return result;
 			}
-			int lastCharacterIndex = m_TextComponent.textInfo.lineInfo[lineNumber + 1].lastCharacterIndex;
+			int lastCharacterIndex = this.m_TextComponent.textInfo.lineInfo[lineNumber + 1].lastCharacterIndex;
 			int num = -1;
 			float num2 = 32767f;
 			float num3 = 0f;
-			for (int i = m_TextComponent.textInfo.lineInfo[lineNumber + 1].firstCharacterIndex; i < lastCharacterIndex; i++)
+			int i = this.m_TextComponent.textInfo.lineInfo[lineNumber + 1].firstCharacterIndex;
+			while (i < lastCharacterIndex)
 			{
-				TMP_CharacterInfo tMP_CharacterInfo2 = m_TextComponent.textInfo.characterInfo[i];
-				float num4 = tMP_CharacterInfo.origin - tMP_CharacterInfo2.origin;
-				float num5 = num4 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
+				TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[i];
+				float num4 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
+				float num5 = num4 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
 				if (num5 >= 0f && num5 <= 1f)
 				{
 					if (num5 < 0.5f)
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return i;
-							}
-						}
+						return i;
 					}
 					return i + 1;
 				}
-				num4 = Mathf.Abs(num4);
-				if (num4 < num2)
+				else
 				{
-					num = i;
-					num2 = num4;
-					num3 = num5;
+					num4 = Mathf.Abs(num4);
+					if (num4 < num2)
+					{
+						num = i;
+						num2 = num4;
+						num3 = num5;
+					}
+					i++;
 				}
 			}
-			while (true)
+			if (num == -1)
 			{
-				if (num == -1)
-				{
-					return lastCharacterIndex;
-				}
-				if (num3 < 0.5f)
-				{
-					return num;
-				}
-				return num + 1;
+				return lastCharacterIndex;
 			}
+			if (num3 < 0.5f)
+			{
+				return num;
+			}
+			return num + 1;
 		}
 
 		private int PageUpCharacterPosition(int originalPos, bool goToFirstChar)
 		{
-			if (originalPos >= m_TextComponent.textInfo.characterCount)
+			if (originalPos >= this.m_TextComponent.textInfo.characterCount)
 			{
 				originalPos--;
 			}
-			TMP_CharacterInfo tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[originalPos];
-			int lineNumber = tMP_CharacterInfo.lineNumber;
+			TMP_CharacterInfo tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[originalPos];
+			int lineNumber = (int)tmp_CharacterInfo.lineNumber;
 			if (lineNumber - 1 < 0)
 			{
-				while (true)
+				return (!goToFirstChar) ? originalPos : 0;
+			}
+			float height = this.m_TextViewport.rect.height;
+			int i = lineNumber - 1;
+			while (i > 0)
+			{
+				if (this.m_TextComponent.textInfo.lineInfo[i].baseline > this.m_TextComponent.textInfo.lineInfo[lineNumber].baseline + height)
 				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return (!goToFirstChar) ? originalPos : 0;
-					}
+					break;
+				}
+				else
+				{
+					i--;
 				}
 			}
-			float height = m_TextViewport.rect.height;
-			int num = lineNumber - 1;
-			while (true)
+		IL_DC:
+			int lastCharacterIndex = this.m_TextComponent.textInfo.lineInfo[i].lastCharacterIndex;
+			int num = -1;
+			float num2 = 32767f;
+			float num3 = 0f;
+			for (int j = this.m_TextComponent.textInfo.lineInfo[i].firstCharacterIndex; j < lastCharacterIndex; j++)
 			{
-				if (num > 0)
+				TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[j];
+				float num4 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
+				float num5 = num4 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
+				if (num5 >= 0f)
 				{
-					if (m_TextComponent.textInfo.lineInfo[num].baseline > m_TextComponent.textInfo.lineInfo[lineNumber].baseline + height)
+					if (num5 <= 1f)
 					{
-						break;
-					}
-					num--;
-					continue;
-				}
-				break;
-			}
-			int lastCharacterIndex = m_TextComponent.textInfo.lineInfo[num].lastCharacterIndex;
-			int num2 = -1;
-			float num3 = 32767f;
-			float num4 = 0f;
-			for (int i = m_TextComponent.textInfo.lineInfo[num].firstCharacterIndex; i < lastCharacterIndex; i++)
-			{
-				TMP_CharacterInfo tMP_CharacterInfo2 = m_TextComponent.textInfo.characterInfo[i];
-				float num5 = tMP_CharacterInfo.origin - tMP_CharacterInfo2.origin;
-				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
-				if (num6 >= 0f)
-				{
-					if (num6 <= 1f)
-					{
-						while (true)
+						if (num5 < 0.5f)
 						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								if (num6 < 0.5f)
-								{
-									while (true)
-									{
-										switch (1)
-										{
-										case 0:
-											break;
-										default:
-											return i;
-										}
-									}
-								}
-								return i + 1;
-							}
+							return j;
 						}
+						return j + 1;
 					}
 				}
-				num5 = Mathf.Abs(num5);
-				if (num5 < num3)
+				num4 = Mathf.Abs(num4);
+				if (num4 < num2)
 				{
-					num2 = i;
+					num = j;
+					num2 = num4;
 					num3 = num5;
-					num4 = num6;
 				}
 			}
-			while (true)
+			if (num == -1)
 			{
-				if (num2 == -1)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return lastCharacterIndex;
-						}
-					}
-				}
-				if (num4 < 0.5f)
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							return num2;
-						}
-					}
-				}
-				return num2 + 1;
+				return lastCharacterIndex;
 			}
+			if (num3 < 0.5f)
+			{
+				return num;
+			}
+			return num + 1;
 		}
 
 		private int PageDownCharacterPosition(int originalPos, bool goToLastChar)
 		{
-			if (originalPos >= m_TextComponent.textInfo.characterCount)
+			if (originalPos >= this.m_TextComponent.textInfo.characterCount)
 			{
-				while (true)
+				return this.m_TextComponent.textInfo.characterCount - 1;
+			}
+			TMP_CharacterInfo tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[originalPos];
+			int lineNumber = (int)tmp_CharacterInfo.lineNumber;
+			if (lineNumber + 1 >= this.m_TextComponent.textInfo.lineCount)
+			{
+				return (!goToLastChar) ? originalPos : (this.m_TextComponent.textInfo.characterCount - 1);
+			}
+			float height = this.m_TextViewport.rect.height;
+			int i = lineNumber + 1;
+			while (i < this.m_TextComponent.textInfo.lineCount - 1)
+			{
+				if (this.m_TextComponent.textInfo.lineInfo[i].baseline < this.m_TextComponent.textInfo.lineInfo[lineNumber].baseline - height)
 				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return m_TextComponent.textInfo.characterCount - 1;
-					}
+					break;
+				}
+				else
+				{
+					i++;
 				}
 			}
-			TMP_CharacterInfo tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[originalPos];
-			int lineNumber = tMP_CharacterInfo.lineNumber;
-			if (lineNumber + 1 >= m_TextComponent.textInfo.lineCount)
+		IL_121:
+			int lastCharacterIndex = this.m_TextComponent.textInfo.lineInfo[i].lastCharacterIndex;
+			int num = -1;
+			float num2 = 32767f;
+			float num3 = 0f;
+			for (int j = this.m_TextComponent.textInfo.lineInfo[i].firstCharacterIndex; j < lastCharacterIndex; j++)
 			{
-				while (true)
+				TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[j];
+				float num4 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
+				float num5 = num4 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
+				if (num5 >= 0f)
 				{
-					switch (6)
+					if (num5 <= 1f)
 					{
-					case 0:
-						break;
-					default:
-						return (!goToLastChar) ? originalPos : (m_TextComponent.textInfo.characterCount - 1);
-					}
-				}
-			}
-			float height = m_TextViewport.rect.height;
-			int num = lineNumber + 1;
-			while (true)
-			{
-				if (num < m_TextComponent.textInfo.lineCount - 1)
-				{
-					if (m_TextComponent.textInfo.lineInfo[num].baseline < m_TextComponent.textInfo.lineInfo[lineNumber].baseline - height)
-					{
-						break;
-					}
-					num++;
-					continue;
-				}
-				break;
-			}
-			int lastCharacterIndex = m_TextComponent.textInfo.lineInfo[num].lastCharacterIndex;
-			int num2 = -1;
-			float num3 = 32767f;
-			float num4 = 0f;
-			for (int i = m_TextComponent.textInfo.lineInfo[num].firstCharacterIndex; i < lastCharacterIndex; i++)
-			{
-				TMP_CharacterInfo tMP_CharacterInfo2 = m_TextComponent.textInfo.characterInfo[i];
-				float num5 = tMP_CharacterInfo.origin - tMP_CharacterInfo2.origin;
-				float num6 = num5 / (tMP_CharacterInfo2.xAdvance - tMP_CharacterInfo2.origin);
-				if (num6 >= 0f)
-				{
-					if (num6 <= 1f)
-					{
-						while (true)
+						if (num5 < 0.5f)
 						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								if (num6 < 0.5f)
-								{
-									while (true)
-									{
-										switch (3)
-										{
-										case 0:
-											break;
-										default:
-											return i;
-										}
-									}
-								}
-								return i + 1;
-							}
+							return j;
 						}
+						return j + 1;
 					}
 				}
-				num5 = Mathf.Abs(num5);
-				if (num5 < num3)
+				num4 = Mathf.Abs(num4);
+				if (num4 < num2)
 				{
-					num2 = i;
+					num = j;
+					num2 = num4;
 					num3 = num5;
-					num4 = num6;
 				}
 			}
-			while (true)
+			if (num == -1)
 			{
-				if (num2 == -1)
-				{
-					return lastCharacterIndex;
-				}
-				if (num4 < 0.5f)
-				{
-					return num2;
-				}
-				return num2 + 1;
+				return lastCharacterIndex;
 			}
+			if (num3 < 0.5f)
+			{
+				return num;
+			}
+			return num + 1;
 		}
 
 		private void MoveDown(bool shift)
 		{
-			MoveDown(shift, true);
+			this.MoveDown(shift, true);
 		}
 
 		private void MoveDown(bool shift, bool goToLastChar)
 		{
-			if (hasSelection)
+			if (this.hasSelection)
 			{
 				if (!shift)
 				{
-					int num3 = caretPositionInternal = (caretSelectPositionInternal = Mathf.Max(caretPositionInternal, caretSelectPositionInternal));
+					int num = Mathf.Max(this.caretPositionInternal, this.caretSelectPositionInternal);
+					this.caretSelectPositionInternal = num;
+					this.caretPositionInternal = num;
 				}
 			}
-			int num4;
-			if (multiLine)
+			int num2;
+			if (this.multiLine)
 			{
-				num4 = LineDownCharacterPosition(caretSelectPositionInternal, goToLastChar);
+				num2 = this.LineDownCharacterPosition(this.caretSelectPositionInternal, goToLastChar);
 			}
 			else
 			{
-				num4 = m_TextComponent.textInfo.characterCount - 1;
+				num2 = this.m_TextComponent.textInfo.characterCount - 1;
 			}
-			int num5 = num4;
+			int num3 = num2;
 			if (shift)
 			{
-				caretSelectPositionInternal = num5;
-				stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
+				this.caretSelectPositionInternal = num3;
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 			}
 			else
 			{
-				int num3 = caretSelectPositionInternal = (caretPositionInternal = num5);
-				num3 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal)));
+				int num = num3;
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+				num = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
 			}
 		}
 
 		private void MoveUp(bool shift)
 		{
-			MoveUp(shift, true);
+			this.MoveUp(shift, true);
 		}
 
 		private void MoveUp(bool shift, bool goToFirstChar)
 		{
-			int num3;
-			if (hasSelection && !shift)
+			if (this.hasSelection && !shift)
 			{
-				num3 = (caretPositionInternal = (caretSelectPositionInternal = Mathf.Min(caretPositionInternal, caretSelectPositionInternal)));
+				int num = Mathf.Min(this.caretPositionInternal, this.caretSelectPositionInternal);
+				this.caretSelectPositionInternal = num;
+				this.caretPositionInternal = num;
 			}
-			int num4 = multiLine ? LineUpCharacterPosition(caretSelectPositionInternal, goToFirstChar) : 0;
+			int num2 = (!this.multiLine) ? 0 : this.LineUpCharacterPosition(this.caretSelectPositionInternal, goToFirstChar);
 			if (shift)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						caretSelectPositionInternal = num4;
-						stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
-						return;
-					}
-				}
+				this.caretSelectPositionInternal = num2;
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 			}
-			num3 = (caretSelectPositionInternal = (caretPositionInternal = num4));
-			num3 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal)));
+			else
+			{
+				int num = num2;
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+				num = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
+			}
 		}
 
 		private void MovePageUp(bool shift)
 		{
-			MovePageUp(shift, true);
+			this.MovePageUp(shift, true);
 		}
 
 		private void MovePageUp(bool shift, bool goToFirstChar)
 		{
-			if (hasSelection && !shift)
+			if (this.hasSelection && !shift)
 			{
-				int num3 = caretPositionInternal = (caretSelectPositionInternal = Mathf.Min(caretPositionInternal, caretSelectPositionInternal));
+				int num = Mathf.Min(this.caretPositionInternal, this.caretSelectPositionInternal);
+				this.caretSelectPositionInternal = num;
+				this.caretPositionInternal = num;
 			}
-			int num4;
-			if (multiLine)
+			int num2;
+			if (this.multiLine)
 			{
-				num4 = PageUpCharacterPosition(caretSelectPositionInternal, goToFirstChar);
-			}
-			else
-			{
-				num4 = 0;
-			}
-			int num5 = num4;
-			if (!shift)
-			{
-				int num3 = caretSelectPositionInternal = (caretPositionInternal = num5);
-				num3 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal)));
+				num2 = this.PageUpCharacterPosition(this.caretSelectPositionInternal, goToFirstChar);
 			}
 			else
 			{
-				caretSelectPositionInternal = num5;
-				stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
+				num2 = 0;
 			}
-			if (m_LineType == LineType.SingleLine)
+			int num3 = num2;
+			if (shift)
 			{
-				return;
+				this.caretSelectPositionInternal = num3;
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 			}
-			while (true)
+			else
 			{
-				float height = m_TextViewport.rect.height;
-				Vector3 position = m_TextComponent.rectTransform.position;
-				float y = position.y;
-				Vector3 max = m_TextComponent.textBounds.max;
-				float num9 = y + max.y;
-				Vector3 position2 = m_TextViewport.position;
-				float num10 = position2.y + m_TextViewport.rect.yMax;
-				height = ((!(num10 > num9 + height)) ? (num10 - num9) : height);
-				m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, height);
-				AssignPositioningIfNeeded();
-				m_IsScrollbarUpdateRequired = true;
-				return;
+				int num = num3;
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+				num = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
+			}
+			if (this.m_LineType != TMP_InputField.LineType.SingleLine)
+			{
+				float num4 = this.m_TextViewport.rect.height;
+				float num5 = this.m_TextComponent.rectTransform.position.y + this.m_TextComponent.textBounds.max.y;
+				float num6 = this.m_TextViewport.position.y + this.m_TextViewport.rect.yMax;
+				num4 = ((num6 <= num5 + num4) ? (num6 - num5) : num4);
+				this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, num4);
+				this.AssignPositioningIfNeeded();
+				this.m_IsScrollbarUpdateRequired = true;
 			}
 		}
 
 		private void MovePageDown(bool shift)
 		{
-			MovePageDown(shift, true);
+			this.MovePageDown(shift, true);
 		}
 
 		private void MovePageDown(bool shift, bool goToLastChar)
 		{
-			if (hasSelection)
+			if (this.hasSelection)
 			{
 				if (!shift)
 				{
-					int num3 = caretPositionInternal = (caretSelectPositionInternal = Mathf.Max(caretPositionInternal, caretSelectPositionInternal));
+					int num = Mathf.Max(this.caretPositionInternal, this.caretSelectPositionInternal);
+					this.caretSelectPositionInternal = num;
+					this.caretPositionInternal = num;
 				}
 			}
-			int num4;
-			if (multiLine)
+			int num2;
+			if (this.multiLine)
 			{
-				num4 = PageDownCharacterPosition(caretSelectPositionInternal, goToLastChar);
+				num2 = this.PageDownCharacterPosition(this.caretSelectPositionInternal, goToLastChar);
 			}
 			else
 			{
-				num4 = m_TextComponent.textInfo.characterCount - 1;
+				num2 = this.m_TextComponent.textInfo.characterCount - 1;
 			}
-			int num5 = num4;
-			if (!shift)
+			int num3 = num2;
+			if (shift)
 			{
-				int num3 = caretSelectPositionInternal = (caretPositionInternal = num5);
-				num3 = (stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal)));
+				this.caretSelectPositionInternal = num3;
+				this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 			}
 			else
 			{
-				caretSelectPositionInternal = num5;
-				stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
+				int num = num3;
+				this.caretPositionInternal = num;
+				this.caretSelectPositionInternal = num;
+				num = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
+				this.stringPositionInternal = num;
+				this.stringSelectPositionInternal = num;
 			}
-			if (m_LineType == LineType.SingleLine)
+			if (this.m_LineType != TMP_InputField.LineType.SingleLine)
 			{
-				return;
-			}
-			while (true)
-			{
-				float height = m_TextViewport.rect.height;
-				Vector3 position = m_TextComponent.rectTransform.position;
-				float y = position.y;
-				Vector3 min = m_TextComponent.textBounds.min;
-				float num9 = y + min.y;
-				Vector3 position2 = m_TextViewport.position;
-				float num10 = position2.y + m_TextViewport.rect.yMin;
-				float num11;
-				if (num10 > num9 + height)
+				float num4 = this.m_TextViewport.rect.height;
+				float num5 = this.m_TextComponent.rectTransform.position.y + this.m_TextComponent.textBounds.min.y;
+				float num6 = this.m_TextViewport.position.y + this.m_TextViewport.rect.yMin;
+				float num7;
+				if (num6 > num5 + num4)
 				{
-					num11 = height;
+					num7 = num4;
 				}
 				else
 				{
-					num11 = num10 - num9;
+					num7 = num6 - num5;
 				}
-				height = num11;
-				m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, height);
-				AssignPositioningIfNeeded();
-				m_IsScrollbarUpdateRequired = true;
-				return;
+				num4 = num7;
+				this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, num4);
+				this.AssignPositioningIfNeeded();
+				this.m_IsScrollbarUpdateRequired = true;
 			}
 		}
 
 		private void Delete()
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
+				return;
+			}
+			if (this.stringPositionInternal == this.stringSelectPositionInternal)
+			{
+				return;
+			}
+			if (!this.m_isRichTextEditingAllowed)
+			{
+				if (this.m_isSelectAll)
 				{
-					switch (7)
+				}
+				else
+				{
+					this.stringPositionInternal = this.GetStringIndexFromCaretPosition(this.caretPositionInternal);
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
+					if (this.caretPositionInternal < this.caretSelectPositionInternal)
 					{
-					case 0:
-						break;
-					default:
+						this.m_Text = this.text.Substring(0, this.stringPositionInternal) + this.text.Substring(this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal);
+						this.stringSelectPositionInternal = this.stringPositionInternal;
+						this.caretSelectPositionInternal = this.caretPositionInternal;
 						return;
 					}
-				}
-			}
-			if (stringPositionInternal == stringSelectPositionInternal)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
-			if (!m_isRichTextEditingAllowed)
-			{
-				if (!m_isSelectAll)
-				{
-					stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal);
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(caretSelectPositionInternal);
-					if (caretPositionInternal < caretSelectPositionInternal)
-					{
-						m_Text = text.Substring(0, stringPositionInternal) + text.Substring(stringSelectPositionInternal, text.Length - stringSelectPositionInternal);
-						stringSelectPositionInternal = stringPositionInternal;
-						caretSelectPositionInternal = caretPositionInternal;
-					}
-					else
-					{
-						m_Text = text.Substring(0, stringSelectPositionInternal) + text.Substring(stringPositionInternal, text.Length - stringPositionInternal);
-						stringPositionInternal = stringSelectPositionInternal;
-						stringPositionInternal = stringSelectPositionInternal;
-						caretPositionInternal = caretSelectPositionInternal;
-					}
+					this.m_Text = this.text.Substring(0, this.stringSelectPositionInternal) + this.text.Substring(this.stringPositionInternal, this.text.Length - this.stringPositionInternal);
+					this.stringPositionInternal = this.stringSelectPositionInternal;
+					this.stringPositionInternal = this.stringSelectPositionInternal;
+					this.caretPositionInternal = this.caretSelectPositionInternal;
 					return;
 				}
 			}
-			if (stringPositionInternal < stringSelectPositionInternal)
+			if (this.stringPositionInternal < this.stringSelectPositionInternal)
 			{
-				m_Text = text.Substring(0, stringPositionInternal) + text.Substring(stringSelectPositionInternal, text.Length - stringSelectPositionInternal);
-				stringSelectPositionInternal = stringPositionInternal;
+				this.m_Text = this.text.Substring(0, this.stringPositionInternal) + this.text.Substring(this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal);
+				this.stringSelectPositionInternal = this.stringPositionInternal;
 			}
 			else
 			{
-				m_Text = text.Substring(0, stringSelectPositionInternal) + text.Substring(stringPositionInternal, text.Length - stringPositionInternal);
-				stringPositionInternal = stringSelectPositionInternal;
+				this.m_Text = this.text.Substring(0, this.stringSelectPositionInternal) + this.text.Substring(this.stringPositionInternal, this.text.Length - this.stringPositionInternal);
+				this.stringPositionInternal = this.stringSelectPositionInternal;
 			}
-			m_isSelectAll = false;
+			this.m_isSelectAll = false;
 		}
 
 		private void ForwardSpace()
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
+				return;
+			}
+			if (this.hasSelection)
+			{
+				this.Delete();
+				this.SendOnValueChangedAndUpdateLabel();
+			}
+			else if (this.m_isRichTextEditingAllowed)
+			{
+				if (this.stringPositionInternal < this.text.Length)
 				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
+					this.m_Text = this.text.Remove(this.stringPositionInternal, 1);
+					this.SendOnValueChangedAndUpdateLabel();
 				}
 			}
-			if (hasSelection)
+			else if (this.caretPositionInternal < this.m_TextComponent.textInfo.characterCount - 1)
 			{
-				Delete();
-				SendOnValueChangedAndUpdateLabel();
-				return;
-			}
-			if (m_isRichTextEditingAllowed)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						if (stringPositionInternal < text.Length)
-						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									break;
-								default:
-									m_Text = text.Remove(stringPositionInternal, 1);
-									SendOnValueChangedAndUpdateLabel();
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
-			}
-			if (caretPositionInternal >= m_TextComponent.textInfo.characterCount - 1)
-			{
-				return;
-			}
-			while (true)
-			{
-				int num2 = stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal));
-				m_Text = text.Remove(stringPositionInternal, 1);
-				SendOnValueChangedAndUpdateLabel();
-				return;
+				int stringIndexFromCaretPosition = this.GetStringIndexFromCaretPosition(this.caretPositionInternal);
+				this.stringPositionInternal = stringIndexFromCaretPosition;
+				this.stringSelectPositionInternal = stringIndexFromCaretPosition;
+				this.m_Text = this.text.Remove(this.stringPositionInternal, 1);
+				this.SendOnValueChangedAndUpdateLabel();
 			}
 		}
 
 		private void Backspace()
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
+				return;
+			}
+			if (this.hasSelection)
+			{
+				this.Delete();
+				this.SendOnValueChangedAndUpdateLabel();
+			}
+			else if (this.m_isRichTextEditingAllowed)
+			{
+				if (this.stringPositionInternal > 0)
 				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
+					this.m_Text = this.text.Remove(this.stringPositionInternal - 1, 1);
+					int num = this.stringPositionInternal - 1;
+					this.stringPositionInternal = num;
+					this.stringSelectPositionInternal = num;
+					this.m_isLastKeyBackspace = true;
+					this.SendOnValueChangedAndUpdateLabel();
 				}
 			}
-			if (hasSelection)
+			else
 			{
-				while (true)
+				if (this.caretPositionInternal > 0)
 				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						Delete();
-						SendOnValueChangedAndUpdateLabel();
-						return;
-					}
+					this.m_Text = this.text.Remove(this.GetStringIndexFromCaretPosition(this.caretPositionInternal - 1), 1);
+					int num = this.caretPositionInternal - 1;
+					this.caretPositionInternal = num;
+					this.caretSelectPositionInternal = num;
+					num = this.GetStringIndexFromCaretPosition(this.caretPositionInternal);
+					this.stringPositionInternal = num;
+					this.stringSelectPositionInternal = num;
 				}
+				this.m_isLastKeyBackspace = true;
+				this.SendOnValueChangedAndUpdateLabel();
 			}
-			if (m_isRichTextEditingAllowed)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						if (stringPositionInternal > 0)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									m_Text = text.Remove(stringPositionInternal - 1, 1);
-									stringSelectPositionInternal = --stringPositionInternal;
-									m_isLastKeyBackspace = true;
-									SendOnValueChangedAndUpdateLabel();
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
-			}
-			if (caretPositionInternal > 0)
-			{
-				m_Text = text.Remove(GetStringIndexFromCaretPosition(caretPositionInternal - 1), 1);
-				caretSelectPositionInternal = --caretPositionInternal;
-				int num2 = stringSelectPositionInternal = (stringPositionInternal = GetStringIndexFromCaretPosition(caretPositionInternal));
-			}
-			m_isLastKeyBackspace = true;
-			SendOnValueChangedAndUpdateLabel();
 		}
 
 		protected virtual void Append(string input)
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			if (!InPlaceEditing())
+			if (!this.InPlaceEditing())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				return;
 			}
 			int i = 0;
-			for (int length = input.Length; i < length; i++)
+			int length = input.Length;
+			while (i < length)
 			{
 				char c = input[i];
-				if (c < ' ')
+				if (c >= ' ')
 				{
-					if (c != '\t')
+					goto IL_89;
+				}
+				if (c == '\t')
+				{
+					goto IL_89;
+				}
+				if (c == '\r' || c == '\n')
+				{
+					goto IL_89;
+				}
+				if (c == '\n')
+				{
+					for (;;)
 					{
-						if (c != '\r' && c != '\n')
+						switch (3)
 						{
-							if (c != '\n')
-							{
-								continue;
-							}
+						case 0:
+							continue;
 						}
+						goto IL_89;
 					}
 				}
-				Append(c);
+				IL_90:
+				i++;
+				continue;
+				IL_89:
+				this.Append(c);
+				goto IL_90;
 			}
 		}
 
 		protected virtual void Append(char input)
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			if (!InPlaceEditing())
+			if (!this.InPlaceEditing())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				return;
 			}
-			if (onValidateInput != null)
+			if (this.onValidateInput != null)
 			{
-				input = onValidateInput(text, stringPositionInternal, input);
+				input = this.onValidateInput(this.text, this.stringPositionInternal, input);
 			}
-			else
+			else if (this.characterValidation == TMP_InputField.CharacterValidation.CustomValidator)
 			{
-				if (characterValidation == CharacterValidation.CustomValidator)
+				input = this.Validate(this.text, this.stringPositionInternal, input);
+				if (input == '\0')
 				{
-					while (true)
-					{
-						input = Validate(text, stringPositionInternal, input);
-						if (input == '\0')
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
-						}
-						SendOnValueChanged();
-						UpdateLabel();
-						return;
-					}
+					return;
 				}
-				if (characterValidation != 0)
-				{
-					input = Validate(text, stringPositionInternal, input);
-				}
+				this.SendOnValueChanged();
+				this.UpdateLabel();
+				return;
+			}
+			else if (this.characterValidation != TMP_InputField.CharacterValidation.None)
+			{
+				input = this.Validate(this.text, this.stringPositionInternal, input);
 			}
 			if (input == '\0')
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				return;
 			}
-			Insert(input);
+			this.Insert(input);
 		}
 
 		private void Insert(char c)
 		{
-			if (m_ReadOnly)
+			if (this.m_ReadOnly)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			string text = c.ToString();
-			Delete();
-			if (characterLimit > 0 && this.text.Length >= characterLimit)
+			this.Delete();
+			if (this.characterLimit > 0 && this.text.Length >= this.characterLimit)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				return;
 			}
-			m_Text = this.text.Insert(m_StringPosition, text);
-			stringSelectPositionInternal = (stringPositionInternal += text.Length);
-			SendOnValueChanged();
+			this.m_Text = this.text.Insert(this.m_StringPosition, text);
+			this.stringSelectPositionInternal = (this.stringPositionInternal += text.Length);
+			this.SendOnValueChanged();
 		}
 
 		private void SendOnValueChangedAndUpdateLabel()
 		{
-			SendOnValueChanged();
-			UpdateLabel();
+			this.SendOnValueChanged();
+			this.UpdateLabel();
 		}
 
 		private void SendOnValueChanged()
 		{
-			if (onValueChanged == null)
+			if (this.onValueChanged != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				onValueChanged.Invoke(text);
-				return;
+				this.onValueChanged.Invoke(this.text);
 			}
 		}
 
 		protected void SendOnEndEdit()
 		{
-			if (onEndEdit == null)
+			if (this.onEndEdit != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				onEndEdit.Invoke(m_Text);
-				return;
+				this.onEndEdit.Invoke(this.m_Text);
 			}
 		}
 
 		protected void SendOnSubmit()
 		{
-			if (onSubmit == null)
+			if (this.onSubmit != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				onSubmit.Invoke(m_Text);
-				return;
+				this.onSubmit.Invoke(this.m_Text);
 			}
 		}
 
 		protected void SendOnFocus()
 		{
-			if (onSelect != null)
+			if (this.onSelect != null)
 			{
-				onSelect.Invoke(m_Text);
+				this.onSelect.Invoke(this.m_Text);
 			}
 		}
 
 		protected void SendOnFocusLost()
 		{
-			if (onDeselect != null)
+			if (this.onDeselect != null)
 			{
-				onDeselect.Invoke(m_Text);
+				this.onDeselect.Invoke(this.m_Text);
 			}
 		}
 
 		protected void SendOnTextSelection()
 		{
-			m_isSelected = true;
-			if (onTextSelection != null)
+			this.m_isSelected = true;
+			if (this.onTextSelection != null)
 			{
-				onTextSelection.Invoke(m_Text, stringPositionInternal, stringSelectPositionInternal);
+				this.onTextSelection.Invoke(this.m_Text, this.stringPositionInternal, this.stringSelectPositionInternal);
 			}
 		}
 
 		protected void SendOnEndTextSelection()
 		{
-			if (!m_isSelected)
+			if (!this.m_isSelected)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			if (onEndTextSelection != null)
+			if (this.onEndTextSelection != null)
 			{
-				onEndTextSelection.Invoke(m_Text, stringPositionInternal, stringSelectPositionInternal);
+				this.onEndTextSelection.Invoke(this.m_Text, this.stringPositionInternal, this.stringSelectPositionInternal);
 			}
-			m_isSelected = false;
+			this.m_isSelected = false;
 		}
 
 		protected void UpdateLabel()
 		{
-			if (!(m_TextComponent != null) || !(m_TextComponent.font != null))
-			{
-				return;
-			}
-			while (true)
+			if (this.m_TextComponent != null && this.m_TextComponent.font != null)
 			{
 				string text;
 				if (Input.compositionString.Length > 0)
 				{
-					text = this.text.Substring(0, m_StringPosition) + Input.compositionString + this.text.Substring(m_StringPosition);
+					text = this.text.Substring(0, this.m_StringPosition) + Input.compositionString + this.text.Substring(this.m_StringPosition);
 				}
 				else
 				{
 					text = this.text;
 				}
-				string str = (inputType != InputType.Password) ? text : new string(asteriskChar, text.Length);
-				bool flag = string.IsNullOrEmpty(text);
-				if (m_Placeholder != null)
+				string str;
+				if (this.inputType == TMP_InputField.InputType.Password)
 				{
-					m_Placeholder.enabled = flag;
+					str = new string(this.asteriskChar, text.Length);
+				}
+				else
+				{
+					str = text;
+				}
+				bool flag = string.IsNullOrEmpty(text);
+				if (this.m_Placeholder != null)
+				{
+					this.m_Placeholder.enabled = flag;
 				}
 				if (!flag)
 				{
-					SetCaretVisible();
+					this.SetCaretVisible();
 				}
-				m_TextComponent.text = str + "\u200b";
-				MarkGeometryAsDirty();
-				m_IsScrollbarUpdateRequired = true;
-				return;
+				this.m_TextComponent.text = str + "​";
+				this.MarkGeometryAsDirty();
+				this.m_IsScrollbarUpdateRequired = true;
 			}
 		}
 
 		private void UpdateScrollbar()
 		{
-			if (!m_VerticalScrollbar)
+			if (this.m_VerticalScrollbar)
 			{
-				return;
-			}
-			while (true)
-			{
-				float size = m_TextViewport.rect.height / m_TextComponent.preferredHeight;
-				m_IsUpdatingScrollbarValues = true;
-				m_VerticalScrollbar.size = size;
-				Scrollbar verticalScrollbar = m_VerticalScrollbar;
-				Vector2 anchoredPosition = m_TextComponent.rectTransform.anchoredPosition;
-				verticalScrollbar.value = anchoredPosition.y / (m_TextComponent.preferredHeight - m_TextViewport.rect.height);
-				return;
+				float size = this.m_TextViewport.rect.height / this.m_TextComponent.preferredHeight;
+				this.m_IsUpdatingScrollbarValues = true;
+				this.m_VerticalScrollbar.size = size;
+				this.m_VerticalScrollbar.value = this.m_TextComponent.rectTransform.anchoredPosition.y / (this.m_TextComponent.preferredHeight - this.m_TextViewport.rect.height);
 			}
 		}
 
 		private void OnScrollbarValueChange(float value)
 		{
-			if (m_IsUpdatingScrollbarValues)
+			if (this.m_IsUpdatingScrollbarValues)
 			{
-				m_IsUpdatingScrollbarValues = false;
+				this.m_IsUpdatingScrollbarValues = false;
+				return;
 			}
-			else
+			if (value >= 0f)
 			{
-				if (value < 0f)
+				if (value <= 1f)
 				{
-					return;
-				}
-				while (true)
-				{
-					if (value > 1f)
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							default:
-								return;
-							case 0:
-								break;
-							}
-						}
-					}
-					AdjustTextPositionRelativeToViewport(value);
-					m_ScrollPosition = value;
+					this.AdjustTextPositionRelativeToViewport(value);
+					this.m_ScrollPosition = value;
 					return;
 				}
 			}
@@ -3386,43 +2761,19 @@ namespace TMPro
 
 		private void AdjustTextPositionRelativeToViewport(float relativePosition)
 		{
-			TMP_TextInfo textInfo = m_TextComponent.textInfo;
-			if (textInfo == null)
+			TMP_TextInfo textInfo = this.m_TextComponent.textInfo;
+			if (textInfo != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (textInfo.lineInfo == null)
+				if (textInfo.lineInfo != null)
 				{
-					return;
-				}
-				while (true)
-				{
-					if (textInfo.lineCount == 0)
+					if (textInfo.lineCount != 0)
 					{
-						return;
-					}
-					while (true)
-					{
-						if (textInfo.lineCount > textInfo.lineInfo.Length)
+						if (textInfo.lineCount <= textInfo.lineInfo.Length)
 						{
-							while (true)
-							{
-								switch (2)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
+							this.m_TextComponent.rectTransform.anchoredPosition = new Vector2(this.m_TextComponent.rectTransform.anchoredPosition.x, (this.m_TextComponent.preferredHeight - this.m_TextViewport.rect.height) * relativePosition);
+							this.AssignPositioningIfNeeded();
+							return;
 						}
-						RectTransform rectTransform = m_TextComponent.rectTransform;
-						Vector2 anchoredPosition = m_TextComponent.rectTransform.anchoredPosition;
-						rectTransform.anchoredPosition = new Vector2(anchoredPosition.x, (m_TextComponent.preferredHeight - m_TextViewport.rect.height) * relativePosition);
-						AssignPositioningIfNeeded();
-						return;
 					}
 				}
 			}
@@ -3430,33 +2781,26 @@ namespace TMPro
 
 		private int GetCaretPositionFromStringIndex(int stringIndex)
 		{
-			int characterCount = m_TextComponent.textInfo.characterCount;
+			int characterCount = this.m_TextComponent.textInfo.characterCount;
 			for (int i = 0; i < characterCount; i++)
 			{
-				if (m_TextComponent.textInfo.characterInfo[i].index < stringIndex)
-				{
-					continue;
-				}
-				while (true)
+				if ((int)this.m_TextComponent.textInfo.characterInfo[i].index >= stringIndex)
 				{
 					return i;
 				}
 			}
-			while (true)
-			{
-				return characterCount;
-			}
+			return characterCount;
 		}
 
 		private int GetStringIndexFromCaretPosition(int caretPosition)
 		{
-			ClampCaretPos(ref caretPosition);
-			return m_TextComponent.textInfo.characterInfo[caretPosition].index;
+			this.ClampCaretPos(ref caretPosition);
+			return (int)this.m_TextComponent.textInfo.characterInfo[caretPosition].index;
 		}
 
 		public void ForceLabelUpdate()
 		{
-			UpdateLabel();
+			this.UpdateLabel();
 		}
 
 		private void MarkGeometryAsDirty()
@@ -3468,18 +2812,11 @@ namespace TMPro
 		{
 			if (update != CanvasUpdate.LatePreRender)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
 			}
-			UpdateGeometry();
+			else
+			{
+				this.UpdateGeometry();
+			}
 		}
 
 		public virtual void LayoutComplete()
@@ -3492,79 +2829,55 @@ namespace TMPro
 
 		private void UpdateGeometry()
 		{
-			if (!shouldHideMobileInput)
+			if (!this.shouldHideMobileInput)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			if (m_CachedInputRenderer == null)
+			if (this.m_CachedInputRenderer == null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				return;
 			}
-			OnFillVBO(mesh);
-			m_CachedInputRenderer.SetMesh(mesh);
+			this.OnFillVBO(this.mesh);
+			this.m_CachedInputRenderer.SetMesh(this.mesh);
 		}
 
 		private void AssignPositioningIfNeeded()
 		{
-			if (!(m_TextComponent != null))
+			if (this.m_TextComponent != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!(caretRectTrans != null))
+				if (this.caretRectTrans != null)
 				{
-					return;
-				}
-				if (!(caretRectTrans.localPosition != m_TextComponent.rectTransform.localPosition))
-				{
-					if (!(caretRectTrans.localRotation != m_TextComponent.rectTransform.localRotation))
+					if (!(this.caretRectTrans.localPosition != this.m_TextComponent.rectTransform.localPosition))
 					{
-						if (!(caretRectTrans.localScale != m_TextComponent.rectTransform.localScale))
+						if (!(this.caretRectTrans.localRotation != this.m_TextComponent.rectTransform.localRotation))
 						{
-							if (!(caretRectTrans.anchorMin != m_TextComponent.rectTransform.anchorMin))
+							if (!(this.caretRectTrans.localScale != this.m_TextComponent.rectTransform.localScale))
 							{
-								if (!(caretRectTrans.anchorMax != m_TextComponent.rectTransform.anchorMax) && !(caretRectTrans.anchoredPosition != m_TextComponent.rectTransform.anchoredPosition))
+								if (!(this.caretRectTrans.anchorMin != this.m_TextComponent.rectTransform.anchorMin))
 								{
-									if (!(caretRectTrans.sizeDelta != m_TextComponent.rectTransform.sizeDelta))
+									if (!(this.caretRectTrans.anchorMax != this.m_TextComponent.rectTransform.anchorMax) && !(this.caretRectTrans.anchoredPosition != this.m_TextComponent.rectTransform.anchoredPosition))
 									{
-										if (!(caretRectTrans.pivot != m_TextComponent.rectTransform.pivot))
+										if (!(this.caretRectTrans.sizeDelta != this.m_TextComponent.rectTransform.sizeDelta))
 										{
-											return;
+											if (!(this.caretRectTrans.pivot != this.m_TextComponent.rectTransform.pivot))
+											{
+												return;
+											}
 										}
 									}
 								}
 							}
 						}
 					}
+					this.caretRectTrans.localPosition = this.m_TextComponent.rectTransform.localPosition;
+					this.caretRectTrans.localRotation = this.m_TextComponent.rectTransform.localRotation;
+					this.caretRectTrans.localScale = this.m_TextComponent.rectTransform.localScale;
+					this.caretRectTrans.anchorMin = this.m_TextComponent.rectTransform.anchorMin;
+					this.caretRectTrans.anchorMax = this.m_TextComponent.rectTransform.anchorMax;
+					this.caretRectTrans.anchoredPosition = this.m_TextComponent.rectTransform.anchoredPosition;
+					this.caretRectTrans.sizeDelta = this.m_TextComponent.rectTransform.sizeDelta;
+					this.caretRectTrans.pivot = this.m_TextComponent.rectTransform.pivot;
 				}
-				caretRectTrans.localPosition = m_TextComponent.rectTransform.localPosition;
-				caretRectTrans.localRotation = m_TextComponent.rectTransform.localRotation;
-				caretRectTrans.localScale = m_TextComponent.rectTransform.localScale;
-				caretRectTrans.anchorMin = m_TextComponent.rectTransform.anchorMin;
-				caretRectTrans.anchorMax = m_TextComponent.rectTransform.anchorMax;
-				caretRectTrans.anchoredPosition = m_TextComponent.rectTransform.anchoredPosition;
-				caretRectTrans.sizeDelta = m_TextComponent.rectTransform.sizeDelta;
-				caretRectTrans.pivot = m_TextComponent.rectTransform.pivot;
-				return;
 			}
 		}
 
@@ -3573,38 +2886,29 @@ namespace TMPro
 			VertexHelper vertexHelper = new VertexHelper();
 			try
 			{
-				if (!isFocused)
+				if (!this.isFocused)
 				{
-					if (m_ResetOnDeActivation)
+					if (this.m_ResetOnDeActivation)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								vertexHelper.FillMesh(vbo);
-								return;
-							}
-						}
+						vertexHelper.FillMesh(vbo);
+						return;
 					}
 				}
-				if (isStringPositionDirty)
+				if (this.isStringPositionDirty)
 				{
-					stringPositionInternal = GetStringIndexFromCaretPosition(m_CaretPosition);
-					stringSelectPositionInternal = GetStringIndexFromCaretPosition(m_CaretSelectPosition);
-					isStringPositionDirty = false;
+					this.stringPositionInternal = this.GetStringIndexFromCaretPosition(this.m_CaretPosition);
+					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.m_CaretSelectPosition);
+					this.isStringPositionDirty = false;
 				}
-				if (!hasSelection)
+				if (!this.hasSelection)
 				{
-					GenerateCaret(vertexHelper, Vector2.zero);
-					SendOnEndTextSelection();
+					this.GenerateCaret(vertexHelper, Vector2.zero);
+					this.SendOnEndTextSelection();
 				}
 				else
 				{
-					GenerateHightlight(vertexHelper, Vector2.zero);
-					SendOnTextSelection();
+					this.GenerateHightlight(vertexHelper, Vector2.zero);
+					this.SendOnTextSelection();
 				}
 				vertexHelper.FillMesh(vbo);
 			}
@@ -3612,162 +2916,156 @@ namespace TMPro
 			{
 				if (vertexHelper != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							((IDisposable)vertexHelper).Dispose();
-							goto end_IL_00bd;
-						}
-					}
+					((IDisposable)vertexHelper).Dispose();
 				}
-				end_IL_00bd:;
 			}
 		}
 
 		private void GenerateCaret(VertexHelper vbo, Vector2 roundingOffset)
 		{
-			if (!m_CaretVisible)
+			if (!this.m_CaretVisible)
 			{
-				while (true)
-				{
-					return;
-				}
+				return;
 			}
-			if (m_CursorVerts == null)
+			if (this.m_CursorVerts == null)
 			{
-				CreateCursorVerts();
+				this.CreateCursorVerts();
 			}
-			float num = m_CaretWidth;
-			int characterCount = m_TextComponent.textInfo.characterCount;
-			Vector2 vector = Vector2.zero;
-			float num2 = 0f;
-			caretPositionInternal = GetCaretPositionFromStringIndex(stringPositionInternal);
-			TMP_CharacterInfo tMP_CharacterInfo;
-			if (caretPositionInternal == 0)
+			float num = (float)this.m_CaretWidth;
+			int characterCount = this.m_TextComponent.textInfo.characterCount;
+			Vector2 zero = Vector2.zero;
+			this.caretPositionInternal = this.GetCaretPositionFromStringIndex(this.stringPositionInternal);
+			TMP_CharacterInfo tmp_CharacterInfo;
+			float num2;
+			if (this.caretPositionInternal == 0)
 			{
-				tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[0];
-				vector = new Vector2(tMP_CharacterInfo.origin, tMP_CharacterInfo.descender);
-				num2 = tMP_CharacterInfo.ascender - tMP_CharacterInfo.descender;
+				tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[0];
+				zero = new Vector2(tmp_CharacterInfo.origin, tmp_CharacterInfo.descender);
+				num2 = tmp_CharacterInfo.ascender - tmp_CharacterInfo.descender;
 			}
-			else if (caretPositionInternal < characterCount)
+			else if (this.caretPositionInternal < characterCount)
 			{
-				tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[caretPositionInternal];
-				vector = new Vector2(tMP_CharacterInfo.origin, tMP_CharacterInfo.descender);
-				num2 = tMP_CharacterInfo.ascender - tMP_CharacterInfo.descender;
+				tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[this.caretPositionInternal];
+				zero = new Vector2(tmp_CharacterInfo.origin, tmp_CharacterInfo.descender);
+				num2 = tmp_CharacterInfo.ascender - tmp_CharacterInfo.descender;
 			}
 			else
 			{
-				tMP_CharacterInfo = m_TextComponent.textInfo.characterInfo[characterCount - 1];
-				vector = new Vector2(tMP_CharacterInfo.xAdvance, tMP_CharacterInfo.descender);
-				num2 = tMP_CharacterInfo.ascender - tMP_CharacterInfo.descender;
+				tmp_CharacterInfo = this.m_TextComponent.textInfo.characterInfo[characterCount - 1];
+				zero = new Vector2(tmp_CharacterInfo.xAdvance, tmp_CharacterInfo.descender);
+				num2 = tmp_CharacterInfo.ascender - tmp_CharacterInfo.descender;
 			}
-			if (isFocused)
+			if (this.isFocused)
 			{
-				if (vector != m_LastPosition)
+				if (zero != this.m_LastPosition)
 				{
-					goto IL_01a4;
+					goto IL_1A4;
 				}
 			}
-			if (m_forceRectTransformAdjustment)
+			if (!this.m_forceRectTransformAdjustment)
 			{
-				goto IL_01a4;
+				goto IL_1B3;
 			}
-			goto IL_01b3;
-			IL_01a4:
-			AdjustRectTransformRelativeToViewport(vector, num2, tMP_CharacterInfo.isVisible);
-			goto IL_01b3;
-			IL_01b3:
-			m_LastPosition = vector;
-			float num3 = vector.y + num2;
+			IL_1A4:
+			this.AdjustRectTransformRelativeToViewport(zero, num2, tmp_CharacterInfo.isVisible);
+			IL_1B3:
+			this.m_LastPosition = zero;
+			float num3 = zero.y + num2;
 			float y = num3 - num2;
-			m_CursorVerts[0].position = new Vector3(vector.x, y, 0f);
-			m_CursorVerts[1].position = new Vector3(vector.x, num3, 0f);
-			m_CursorVerts[2].position = new Vector3(vector.x + num, num3, 0f);
-			m_CursorVerts[3].position = new Vector3(vector.x + num, y, 0f);
-			m_CursorVerts[0].color = caretColor;
-			m_CursorVerts[1].color = caretColor;
-			m_CursorVerts[2].color = caretColor;
-			m_CursorVerts[3].color = caretColor;
-			vbo.AddUIVertexQuad(m_CursorVerts);
+			this.m_CursorVerts[0].position = new Vector3(zero.x, y, 0f);
+			this.m_CursorVerts[1].position = new Vector3(zero.x, num3, 0f);
+			this.m_CursorVerts[2].position = new Vector3(zero.x + num, num3, 0f);
+			this.m_CursorVerts[3].position = new Vector3(zero.x + num, y, 0f);
+			this.m_CursorVerts[0].color = this.caretColor;
+			this.m_CursorVerts[1].color = this.caretColor;
+			this.m_CursorVerts[2].color = this.caretColor;
+			this.m_CursorVerts[3].color = this.caretColor;
+			vbo.AddUIVertexQuad(this.m_CursorVerts);
 			int height = Screen.height;
-			vector.y = (float)height - vector.y;
-			Input.compositionCursorPos = vector;
+			zero.y = (float)height - zero.y;
+			Input.compositionCursorPos = zero;
 		}
 
 		private void CreateCursorVerts()
 		{
-			m_CursorVerts = new UIVertex[4];
-			for (int i = 0; i < m_CursorVerts.Length; i++)
+			this.m_CursorVerts = new UIVertex[4];
+			for (int i = 0; i < this.m_CursorVerts.Length; i++)
 			{
-				m_CursorVerts[i] = UIVertex.simpleVert;
-				m_CursorVerts[i].uv0 = Vector2.zero;
-			}
-			while (true)
-			{
-				return;
+				this.m_CursorVerts[i] = UIVertex.simpleVert;
+				this.m_CursorVerts[i].uv0 = Vector2.zero;
 			}
 		}
 
 		private void GenerateHightlight(VertexHelper vbo, Vector2 roundingOffset)
 		{
-			TMP_TextInfo textInfo = m_TextComponent.textInfo;
-			caretPositionInternal = (m_CaretPosition = GetCaretPositionFromStringIndex(stringPositionInternal));
-			caretSelectPositionInternal = (m_CaretSelectPosition = GetCaretPositionFromStringIndex(stringSelectPositionInternal));
-			float num = 0f;
+			TMP_TextInfo textInfo = this.m_TextComponent.textInfo;
+			this.caretPositionInternal = (this.m_CaretPosition = this.GetCaretPositionFromStringIndex(this.stringPositionInternal));
+			this.caretSelectPositionInternal = (this.m_CaretSelectPosition = this.GetCaretPositionFromStringIndex(this.stringSelectPositionInternal));
 			Vector2 startPosition;
-			if (caretSelectPositionInternal < textInfo.characterCount)
+			float height;
+			if (this.caretSelectPositionInternal < textInfo.characterCount)
 			{
-				startPosition = new Vector2(textInfo.characterInfo[caretSelectPositionInternal].origin, textInfo.characterInfo[caretSelectPositionInternal].descender);
-				num = textInfo.characterInfo[caretSelectPositionInternal].ascender - textInfo.characterInfo[caretSelectPositionInternal].descender;
+				startPosition = new Vector2(textInfo.characterInfo[this.caretSelectPositionInternal].origin, textInfo.characterInfo[this.caretSelectPositionInternal].descender);
+				height = textInfo.characterInfo[this.caretSelectPositionInternal].ascender - textInfo.characterInfo[this.caretSelectPositionInternal].descender;
 			}
 			else
 			{
-				startPosition = new Vector2(textInfo.characterInfo[caretSelectPositionInternal - 1].xAdvance, textInfo.characterInfo[caretSelectPositionInternal - 1].descender);
-				num = textInfo.characterInfo[caretSelectPositionInternal - 1].ascender - textInfo.characterInfo[caretSelectPositionInternal - 1].descender;
+				startPosition = new Vector2(textInfo.characterInfo[this.caretSelectPositionInternal - 1].xAdvance, textInfo.characterInfo[this.caretSelectPositionInternal - 1].descender);
+				height = textInfo.characterInfo[this.caretSelectPositionInternal - 1].ascender - textInfo.characterInfo[this.caretSelectPositionInternal - 1].descender;
 			}
-			AdjustRectTransformRelativeToViewport(startPosition, num, true);
-			int num2 = Mathf.Max(0, caretPositionInternal);
-			int num3 = Mathf.Max(0, caretSelectPositionInternal);
-			if (num2 > num3)
+			this.AdjustRectTransformRelativeToViewport(startPosition, height, true);
+			int num = Mathf.Max(0, this.caretPositionInternal);
+			int num2 = Mathf.Max(0, this.caretSelectPositionInternal);
+			if (num > num2)
 			{
-				int num4 = num2;
+				int num3 = num;
+				num = num2;
 				num2 = num3;
-				num3 = num4;
 			}
-			num3--;
-			int num5 = textInfo.characterInfo[num2].lineNumber;
-			int lastCharacterIndex = textInfo.lineInfo[num5].lastCharacterIndex;
+			num2--;
+			int num4 = (int)textInfo.characterInfo[num].lineNumber;
+			int lastCharacterIndex = textInfo.lineInfo[num4].lastCharacterIndex;
 			UIVertex simpleVert = UIVertex.simpleVert;
 			simpleVert.uv0 = Vector2.zero;
-			simpleVert.color = selectionColor;
-			for (int i = num2; i <= num3; i++)
+			simpleVert.color = this.selectionColor;
+			int i = num;
+			while (i <= num2)
 			{
 				if (i >= textInfo.characterCount)
 				{
 					break;
 				}
-				if (i != lastCharacterIndex)
+				if (i == lastCharacterIndex)
 				{
-					if (i != num3)
+					goto IL_20C;
+				}
+				if (i == num2)
+				{
+					for (;;)
 					{
-						continue;
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						goto IL_20C;
 					}
 				}
-				TMP_CharacterInfo tMP_CharacterInfo = textInfo.characterInfo[num2];
-				TMP_CharacterInfo tMP_CharacterInfo2 = textInfo.characterInfo[i];
+				IL_3B4:
+				i++;
+				continue;
+				IL_20C:
+				TMP_CharacterInfo tmp_CharacterInfo = textInfo.characterInfo[num];
+				TMP_CharacterInfo tmp_CharacterInfo2 = textInfo.characterInfo[i];
 				if (i > 0)
 				{
-					if (tMP_CharacterInfo2.character == '\n' && textInfo.characterInfo[i - 1].character == '\r')
+					if (tmp_CharacterInfo2.character == '\n' && textInfo.characterInfo[i - 1].character == '\r')
 					{
-						tMP_CharacterInfo2 = textInfo.characterInfo[i - 1];
+						tmp_CharacterInfo2 = textInfo.characterInfo[i - 1];
 					}
 				}
-				Vector2 vector = new Vector2(tMP_CharacterInfo.origin, textInfo.lineInfo[num5].ascender);
-				Vector2 vector2 = new Vector2(tMP_CharacterInfo2.xAdvance, textInfo.lineInfo[num5].descender);
+				Vector2 vector = new Vector2(tmp_CharacterInfo.origin, textInfo.lineInfo[num4].ascender);
+				Vector2 vector2 = new Vector2(tmp_CharacterInfo2.xAdvance, textInfo.lineInfo[num4].descender);
 				int currentVertCount = vbo.currentVertCount;
 				simpleVert.position = new Vector3(vector.x, vector2.y, 0f);
 				vbo.AddVert(simpleVert);
@@ -3779,151 +3077,119 @@ namespace TMPro
 				vbo.AddVert(simpleVert);
 				vbo.AddTriangle(currentVertCount, currentVertCount + 1, currentVertCount + 2);
 				vbo.AddTriangle(currentVertCount + 2, currentVertCount + 3, currentVertCount);
-				num2 = i + 1;
-				num5++;
-				if (num5 < textInfo.lineCount)
+				num = i + 1;
+				num4++;
+				if (num4 < textInfo.lineCount)
 				{
-					lastCharacterIndex = textInfo.lineInfo[num5].lastCharacterIndex;
+					lastCharacterIndex = textInfo.lineInfo[num4].lastCharacterIndex;
+					goto IL_3B4;
 				}
+				goto IL_3B4;
 			}
-			m_IsScrollbarUpdateRequired = true;
+			this.m_IsScrollbarUpdateRequired = true;
 		}
 
 		private void AdjustRectTransformRelativeToViewport(Vector2 startPosition, float height, bool isCharVisible)
 		{
-			float xMin = m_TextViewport.rect.xMin;
-			float xMax = m_TextViewport.rect.xMax;
-			Vector2 anchoredPosition = m_TextComponent.rectTransform.anchoredPosition;
-			float num = anchoredPosition.x + startPosition.x;
-			Vector4 margin = m_TextComponent.margin;
-			float num2 = xMax - (num + margin.z + (float)m_CaretWidth);
+			float xMin = this.m_TextViewport.rect.xMin;
+			float xMax = this.m_TextViewport.rect.xMax;
+			float num = xMax - (this.m_TextComponent.rectTransform.anchoredPosition.x + startPosition.x + this.m_TextComponent.margin.z + (float)this.m_CaretWidth);
+			if (num < 0f)
+			{
+				if (this.multiLine)
+				{
+					if (!this.multiLine)
+					{
+						goto IL_F7;
+					}
+					if (!isCharVisible)
+					{
+						goto IL_F7;
+					}
+				}
+				this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(num, 0f);
+				this.AssignPositioningIfNeeded();
+			}
+			IL_F7:
+			float num2 = this.m_TextComponent.rectTransform.anchoredPosition.x + startPosition.x - this.m_TextComponent.margin.x - xMin;
 			if (num2 < 0f)
 			{
-				if (!multiLine)
+				this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(-num2, 0f);
+				this.AssignPositioningIfNeeded();
+			}
+			if (this.m_LineType != TMP_InputField.LineType.SingleLine)
+			{
+				float num3 = this.m_TextViewport.rect.yMax - (this.m_TextComponent.rectTransform.anchoredPosition.y + startPosition.y + height);
+				if (num3 < -0.0001f)
 				{
-					goto IL_00c6;
+					this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, num3);
+					this.AssignPositioningIfNeeded();
+					this.m_IsScrollbarUpdateRequired = true;
 				}
-				if (multiLine)
+				float num4 = this.m_TextComponent.rectTransform.anchoredPosition.y + startPosition.y - this.m_TextViewport.rect.yMin;
+				if (num4 < 0f)
 				{
-					if (isCharVisible)
+					this.m_TextComponent.rectTransform.anchoredPosition -= new Vector2(0f, num4);
+					this.AssignPositioningIfNeeded();
+					this.m_IsScrollbarUpdateRequired = true;
+				}
+			}
+			if (this.m_isLastKeyBackspace)
+			{
+				float num5 = this.m_TextComponent.rectTransform.anchoredPosition.x + this.m_TextComponent.textInfo.characterInfo[0].origin - this.m_TextComponent.margin.x;
+				float num6 = this.m_TextComponent.rectTransform.anchoredPosition.x + this.m_TextComponent.textInfo.characterInfo[this.m_TextComponent.textInfo.characterCount - 1].origin + this.m_TextComponent.margin.z;
+				if (this.m_TextComponent.rectTransform.anchoredPosition.x + startPosition.x <= xMin + 0.0001f)
+				{
+					if (num5 < xMin)
 					{
-						goto IL_00c6;
+						float x = Mathf.Min((xMax - xMin) / 2f, xMin - num5);
+						this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(x, 0f);
+						this.AssignPositioningIfNeeded();
 					}
 				}
-			}
-			goto IL_00f7;
-			IL_00c6:
-			m_TextComponent.rectTransform.anchoredPosition += new Vector2(num2, 0f);
-			AssignPositioningIfNeeded();
-			goto IL_00f7;
-			IL_00f7:
-			Vector2 anchoredPosition2 = m_TextComponent.rectTransform.anchoredPosition;
-			float num3 = anchoredPosition2.x + startPosition.x;
-			Vector4 margin2 = m_TextComponent.margin;
-			float num4 = num3 - margin2.x - xMin;
-			if (num4 < 0f)
-			{
-				m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f - num4, 0f);
-				AssignPositioningIfNeeded();
-			}
-			if (m_LineType != 0)
-			{
-				float yMax = m_TextViewport.rect.yMax;
-				Vector2 anchoredPosition3 = m_TextComponent.rectTransform.anchoredPosition;
-				float num5 = yMax - (anchoredPosition3.y + startPosition.y + height);
-				if (num5 < -0.0001f)
+				else if (num6 < xMax)
 				{
-					m_TextComponent.rectTransform.anchoredPosition += new Vector2(0f, num5);
-					AssignPositioningIfNeeded();
-					m_IsScrollbarUpdateRequired = true;
-				}
-				Vector2 anchoredPosition4 = m_TextComponent.rectTransform.anchoredPosition;
-				float num6 = anchoredPosition4.y + startPosition.y - m_TextViewport.rect.yMin;
-				if (num6 < 0f)
-				{
-					m_TextComponent.rectTransform.anchoredPosition -= new Vector2(0f, num6);
-					AssignPositioningIfNeeded();
-					m_IsScrollbarUpdateRequired = true;
-				}
-			}
-			if (m_isLastKeyBackspace)
-			{
-				Vector2 anchoredPosition5 = m_TextComponent.rectTransform.anchoredPosition;
-				float num7 = anchoredPosition5.x + m_TextComponent.textInfo.characterInfo[0].origin;
-				Vector4 margin3 = m_TextComponent.margin;
-				float num8 = num7 - margin3.x;
-				Vector2 anchoredPosition6 = m_TextComponent.rectTransform.anchoredPosition;
-				float num9 = anchoredPosition6.x + m_TextComponent.textInfo.characterInfo[m_TextComponent.textInfo.characterCount - 1].origin;
-				Vector4 margin4 = m_TextComponent.margin;
-				float num10 = num9 + margin4.z;
-				Vector2 anchoredPosition7 = m_TextComponent.rectTransform.anchoredPosition;
-				if (anchoredPosition7.x + startPosition.x <= xMin + 0.0001f)
-				{
-					if (num8 < xMin)
+					if (num5 < xMin)
 					{
-						float x = Mathf.Min((xMax - xMin) / 2f, xMin - num8);
-						m_TextComponent.rectTransform.anchoredPosition += new Vector2(x, 0f);
-						AssignPositioningIfNeeded();
+						float x2 = Mathf.Min(xMax - num6, xMin - num5);
+						this.m_TextComponent.rectTransform.anchoredPosition += new Vector2(x2, 0f);
+						this.AssignPositioningIfNeeded();
 					}
 				}
-				else if (num10 < xMax)
-				{
-					if (num8 < xMin)
-					{
-						float x2 = Mathf.Min(xMax - num10, xMin - num8);
-						m_TextComponent.rectTransform.anchoredPosition += new Vector2(x2, 0f);
-						AssignPositioningIfNeeded();
-					}
-				}
-				m_isLastKeyBackspace = false;
+				this.m_isLastKeyBackspace = false;
 			}
-			m_forceRectTransformAdjustment = false;
+			this.m_forceRectTransformAdjustment = false;
 		}
 
 		protected char Validate(string text, int pos, char ch)
 		{
-			int num6;
-			if (characterValidation != 0)
+			if (this.characterValidation != TMP_InputField.CharacterValidation.None)
 			{
 				if (base.enabled)
 				{
-					if (characterValidation != CharacterValidation.Integer)
+					if (this.characterValidation != TMP_InputField.CharacterValidation.Integer)
 					{
-						if (characterValidation != CharacterValidation.Decimal)
+						if (this.characterValidation == TMP_InputField.CharacterValidation.Decimal)
 						{
-							if (characterValidation == CharacterValidation.Digit)
+						}
+						else
+						{
+							if (this.characterValidation == TMP_InputField.CharacterValidation.Digit)
 							{
 								if (ch >= '0')
 								{
 									if (ch <= '9')
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
+								return '\0';
 							}
-							else if (characterValidation == CharacterValidation.Alphanumeric)
+							if (this.characterValidation == TMP_InputField.CharacterValidation.Alphanumeric)
 							{
 								if (ch >= 'A' && ch <= 'Z')
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											break;
-										default:
-											return ch;
-										}
-									}
+									return ch;
 								}
 								if (ch >= 'a')
 								{
@@ -3936,84 +3202,58 @@ namespace TMPro
 								{
 									if (ch <= '9')
 									{
-										while (true)
-										{
-											switch (7)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
+								return '\0';
 							}
-							else if (characterValidation == CharacterValidation.Name)
+							else if (this.characterValidation == TMP_InputField.CharacterValidation.Name)
 							{
-								int num;
+								char c;
 								if (text.Length > 0)
 								{
-									num = text[Mathf.Clamp(pos, 0, text.Length - 1)];
+									c = text[Mathf.Clamp(pos, 0, text.Length - 1)];
 								}
 								else
 								{
-									num = 32;
+									c = ' ';
 								}
-								char c = (char)num;
-								int num2;
+								char c2 = c;
+								char c3;
 								if (text.Length > 0)
 								{
-									num2 = text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
+									c3 = text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
 								}
 								else
 								{
-									num2 = 10;
+									c3 = '\n';
 								}
-								char c2 = (char)num2;
+								char c4 = c3;
 								if (char.IsLetter(ch))
 								{
 									if (char.IsLower(ch))
 									{
-										if (c == ' ')
+										if (c2 == ' ')
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													break;
-												default:
-													return char.ToUpper(ch);
-												}
-											}
+											return char.ToUpper(ch);
 										}
 									}
 									if (char.IsUpper(ch))
 									{
-										if (c != ' ' && c != '\'')
+										if (c2 != ' ' && c2 != '\'')
 										{
-											while (true)
-											{
-												switch (4)
-												{
-												case 0:
-													break;
-												default:
-													return char.ToLower(ch);
-												}
-											}
+											return char.ToLower(ch);
 										}
 									}
 									return ch;
 								}
 								if (ch == '\'')
 								{
-									if (c != ' ')
+									if (c2 != ' ')
 									{
-										if (c != '\'')
+										if (c2 != '\'')
 										{
-											if (c2 != '\'')
+											if (c4 != '\'')
 											{
 												if (!text.Contains("'"))
 												{
@@ -4023,283 +3263,171 @@ namespace TMPro
 										}
 									}
 								}
-								else if (ch == ' ' && c != ' ')
+								else if (ch == ' ' && c2 != ' ')
 								{
-									if (c != '\'')
+									if (c2 != '\'')
 									{
-										if (c2 != ' ')
+										if (c4 != ' ')
 										{
-											if (c2 != '\'')
+											if (c4 != '\'')
 											{
-												while (true)
-												{
-													switch (5)
-													{
-													case 0:
-														break;
-													default:
-														return ch;
-													}
-												}
+												return ch;
 											}
 										}
 									}
 								}
+								return '\0';
 							}
-							else if (characterValidation == CharacterValidation.EmailAddress)
+							else if (this.characterValidation == TMP_InputField.CharacterValidation.EmailAddress)
 							{
 								if (ch >= 'A')
 								{
 									if (ch <= 'Z')
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
 								if (ch >= 'a')
 								{
 									if (ch <= 'z')
 									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
 								if (ch >= '0')
 								{
 									if (ch <= '9')
 									{
-										while (true)
-										{
-											switch (6)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
 								if (ch == '@')
 								{
 									if (text.IndexOf('@') == -1)
 									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												break;
-											default:
-												return ch;
-											}
-										}
+										return ch;
 									}
 								}
 								if ("!#$%&'*+-/=?^_`{|}~".IndexOf(ch) != -1)
 								{
-									while (true)
-									{
-										return ch;
-									}
+									return ch;
 								}
 								if (ch == '.')
 								{
-									char c3 = (text.Length <= 0) ? ' ' : text[Mathf.Clamp(pos, 0, text.Length - 1)];
-									char c4 = (text.Length <= 0) ? '\n' : text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
-									if (c3 != '.')
+									char c5 = (text.Length <= 0) ? ' ' : text[Mathf.Clamp(pos, 0, text.Length - 1)];
+									char c6 = (text.Length <= 0) ? '\n' : text[Mathf.Clamp(pos + 1, 0, text.Length - 1)];
+									if (c5 != '.')
 									{
-										if (c4 != '.')
+										if (c6 != '.')
 										{
-											while (true)
-											{
-												switch (2)
-												{
-												case 0:
-													break;
-												default:
-													return ch;
-												}
-											}
-										}
-									}
-								}
-							}
-							else if (characterValidation == CharacterValidation.Regex)
-							{
-								if (Regex.IsMatch(ch.ToString(), m_RegexValue))
-								{
-									while (true)
-									{
-										switch (7)
-										{
-										case 0:
-											break;
-										default:
 											return ch;
 										}
 									}
 								}
+								return '\0';
 							}
-							else if (characterValidation == CharacterValidation.CustomValidator)
+							else if (this.characterValidation == TMP_InputField.CharacterValidation.Regex)
 							{
-								if (m_InputValidator != null)
+								if (Regex.IsMatch(ch.ToString(), this.m_RegexValue))
 								{
-									while (true)
-									{
-										switch (6)
-										{
-										case 0:
-											break;
-										default:
-										{
-											char result = m_InputValidator.Validate(ref text, ref pos, ch);
-											m_Text = text;
-											int num5 = stringSelectPositionInternal = (stringPositionInternal = pos);
-											return result;
-										}
-										}
-									}
+									return ch;
 								}
+								return '\0';
 							}
-							goto IL_053f;
+							else
+							{
+								if (this.characterValidation != TMP_InputField.CharacterValidation.CustomValidator)
+								{
+									return '\0';
+								}
+								if (this.m_InputValidator != null)
+								{
+									char result = this.m_InputValidator.Validate(ref text, ref pos, ch);
+									this.m_Text = text;
+									int num = pos;
+									this.stringPositionInternal = num;
+									this.stringSelectPositionInternal = num;
+									return result;
+								}
+								return '\0';
+							}
 						}
 					}
+					bool flag;
 					if (pos == 0)
 					{
 						if (text.Length > 0)
 						{
-							num6 = ((text[0] == '-') ? 1 : 0);
-							goto IL_0090;
+							flag = (text[0] == '-');
+							goto IL_90;
 						}
 					}
-					num6 = 0;
-					goto IL_0090;
+					flag = false;
+					IL_90:
+					bool flag2 = flag;
+					bool flag3 = this.stringPositionInternal == 0 || this.stringSelectPositionInternal == 0;
+					if (!flag2)
+					{
+						if (ch >= '0')
+						{
+							if (ch <= '9')
+							{
+								return ch;
+							}
+						}
+						if (ch == '-')
+						{
+							if (pos != 0)
+							{
+								if (!flag3)
+								{
+									goto IL_F7;
+								}
+							}
+							return ch;
+						}
+						IL_F7:
+						if (ch == '.')
+						{
+							if (this.characterValidation == TMP_InputField.CharacterValidation.Decimal)
+							{
+								if (!text.Contains("."))
+								{
+									return ch;
+								}
+							}
+						}
+					}
+					return '\0';
 				}
 			}
 			return ch;
-			IL_00f7:
-			if (ch == '.')
-			{
-				if (characterValidation == CharacterValidation.Decimal)
-				{
-					if (!text.Contains("."))
-					{
-						while (true)
-						{
-							switch (5)
-							{
-							case 0:
-								break;
-							default:
-								return ch;
-							}
-						}
-					}
-				}
-			}
-			goto IL_053f;
-			IL_0090:
-			bool flag = (byte)num6 != 0;
-			bool flag2 = stringPositionInternal == 0 || stringSelectPositionInternal == 0;
-			if (!flag)
-			{
-				if (ch >= '0')
-				{
-					if (ch <= '9')
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								return ch;
-							}
-						}
-					}
-				}
-				if (ch == '-')
-				{
-					if (pos != 0)
-					{
-						if (!flag2)
-						{
-							goto IL_00f7;
-						}
-					}
-					return ch;
-				}
-				goto IL_00f7;
-			}
-			goto IL_053f;
-			IL_053f:
-			return '\0';
 		}
 
 		public void ActivateInputField()
 		{
-			if (m_TextComponent == null)
+			if (!(this.m_TextComponent == null))
 			{
-				return;
-			}
-			while (true)
-			{
-				if (m_TextComponent.font == null)
+				if (!(this.m_TextComponent.font == null))
 				{
-					return;
-				}
-				while (true)
-				{
-					if (!IsActive())
+					if (this.IsActive())
 					{
-						return;
-					}
-					while (true)
-					{
-						if (!IsInteractable())
+						if (this.IsInteractable())
 						{
-							while (true)
+							if (this.isFocused)
 							{
-								switch (7)
+								if (this.m_Keyboard != null)
 								{
-								default:
-									return;
-								case 0:
-									break;
+									if (!this.m_Keyboard.active)
+									{
+										this.m_Keyboard.active = true;
+										this.m_Keyboard.text = this.m_Text;
+									}
 								}
 							}
+							this.m_ShouldActivateNextUpdate = true;
+							return;
 						}
-						if (isFocused)
-						{
-							if (m_Keyboard != null)
-							{
-								if (!m_Keyboard.active)
-								{
-									m_Keyboard.active = true;
-									m_Keyboard.text = m_Text;
-								}
-							}
-						}
-						m_ShouldActivateNextUpdate = true;
-						return;
 					}
 				}
 			}
@@ -4309,16 +3437,7 @@ namespace TMPro
 		{
 			if (EventSystem.current == null)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			if (EventSystem.current.currentSelectedGameObject != base.gameObject)
 			{
@@ -4328,45 +3447,46 @@ namespace TMPro
 			{
 				if (Input.touchSupported)
 				{
-					TouchScreenKeyboard.hideInput = shouldHideMobileInput;
+					TouchScreenKeyboard.hideInput = this.shouldHideMobileInput;
 				}
 				TouchScreenKeyboard keyboard;
-				if (inputType == InputType.Password)
+				if (this.inputType == TMP_InputField.InputType.Password)
 				{
-					keyboard = TouchScreenKeyboard.Open(m_Text, keyboardType, false, multiLine, true);
+					keyboard = TouchScreenKeyboard.Open(this.m_Text, this.keyboardType, false, this.multiLine, true);
 				}
 				else
 				{
-					keyboard = TouchScreenKeyboard.Open(m_Text, keyboardType, inputType == InputType.AutoCorrect, multiLine);
+					keyboard = TouchScreenKeyboard.Open(this.m_Text, this.keyboardType, this.inputType == TMP_InputField.InputType.AutoCorrect, this.multiLine);
 				}
-				m_Keyboard = keyboard;
-				MoveTextEnd(false);
+				this.m_Keyboard = keyboard;
+				this.MoveTextEnd(false);
 			}
 			else
 			{
 				Input.imeCompositionMode = IMECompositionMode.On;
-				OnFocus();
+				this.OnFocus();
 			}
-			m_AllowInput = true;
-			m_OriginalText = text;
-			m_WasCanceled = false;
-			SetCaretVisible();
-			UpdateLabel();
+			this.m_AllowInput = true;
+			this.m_OriginalText = this.text;
+			this.m_WasCanceled = false;
+			this.SetCaretVisible();
+			this.UpdateLabel();
 		}
 
 		public override void OnSelect(BaseEventData eventData)
 		{
 			base.OnSelect(eventData);
-			SendOnFocus();
-			ActivateInputField();
+			this.SendOnFocus();
+			this.ActivateInputField();
 		}
 
 		public virtual void OnPointerClick(PointerEventData eventData)
 		{
-			if (eventData.button == PointerEventData.InputButton.Left)
+			if (eventData.button != PointerEventData.InputButton.Left)
 			{
-				ActivateInputField();
+				return;
 			}
+			this.ActivateInputField();
 		}
 
 		public void OnControlClick()
@@ -4375,301 +3495,234 @@ namespace TMPro
 
 		public void DeactivateInputField()
 		{
-			if (!m_AllowInput)
+			if (!this.m_AllowInput)
 			{
 				return;
 			}
-			m_HasDoneFocusTransition = false;
-			m_AllowInput = false;
-			if (m_Placeholder != null)
+			this.m_HasDoneFocusTransition = false;
+			this.m_AllowInput = false;
+			if (this.m_Placeholder != null)
 			{
-				m_Placeholder.enabled = string.IsNullOrEmpty(m_Text);
+				this.m_Placeholder.enabled = string.IsNullOrEmpty(this.m_Text);
 			}
-			if (m_TextComponent != null)
+			if (this.m_TextComponent != null)
 			{
-				if (IsInteractable())
+				if (this.IsInteractable())
 				{
-					if (m_WasCanceled)
+					if (this.m_WasCanceled)
 					{
-						if (m_RestoreOriginalTextOnEscape)
+						if (this.m_RestoreOriginalTextOnEscape)
 						{
-							text = m_OriginalText;
+							this.text = this.m_OriginalText;
 						}
 					}
-					if (m_Keyboard != null)
+					if (this.m_Keyboard != null)
 					{
-						m_Keyboard.active = false;
-						m_Keyboard = null;
+						this.m_Keyboard.active = false;
+						this.m_Keyboard = null;
 					}
-					if (m_ResetOnDeActivation)
+					if (this.m_ResetOnDeActivation)
 					{
-						m_StringPosition = (m_StringSelectPosition = 0);
-						m_CaretPosition = (m_CaretSelectPosition = 0);
-						m_TextComponent.rectTransform.localPosition = m_DefaultTransformPosition;
-						if (caretRectTrans != null)
+						this.m_StringPosition = (this.m_StringSelectPosition = 0);
+						this.m_CaretPosition = (this.m_CaretSelectPosition = 0);
+						this.m_TextComponent.rectTransform.localPosition = this.m_DefaultTransformPosition;
+						if (this.caretRectTrans != null)
 						{
-							caretRectTrans.localPosition = Vector3.zero;
+							this.caretRectTrans.localPosition = Vector3.zero;
 						}
 					}
-					SendOnEndEdit();
-					SendOnEndTextSelection();
+					this.SendOnEndEdit();
+					this.SendOnEndTextSelection();
 					Input.imeCompositionMode = IMECompositionMode.Auto;
 				}
 			}
-			MarkGeometryAsDirty();
-			m_IsScrollbarUpdateRequired = true;
+			this.MarkGeometryAsDirty();
+			this.m_IsScrollbarUpdateRequired = true;
 		}
 
 		public override void OnDeselect(BaseEventData eventData)
 		{
-			DeactivateInputField();
+			this.DeactivateInputField();
 			base.OnDeselect(eventData);
-			SendOnFocusLost();
+			this.SendOnFocusLost();
 		}
 
 		public virtual void OnSubmit(BaseEventData eventData)
 		{
-			if (!IsActive())
+			if (this.IsActive())
 			{
-				return;
-			}
-			while (true)
-			{
-				if (!IsInteractable())
+				if (this.IsInteractable())
 				{
-					while (true)
+					if (!this.isFocused)
 					{
-						switch (3)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
+						this.m_ShouldActivateNextUpdate = true;
 					}
+					this.SendOnSubmit();
+					return;
 				}
-				if (!isFocused)
-				{
-					m_ShouldActivateNextUpdate = true;
-				}
-				SendOnSubmit();
-				return;
 			}
 		}
 
 		private void EnforceContentType()
 		{
-			switch (contentType)
+			switch (this.contentType)
 			{
-			case ContentType.Standard:
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.Default;
-				m_CharacterValidation = CharacterValidation.None;
-				break;
-			case ContentType.Autocorrected:
-				m_InputType = InputType.AutoCorrect;
-				m_KeyboardType = TouchScreenKeyboardType.Default;
-				m_CharacterValidation = CharacterValidation.None;
-				break;
-			case ContentType.IntegerNumber:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.NumberPad;
-				m_CharacterValidation = CharacterValidation.Integer;
-				break;
-			case ContentType.DecimalNumber:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
-				m_CharacterValidation = CharacterValidation.Decimal;
-				break;
-			case ContentType.Alphanumeric:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.ASCIICapable;
-				m_CharacterValidation = CharacterValidation.Alphanumeric;
-				break;
-			case ContentType.Name:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.Default;
-				m_CharacterValidation = CharacterValidation.Name;
-				break;
-			case ContentType.EmailAddress:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Standard;
-				m_KeyboardType = TouchScreenKeyboardType.EmailAddress;
-				m_CharacterValidation = CharacterValidation.EmailAddress;
-				break;
-			case ContentType.Password:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Password;
-				m_KeyboardType = TouchScreenKeyboardType.Default;
-				m_CharacterValidation = CharacterValidation.None;
-				break;
-			case ContentType.Pin:
-				m_LineType = LineType.SingleLine;
-				m_TextComponent.enableWordWrapping = false;
-				m_InputType = InputType.Password;
-				m_KeyboardType = TouchScreenKeyboardType.NumberPad;
-				m_CharacterValidation = CharacterValidation.Digit;
-				break;
+			case TMP_InputField.ContentType.Standard:
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.Default;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.None;
+				return;
+			case TMP_InputField.ContentType.Autocorrected:
+				this.m_InputType = TMP_InputField.InputType.AutoCorrect;
+				this.m_KeyboardType = TouchScreenKeyboardType.Default;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.None;
+				return;
+			case TMP_InputField.ContentType.IntegerNumber:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.NumberPad;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.Integer;
+				return;
+			case TMP_InputField.ContentType.DecimalNumber:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.Decimal;
+				return;
+			case TMP_InputField.ContentType.Alphanumeric:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.ASCIICapable;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.Alphanumeric;
+				return;
+			case TMP_InputField.ContentType.Name:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.Default;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.Name;
+				return;
+			case TMP_InputField.ContentType.EmailAddress:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Standard;
+				this.m_KeyboardType = TouchScreenKeyboardType.EmailAddress;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.EmailAddress;
+				return;
+			case TMP_InputField.ContentType.Password:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Password;
+				this.m_KeyboardType = TouchScreenKeyboardType.Default;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.None;
+				return;
+			case TMP_InputField.ContentType.Pin:
+				this.m_LineType = TMP_InputField.LineType.SingleLine;
+				this.m_TextComponent.enableWordWrapping = false;
+				this.m_InputType = TMP_InputField.InputType.Password;
+				this.m_KeyboardType = TouchScreenKeyboardType.NumberPad;
+				this.m_CharacterValidation = TMP_InputField.CharacterValidation.Digit;
+				return;
+			default:
+				return;
 			}
 		}
 
 		private void SetTextComponentWrapMode()
 		{
-			if (m_TextComponent == null)
+			if (this.m_TextComponent == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			if (m_LineType == LineType.SingleLine)
+			if (this.m_LineType == TMP_InputField.LineType.SingleLine)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						m_TextComponent.enableWordWrapping = false;
-						return;
-					}
-				}
+				this.m_TextComponent.enableWordWrapping = false;
 			}
-			m_TextComponent.enableWordWrapping = true;
+			else
+			{
+				this.m_TextComponent.enableWordWrapping = true;
+			}
 		}
 
 		private void SetTextComponentRichTextMode()
 		{
-			if (m_TextComponent == null)
+			if (this.m_TextComponent == null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
-			m_TextComponent.richText = m_RichText;
+			this.m_TextComponent.richText = this.m_RichText;
 		}
 
-		private void SetToCustomIfContentTypeIsNot(params ContentType[] allowedContentTypes)
+		private void SetToCustomIfContentTypeIsNot(params TMP_InputField.ContentType[] allowedContentTypes)
 		{
-			if (contentType == ContentType.Custom)
+			if (this.contentType == TMP_InputField.ContentType.Custom)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			for (int i = 0; i < allowedContentTypes.Length; i++)
 			{
-				if (contentType == allowedContentTypes[i])
+				if (this.contentType == allowedContentTypes[i])
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
+					return;
 				}
 			}
-			contentType = ContentType.Custom;
+			this.contentType = TMP_InputField.ContentType.Custom;
 		}
 
 		private void SetToCustom()
 		{
-			if (contentType == ContentType.Custom)
+			if (this.contentType == TMP_InputField.ContentType.Custom)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
-			}
-			contentType = ContentType.Custom;
-		}
-
-		private void SetToCustom(CharacterValidation characterValidation)
-		{
-			if (contentType == ContentType.Custom)
-			{
-				characterValidation = CharacterValidation.CustomValidator;
 				return;
 			}
-			contentType = ContentType.Custom;
-			characterValidation = CharacterValidation.CustomValidator;
+			this.contentType = TMP_InputField.ContentType.Custom;
 		}
 
-		protected override void DoStateTransition(SelectionState state, bool instant)
+		private void SetToCustom(TMP_InputField.CharacterValidation characterValidation)
 		{
-			if (m_HasDoneFocusTransition)
+			if (this.contentType == TMP_InputField.ContentType.Custom)
 			{
-				state = SelectionState.Highlighted;
+				return;
 			}
-			else if (state == SelectionState.Pressed)
+			this.contentType = TMP_InputField.ContentType.Custom;
+		}
+
+		protected override void DoStateTransition(Selectable.SelectionState state, bool instant)
+		{
+			if (this.m_HasDoneFocusTransition)
 			{
-				m_HasDoneFocusTransition = true;
+				state = Selectable.SelectionState.Highlighted;
+			}
+			else if (state == Selectable.SelectionState.Pressed)
+			{
+				this.m_HasDoneFocusTransition = true;
 			}
 			base.DoStateTransition(state, instant);
 		}
 
 		public void SetGlobalPointSize(float pointSize)
 		{
-			TMP_Text tMP_Text = m_Placeholder as TMP_Text;
-			if (tMP_Text != null)
+			TMP_Text tmp_Text = this.m_Placeholder as TMP_Text;
+			if (tmp_Text != null)
 			{
-				tMP_Text.fontSize = pointSize;
+				tmp_Text.fontSize = pointSize;
 			}
-			textComponent.fontSize = pointSize;
+			this.textComponent.fontSize = pointSize;
 		}
 
 		public void SetGlobalFontAsset(TMP_FontAsset fontAsset)
 		{
-			TMP_Text tMP_Text = m_Placeholder as TMP_Text;
-			if (tMP_Text != null)
+			TMP_Text tmp_Text = this.m_Placeholder as TMP_Text;
+			if (tmp_Text != null)
 			{
-				tMP_Text.font = fontAsset;
+				tmp_Text.font = fontAsset;
 			}
-			textComponent.font = fontAsset;
+			this.textComponent.font = fontAsset;
 		}
 
-		// TODO DECOMP illegal override
 		//Transform ICanvasElement.get_transform()
 		//{
 		//	return base.transform;
@@ -4677,7 +3730,76 @@ namespace TMPro
 
 		bool ICanvasElement.IsDestroyed()
 		{
-			return IsDestroyed();
+			return base.IsDestroyed();
+		}
+
+		public enum ContentType
+		{
+			Standard,
+			Autocorrected,
+			IntegerNumber,
+			DecimalNumber,
+			Alphanumeric,
+			Name,
+			EmailAddress,
+			Password,
+			Pin,
+			Custom
+		}
+
+		public enum InputType
+		{
+			Standard,
+			AutoCorrect,
+			Password
+		}
+
+		public enum CharacterValidation
+		{
+			None,
+			Digit,
+			Integer,
+			Decimal,
+			Alphanumeric,
+			Name,
+			Regex,
+			EmailAddress,
+			CustomValidator
+		}
+
+		public enum LineType
+		{
+			SingleLine,
+			MultiLineSubmit,
+			MultiLineNewline
+		}
+
+		public delegate char OnValidateInput(string text, int charIndex, char addedChar);
+
+		[Serializable]
+		public class SubmitEvent : UnityEvent<string>
+		{
+		}
+
+		[Serializable]
+		public class OnChangeEvent : UnityEvent<string>
+		{
+		}
+
+		[Serializable]
+		public class SelectionEvent : UnityEvent<string>
+		{
+		}
+
+		[Serializable]
+		public class TextSelectionEvent : UnityEvent<string, int, int>
+		{
+		}
+
+		protected enum EditState
+		{
+			Continue,
+			Finish
 		}
 	}
 }

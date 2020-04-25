@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +6,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public static class CompilerExtensions
 {
@@ -18,35 +18,35 @@ public static class CompilerExtensions
 
 	public static bool IsNullOrEmpty<T>(this T[] t)
 	{
-		int result;
+		bool result;
 		if (t != null)
 		{
-			result = ((t.Length == 0) ? 1 : 0);
+			result = (t.Length == 0);
 		}
 		else
 		{
-			result = 1;
+			result = true;
 		}
-		return (byte)result != 0;
+		return result;
 	}
 
 	public static bool IsNullOrEmpty<T>(this IEnumerable<T> t)
 	{
-		int result;
+		bool result;
 		if (t != null)
 		{
-			result = ((!t.Any()) ? 1 : 0);
+			result = !t.Any<T>();
 		}
 		else
 		{
-			result = 1;
+			result = true;
 		}
-		return (byte)result != 0;
+		return result;
 	}
 
 	public static string SafeReplace(this string value, string key, string replacement)
 	{
-		object result;
+		string result;
 		if (value == null)
 		{
 			result = null;
@@ -55,7 +55,7 @@ public static class CompilerExtensions
 		{
 			result = value.Replace(key, replacement);
 		}
-		return (string)result;
+		return result;
 	}
 
 	public static bool SafeContains(this string value, string search, StringComparison comparison = StringComparison.Ordinal)
@@ -65,16 +65,16 @@ public static class CompilerExtensions
 
 	public static bool SafeEquals(this string value, string rhs)
 	{
-		int result;
+		bool result;
 		if (value == null)
 		{
-			result = 0;
+			result = false;
 		}
 		else
 		{
-			result = (string.Equals(value, rhs) ? 1 : 0);
+			result = string.Equals(value, rhs);
 		}
-		return (byte)result != 0;
+		return result;
 	}
 
 	public static string SafeGetFullPath(this string value)
@@ -95,15 +95,15 @@ public static class CompilerExtensions
 	{
 		int result = -1;
 		int num = 0;
-		for (int num2 = value.Length - 1; num2 >= 0; num2--)
+		for (int i = value.Length - 1; i >= 0; i--)
 		{
 			if (num >= occurence)
 			{
 				break;
 			}
-			if (value[num2] == charToSearch)
+			if (value[i] == charToSearch)
 			{
-				result = num2;
+				result = i;
 				num++;
 			}
 		}
@@ -114,16 +114,7 @@ public static class CompilerExtensions
 	{
 		if (value.Kind == DateTimeKind.Local)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return value.ToString("yyyy-MM-dd HH:mm:sszzz");
-				}
-			}
+			return value.ToString("yyyy-MM-dd HH:mm:sszzz");
 		}
 		return value.ToString("yyyy-MM-dd HH:mm:ss+00");
 	}
@@ -135,12 +126,12 @@ public static class CompilerExtensions
 
 	public static long ToUnixTimestamp(this DateTime value)
 	{
-		return (long)value.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+		return (long)value.Subtract(new DateTime(0x7B2, 1, 1)).TotalSeconds;
 	}
 
 	public static string ToInitialCharUpper(this string value)
 	{
-		object result;
+		string result;
 		if (value == null)
 		{
 			result = null;
@@ -149,42 +140,31 @@ public static class CompilerExtensions
 		{
 			result = char.ToUpper(value[0]) + value.Substring(1);
 		}
-		return (string)result;
+		return result;
 	}
 
 	public static string ToDebugString<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
 	{
-		return "{ " + string.Join(", ", dictionary.Select((KeyValuePair<TKey, TValue> kv) => kv.Key.ToString() + "=" + kv.Value.ToString()).ToArray()) + " }";
+		return "{ " + string.Join(", ", dictionary.Select(delegate(KeyValuePair<TKey, TValue> kv)
+		{
+			TKey key = kv.Key;
+			string str = key.ToString();
+			string str2 = "=";
+			TValue value = kv.Value;
+			return str + str2 + value.ToString();
+		}).ToArray<string>()) + " }";
 	}
 
 	public static string GetAttribute(this XmlNode value, string attributeName)
 	{
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
 		XmlAttribute xmlAttribute = value.Attributes[attributeName];
 		if (xmlAttribute == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					throw new Exception($"Could not find XML attribute '{xmlAttribute}'");
-				}
-			}
+			throw new Exception(string.Format("Could not find XML attribute '{0}'", xmlAttribute));
 		}
 		return xmlAttribute.Value;
 	}
@@ -198,16 +178,7 @@ public static class CompilerExtensions
 		XmlAttribute xmlAttribute = value.Attributes[attributeName];
 		if (xmlAttribute == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return defaultValue;
-				}
-			}
+			return defaultValue;
 		}
 		return xmlAttribute.Value;
 	}
@@ -216,30 +187,12 @@ public static class CompilerExtensions
 	{
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
 		XmlNode xmlNode = value.SelectSingleNode(childNodeName);
 		if (xmlNode == null)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					throw new Exception($"Could not find child XML node '{childNodeName}'");
-				}
-			}
+			throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
 		}
 		return xmlNode.InnerText;
 	}
@@ -248,30 +201,12 @@ public static class CompilerExtensions
 	{
 		if (value == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
 		XmlNode xmlNode = value.SelectSingleNode(childNodeName);
 		if (xmlNode == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return defaultValue;
-				}
-			}
+			return defaultValue;
 		}
 		return xmlNode.InnerText;
 	}
@@ -279,61 +214,43 @@ public static class CompilerExtensions
 	public static int GetChildNodeAsInt32(this XmlNode value, string childNodeName, int? defaultValue = null)
 	{
 		string childNodeAsString = value.GetChildNodeAsString(childNodeName, null);
-		if (childNodeAsString == null)
+		if (childNodeAsString != null)
 		{
-			if (defaultValue.HasValue)
-			{
-				return defaultValue.Value;
-			}
-			throw new Exception($"Could not find child XML node '{childNodeName}'");
+			return Convert.ToInt32(childNodeAsString);
 		}
-		return Convert.ToInt32(childNodeAsString);
+		if (defaultValue != null)
+		{
+			return defaultValue.Value;
+		}
+		throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
 	}
 
 	public static long GetChildNodeAsInt64(this XmlNode value, string childNodeName, long? defaultValue = null)
 	{
 		string childNodeAsString = value.GetChildNodeAsString(childNodeName, null);
-		if (childNodeAsString == null)
+		if (childNodeAsString != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					if (defaultValue.HasValue)
-					{
-						return defaultValue.Value;
-					}
-					throw new Exception($"Could not find child XML node '{childNodeName}'");
-				}
-			}
+			return Convert.ToInt64(childNodeAsString);
 		}
-		return Convert.ToInt64(childNodeAsString);
+		if (defaultValue != null)
+		{
+			return defaultValue.Value;
+		}
+		throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
 	}
 
 	public static ulong GetChildNodeAsUInt64(this XmlNode value, string childNodeName, ulong? defaultValue = null)
 	{
 		string childNodeAsString = value.GetChildNodeAsString(childNodeName, null);
-		if (childNodeAsString == null)
+		if (childNodeAsString != null)
 		{
-			if (defaultValue.HasValue)
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						return defaultValue.Value;
-					}
-				}
-			}
-			throw new Exception($"Could not find child XML node '{childNodeName}'");
+			return Convert.ToUInt64(childNodeAsString);
 		}
-		return Convert.ToUInt64(childNodeAsString);
+		if (defaultValue != null)
+		{
+			return defaultValue.Value;
+		}
+		throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
 	}
 
 	public static void Shuffle<T>(this IList<T> list, Random rnd)
@@ -361,21 +278,24 @@ public static class CompilerExtensions
 
 	public static void Swap<T>(this T[] list, int i, int j)
 	{
-		T val = list[i];
+		T t = list[i];
 		list[i] = list[j];
-		list[j] = val;
+		list[j] = t;
 	}
 
 	public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> list, Random rnd)
 	{
-		T[] array = list.ToArray();
+		T[] array = list.ToArray<T>();
 		array.Shuffle(rnd);
 		return array;
 	}
 
 	public static IEnumerable<T> ToEnumerable<T>(this T item)
 	{
-		return CreateEnumerable<T>(item);
+		return CompilerExtensions.CreateEnumerable<T>(new T[]
+		{
+			item
+		});
 	}
 
 	public static IEnumerable<T> CreateEnumerable<T>(params T[] items)
@@ -385,9 +305,9 @@ public static class CompilerExtensions
 
 	public static TValue TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : class
 	{
-		TValue value = (TValue)null;
-		dictionary.TryGetValue(key, out value);
-		return value;
+		TValue result = (TValue)((object)null);
+		dictionary.TryGetValue(key, out result);
+		return result;
 	}
 
 	public static string Reverse(this string text)
@@ -429,16 +349,7 @@ public static class CompilerExtensions
 	{
 		if (t.IsValueType)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return Activator.CreateInstance(t);
-				}
-			}
+			return Activator.CreateInstance(t);
 		}
 		return null;
 	}
@@ -473,8 +384,7 @@ public static class CompilerExtensions
 		if (method.IsGenericMethod)
 		{
 			stringBuilder.Append("<");
-			Type[] genericArguments = method.GetGenericArguments();
-			foreach (Type type in genericArguments)
+			foreach (Type type in method.GetGenericArguments())
 			{
 				if (flag)
 				{
@@ -491,8 +401,7 @@ public static class CompilerExtensions
 		stringBuilder.Append("(");
 		flag = true;
 		bool flag2 = false;
-		ParameterInfo[] parameters = method.GetParameters();
-		foreach (ParameterInfo parameterInfo in parameters)
+		foreach (ParameterInfo parameterInfo in method.GetParameters())
 		{
 			if (flag)
 			{
@@ -522,11 +431,8 @@ public static class CompilerExtensions
 			stringBuilder.Append(' ');
 			stringBuilder.Append(parameterInfo.Name);
 		}
-		while (true)
-		{
-			stringBuilder.Append(")");
-			return stringBuilder.ToString();
-		}
+		stringBuilder.Append(")");
+		return stringBuilder.ToString();
 	}
 
 	public static string ToTypeString(this Type type)
@@ -534,67 +440,49 @@ public static class CompilerExtensions
 		Type underlyingType = Nullable.GetUnderlyingType(type);
 		if (underlyingType != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return underlyingType.Name + "?";
-				}
-			}
+			return underlyingType.Name + "?";
 		}
 		if (!type.IsGenericType)
 		{
-			while (true)
+			string name = type.Name;
+			if (name != null)
 			{
-				switch (3)
+				if (name == "String")
 				{
-				case 0:
-					break;
-				default:
-				{
-					string name = type.Name;
-					if (name != null)
-					{
-						if (name == "String")
-						{
-							return "string";
-						}
-						switch (name)
-						{
-						case "Int32":
-							return "int";
-						case "Decimal":
-							return "decimal";
-						case "Object":
-							return "object";
-						}
-						if (name == "Void")
-						{
-							return "void";
-						}
-					}
-					string result;
-					if (string.IsNullOrEmpty(type.FullName))
-					{
-						result = type.Name;
-					}
-					else
-					{
-						result = type.FullName;
-					}
-					return result;
+					return "string";
 				}
+				if (name == "Int32")
+				{
+					return "int";
+				}
+				if (name == "Decimal")
+				{
+					return "decimal";
+				}
+				if (name == "Object")
+				{
+					return "object";
+				}
+				if (name == "Void")
+				{
+					return "void";
 				}
 			}
+			string result;
+			if (string.IsNullOrEmpty(type.FullName))
+			{
+				result = type.Name;
+			}
+			else
+			{
+				result = type.FullName;
+			}
+			return result;
 		}
 		StringBuilder stringBuilder = new StringBuilder(type.Name.Substring(0, type.Name.IndexOf('`')));
 		stringBuilder.Append('<');
 		bool flag = true;
-		Type[] genericArguments = type.GetGenericArguments();
-		foreach (Type type2 in genericArguments)
+		foreach (Type type2 in type.GetGenericArguments())
 		{
 			if (!flag)
 			{
@@ -603,35 +491,27 @@ public static class CompilerExtensions
 			stringBuilder.Append(type2.ToTypeString());
 			flag = false;
 		}
-		while (true)
-		{
-			stringBuilder.Append('>');
-			return stringBuilder.ToString();
-		}
+		stringBuilder.Append('>');
+		return stringBuilder.ToString();
 	}
 
 	public static IEnumerable<Type> GetClassesOfType(this Assembly assembly, Type baseClass, string namespaceName = null)
 	{
 		return assembly.GetTypes().Where(delegate(Type type)
 		{
-			if (!type.IsClass)
+			if (type.IsClass)
 			{
-				goto IL_0067;
-			}
-			if (!namespaceName.IsNullOrEmpty())
-			{
-				if (!type.Namespace.EqualsIgnoreCase(namespaceName))
+				if (!namespaceName.IsNullOrEmpty())
 				{
-					goto IL_0067;
+					if (!type.Namespace.EqualsIgnoreCase(namespaceName))
+					{
+						goto IL_67;
+					}
 				}
+				return baseClass.IsAssignableFrom(type);
 			}
-			int result = baseClass.IsAssignableFrom(type) ? 1 : 0;
-			goto IL_0068;
-			IL_0067:
-			result = 0;
-			goto IL_0068;
-			IL_0068:
-			return (byte)result != 0;
+			IL_67:
+			return false;
 		});
 	}
 
@@ -644,42 +524,23 @@ public static class CompilerExtensions
 		{
 			if (smallPrecision == null)
 			{
-				while (true)
+				int num = (int)Math.Floor(count);
+				if (num <= 0)
 				{
-					switch (3)
+					if (bigPrecision == null)
 					{
-					case 0:
-						break;
-					default:
-					{
-						int num = (int)Math.Floor(count);
-						if (num <= 0)
-						{
-							if (bigPrecision == null)
-							{
-								return;
-							}
-						}
-						duration -= TimeSpan.FromTicks(num * unitLength.Ticks);
-						string text = $"{num}{unitChar}";
-						if (bigPrecision == null)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									bigPrecision = text;
-									return;
-								}
-							}
-						}
-						smallPrecision = text;
 						return;
 					}
-					}
+				}
+				duration -= TimeSpan.FromTicks((long)num * unitLength.Ticks);
+				string text = string.Format("{0}{1}", num, unitChar);
+				if (bigPrecision == null)
+				{
+					bigPrecision = text;
+				}
+				else
+				{
+					smallPrecision = text;
 				}
 			}
 		};
@@ -690,30 +551,24 @@ public static class CompilerExtensions
 		action(duration.TotalSeconds, TimeSpan.FromSeconds(1.0), 's');
 		if (smallPrecision != null)
 		{
-			return $"{bigPrecision} {smallPrecision}";
+			return string.Format("{0} {1}", bigPrecision, smallPrecision);
 		}
 		if (bigPrecision != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return bigPrecision;
-				}
-			}
+			return bigPrecision;
 		}
 		return "soon";
 	}
 
 	public static string ToReadableString(this TimeSpan timespan)
 	{
+		string format = "{0}{1}{2}{3}";
 		object[] array = new object[4];
-		string text;
+		int num = 0;
+		object obj;
 		if (timespan.Duration().Days > 0)
 		{
+			string format2 = "{0:0} day{1}, ";
 			object arg = timespan.Days;
 			object arg2;
 			if (timespan.Days == 1)
@@ -724,17 +579,19 @@ public static class CompilerExtensions
 			{
 				arg2 = "s";
 			}
-			text = $"{arg:0} day{arg2}, ";
+			obj = string.Format(format2, arg, arg2);
 		}
 		else
 		{
-			text = string.Empty;
+			obj = string.Empty;
 		}
-		array[0] = text;
+		array[num] = obj;
 		array[1] = ((timespan.Duration().Hours <= 0) ? string.Empty : string.Format("{0:0} hour{1}, ", timespan.Hours, (timespan.Hours != 1) ? "s" : string.Empty));
-		string text2;
+		int num2 = 2;
+		object obj2;
 		if (timespan.Duration().Minutes > 0)
 		{
+			string format3 = "{0:0} minute{1}, ";
 			object arg3 = timespan.Minutes;
 			object arg4;
 			if (timespan.Minutes == 1)
@@ -745,53 +602,59 @@ public static class CompilerExtensions
 			{
 				arg4 = "s";
 			}
-			text2 = $"{arg3:0} minute{arg4}, ";
+			obj2 = string.Format(format3, arg3, arg4);
 		}
 		else
 		{
-			text2 = string.Empty;
+			obj2 = string.Empty;
 		}
-		array[2] = text2;
+		array[num2] = obj2;
 		array[3] = ((timespan.Duration().Seconds <= 0) ? string.Empty : string.Format("{0:0} second{1}", timespan.Seconds, (timespan.Seconds != 1) ? "s" : string.Empty));
-		string text3 = string.Format("{0}{1}{2}{3}", array);
-		if (text3.EndsWith(", "))
+		string text = string.Format(format, array);
+		if (text.EndsWith(", "))
 		{
-			text3 = text3.Substring(0, text3.Length - 2);
+			text = text.Substring(0, text.Length - 2);
 		}
-		if (string.IsNullOrEmpty(text3))
+		if (string.IsNullOrEmpty(text))
 		{
-			text3 = "0 seconds";
+			text = "0 seconds";
 		}
-		return text3;
+		return text;
 	}
 
 	public static string ToReadableString(this JsonSerializationException exception)
 	{
 		string text = exception.ToString();
-		string[] array = text.Split('\n');
+		string[] array = text.Split(new char[]
+		{
+			'\n'
+		});
 		string[] array2 = new string[array.Length];
 		int num = 0;
-		foreach (string text2 in array)
+		int i = 0;
+		while (i < array.Length)
 		{
-			if (text2.Contains("System.Enum."))
+			string text2 = array[i];
+			if (!text2.Contains("System.Enum."))
 			{
-				continue;
+				if (!text2.Contains("Newtonsoft.Json.Serialization.") && !text2.Contains("Newtonsoft.Json.JsonSerializer."))
+				{
+					if (!text2.Contains("Newtonsoft.Json.JsonConvert."))
+					{
+						if (text2.Contains("--- End of inner exception stack trace ---"))
+						{
+						}
+						else
+						{
+							array2[num++] = text2;
+						}
+					}
+				}
 			}
-			if (text2.Contains("Newtonsoft.Json.Serialization.") || text2.Contains("Newtonsoft.Json.JsonSerializer."))
-			{
-				continue;
-			}
-			if (text2.Contains("Newtonsoft.Json.JsonConvert."))
-			{
-				continue;
-			}
-			if (text2.Contains("--- End of inner exception stack trace ---"))
-			{
-			}
-			else
-			{
-				array2[num++] = text2;
-			}
+			IL_C0:
+			i++;
+			continue;
+			goto IL_C0;
 		}
 		return string.Join("\n", array2).Trim();
 	}
@@ -799,41 +662,49 @@ public static class CompilerExtensions
 	public static string ToReadableString(this Exception exception)
 	{
 		string text = exception.ToString();
-		string[] array = text.Split('\n');
+		string[] array = text.Split(new char[]
+		{
+			'\n'
+		});
 		string[] array2 = new string[array.Length];
 		int num = 0;
-		for (int i = 0; i < array.Length; i++)
+		int i = 0;
+		while (i < array.Length)
 		{
 			string text2 = array[i];
-			if (text2.Contains("System.Runtime.CompilerServices.TaskAwaiter"))
+			if (!text2.Contains("System.Runtime.CompilerServices.TaskAwaiter"))
 			{
-				continue;
-			}
-			if (text2.Contains("System.Runtime.ExceptionServices.ExceptionDispatchInfo"))
-			{
-				continue;
-			}
-			if (text2.Contains("--- End of stack trace"))
-			{
-				continue;
-			}
-			int num2 = text2.IndexOf(".<");
-			int num3 = text2.IndexOf(">d__");
-			int num4 = text2.IndexOf("MoveNext()");
-			if (num2 > 0)
-			{
-				if (num3 > 0 && num4 > 0)
+				if (!text2.Contains("System.Runtime.ExceptionServices.ExceptionDispatchInfo"))
 				{
-					StringBuilder stringBuilder = new StringBuilder();
-					stringBuilder.Append(text2.Substring(0, num2));
-					stringBuilder.Append(".");
-					stringBuilder.Append(text2.Substring(num2 + 2, num3 - num2 - 2));
-					stringBuilder.Append("()");
-					stringBuilder.Append(text2.Substring(num4 + 10));
-					text2 = stringBuilder.ToString();
+					if (text2.Contains("--- End of stack trace"))
+					{
+					}
+					else
+					{
+						int num2 = text2.IndexOf(".<");
+						int num3 = text2.IndexOf(">d__");
+						int num4 = text2.IndexOf("MoveNext()");
+						if (num2 > 0)
+						{
+							if (num3 > 0 && num4 > 0)
+							{
+								StringBuilder stringBuilder = new StringBuilder();
+								stringBuilder.Append(text2.Substring(0, num2));
+								stringBuilder.Append(".");
+								stringBuilder.Append(text2.Substring(num2 + 2, num3 - num2 - 2));
+								stringBuilder.Append("()");
+								stringBuilder.Append(text2.Substring(num4 + 0xA));
+								text2 = stringBuilder.ToString();
+							}
+						}
+						array2[num++] = text2;
+					}
 				}
 			}
-			array2[num++] = text2;
+			IL_15E:
+			i++;
+			continue;
+			goto IL_15E;
 		}
 		return string.Join("\n", array2).Trim();
 	}
@@ -842,94 +713,59 @@ public static class CompilerExtensions
 	{
 		if (!obj.GetType().IsSerializable)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					throw new Exception($"{obj.GetType().FullName} is not serializable");
-				}
-			}
+			throw new Exception(string.Format("{0} is not serializable", obj.GetType().FullName));
 		}
-		return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, new StringEnumConverter());
+		return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, new JsonConverter[]
+		{
+			new StringEnumConverter()
+		});
 	}
 
 	public static IEnumerable<T> Descendants<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> DescendBy)
 	{
+		bool flag = false;
 		IEnumerator<T> enumerator = source.GetEnumerator();
+		
 		try
 		{
 			while (enumerator.MoveNext())
 			{
 				T value = enumerator.Current;
 				yield return value;
+				flag = true;
 				IEnumerator<T> enumerator2 = DescendBy(value).Descendants(DescendBy).GetEnumerator();
 				try
 				{
-					if (enumerator2.MoveNext())
+					while (enumerator2.MoveNext())
 					{
-						yield return enumerator2.Current;
-						/*Error: Unable to find new state assignment for yield return*/;
+						T child = enumerator2.Current;
+						yield return child;
+						flag = true;
 					}
 				}
 				finally
 				{
-					if (enumerator2 != null)
+					if (flag)
 					{
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								enumerator2.Dispose();
-								goto end_IL_0118;
-							}
-						}
 					}
-					goto end_IL_0118;
-					IL_011b:
-					switch (7)
+					else if (enumerator2 != null)
 					{
-					default:
-						goto end_IL_0118;
-					case 0:
-						goto IL_011b;
+						enumerator2.Dispose();
 					}
-					end_IL_0118:;
 				}
 			}
 		}
 		finally
 		{
-			if (enumerator != null)
+			if (flag)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						enumerator.Dispose();
-						goto end_IL_0158;
-					}
-				}
 			}
-			goto end_IL_0158;
-			IL_015b:
-			switch (3)
+			else if (enumerator != null)
 			{
-			default:
-				goto end_IL_0158;
-			case 0:
-				goto IL_015b;
+				enumerator.Dispose();
 			}
-			end_IL_0158:;
 		}
+		yield break;
 	}
 
 	public static T[] ToArray<T>(this LinkedList<T> item)
@@ -946,15 +782,12 @@ public static class CompilerExtensions
 		{
 			stringBuilder.Append(bytes[i].ToString("X2"));
 		}
-		while (true)
-		{
-			return stringBuilder.ToString();
-		}
+		return stringBuilder.ToString();
 	}
 
 	public static string ToHexString(this ulong value)
 	{
-		return $"0x{value:x}";
+		return string.Format("0x{0:x}", value);
 	}
 
 	public static byte[] FromHexString(this string s)
@@ -962,28 +795,29 @@ public static class CompilerExtensions
 		IEnumerable<int> source = Enumerable.Range(0, s.Length);
 		
 		return (from x in source.Where(((int x) => x % 2 == 0))
-			select Convert.ToByte(s.Substring(x, 2), 16)).ToArray();
+		select Convert.ToByte(s.Substring(x, 2), 0x10)).ToArray<byte>();
 	}
 
 	public static bool IsTimeSpanFormat(this string s)
 	{
-		string[] array = s.Split(':');
-		int result4;
+		string[] array = s.Split(new char[]
+		{
+			':'
+		});
 		if (array.Length == 3)
 		{
-			if (int.TryParse(array[0], out int _))
+			int num;
+			if (int.TryParse(array[0], out num))
 			{
-				if (int.TryParse(array[1], out int _))
+				int num2;
+				if (int.TryParse(array[1], out num2))
 				{
-					result4 = (int.TryParse(array[2], out int _) ? 1 : 0);
-					goto IL_006a;
+					int num3;
+					return int.TryParse(array[2], out num3);
 				}
 			}
 		}
-		result4 = 0;
-		goto IL_006a;
-		IL_006a:
-		return (byte)result4 != 0;
+		return false;
 	}
 
 	public static bool IsNumeric(this object o)

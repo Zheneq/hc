@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,21 +14,12 @@ namespace TMPro
 		{
 			if (!tweenInfo.ValidTarget())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						yield break;
-					}
-				}
+				yield break;
 			}
-			float elapsedTime2 = 0f;
-			if (elapsedTime2 < tweenInfo.duration)
+			float elapsedTime = 0f;
+			while (elapsedTime < tweenInfo.duration)
 			{
-				float num = elapsedTime2;
+				float num = elapsedTime;
 				float num2;
 				if (tweenInfo.ignoreTimeScale)
 				{
@@ -37,70 +29,43 @@ namespace TMPro
 				{
 					num2 = Time.deltaTime;
 				}
-				elapsedTime2 = num + num2;
-				float percentage = Mathf.Clamp01(elapsedTime2 / tweenInfo.duration);
+				elapsedTime = num + num2;
+				float percentage = Mathf.Clamp01(elapsedTime / tweenInfo.duration);
 				tweenInfo.TweenValue(percentage);
 				yield return null;
-				/*Error: Unable to find new state assignment for yield return*/;
 			}
-			while (true)
-			{
-				tweenInfo.TweenValue(1f);
-				yield break;
-			}
+			tweenInfo.TweenValue(1f);
+			yield break;
 		}
 
 		public void Init(MonoBehaviour coroutineContainer)
 		{
-			m_CoroutineContainer = coroutineContainer;
+			this.m_CoroutineContainer = coroutineContainer;
 		}
 
 		public void StartTween(T info)
 		{
-			if (m_CoroutineContainer == null)
+			if (this.m_CoroutineContainer == null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						Debug.LogWarning("Coroutine container not configured... did you forget to call Init?");
-						return;
-					}
-				}
+				Debug.LogWarning("Coroutine container not configured... did you forget to call Init?");
+				return;
 			}
-			StopTween();
-			if (!m_CoroutineContainer.gameObject.activeInHierarchy)
+			this.StopTween();
+			if (!this.m_CoroutineContainer.gameObject.activeInHierarchy)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						info.TweenValue(1f);
-						return;
-					}
-				}
+				info.TweenValue(1f);
+				return;
 			}
-			m_Tween = Start(info);
-			m_CoroutineContainer.StartCoroutine(m_Tween);
+			this.m_Tween = TweenRunner<T>.Start(info);
+			this.m_CoroutineContainer.StartCoroutine(this.m_Tween);
 		}
 
 		public void StopTween()
 		{
-			if (m_Tween == null)
+			if (this.m_Tween != null)
 			{
-				return;
-			}
-			while (true)
-			{
-				m_CoroutineContainer.StopCoroutine(m_Tween);
-				m_Tween = null;
-				return;
+				this.m_CoroutineContainer.StopCoroutine(this.m_Tween);
+				this.m_Tween = null;
 			}
 		}
 	}

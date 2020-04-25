@@ -1,6 +1,7 @@
-using LobbyGameClientMessages;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using LobbyGameClientMessages;
 using UnityEngine;
 
 public class ClientCharacterPreloader : MonoBehaviour
@@ -11,35 +12,25 @@ public class ClientCharacterPreloader : MonoBehaviour
 
 	private void Start()
 	{
-		if (Application.isEditor)
+		if (!Application.isEditor)
 		{
-			return;
-		}
-		while (true)
-		{
-			ClientGameManager.Get().OnGameInfoNotification += HandleGameInfoNotification;
-			GameManager.Get().OnGameStatusChanged += HandleGameStatusChanged;
-			return;
+			ClientGameManager.Get().OnGameInfoNotification += this.HandleGameInfoNotification;
+			GameManager.Get().OnGameStatusChanged += this.HandleGameStatusChanged;
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (Application.isEditor)
-		{
-			return;
-		}
-		while (true)
+		if (!Application.isEditor)
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				ClientGameManager.Get().OnGameInfoNotification -= HandleGameInfoNotification;
+				ClientGameManager.Get().OnGameInfoNotification -= this.HandleGameInfoNotification;
 			}
 			if (GameManager.Get() != null)
 			{
-				GameManager.Get().OnGameStatusChanged -= HandleGameStatusChanged;
+				GameManager.Get().OnGameStatusChanged -= this.HandleGameStatusChanged;
 			}
-			return;
 		}
 	}
 
@@ -52,23 +43,26 @@ public class ClientCharacterPreloader : MonoBehaviour
 			{
 				if (gameManager.TeamInfo.TeamBPlayerInfo != null && !(GameWideData.Get() == null) && gameManager.GameStatus >= GameStatus.FreelancerSelecting)
 				{
-					if (gameManager.GameStatus <= GameStatus.LoadoutSelecting)
+					if (gameManager.GameStatus > GameStatus.LoadoutSelecting)
 					{
-						Dictionary<CharacterResourceLink, List<CharacterVisualInfo>> dictionary = new Dictionary<CharacterResourceLink, List<CharacterVisualInfo>>(10);
+					}
+					else
+					{
+						Dictionary<CharacterResourceLink, List<CharacterVisualInfo>> dictionary = new Dictionary<CharacterResourceLink, List<CharacterVisualInfo>>(0xA);
 						IEnumerator<LobbyPlayerInfo> enumerator = gameManager.TeamInfo.TeamAPlayerInfo.GetEnumerator();
 						try
 						{
 							while (enumerator.MoveNext())
 							{
-								LobbyPlayerInfo current = enumerator.Current;
-								if (current != null && current.CharacterInfo != null)
+								LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
+								if (lobbyPlayerInfo != null && lobbyPlayerInfo.CharacterInfo != null)
 								{
-									if (!current.CharacterInfo.CharacterType.IsValid())
+									if (!lobbyPlayerInfo.CharacterInfo.CharacterType.IsValid())
 									{
 									}
 									else
 									{
-										CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterInfo.CharacterType);
+										CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterInfo.CharacterType);
 										if (characterResourceLink != null)
 										{
 											if (!dictionary.ContainsKey(characterResourceLink))
@@ -76,7 +70,7 @@ public class ClientCharacterPreloader : MonoBehaviour
 												dictionary[characterResourceLink] = new List<CharacterVisualInfo>();
 											}
 											List<CharacterVisualInfo> list = dictionary[characterResourceLink];
-											list.Add(current.CharacterInfo.CharacterSkin);
+											list.Add(lobbyPlayerInfo.CharacterInfo.CharacterSkin);
 										}
 									}
 								}
@@ -86,36 +80,25 @@ public class ClientCharacterPreloader : MonoBehaviour
 						{
 							if (enumerator != null)
 							{
-								while (true)
-								{
-									switch (2)
-									{
-									case 0:
-										break;
-									default:
-										enumerator.Dispose();
-										goto end_IL_0176;
-									}
-								}
+								enumerator.Dispose();
 							}
-							end_IL_0176:;
 						}
 						IEnumerator<LobbyPlayerInfo> enumerator2 = gameManager.TeamInfo.TeamBPlayerInfo.GetEnumerator();
 						try
 						{
 							while (enumerator2.MoveNext())
 							{
-								LobbyPlayerInfo current2 = enumerator2.Current;
-								if (current2 != null)
+								LobbyPlayerInfo lobbyPlayerInfo2 = enumerator2.Current;
+								if (lobbyPlayerInfo2 != null)
 								{
-									if (current2.CharacterInfo != null)
+									if (lobbyPlayerInfo2.CharacterInfo != null)
 									{
-										if (!current2.CharacterInfo.CharacterType.IsValid())
+										if (!lobbyPlayerInfo2.CharacterInfo.CharacterType.IsValid())
 										{
 										}
 										else
 										{
-											CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(current2.CharacterInfo.CharacterType);
+											CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo2.CharacterInfo.CharacterType);
 											if (characterResourceLink2 != null)
 											{
 												if (!dictionary.ContainsKey(characterResourceLink2))
@@ -123,7 +106,7 @@ public class ClientCharacterPreloader : MonoBehaviour
 													dictionary[characterResourceLink2] = new List<CharacterVisualInfo>();
 												}
 												List<CharacterVisualInfo> list2 = dictionary[characterResourceLink2];
-												list2.Add(current2.CharacterInfo.CharacterSkin);
+												list2.Add(lobbyPlayerInfo2.CharacterInfo.CharacterSkin);
 											}
 										}
 									}
@@ -134,67 +117,43 @@ public class ClientCharacterPreloader : MonoBehaviour
 						{
 							if (enumerator2 != null)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										enumerator2.Dispose();
-										goto end_IL_026c;
-									}
-								}
+								enumerator2.Dispose();
 							}
-							end_IL_026c:;
 						}
-						if (!Different(dictionary, m_linksToSkins))
+						if (ClientCharacterPreloader.Different(dictionary, this.m_linksToSkins))
 						{
-							return;
-						}
-						while (true)
-						{
-							if (m_coroutine != null)
+							if (this.m_coroutine != null)
 							{
-								StopCoroutine(m_coroutine);
-								m_coroutine = null;
+								base.StopCoroutine(this.m_coroutine);
+								this.m_coroutine = null;
 							}
-							m_linksToSkins = dictionary;
-							m_coroutine = StartCoroutine(CharacterPreloadCoroutine());
+							this.m_linksToSkins = dictionary;
+							this.m_coroutine = base.StartCoroutine(this.CharacterPreloadCoroutine());
 							return;
 						}
+						return;
 					}
 				}
 			}
 		}
-		StopPreloading();
+		this.StopPreloading();
 	}
 
 	private void HandleGameStatusChanged(GameStatus gameStatus)
 	{
-		if (gameStatus <= GameStatus.LoadoutSelecting)
+		if (gameStatus > GameStatus.LoadoutSelecting)
 		{
-			return;
-		}
-		while (true)
-		{
-			StopPreloading();
-			return;
+			this.StopPreloading();
 		}
 	}
 
 	private void StopPreloading()
 	{
-		if (m_coroutine == null)
+		if (this.m_coroutine != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			StopCoroutine(m_coroutine);
-			m_coroutine = null;
-			m_linksToSkins.Clear();
-			return;
+			base.StopCoroutine(this.m_coroutine);
+			this.m_coroutine = null;
+			this.m_linksToSkins.Clear();
 		}
 	}
 
@@ -202,64 +161,28 @@ public class ClientCharacterPreloader : MonoBehaviour
 	{
 		if (lhs.Count != rhs.Count)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
+			return true;
 		}
 		using (Dictionary<CharacterResourceLink, List<CharacterVisualInfo>>.Enumerator enumerator = lhs.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<CharacterResourceLink, List<CharacterVisualInfo>> current = enumerator.Current;
-				if (!rhs.ContainsKey(current.Key))
+				KeyValuePair<CharacterResourceLink, List<CharacterVisualInfo>> keyValuePair = enumerator.Current;
+				if (!rhs.ContainsKey(keyValuePair.Key))
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
+					return true;
 				}
-				List<CharacterVisualInfo> value = current.Value;
-				List<CharacterVisualInfo> list = rhs[current.Key];
+				List<CharacterVisualInfo> value = keyValuePair.Value;
+				List<CharacterVisualInfo> list = rhs[keyValuePair.Key];
 				if (value.Count != list.Count)
 				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
+					return true;
 				}
 				for (int i = 0; i < value.Count; i++)
 				{
 					if (!list.Contains(value[i]))
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return true;
-							}
-						}
+						return true;
 					}
 				}
 			}
@@ -270,7 +193,24 @@ public class ClientCharacterPreloader : MonoBehaviour
 	private IEnumerator CharacterPreloadCoroutine()
 	{
 		yield return new WaitForSeconds(2f);
-		/*Error: Unable to find new state assignment for yield return*/;
+		foreach (KeyValuePair<CharacterResourceLink, List<CharacterVisualInfo>> keyValuePair in this.m_linksToSkins)
+		{
+			keyValuePair.Key.UnloadSkinsNotInList(keyValuePair.Value);
+		}
+		using (Dictionary<CharacterResourceLink, List<CharacterVisualInfo>>.Enumerator enumerator2 = this.m_linksToSkins.GetEnumerator())
+		{
+			while (enumerator2.MoveNext())
+			{
+				KeyValuePair<CharacterResourceLink, List<CharacterVisualInfo>> kvp = enumerator2.Current;
+				for (int i = 0; i < kvp.Value.Count; i++)
+				{
+					CharacterVisualInfo skin = kvp.Value[i];
+					kvp.Key.LoadAsync(skin, new CharacterResourceLink.CharacterResourceDelegate(this.HandleCharacterResourceLoaded), GameStatus.Loading);
+					yield return new WaitForSeconds(1f);
+				}
+			}
+		}
+		yield break;
 	}
 
 	private void HandleCharacterResourceLoaded(LoadedCharacterSelection loadedCharacter)

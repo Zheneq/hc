@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +8,6 @@ using UnityEngine.Networking;
 
 public class CharacterResourceLink : MonoBehaviour
 {
-	internal delegate void CharacterResourceDelegate(LoadedCharacterSelection loadedCharacter);
-
 	public string m_displayName;
 
 	[TextArea(1, 5, order = 1)]
@@ -132,280 +130,308 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		get
 		{
-			GameObject value = null;
-			if (s_loadedActorDataPrefabCache.TryGetValue(m_actorDataResourcePath, out value))
+			GameObject gameObject = null;
+			if (CharacterResourceLink.s_loadedActorDataPrefabCache.TryGetValue(this.m_actorDataResourcePath, out gameObject))
 			{
-				if (!(value == null))
+				if (!(gameObject == null))
 				{
-					goto IL_006a;
+					return gameObject;
 				}
 			}
-			value = Resources.Load<GameObject>(m_actorDataResourcePath);
-			if (value != null)
+			gameObject = Resources.Load<GameObject>(this.m_actorDataResourcePath);
+			if (gameObject != null)
 			{
-				s_loadedActorDataPrefabCache[m_actorDataResourcePath] = value;
+				CharacterResourceLink.s_loadedActorDataPrefabCache[this.m_actorDataResourcePath] = gameObject;
 			}
-			goto IL_006a;
-			IL_006a:
-			return value;
+			return gameObject;
 		}
 	}
 
 	private void Awake()
 	{
-		s_links.Add(this);
+		CharacterResourceLink.s_links.Add(this);
 	}
 
 	public string GetDisplayName()
 	{
-		return StringUtil.TR_CharacterName(m_characterType.ToString());
+		return StringUtil.TR_CharacterName(this.m_characterType.ToString());
 	}
 
 	public string GetCharSelectTooltipDescription()
 	{
-		return StringUtil.TR_CharacterSelectTooltip(m_characterType.ToString());
+		return StringUtil.TR_CharacterSelectTooltip(this.m_characterType.ToString());
 	}
 
 	public string GetCharSelectAboutDescription()
 	{
-		return StringUtil.TR_CharacterSelectAboutDesc(m_characterType.ToString());
+		return StringUtil.TR_CharacterSelectAboutDesc(this.m_characterType.ToString());
 	}
 
 	public string GetCharBio()
 	{
-		return StringUtil.TR_CharacterBio(m_characterType.ToString());
+		return StringUtil.TR_CharacterBio(this.m_characterType.ToString());
 	}
 
 	public string GetSkinName(int skinIndex)
 	{
-		return StringUtil.TR_CharacterSkinName(m_characterType.ToString(), skinIndex + 1);
+		return StringUtil.TR_CharacterSkinName(this.m_characterType.ToString(), skinIndex + 1);
 	}
 
 	public string GetSkinDescription(int skinIndex)
 	{
-		return StringUtil.TR_CharacterSkinDescription(m_characterType.ToString(), skinIndex + 1);
+		return StringUtil.TR_CharacterSkinDescription(this.m_characterType.ToString(), skinIndex + 1);
 	}
 
 	public string GetSkinFlavorText(int skinIndex)
 	{
-		return StringUtil.TR_CharacterSkinFlavor(m_characterType.ToString(), skinIndex + 1);
+		return StringUtil.TR_CharacterSkinFlavor(this.m_characterType.ToString(), skinIndex + 1);
 	}
 
 	public string GetPatternName(int skinIndex, int patternIndex)
 	{
-		return StringUtil.TR_CharacterPatternName(m_characterType.ToString(), skinIndex + 1, patternIndex + 1);
+		return StringUtil.TR_CharacterPatternName(this.m_characterType.ToString(), skinIndex + 1, patternIndex + 1);
 	}
 
 	public string GetPatternColorName(int skinIndex, int patternIndex, int colorIndex)
 	{
-		return StringUtil.TR_CharacterPatternColorName(m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
+		return StringUtil.TR_CharacterPatternColorName(this.m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
 	}
 
 	public string GetPatternColorDescription(int skinIndex, int patternIndex, int colorIndex)
 	{
-		return StringUtil.TR_CharacterPatternColorDescription(m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
+		return StringUtil.TR_CharacterPatternColorDescription(this.m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
 	}
 
 	public string GetPatternColorFlavor(int skinIndex, int patternIndex, int colorIndex)
 	{
-		return StringUtil.TR_CharacterPatternColorFlavor(m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
+		return StringUtil.TR_CharacterPatternColorFlavor(this.m_characterType.ToString(), skinIndex + 1, patternIndex + 1, colorIndex + 1);
 	}
 
 	public string GetTauntName(int tauntIndex)
 	{
-		return StringUtil.TR_CharacterTauntName(m_characterType.ToString(), tauntIndex + 1);
+		return StringUtil.TR_CharacterTauntName(this.m_characterType.ToString(), tauntIndex + 1);
 	}
 
 	public string GetVFXSwapName(int abilityIndex, int vfxSwapId)
 	{
-		return StringUtil.TR_GetCharacterVFXSwapName(m_characterType.ToString(), abilityIndex + 1, vfxSwapId);
+		return StringUtil.TR_GetCharacterVFXSwapName(this.m_characterType.ToString(), abilityIndex + 1, vfxSwapId);
 	}
 
 	internal static void DestroyAudioResources()
 	{
-		using (Dictionary<string, GameObject>.Enumerator enumerator = s_instantiatedInGameAudioResources.GetEnumerator())
+		using (Dictionary<string, GameObject>.Enumerator enumerator = CharacterResourceLink.s_instantiatedInGameAudioResources.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				UnityEngine.Object.Destroy(enumerator.Current.Value);
+				KeyValuePair<string, GameObject> keyValuePair = enumerator.Current;
+				UnityEngine.Object.Destroy(keyValuePair.Value);
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000d;
-				}
-			}
-			end_IL_000d:;
 		}
-		s_instantiatedInGameAudioResources.Clear();
-		using (Dictionary<string, GameObject>.Enumerator enumerator2 = s_instantiatedFrontEndAudioResources.GetEnumerator())
+		CharacterResourceLink.s_instantiatedInGameAudioResources.Clear();
+		using (Dictionary<string, GameObject>.Enumerator enumerator2 = CharacterResourceLink.s_instantiatedFrontEndAudioResources.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				UnityEngine.Object.Destroy(enumerator2.Current.Value);
+				KeyValuePair<string, GameObject> keyValuePair2 = enumerator2.Current;
+				UnityEngine.Object.Destroy(keyValuePair2.Value);
 			}
 		}
-		s_instantiatedFrontEndAudioResources.Clear();
+		CharacterResourceLink.s_instantiatedFrontEndAudioResources.Clear();
 	}
 
-	internal void LoadAsync(CharacterVisualInfo selection, CharacterResourceDelegate onCharacterPrefabLoaded)
+	internal void LoadAsync(CharacterVisualInfo selection, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded)
 	{
-		LoadAsync(selection, out int _, onCharacterPrefabLoaded);
+		int num;
+		this.LoadAsync(selection, out num, onCharacterPrefabLoaded);
 	}
 
-	internal void LoadAsync(CharacterVisualInfo selection, CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets)
+	internal void LoadAsync(CharacterVisualInfo selection, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets)
 	{
-		LoadAsync(selection, out int _, onCharacterPrefabLoaded, gameStatusForAssets);
+		int num;
+		this.LoadAsync(selection, out num, onCharacterPrefabLoaded, gameStatusForAssets, 0f);
 	}
 
-	internal void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, CharacterResourceDelegate onCharacterPrefabLoaded)
+	internal void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded)
 	{
-		LoadAsync(selection, out asyncTicket, onCharacterPrefabLoaded, GameManager.Get().GameStatus);
+		this.LoadAsync(selection, out asyncTicket, onCharacterPrefabLoaded, GameManager.Get().GameStatus, 0f);
 	}
 
-	internal void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, float delay, CharacterResourceDelegate onCharacterPrefabLoaded)
+	internal void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, float delay, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded)
 	{
-		LoadAsync(selection, out asyncTicket, onCharacterPrefabLoaded, GameManager.Get().GameStatus, delay);
+		this.LoadAsync(selection, out asyncTicket, onCharacterPrefabLoaded, GameManager.Get().GameStatus, delay);
 	}
 
-	private void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets, float delay = 0f)
+	private void LoadAsync(CharacterVisualInfo selection, out int asyncTicket, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets, float delay = 0f)
 	{
 		if (onCharacterPrefabLoaded == null)
 		{
 			throw new ArgumentNullException("onCharacterPrefabLoaded");
 		}
-		AsyncManager.Get().StartAsyncOperation(out asyncTicket, CharacterLoadCoroutine(selection, onCharacterPrefabLoaded, gameStatusForAssets), delay);
+		AsyncManager.Get().StartAsyncOperation(out asyncTicket, this.CharacterLoadCoroutine(selection, onCharacterPrefabLoaded, gameStatusForAssets), delay);
 	}
 
-	private IEnumerator CharacterLoadCoroutine(CharacterVisualInfo selection, CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets)
+	private IEnumerator CharacterLoadCoroutine(CharacterVisualInfo selection, CharacterResourceLink.CharacterResourceDelegate onCharacterPrefabLoaded, GameStatus gameStatusForAssets)
 	{
-		if (!IsVisualInfoSelectionValid(selection))
+		if (!this.IsVisualInfoSelectionValid(selection))
 		{
-			Log.Warning(Log.Category.Loading, "Invalid skin selection used to load CharacterType " + m_characterType.ToString() + ", reverting to default. Input = " + selection.ToString());
+			Log.Warning(Log.Category.Loading, "Invalid skin selection used to load CharacterType " + this.m_characterType.ToString() + ", reverting to default. Input = " + selection.ToString(), new object[0]);
 			selection.ResetToDefault();
 		}
-		if (m_loadedCharacterCache.TryGetValue(selection, out LoadedCharacterSelection loadedCharacter2))
+		LoadedCharacterSelection loadedCharacter;
+		while (this.m_loadedCharacterCache.TryGetValue(selection, out loadedCharacter))
 		{
-			if (loadedCharacter2.isLoading)
+			if (!loadedCharacter.isLoading)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					goto IL_117;
+				}
+			}
+			else
 			{
 				yield return null;
-				/*Error: Unable to find new state assignment for yield return*/;
 			}
 		}
-		if (loadedCharacter2 != null)
+		IL_117:
+		if (loadedCharacter != null)
 		{
-			while (true)
+			Log.Info(Log.Category.Loading, string.Concat(new string[]
 			{
-				Log.Info(Log.Category.Loading, "Character " + base.name + " " + selection.ToString() + " already loading has finished - falling through");
-				CharacterSkin skin2 = null;
-				if (loadedCharacter2 != null)
+				"Character ",
+				base.name,
+				" ",
+				selection.ToString(),
+				" already loading has finished - falling through"
+			}), new object[0]);
+			CharacterSkin skin = null;
+			if (loadedCharacter != null)
+			{
+				int skinIndex = loadedCharacter.selectedSkin.skinIndex;
+				if (skinIndex >= 0 && skinIndex < this.m_skins.Count)
 				{
-					int skinIndex = loadedCharacter2.selectedSkin.skinIndex;
-					if (skinIndex >= 0 && skinIndex < m_skins.Count)
-					{
-						skin2 = m_skins[skinIndex];
-					}
-					else
-					{
-						Log.Error("Selected skin index is out of bounds, using default. Input value = " + skinIndex);
-						if (m_skins.Count > 0)
-						{
-							skin2 = m_skins[0];
-						}
-					}
+					skin = this.m_skins[skinIndex];
 				}
-				LoadPKFXForGameStatus(gameStatusForAssets, skin2);
-				IEnumerator e3 = CharacterLoadAudioAssetsForGameStatus(gameStatusForAssets, skin2);
-				do
+				else
 				{
-					yield return e3.Current;
-				}
-				while (e3.MoveNext());
-				ClientScene.RegisterPrefab(loadedCharacter2.ActorDataPrefab);
-				ActorData actorDataComp = loadedCharacter2.ActorDataPrefab.GetComponent<ActorData>();
-				if (actorDataComp != null)
-				{
-					for (int i = 0; i < actorDataComp.m_additionalNetworkObjectsToRegister.Count; i++)
+					Log.Error("Selected skin index is out of bounds, using default. Input value = " + skinIndex, new object[0]);
+					if (this.m_skins.Count > 0)
 					{
-						GameObject gameObject = actorDataComp.m_additionalNetworkObjectsToRegister[i];
-						if (gameObject != null)
-						{
-							ClientScene.RegisterPrefab(gameObject);
-						}
+						skin = this.m_skins[0];
 					}
 				}
-				onCharacterPrefabLoaded(loadedCharacter2);
-				yield return loadedCharacter2;
-				/*Error: Unable to find new state assignment for yield return*/;
 			}
-		}
-		Log.Info(Log.Category.Loading, "Starting async load for Character " + base.name + " " + selection.ToString());
-		loadedCharacter2 = new LoadedCharacterSelection
-		{
-			isLoading = true
-		};
-		m_loadedCharacterCache.Add(selection, loadedCharacter2);
-		loadedCharacter2.ActorDataPrefab = ActorDataPrefab;
-		loadedCharacter2.resourceLink = this;
-		loadedCharacter2.selectedSkin = selection;
-		CharacterSkin skin = null;
-		loadedCharacter2.heroPrefabLink = GetHeroPrefabLinkFromSelection(selection, out skin);
-		if (loadedCharacter2.heroPrefabLink != null)
-		{
-			if (!loadedCharacter2.heroPrefabLink.IsEmpty)
+			this.LoadPKFXForGameStatus(gameStatusForAssets, skin);
+			IEnumerator e = this.CharacterLoadAudioAssetsForGameStatus(gameStatusForAssets, skin);
+			do
 			{
-				goto IL_040e;
+				yield return e.Current;
 			}
+			while (e.MoveNext());
 		}
-		Log.Error($"Character {m_displayName} could not find Actor Skin resource link for {selection.ToString()}.  Loading default instead...");
-		selection.ResetToDefault();
-		loadedCharacter2.heroPrefabLink = GetHeroPrefabLinkFromSelection(selection, out skin);
-		goto IL_040e;
-		IL_040e:
-		IEnumerator e2;
-		if (!NetworkClient.active)
+		else
 		{
-			if (HydrogenConfig.Get().SkipCharacterModelSpawnOnServer)
+			Log.Info(Log.Category.Loading, "Starting async load for Character " + base.name + " " + selection.ToString(), new object[0]);
+			loadedCharacter = new LoadedCharacterSelection();
+			loadedCharacter.isLoading = true;
+			this.m_loadedCharacterCache.Add(selection, loadedCharacter);
+			loadedCharacter.ActorDataPrefab = this.ActorDataPrefab;
+			loadedCharacter.resourceLink = this;
+			loadedCharacter.selectedSkin = selection;
+			CharacterSkin skin2 = null;
+			loadedCharacter.heroPrefabLink = this.GetHeroPrefabLinkFromSelection(selection, out skin2);
+			if (loadedCharacter.heroPrefabLink != null)
 			{
-				e2 = CharacterLoadAudioAssetsForGameStatus(gameStatusForAssets, skin);
+				if (!loadedCharacter.heroPrefabLink.IsEmpty)
+				{
+					goto IL_40E;
+				}
+			}
+			Log.Error(string.Format("Character {0} could not find Actor Skin resource link for {1}.  Loading default instead...", this.m_displayName, selection.ToString()), new object[0]);
+			selection.ResetToDefault();
+			loadedCharacter.heroPrefabLink = this.GetHeroPrefabLinkFromSelection(selection, out skin2);
+			IL_40E:
+			if (!NetworkClient.active)
+			{
+				if (HydrogenConfig.Get().SkipCharacterModelSpawnOnServer)
+				{
+					goto IL_649;
+				}
+			}
+			Log.Info(Log.Category.Loading, "Starting async load for actor model prefab for Character " + base.name + " " + selection.ToString(), new object[0]);
+			IEnumerator e2 = loadedCharacter.heroPrefabLink.PreLoadPrefabAsync();
+			do
+			{
 				yield return e2.Current;
-				/*Error: Unable to find new state assignment for yield return*/;
+			}
+			while (e2.MoveNext());
+			if (!PrefabResourceLink.HasLoadedResourceLinkForPath(loadedCharacter.heroPrefabLink.GetResourcePath()))
+			{
+				if (!selection.IsDefaultSelection())
+				{
+					Log.Error(string.Format("Character {0} could not load SavedResourceLink for {1}.  Loading default instead...", this.m_displayName, selection.ToString()), new object[0]);
+					selection.ResetToDefault();
+					loadedCharacter.heroPrefabLink = this.GetHeroPrefabLinkFromSelection(selection, out skin2);
+					Log.Error(string.Concat(new string[]
+					{
+						"Starting async load for actor model prefab for Character ",
+						base.name,
+						" ",
+						selection.ToString(),
+						" (as fallback)"
+					}), new object[0]);
+					e2 = loadedCharacter.heroPrefabLink.PreLoadPrefabAsync();
+					do
+					{
+						yield return e2.Current;
+					}
+					while (e2.MoveNext());
+				}
+			}
+			this.LoadPKFXForGameStatus(gameStatusForAssets, skin2);
+			IL_649:
+			e2 = this.CharacterLoadAudioAssetsForGameStatus(gameStatusForAssets, skin2);
+			do
+			{
+				yield return e2.Current;
+			}
+			while (e2.MoveNext());
+			loadedCharacter.isLoading = false;
+		}
+		ClientScene.RegisterPrefab(loadedCharacter.ActorDataPrefab);
+		ActorData actorDataComp = loadedCharacter.ActorDataPrefab.GetComponent<ActorData>();
+		if (actorDataComp != null)
+		{
+			for (int i = 0; i < actorDataComp.m_additionalNetworkObjectsToRegister.Count; i++)
+			{
+				GameObject gameObject = actorDataComp.m_additionalNetworkObjectsToRegister[i];
+				if (gameObject != null)
+				{
+					ClientScene.RegisterPrefab(gameObject);
+				}
 			}
 		}
-		Log.Info(Log.Category.Loading, "Starting async load for actor model prefab for Character " + base.name + " " + selection.ToString());
-		e2 = loadedCharacter2.heroPrefabLink.PreLoadPrefabAsync();
-		yield return e2.Current;
-		/*Error: Unable to find new state assignment for yield return*/;
+		onCharacterPrefabLoaded(loadedCharacter);
+		yield return loadedCharacter;
+		yield break;
 	}
 
 	internal void CancelLoad(CharacterVisualInfo selection, int asyncTicket)
 	{
-		if (!m_loadedCharacterCache.TryGetValue(selection, out LoadedCharacterSelection value))
+		LoadedCharacterSelection loadedCharacterSelection;
+		if (this.m_loadedCharacterCache.TryGetValue(selection, out loadedCharacterSelection))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (value == null || !value.isLoading)
+			if (loadedCharacterSelection != null && loadedCharacterSelection.isLoading)
 			{
-				return;
-			}
-			while (true)
-			{
-				m_loadedCharacterCache.Remove(selection);
+				this.m_loadedCharacterCache.Remove(selection);
 				if (AsyncManager.Get() != null)
 				{
-					while (true)
-					{
-						AsyncManager.Get().CancelAsyncOperation(asyncTicket);
-						return;
-					}
+					AsyncManager.Get().CancelAsyncOperation(asyncTicket);
 				}
-				return;
 			}
 		}
 	}
@@ -413,11 +439,12 @@ public class CharacterResourceLink : MonoBehaviour
 	internal void UnloadSkinsNotInList(List<CharacterVisualInfo> skins)
 	{
 		List<CharacterVisualInfo> list = new List<CharacterVisualInfo>();
-		using (Dictionary<CharacterVisualInfo, LoadedCharacterSelection>.Enumerator enumerator = m_loadedCharacterCache.GetEnumerator())
+		using (Dictionary<CharacterVisualInfo, LoadedCharacterSelection>.Enumerator enumerator = this.m_loadedCharacterCache.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				LoadedCharacterSelection value = enumerator.Current.Value;
+				KeyValuePair<CharacterVisualInfo, LoadedCharacterSelection> keyValuePair = enumerator.Current;
+				LoadedCharacterSelection value = keyValuePair.Value;
 				if (value != null)
 				{
 					if (!skins.Contains(value.selectedSkin))
@@ -433,7 +460,7 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		for (int i = 0; i < list.Count; i++)
 		{
-			m_loadedCharacterCache.Remove(list[i]);
+			this.m_loadedCharacterCache.Remove(list[i]);
 		}
 	}
 
@@ -441,14 +468,14 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (GameWideData.Get() != null)
 		{
-			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-			foreach (CharacterResourceLink characterResourceLink in characterResourceLinks)
+			foreach (CharacterResourceLink characterResourceLink in GameWideData.Get().m_characterResourceLinks)
 			{
 				using (Dictionary<CharacterVisualInfo, LoadedCharacterSelection>.Enumerator enumerator = characterResourceLink.m_loadedCharacterCache.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
-						LoadedCharacterSelection value = enumerator.Current.Value;
+						KeyValuePair<CharacterVisualInfo, LoadedCharacterSelection> keyValuePair = enumerator.Current;
+						LoadedCharacterSelection value = keyValuePair.Value;
 						if (value != null)
 						{
 							if (value.heroPrefabLink != null)
@@ -461,11 +488,12 @@ public class CharacterResourceLink : MonoBehaviour
 				characterResourceLink.m_loadedCharacterCache.Clear();
 			}
 		}
-		using (Dictionary<string, GameObject>.Enumerator enumerator2 = s_loadedActorDataPrefabCache.GetEnumerator())
+		using (Dictionary<string, GameObject>.Enumerator enumerator2 = CharacterResourceLink.s_loadedActorDataPrefabCache.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
-				GameObject value2 = enumerator2.Current.Value;
+				KeyValuePair<string, GameObject> keyValuePair2 = enumerator2.Current;
+				GameObject value2 = keyValuePair2.Value;
 				ClientScene.UnregisterPrefab(value2);
 				ActorData component = value2.GetComponent<ActorData>();
 				if (component != null)
@@ -481,291 +509,281 @@ public class CharacterResourceLink : MonoBehaviour
 				}
 			}
 		}
-		s_loadedActorDataPrefabCache.Clear();
-		s_links.Clear();
-		DestroyAudioResources();
+		CharacterResourceLink.s_loadedActorDataPrefabCache.Clear();
+		CharacterResourceLink.s_links.Clear();
+		CharacterResourceLink.DestroyAudioResources();
 	}
 
-	public PrefabResourceLink GetHeroPrefabLinkFromSelection(CharacterVisualInfo selection, out CharacterSkin skin)
+	public unsafe PrefabResourceLink GetHeroPrefabLinkFromSelection(CharacterVisualInfo selection, out CharacterSkin skin)
 	{
+		PrefabResourceLink result;
 		if (selection.skinIndex >= 0)
 		{
 			if (selection.patternIndex >= 0)
 			{
 				if (selection.colorIndex >= 0)
 				{
-					while (true)
+					if (selection.skinIndex < this.m_skins.Count)
 					{
-						switch (5)
+						skin = this.m_skins[selection.skinIndex];
+						if (selection.patternIndex < skin.m_patterns.Count)
 						{
-						case 0:
-							break;
-						default:
-							if (selection.skinIndex < m_skins.Count)
+							CharacterPattern characterPattern = skin.m_patterns[selection.patternIndex];
+							if (selection.colorIndex < characterPattern.m_colors.Count)
 							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										skin = m_skins[selection.skinIndex];
-										if (selection.patternIndex < skin.m_patterns.Count)
-										{
-											CharacterPattern characterPattern = skin.m_patterns[selection.patternIndex];
-											if (selection.colorIndex < characterPattern.m_colors.Count)
-											{
-												return characterPattern.m_colors[selection.colorIndex].m_heroPrefab;
-											}
-											return null;
-										}
-										return null;
-									}
-								}
+								result = characterPattern.m_colors[selection.colorIndex].m_heroPrefab;
 							}
-							skin = null;
-							return null;
+							else
+							{
+								result = null;
+							}
+						}
+						else
+						{
+							result = null;
 						}
 					}
+					else
+					{
+						skin = null;
+						result = null;
+					}
+					return result;
 				}
 			}
 		}
 		skin = null;
-		return null;
+		result = null;
+		return result;
 	}
 
 	private void LoadPKFXForGameStatus(GameStatus gamestatus, CharacterSkin skin)
 	{
-		if (!m_willEverHavePkfx || skin == null)
+		if (this.m_willEverHavePkfx && skin != null)
 		{
-			return;
-		}
-		if (string.IsNullOrEmpty(skin.m_pkfxDirectory))
-		{
-			if (string.IsNullOrEmpty(m_pkfxDirectoryDefault))
-			{
-				Log.Error("Character {1} (skin: {0}) needs pkfx path set to preload VFX. Until then, you may see a hitch when spawning vfx for this character the first time.", skin.m_name, base.name);
-				return;
-			}
-		}
-		if (gamestatus < GameStatus.Launched)
-		{
-			return;
-		}
-		while (true)
-		{
-			ClientVFXLoader clientVFXLoader = ClientVFXLoader.Get();
-			string path;
 			if (string.IsNullOrEmpty(skin.m_pkfxDirectory))
 			{
-				path = m_pkfxDirectoryDefault;
+				if (string.IsNullOrEmpty(this.m_pkfxDirectoryDefault))
+				{
+					Log.Error("Character {1} (skin: {0}) needs pkfx path set to preload VFX. Until then, you may see a hitch when spawning vfx for this character the first time.", new object[]
+					{
+						skin.m_name,
+						base.name
+					});
+					return;
+				}
 			}
-			else
+			if (gamestatus >= GameStatus.Launched)
 			{
-				path = skin.m_pkfxDirectory;
+				ClientVFXLoader clientVFXLoader = ClientVFXLoader.Get();
+				string path = "PackFx/Character/Hero";
+				string path2;
+				if (string.IsNullOrEmpty(skin.m_pkfxDirectory))
+				{
+					path2 = this.m_pkfxDirectoryDefault;
+				}
+				else
+				{
+					path2 = skin.m_pkfxDirectory;
+				}
+				clientVFXLoader.QueuePKFXDirectoryForPreload(Path.Combine(path, path2));
 			}
-			clientVFXLoader.QueuePKFXDirectoryForPreload(Path.Combine("PackFx/Character/Hero", path));
-			return;
 		}
 	}
 
 	private IEnumerator CharacterLoadAudioAssetsForGameStatus(GameStatus gamestatus, CharacterSkin skin)
 	{
 		PrefabResourceLink[] audioAssetsLinks = null;
-		Dictionary<string, GameObject> instantiatedAudioResources2 = null;
+		Dictionary<string, GameObject> instantiatedAudioResources = null;
 		if (gamestatus >= GameStatus.Launched)
 		{
 			if (gamestatus.IsActiveStatus())
 			{
-				instantiatedAudioResources2 = s_instantiatedInGameAudioResources;
+				instantiatedAudioResources = CharacterResourceLink.s_instantiatedInGameAudioResources;
 				if (skin != null)
 				{
 					if (skin.m_audioAssetsInGamePrefabs != null)
 					{
-						if (!skin.m_audioAssetsInGamePrefabs.IsNullOrEmpty())
+						if (!skin.m_audioAssetsInGamePrefabs.IsNullOrEmpty<PrefabResourceLink>())
 						{
 							audioAssetsLinks = skin.m_audioAssetsInGamePrefabs;
-							goto IL_0201;
+							goto IL_12C;
 						}
 					}
 				}
-				if (m_audioAssetsInGameDefaultPrefabs != null)
+				if (this.m_audioAssetsInGameDefaultPrefabs != null)
 				{
-					if (!m_audioAssetsInGameDefaultPrefabs.IsNullOrEmpty())
+					if (!this.m_audioAssetsInGameDefaultPrefabs.IsNullOrEmpty<PrefabResourceLink>())
 					{
-						audioAssetsLinks = m_audioAssetsInGameDefaultPrefabs;
-						goto IL_0201;
+						audioAssetsLinks = this.m_audioAssetsInGameDefaultPrefabs;
+						goto IL_12C;
 					}
 				}
 				if (Application.isEditor)
 				{
-					Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets in game default, and no override for a skin.", base.name);
+					Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets in game default, and no override for a skin.", new object[]
+					{
+						base.name
+					});
 				}
-				goto IL_0201;
+				IL_12C:
+				goto IL_201;
 			}
 		}
-		instantiatedAudioResources2 = s_instantiatedFrontEndAudioResources;
+		instantiatedAudioResources = CharacterResourceLink.s_instantiatedFrontEndAudioResources;
 		if (skin != null)
 		{
 			if (skin.m_audioAssetsFrontEndPrefabs != null)
 			{
-				if (!skin.m_audioAssetsFrontEndPrefabs.IsNullOrEmpty())
+				if (!skin.m_audioAssetsFrontEndPrefabs.IsNullOrEmpty<PrefabResourceLink>())
 				{
 					audioAssetsLinks = skin.m_audioAssetsFrontEndPrefabs;
-					goto IL_0201;
+					goto IL_201;
 				}
 			}
 		}
-		if (m_audioAssetsFrontEndDefaultPrefabs != null)
+		if (this.m_audioAssetsFrontEndDefaultPrefabs != null)
 		{
-			if (!m_audioAssetsFrontEndDefaultPrefabs.IsNullOrEmpty())
+			if (!this.m_audioAssetsFrontEndDefaultPrefabs.IsNullOrEmpty<PrefabResourceLink>())
 			{
-				audioAssetsLinks = m_audioAssetsFrontEndDefaultPrefabs;
-				goto IL_0201;
+				audioAssetsLinks = this.m_audioAssetsFrontEndDefaultPrefabs;
+				goto IL_201;
 			}
 		}
 		if (Application.isEditor)
 		{
-			Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets front end default, and no override for a skin.", base.name);
+			Log.Warning("Yannis/audio team, please set up prefabs: CharacterResourceLink {0} has no audio assets front end default, and no override for a skin.", new object[]
+			{
+				base.name
+			});
 		}
-		goto IL_0201;
-		IL_0201:
-		int num;
+		IL_201:
+		bool flag;
 		if (HydrogenConfig.Get() != null)
 		{
-			num = (HydrogenConfig.Get().SkipAudioEvents ? 1 : 0);
+			flag = HydrogenConfig.Get().SkipAudioEvents;
 		}
 		else
 		{
-			num = 0;
+			flag = false;
 		}
-		if (num != 0)
+		bool skipByConfig = flag;
+		if (skipByConfig)
 		{
 			audioAssetsLinks = null;
 		}
-		if (audioAssetsLinks == null)
+		if (audioAssetsLinks != null)
 		{
-			yield break;
-		}
-		PrefabResourceLink[] array = audioAssetsLinks;
-		int num2 = 0;
-		PrefabResourceLink audioAssetsLink;
-		while (true)
-		{
-			if (num2 < array.Length)
+			foreach (PrefabResourceLink audioAssetsLink in audioAssetsLinks)
 			{
-				audioAssetsLink = array[num2];
-				if (!instantiatedAudioResources2.ContainsKey(audioAssetsLink.GUID))
+				if (!instantiatedAudioResources.ContainsKey(audioAssetsLink.GUID))
 				{
-					break;
+					instantiatedAudioResources[audioAssetsLink.GUID] = null;
+					IEnumerator e = audioAssetsLink.PreLoadPrefabAsync();
+					do
+					{
+						yield return e.Current;
+					}
+					while (e.MoveNext());
+					GameObject audioPrefabsInst = audioAssetsLink.InstantiatePrefab(true);
+					if (audioPrefabsInst != null)
+					{
+						instantiatedAudioResources[audioAssetsLink.GUID] = audioPrefabsInst;
+						UnityEngine.Object.DontDestroyOnLoad(instantiatedAudioResources[audioAssetsLink.GUID]);
+						foreach (ChatterComponent chatterComponent in instantiatedAudioResources[audioAssetsLink.GUID].GetComponents<ChatterComponent>())
+						{
+							chatterComponent.SetCharacterResourceLink(this);
+						}
+						AudioManager.StandardizeAudioLinkages(audioPrefabsInst);
+					}
 				}
-				num2++;
-				continue;
 			}
-			yield break;
 		}
-		while (true)
-		{
-			instantiatedAudioResources2[audioAssetsLink.GUID] = null;
-			IEnumerator e = audioAssetsLink.PreLoadPrefabAsync();
-			yield return e.Current;
-			/*Error: Unable to find new state assignment for yield return*/;
-		}
+		yield break;
 	}
 
-	public void AdvanceSelector(ref CharacterVisualInfo skinSelector)
+	public unsafe void AdvanceSelector(ref CharacterVisualInfo skinSelector)
 	{
 		skinSelector.colorIndex++;
-		if (skinSelector.colorIndex < m_skins[skinSelector.skinIndex].m_patterns[skinSelector.patternIndex].m_colors.Count)
+		if (skinSelector.colorIndex >= this.m_skins[skinSelector.skinIndex].m_patterns[skinSelector.patternIndex].m_colors.Count)
 		{
-			return;
-		}
-		skinSelector.colorIndex = 0;
-		skinSelector.patternIndex++;
-		if (skinSelector.patternIndex < m_skins[skinSelector.skinIndex].m_patterns.Count)
-		{
-			return;
-		}
-		while (true)
-		{
-			skinSelector.patternIndex = 0;
-			skinSelector.skinIndex++;
-			if (skinSelector.skinIndex >= m_skins.Count)
+			skinSelector.colorIndex = 0;
+			skinSelector.patternIndex++;
+			if (skinSelector.patternIndex >= this.m_skins[skinSelector.skinIndex].m_patterns.Count)
 			{
-				while (true)
+				skinSelector.patternIndex = 0;
+				skinSelector.skinIndex++;
+				if (skinSelector.skinIndex >= this.m_skins.Count)
 				{
 					skinSelector.skinIndex = 0;
-					return;
 				}
 			}
-			return;
 		}
 	}
 
 	public Sprite GetCharacterRoleIcon()
 	{
-		return GetCharacterRoleSprite(m_characterRole);
+		return CharacterResourceLink.GetCharacterRoleSprite(this.m_characterRole);
 	}
 
 	public static Sprite GetCharacterRoleSprite(CharacterRole role)
 	{
-		string empty = string.Empty;
+		string path = string.Empty;
 		switch (role)
 		{
+		case CharacterRole.Tank:
+			path = "iconTank";
+			break;
 		case CharacterRole.Assassin:
-			empty = "iconAssassin";
+			path = "iconAssassin";
 			break;
 		case CharacterRole.Support:
-			empty = "iconSupport";
-			break;
-		case CharacterRole.Tank:
-			empty = "iconTank";
+			path = "iconSupport";
 			break;
 		default:
 			return null;
 		}
-		return Resources.Load<Sprite>(empty);
+		return Resources.Load<Sprite>(path);
 	}
 
 	public Sprite GetCharacterIcon()
 	{
-		return (Sprite)Resources.Load(m_characterIconResourceString, typeof(Sprite));
+		return (Sprite)Resources.Load(this.m_characterIconResourceString, typeof(Sprite));
 	}
 
 	public Sprite GetCharacterSelectIcon()
 	{
-		return (Sprite)Resources.Load(m_characterSelectIconResourceString, typeof(Sprite));
+		return (Sprite)Resources.Load(this.m_characterSelectIconResourceString, typeof(Sprite));
 	}
 
 	public Sprite GetCharacterSelectIconBW()
 	{
-		return (Sprite)Resources.Load(m_characterSelectIcon_bwResourceString, typeof(Sprite));
+		return (Sprite)Resources.Load(this.m_characterSelectIcon_bwResourceString, typeof(Sprite));
 	}
 
 	public Sprite GetLoadingProfileIcon()
 	{
-		return (Sprite)Resources.Load(m_loadingProfileIconResourceString, typeof(Sprite));
+		return (Sprite)Resources.Load(this.m_loadingProfileIconResourceString, typeof(Sprite));
 	}
 
 	public CharacterColor GetCharacterColor(CharacterVisualInfo skinSelector)
 	{
-		return m_skins[skinSelector.skinIndex].m_patterns[skinSelector.patternIndex].m_colors[skinSelector.colorIndex];
+		return this.m_skins[skinSelector.skinIndex].m_patterns[skinSelector.patternIndex].m_colors[skinSelector.colorIndex];
 	}
 
 	public bool IsVisualInfoSelectionValid(CharacterVisualInfo selection)
 	{
 		if (selection.skinIndex >= 0)
 		{
-			if (selection.skinIndex < m_skins.Count)
+			if (selection.skinIndex < this.m_skins.Count)
 			{
 				if (selection.patternIndex >= 0)
 				{
-					if (selection.patternIndex < m_skins[selection.skinIndex].m_patterns.Count)
+					if (selection.patternIndex < this.m_skins[selection.skinIndex].m_patterns.Count)
 					{
 						if (selection.colorIndex >= 0)
 						{
-							if (selection.colorIndex < m_skins[selection.skinIndex].m_patterns[selection.patternIndex].m_colors.Count)
+							if (selection.colorIndex < this.m_skins[selection.skinIndex].m_patterns[selection.patternIndex].m_colors.Count)
 							{
 								return true;
 							}
@@ -781,54 +799,23 @@ public class CharacterResourceLink : MonoBehaviour
 
 	public bool IsAbilityVfxSwapSelectionValid(CharacterAbilityVfxSwapInfo abilityVfxSwaps)
 	{
-		if (!IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility0, m_vfxSwapsForAbility0))
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility1, m_vfxSwapsForAbility1))
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility2, m_vfxSwapsForAbility2))
+		if (!CharacterResourceLink.IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility0, this.m_vfxSwapsForAbility0))
 		{
 			return false;
 		}
-		if (!IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility3, m_vfxSwapsForAbility3))
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (!IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility4, m_vfxSwapsForAbility4))
+		if (!CharacterResourceLink.IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility1, this.m_vfxSwapsForAbility1))
 		{
 			return false;
 		}
-		return true;
+		if (!CharacterResourceLink.IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility2, this.m_vfxSwapsForAbility2))
+		{
+			return false;
+		}
+		if (!CharacterResourceLink.IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility3, this.m_vfxSwapsForAbility3))
+		{
+			return false;
+		}
+		return CharacterResourceLink.IsSelectedVfxSwapForAbilityValid(abilityVfxSwaps.VfxSwapForAbility4, this.m_vfxSwapsForAbility4);
 	}
 
 	private static bool IsSelectedVfxSwapForAbilityValid(int selectedVfxSwap, List<CharacterAbilityVfxSwap> resourceLinkVfxSwaps)
@@ -845,20 +832,12 @@ public class CharacterResourceLink : MonoBehaviour
 		else
 		{
 			result = false;
-			int num = 0;
-			while (true)
+			for (int i = 0; i < resourceLinkVfxSwaps.Count; i++)
 			{
-				if (num < resourceLinkVfxSwaps.Count)
+				if (resourceLinkVfxSwaps[i].m_uniqueID == selectedVfxSwap)
 				{
-					if (resourceLinkVfxSwaps[num].m_uniqueID == selectedVfxSwap)
-					{
-						result = true;
-						break;
-					}
-					num++;
-					continue;
+					return true;
 				}
-				break;
 			}
 		}
 		return result;
@@ -878,26 +857,25 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		else if (resourceLinkVfxSwaps.Count == 0)
 		{
-			Debug.LogError("Trying to find VFX swaps for an ability with swap ID = " + selectedVfxSwapId + " on resource link " + resourceLinkName + ", but the resource link VFX swaps list is empty.");
+			Debug.LogError(string.Concat(new object[]
+			{
+				"Trying to find VFX swaps for an ability with swap ID = ",
+				selectedVfxSwapId,
+				" on resource link ",
+				resourceLinkName,
+				", but the resource link VFX swaps list is empty."
+			}));
 			result = null;
 		}
 		else
 		{
 			result = null;
-			int num = 0;
-			while (true)
+			for (int i = 0; i < resourceLinkVfxSwaps.Count; i++)
 			{
-				if (num < resourceLinkVfxSwaps.Count)
+				if (resourceLinkVfxSwaps[i].m_uniqueID == selectedVfxSwapId)
 				{
-					if (resourceLinkVfxSwaps[num].m_uniqueID == selectedVfxSwapId)
-					{
-						result = resourceLinkVfxSwaps[num];
-						break;
-					}
-					num++;
-					continue;
+					return resourceLinkVfxSwaps[i];
 				}
-				break;
 			}
 		}
 		return result;
@@ -908,15 +886,15 @@ public class CharacterResourceLink : MonoBehaviour
 		switch (selectedAbilityIndex)
 		{
 		case 0:
-			return m_vfxSwapsForAbility0;
+			return this.m_vfxSwapsForAbility0;
 		case 1:
-			return m_vfxSwapsForAbility1;
+			return this.m_vfxSwapsForAbility1;
 		case 2:
-			return m_vfxSwapsForAbility2;
+			return this.m_vfxSwapsForAbility2;
 		case 3:
-			return m_vfxSwapsForAbility3;
+			return this.m_vfxSwapsForAbility3;
 		case 4:
-			return m_vfxSwapsForAbility4;
+			return this.m_vfxSwapsForAbility4;
 		default:
 			return null;
 		}
@@ -926,64 +904,37 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (originalSequencePrefab == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
-		if (!IsVisualInfoSelectionValid(visualInfo))
+		if (!this.IsVisualInfoSelectionValid(visualInfo))
 		{
-			Debug.LogError($"Invalid visual info ({visualInfo.ToString()}) for character resource link {ToString()}, resetting to default...");
+			Debug.LogError(string.Format("Invalid visual info ({0}) for character resource link {1}, resetting to default...", visualInfo.ToString(), this.ToString()));
 			visualInfo.ResetToDefault();
 		}
-		if (!IsAbilityVfxSwapSelectionValid(abilityVfxSwapsInfo))
+		if (!this.IsAbilityVfxSwapSelectionValid(abilityVfxSwapsInfo))
 		{
-			Debug.LogError($"Invalid ability vfx swap info ({abilityVfxSwapsInfo.ToString()}) for character resource link {ToString()}, resetting to default...");
+			Debug.LogError(string.Format("Invalid ability vfx swap info ({0}) for character resource link {1}, resetting to default...", abilityVfxSwapsInfo.ToString(), this.ToString()));
 			abilityVfxSwapsInfo.Reset();
 		}
-		GameObject gameObject = ReplaceSequenceViaCharacterAbilityVfxSwapInfo(originalSequencePrefab, abilityVfxSwapsInfo);
-		if (gameObject != null)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return gameObject;
-				}
-			}
-		}
-		CharacterSkin characterSkin = m_skins[visualInfo.skinIndex];
-		CharacterPattern characterPattern = characterSkin.m_patterns[visualInfo.patternIndex];
-		CharacterColor characterColor = characterPattern.m_colors[visualInfo.colorIndex];
-		gameObject = ReplaceSequence(originalSequencePrefab, characterColor.m_replacementSequences);
-		if (gameObject != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return gameObject;
-				}
-			}
-		}
-		gameObject = ReplaceSequence(originalSequencePrefab, characterPattern.m_replacementSequences);
+		GameObject gameObject = this.ReplaceSequenceViaCharacterAbilityVfxSwapInfo(originalSequencePrefab, abilityVfxSwapsInfo);
 		if (gameObject != null)
 		{
 			return gameObject;
 		}
-		gameObject = ReplaceSequence(originalSequencePrefab, characterSkin.m_replacementSequences);
+		CharacterSkin characterSkin = this.m_skins[visualInfo.skinIndex];
+		CharacterPattern characterPattern = characterSkin.m_patterns[visualInfo.patternIndex];
+		CharacterColor characterColor = characterPattern.m_colors[visualInfo.colorIndex];
+		gameObject = this.ReplaceSequence(originalSequencePrefab, characterColor.m_replacementSequences);
+		if (gameObject != null)
+		{
+			return gameObject;
+		}
+		gameObject = this.ReplaceSequence(originalSequencePrefab, characterPattern.m_replacementSequences);
+		if (gameObject != null)
+		{
+			return gameObject;
+		}
+		gameObject = this.ReplaceSequence(originalSequencePrefab, characterSkin.m_replacementSequences);
 		if (gameObject != null)
 		{
 			return gameObject;
@@ -995,10 +946,10 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (swapInfo.VfxSwapForAbility0 != 0)
 		{
-			CharacterAbilityVfxSwap characterAbilityVfxSwap = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility0, m_vfxSwapsForAbility0, base.name);
+			CharacterAbilityVfxSwap characterAbilityVfxSwap = CharacterResourceLink.FindVfxSwapForAbility(swapInfo.VfxSwapForAbility0, this.m_vfxSwapsForAbility0, base.name);
 			if (characterAbilityVfxSwap != null)
 			{
-				GameObject gameObject = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap.m_replacementSequences);
+				GameObject gameObject = this.ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap.m_replacementSequences);
 				if (gameObject != null)
 				{
 					return gameObject;
@@ -1007,10 +958,10 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (swapInfo.VfxSwapForAbility1 != 0)
 		{
-			CharacterAbilityVfxSwap characterAbilityVfxSwap2 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility1, m_vfxSwapsForAbility1, base.name);
+			CharacterAbilityVfxSwap characterAbilityVfxSwap2 = CharacterResourceLink.FindVfxSwapForAbility(swapInfo.VfxSwapForAbility1, this.m_vfxSwapsForAbility1, base.name);
 			if (characterAbilityVfxSwap2 != null)
 			{
-				GameObject gameObject2 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap2.m_replacementSequences);
+				GameObject gameObject2 = this.ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap2.m_replacementSequences);
 				if (gameObject2 != null)
 				{
 					return gameObject2;
@@ -1019,52 +970,34 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		if (swapInfo.VfxSwapForAbility2 != 0)
 		{
-			CharacterAbilityVfxSwap characterAbilityVfxSwap3 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility2, m_vfxSwapsForAbility2, base.name);
+			CharacterAbilityVfxSwap characterAbilityVfxSwap3 = CharacterResourceLink.FindVfxSwapForAbility(swapInfo.VfxSwapForAbility2, this.m_vfxSwapsForAbility2, base.name);
 			if (characterAbilityVfxSwap3 != null)
 			{
-				GameObject gameObject3 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap3.m_replacementSequences);
+				GameObject gameObject3 = this.ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap3.m_replacementSequences);
 				if (gameObject3 != null)
 				{
-					while (true)
-					{
-						switch (4)
-						{
-						case 0:
-							break;
-						default:
-							return gameObject3;
-						}
-					}
+					return gameObject3;
 				}
 			}
 		}
 		if (swapInfo.VfxSwapForAbility3 != 0)
 		{
-			CharacterAbilityVfxSwap characterAbilityVfxSwap4 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility3, m_vfxSwapsForAbility3, base.name);
+			CharacterAbilityVfxSwap characterAbilityVfxSwap4 = CharacterResourceLink.FindVfxSwapForAbility(swapInfo.VfxSwapForAbility3, this.m_vfxSwapsForAbility3, base.name);
 			if (characterAbilityVfxSwap4 != null)
 			{
-				GameObject gameObject4 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap4.m_replacementSequences);
+				GameObject gameObject4 = this.ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap4.m_replacementSequences);
 				if (gameObject4 != null)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							return gameObject4;
-						}
-					}
+					return gameObject4;
 				}
 			}
 		}
 		if (swapInfo.VfxSwapForAbility4 != 0)
 		{
-			CharacterAbilityVfxSwap characterAbilityVfxSwap5 = FindVfxSwapForAbility(swapInfo.VfxSwapForAbility4, m_vfxSwapsForAbility4, base.name);
+			CharacterAbilityVfxSwap characterAbilityVfxSwap5 = CharacterResourceLink.FindVfxSwapForAbility(swapInfo.VfxSwapForAbility4, this.m_vfxSwapsForAbility4, base.name);
 			if (characterAbilityVfxSwap5 != null)
 			{
-				GameObject gameObject5 = ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap5.m_replacementSequences);
+				GameObject gameObject5 = this.ReplaceSequence(originalSequencePrefab, characterAbilityVfxSwap5.m_replacementSequences);
 				if (gameObject5 != null)
 				{
 					return gameObject5;
@@ -1080,11 +1013,7 @@ public class CharacterResourceLink : MonoBehaviour
 		{
 			foreach (PrefabReplacement prefabReplacement in replacements)
 			{
-				if (!(prefabReplacement.OriginalPrefab.GetPrefab(true) == originalSequencePrefab))
-				{
-					continue;
-				}
-				while (true)
+				if (prefabReplacement.OriginalPrefab.GetPrefab(true) == originalSequencePrefab)
 				{
 					return prefabReplacement.Replacement.GetPrefab(true);
 				}
@@ -1097,24 +1026,14 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (string.IsNullOrEmpty(audioEvent))
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return string.Empty;
-				}
-			}
+			return string.Empty;
 		}
 		if (visualInfo.skinIndex >= 0)
 		{
-			if (visualInfo.skinIndex < m_skins.Count)
+			if (visualInfo.skinIndex < this.m_skins.Count)
 			{
-				CharacterSkin characterSkin = m_skins[visualInfo.skinIndex];
-				AudioReplacement[] replacementAudio = characterSkin.m_replacementAudio;
-				foreach (AudioReplacement audioReplacement in replacementAudio)
+				CharacterSkin characterSkin = this.m_skins[visualInfo.skinIndex];
+				foreach (AudioReplacement audioReplacement in characterSkin.m_replacementAudio)
 				{
 					audioEvent = audioEvent.Replace(audioReplacement.OriginalString, audioReplacement.Replacement);
 				}
@@ -1127,30 +1046,19 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (visualInfo.skinIndex >= 0)
 		{
-			if (visualInfo.skinIndex < m_skins.Count)
+			if (visualInfo.skinIndex < this.m_skins.Count)
 			{
-				while (true)
+				CharacterSkin characterSkin = this.m_skins[visualInfo.skinIndex];
+				bool result;
+				if (characterSkin.m_replacementAudio != null)
 				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-					{
-						CharacterSkin characterSkin = m_skins[visualInfo.skinIndex];
-						int result;
-						if (characterSkin.m_replacementAudio != null)
-						{
-							result = ((characterSkin.m_replacementAudio.Length > 0) ? 1 : 0);
-						}
-						else
-						{
-							result = 0;
-						}
-						return (byte)result != 0;
-					}
-					}
+					result = (characterSkin.m_replacementAudio.Length > 0);
 				}
+				else
+				{
+					result = false;
+				}
+				return result;
 			}
 		}
 		return false;
@@ -1159,9 +1067,9 @@ public class CharacterResourceLink : MonoBehaviour
 	public bool AllowAudioTag(string audioTag, CharacterVisualInfo visualInfo)
 	{
 		CharacterSkin characterSkin = null;
-		if (visualInfo.skinIndex >= 0 && visualInfo.skinIndex < m_skins.Count)
+		if (visualInfo.skinIndex >= 0 && visualInfo.skinIndex < this.m_skins.Count)
 		{
-			characterSkin = m_skins[visualInfo.skinIndex];
+			characterSkin = this.m_skins[visualInfo.skinIndex];
 		}
 		if (characterSkin != null)
 		{
@@ -1180,45 +1088,27 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (originalPrefabResourceLink == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
+			return null;
 		}
-		if (!IsVisualInfoSelectionValid(visualInfo))
+		if (!this.IsVisualInfoSelectionValid(visualInfo))
 		{
-			Debug.LogError($"Invalid visual info ({visualInfo.ToString()}) for character resource link {ToString()}, resetting to default...");
+			Debug.LogError(string.Format("Invalid visual info ({0}) for character resource link {1}, resetting to default...", visualInfo.ToString(), this.ToString()));
 			visualInfo.ResetToDefault();
 		}
-		CharacterSkin characterSkin = m_skins[visualInfo.skinIndex];
+		CharacterSkin characterSkin = this.m_skins[visualInfo.skinIndex];
 		CharacterPattern characterPattern = characterSkin.m_patterns[visualInfo.patternIndex];
 		CharacterColor characterColor = characterPattern.m_colors[visualInfo.colorIndex];
-		PrefabResourceLink prefabResourceLink = ReplacePrefabResourceLink(originalPrefabResourceLink, characterColor.m_replacementSequences);
-		if (prefabResourceLink != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return prefabResourceLink;
-				}
-			}
-		}
-		prefabResourceLink = ReplacePrefabResourceLink(originalPrefabResourceLink, characterPattern.m_replacementSequences);
+		PrefabResourceLink prefabResourceLink = this.ReplacePrefabResourceLink(originalPrefabResourceLink, characterColor.m_replacementSequences);
 		if (prefabResourceLink != null)
 		{
 			return prefabResourceLink;
 		}
-		prefabResourceLink = ReplacePrefabResourceLink(originalPrefabResourceLink, characterSkin.m_replacementSequences);
+		prefabResourceLink = this.ReplacePrefabResourceLink(originalPrefabResourceLink, characterPattern.m_replacementSequences);
+		if (prefabResourceLink != null)
+		{
+			return prefabResourceLink;
+		}
+		prefabResourceLink = this.ReplacePrefabResourceLink(originalPrefabResourceLink, characterSkin.m_replacementSequences);
 		if (prefabResourceLink != null)
 		{
 			return prefabResourceLink;
@@ -1232,11 +1122,7 @@ public class CharacterResourceLink : MonoBehaviour
 		{
 			foreach (PrefabReplacement prefabReplacement in replacements)
 			{
-				if (!(prefabReplacement.OriginalPrefab.ResourcePath == originalPrefabResourceLink.ResourcePath))
-				{
-					continue;
-				}
-				while (true)
+				if (prefabReplacement.OriginalPrefab.ResourcePath == originalPrefabResourceLink.ResourcePath)
 				{
 					return prefabReplacement.Replacement;
 				}
@@ -1248,123 +1134,93 @@ public class CharacterResourceLink : MonoBehaviour
 	public GameBalanceVars.CharacterUnlockData CreateUnlockData()
 	{
 		GameBalanceVars.CharacterUnlockData characterUnlockData = new GameBalanceVars.CharacterUnlockData();
-		characterUnlockData.character = m_characterType;
-		m_charUnlockData.CopyValuesTo(characterUnlockData);
-		characterUnlockData.Name = m_displayName;
+		characterUnlockData.character = this.m_characterType;
+		this.m_charUnlockData.CopyValuesTo(characterUnlockData);
+		characterUnlockData.Name = this.m_displayName;
 		List<GameBalanceVars.SkinUnlockData> list = new List<GameBalanceVars.SkinUnlockData>();
-		for (int i = 0; i < m_skins.Count; i++)
+		for (int i = 0; i < this.m_skins.Count; i++)
 		{
-			CharacterSkin characterSkin = m_skins[i];
+			CharacterSkin characterSkin = this.m_skins[i];
 			GameBalanceVars.SkinUnlockData skinUnlockData = new GameBalanceVars.SkinUnlockData();
 			characterSkin.m_skinUnlockData.CopyValuesTo(skinUnlockData);
 			skinUnlockData.m_isHidden = characterSkin.m_isHidden;
 			skinUnlockData.Name = characterSkin.m_name;
-			skinUnlockData.SetCharacterTypeInt((int)m_characterType);
+			skinUnlockData.SetCharacterTypeInt((int)this.m_characterType);
 			skinUnlockData.SetID(i);
 			List<GameBalanceVars.PatternUnlockData> list2 = new List<GameBalanceVars.PatternUnlockData>();
-			int num = 0;
-			while (num < characterSkin.m_patterns.Count)
+			for (int j = 0; j < characterSkin.m_patterns.Count; j++)
 			{
-				CharacterPattern characterPattern = characterSkin.m_patterns[num];
+				CharacterPattern characterPattern = characterSkin.m_patterns[j];
 				GameBalanceVars.PatternUnlockData patternUnlockData = new GameBalanceVars.PatternUnlockData();
 				characterPattern.m_patternUnlockData.CopyValuesTo(patternUnlockData);
 				patternUnlockData.m_isHidden = characterPattern.m_isHidden;
 				patternUnlockData.Name = characterPattern.m_name;
-				patternUnlockData.SetCharacterTypeInt((int)m_characterType);
+				patternUnlockData.SetCharacterTypeInt((int)this.m_characterType);
 				patternUnlockData.SetSkinIndex(i);
-				patternUnlockData.SetID(num);
+				patternUnlockData.SetID(j);
 				List<GameBalanceVars.ColorUnlockData> list3 = new List<GameBalanceVars.ColorUnlockData>();
-				for (int j = 0; j < characterPattern.m_colors.Count; j++)
+				for (int k = 0; k < characterPattern.m_colors.Count; k++)
 				{
-					CharacterColor characterColor = characterPattern.m_colors[j];
+					CharacterColor characterColor = characterPattern.m_colors[k];
 					GameBalanceVars.ColorUnlockData colorUnlockData = new GameBalanceVars.ColorUnlockData();
 					characterColor.m_colorUnlockData.CopyValuesTo(colorUnlockData);
 					colorUnlockData.m_isHidden = characterColor.m_isHidden;
 					colorUnlockData.m_sortOrder = characterColor.m_sortOrder;
 					colorUnlockData.Name = characterColor.m_name;
-					colorUnlockData.SetCharacterTypeInt((int)m_characterType);
+					colorUnlockData.SetCharacterTypeInt((int)this.m_characterType);
 					colorUnlockData.SetSkinIndex(i);
-					colorUnlockData.SetPatternIndex(num);
-					colorUnlockData.SetID(j);
+					colorUnlockData.SetPatternIndex(j);
+					colorUnlockData.SetID(k);
 					list3.Add(colorUnlockData);
 				}
-				while (true)
-				{
-					patternUnlockData.colorUnlockData = list3.ToArray();
-					list2.Add(patternUnlockData);
-					num++;
-					goto IL_01d3;
-				}
-				IL_01d3:;
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_01e7;
-				}
-				continue;
-				end_IL_01e7:
-				break;
+				patternUnlockData.colorUnlockData = list3.ToArray();
+				list2.Add(patternUnlockData);
 			}
 			skinUnlockData.patternUnlockData = list2.ToArray();
 			list.Add(skinUnlockData);
 		}
-		while (true)
+		characterUnlockData.skinUnlockData = list.ToArray();
+		List<GameBalanceVars.TauntUnlockData> list4 = new List<GameBalanceVars.TauntUnlockData>();
+		for (int l = 0; l < this.m_taunts.Count; l++)
 		{
-			characterUnlockData.skinUnlockData = list.ToArray();
-			List<GameBalanceVars.TauntUnlockData> list4 = new List<GameBalanceVars.TauntUnlockData>();
-			for (int k = 0; k < m_taunts.Count; k++)
-			{
-				GameBalanceVars.TauntUnlockData tauntUnlockData = m_taunts[k].m_tauntUnlockData.Clone();
-				tauntUnlockData.Name = m_taunts[k].m_tauntName;
-				tauntUnlockData.m_isHidden = m_taunts[k].m_isHidden;
-				tauntUnlockData.SetCharacterTypeInt((int)m_characterType);
-				tauntUnlockData.SetID(k);
-				list4.Add(tauntUnlockData);
-			}
-			characterUnlockData.tauntUnlockData = list4.ToArray();
-			List<GameBalanceVars.AbilityVfxUnlockData> list5 = new List<GameBalanceVars.AbilityVfxUnlockData>();
-			GenerateVfxSwapUnlockData(m_vfxSwapsForAbility0, 0, list5);
-			GenerateVfxSwapUnlockData(m_vfxSwapsForAbility1, 1, list5);
-			GenerateVfxSwapUnlockData(m_vfxSwapsForAbility2, 2, list5);
-			GenerateVfxSwapUnlockData(m_vfxSwapsForAbility3, 3, list5);
-			GenerateVfxSwapUnlockData(m_vfxSwapsForAbility4, 4, list5);
-			characterUnlockData.abilityVfxUnlockData = list5.ToArray();
-			return characterUnlockData;
+			GameBalanceVars.TauntUnlockData tauntUnlockData = this.m_taunts[l].m_tauntUnlockData.Clone();
+			tauntUnlockData.Name = this.m_taunts[l].m_tauntName;
+			tauntUnlockData.m_isHidden = this.m_taunts[l].m_isHidden;
+			tauntUnlockData.SetCharacterTypeInt((int)this.m_characterType);
+			tauntUnlockData.SetID(l);
+			list4.Add(tauntUnlockData);
 		}
+		characterUnlockData.tauntUnlockData = list4.ToArray();
+		List<GameBalanceVars.AbilityVfxUnlockData> list5 = new List<GameBalanceVars.AbilityVfxUnlockData>();
+		this.GenerateVfxSwapUnlockData(this.m_vfxSwapsForAbility0, 0, list5);
+		this.GenerateVfxSwapUnlockData(this.m_vfxSwapsForAbility1, 1, list5);
+		this.GenerateVfxSwapUnlockData(this.m_vfxSwapsForAbility2, 2, list5);
+		this.GenerateVfxSwapUnlockData(this.m_vfxSwapsForAbility3, 3, list5);
+		this.GenerateVfxSwapUnlockData(this.m_vfxSwapsForAbility4, 4, list5);
+		characterUnlockData.abilityVfxUnlockData = list5.ToArray();
+		return characterUnlockData;
 	}
 
 	private void GenerateVfxSwapUnlockData(List<CharacterAbilityVfxSwap> input, int abilityIndex, List<GameBalanceVars.AbilityVfxUnlockData> genUnlockDataList)
 	{
 		if (input != null)
 		{
-			while (true)
+			for (int i = 0; i < input.Count; i++)
 			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					for (int i = 0; i < input.Count; i++)
-					{
-						GameBalanceVars.AbilityVfxUnlockData abilityVfxUnlockData = input[i].m_vfxSwapUnlockData.Clone();
-						abilityVfxUnlockData.m_isHidden = input[i].m_isHidden;
-						abilityVfxUnlockData.SetCharacterTypeInt((int)m_characterType);
-						abilityVfxUnlockData.SetSwapAbilityId(abilityIndex);
-						abilityVfxUnlockData.SetID(input[i].m_uniqueID);
-						abilityVfxUnlockData.Name = input[i].m_swapName;
-						genUnlockDataList.Add(abilityVfxUnlockData);
-					}
-					return;
-				}
-				}
+				GameBalanceVars.AbilityVfxUnlockData abilityVfxUnlockData = input[i].m_vfxSwapUnlockData.Clone();
+				abilityVfxUnlockData.m_isHidden = input[i].m_isHidden;
+				abilityVfxUnlockData.SetCharacterTypeInt((int)this.m_characterType);
+				abilityVfxUnlockData.SetSwapAbilityId(abilityIndex);
+				abilityVfxUnlockData.SetID(input[i].m_uniqueID);
+				abilityVfxUnlockData.Name = input[i].m_swapName;
+				genUnlockDataList.Add(abilityVfxUnlockData);
 			}
 		}
-		Debug.LogWarning("Vfx Swap Data is null on " + base.gameObject.name);
+		else
+		{
+			Debug.LogWarning("Vfx Swap Data is null on " + base.gameObject.name);
+		}
 	}
+
+	internal delegate void CharacterResourceDelegate(LoadedCharacterSelection loadedCharacter);
 }

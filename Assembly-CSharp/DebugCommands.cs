@@ -37,53 +37,20 @@ public class DebugCommands
 		s_instance = null;
 	}
 
-	public bool RunDebugCommand(string command, string arguments)
-	{
-		bool flag = GameFlowData.Get() == null;
-		bool flag2 = false;
-		using (List<DebugCommand>.Enumerator enumerator = m_debugCommands.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				DebugCommand current = enumerator.Current;
-				if (flag)
-				{
-					if (!current.AvailableInFrontEnd())
-					{
-						continue;
-					}
-				}
-				if (current._0018().Contains(command.ToLower()))
-				{
-					flag2 = current.OnSlashCommand(arguments);
-					if (flag2)
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								ClientGameManager.Get()._001D(command, arguments);
-								return flag2;
-							}
-						}
-					}
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return flag2;
-				}
-			}
-		}
-	}
+  public bool RunDebugCommand(string command, string arguments)
+  {
+    bool flag1 = ((UnityEngine.Object) GameFlowData.Get() == (UnityEngine.Object) null);
+    bool flag2 = false;
+    foreach (DebugCommand debugCommand in this.m_debugCommands)
+    {
+      if ((!flag1 || debugCommand.AvailableInFrontEnd()) && (debugCommand._0018().Contains(command.ToLower()) && (flag2 = debugCommand.OnSlashCommand(arguments))))
+      {
+        ClientGameManager.Get().symbol_001D(command, arguments);
+        break;
+      }
+    }
+    return flag2;
+  }
 
 	public List<string> GetAvailableCommandNames(string searchStr)
 	{
@@ -125,31 +92,19 @@ public class DebugCommands
 		return list;
 	}
 
-	public void OnIncreaseClick(DebugCommand command)
-	{
-		command.OnIncreaseClick();
-		if (command.GetType() == typeof(DebugCommand_Category) || command.GetType() == typeof(DebugCommand_Back))
-		{
-			return;
-		}
-		while (true)
-		{
-			ClientGameManager.Get()._001D(command.GetDebugItemName(), command.GetDebugItemValue());
-			return;
-		}
-	}
+  public void OnIncreaseClick(DebugCommand command)
+  {
+    command.OnIncreaseClick();
+    if (command.GetType() == typeof (DebugCommand_Category) || command.GetType() == typeof (DebugCommand_Back))
+      return;
+    ClientGameManager.Get().symbol_001D(command.GetDebugItemName(), command.GetDebugItemValue());
+  }
 
-	public void OnDecreaseClick(DebugCommand command)
-	{
-		command.OnDecreaseClick();
-		if (command.GetType() == typeof(DebugCommand_Category) || command.GetType() == typeof(DebugCommand_Back))
-		{
-			return;
-		}
-		while (true)
-		{
-			ClientGameManager.Get()._001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
-			return;
-		}
-	}
+  public void OnDecreaseClick(DebugCommand command)
+  {
+    command.OnDecreaseClick();
+    if (command.GetType() == typeof (DebugCommand_Category) || command.GetType() == typeof (DebugCommand_Back))
+      return;
+    ClientGameManager.Get().symbol_001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+  }
 }

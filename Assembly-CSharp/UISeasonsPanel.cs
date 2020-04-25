@@ -1,7 +1,8 @@
-using I2.Loc;
-using LobbyGameClientMessages;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using I2.Loc;
+using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -149,7 +150,7 @@ public class UISeasonsPanel : UIScene
 
 	public UIPlayerSeasonDisplayInfo GetSeasonDisplayInfo()
 	{
-		return m_selectedSeason;
+		return this.m_selectedSeason;
 	}
 
 	public override SceneType GetSceneType()
@@ -159,125 +160,113 @@ public class UISeasonsPanel : UIScene
 
 	public override void Awake()
 	{
-		s_instance = this;
+		UISeasonsPanel.s_instance = this;
 		base.Awake();
-		m_scrollMasks = new List<Mask>();
-		m_scrollMasks.Add(m_ChapterViewQuestChallengeScrollRect.GetComponent<Mask>());
-		m_scrollMasks.Add(m_QuestChallengeScrollList.GetComponent<Mask>());
-		m_scrollMasks.Add(m_seasonsScrollList.GetScrollRect().GetComponent<Mask>());
-		UIManager.SetGameObjectActive(m_previousSeasonsBtn, LocalizationManager.CurrentLanguageCode != "zh");
-		m_previousSeasonsBtn.spriteController.callback = PreviousSeasonsBtnClicked;
-		m_OverviewButton.spriteController.callback = HeaderBtnClicked;
-		m_factionsMoreInfoButton.callback = FactionsMoreInfoClicked;
-		UIManager.SetGameObjectActive(m_purchaseLevelsBtn, false);
-		SetupChapterButtonName(0);
-		endChapterExpandLocation = m_ChapterTextContainer.sizeDelta;
-		m_ChapterTextClickArea.callback = ChapterTextAreaClicked;
-		_MouseEventPasser mouseEventPasser = m_ChapterTextClickArea.gameObject.AddComponent<_MouseEventPasser>();
-		mouseEventPasser.AddNewHandler(ChapterDescriptionContainer);
-		mouseEventPasser = ChapterDescriptionContainer.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
-		mouseEventPasser.AddNewHandler(ChapterDescriptionContainer);
-		displayInfo = new List<UIPlayerSeasonDisplayInfo>();
-		m_questEntryList = new List<UISeasonsQuestEntry>();
-		UIManager.SetGameObjectActive(m_seasonsChapterBtnContainer, false);
-		UIManager.SetGameObjectActive(m_questsCompletedStamp, false);
-		m_seasonsScrollList.GetScrollRect().scrollSensitivity = 150f;
-		m_ChapterViewQuestChallengeScrollRect.scrollSensitivity = 125f;
-		m_ChapterViewQuestChallengeScrollRect.elasticity = 0.01f;
-		UIManager.SetGameObjectActive(m_bottomCommunityContainer, false);
-		UIManager.SetGameObjectActive(m_topCommunityContainer, false);
-		OnFactionCompetitionNotification(null);
-		ClientGameManager.Get().OnAccountDataUpdated += OnAccountDataUpdated;
-		ClientGameManager.Get().OnCharacterDataUpdated += OnCharacterDataUpdated;
-		ClientGameManager.Get().OnSeasonChapterQuestsChange += OnSeasonChapterQuestsChange;
-		ClientGameManager.Get().OnFactionCompetitionNotification += OnFactionCompetitionNotification;
-		ClientGameManager.Get().OnPlayerFactionContributionChangeNotification += OnPlayerFactionContributionChangeNotification;
-		ClientGameManager.Get().OnLobbyGameplayOverridesChange += OnLobbyGameplayOverridesChange;
-		ClientGameManager.Get().OnSeasonCompleteNotification += OnSeasonCompleteNotification;
-		if (!(HitchDetector.Get() != null))
+		this.m_scrollMasks = new List<Mask>();
+		this.m_scrollMasks.Add(this.m_ChapterViewQuestChallengeScrollRect.GetComponent<Mask>());
+		this.m_scrollMasks.Add(this.m_QuestChallengeScrollList.GetComponent<Mask>());
+		this.m_scrollMasks.Add(this.m_seasonsScrollList.GetScrollRect().GetComponent<Mask>());
+		UIManager.SetGameObjectActive(this.m_previousSeasonsBtn, LocalizationManager.CurrentLanguageCode != "zh", null);
+		this.m_previousSeasonsBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PreviousSeasonsBtnClicked);
+		this.m_OverviewButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HeaderBtnClicked);
+		this.m_factionsMoreInfoButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FactionsMoreInfoClicked);
+		UIManager.SetGameObjectActive(this.m_purchaseLevelsBtn, false, null);
+		this.SetupChapterButtonName(0);
+		this.endChapterExpandLocation = this.m_ChapterTextContainer.sizeDelta;
+		this.m_ChapterTextClickArea.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ChapterTextAreaClicked);
+		_MouseEventPasser mouseEventPasser = this.m_ChapterTextClickArea.gameObject.AddComponent<_MouseEventPasser>();
+		mouseEventPasser.AddNewHandler(this.ChapterDescriptionContainer);
+		mouseEventPasser = this.ChapterDescriptionContainer.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
+		mouseEventPasser.AddNewHandler(this.ChapterDescriptionContainer);
+		this.displayInfo = new List<UIPlayerSeasonDisplayInfo>();
+		this.m_questEntryList = new List<UISeasonsQuestEntry>();
+		UIManager.SetGameObjectActive(this.m_seasonsChapterBtnContainer, false, null);
+		UIManager.SetGameObjectActive(this.m_questsCompletedStamp, false, null);
+		this.m_seasonsScrollList.GetScrollRect().scrollSensitivity = 150f;
+		this.m_ChapterViewQuestChallengeScrollRect.scrollSensitivity = 125f;
+		this.m_ChapterViewQuestChallengeScrollRect.elasticity = 0.01f;
+		UIManager.SetGameObjectActive(this.m_bottomCommunityContainer, false, null);
+		UIManager.SetGameObjectActive(this.m_topCommunityContainer, false, null);
+		this.OnFactionCompetitionNotification(null);
+		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdated;
+		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
+		ClientGameManager.Get().OnSeasonChapterQuestsChange += this.OnSeasonChapterQuestsChange;
+		ClientGameManager.Get().OnFactionCompetitionNotification += this.OnFactionCompetitionNotification;
+		ClientGameManager.Get().OnPlayerFactionContributionChangeNotification += this.OnPlayerFactionContributionChangeNotification;
+		ClientGameManager.Get().OnLobbyGameplayOverridesChange += this.OnLobbyGameplayOverridesChange;
+		ClientGameManager.Get().OnSeasonCompleteNotification += this.OnSeasonCompleteNotification;
+		if (HitchDetector.Get() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			HitchDetector.Get().AddNewLayoutGroup(m_repeatingGridContainer);
-			HitchDetector.Get().AddNewLayoutGroup(m_QuestListContainer);
-			HitchDetector.Get().AddNewLayoutGroup(m_seasonFactionList);
-			HitchDetector.Get().AddNewLayoutGroup(m_seasonsChapterBtnContainer.GetComponentInChildren<LayoutGroup>(true));
-			return;
+			HitchDetector.Get().AddNewLayoutGroup(this.m_repeatingGridContainer);
+			HitchDetector.Get().AddNewLayoutGroup(this.m_QuestListContainer);
+			HitchDetector.Get().AddNewLayoutGroup(this.m_seasonFactionList);
+			HitchDetector.Get().AddNewLayoutGroup(this.m_seasonsChapterBtnContainer.GetComponentInChildren<LayoutGroup>(true));
 		}
 	}
 
 	private void SetupChapterButtonName(int chapterIndex)
 	{
-		m_currentChapterButton.spriteController.callback = HeaderBtnClicked;
-		m_currentChapterButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, (UITooltipBase tooltip) => HeaderBtnTooltipSetup(tooltip, chapterIndex));
-		TextMeshProUGUI[] componentsInChildren = m_currentChapterButton.GetComponentsInChildren<TextMeshProUGUI>(true);
+		int index = chapterIndex;
+		this.m_currentChapterButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.HeaderBtnClicked);
+		this.m_currentChapterButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, (UITooltipBase tooltip) => this.HeaderBtnTooltipSetup(tooltip, index), null);
+		TextMeshProUGUI[] componentsInChildren = this.m_currentChapterButton.GetComponentsInChildren<TextMeshProUGUI>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			componentsInChildren[i].text = string.Format(StringUtil.TR("SeasonChapterLabel", "Seasons"), (chapterIndex + 1).ToString());
 		}
-		while (true)
+		Image[] componentsInChildren2 = this.m_currentChapterButton.GetComponentsInChildren<Image>(true);
+		for (int j = 0; j < componentsInChildren2.Length; j++)
 		{
-			Image[] componentsInChildren2 = m_currentChapterButton.GetComponentsInChildren<Image>(true);
-			for (int j = 0; j < componentsInChildren2.Length; j++)
+			if (componentsInChildren2[j].gameObject.name == "LockedIcon")
 			{
-				if (!(componentsInChildren2[j].gameObject.name == "LockedIcon"))
-				{
-					continue;
-				}
-				while (true)
-				{
-					m_currentChapterLockIcon = componentsInChildren2[j];
-					return;
-				}
+				this.m_currentChapterLockIcon = componentsInChildren2[j];
+				return;
 			}
-			while (true)
+		}
+		for (;;)
+		{
+			switch (4)
 			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
+			case 0:
+				continue;
 			}
+			return;
 		}
 	}
 
 	private void SetupChapterButtonSpriteController(UIPlayerSeasonDisplayInfo seasonInfo)
 	{
 		bool setActive = false;
-		if (m_selectedChapterIndex >= 0 && m_selectedChapterIndex < seasonInfo.ChapterEntries.Count)
+		if (this.m_selectedChapterIndex >= 0 && this.m_selectedChapterIndex < seasonInfo.ChapterEntries.Count)
 		{
-			if (!seasonInfo.ChapterEntries[m_selectedChapterIndex].IsChapterHidden)
+			if (!seasonInfo.ChapterEntries[this.m_selectedChapterIndex].IsChapterHidden)
 			{
 				setActive = true;
 			}
-			bool isChapterViewable = seasonInfo.ChapterEntries[m_selectedChapterIndex].IsChapterViewable;
-			bool flag = seasonInfo.ChapterEntries[m_selectedChapterIndex].IsChapterLocked;
-			if (flag && !seasonInfo.ChapterEntries[m_selectedChapterIndex].AreQuestsStatic)
+			bool isChapterViewable = seasonInfo.ChapterEntries[this.m_selectedChapterIndex].IsChapterViewable;
+			bool flag = seasonInfo.ChapterEntries[this.m_selectedChapterIndex].IsChapterLocked;
+			if (flag && !seasonInfo.ChapterEntries[this.m_selectedChapterIndex].AreQuestsStatic)
 			{
 				if (ClientGameManager.Get() != null)
 				{
-					if (seasonInfo.ChapterEntries[m_selectedChapterIndex].StartDate < ClientGameManager.Get().PacificNow())
+					if (seasonInfo.ChapterEntries[this.m_selectedChapterIndex].StartDate < ClientGameManager.Get().PacificNow())
 					{
 						flag = false;
 					}
 				}
 			}
-			if (m_currentChapterLockIcon != null)
+			if (this.m_currentChapterLockIcon != null)
 			{
-				UIManager.SetGameObjectActive(m_currentChapterLockIcon, flag);
+				UIManager.SetGameObjectActive(this.m_currentChapterLockIcon, flag, null);
 			}
-			UIManager.SetGameObjectActive(m_currentChapterButton.spriteController.m_defaultImage, isChapterViewable);
-			UIManager.SetGameObjectActive(m_currentChapterButton.spriteController.m_hoverImage, isChapterViewable);
-			UIManager.SetGameObjectActive(m_currentChapterButton.spriteController.m_pressedImage, isChapterViewable);
-			m_currentChapterButton.spriteController.SetClickable(isChapterViewable);
-			m_currentChapterButton.spriteController.SetForceExitCallback(true);
-			m_currentChapterButton.spriteController.SetForceHovercallback(true);
+			UIManager.SetGameObjectActive(this.m_currentChapterButton.spriteController.m_defaultImage, isChapterViewable, null);
+			UIManager.SetGameObjectActive(this.m_currentChapterButton.spriteController.m_hoverImage, isChapterViewable, null);
+			UIManager.SetGameObjectActive(this.m_currentChapterButton.spriteController.m_pressedImage, isChapterViewable, null);
+			this.m_currentChapterButton.spriteController.SetClickable(isChapterViewable);
+			this.m_currentChapterButton.spriteController.SetForceExitCallback(true);
+			this.m_currentChapterButton.spriteController.SetForceHovercallback(true);
 		}
-		StaggerComponent.SetStaggerComponent(m_currentChapterButton.gameObject, setActive);
+		StaggerComponent.SetStaggerComponent(this.m_currentChapterButton.gameObject, setActive, true);
 	}
 
 	private void OnDestroy()
@@ -285,54 +274,45 @@ public class UISeasonsPanel : UIScene
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager == null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
-		clientGameManager.OnAccountDataUpdated -= OnAccountDataUpdated;
-		clientGameManager.OnCharacterDataUpdated -= OnCharacterDataUpdated;
-		clientGameManager.OnSeasonChapterQuestsChange -= OnSeasonChapterQuestsChange;
-		clientGameManager.OnFactionCompetitionNotification -= OnFactionCompetitionNotification;
-		clientGameManager.OnPlayerFactionContributionChangeNotification -= OnPlayerFactionContributionChangeNotification;
-		clientGameManager.OnLobbyGameplayOverridesChange -= OnLobbyGameplayOverridesChange;
-		clientGameManager.OnSeasonCompleteNotification -= OnSeasonCompleteNotification;
+		clientGameManager.OnAccountDataUpdated -= this.OnAccountDataUpdated;
+		clientGameManager.OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
+		clientGameManager.OnSeasonChapterQuestsChange -= this.OnSeasonChapterQuestsChange;
+		clientGameManager.OnFactionCompetitionNotification -= this.OnFactionCompetitionNotification;
+		clientGameManager.OnPlayerFactionContributionChangeNotification -= this.OnPlayerFactionContributionChangeNotification;
+		clientGameManager.OnLobbyGameplayOverridesChange -= this.OnLobbyGameplayOverridesChange;
+		clientGameManager.OnSeasonCompleteNotification -= this.OnSeasonCompleteNotification;
 	}
 
 	private void OnAccountDataUpdated(PersistedAccountData newData)
 	{
-		Setup(false, false, false);
+		this.Setup(false, false, false);
 	}
 
 	private void OnCharacterDataUpdated(PersistedCharacterData newData)
 	{
-		RefreshRewardsEntries();
+		this.RefreshRewardsEntries();
 	}
 
 	private void OnSeasonChapterQuestsChange(Dictionary<int, SeasonChapterQuests> seasonChapterQuests)
 	{
-		Setup(false, false, false);
+		this.Setup(false, false, false);
 	}
 
 	private void OnPlayerFactionContributionChangeNotification(PlayerFactionContributionChangeNotification notification)
 	{
-		UpdatePersonalContribution();
+		this.UpdatePersonalContribution();
 	}
 
 	private void OnLobbyGameplayOverridesChange(LobbyGameplayOverrides gameplayOverrides)
 	{
-		OnFactionCompetitionNotification(null);
+		this.OnFactionCompetitionNotification(null);
 	}
 
 	public void UpdatePersonalContribution()
 	{
-		UISeasonPanelViewEntry[] componentsInChildren = m_seasonFactionList.GetComponentsInChildren<UISeasonPanelViewEntry>(true);
+		UISeasonPanelViewEntry[] componentsInChildren = this.m_seasonFactionList.GetComponentsInChildren<UISeasonPanelViewEntry>(true);
 		int activeFactionCompetition = ClientGameManager.Get().ActiveFactionCompetition;
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
@@ -362,94 +342,77 @@ public class UISeasonsPanel : UIScene
 			{
 				if (factionCompetition.ShouldShowcase)
 				{
-					UIManager.SetGameObjectActive(m_topFactionsContainer, true);
-					UIManager.SetGameObjectActive(m_bottomFactionsContainer, true);
+					UIManager.SetGameObjectActive(this.m_topFactionsContainer, true, null);
+					UIManager.SetGameObjectActive(this.m_bottomFactionsContainer, true, null);
 					List<UISeasonPanelViewEntry> list = new List<UISeasonPanelViewEntry>();
-					list.AddRange(m_seasonFactionList.GetComponentsInChildren<UISeasonPanelViewEntry>(true));
-					for (int num = list.Count - 1; num >= factionCompetition.Factions.Count; num--)
+					list.AddRange(this.m_seasonFactionList.GetComponentsInChildren<UISeasonPanelViewEntry>(true));
+					for (int i = list.Count - 1; i >= factionCompetition.Factions.Count; i--)
 					{
-						Object.Destroy(list[num].gameObject);
-						list.RemoveAt(num);
+						UnityEngine.Object.Destroy(list[i].gameObject);
+						list.RemoveAt(i);
 					}
-					while (true)
+					for (int j = list.Count; j < factionCompetition.Factions.Count; j++)
 					{
-						for (int i = list.Count; i < factionCompetition.Factions.Count; i++)
+						UISeasonPanelViewEntry uiseasonPanelViewEntry = UnityEngine.Object.Instantiate<UISeasonPanelViewEntry>(this.m_seasonFactionPrefab);
+						uiseasonPanelViewEntry.transform.SetParent(this.m_seasonFactionList.transform);
+						uiseasonPanelViewEntry.transform.localScale = Vector3.one;
+						uiseasonPanelViewEntry.transform.localPosition = Vector3.zero;
+						list.Add(uiseasonPanelViewEntry);
+					}
+					List<UISeasonFactionPercentageBar> list2 = new List<UISeasonFactionPercentageBar>();
+					list2.AddRange(this.m_topPercentBarcontainer.GetComponentsInChildren<UISeasonFactionPercentageBar>(true));
+					for (int k = list2.Count - 1; k >= factionCompetition.Factions.Count; k--)
+					{
+						UnityEngine.Object.Destroy(list2[k].gameObject);
+						list2.RemoveAt(k);
+					}
+					for (int l = list2.Count; l < factionCompetition.Factions.Count; l++)
+					{
+						UISeasonFactionPercentageBar uiseasonFactionPercentageBar = UnityEngine.Object.Instantiate<UISeasonFactionPercentageBar>(this.m_topPercentBarPrefab);
+						uiseasonFactionPercentageBar.transform.SetParent(this.m_topPercentBarcontainer.transform);
+						uiseasonFactionPercentageBar.transform.localScale = Vector3.one;
+						uiseasonFactionPercentageBar.transform.localPosition = Vector3.zero;
+						list2.Add(uiseasonFactionPercentageBar);
+					}
+					long num = 0L;
+					for (int m = 0; m < factionCompetition.Factions.Count; m++)
+					{
+						long num2;
+						dictionary.TryGetValue(m, out num2);
+						list[m].Setup(factionCompetition.Factions[m], num2, m);
+						num += num2;
+					}
+					float num3 = 0f;
+					for (int n = 0; n < factionCompetition.Factions.Count; n++)
+					{
+						if (num == 0L)
 						{
-							UISeasonPanelViewEntry uISeasonPanelViewEntry = Object.Instantiate(m_seasonFactionPrefab);
-							uISeasonPanelViewEntry.transform.SetParent(m_seasonFactionList.transform);
-							uISeasonPanelViewEntry.transform.localScale = Vector3.one;
-							uISeasonPanelViewEntry.transform.localPosition = Vector3.zero;
-							list.Add(uISeasonPanelViewEntry);
+							UIManager.SetGameObjectActive(list2[n], false, null);
 						}
-						while (true)
+						else
 						{
-							List<UISeasonFactionPercentageBar> list2 = new List<UISeasonFactionPercentageBar>();
-							list2.AddRange(m_topPercentBarcontainer.GetComponentsInChildren<UISeasonFactionPercentageBar>(true));
-							for (int num2 = list2.Count - 1; num2 >= factionCompetition.Factions.Count; num2--)
+							long num4;
+							dictionary.TryGetValue(n, out num4);
+							if (num4 > 0L)
 							{
-								Object.Destroy(list2[num2].gameObject);
-								list2.RemoveAt(num2);
+								float num5 = (float)num4 / (float)num;
+								UIManager.SetGameObjectActive(list2[n], true, null);
+								float[] rbga = FactionWideData.Get().GetRBGA(factionCompetition.Factions[n]);
+								Color factionColor = new Color(rbga[0], rbga[1], rbga[2], rbga[3]);
+								num3 = list2[n].Setup(num3, num5 + num3, factionColor);
 							}
-							for (int j = list2.Count; j < factionCompetition.Factions.Count; j++)
+							else
 							{
-								UISeasonFactionPercentageBar uISeasonFactionPercentageBar = Object.Instantiate(m_topPercentBarPrefab);
-								uISeasonFactionPercentageBar.transform.SetParent(m_topPercentBarcontainer.transform);
-								uISeasonFactionPercentageBar.transform.localScale = Vector3.one;
-								uISeasonFactionPercentageBar.transform.localPosition = Vector3.zero;
-								list2.Add(uISeasonFactionPercentageBar);
-							}
-							while (true)
-							{
-								long num3 = 0L;
-								for (int k = 0; k < factionCompetition.Factions.Count; k++)
-								{
-									dictionary.TryGetValue(k, out long value);
-									list[k].Setup(factionCompetition.Factions[k], value, k);
-									num3 += value;
-								}
-								while (true)
-								{
-									float num4 = 0f;
-									for (int l = 0; l < factionCompetition.Factions.Count; l++)
-									{
-										if (num3 == 0)
-										{
-											UIManager.SetGameObjectActive(list2[l], false);
-											continue;
-										}
-										dictionary.TryGetValue(l, out long value2);
-										if (value2 > 0)
-										{
-											float num5 = (float)value2 / (float)num3;
-											UIManager.SetGameObjectActive(list2[l], true);
-											float[] rBGA = FactionWideData.Get().GetRBGA(factionCompetition.Factions[l]);
-											Color factionColor = new Color(rBGA[0], rBGA[1], rBGA[2], rBGA[3]);
-											num4 = list2[l].Setup(num4, num5 + num4, factionColor);
-										}
-										else
-										{
-											UIManager.SetGameObjectActive(list2[l], true);
-										}
-									}
-									while (true)
-									{
-										switch (3)
-										{
-										default:
-											return;
-										case 0:
-											break;
-										}
-									}
-								}
+								UIManager.SetGameObjectActive(list2[n], true, null);
 							}
 						}
 					}
+					return;
 				}
 			}
 		}
-		UIManager.SetGameObjectActive(m_topFactionsContainer, false);
-		UIManager.SetGameObjectActive(m_bottomFactionsContainer, false);
+		UIManager.SetGameObjectActive(this.m_topFactionsContainer, false, null);
+		UIManager.SetGameObjectActive(this.m_bottomFactionsContainer, false, null);
 	}
 
 	public void PreviousSeasonsBtnClicked(BaseEventData data)
@@ -459,109 +422,93 @@ public class UISeasonsPanel : UIScene
 
 	public void ChapterTextAreaClicked(BaseEventData data)
 	{
-		ToggleChapterTextAreaExpand();
+		this.ToggleChapterTextAreaExpand();
 	}
 
 	private void UpdateChapterText()
 	{
-		if (m_selectedSeason == null)
+		if (this.m_selectedSeason != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_ChapterTextExpanded)
+			if (this.m_ChapterTextExpanded)
 			{
-				ChapterDescription.text = StringUtil.TR_SeasonStorytimeLongBody(m_selectedSeason.SeasonNumber, m_selectedChapterIndex + 1, 1);
-				for (int i = 1; i < m_selectedSeason.ChapterEntries[m_selectedChapterIndex].SeasonChapterStory.Count; i++)
+				this.ChapterDescription.text = StringUtil.TR_SeasonStorytimeLongBody(this.m_selectedSeason.SeasonNumber, this.m_selectedChapterIndex + 1, 1);
+				for (int i = 1; i < this.m_selectedSeason.ChapterEntries[this.m_selectedChapterIndex].SeasonChapterStory.Count; i++)
 				{
-					ChapterDescription.text += StringUtil.TR_SeasonStorytimeLongBody(m_selectedSeason.SeasonNumber, m_selectedChapterIndex + 1, i + 1);
+					TextMeshProUGUI chapterDescription = this.ChapterDescription;
+					chapterDescription.text += StringUtil.TR_SeasonStorytimeLongBody(this.m_selectedSeason.SeasonNumber, this.m_selectedChapterIndex + 1, i + 1);
 				}
 			}
 			else
 			{
-				ChapterDescription.text = StringUtil.TR_SeasonStorytimeBody(m_selectedSeason.SeasonNumber, m_selectedChapterIndex + 1, 1);
+				this.ChapterDescription.text = StringUtil.TR_SeasonStorytimeBody(this.m_selectedSeason.SeasonNumber, this.m_selectedChapterIndex + 1, 1);
 			}
-			RectTransform obj = ChapterDescription.transform as RectTransform;
-			Vector2 sizeDelta = (ChapterDescription.transform as RectTransform).sizeDelta;
-			float x = sizeDelta.x;
-			Vector2 preferredValues = ChapterDescription.GetPreferredValues();
-			float y = preferredValues.y;
+			RectTransform rectTransform = this.ChapterDescription.transform as RectTransform;
+			float x = (this.ChapterDescription.transform as RectTransform).sizeDelta.x;
+			float y = this.ChapterDescription.GetPreferredValues().y;
 			float num;
-			if (m_ChapterTextExpanded)
+			if (this.m_ChapterTextExpanded)
 			{
-				num = m_scrollHeightMax;
+				num = this.m_scrollHeightMax;
 			}
 			else
 			{
-				num = m_scrollHeightMin;
+				num = this.m_scrollHeightMin;
 			}
-			obj.sizeDelta = new Vector2(x, y - num);
-			return;
+			rectTransform.sizeDelta = new Vector2(x, y - num);
 		}
 	}
 
 	private IEnumerator DoSetChapterTextAreaExpand(bool expanded)
 	{
-		m_ChapterTextExpanded = expanded;
-		UIManager.SetGameObjectActive(m_ChapterClickToReadMoreText, !expanded);
-		UpdateChapterText();
+		this.m_ChapterTextExpanded = expanded;
+		UIManager.SetGameObjectActive(this.m_ChapterClickToReadMoreText, !expanded, null);
+		this.UpdateChapterText();
 		yield return 0;
-		startChapterExpandLocation = m_ChapterTextContainer.sizeDelta;
-		ChapterExpandStartTime = Time.time;
-		ChapterDescriptionContainer.verticalScrollbar.value = 1f;
-		if (m_ChapterTextExpanded)
+		this.startChapterExpandLocation = this.m_ChapterTextContainer.sizeDelta;
+		this.ChapterExpandStartTime = Time.time;
+		this.ChapterDescriptionContainer.verticalScrollbar.value = 1f;
+		if (this.m_ChapterTextExpanded)
 		{
-			Vector2 sizeDelta = m_ChapterTextContainer.sizeDelta;
-			endChapterExpandLocation = new Vector2(sizeDelta.x, m_scrollHeightMax);
+			this.endChapterExpandLocation = new Vector2(this.m_ChapterTextContainer.sizeDelta.x, this.m_scrollHeightMax);
 		}
 		else
 		{
-			Vector2 sizeDelta2 = m_ChapterTextContainer.sizeDelta;
-			endChapterExpandLocation = new Vector2(sizeDelta2.x, m_scrollHeightMin);
+			this.endChapterExpandLocation = new Vector2(this.m_ChapterTextContainer.sizeDelta.x, this.m_scrollHeightMin);
 		}
-		RectTransform content = ChapterDescriptionContainer.content;
-		Vector2 sizeDelta3 = ChapterDescriptionContainer.content.sizeDelta;
-		float x = sizeDelta3.x;
-		Vector2 preferredValues = ChapterDescription.GetPreferredValues();
-		float y = preferredValues.y;
-		Vector2 preferredValues2 = ChapterName.GetPreferredValues();
-		float num = y + preferredValues2.y + ChapterDescription.fontSize * 2f;
+		RectTransform content = this.ChapterDescriptionContainer.content;
+		float x = this.ChapterDescriptionContainer.content.sizeDelta.x;
+		float num = this.ChapterDescription.GetPreferredValues().y + this.ChapterName.GetPreferredValues().y + this.ChapterDescription.fontSize * 2f;
 		float num2;
-		if (m_ChapterTextExpanded)
+		if (this.m_ChapterTextExpanded)
 		{
-			num2 = m_scrollHeightMax;
+			num2 = this.m_scrollHeightMax;
 		}
 		else
 		{
-			num2 = m_scrollHeightMin;
+			num2 = this.m_scrollHeightMin;
 		}
 		content.sizeDelta = new Vector2(x, num - num2);
-		ChapterExpandJourneyLength = Vector2.Distance(startChapterExpandLocation, endChapterExpandLocation);
-		ChapterExpandSpeed = ChapterExpandJourneyLength * 4f;
+		this.ChapterExpandJourneyLength = Vector2.Distance(this.startChapterExpandLocation, this.endChapterExpandLocation);
+		this.ChapterExpandSpeed = this.ChapterExpandJourneyLength * 4f;
+		yield break;
 	}
 
 	private void ToggleChapterTextAreaExpand()
 	{
-		SetToggleChapterTextAreaExpand(!m_ChapterTextExpanded);
+		this.SetToggleChapterTextAreaExpand(!this.m_ChapterTextExpanded);
 	}
 
 	private void SetToggleChapterTextAreaExpand(bool expanded)
 	{
-		if (m_ChapterTextExpanded == expanded)
+		if (this.m_ChapterTextExpanded != expanded)
 		{
-			return;
-		}
-		while (true)
-		{
-			StartCoroutine(DoSetChapterTextAreaExpand(expanded));
-			return;
+			base.StartCoroutine(this.DoSetChapterTextAreaExpand(expanded));
 		}
 	}
 
 	public void SelectChapter(int chapterNumber)
 	{
-		SetSelectedHeaderButton(m_currentChapterButton);
+		this.SetSelectedHeaderButton(this.m_currentChapterButton);
 	}
 
 	public void HeaderBtnClicked(BaseEventData data)
@@ -569,67 +516,56 @@ public class UISeasonsPanel : UIScene
 		_SelectableBtn componentInParent = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponentInParent<_SelectableBtn>();
 		if (componentInParent != null)
 		{
-			SetSelectedHeaderButton(componentInParent);
+			this.SetSelectedHeaderButton(componentInParent);
 		}
-		SetToggleChapterTextAreaExpand(false);
+		this.SetToggleChapterTextAreaExpand(false);
 	}
 
 	private bool HeaderBtnTooltipSetup(UITooltipBase tooltip, int index)
 	{
-		string empty;
-		if (index < m_selectedSeason.ChapterEntries.Count && m_selectedSeason.ChapterEntries[index].IsChapterLocked)
+		if (index < this.m_selectedSeason.ChapterEntries.Count && this.m_selectedSeason.ChapterEntries[index].IsChapterLocked)
 		{
-			empty = string.Empty;
+			string text = string.Empty;
 			if (index > 0)
 			{
-				if (!m_selectedSeason.ChapterEntries[index - 1].AreQuestsStatic)
+				if (!this.m_selectedSeason.ChapterEntries[index - 1].AreQuestsStatic)
 				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return false;
-						}
-					}
+					return false;
 				}
 			}
 			if (index > 0)
 			{
-				if (m_selectedSeason.ChapterEntries[index - 1].NumQuestsToAdvance != 0)
+				if (this.m_selectedSeason.ChapterEntries[index - 1].NumQuestsToAdvance != 0)
 				{
-					string arg = m_selectedSeason.ChapterEntries[index].NumQuestsToAdvance.ToString();
-					string text;
-					if (m_selectedSeason.ChapterEntries[index].AreAllQuestsCompleteFromPreviousChapter)
+					string arg = this.m_selectedSeason.ChapterEntries[index].NumQuestsToAdvance.ToString();
+					string text2;
+					if (this.m_selectedSeason.ChapterEntries[index].AreAllQuestsCompleteFromPreviousChapter)
 					{
-						text = string.Format(StringUtil.TR("UnlockChapterGreenDesc", "Seasons"), index, arg);
+						text2 = string.Format(StringUtil.TR("UnlockChapterGreenDesc", "Seasons"), index, arg);
 					}
 					else
 					{
-						text = string.Format(StringUtil.TR("UnlockChapterRedDesc", "Seasons"), index, arg);
+						text2 = string.Format(StringUtil.TR("UnlockChapterRedDesc", "Seasons"), index, arg);
 					}
-					empty = text;
-					goto IL_0198;
+					text = text2;
+					goto IL_198;
 				}
 			}
-			empty = ((!m_selectedSeason.ChapterEntries[index].AreAllQuestsCompleteFromPreviousChapter) ? string.Format(StringUtil.TR("UnlockChapterAllRedDesc", "Seasons"), index) : string.Format(StringUtil.TR("UnlockChapterAllGreenDesc", "Seasons"), index));
-			goto IL_0198;
+			text = ((!this.m_selectedSeason.ChapterEntries[index].AreAllQuestsCompleteFromPreviousChapter) ? string.Format(StringUtil.TR("UnlockChapterAllRedDesc", "Seasons"), index) : string.Format(StringUtil.TR("UnlockChapterAllGreenDesc", "Seasons"), index));
+			IL_198:
+			bool flag = false;
+			if (this.m_selectedSeason.ChapterEntries[index].AreOtherConditionsFromPreviousChapterMet)
+			{
+				flag = true;
+			}
+			if (!flag)
+			{
+				text = text + "<color=red>" + StringUtil.TR_SeasonChapterUnlock(this.m_selectedSeason.SeasonNumber, index + 1) + "</color>";
+			}
+			(tooltip as UITitledTooltip).Setup(StringUtil.TR("ChapterIsLocked", "Seasons"), text, string.Empty);
+			return true;
 		}
 		return false;
-		IL_0198:
-		bool flag = false;
-		if (m_selectedSeason.ChapterEntries[index].AreOtherConditionsFromPreviousChapterMet)
-		{
-			flag = true;
-		}
-		if (!flag)
-		{
-			empty = empty + "<color=red>" + StringUtil.TR_SeasonChapterUnlock(m_selectedSeason.SeasonNumber, index + 1) + "</color>";
-		}
-		(tooltip as UITitledTooltip).Setup(StringUtil.TR("ChapterIsLocked", "Seasons"), empty, string.Empty);
-		return true;
 	}
 
 	public void FactionsMoreInfoClicked(BaseEventData data)
@@ -639,31 +575,22 @@ public class UISeasonsPanel : UIScene
 
 	public static UISeasonsPanel Get()
 	{
-		return s_instance;
+		return UISeasonsPanel.s_instance;
 	}
 
 	public bool IsVisible()
 	{
-		return m_isVisible;
+		return this.m_isVisible;
 	}
 
 	private void Update()
 	{
-		if (!(m_ChapterTextContainer.sizeDelta != endChapterExpandLocation))
+		if (this.m_ChapterTextContainer.sizeDelta != this.endChapterExpandLocation)
 		{
-			return;
-		}
-		while (true)
-		{
-			float num = (Time.time - ChapterExpandStartTime) * ChapterExpandSpeed;
-			float t = num / ChapterExpandJourneyLength;
-			m_ChapterTextContainer.sizeDelta = Vector2.Lerp(startChapterExpandLocation, endChapterExpandLocation, t);
-			RectTransform obj = ChapterDescriptionContainer.verticalScrollbar.transform as RectTransform;
-			Vector2 sizeDelta = (ChapterDescriptionContainer.verticalScrollbar.transform as RectTransform).sizeDelta;
-			float x = sizeDelta.x;
-			Vector2 sizeDelta2 = m_ChapterTextContainer.sizeDelta;
-			obj.sizeDelta = new Vector2(x, sizeDelta2.y - m_scrollTopOffset);
-			return;
+			float num = (Time.time - this.ChapterExpandStartTime) * this.ChapterExpandSpeed;
+			float t = num / this.ChapterExpandJourneyLength;
+			this.m_ChapterTextContainer.sizeDelta = Vector2.Lerp(this.startChapterExpandLocation, this.endChapterExpandLocation, t);
+			(this.ChapterDescriptionContainer.verticalScrollbar.transform as RectTransform).sizeDelta = new Vector2((this.ChapterDescriptionContainer.verticalScrollbar.transform as RectTransform).sizeDelta.x, this.m_ChapterTextContainer.sizeDelta.y - this.m_scrollTopOffset);
 		}
 	}
 
@@ -671,146 +598,134 @@ public class UISeasonsPanel : UIScene
 	{
 		if (pageIndex < chapterInfo.SeasonChapterStory.Count)
 		{
-			UpdateChapterText();
-			ChapterName.text = StringUtil.TR_SeasonStorytimeHeader(m_selectedSeason.SeasonNumber, m_selectedChapterIndex + 1, pageIndex + 1);
-			ChapterImage.sprite = (Resources.Load(chapterInfo.SeasonChapterStory[pageIndex].ImageFilename, typeof(Sprite)) as Sprite);
+			this.UpdateChapterText();
+			this.ChapterName.text = StringUtil.TR_SeasonStorytimeHeader(this.m_selectedSeason.SeasonNumber, this.m_selectedChapterIndex + 1, pageIndex + 1);
+			this.ChapterImage.sprite = (Resources.Load(chapterInfo.SeasonChapterStory[pageIndex].ImageFilename, typeof(Sprite)) as Sprite);
 		}
 		else
 		{
-			ChapterName.text = chapterInfo.SeasonChapterName;
-			ChapterDescription.text = chapterInfo.SeasonChapterName;
+			this.ChapterName.text = chapterInfo.SeasonChapterName;
+			this.ChapterDescription.text = chapterInfo.SeasonChapterName;
 		}
-		UIManager.SetGameObjectActive(m_lockedSeasonChapterOverlay, chapterInfo.IsChapterLocked);
+		UIManager.SetGameObjectActive(this.m_lockedSeasonChapterOverlay, chapterInfo.IsChapterLocked, null);
 	}
 
 	private void SetupChapter(int chapterIndex)
 	{
-		if (m_selectedSeason == null)
+		if (this.m_selectedSeason != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (chapterIndex < 0)
+			if (chapterIndex >= 0)
 			{
-				return;
-			}
-			while (true)
-			{
-				if (chapterIndex >= m_selectedSeason.ChapterEntries.Count)
+				if (chapterIndex < this.m_selectedSeason.ChapterEntries.Count)
 				{
-					return;
-				}
-				m_selectedChapterIndex = chapterIndex;
-				UISeasonChapterEntry uISeasonChapterEntry = m_selectedSeason.ChapterEntries[chapterIndex];
-				ChapterName.text = uISeasonChapterEntry.SeasonChapterName;
-				SelectChapterStoryPage(uISeasonChapterEntry, 0);
-				int num = 0;
-				int num2 = 0;
-				bool flag = false;
-				for (int i = 0; i < uISeasonChapterEntry.QuestInfo.Count; i++)
-				{
-					if (i >= m_questEntryList.Count)
+					this.m_selectedChapterIndex = chapterIndex;
+					UISeasonChapterEntry uiseasonChapterEntry = this.m_selectedSeason.ChapterEntries[chapterIndex];
+					this.ChapterName.text = uiseasonChapterEntry.SeasonChapterName;
+					this.SelectChapterStoryPage(uiseasonChapterEntry, 0);
+					int i = 0;
+					int num = 0;
+					bool flag = false;
+					for (int j = 0; j < uiseasonChapterEntry.QuestInfo.Count; j++)
 					{
-						flag = true;
-						UISeasonsQuestEntry uISeasonsQuestEntry = Object.Instantiate(m_QuestListEntryPrefab);
-						uISeasonsQuestEntry.transform.SetParent(m_QuestListContainer.transform);
-						uISeasonsQuestEntry.transform.localScale = Vector3.one;
-						uISeasonsQuestEntry.transform.localPosition = Vector3.zero;
-						m_questEntryList.Add(uISeasonsQuestEntry);
-					}
-					StaggerComponent.SetStaggerComponent(m_questEntryList[i].gameObject, true);
-					m_questEntryList[i].Setup(uISeasonChapterEntry.QuestInfo[i], uISeasonChapterEntry.IsChapterLocked);
-					m_questEntryList[i].SetExpanded(false);
-					m_questEntryList[i].SetMouseEventScroll(m_QuestChallengeScrollList);
-					num = i;
-					if (uISeasonChapterEntry.QuestInfo[i].Completed)
-					{
-						num2++;
-					}
-				}
-				if (flag)
-				{
-					if (HitchDetector.Get() != null)
-					{
-						HitchDetector.Get().AddNewLayoutGroup(m_QuestListContainer);
-					}
-				}
-				for (num++; num < m_questEntryList.Count; num++)
-				{
-					StaggerComponent.SetStaggerComponent(m_questEntryList[num].gameObject, false);
-				}
-				while (true)
-				{
-					m_questHeaderTitle.text = string.Format(StringUtil.TR("ChapterContracts", "Seasons"), num2, uISeasonChapterEntry.QuestInfo.Count);
-					if (num2 == uISeasonChapterEntry.QuestInfo.Count)
-					{
-						UIManager.SetGameObjectActive(m_questsCompletedStamp, true);
-						UIManager.SetGameObjectActive(m_questsEndedStamp, false);
-					}
-					else if (!uISeasonChapterEntry.AreQuestsStatic)
-					{
-						if (ClientGameManager.Get().PacificNow() < uISeasonChapterEntry.EndDate)
+						if (j >= this.m_questEntryList.Count)
 						{
-							string arg = string.Format(StringUtil.TR("DayMonthYear", "Global"), uISeasonChapterEntry.EndDate.Day, StringUtil.TR("Month" + uISeasonChapterEntry.EndDate.Month, "Global"), uISeasonChapterEntry.EndDate.Year);
+							flag = true;
+							UISeasonsQuestEntry uiseasonsQuestEntry = UnityEngine.Object.Instantiate<UISeasonsQuestEntry>(this.m_QuestListEntryPrefab);
+							uiseasonsQuestEntry.transform.SetParent(this.m_QuestListContainer.transform);
+							uiseasonsQuestEntry.transform.localScale = Vector3.one;
+							uiseasonsQuestEntry.transform.localPosition = Vector3.zero;
+							this.m_questEntryList.Add(uiseasonsQuestEntry);
+						}
+						StaggerComponent.SetStaggerComponent(this.m_questEntryList[j].gameObject, true, true);
+						this.m_questEntryList[j].Setup(uiseasonChapterEntry.QuestInfo[j], uiseasonChapterEntry.IsChapterLocked);
+						this.m_questEntryList[j].SetExpanded(false, false);
+						this.m_questEntryList[j].SetMouseEventScroll(this.m_QuestChallengeScrollList);
+						i = j;
+						if (uiseasonChapterEntry.QuestInfo[j].Completed)
+						{
+							num++;
+						}
+					}
+					if (flag)
+					{
+						if (HitchDetector.Get() != null)
+						{
+							HitchDetector.Get().AddNewLayoutGroup(this.m_QuestListContainer);
+						}
+					}
+					for (i++; i < this.m_questEntryList.Count; i++)
+					{
+						StaggerComponent.SetStaggerComponent(this.m_questEntryList[i].gameObject, false, true);
+					}
+					this.m_questHeaderTitle.text = string.Format(StringUtil.TR("ChapterContracts", "Seasons"), num, uiseasonChapterEntry.QuestInfo.Count);
+					if (num == uiseasonChapterEntry.QuestInfo.Count)
+					{
+						UIManager.SetGameObjectActive(this.m_questsCompletedStamp, true, null);
+						UIManager.SetGameObjectActive(this.m_questsEndedStamp, false, null);
+					}
+					else if (!uiseasonChapterEntry.AreQuestsStatic)
+					{
+						if (ClientGameManager.Get().PacificNow() < uiseasonChapterEntry.EndDate)
+						{
+							string arg = string.Format(StringUtil.TR("DayMonthYear", "Global"), uiseasonChapterEntry.EndDate.Day, StringUtil.TR("Month" + uiseasonChapterEntry.EndDate.Month, "Global"), uiseasonChapterEntry.EndDate.Year);
 							string str = string.Format(StringUtil.TR("MustBeCompletedBy", "Global"), arg);
-							TextMeshProUGUI questHeaderTitle = m_questHeaderTitle;
+							TextMeshProUGUI questHeaderTitle = this.m_questHeaderTitle;
 							questHeaderTitle.text = questHeaderTitle.text + " <color=red>" + str + "</color>";
-							UIManager.SetGameObjectActive(m_questsEndedStamp, false);
+							UIManager.SetGameObjectActive(this.m_questsEndedStamp, false, null);
 						}
 						else
 						{
-							UIManager.SetGameObjectActive(m_questsEndedStamp, true);
+							UIManager.SetGameObjectActive(this.m_questsEndedStamp, true, null);
 						}
-						UIManager.SetGameObjectActive(m_questsCompletedStamp, false);
+						UIManager.SetGameObjectActive(this.m_questsCompletedStamp, false, null);
 					}
 					else
 					{
-						UIManager.SetGameObjectActive(m_questsCompletedStamp, false);
-						UIManager.SetGameObjectActive(m_questsEndedStamp, false);
+						UIManager.SetGameObjectActive(this.m_questsCompletedStamp, false, null);
+						UIManager.SetGameObjectActive(this.m_questsEndedStamp, false, null);
 					}
-					int num3 = 0;
-					using (List<QuestItemReward>.Enumerator enumerator = uISeasonChapterEntry.ItemRewards.GetEnumerator())
+					int num2 = 0;
+					using (List<QuestItemReward>.Enumerator enumerator = uiseasonChapterEntry.ItemRewards.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
 						{
-							QuestItemReward current = enumerator.Current;
-							InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(current.ItemTemplateId);
-							m_CompletedChapterRewards[num3].SetupHack(itemTemplate, itemTemplate.IconPath, current.Amount);
-							num3++;
+							QuestItemReward questItemReward = enumerator.Current;
+							InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questItemReward.ItemTemplateId);
+							this.m_CompletedChapterRewards[num2].SetupHack(itemTemplate, itemTemplate.IconPath, questItemReward.Amount);
+							num2++;
 						}
 					}
-					using (List<QuestCurrencyReward>.Enumerator enumerator2 = uISeasonChapterEntry.CurrencyRewards.GetEnumerator())
+					using (List<QuestCurrencyReward>.Enumerator enumerator2 = uiseasonChapterEntry.CurrencyRewards.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
 						{
-							QuestCurrencyReward current2 = enumerator2.Current;
-							m_CompletedChapterRewards[num3].Setup(current2, 0);
-							num3++;
+							QuestCurrencyReward currencyReward = enumerator2.Current;
+							this.m_CompletedChapterRewards[num2].Setup(currencyReward, 0);
+							num2++;
 						}
 					}
-					using (List<QuestUnlockReward>.Enumerator enumerator3 = uISeasonChapterEntry.UnlockRewards.GetEnumerator())
+					using (List<QuestUnlockReward>.Enumerator enumerator3 = uiseasonChapterEntry.UnlockRewards.GetEnumerator())
 					{
 						while (enumerator3.MoveNext())
 						{
-							QuestUnlockReward current3 = enumerator3.Current;
-							m_CompletedChapterRewards[num3].SetupHack(current3.resourceString);
-							num3++;
+							QuestUnlockReward questUnlockReward = enumerator3.Current;
+							this.m_CompletedChapterRewards[num2].SetupHack(questUnlockReward.resourceString, 0);
+							num2++;
 						}
 					}
-					if (num3 > 0)
+					if (num2 > 0)
 					{
-						UIManager.SetGameObjectActive(m_ChapterRewardsContainer, true);
-						for (int j = 0; j < m_CompletedChapterRewards.Length; j++)
+						UIManager.SetGameObjectActive(this.m_ChapterRewardsContainer, true, null);
+						for (int k = 0; k < this.m_CompletedChapterRewards.Length; k++)
 						{
-							UIManager.SetGameObjectActive(m_CompletedChapterRewards[j], j < num3);
+							UIManager.SetGameObjectActive(this.m_CompletedChapterRewards[k], k < num2, null);
 						}
 					}
 					else
 					{
-						UIManager.SetGameObjectActive(m_ChapterRewardsContainer, false);
+						UIManager.SetGameObjectActive(this.m_ChapterRewardsContainer, false, null);
 					}
-					m_ChapterViewQuestChallengeScrollRect.verticalScrollbar.value = 1f;
+					this.m_ChapterViewQuestChallengeScrollRect.verticalScrollbar.value = 1f;
 					return;
 				}
 			}
@@ -819,33 +734,33 @@ public class UISeasonsPanel : UIScene
 
 	private void SetSelectedHeaderButton(_SelectableBtn selectedHeaderBtn)
 	{
-		bool flag = selectedHeaderBtn == m_OverviewButton;
-		int selectedChapterIndex = m_selectedChapterIndex;
-		m_OverviewButton.SetSelected(flag, false, string.Empty, string.Empty);
-		UIManager.SetGameObjectActive(m_ChapterContainer, !flag);
-		UIManager.SetGameObjectActive(m_OverviewContainer, flag);
+		bool flag = selectedHeaderBtn == this.m_OverviewButton;
+		int selectedChapterIndex = this.m_selectedChapterIndex;
+		this.m_OverviewButton.SetSelected(flag, false, string.Empty, string.Empty);
+		UIManager.SetGameObjectActive(this.m_ChapterContainer, !flag, null);
+		UIManager.SetGameObjectActive(this.m_OverviewContainer, flag, null);
 		if (flag)
 		{
-			UpdatePersonalContribution();
-			if (m_selectedSeason != null)
+			this.UpdatePersonalContribution();
+			if (this.m_selectedSeason != null)
 			{
-				List<IDataEntry> itemList = m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(SeasonEntryToDataEntry);
-				m_seasonsScrollList.Setup(itemList, Mathf.Max(m_selectedSeason.currentLevelDisplayIndex - 2, 0));
+				List<IDataEntry> itemList = this.m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(new Converter<UISeasonRewardEntry, IDataEntry>(UISeasonsPanel.SeasonEntryToDataEntry));
+				this.m_seasonsScrollList.Setup(itemList, Mathf.Max(this.m_selectedSeason.currentLevelDisplayIndex - 2, 0));
 			}
 			else
 			{
-				Log.Warning("Failed to setup season scroll list, current season is null (possibly no season is active?)");
+				Log.Warning("Failed to setup season scroll list, current season is null (possibly no season is active?)", new object[0]);
 			}
 		}
 		else
 		{
-			UIManager.SetGameObjectActive(m_ChapterPageBtnContainer, false);
-			SetupChapter(selectedChapterIndex);
+			UIManager.SetGameObjectActive(this.m_ChapterPageBtnContainer, false, null);
+			this.SetupChapter(selectedChapterIndex);
 		}
-		foreach (Mask scrollMask in m_scrollMasks)
+		foreach (Mask mask in this.m_scrollMasks)
 		{
-			scrollMask.enabled = false;
-			scrollMask.enabled = true;
+			mask.enabled = false;
+			mask.enabled = true;
 		}
 	}
 
@@ -856,155 +771,127 @@ public class UISeasonsPanel : UIScene
 
 	private void SetSelectedSeason(UIPlayerSeasonDisplayInfo seasonInfo, bool displayOverviewButton, bool displayHighestChapter = true)
 	{
-		m_selectedSeason = seasonInfo;
-		m_PlayerCurrentSeasonLevelProgress.fillAmount = m_selectedSeason.currentPercentThroughPlayerSeasonLevel;
-		m_PlayerSeasonLevelLabel.text = string.Format(StringUtil.TR("SeasonLevelNumber", "Seasons"), m_selectedSeason.PlayerSeasonLevel.ToString());
-		m_PlayerSeasonEXPLevelLabel.text = string.Format(StringUtil.TR("SeasonEXPNumber", "Seasons"), m_selectedSeason.currentXPThroughPlayerLevel, SeasonWideData.Get().GetSeasonExperience(seasonInfo.SeasonNumber, seasonInfo.PlayerSeasonLevel));
-		m_CommunityRankLabel.text = StringUtil.TR("CommunityRank", "Seasons");
-		m_CommunityEXPRankLabel.text = StringUtil.TR("CommunityEXPRank", "Seasons");
-		m_CommunityRankProgressBar.fillAmount = m_selectedSeason.currentPercentThroughCommunityRank;
-		m_selectedChapterIndex = m_selectedSeason.CurrentChapter;
-		SetupChapterButtonName(m_selectedChapterIndex);
-		SetupChapterButtonSpriteController(seasonInfo);
-		SeasonName.text = seasonInfo.SeasonName;
-		SeasonEndTime.text = seasonInfo.SeasonEndTime;
+		this.m_selectedSeason = seasonInfo;
+		this.m_PlayerCurrentSeasonLevelProgress.fillAmount = this.m_selectedSeason.currentPercentThroughPlayerSeasonLevel;
+		this.m_PlayerSeasonLevelLabel.text = string.Format(StringUtil.TR("SeasonLevelNumber", "Seasons"), this.m_selectedSeason.PlayerSeasonLevel.ToString());
+		this.m_PlayerSeasonEXPLevelLabel.text = string.Format(StringUtil.TR("SeasonEXPNumber", "Seasons"), this.m_selectedSeason.currentXPThroughPlayerLevel, SeasonWideData.Get().GetSeasonExperience(seasonInfo.SeasonNumber, seasonInfo.PlayerSeasonLevel));
+		this.m_CommunityRankLabel.text = StringUtil.TR("CommunityRank", "Seasons");
+		this.m_CommunityEXPRankLabel.text = StringUtil.TR("CommunityEXPRank", "Seasons");
+		this.m_CommunityRankProgressBar.fillAmount = this.m_selectedSeason.currentPercentThroughCommunityRank;
+		this.m_selectedChapterIndex = this.m_selectedSeason.CurrentChapter;
+		this.SetupChapterButtonName(this.m_selectedChapterIndex);
+		this.SetupChapterButtonSpriteController(seasonInfo);
+		this.SeasonName.text = seasonInfo.SeasonName;
+		this.SeasonEndTime.text = seasonInfo.SeasonEndTime;
+		int i = -1;
 		int num = -1;
-		int num2 = -1;
-		int num3 = 0;
-		int num4 = 0;
-		while (true)
+		int num2 = 0;
+		for (int j = 0; j < seasonInfo.RepeatingRewards.Count; j++)
 		{
-			if (num4 < seasonInfo.RepeatingRewards.Count)
+			if (num != seasonInfo.RepeatingRewards[j].RepeatEveryXLevels)
 			{
-				if (num2 != seasonInfo.RepeatingRewards[num4].RepeatEveryXLevels)
+				if (i > -1)
 				{
-					if (num > -1)
+					for (int k = num2; k < this.m_rewardElements[i].m_rewardImages.Length; k++)
 					{
-						for (int i = num3; i < m_rewardElements[num].m_rewardImages.Length; i++)
-						{
-							UIManager.SetGameObjectActive(m_rewardElements[num].m_rewardImages[i], false);
-						}
-					}
-					num++;
-					num2 = seasonInfo.RepeatingRewards[num4].RepeatEveryXLevels;
-					num3 = 0;
-					if (num >= m_rewardElements.Length)
-					{
-						break;
-					}
-					StaggerComponent.SetStaggerComponent(m_rewardElements[num].gameObject, true);
-					if (seasonInfo.RepeatingRewards[num4].RepeatEveryXLevels == 1)
-					{
-						m_rewardElements[num].m_headerTitle.text = StringUtil.TR("EveryLevel", "Seasons");
-					}
-					else
-					{
-						m_rewardElements[num].m_headerTitle.text = string.Format(StringUtil.TR("EveryLevelNumber", "Seasons"), seasonInfo.RepeatingRewards[num4].RepeatEveryXLevels);
+						UIManager.SetGameObjectActive(this.m_rewardElements[i].m_rewardImages[k], false, null);
 					}
 				}
-				UIManager.SetGameObjectActive(m_rewardElements[num].m_rewardImages[num3], true);
-				m_rewardElements[num].Setup(num3, seasonInfo.RepeatingRewards[num4]);
-				num3++;
-				num4++;
-				continue;
-			}
-			break;
-		}
-		num = 0;
-		if (num >= 0)
-		{
-			if (num < m_rewardElements.Length)
-			{
-				for (int j = num3; j < m_rewardElements[num].m_rewardImages.Length; j++)
+				i++;
+				num = seasonInfo.RepeatingRewards[j].RepeatEveryXLevels;
+				num2 = 0;
+				if (i >= this.m_rewardElements.Length)
 				{
-					UIManager.SetGameObjectActive(m_rewardElements[num].m_rewardImages[j], false);
+					break;
+				}
+				StaggerComponent.SetStaggerComponent(this.m_rewardElements[i].gameObject, true, true);
+				if (seasonInfo.RepeatingRewards[j].RepeatEveryXLevels == 1)
+				{
+					this.m_rewardElements[i].m_headerTitle.text = StringUtil.TR("EveryLevel", "Seasons");
+				}
+				else
+				{
+					this.m_rewardElements[i].m_headerTitle.text = string.Format(StringUtil.TR("EveryLevelNumber", "Seasons"), seasonInfo.RepeatingRewards[j].RepeatEveryXLevels);
+				}
+			}
+			UIManager.SetGameObjectActive(this.m_rewardElements[i].m_rewardImages[num2], true, null);
+			this.m_rewardElements[i].Setup(num2, seasonInfo.RepeatingRewards[j]);
+			num2++;
+		}
+		i = 0;
+		if (i >= 0)
+		{
+			if (i < this.m_rewardElements.Length)
+			{
+				for (int l = num2; l < this.m_rewardElements[i].m_rewardImages.Length; l++)
+				{
+					UIManager.SetGameObjectActive(this.m_rewardElements[i].m_rewardImages[l], false, null);
 				}
 			}
 		}
-		for (num++; num < m_rewardElements.Length; num++)
+		for (i++; i < this.m_rewardElements.Length; i++)
 		{
-			StaggerComponent.SetStaggerComponent(m_rewardElements[num].gameObject, false);
+			StaggerComponent.SetStaggerComponent(this.m_rewardElements[i].gameObject, false, true);
 		}
 		if (displayOverviewButton)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					SetSelectedHeaderButton(m_OverviewButton);
-					return;
-				}
-			}
-		}
-		if (displayHighestChapter)
-		{
-			SetSelectedHeaderButton(m_currentChapterButton);
+			this.SetSelectedHeaderButton(this.m_OverviewButton);
 		}
 		else
 		{
-			SetupChapter(m_selectedChapterIndex);
+			if (displayHighestChapter)
+			{
+				this.SetSelectedHeaderButton(this.m_currentChapterButton);
+			}
+			else
+			{
+				this.SetupChapter(this.m_selectedChapterIndex);
+			}
+			List<IDataEntry> itemList = this.m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(new Converter<UISeasonRewardEntry, IDataEntry>(UISeasonsPanel.SeasonEntryToDataEntry));
+			this.m_seasonsScrollList.Setup(itemList, Mathf.Max(this.m_selectedSeason.currentLevelDisplayIndex - 2, 0));
 		}
-		List<IDataEntry> itemList = m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(SeasonEntryToDataEntry);
-		m_seasonsScrollList.Setup(itemList, Mathf.Max(m_selectedSeason.currentLevelDisplayIndex - 2, 0));
+		return;
 	}
 
 	private void Setup(bool setOverheadBtn = false, bool displayHighestChapter = true, bool resetChapterText = true)
 	{
 		bool flag = false;
-		if (displayInfo.Count == SeasonWideData.Get().m_seasons.Count)
+		if (this.displayInfo.Count == SeasonWideData.Get().m_seasons.Count)
 		{
-			int num = 0;
-			while (true)
+			for (int i = 0; i < this.displayInfo.Count; i++)
 			{
-				if (num < displayInfo.Count)
+				UIPlayerSeasonDisplayInfo uiplayerSeasonDisplayInfo = new UIPlayerSeasonDisplayInfo();
+				uiplayerSeasonDisplayInfo.Setup(this.displayInfo[i].SeasonNumber, ClientGameManager.Get().GetPlayerAccountData());
+				if (!uiplayerSeasonDisplayInfo.Equals(this.displayInfo[i]))
 				{
-					UIPlayerSeasonDisplayInfo uIPlayerSeasonDisplayInfo = new UIPlayerSeasonDisplayInfo();
-					uIPlayerSeasonDisplayInfo.Setup(displayInfo[num].SeasonNumber, ClientGameManager.Get().GetPlayerAccountData());
-					if (!uIPlayerSeasonDisplayInfo.Equals(displayInfo[num]))
-					{
-						flag = true;
-						break;
-					}
-					num++;
-					continue;
+					flag = true;
+					goto IL_AF;
 				}
-				break;
 			}
 		}
 		else
 		{
 			flag = true;
 		}
+		IL_AF:
 		if (resetChapterText)
 		{
-			StartCoroutine(DoSetChapterTextAreaExpand(false));
+			base.StartCoroutine(this.DoSetChapterTextAreaExpand(false));
 		}
 		if (!flag)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			return;
 		}
-		DisplaySeason(setOverheadBtn, displayHighestChapter);
+		this.DisplaySeason(setOverheadBtn, displayHighestChapter, -1);
 	}
 
 	private void DisplaySeason(bool setOverheadBtn = false, bool displayHighestChapter = true, int seasonIndex = -1)
 	{
-		for (int i = 0; i < displayInfo.Count; i++)
+		for (int i = 0; i < this.displayInfo.Count; i++)
 		{
-			displayInfo[i].Clear();
+			this.displayInfo[i].Clear();
 		}
-		displayInfo.Clear();
+		this.displayInfo.Clear();
 		PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 		if (seasonIndex < 0)
 		{
@@ -1013,56 +900,55 @@ public class UISeasonsPanel : UIScene
 		UIPlayerSeasonDisplayInfo seasonInfo = null;
 		using (List<SeasonTemplate>.Enumerator enumerator = SeasonWideData.Get().m_seasons.GetEnumerator())
 		{
-			UIPlayerSeasonDisplayInfo uIPlayerSeasonDisplayInfo;
-			for (; enumerator.MoveNext(); displayInfo.Add(uIPlayerSeasonDisplayInfo))
+			while (enumerator.MoveNext())
 			{
-				SeasonTemplate current = enumerator.Current;
-				uIPlayerSeasonDisplayInfo = new UIPlayerSeasonDisplayInfo();
-				uIPlayerSeasonDisplayInfo.Setup(current.Index, playerAccountData);
-				if (current.Index != seasonIndex)
+				SeasonTemplate seasonTemplate = enumerator.Current;
+				UIPlayerSeasonDisplayInfo uiplayerSeasonDisplayInfo = new UIPlayerSeasonDisplayInfo();
+				uiplayerSeasonDisplayInfo.Setup(seasonTemplate.Index, playerAccountData);
+				if (seasonTemplate.Index == seasonIndex)
 				{
-					if (seasonIndex != 0)
+					goto IL_C1;
+				}
+				if (seasonIndex == 0)
+				{
+					for (;;)
 					{
-						continue;
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						goto IL_C1;
 					}
 				}
-				seasonInfo = uIPlayerSeasonDisplayInfo;
+				IL_C4:
+				this.displayInfo.Add(uiplayerSeasonDisplayInfo);
+				continue;
+				IL_C1:
+				seasonInfo = uiplayerSeasonDisplayInfo;
+				goto IL_C4;
 			}
 		}
-		SetSelectedSeason(seasonInfo, setOverheadBtn, displayHighestChapter);
+		this.SetSelectedSeason(seasonInfo, setOverheadBtn, displayHighestChapter);
 	}
 
 	private void RefreshRewardsEntries()
 	{
-		if (!(m_seasonsScrollList != null))
+		if (this.m_seasonsScrollList != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			List<_LargeScrollList.ScrollListItemEntry> visibleListEntries = m_seasonsScrollList.GetVisibleListEntries();
+			List<_LargeScrollList.ScrollListItemEntry> visibleListEntries = this.m_seasonsScrollList.GetVisibleListEntries();
 			using (List<_LargeScrollList.ScrollListItemEntry>.Enumerator enumerator = visibleListEntries.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					_LargeScrollList.ScrollListItemEntry current = enumerator.Current;
-					if (current.m_theEntry != null)
+					_LargeScrollList.ScrollListItemEntry scrollListItemEntry = enumerator.Current;
+					if (scrollListItemEntry.m_theEntry != null)
 					{
-						UISeasonsRewardEntry component = current.m_theEntry.GetComponent<UISeasonsRewardEntry>();
+						UISeasonsRewardEntry component = scrollListItemEntry.m_theEntry.GetComponent<UISeasonsRewardEntry>();
 						if (component != null)
 						{
 							component.RefreshDisplay();
 						}
-					}
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					default:
-						return;
-					case 0:
-						break;
 					}
 				}
 			}
@@ -1071,81 +957,58 @@ public class UISeasonsPanel : UIScene
 
 	public void SetVisible(bool visible, bool displayOverviewBtn = false, bool displayHighestChapter = true)
 	{
-		bool flag = m_isVisible != visible;
-		m_isVisible = visible;
-		UIManager.SetGameObjectActive(m_container, visible);
-		UIManager.SetGameObjectActive(m_seasonsChapterBtnContainer, visible);
-		UIManager.Get().SetSceneVisible(GetSceneType(), visible, new SceneVisibilityParameters());
-		if (!visible)
+		bool flag = this.m_isVisible != visible;
+		this.m_isVisible = visible;
+		UIManager.SetGameObjectActive(this.m_container, visible, null);
+		UIManager.SetGameObjectActive(this.m_seasonsChapterBtnContainer, visible, null);
+		UIManager.Get().SetSceneVisible(this.GetSceneType(), visible, new SceneVisibilityParameters());
+		if (visible)
 		{
-			return;
-		}
-		while (true)
-		{
-			UICharacterSelectScreenController.Get().SetVisible(false);
-			Setup();
+			UICharacterSelectScreenController.Get().SetVisible(false, false);
+			this.Setup(false, true, true);
 			bool flag2 = true;
-			UIManager.SetGameObjectActive(m_lockedSeasonsContainer, !flag2);
-			if (!flag)
-			{
-				return;
-			}
-			while (true)
+			UIManager.SetGameObjectActive(this.m_lockedSeasonsContainer, !flag2, null);
+			if (flag)
 			{
 				if (!displayOverviewBtn)
 				{
-					while (true)
+					PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
+					UIPlayerSeasonDisplayInfo uiplayerSeasonDisplayInfo = null;
+					for (int i = 0; i < this.displayInfo.Count; i++)
 					{
-						switch (5)
+						if (this.displayInfo[i].SeasonNumber == playerAccountData.QuestComponent.ActiveSeason)
 						{
-						case 0:
+							uiplayerSeasonDisplayInfo = this.displayInfo[i];
 							break;
-						default:
-						{
-							PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
-							UIPlayerSeasonDisplayInfo uIPlayerSeasonDisplayInfo = null;
-							int num = 0;
-							while (true)
-							{
-								if (num >= displayInfo.Count)
-								{
-									break;
-								}
-								if (displayInfo[num].SeasonNumber == playerAccountData.QuestComponent.ActiveSeason)
-								{
-									uIPlayerSeasonDisplayInfo = displayInfo[num];
-									break;
-								}
-								num++;
-							}
-							if (uIPlayerSeasonDisplayInfo != null)
-							{
-								SetSelectedHeaderButton(m_currentChapterButton);
-							}
-							return;
-						}
 						}
 					}
+					if (uiplayerSeasonDisplayInfo != null)
+					{
+						this.SetSelectedHeaderButton(this.m_currentChapterButton);
+					}
+					return;
 				}
-				SetSelectedHeaderButton(m_OverviewButton);
-				return;
+				else
+				{
+					this.SetSelectedHeaderButton(this.m_OverviewButton);
+				}
 			}
 		}
 	}
 
 	public void NotifyLoseFocus()
 	{
-		UIManager.SetGameObjectActive(base.gameObject, false);
-		UIManager.SetGameObjectActive(m_seasonsChapterBtnContainer, false);
+		UIManager.SetGameObjectActive(base.gameObject, false, null);
+		UIManager.SetGameObjectActive(this.m_seasonsChapterBtnContainer, false, null);
 	}
 
 	public void NotifyGetFocus()
 	{
-		UIManager.SetGameObjectActive(base.gameObject, true);
-		UIManager.SetGameObjectActive(m_seasonsChapterBtnContainer, true);
+		UIManager.SetGameObjectActive(base.gameObject, true, null);
+		UIManager.SetGameObjectActive(this.m_seasonsChapterBtnContainer, true, null);
 	}
 
-	public static bool CheckSeasonsVisibility(out SeasonLockoutReason lockoutReason)
+	public unsafe static bool CheckSeasonsVisibility(out SeasonLockoutReason lockoutReason)
 	{
 		bool result = false;
 		if (GameManager.Get() != null && GameManager.Get().GameplayOverrides != null && GameManager.Get().GameplayOverrides.EnableSeasons)
@@ -1183,46 +1046,30 @@ public class UISeasonsPanel : UIScene
 
 	private void OnSeasonCompleteNotification(SeasonStatusNotification notification)
 	{
-		DisplaySeason(false, true, notification.SeasonStartedIndex);
+		this.DisplaySeason(false, true, notification.SeasonStartedIndex);
 	}
 
 	public static List<int> GetChapterQuests(SeasonChapter chapter, int seasonNumber, int chapterIndex)
 	{
 		if (chapter != null)
 		{
-			if (!chapter.NormalQuests.IsNullOrEmpty())
+			if (!chapter.NormalQuests.IsNullOrEmpty<int>())
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return chapter.NormalQuests;
-					}
-				}
+				return chapter.NormalQuests;
 			}
 		}
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.SeasonChapterQuests != null)
 		{
-			if (clientGameManager.SeasonChapterQuests.TryGetValue(seasonNumber, out SeasonChapterQuests value))
+			SeasonChapterQuests seasonChapterQuests;
+			if (clientGameManager.SeasonChapterQuests.TryGetValue(seasonNumber, out seasonChapterQuests))
 			{
-				if (value.m_chapterQuests != null)
+				if (seasonChapterQuests.m_chapterQuests != null)
 				{
-					if (value.m_chapterQuests.TryGetValue(chapterIndex + 1, out List<int> value2))
+					List<int> result;
+					if (seasonChapterQuests.m_chapterQuests.TryGetValue(chapterIndex + 1, out result))
 					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return value2;
-							}
-						}
+						return result;
 					}
 				}
 			}

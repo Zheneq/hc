@@ -1,14 +1,284 @@
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AssetBundleManager : MonoBehaviour
 {
+	private static AssetBundleManager s_instance;
+
+	private Dictionary<string, AssetBundleManager.LoadSceneAsyncOperation> m_postedLoadSceneAsyncOperations = new Dictionary<string, AssetBundleManager.LoadSceneAsyncOperation>();
+
+	private Dictionary<string, AssetBundleManager.LoadAssetBundleAsyncOperation> m_postedLoadAssetBundleAsyncOperations = new Dictionary<string, AssetBundleManager.LoadAssetBundleAsyncOperation>();
+
+	public static AssetBundleManager Get()
+	{
+		return AssetBundleManager.s_instance;
+	}
+
+	private void Awake()
+	{
+		AssetBundleManager.s_instance = this;
+	}
+
+	public List<string> GetScenesInBundle(string bundleName)
+	{
+		List<string> list = new List<string>();
+		string text = Application.dataPath;
+		if (!Application.isEditor)
+		{
+			text = text + "/Bundles/scenes/" + bundleName + ".json";
+		}
+		else
+		{
+			text = text + "/../editor_" + bundleName + ".json";
+		}
+		if (!File.Exists(text))
+		{
+			return list;
+		}
+		string value = File.ReadAllText(text);
+		JsonConvert.PopulateObject(value, list);
+		return list;
+	}
+
+	public bool SceneExistsInBundle(string bundleName, string sceneName)
+	{
+		IEnumerable<string> scenesInBundle = this.GetScenesInBundle(bundleName);
+		
+		return scenesInBundle.Select(((string s) => s.ToLower())).Contains(sceneName.ToLower());
+	}
+
+	public bool SceneAssetBundleExists(string bundleName)
+	{
+		return File.Exists(this.GetSceneAssetBundlePath(bundleName));
+	}
+
+	public string GetSceneAssetBundlePath(string bundleName)
+	{
+		if (!Application.isEditor)
+		{
+			return Application.dataPath + "/Bundles/scenes/" + bundleName + ".bundle";
+		}
+		return Application.dataPath + "/../Bundles/scenes/" + bundleName + ".bundle";
+	}
+
+	public IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode)
+	{
+		return this.LoadSceneAsync(sceneName, null, loadSceneMode);
+	}
+
+	public IEnumerator LoadSceneAsync(string sceneName, string bundleName, LoadSceneMode loadSceneMode)
+	{
+		AssetBundleManager.LoadSceneAsyncOperation operation = new AssetBundleManager.LoadSceneAsyncOperation
+		{
+			sceneName = sceneName,
+			bundleName = bundleName,
+			loadSceneMode = loadSceneMode
+		};
+		return this.LoadSceneAsync(operation);
+	}
+
+	public IEnumerator LoadSceneAsync(AssetBundleManager.LoadSceneAsyncOperation operation)
+	{
+		yield return this.LoadAssetBundleInternal(operation);
+		yield return this.LoadSceneInternal(operation);
+		yield break;
+	}
+
+	private IEnumerator LoadAssetBundleInternal(AssetBundleManager.LoadSceneAsyncOperation operation)
+	{
+		if (Application.isEditor)
+		{
+			yield break;
+		}
+		if (operation.bundleName.IsNullOrEmpty())
+		{
+			operation.bundleName = operation.sceneName;
+		}
+		string bundlePath = this.GetSceneAssetBundlePath(operation.bundleName);
+		AssetBundleManager.LoadAssetBundleAsyncOperation postedAssetBundleAsyncOperation = this.m_postedLoadAssetBundleAsyncOperations.TryGetValue(operation.bundleName);
+		if (postedAssetBundleAsyncOperation != null)
+		{
+			operation.assetBundleOperation = postedAssetBundleAsyncOperation;
+			operation.assetBundleOperation.referenceCount++;
+			operation.assetBundleOperation.isCanceled = false;
+			if (operation.assetBundleOperation.request.isDone)
+			{
+			}
+			else
+			{
+				yield return new WaitWhile(() => !operation.assetBundleOperation.request.isDone);
+			}
+		}
+		else
+		{
+			operation.assetBundleOperation = new AssetBundleManager.LoadAssetBundleAsyncOperation();
+			operation.assetBundleOperation.request = AssetBundle.LoadFromFileAsync(bundlePath);
+			operation.assetBundleOperation.referenceCount++;
+			operation.assetBundleOperation.isCanceled = false;
+			operation.assetBundleOperation.loadStartTimestamp = Time.realtimeSinceStartup;
+			this.m_postedLoadAssetBundleAsyncOperations.Add(operation.bundleName, operation.assetBundleOperation);
+			yield return operation.assetBundleOperation.request;
+		}
+		if (operation.assetBundleOperation.isCanceled)
+		{
+			Log.Info(Log.Category.Loading, "AssetBundle | <- Canceled loading scene asset bundle {0} ({1}%, isDone {2})", new object[]
+			{
+				operation.name,
+				operation.assetBundleOperation.request.progress * 100f,
+				operation.assetBundleOperation.request.isDone
+			});
+			if (operation.assetBundleOperation.request.assetBundle != null)
+			{
+				operation.assetBundleOperation.request.assetBundle.Unload(false);
+			}
+			this.m_postedLoadAssetBundleAsyncOperations.Remove(operation.bundleName);
+		}
+		else
+		{
+			if (operation.assetBundleOperation.request.assetBundle == null)
+			{
+				string arg;
+				if (FileSystemUtils.TryRead(bundlePath, out arg))
+				{
+					arg = "AsyncOperation error";
+				}
+				throw new Exception(string.Format("AssetBundle | <- Failed to load scene asset bundle {0} ({1})", operation.name, arg));
+			}
+			float num = Time.realtimeSinceStartup - operation.assetBundleOperation.loadStartTimestamp;
+		}
+		yield break;
+	}
+
+	private IEnumerator LoadSceneInternal(AssetBundleManager.LoadSceneAsyncOperation operation)
+	{
+		if (HitchDetector.Get() != null)
+		{
+			HitchDetector.Get().RecordFrameTimeForHitch("Loading scene " + operation.name);
+		}
+		AssetBundleManager.LoadSceneAsyncOperation postedLoadSceneAsyncOperation = this.m_postedLoadSceneAsyncOperations.TryGetValue(operation.sceneName);
+		if (postedLoadSceneAsyncOperation != null)
+		{
+			operation = postedLoadSceneAsyncOperation;
+			operation.isCanceled = false;
+			if (operation.sceneOperation.isDone)
+			{
+			}
+			else
+			{
+				yield return new WaitWhile(() => !operation.sceneOperation.isDone);
+				this.m_postedLoadSceneAsyncOperations.Remove(operation.sceneName);
+			}
+		}
+		else
+		{
+			operation.sceneOperation = SceneManager.LoadSceneAsync(operation.sceneName, operation.loadSceneMode);
+			operation.isCanceled = false;
+			operation.loadStartTimestamp = Time.realtimeSinceStartup;
+			this.m_postedLoadSceneAsyncOperations.Add(operation.sceneName, operation);
+			yield return operation.sceneOperation;
+		}
+		if (operation.isCanceled)
+		{
+			Log.Info(Log.Category.Loading, "AssetBundle | <- Canceled loading scene {0} ({1}%, isDone {2})", new object[]
+			{
+				operation.name,
+				operation.sceneOperation.progress * 100f,
+				operation.sceneOperation.isDone
+			});
+			SceneManager.UnloadSceneAsync(operation.sceneName);
+		}
+		else
+		{
+			float num = Time.realtimeSinceStartup - operation.loadStartTimestamp;
+		}
+		this.m_postedLoadSceneAsyncOperations.Remove(operation.sceneName);
+		if (HitchDetector.Get() != null)
+		{
+			HitchDetector.Get().RecordFrameTimeForHitch("Loaded scene " + operation.name);
+		}
+		yield break;
+	}
+
+	public void UnloadScene(string sceneName, string bundleName = null)
+	{
+		if (bundleName.IsNullOrEmpty())
+		{
+			bundleName = sceneName;
+		}
+		this.UnloadAssetBundleInternal(bundleName);
+		this.UnloadSceneInternal(sceneName);
+	}
+
+	private void UnloadAssetBundleInternal(string bundleName)
+	{
+		if (Application.isEditor)
+		{
+			return;
+		}
+		AssetBundleManager.LoadAssetBundleAsyncOperation loadAssetBundleAsyncOperation = this.m_postedLoadAssetBundleAsyncOperations.TryGetValue(bundleName);
+		if (loadAssetBundleAsyncOperation != null)
+		{
+			if (--loadAssetBundleAsyncOperation.referenceCount == 0)
+			{
+				if (!loadAssetBundleAsyncOperation.request.isDone)
+				{
+					Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading asset bundle {0} ({1}%, isDone {2}) ...", new object[]
+					{
+						bundleName,
+						loadAssetBundleAsyncOperation.request.progress,
+						loadAssetBundleAsyncOperation.request.isDone
+					});
+					loadAssetBundleAsyncOperation.isCanceled = true;
+				}
+				else
+				{
+					if (loadAssetBundleAsyncOperation.request.assetBundle != null)
+					{
+						loadAssetBundleAsyncOperation.request.assetBundle.Unload(false);
+					}
+					this.m_postedLoadAssetBundleAsyncOperations.Remove(bundleName);
+				}
+			}
+		}
+	}
+
+	private void UnloadSceneInternal(string sceneName)
+	{
+		AssetBundleManager.LoadSceneAsyncOperation loadSceneAsyncOperation = this.m_postedLoadSceneAsyncOperations.TryGetValue(sceneName);
+		if (loadSceneAsyncOperation != null)
+		{
+			if (!loadSceneAsyncOperation.isDone)
+			{
+				Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading scene {0} ({1}%, isDone {2}) ...", new object[]
+				{
+					sceneName,
+					loadSceneAsyncOperation.sceneOperation.progress,
+					loadSceneAsyncOperation.sceneOperation.isDone
+				});
+				loadSceneAsyncOperation.isCanceled = true;
+				return;
+			}
+		}
+		try
+		{
+			if (SceneManager.GetSceneByName(sceneName).IsValid())
+			{
+				SceneManager.UnloadSceneAsync(sceneName);
+			}
+		}
+		catch (Exception exception)
+		{
+			Log.Exception(exception);
+		}
+		this.m_postedLoadSceneAsyncOperations.Remove(sceneName);
+	}
+
 	public class LoadAssetBundleAsyncOperation
 	{
 		public AssetBundleCreateRequest request;
@@ -23,16 +293,16 @@ public class AssetBundleManager : MonoBehaviour
 		{
 			get
 			{
-				int result;
-				if (request != null)
+				bool result;
+				if (this.request != null)
 				{
-					result = (request.isDone ? 1 : 0);
+					result = this.request.isDone;
 				}
 				else
 				{
-					result = 0;
+					result = false;
 				}
-				return (byte)result != 0;
+				return result;
 			}
 		}
 	}
@@ -45,7 +315,7 @@ public class AssetBundleManager : MonoBehaviour
 
 		public LoadSceneMode loadSceneMode;
 
-		public LoadAssetBundleAsyncOperation assetBundleOperation;
+		public AssetBundleManager.LoadAssetBundleAsyncOperation assetBundleOperation;
 
 		public AsyncOperation sceneOperation;
 
@@ -53,22 +323,28 @@ public class AssetBundleManager : MonoBehaviour
 
 		public float loadStartTimestamp;
 
-		public string name => $"{bundleName}.{sceneName}";
+		public string name
+		{
+			get
+			{
+				return string.Format("{0}.{1}", this.bundleName, this.sceneName);
+			}
+		}
 
 		public bool isDone
 		{
 			get
 			{
-				int result;
-				if (sceneOperation != null)
+				bool result;
+				if (this.sceneOperation != null)
 				{
-					result = (sceneOperation.isDone ? 1 : 0);
+					result = this.sceneOperation.isDone;
 				}
 				else
 				{
-					result = 0;
+					result = false;
 				}
-				return (byte)result != 0;
+				return result;
 			}
 		}
 
@@ -77,347 +353,16 @@ public class AssetBundleManager : MonoBehaviour
 			get
 			{
 				float num = 0f;
-				if (assetBundleOperation != null)
+				if (this.assetBundleOperation != null)
 				{
-					num += assetBundleOperation.request.progress / 2f;
+					num += this.assetBundleOperation.request.progress / 2f;
 				}
-				if (sceneOperation != null)
+				if (this.sceneOperation != null)
 				{
-					num += sceneOperation.progress / 2f;
+					num += this.sceneOperation.progress / 2f;
 				}
 				return num;
 			}
 		}
-	}
-
-	private static AssetBundleManager s_instance;
-
-	private Dictionary<string, LoadSceneAsyncOperation> m_postedLoadSceneAsyncOperations = new Dictionary<string, LoadSceneAsyncOperation>();
-
-	private Dictionary<string, LoadAssetBundleAsyncOperation> m_postedLoadAssetBundleAsyncOperations = new Dictionary<string, LoadAssetBundleAsyncOperation>();
-
-	public static AssetBundleManager Get()
-	{
-		return s_instance;
-	}
-
-	private void Awake()
-	{
-		s_instance = this;
-	}
-
-	public List<string> GetScenesInBundle(string bundleName)
-	{
-		List<string> list = new List<string>();
-		string dataPath = Application.dataPath;
-		if (!Application.isEditor)
-		{
-			dataPath = dataPath + "/Bundles/scenes/" + bundleName + ".json";
-		}
-		else
-		{
-			dataPath = dataPath + "/../editor_" + bundleName + ".json";
-		}
-		if (!File.Exists(dataPath))
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
-			}
-		}
-		string value = File.ReadAllText(dataPath);
-		JsonConvert.PopulateObject(value, list);
-		return list;
-	}
-
-	public bool SceneExistsInBundle(string bundleName, string sceneName)
-	{
-		List<string> scenesInBundle = GetScenesInBundle(bundleName);
-		
-		return scenesInBundle.Select(((string s) => s.ToLower())).Contains(sceneName.ToLower());
-	}
-
-	public bool SceneAssetBundleExists(string bundleName)
-	{
-		return File.Exists(GetSceneAssetBundlePath(bundleName));
-	}
-
-	public string GetSceneAssetBundlePath(string bundleName)
-	{
-		if (!Application.isEditor)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return Application.dataPath + "/Bundles/scenes/" + bundleName + ".bundle";
-				}
-			}
-		}
-		return Application.dataPath + "/../Bundles/scenes/" + bundleName + ".bundle";
-	}
-
-	public IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode)
-	{
-		return LoadSceneAsync(sceneName, null, loadSceneMode);
-	}
-
-	public IEnumerator LoadSceneAsync(string sceneName, string bundleName, LoadSceneMode loadSceneMode)
-	{
-		LoadSceneAsyncOperation loadSceneAsyncOperation = new LoadSceneAsyncOperation();
-		loadSceneAsyncOperation.sceneName = sceneName;
-		loadSceneAsyncOperation.bundleName = bundleName;
-		loadSceneAsyncOperation.loadSceneMode = loadSceneMode;
-		LoadSceneAsyncOperation operation = loadSceneAsyncOperation;
-		return LoadSceneAsync(operation);
-	}
-
-	public IEnumerator LoadSceneAsync(LoadSceneAsyncOperation operation)
-	{
-		yield return LoadAssetBundleInternal(operation);
-		yield return LoadSceneInternal(operation);
-		/*Error: Unable to find new state assignment for yield return*/;
-	}
-
-	private IEnumerator LoadAssetBundleInternal(LoadSceneAsyncOperation operation)
-	{
-		if (Application.isEditor)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					yield break;
-				}
-			}
-		}
-		if (operation.bundleName.IsNullOrEmpty())
-		{
-			operation.bundleName = operation.sceneName;
-		}
-		string bundlePath = GetSceneAssetBundlePath(operation.bundleName);
-		LoadAssetBundleAsyncOperation postedAssetBundleAsyncOperation = m_postedLoadAssetBundleAsyncOperations.TryGetValue(operation.bundleName);
-		if (postedAssetBundleAsyncOperation != null)
-		{
-			operation.assetBundleOperation = postedAssetBundleAsyncOperation;
-			operation.assetBundleOperation.referenceCount++;
-			operation.assetBundleOperation.isCanceled = false;
-			if (!operation.assetBundleOperation.request.isDone)
-			{
-				yield return new WaitWhile(() => !operation.assetBundleOperation.request.isDone);
-				/*Error: Unable to find new state assignment for yield return*/;
-			}
-		}
-		else
-		{
-			operation.assetBundleOperation = new LoadAssetBundleAsyncOperation();
-			operation.assetBundleOperation.request = AssetBundle.LoadFromFileAsync(bundlePath);
-			operation.assetBundleOperation.referenceCount++;
-			operation.assetBundleOperation.isCanceled = false;
-			operation.assetBundleOperation.loadStartTimestamp = Time.realtimeSinceStartup;
-			m_postedLoadAssetBundleAsyncOperations.Add(operation.bundleName, operation.assetBundleOperation);
-			yield return operation.assetBundleOperation.request;
-		}
-		if (operation.assetBundleOperation.isCanceled)
-		{
-			Log.Info(Log.Category.Loading, "AssetBundle | <- Canceled loading scene asset bundle {0} ({1}%, isDone {2})", operation.name, operation.assetBundleOperation.request.progress * 100f, operation.assetBundleOperation.request.isDone);
-			if (operation.assetBundleOperation.request.assetBundle != null)
-			{
-				operation.assetBundleOperation.request.assetBundle.Unload(false);
-			}
-			m_postedLoadAssetBundleAsyncOperations.Remove(operation.bundleName);
-			yield break;
-		}
-		if (operation.assetBundleOperation.request.assetBundle == null)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-				{
-					if (FileSystemUtils.TryRead(bundlePath, out string errorMessage))
-					{
-						errorMessage = "AsyncOperation error";
-					}
-					throw new Exception($"AssetBundle | <- Failed to load scene asset bundle {operation.name} ({errorMessage})");
-				}
-				}
-			}
-		}
-		_ = Time.realtimeSinceStartup - operation.assetBundleOperation.loadStartTimestamp;
-	}
-
-	private IEnumerator LoadSceneInternal(LoadSceneAsyncOperation operation)
-	{
-		LoadSceneAsyncOperation operation2 = operation;
-		if (HitchDetector.Get() != null)
-		{
-			HitchDetector.Get().RecordFrameTimeForHitch("Loading scene " + operation2.name);
-		}
-		LoadSceneAsyncOperation postedLoadSceneAsyncOperation = m_postedLoadSceneAsyncOperations.TryGetValue(operation2.sceneName);
-		if (postedLoadSceneAsyncOperation != null)
-		{
-			operation2 = postedLoadSceneAsyncOperation;
-			operation2.isCanceled = false;
-			if (operation2.sceneOperation.isDone)
-			{
-			}
-			else
-			{
-				yield return new WaitWhile(() => !operation2.sceneOperation.isDone);
-				m_postedLoadSceneAsyncOperations.Remove(operation2.sceneName);
-			}
-		}
-		else
-		{
-			operation2.sceneOperation = SceneManager.LoadSceneAsync(operation2.sceneName, operation2.loadSceneMode);
-			operation2.isCanceled = false;
-			operation2.loadStartTimestamp = Time.realtimeSinceStartup;
-			m_postedLoadSceneAsyncOperations.Add(operation2.sceneName, operation2);
-			yield return operation2.sceneOperation;
-		}
-		if (operation2.isCanceled)
-		{
-			Log.Info(Log.Category.Loading, "AssetBundle | <- Canceled loading scene {0} ({1}%, isDone {2})", operation2.name, operation2.sceneOperation.progress * 100f, operation2.sceneOperation.isDone);
-			SceneManager.UnloadSceneAsync(operation2.sceneName);
-		}
-		else
-		{
-			_ = Time.realtimeSinceStartup - operation2.loadStartTimestamp;
-		}
-		m_postedLoadSceneAsyncOperations.Remove(operation2.sceneName);
-		if (!(HitchDetector.Get() != null))
-		{
-			yield break;
-		}
-		while (true)
-		{
-			HitchDetector.Get().RecordFrameTimeForHitch("Loaded scene " + operation2.name);
-			yield break;
-		}
-	}
-
-	public void UnloadScene(string sceneName, string bundleName = null)
-	{
-		if (bundleName.IsNullOrEmpty())
-		{
-			bundleName = sceneName;
-		}
-		UnloadAssetBundleInternal(bundleName);
-		UnloadSceneInternal(sceneName);
-	}
-
-	private void UnloadAssetBundleInternal(string bundleName)
-	{
-		if (Application.isEditor)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		LoadAssetBundleAsyncOperation loadAssetBundleAsyncOperation = m_postedLoadAssetBundleAsyncOperations.TryGetValue(bundleName);
-		if (loadAssetBundleAsyncOperation == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			if (--loadAssetBundleAsyncOperation.referenceCount != 0)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (!loadAssetBundleAsyncOperation.request.isDone)
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading asset bundle {0} ({1}%, isDone {2}) ...", bundleName, loadAssetBundleAsyncOperation.request.progress, loadAssetBundleAsyncOperation.request.isDone);
-							loadAssetBundleAsyncOperation.isCanceled = true;
-							return;
-						}
-					}
-				}
-				if (loadAssetBundleAsyncOperation.request.assetBundle != null)
-				{
-					loadAssetBundleAsyncOperation.request.assetBundle.Unload(false);
-				}
-				m_postedLoadAssetBundleAsyncOperations.Remove(bundleName);
-				return;
-			}
-		}
-	}
-
-	private void UnloadSceneInternal(string sceneName)
-	{
-		LoadSceneAsyncOperation loadSceneAsyncOperation = m_postedLoadSceneAsyncOperations.TryGetValue(sceneName);
-		if (loadSceneAsyncOperation != null)
-		{
-			if (!loadSceneAsyncOperation.isDone)
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						Log.Info(Log.Category.Loading, "AssetBundle | Cancel loading scene {0} ({1}%, isDone {2}) ...", sceneName, loadSceneAsyncOperation.sceneOperation.progress, loadSceneAsyncOperation.sceneOperation.isDone);
-						loadSceneAsyncOperation.isCanceled = true;
-						return;
-					}
-				}
-			}
-		}
-		try
-		{
-			if (SceneManager.GetSceneByName(sceneName).IsValid())
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						SceneManager.UnloadSceneAsync(sceneName);
-						goto end_IL_007e;
-					}
-				}
-			}
-			end_IL_007e:;
-		}
-		catch (Exception exception)
-		{
-			Log.Exception(exception);
-		}
-		m_postedLoadSceneAsyncOperations.Remove(sceneName);
 	}
 }

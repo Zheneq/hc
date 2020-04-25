@@ -1,24 +1,78 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class MyNetworkManager : NetworkManager
 {
-	internal const ushort MAX_PACKET_BYTES = 1200;
+	internal const ushort MAX_PACKET_BYTES = 0x4B0;
 
-	internal const short MAX_PACKET_PAYLOAD_BYTES = 1024;
+	internal const short MAX_PACKET_PAYLOAD_BYTES = 0x400;
 
-	internal const short MAX_PENDING_BUFFERS = 128;
+	internal const short MAX_PENDING_BUFFERS = 0x80;
 
 	internal const int FIRST_PLAYER_CHANNEL_INDEX = 6;
 
-	internal const ushort MESSAGE_QUEUE_AND_POOL_SIZE = 1024;
+	internal const ushort MESSAGE_QUEUE_AND_POOL_SIZE = 0x400;
 
 	private int m_nextPlayerChannelIndex;
 
 	private int m_nextLocalConnectionId;
+
+	public MyNetworkManager()
+	{
+		this.m_OnServerStartHolder = delegate()
+		{
+		};
+		
+		this.m_OnServerConnectHolder = delegate(NetworkConnection A_0)
+			{
+			};
+		
+		this.m_OnServerDisconnectHolder = delegate(NetworkConnection A_0)
+			{
+			};
+		
+		this.m_OnServerReadyHolder = delegate(NetworkConnection A_0)
+			{
+			};
+		
+		this.m_OnServerAddPlayerHolder = delegate(NetworkConnection A_0, short A_1)
+			{
+			};
+		
+		this.m_OnServerRemovePlayerHolder = delegate(NetworkConnection A_0, PlayerController A_1)
+			{
+			};
+		
+		this.m_OnServerErrorHolder = delegate(NetworkConnection A_0, NetworkError A_1)
+			{
+			};
+		
+		this.m_OnClientConnectHolder = delegate(NetworkConnection A_0)
+			{
+			};
+		this.m_OnClientDisconnectHolder = delegate(NetworkConnection A_0)
+		{
+		};
+		
+		this.m_OnClientNotReadyHolder = delegate(NetworkConnection A_0)
+			{
+			};
+		
+		this.m_OnClientErrorHolder = delegate(NetworkConnection A_0, NetworkError A_1)
+			{
+			};
+		this.m_nextPlayerChannelIndex = 6;
+		
+	}
+
+	internal static MyNetworkManager Get()
+	{
+		return (MyNetworkManager)NetworkManager.singleton;
+	}
 
 	private Action m_OnServerStartHolder;
 	public event Action m_OnServerStart
@@ -30,13 +84,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerStartHolder, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStartHolder, (Action)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -45,13 +95,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerStartHolder, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStartHolder, (Action)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
@@ -65,13 +111,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -80,9 +122,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
+			while (action != action2);
 		}
 	}
 
@@ -96,13 +138,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -111,16 +149,13 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private Action<NetworkConnection> m_OnServerReadyHolder;
 	public event Action<NetworkConnection> m_OnServerReady;
 
@@ -134,13 +169,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -149,13 +180,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
@@ -169,13 +196,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -184,9 +207,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
+			while (action != action2);
 		}
 	}
 
@@ -200,13 +223,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -215,9 +234,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
+			while (action != action2);
 		}
 	}
 
@@ -231,13 +250,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -246,13 +261,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
@@ -266,13 +277,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -281,13 +288,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
@@ -301,13 +304,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 		remove
 		{
@@ -316,13 +315,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
 	}
 
@@ -336,9 +331,9 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
 			}
-			while ((object)action != action2);
+			while (action != action2);
 		}
 		remove
 		{
@@ -347,106 +342,48 @@ public class MyNetworkManager : NetworkManager
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
 			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
+			while (action != action2);
 		}
-	}
-
-	public MyNetworkManager()
-	{
-		this.m_OnServerStartHolder = delegate
-		{
-		};
-		
-		this.m_OnServerConnectHolder = delegate
-			{
-			};
-		
-		this.m_OnServerDisconnectHolder = delegate
-			{
-			};
-		
-		this.m_OnServerReadyHolder = delegate
-			{
-			};
-		
-		this.m_OnServerAddPlayerHolder = delegate
-			{
-			};
-		
-		this.m_OnServerRemovePlayerHolder = delegate
-			{
-			};
-		
-		this.m_OnServerErrorHolder = delegate
-			{
-			};
-		
-		this.m_OnClientConnectHolder = delegate
-			{
-			};
-		this.m_OnClientDisconnectHolder = delegate
-		{
-		};
-		
-		this.m_OnClientNotReadyHolder = delegate
-			{
-			};
-		
-		this.m_OnClientErrorHolder = delegate
-			{
-			};
-		m_nextPlayerChannelIndex = 6;
-		
-	}
-
-	internal static MyNetworkManager Get()
-	{
-		return (MyNetworkManager)NetworkManager.singleton;
 	}
 
 	private void Start()
 	{
-		base.connectionConfig.PacketSize = 1200;
-		base.connectionConfig.NetworkDropThreshold = 50;
-		base.connectionConfig.OverflowDropThreshold = 50;
+		base.connectionConfig.PacketSize = 0x4B0;
+		base.connectionConfig.NetworkDropThreshold = 0x32;
+		base.connectionConfig.OverflowDropThreshold = 0x32;
 		base.connectionConfig.IsAcksLong = true;
-		base.connectionConfig.MaxSentMessageQueueSize = 1024;
+		base.connectionConfig.MaxSentMessageQueueSize = 0x400;
 		base.connectionConfig.PingTimeout = (uint)HydrogenConfig.Get().HeartbeatPeriod.TotalMilliseconds;
 		base.connectionConfig.DisconnectTimeout = (uint)HydrogenConfig.Get().HeartbeatTimeout.TotalMilliseconds;
 		base.logLevel = LogFilter.FilterLevel.Info;
-		if (36 >= base.connectionConfig.ChannelCount)
+		if (0x24 < base.connectionConfig.ChannelCount)
 		{
-			return;
-		}
-		while (true)
-		{
-			Log.Error("BootstrapSingletons.prefab>My Network Manager>QoS Channels only has {0} channels but our script requires {1}", base.connectionConfig.ChannelCount, NetworkChannelId.Count);
-			return;
+			Log.Error("BootstrapSingletons.prefab>My Network Manager>QoS Channels only has {0} channels but our script requires {1}", new object[]
+			{
+				base.connectionConfig.ChannelCount,
+				NetworkChannelId.Count
+			});
 		}
 	}
 
 	internal NetworkClient MyStartClient(string gameServerAddress, string userHandle)
 	{
-		matchInfo = null;
+		this.matchInfo = null;
 		Uri uri = new Uri(gameServerAddress);
 		NetworkManager.singleton.networkAddress = uri.Host;
 		NetworkManager.singleton.networkPort = uri.Port;
-		int useWebSockets;
+		bool useWebSockets;
 		if (!(uri.Scheme == "ws"))
 		{
-			useWebSockets = ((uri.Scheme == "wss") ? 1 : 0);
+			useWebSockets = (uri.Scheme == "wss");
 		}
 		else
 		{
-			useWebSockets = 1;
+			useWebSockets = true;
 		}
-		base.useWebSockets = ((byte)useWebSockets != 0);
+		base.useWebSockets = useWebSockets;
 		bool useSSL = uri.Scheme == "wss";
 		NetworkTransport.Init(base.globalConfig);
 		if (base.useWebSockets)
@@ -455,58 +392,50 @@ public class MyNetworkManager : NetworkManager
 			myNetworkClient.UserHandle = userHandle;
 			myNetworkClient.UseSSL = useSSL;
 			myNetworkClient.SetNetworkConnectionClass<MyNetworkClientConnection>();
-			base.client = myNetworkClient;
+			this.client = myNetworkClient;
 		}
 		else
 		{
-			base.client = new NetworkClient();
-			NetworkClient client = base.client;
+			this.client = new NetworkClient();
+			NetworkClient client = this.client;
 			
 			client.messageDispatcher = delegate(NetworkMessageDelegate networkMessageFunction, NetworkMessage data)
 				{
-					NetworkMessage mirror = default(NetworkMessage);
 					if (AsyncPump.Current != null)
 					{
-						while (true)
+						NetworkMessage mirror = new NetworkMessage();
+						mirror.channelId = data.channelId;
+						mirror.conn = data.conn;
+						mirror.msgType = data.msgType;
+						mirror.reader = data.reader;
+						AsyncPump.Current.Post(delegate(object _)
 						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								mirror = new NetworkMessage();
-								mirror.channelId = data.channelId;
-								mirror.conn = data.conn;
-								mirror.msgType = data.msgType;
-								mirror.reader = data.reader;
-								AsyncPump.Current.Post(delegate
-								{
-									networkMessageFunction(mirror);
-								});
-								return;
-							}
-						}
+							networkMessageFunction(mirror);
+						}, null, null);
 					}
-					networkMessageFunction(data);
+					else
+					{
+						networkMessageFunction(data);
+					}
 				};
 		}
-		ConfigureClient();
-		UseExternalClient(base.client);
-		if (matchInfo != null)
+		this.ConfigureClient();
+		base.UseExternalClient(this.client);
+		if (this.matchInfo != null)
 		{
 			if (LogFilter.logDebug)
 			{
-				Debug.Log("NetworkManager StartClient match: " + matchInfo);
+				UnityEngine.Debug.Log("NetworkManager StartClient match: " + this.matchInfo);
 			}
-			base.client.Connect(matchInfo);
+			this.client.Connect(this.matchInfo);
 		}
 		else if (base.secureTunnelEndpoint != null)
 		{
 			if (LogFilter.logDebug)
 			{
-				Debug.Log("NetworkManager StartClient using provided SecureTunnel");
+				UnityEngine.Debug.Log("NetworkManager StartClient using provided SecureTunnel");
 			}
-			base.client.Connect(base.secureTunnelEndpoint);
+			this.client.Connect(base.secureTunnelEndpoint);
 		}
 		else
 		{
@@ -514,84 +443,76 @@ public class MyNetworkManager : NetworkManager
 			{
 				if (LogFilter.logError)
 				{
-					Debug.LogError("Must set the Network Address field in the manager");
+					UnityEngine.Debug.LogError("Must set the Network Address field in the manager");
 				}
 				return null;
 			}
 			if (LogFilter.logDebug)
 			{
-				Debug.Log("NetworkManager StartClient address:" + base.networkAddress + " port:" + base.networkPort);
+				UnityEngine.Debug.Log(string.Concat(new object[]
+				{
+					"NetworkManager StartClient address:",
+					base.networkAddress,
+					" port:",
+					base.networkPort
+				}));
 			}
 			if (base.useSimulator)
 			{
-				base.client.ConnectWithSimulator(base.networkAddress, base.networkPort, base.simulatedLatency, base.packetLossPercentage);
+				this.client.ConnectWithSimulator(base.networkAddress, base.networkPort, base.simulatedLatency, base.packetLossPercentage);
 			}
 			else
 			{
-				base.client.Connect(base.networkAddress, base.networkPort);
+				this.client.Connect(base.networkAddress, base.networkPort);
 			}
 		}
 		if (base.migrationManager != null)
 		{
-			base.migrationManager.Initialize(base.client, matchInfo);
+			base.migrationManager.Initialize(this.client, this.matchInfo);
 		}
-		return base.client;
+		return this.client;
 	}
 
 	internal NetworkClient MyStartClientStub()
 	{
-		matchInfo = null;
+		this.matchInfo = null;
 		NetworkTransport.Init(base.globalConfig);
 		MyNetworkClient myNetworkClient = new MyNetworkClient();
 		myNetworkClient.SetNetworkConnectionClass<StubClientConnection>();
-		client = myNetworkClient;
-		ConfigureClient();
-		UseExternalClient(client);
-		client.Connect("localhost", 0);
+		this.client = myNetworkClient;
+		this.ConfigureClient();
+		base.UseExternalClient(this.client);
+		this.client.Connect("localhost", 0);
 		if (base.migrationManager != null)
 		{
-			base.migrationManager.Initialize(client, matchInfo);
+			base.migrationManager.Initialize(this.client, this.matchInfo);
 		}
-		return client;
+		return this.client;
 	}
 
 	private void ConfigureClient()
 	{
-		if (!base.customConfig)
-		{
-			return;
-		}
-		while (true)
+		if (base.customConfig)
 		{
 			base.connectionConfig.Channels.Clear();
 			using (List<QosType>.Enumerator enumerator = base.channels.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
-					QosType current = enumerator.Current;
-					base.connectionConfig.AddChannel(current);
+					QosType value = enumerator.Current;
+					base.connectionConfig.AddChannel(value);
 				}
 			}
 			base.connectionConfig.PingTimeout = (uint)HydrogenConfig.Get().HeartbeatPeriod.TotalMilliseconds;
 			base.connectionConfig.DisconnectTimeout = (uint)HydrogenConfig.Get().HeartbeatTimeout.TotalMilliseconds;
 			if (base.connectionConfig.UsePlatformSpecificProtocols && Application.platform != RuntimePlatform.PS4)
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						throw new ArgumentOutOfRangeException("Platform specific protocols are not supported on this platform");
-					}
-				}
+				throw new ArgumentOutOfRangeException("Platform specific protocols are not supported on this platform");
 			}
 			HostTopology hostTopology = new HostTopology(base.connectionConfig, 1);
-			hostTopology.SentMessagePoolSize = 1024;
-			hostTopology.ReceivedMessagePoolSize = 1024;
-			client.Configure(hostTopology);
-			return;
+			hostTopology.SentMessagePoolSize = 0x400;
+			hostTopology.ReceivedMessagePoolSize = 0x400;
+			this.client.Configure(hostTopology);
 		}
 	}
 
@@ -601,29 +522,19 @@ public class MyNetworkManager : NetworkManager
 
 	public override void OnStartServer()
 	{
-		m_nextPlayerChannelIndex = 6;
-		if (this.m_OnServerStartHolder == null)
-		{
-			return;
-		}
-		while (true)
+		this.m_nextPlayerChannelIndex = 6;
+		if (this.m_OnServerStartHolder != null)
 		{
 			this.m_OnServerStartHolder();
-			return;
 		}
 	}
 
 	public override void OnServerConnect(NetworkConnection conn)
 	{
-		SetDefaultChannelOptions(conn);
-		if (this.m_OnServerConnectHolder == null)
-		{
-			return;
-		}
-		while (true)
+		this.SetDefaultChannelOptions(conn);
+		if (this.m_OnServerConnectHolder != null)
 		{
 			this.m_OnServerConnectHolder(conn);
-			return;
 		}
 	}
 
@@ -637,40 +548,25 @@ public class MyNetworkManager : NetworkManager
 
 	public override void OnServerReady(NetworkConnection conn)
 	{
-		if (this.m_OnServerReadyHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnServerReadyHolder != null)
 		{
 			this.m_OnServerReadyHolder(conn);
-			return;
 		}
 	}
 
 	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
 	{
-		if (this.m_OnServerAddPlayerHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnServerAddPlayerHolder != null)
 		{
 			this.m_OnServerAddPlayerHolder(conn, playerControllerId);
-			return;
 		}
 	}
 
 	public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
 	{
-		if (this.m_OnServerRemovePlayerHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnServerRemovePlayerHolder != null)
 		{
 			this.m_OnServerRemovePlayerHolder(conn, player);
-			return;
 		}
 	}
 
@@ -684,54 +580,34 @@ public class MyNetworkManager : NetworkManager
 
 	public override void OnClientConnect(NetworkConnection conn)
 	{
-		SetDefaultChannelOptions(conn);
-		if (this.m_OnClientConnectHolder == null)
-		{
-			return;
-		}
-		while (true)
+		this.SetDefaultChannelOptions(conn);
+		if (this.m_OnClientConnectHolder != null)
 		{
 			this.m_OnClientConnectHolder(conn);
-			return;
 		}
 	}
 
 	public override void OnClientDisconnect(NetworkConnection conn)
 	{
-		if (this.m_OnClientDisconnectHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnClientDisconnectHolder != null)
 		{
 			this.m_OnClientDisconnectHolder(conn);
-			return;
 		}
 	}
 
 	public override void OnClientError(NetworkConnection conn, int errorCode)
 	{
-		if (this.m_OnClientErrorHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnClientErrorHolder != null)
 		{
 			this.m_OnClientErrorHolder(conn, (NetworkError)errorCode);
-			return;
 		}
 	}
 
 	public override void OnClientNotReady(NetworkConnection conn)
 	{
-		if (this.m_OnClientNotReadyHolder == null)
-		{
-			return;
-		}
-		while (true)
+		if (this.m_OnClientNotReadyHolder != null)
 		{
 			this.m_OnClientNotReadyHolder(conn);
-			return;
 		}
 	}
 
@@ -741,31 +617,27 @@ public class MyNetworkManager : NetworkManager
 		{
 			if (i != 1)
 			{
-				conn.SetChannelOption(i, ChannelOption.MaxPendingBuffers, 128);
+				conn.SetChannelOption(i, ChannelOption.MaxPendingBuffers, 0x80);
 			}
-		}
-		while (true)
-		{
-			return;
 		}
 	}
 
 	internal int GetNextPlayerChannelIndex()
 	{
-		if (m_nextPlayerChannelIndex >= base.channels.Count)
+		if (this.m_nextPlayerChannelIndex >= base.channels.Count)
 		{
-			Log.Error("Ran out of unique channels for players, server to client packets may be lost! Allocate more channels in MyNetworkManager.cs and BootstrapSingletons.prefab");
-			m_nextPlayerChannelIndex = 6;
+			Log.Error("Ran out of unique channels for players, server to client packets may be lost! Allocate more channels in MyNetworkManager.cs and BootstrapSingletons.prefab", new object[0]);
+			this.m_nextPlayerChannelIndex = 6;
 		}
-		return m_nextPlayerChannelIndex++;
+		return this.m_nextPlayerChannelIndex++;
 	}
 
 	public int AllocateLocalConnectionId()
 	{
-		if (m_nextLocalConnectionId == 0)
+		if (this.m_nextLocalConnectionId == 0)
 		{
-			m_nextLocalConnectionId = base.maxConnections + 1;
+			this.m_nextLocalConnectionId = base.maxConnections + 1;
 		}
-		return m_nextLocalConnectionId++;
+		return this.m_nextLocalConnectionId++;
 	}
 }
