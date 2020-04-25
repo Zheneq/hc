@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 {
+	private const String EXTENSION = ".pkfx";
+	private const String FOLDER = "packfx";
+
 	private static ClientVFXLoader s_instance;
 
 	private HashSet<string> m_preloadedPKFXPaths = new HashSet<string>();
@@ -61,35 +64,18 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 
 	private void HandleOnGameStarted()
 	{
-		if (IsPreloadQueueEmpty())
-		{
-			return;
-		}
-		while (true)
+		if (!IsPreloadQueueEmpty())
 		{
 			Log.Error("PKFX preloading did not finish before starting game");
-			return;
 		}
 	}
 
 	internal void PreloadQueuedPKFX()
 	{
-		if (m_preloadingCoroutine != null)
+		if (m_preloadingCoroutine == null && m_preloadedPKFXPaths.Count > 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_preloadedPKFXPaths.Count > 0)
-			{
-				while (true)
-				{
-					m_preloadingCoroutine = PreloadOnePKFXPerFrame();
-					StartCoroutine(m_preloadingCoroutine);
-					return;
-				}
-			}
-			return;
+			m_preloadingCoroutine = PreloadOnePKFXPerFrame();
+			StartCoroutine(m_preloadingCoroutine);
 		}
 	}
 
@@ -97,83 +83,49 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 	{
 		if (!string.IsNullOrEmpty(pathRelativeToStreamingAssets))
 		{
-			while (true)
+			try
 			{
-				switch (4)
+				pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\\\", "/");
+				pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\", "/");
+				foreach (string text in Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, pathRelativeToStreamingAssets)))
 				{
-				case 0:
-					break;
-				default:
-					try
+					if (!string.IsNullOrEmpty(text) && text.EndsWith(EXTENSION, StringComparison.OrdinalIgnoreCase))
 					{
-						pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\\\", "/");
-						pathRelativeToStreamingAssets = pathRelativeToStreamingAssets.Replace("\\", "/");
-						string[] files = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, pathRelativeToStreamingAssets));
-						for (int i = 0; i < files.Length; i++)
+						int num = text.IndexOf(FOLDER, StringComparison.OrdinalIgnoreCase);
+						if (num >= 0)
 						{
-							string text = null;
-							string text2 = files[i];
-							if (!string.IsNullOrEmpty(text2))
+							string pathRelativeToFolder = text.Substring(num + FOLDER.Length);
+							if (!string.IsNullOrEmpty(pathRelativeToFolder))
 							{
-								if (text2.EndsWith(".pkfx", StringComparison.OrdinalIgnoreCase))
+								while (pathRelativeToFolder[0] == Path.DirectorySeparatorChar || pathRelativeToFolder[0] == Path.AltDirectorySeparatorChar)
 								{
-									int num = text2.IndexOf("packfx", StringComparison.OrdinalIgnoreCase);
-									if (num >= 0)
-									{
-										text = text2.Substring(num + "packfx".Length);
-										if (!string.IsNullOrEmpty(text))
-										{
-											while (text[0] == Path.DirectorySeparatorChar || text[0] == Path.AltDirectorySeparatorChar)
-											{
-												text = text.Substring(1);
-											}
-											text = text.Replace("\\\\", "/");
-											text = text.Replace("\\", "/");
-											m_preloadedPKFXPaths.Add(text);
-										}
-										else
-										{
-											Log.Error("Check character resource link pkfx directory for invalid directory for pkfx {0}", text2);
-										}
-									}
+									pathRelativeToFolder = pathRelativeToFolder.Substring(1);
 								}
+								pathRelativeToFolder = pathRelativeToFolder.Replace("\\\\", "/");
+								pathRelativeToFolder = pathRelativeToFolder.Replace("\\", "/");
+								m_preloadedPKFXPaths.Add(pathRelativeToFolder);
 							}
 							else
 							{
-								Log.Error("Invalid empty or null string");
-							}
-						}
-						while (true)
-						{
-							switch (1)
-							{
-							default:
-								return;
-							case 0:
-								break;
+								Log.Error("Check character resource link pkfx directory for invalid directory for pkfx {0}", text);
 							}
 						}
 					}
-					catch (Exception exception)
+					else
 					{
-						Log.Exception(exception);
+						Log.Error("Invalid empty or null string");
 					}
-					return;
 				}
 			}
-		}
-		object[] array = new object[1];
-		object obj;
-		if (pathRelativeToStreamingAssets == null)
-		{
-			obj = "NULL";
+			catch (Exception exception)
+			{
+				Log.Exception(exception);
+			}
 		}
 		else
 		{
-			obj = pathRelativeToStreamingAssets;
+			Log.Error("Invalid PKFX path {0} does not contain the PackFx directory.", pathRelativeToStreamingAssets ?? "NULL");
 		}
-		array[0] = obj;
-		Log.Error("Invalid PKFX path {0} does not contain the PackFx directory.", array);
 	}
 
 	private IEnumerator PreloadOnePKFXPerFrame()
@@ -186,13 +138,10 @@ public class ClientVFXLoader : MonoBehaviour, IGameEventListener
 			yield return null;
 			m_nextIndexToPreload++;
 		}
-		while (true)
-		{
-			m_preloadingCoroutine = null;
-			m_preloadedPKFXPaths.Clear();
-			m_nextIndexToPreload = 0;
-			yield break;
-		}
+		m_preloadingCoroutine = null;
+		m_preloadedPKFXPaths.Clear();
+		m_nextIndexToPreload = 0;
+		yield break;
 	}
 
 	private void StopPreloadingCoroutine()
