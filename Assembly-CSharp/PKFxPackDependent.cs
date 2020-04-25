@@ -77,7 +77,8 @@ public class PKFxPackDependent : MonoBehaviour
 
 	private IEnumerator CopyPackAsyncOnAndroid()
 	{
-		// TODO DECOMP looked completely broken
+		// TODO DECOMP looked completely broken (looks like a hack for Android anyway)
+		PKFxManager.m_PackCopied = true;
 		yield break;
 	}
 }
