@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,8 @@ public class AsyncManager : MonoBehaviour
 
 	public void StartAsyncOperation(out int ticket, IEnumerator coroutine, float delay = 0f)
 	{
-		int num = ticket = lastTicket++;
+		int num = lastTicket++;
+		ticket = num;
 		Coroutine value = StartCoroutine(InternalRoutine(coroutine, num, delay));
 		runningCoroutines.Add(num, value);
 	}
@@ -36,42 +38,25 @@ public class AsyncManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(delay);
 		}
-		if (!coroutine.MoveNext())
+		while (coroutine.MoveNext())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					doneTickets.Add(ticket);
-					yield break;
-				}
-			}
+			yield return coroutine.Current;
 		}
-		yield return coroutine.Current;
-		/*Error: Unable to find new state assignment for yield return*/;
+		this.doneTickets.Add(ticket);
+		yield break;
 	}
 
 	public void CancelAsyncOperation(int ticket)
 	{
-		if (runningCoroutines.TryGetValue(ticket, out Coroutine value))
+		if (runningCoroutines.TryGetValue(ticket, out Coroutine routine))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					StopCoroutine(value);
-					doneTickets.Add(ticket);
-					return;
-				}
-			}
+			StopCoroutine(routine);
+			doneTickets.Add(ticket);
 		}
-		Log.Error("Failed to find async operation for ticket #" + ticket);
+		else
+		{
+			Log.Error("Failed to find async operation for ticket #" + ticket);
+		}
 	}
 
 	private void Awake()
@@ -90,20 +75,9 @@ public class AsyncManager : MonoBehaviour
 		{
 			while (enumerator.MoveNext())
 			{
-				int current = enumerator.Current;
-				runningCoroutines.Remove(current);
+				int ticket = enumerator.Current;
+				runningCoroutines.Remove(ticket);
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000e;
-				}
-			}
-			end_IL_000e:;
 		}
 		doneTickets.Clear();
 	}
